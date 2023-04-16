@@ -1,0 +1,78 @@
+{
+  "name": "ideazx-z-ui",
+  "private": true,
+  "packageManager": "pnpm@7.30.0",
+  "scripts": {
+    "docs:dev": "pnpm run register:components && vitepress dev docs",
+    "docs:build": "pnpm run register:components && cross-env BASE=/vitepress-demo/ vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "register:components": "vitepress-rc",
+    "dev3": "cl switchVue 3 && vite --config ./demo/vue3/vite.config.ts --open",
+    "dev2.7": "cl switchVue 2.7 && vite --config ./demo/vue2.7/vite.config.ts --open",
+    "dev2.6": "cl switchVue 2.6 && vite --config ./demo/vue2.6/vite.config.ts --open",
+    "lint": "eslint .",
+    "typecheck": "vue-tsc --noEmit",
+    "preview": "vite preview",
+    "test": "vitest",
+    "up": "taze major -I"
+  },
+  "dependencies": {
+    "@vueuse/core": "^9.13.0",
+    "lodash-es": "latest",
+    "vue-demi": "latest",
+    "vue-global-config": "latest"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^0.37.0",
+    "@iconify-json/carbon": "^1.1.16",
+    "@types/lodash-es": "latest",
+    "@types/node": "latest",
+    "@unocss/reset": "^0.50.6",
+    "@unocss/transformer-directives": "^0.50.6",
+    "@unocss/transformer-variant-group": "^0.50.6",
+    "@vitejs/plugin-vue": "latest",
+    "@vitejs/plugin-vue-jsx": "latest",
+    "@vue/compiler-sfc": "latest",
+    "@vue/test-utils": "latest",
+    "case-police": "latest",
+    "element-plus": "latest",
+    "eslint": "^8.36.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "jsdom": "^21.1.1",
+    "lint-staged": "^13.2.0",
+    "lossless-json": "latest",
+    "pnpm": "^7.30.0",
+    "prettier": "^2.8.7",
+    "sass": "^1.43.4",
+    "sass-loader": "^10.0.2",
+    "simple-git-hooks": "^2.8.1",
+    "stylelint": "13.13.1",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-standard": "22.0.0",
+    "stylelint-order": "^5.0.0",
+    "stylelint-scss": "^4.6.0",
+    "taze": "^0.9.1",
+    "terser": "^5.16.6",
+    "typescript": "^5.0.2",
+    "unocss": "^0.50.6",
+    "unplugin-auto-import": "latest",
+    "vite": "latest",
+    "vite-plugin-dts": "latest",
+    "vitepress": "1.0.0-alpha.65",
+    "vitepress-theme-demoblock": "^2.0.2",
+    "vitest": "latest",
+    "vue": "latest",
+    "vue-router": "latest",
+    "vue-tsc": "^1.2.0"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": ">=1",
+    "vue": "2||3"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  }
+}

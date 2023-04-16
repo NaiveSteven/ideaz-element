@@ -1,0 +1,10 @@
+semi: true
+singleQuote: true
+trailingComma: 'es5'
+insertPragma: false
+requirePragma: false
+proseWrap: 'never'
+htmlWhitespaceSensitivity: 'strict'
+endOfLine: 'auto'
+rangeStart: 0
+

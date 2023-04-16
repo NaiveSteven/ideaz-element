@@ -1,0 +1,13 @@
+{
+  "2": {
+    "vue-router": "3",
+    "element-ui": "latest",
+    "@vitejs/plugin-vue2-jsx": "latest",
+    "@vitejs/plugin-vue2": "latest"
+  },
+  "3": {
+    "vue-router": "latest",
+    "element-plus": "latest",
+    "@vitejs/plugin-vue-jsx": "latest"
+  }
+}

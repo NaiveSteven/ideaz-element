@@ -1,0 +1,26 @@
+{
+  "name": "@ideal/radio",
+  "version": "1.0.0",
+  "description": "> TODO: description",
+  "author": "ideaz <1500260484@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/radio.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/naivesteven/ideaz-z-ui.git"
+  },
+  "scripts": {
+    "test": "node ./__tests__/@ideal/radio.test.js"
+  }
+}
