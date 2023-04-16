@@ -23,6 +23,10 @@
     "vue-global-config": "latest"
   },
   "devDependencies": {
+    "@ideaz/element": "workspace:*",
+    "@ideaz/shared": "workspace:*",
+    "@ideaz/utils": "workspace:*",
+    "@ideaz/hooks": "workspace:*",
     "@antfu/eslint-config": "^0.37.0",
     "@iconify-json/carbon": "^1.1.16",
     "@types/lodash-es": "latest",

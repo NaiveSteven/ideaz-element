@@ -25,6 +25,23 @@ function getComponentsSidebar() {
       text: '组件',
       items: [
         {
+          text: '表单',
+          items: [
+            {
+              text: 'Checkbox 多选框',
+              link: '/components/checkbox',
+            },
+            {
+              text: 'Radio 单选框',
+              link: '/components/radio',
+            },
+            {
+              text: 'Select 选择器',
+              link: '/components/select',
+            },
+          ],
+        },
+        {
           text: 'Button 按钮',
           link: '/components/button',
         },

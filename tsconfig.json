@@ -29,18 +29,19 @@
       "~/*": [
         "src/*"
       ],
-      "@ideaz/utils": [
-        "./packages/utils/src/index.ts"
-      ],
-      "@ideaz/hooks": [
-        "./packages/hooks/src/index.ts"
-      ],
-      "@ideaz/shared": [
-        "./packages/shared/src/index.ts"
-      ],
-      "@ideaz/pro-checkbox": [
-        "packages/checkbox/src/index.tsx"
-      ],
+      "@ideaz/*": ["packages/*"]
+      // "@ideaz/utils": [
+      //   "./packages/utils/src/index.ts"
+      // ],
+      // "@ideaz/hooks": [
+      //   "./packages/hooks/src/index.ts"
+      // ],
+      // "@ideaz/shared": [
+      //   "./packages/shared/src/index.ts"
+      // ],
+      // "@ideaz/pro-checkbox": [
+      //   "packages/checkbox/src/index.tsx"
+      // ],
     }
   },
   "include": [
