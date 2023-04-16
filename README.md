@@ -47,7 +47,7 @@
 - [`unplugin-vue-components`](https://github.com/antfu/unplugin-vue-components) - components auto import
 - [VueUse](https://github.com/antfu/vueuse) - collection of useful composition APIs
 
-## Try it now!
+## Try it now
 
 ### GitHub Template
 
@@ -69,10 +69,9 @@ pnpm i # If you don't have pnpm installed, run: npm install -g pnpm
 
 [ie11CustomProperties](https://github.com/nuxodin/ie11CustomProperties)
 
-https://github.com/yehuozhili/bigbear-ui
-https://github.com/Miguel-Bento-Github/vite-vue-ts-storybook/blob/main/.storybook/main.js
-https://github.com/caoxiemeihao/vite-vue2-tsx-composition-api
-
+<https://github.com/yehuozhili/bigbear-ui>
+<https://github.com/Miguel-Bento-Github/vite-vue-ts-storybook/blob/main/.storybook/main.js>
+<https://github.com/caoxiemeihao/vite-vue2-tsx-composition-api>
 
 ## Develop
 
@@ -81,3 +80,20 @@ https://github.com/caoxiemeihao/vite-vue2-tsx-composition-api
 3. Run `cl i` and choose pnpm
 4. Run `cl dev3` / `cl dev2.7` / `cl dev2.6`
 
+## pnpm
+
+因此，如果想给 pkg1 安装一个依赖包，比如 axios，可以进行如下操作：
+
+`pnpm add axios --filter pkg1`
+
+执行 pkg1 下的 scripts 脚本
+
+`pnpm build --filter pkg1`
+
+执行所有 package 下的 build 命令
+
+`pnpm build --filter "./packages/**"`
+
+在 pkg1 中引用 pkg2
+
+`pnpm install pkg2 -r --filter pkg2`

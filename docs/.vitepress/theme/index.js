@@ -4,6 +4,9 @@ import { useComponents } from './useComponents';
 import './styles/index.css';
 import Button from '../../../src/components/Button.vue';
 import '../../../src/styles/index.css';
+import 'element-plus/dist/index.css';
+import ElementPlus from 'element-plus';
+import ideazui from '@ideaz/element';
 
 export default {
   ...DefaultTheme,
@@ -11,5 +14,6 @@ export default {
     DefaultTheme.enhanceApp(ctx);
     useComponents(ctx.app);
     ctx.app.component(Button.name, Button);
+    ctx.app.use(ElementPlus).use(ideazui);
   },
 };
