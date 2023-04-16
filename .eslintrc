@@ -1,0 +1,17 @@
+{
+  "extends": [
+    "@antfu",
+    "prettier",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "max-len": [
+      "error",
+      {
+        "code": 100
+      }
+    ],
+    "antfu/if-newline": 0,
+    "vue/html-self-closing": "error"
+  }
+}
