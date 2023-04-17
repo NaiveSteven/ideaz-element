@@ -42,9 +42,8 @@ export default defineComponent({
               {...{ props: option }}
               label={option[setFormAlias(props).keys.value]}
               disabled={option[setFormAlias(props).keys.disabled]}
-            >
-              {option[setFormAlias(props).keys.label]}
-            </el-option>
+              value={option[setFormAlias(props).keys.value]}
+            />
           );
         })}
       </el-select>
