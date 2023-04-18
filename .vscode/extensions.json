@@ -1,11 +1,10 @@
 {
   "recommendations": [
+    "vue.volar",
     "antfu.iconify",
     "antfu.unocss",
     "Vue.volar",
-    "dbaeumer.vscode-eslint"
-  ],
-  "unwantedRecommendations": [
-    "octref.vetur"
+    "dbaeumer.vscode-eslint",
+    "lokalise.i18n-ally"
   ]
 }
