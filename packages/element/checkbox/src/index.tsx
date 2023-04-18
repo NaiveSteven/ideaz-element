@@ -24,6 +24,7 @@ export default defineComponent({
   setup: (props, { emit, listeners = {} }) => {
     const { attrsAll, onAll } = useFormComponentAttrs(props);
     const { vModelVal, handleInput } = useVModel(props, emit);
+    const { t } = useLocale();
     const attrs = useAttrs();
 
     const getChildComponentName = (option: CheckboxOptionsItem) => {
@@ -44,19 +45,21 @@ export default defineComponent({
           onInput={handleInput}
           onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
         >
-          {props.options.map((option, index) => {
-            const ChildName = getChildComponentName(option);
-            return resolveDynamicComponent({
-              name: ChildName,
-              attrs: {
-                ...option,
-                label: option[setFormAlias(props).keys.value],
-                disabled: option[setFormAlias(props).keys.disabled],
-                key: index,
-              },
-              content: option[setFormAlias(props).keys.label],
-            });
-          })}
+          {props.options
+            .concat({ label: t('el.datepicker.now'), value: '3' })
+            .map((option, index) => {
+              const ChildName = getChildComponentName(option);
+              return resolveDynamicComponent({
+                name: ChildName,
+                attrs: {
+                  ...option,
+                  label: option[setFormAlias(props).keys.value],
+                  disabled: option[setFormAlias(props).keys.disabled],
+                  key: index,
+                },
+                content: option[setFormAlias(props).keys.label],
+              });
+            })}
         </el-checkbox-group>
       );
     };

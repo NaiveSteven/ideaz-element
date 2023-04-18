@@ -17,8 +17,9 @@
     "up": "taze major -I"
   },
   "dependencies": {
-    "@vueuse/core": "^9.13.0",
+    "@vueuse/core": "latest",
     "lodash-es": "latest",
+    "lodash-unified": "latest",
     "vue-demi": "latest",
     "vue-global-config": "latest"
   },
@@ -27,6 +28,7 @@
     "@ideaz/shared": "workspace:*",
     "@ideaz/utils": "workspace:*",
     "@ideaz/hooks": "workspace:*",
+    "@ideaz/locale": "workspace:*",
     "@antfu/eslint-config": "^0.37.0",
     "@iconify-json/carbon": "^1.1.16",
     "@types/lodash-es": "latest",
