@@ -1,4 +1,8 @@
 export default {
   name: 'en',
-  el: {},
+  el: {
+    form: {
+      reset: 'reset',
+    },
+  },
 };

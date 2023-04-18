@@ -29,6 +29,7 @@ const mergeConfig = (a: any, b: any): any => {
 export const provideGlobalConfig = (config: any, app?: App, global = false) => {
   const inSetup = !!getCurrentInstance();
   const oldConfig = inSetup ? useGlobalConfig() : undefined;
+  console.log(config, 'app');
 
   const provideFn = app?.provide ?? (inSetup ? provide : undefined);
   if (!provideFn) {
