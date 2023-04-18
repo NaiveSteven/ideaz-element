@@ -1,4 +1,8 @@
 export default {
   name: 'zh-cn',
-  el: {},
+  el: {
+    form: {
+      reset: '重置',
+    },
+  },
 };

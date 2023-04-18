@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-import ZCheckbox from '../../packages/checkbox/src';
 // import JsonEditorVue from '../../src'
 
 // const data = reactive({

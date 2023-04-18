@@ -46,7 +46,7 @@ export default defineComponent({
           onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
         >
           {props.options
-            .concat({ label: t('el.datepicker.now'), value: '3' })
+            .concat({ label: t('el.form.reset'), value: '3' })
             .map((option, index) => {
               const ChildName = getChildComponentName(option);
               return resolveDynamicComponent({

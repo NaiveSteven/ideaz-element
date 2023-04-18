@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import ZCheckbox from '../../packages/checkbox/src';
 // import { parse, stringify } from 'lossless-json'
 // import JsonEditorVue from '../../src'
 // import type { Mode } from '../../src'
