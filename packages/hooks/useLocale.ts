@@ -1,9 +1,7 @@
 import { get } from 'lodash-unified';
 import English from '@ideaz/locale/lang/en';
-import { isVue3 } from 'vue-demi';
 import type { MaybeRef } from '@vueuse/core';
-import type { Ref } from 'vue-demi';
-import { vue2GlobalConfig } from './useGlobalConfig';
+import type { Ref } from 'vue';
 
 export interface TranslatePair {
   [key: string]: string | string[] | TranslatePair;
@@ -49,10 +47,6 @@ export const buildLocaleContext = (
 };
 
 export const useLocale = (localeOverrides?: Ref<Language | undefined>) => {
-  if (isVue3) {
-    const locale = localeOverrides || inject('locale', ref())!;
-    return buildLocaleContext(computed(() => locale.value || English));
-  } else {
-    return buildLocaleContext(vue2GlobalConfig.locale || English);
-  }
+  const locale = localeOverrides || inject('locale', ref())!;
+  return buildLocaleContext(computed(() => locale.value || English));
 };

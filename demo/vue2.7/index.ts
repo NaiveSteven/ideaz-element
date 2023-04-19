@@ -7,7 +7,7 @@ import zhCn from '@ideaz/locale/lang/zh-cn';
 import ideazui from '@ideaz/element';
 
 // Vue.use(compositionApi);
-Vue.use(ElementUI).use(ideazui, { locale: zhCn });
+Vue.use(ElementUI).use(ideazui, { locale: zhCn, size: 'large' });
 
 new Vue({
   render: (h) => h(App),

@@ -1,13 +1,9 @@
-import type { App } from 'vue-demi';
+import type { App } from 'vue';
 
 const configProviderContextKey = 'globalProvider';
 
 const globalConfig = ref<any>({});
-// eslint-disable-next-line import/no-mutable-exports
-let vue2GlobalConfig: { locale: any; size: string } = {} as {
-  locale: any;
-  size: string;
-};
+let vue2GlobalConfig = {};
 
 export const keysOf = <T>(arr: T) => Object.keys(arr) as Array<keyof T>;
 
@@ -34,8 +30,8 @@ const mergeConfig = (a: any, b: any): any => {
 export const provideGlobalConfig = (config: any, app?: App, global = false) => {
   const inSetup = !!getCurrentInstance();
   const oldConfig = inSetup ? useGlobalConfig() : undefined;
-
-  vue2GlobalConfig = config || {};
+  console.log(config, 'app');
+  vue2GlobalConfig = config;
 
   const provideFn = app?.provide ?? (inSetup ? provide : undefined);
   if (!provideFn) {

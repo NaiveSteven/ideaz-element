@@ -25,6 +25,7 @@ const handleChange = (val: any) => {
       v-model="checkbox"
       style="width: 300px"
       class="my-checkbox"
+      size="small"
       :options="[
         {
           label: '1',
