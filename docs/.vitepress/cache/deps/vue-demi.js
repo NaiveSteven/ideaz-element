@@ -5,7 +5,7 @@ import {
   isVue2,
   isVue3,
   set
-} from "./chunk-AGJBHKIW.js";
+} from "./chunk-JXZFPQTO.js";
 import {
   BaseTransition,
   Comment,

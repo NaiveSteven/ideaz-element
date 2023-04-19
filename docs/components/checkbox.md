@@ -23,6 +23,6 @@ export default defineComponent({
 </script>
 
 <template>
-  <z-checkbox v-model="input" :options="[{label: '1',value: 1},{label: '2',value: 2}]" />
+  <z-checkbox v-model="input" size="small" :options="[{label: '1',value: 1},{label: '2',value: 2}]" />
 </template>
 ```

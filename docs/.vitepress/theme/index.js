@@ -15,6 +15,6 @@ export default {
     DefaultTheme.enhanceApp(ctx);
     useComponents(ctx.app);
     ctx.app.component(Button.name, Button);
-    ctx.app.use(ElementPlus).use(ideazui, { locale: zhCn });
+    ctx.app.use(ElementPlus).use(ideazui, { locale: zhCn, size: 'large' });
   },
 };

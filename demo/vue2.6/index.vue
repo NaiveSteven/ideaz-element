@@ -1,5 +1,7 @@
 <script lang="ts" setup>
 import VueCompositionAPI from '@vue/composition-api';
+// import ZCheckbox from '../../packages/checkbox/src';
+
 // export default {
 //   components: { ZCheckbox },
 //   data() {
@@ -31,6 +33,7 @@ const handleChange = (val: string[] | number[]) => {
       v-model="checkbox"
       style="width: 300px"
       class="my-checkbox"
+      size="small"
       :options="[
         {
           label: '1',
