@@ -64,13 +64,17 @@
     "vitepress": "1.0.0-alpha.65",
     "vitepress-theme-demoblock": "^2.0.2",
     "vitest": "latest",
-    "vue": "2.7",
+    "vue": "2.6",
     "vue-router": "3",
     "vue-tsc": "^1.2.0",
     "@vitejs/plugin-vue2": "latest",
-    "vue-template-compiler": "2.7",
+    "vue-template-compiler": "2.6",
     "element-ui": "latest",
-    "@vitejs/plugin-vue2-jsx": "latest"
+    "@vitejs/plugin-vue2-jsx": "latest",
+    "@vue/runtime-dom": "latest",
+    "unplugin-vue2-script-setup": "latest",
+    "@vue/composition-api": "latest",
+    "vite-plugin-vue2": "latest"
   },
   "peerDependencies": {
     "@vue/composition-api": ">=1",

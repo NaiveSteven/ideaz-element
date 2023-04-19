@@ -1,7 +1,5 @@
 <script lang="ts" setup>
 import VueCompositionAPI from '@vue/composition-api';
-import ZCheckbox from '../../packages/checkbox/src';
-
 // export default {
 //   components: { ZCheckbox },
 //   data() {
