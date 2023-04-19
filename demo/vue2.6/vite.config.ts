@@ -13,22 +13,22 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
     resolve: {
       alias: {
         '~/': `${path.resolve(__dirname, 'src')}/`,
-        '@ideaz/shared': path.resolve(
-          __dirname,
-          '../../packages/shared/src/index.ts'
-        ),
-        '@ideaz/hooks': path.resolve(
-          __dirname,
-          '../../packages/hooks/src/index.ts'
-        ),
-        '@ideaz/utils': path.resolve(
-          __dirname,
-          '../../packages/utils/src/index.ts'
-        ),
-        '@ideaz/pro-checkbox': path.resolve(
-          __dirname,
-          '../../packages/checkbox/src/index.tsx'
-        ),
+        // '@ideaz/shared': path.resolve(
+        //   __dirname,
+        //   '../../packages/shared/src/index.ts'
+        // ),
+        // '@ideaz/hooks': path.resolve(
+        //   __dirname,
+        //   '../../packages/hooks/src/index.ts'
+        // ),
+        // '@ideaz/utils': path.resolve(
+        //   __dirname,
+        //   '../../packages/utils/src/index.ts'
+        // ),
+        // '@ideaz/pro-checkbox': path.resolve(
+        //   __dirname,
+        //   '../../packages/checkbox/src/index.tsx'
+        // ),
       },
     },
     // optimizeDeps: {
@@ -51,7 +51,7 @@ export default ({ command }: ConfigEnv): UserConfigExport => {
           /\.vue\?vue/, // .vue
           /\.md$/, // .md
         ],
-        dirs: ['packages/hooks/src'],
+        dirs: ['packages/hooks'],
         // global imports to register
         imports: [
           // presets
