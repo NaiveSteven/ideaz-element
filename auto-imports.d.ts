@@ -17,6 +17,7 @@ declare global {
   const computed: typeof import('vue')['computed']
   const createApp: typeof import('vue')['createApp']
   const customRef: typeof import('vue')['customRef']
+  const defaultNamespace: typeof import('./packages/hooks/useNamespace')['defaultNamespace']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const effectScope: typeof import('vue')['effectScope']
@@ -30,6 +31,7 @@ declare global {
   const isRef: typeof import('vue')['isRef']
   const keysOf: typeof import('./packages/hooks/useGlobalConfig')['keysOf']
   const markRaw: typeof import('vue')['markRaw']
+  const namespaceContextKey: typeof import('./packages/hooks/useNamespace')['namespaceContextKey']
   const nextTick: typeof import('vue')['nextTick']
   const onActivated: typeof import('vue')['onActivated']
   const onBeforeMount: typeof import('vue')['onBeforeMount']
@@ -68,10 +70,12 @@ declare global {
   const useCssVars: typeof import('vue')['useCssVars']
   const useFormComponentAttrs: typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']
   const useFormSize: typeof import('./packages/hooks/useFormSize')['useFormSize']
+  const useGetDerivedNamespace: typeof import('./packages/hooks/useNamespace')['useGetDerivedNamespace']
   const useGlobalConfig: typeof import('./packages/hooks/useGlobalConfig')['useGlobalConfig']
   const useGlobalSize: typeof import('./packages/hooks/useGlobalSize')['useGlobalSize']
   const useLink: typeof import('vue-router')['useLink']
   const useLocale: typeof import('./packages/hooks/useLocale')['useLocale']
+  const useNamespace: typeof import('./packages/hooks/useNamespace')['useNamespace']
   const useProp: typeof import('./packages/hooks/useProp')['useProp']
   const useRoute: typeof import('vue-router')['useRoute']
   const useRouter: typeof import('vue-router')['useRouter']
@@ -105,6 +109,7 @@ declare module 'vue' {
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly createApp: UnwrapRef<typeof import('vue')['createApp']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
+    readonly defaultNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['defaultNamespace']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
@@ -118,6 +123,7 @@ declare module 'vue' {
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
     readonly keysOf: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['keysOf']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
+    readonly namespaceContextKey: UnwrapRef<typeof import('./packages/hooks/useNamespace')['namespaceContextKey']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>
     readonly onBeforeMount: UnwrapRef<typeof import('vue')['onBeforeMount']>
@@ -156,10 +162,12 @@ declare module 'vue' {
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useFormComponentAttrs: UnwrapRef<typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']>
     readonly useFormSize: UnwrapRef<typeof import('./packages/hooks/useFormSize')['useFormSize']>
+    readonly useGetDerivedNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['useGetDerivedNamespace']>
     readonly useGlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useGlobalConfig']>
     readonly useGlobalSize: UnwrapRef<typeof import('./packages/hooks/useGlobalSize')['useGlobalSize']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
     readonly useLocale: UnwrapRef<typeof import('./packages/hooks/useLocale')['useLocale']>
+    readonly useNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['useNamespace']>
     readonly useProp: UnwrapRef<typeof import('./packages/hooks/useProp')['useProp']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>

@@ -8,6 +8,7 @@ import 'element-plus/dist/index.css';
 import ElementPlus from 'element-plus';
 import zhCn from '@ideaz/locale/lang/zh-cn';
 import ideazui from '@ideaz/element';
+import '@ideaz/theme-chalk/src/index.scss';
 
 export default {
   ...DefaultTheme,

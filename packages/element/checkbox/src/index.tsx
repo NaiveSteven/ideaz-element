@@ -62,7 +62,7 @@ export default defineComponent({
                     disabled: option[setFormAlias(props).keys.disabled],
                     key: index,
                   },
-                  content: option[setFormAlias(props).keys.label],
+                  content: () => option[setFormAlias(props).keys.label],
                 });
               })}
           </el-checkbox-group>

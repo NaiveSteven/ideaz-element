@@ -12,9 +12,12 @@ interface ResolveOptions {
 }
 
 export const resolveDynamicComponent = (options: ResolveOptions) => {
+  const nativeTags = ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
   const cop = isVue2
     ? options.name
-    : getCurrentInstance()!.appContext!.components[toCamelCase(options.name)];
+    : nativeTags.includes(options.name)
+      ? options.name
+      : getCurrentInstance()!.appContext!.components[toCamelCase(options.name)];
   if (isVue3) {
     return h(
       // resolveComponent(options.name),
@@ -22,7 +25,7 @@ export const resolveDynamicComponent = (options: ResolveOptions) => {
       {
         ...(options.attrs || {}),
       },
-      () => options.content || {}
+      options.content || {}
     );
   }
   // return

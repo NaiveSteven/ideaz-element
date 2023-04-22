@@ -29,6 +29,7 @@ module.exports = {
         ],
       },
     ],
+    'function-name-case': null,
     'no-empty-source': null,
     'named-grid-areas-no-invalid': null,
     'unicode-bom': 'never',
