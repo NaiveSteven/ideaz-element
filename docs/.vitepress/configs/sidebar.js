@@ -25,6 +25,15 @@ function getComponentsSidebar() {
       text: '组件',
       items: [
         {
+          text: '布局',
+          items: [
+            {
+              text: 'Grid 栅格',
+              link: '/components/grid',
+            },
+          ],
+        },
+        {
           text: '表单',
           items: [
             {

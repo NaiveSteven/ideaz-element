@@ -29,6 +29,7 @@
     "@ideaz/utils": "workspace:*",
     "@ideaz/hooks": "workspace:*",
     "@ideaz/locale": "workspace:*",
+    "@ideaz/theme-chalk": "workspace:*",
     "@antfu/eslint-config": "^0.37.0",
     "@iconify-json/carbon": "^1.1.16",
     "@types/lodash-es": "latest",

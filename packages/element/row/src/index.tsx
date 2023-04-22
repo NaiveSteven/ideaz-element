@@ -36,6 +36,8 @@ export default defineComponent({
   },
   emits: ['input', 'update:modelValue'],
   setup(props, { slots }) {
+    const ns = useNamespace('row');
+
     const gutter = computed(() => props.gutter);
 
     provide('rowContextKey', {
@@ -52,11 +54,17 @@ export default defineComponent({
       return styles;
     });
 
+    const rowKls = computed(() => [
+      ns.b(),
+      ns.is(`justify-${props.justify}`, props.justify !== 'start'),
+      ns.is(`align-${props.align}`, props.align !== 'top'),
+    ]);
+
     return () =>
       resolveDynamicComponent({
         name: props.tag,
         attrs: {
-          class: 'rowKls',
+          class: rowKls.value,
           style: style.value,
         },
         content: slots.default?.(),
