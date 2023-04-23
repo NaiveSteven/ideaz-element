@@ -8090,6 +8090,7 @@ wrapperLodash_default.prototype.first = wrapperLodash_default.prototype.head;
 if (symIterator2) {
   wrapperLodash_default.prototype[symIterator2] = seq_default_default.toIterator;
 }
+var lodash_default_default = wrapperLodash_default;
 
 export {
   isObjectLike_default,
@@ -8397,7 +8398,8 @@ export {
   zip_default,
   zipObject_default,
   zipObjectDeep_default,
-  zipWith_default
+  zipWith_default,
+  lodash_default_default
 };
 /*! Bundled license information:
 
@@ -8423,4 +8425,4 @@ lodash-es/lodash.js:
    * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
    *)
 */
-//# sourceMappingURL=chunk-RJYNP6YV.js.map
+//# sourceMappingURL=chunk-QQTU7X7S.js.map
