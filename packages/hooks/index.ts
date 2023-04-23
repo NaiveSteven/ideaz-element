@@ -6,3 +6,4 @@ export * from './useAttr';
 export * from './useProp';
 export * from './useFormSize';
 export * from './useGlobalSize';
+export * from './useExpose';

@@ -7,6 +7,7 @@
 基础的标签用法。
 
 :::demo 使用 `type`、`plain`、`round` 和 `circle` 属性来定义 Tag 的样式。
+
 ```vue
 <template>
   <xl-button>默认按钮</xl-button>
@@ -65,4 +66,3 @@
 | size    | 尺寸   | string  | large / small / mini                               | default |
 | type    | 类型   | string  | primary / success / warning / info / danger / text | primary |
 | loading | 加载中 | boolean | —                                                  | false   |
-

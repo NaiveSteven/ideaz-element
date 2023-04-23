@@ -68,6 +68,7 @@ declare global {
   const useComponentMethods: typeof import('./packages/hooks/useComponentMethods')['useComponentMethods']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVars: typeof import('vue')['useCssVars']
+  const useExpose: typeof import('./packages/hooks/useExpose')['useExpose']
   const useFormComponentAttrs: typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']
   const useFormSize: typeof import('./packages/hooks/useFormSize')['useFormSize']
   const useGetDerivedNamespace: typeof import('./packages/hooks/useNamespace')['useGetDerivedNamespace']
@@ -160,6 +161,7 @@ declare module 'vue' {
     readonly useComponentMethods: UnwrapRef<typeof import('./packages/hooks/useComponentMethods')['useComponentMethods']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
+    readonly useExpose: UnwrapRef<typeof import('./packages/hooks/useExpose')['useExpose']>
     readonly useFormComponentAttrs: UnwrapRef<typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']>
     readonly useFormSize: UnwrapRef<typeof import('./packages/hooks/useFormSize')['useFormSize']>
     readonly useGetDerivedNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['useGetDerivedNamespace']>
