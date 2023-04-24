@@ -1,4 +1,3 @@
-import { computed } from 'vue';
 import { cloneDeep } from 'lodash-es';
 import { isFunction, uid } from '@ideaz/utils';
 import type { FormItemConfigItem } from '~/types';

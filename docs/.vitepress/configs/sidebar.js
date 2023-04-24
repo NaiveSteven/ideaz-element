@@ -49,6 +49,10 @@ function getComponentsSidebar() {
               link: '/components/select',
             },
             {
+              text: 'Input 输入框',
+              link: '/components/input',
+            },
+            {
               text: 'Form 表单',
               link: '/components/form',
             },

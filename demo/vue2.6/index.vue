@@ -19,7 +19,7 @@ import VueCompositionAPI from '@vue/composition-api';
 Vue.use(VueCompositionAPI);
 
 const checkbox = ref([1]);
-
+const val = ref('');
 const handleChange = (val: string[] | number[]) => {
   console.log(val, 'val');
 };
@@ -29,6 +29,15 @@ const handleChange = (val: string[] | number[]) => {
   <div>
     vue2.6
     <!-- <AA /> -->
+    <ZInput value="asdf" prepend="prepend" />
+    <el-input>
+      <template #prepend>
+        <el-button>前置按钮</el-button>
+      </template>
+      <template #append>
+        <el-button>后置按钮</el-button>
+      </template>
+    </el-input>
     <ZCheckbox
       v-model="checkbox"
       style="width: 300px"

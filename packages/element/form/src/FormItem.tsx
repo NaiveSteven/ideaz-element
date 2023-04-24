@@ -1,4 +1,4 @@
-import { isFunction, isObject, isString } from '@ideaz/utils';
+import { isFunction, isString } from '@ideaz/utils';
 import { vueRef as ref } from '@ideaz/directives';
 import {
   useFormItemComponent,
@@ -58,26 +58,24 @@ export default defineComponent({
           {...formItemProps.value}
           v-slots={vSlots.value}
         >
-          {col.type === 'txt' ? null : (
-            <>
-              {h(resolveComponent(ComponentName.value), {
-                modelValue: isFunction(col.attrs && col.attrs.format)
-                  ? col.attrs.format(props.formModel[col.prop])
-                  : props.formModel[col.prop],
-                prop: col.prop,
-                options: options
-                  ? options[col.prop] || (col.attrs && col.attrs.options)
-                  : {},
-                ...col.attrs,
-                directives: {
-                  ref: isObject(col.attrs)
-                    ? col.attrs.ref || (() => { })
-                    : () => { },
-                },
-                'onUpdate:modelValue': (val: any) => modify(val),
-              })}
-            </>
-          )}
+          {/* {col.type === 'txt'
+            ? null
+            : h(resolveComponent(ComponentName.value), {
+              modelValue: isFunction(col.attrs && col.attrs.format)
+                ? col.attrs.format(props.formModel[col.prop])
+                : props.formModel[col.prop],
+              prop: col.prop,
+              options: options
+                ? options[col.prop] || (col.attrs && col.attrs.options)
+                : {},
+              ...col.attrs,
+              directives: {
+                ref: isObject(col.attrs)
+                  ? col.attrs.ref || (() => { })
+                  : () => { },
+              },
+              'onUpdate:modelValue': (val: any) => modify(val),
+            })} */}
           {formItemProps.value.extra && (
             <div class="c-form-item__extra">
               {isFunction(formItemProps.value.extra)
