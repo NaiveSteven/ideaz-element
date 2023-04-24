@@ -1,4 +1,4 @@
-import { withModifiers } from 'vue-demi';
+// import { withModifiers } from 'vue-demi';
 import { isFunction } from '@ideaz/utils';
 import { useExpose } from '@ideaz/hooks';
 import {
@@ -51,7 +51,7 @@ export default defineComponent({
         <el-form
           {...{ model: formModel, ...formConfig }}
           ref="formRef"
-          onSubmit={withModifiers(function () { }, ['prevent'])}
+        // onSubmit={withModifiers(function () { }, ['prevent'])}
         >
           <z-row {...rowLayout.value}>
             {formatFormItems.value.map(

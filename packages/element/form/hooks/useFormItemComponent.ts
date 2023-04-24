@@ -1,5 +1,3 @@
-import { computed } from 'vue';
-
 export const useFormItemComponent = (props: Record<any, any>) => {
   const getComponentName = (type: string | (() => string)) => {
     const cNames = ['select', 'radio', 'checkbox'];
