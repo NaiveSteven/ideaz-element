@@ -12,7 +12,6 @@ import {
   Transition,
   TransitionGroup,
   VueElement,
-  assertNumber,
   callWithAsyncErrorHandling,
   callWithErrorHandling,
   camelize,
@@ -20,7 +19,7 @@ import {
   cloneVNode,
   compatUtils,
   compile,
-  computed2 as computed,
+  computed,
   createApp,
   createBaseVNode,
   createBlock,
@@ -145,7 +144,7 @@ import {
   withMemo,
   withModifiers,
   withScopeId
-} from "./chunk-X5KVMX3A.js";
+} from "./chunk-ZOCGWABZ.js";
 import "./chunk-4EOJPDL2.js";
 export {
   BaseTransition,
@@ -161,7 +160,6 @@ export {
   Transition,
   TransitionGroup,
   VueElement,
-  assertNumber,
   callWithAsyncErrorHandling,
   callWithErrorHandling,
   camelize,

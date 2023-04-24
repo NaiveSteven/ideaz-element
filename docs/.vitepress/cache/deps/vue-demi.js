@@ -5,7 +5,7 @@ import {
   isVue2,
   isVue3,
   set
-} from "./chunk-AGJBHKIW.js";
+} from "./chunk-T7PJFMGL.js";
 import {
   BaseTransition,
   Comment,
@@ -20,7 +20,6 @@ import {
   Transition,
   TransitionGroup,
   VueElement,
-  assertNumber,
   callWithAsyncErrorHandling,
   callWithErrorHandling,
   camelize,
@@ -28,7 +27,7 @@ import {
   cloneVNode,
   compatUtils,
   compile,
-  computed2 as computed,
+  computed,
   createApp,
   createBaseVNode,
   createBlock,
@@ -154,7 +153,7 @@ import {
   withMemo,
   withModifiers,
   withScopeId
-} from "./chunk-X5KVMX3A.js";
+} from "./chunk-ZOCGWABZ.js";
 import "./chunk-4EOJPDL2.js";
 export {
   BaseTransition,
@@ -172,7 +171,6 @@ export {
   vue_runtime_esm_bundler_exports as Vue,
   Vue2,
   VueElement,
-  assertNumber,
   callWithAsyncErrorHandling,
   callWithErrorHandling,
   camelize,
