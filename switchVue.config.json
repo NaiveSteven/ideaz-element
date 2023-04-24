@@ -6,6 +6,7 @@
     "@vitejs/plugin-vue2": "latest"
   },
   "3": {
+    "vue": "3.2.44",
     "vue-router": "latest",
     "element-plus": "latest",
     "@vitejs/plugin-vue-jsx": "latest"

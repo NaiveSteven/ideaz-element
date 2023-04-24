@@ -9,110 +9,110 @@
 :::demo 使用 `type`、`plain`、`round` 和 `circle` 属性来定义 Button 的样式。
 
 ```vue
-<script>
-  export default {
-    data() {
-      return {
-        formModel: {
-          activeName: '',
-          activeArea: '',
-          activeTime: [],
-        },
-        optionsConfig: {
-          activeArea: [
-            { label: '区域1', value: '1' },
-            { label: '区域2', value: '2' },
-          ],
-        },
-        formConfig: {
-          labelWidth: '100px',
-          size: 'small',
-          class: 'c-form',
-          id: 'c-form',
-          rules: {
-            activeName: [
-              { required: true, message: '请输入活动名称', trigger: 'blur' },
-            ],
-          },
-        },
-        formItemConfig: [
-          {
-            type: 'input',
-            prop: 'activeName',
-            formItem: {
-              label: '活动名称',
-              class: 'active-name',
-              id: 'active-name',
-            },
-            attrs: {
-              class: 'active-name',
-              id: 'asdfsdf',
-            },
-            on: {
-              input: (val) => {
-                console.log(val, 123);
-              },
-              clear: () => {
-                console.log('clear');
-              },
-            },
-          },
-          {
-            type: 'select',
-            prop: 'activeArea',
-            formItem: { label: '活动区域' },
-            on: {
-              change(val) {
-                console.log(val, 'select change');
-              },
-            },
-          },
-          {
-            type: 'datepicker',
-            prop: 'activeTime',
-            formItem: { label: '活动时间' },
-            attrs: {
-              type: 'daterange',
-              startPlaceholder: '开始日期',
-              endPlaceholder: '结束日期',
-              format: 'yyyy-MM-dd',
-              valueFormat: 'yyyy-MM-dd',
-            },
-          },
-        ],
-      };
-    },
-    methods: {
-      reset() {
-        this.$refs.form.resetFields();
-      },
-      submit() {
-        this.$refs.form.validate((valid) => {
-          if (valid) {
-            alert('submit!');
-          } else {
-            console.log('error submit!!');
-            return false;
-          }
-        });
-      },
-      handleFormValidate(prop) {
-        console.log(prop, 'prop');
-      },
-    },
-  };
-</script>
-
 <template>
   <z-form
-    ref="form"
+    ref="cFormRef"
     :form-model="formModel"
     :form-config="formConfig"
     :options="optionsConfig"
     :form-item-config="formItemConfig"
-    @validate="handleFormValidate"
-  />
-  <el-button type="primary" @click="submit">提交</el-button>
+  >
+    <template #111>
+      <div>asdf</div>
+    </template>
+  </z-form>
+  <el-button @click="submit" type="primary">提交</el-button>
   <el-button @click="reset">重置</el-button>
 </template>
+
+<script lang="ts" setup>
+  import { ref } from 'vue';
+
+  const cFormRef = ref();
+  const formModel = ref({
+    activeName: '',
+    activeArea: '',
+    activeTime: [],
+  });
+
+  const optionsConfig = {
+    activeArea: [
+      { label: '区域1', value: '1' },
+      { label: '区域2', value: '2' },
+    ],
+  };
+
+  const formConfig = {
+    labelWidth: '80px',
+    size: 'small',
+    rules: {
+      activeName: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
+    },
+  };
+
+  const formItemConfig = [
+    {
+      type: 'input',
+      prop: 'activeName',
+      modifier: 'trim',
+      formItem: { label: '活动名称' },
+      on: {
+        input: (val) => {
+          console.log(val, 'input event');
+        },
+        change: (val) => {
+          console.log(val, 'change event');
+        },
+      },
+    },
+    {
+      type: 'select',
+      prop: 'activeArea',
+      formItem: { label: '活动区域' },
+      on: {
+        change: (val) => {
+          console.log(val, 'change event');
+        },
+        focus: () => {
+          console.log('focus event');
+        },
+        // focus: () => {}
+      },
+    },
+    {
+      type: 'datepicker',
+      prop: 'activeTime',
+      formItem: { label: '活动时间' },
+      attrs: {
+        type: 'daterange',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期',
+        format: 'MM-dd',
+        valueFormat: 'MM-dd',
+      },
+      on: {
+        change: (val) => {
+          console.log(val, 'change event');
+        },
+      },
+    },
+  ];
+
+  const reset = () => {
+    cFormRef.value.resetFields();
+  };
+
+  const submit = () => {
+    cFormRef.value.validate((valid: boolean) => {
+      if (valid) {
+        alert('submit!');
+        console.log(formModel.value, 'config.formModel');
+      } else {
+        console.log('error submit!!');
+        return false;
+      }
+    });
+  };
+</script>
+
 ```
