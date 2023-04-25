@@ -1,5 +1,5 @@
 import { getCurrentInstance } from 'vue-demi';
-import type { ComponentInternalInstance } from 'vue';
+import type { ComponentInternalInstance } from 'vue-demi';
 
 interface InputMethods {
   focus: () => void;
