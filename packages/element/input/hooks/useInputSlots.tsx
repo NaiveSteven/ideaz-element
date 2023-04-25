@@ -1,11 +1,16 @@
 import { isFunction, isString } from '@ideaz/utils';
+import type { INPUT_SLOTS, InputProps } from '../src/input'
 
-export const useInputSlots = (props: any, slots: any) => {
-  const scopedSlots: any = {};
+type Slots = {
+  [K in typeof INPUT_SLOTS[number]]?: () => JSX.Element;
+};
+
+export const useInputSlots = (props: InputProps, slots: Slots) => {
+  const scopedSlots: Slots = {};
 
   const getSlotContent = (slot: any, defaultContent = null) => {
     if (isFunction(slot)) {
-      return slot();
+      return slot;
     } else if (isString(slot)) {
       return () => <span>{slot}</span>;
     }
@@ -34,12 +39,5 @@ export const useInputSlots = (props: any, slots: any) => {
     }
   });
 
-  // const scopedSlots: any = {};
-  // if (slots.prepend) {
-  //   scopedSlots.prepend = slots.prepend();
-  // }
-  // if (props.prepend) {
-  //   scopedSlots.prepend = () => <span>{props.prepend}</span>;
-  // }
   return { scopedSlots };
 };

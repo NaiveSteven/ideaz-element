@@ -23,7 +23,12 @@ const handleChange = (val: any) => {
 <template>
   <div>
     vue2.7
-    <ZInput v-model="val" :prepend="() => 'asdf'" />
+    <ZInput
+      v-model="val"
+      :prepend="() => 'asdf'"
+      append="asdf"
+      @change="handleChange"
+    />
     <ZCheckbox
       v-model="checkbox"
       style="width: 300px"

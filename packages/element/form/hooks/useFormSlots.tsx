@@ -1,4 +1,4 @@
-import { h } from 'vue-demi';
+// import { h } from 'vue-demi';
 import { isFunction } from '@ideaz/utils';
 import FormItemLabel from '../src/FormItemLabel';
 

@@ -34,6 +34,7 @@
 // })
 
 const checkbox = ref([1]);
+const val = ref('123');
 
 const handleChange = (val: any) => {
   console.log(val, 'val');
@@ -43,6 +44,14 @@ const handleChange = (val: any) => {
 <template>
   <div>
     vue3sf
+    <ZInput
+      v-model="val"
+      :prepend="() => 'asdf'"
+      append="asdf"
+      clearable
+      @clear="handleChange"
+      @change="handleChange"
+    />
     <ZCheckbox
       v-model="checkbox"
       style="width: 300px"

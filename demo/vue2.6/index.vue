@@ -29,7 +29,12 @@ const handleChange = (val: string[] | number[]) => {
   <div>
     vue2.6
     <!-- <AA /> -->
-    <ZInput value="asdf" prepend="prepend" />
+    <ZInput
+      v-model="val"
+      :prepend="() => 'asdf'"
+      append="asdf"
+      @change="handleChange"
+    />
     <el-input>
       <template #prepend>
         <el-button>前置按钮</el-button>
