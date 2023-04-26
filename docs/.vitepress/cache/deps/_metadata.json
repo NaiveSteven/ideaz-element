@@ -1,35 +1,41 @@
 {
-  "hash": "8d3f03cd",
-  "browserHash": "3e042f11",
+  "hash": "740c4362",
+  "browserHash": "3f6330c2",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+vue@3.2.44/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "88cea0af",
+      "fileHash": "0d82bc2d",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+element-plus@2.3.4_vue@3.2.44/node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "383e5979",
+      "fileHash": "5d191b45",
       "needsInterop": false
     },
     "vue-demi": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+vue-demi@0.14.0_vue@3.2.44/node_modules/vue-demi/lib/index.mjs",
       "file": "vue-demi.js",
-      "fileHash": "55d647fd",
-      "needsInterop": false
-    },
-    "lodash-unified": {
-      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+lodash-unified@1.0.3_@types+lodash-es@4.17.7_lodash-es@4.17.21/node_modules/lodash-unified/import.js",
-      "file": "lodash-unified.js",
-      "fileHash": "2cbfa446",
+      "fileHash": "701c6ef2",
       "needsInterop": false
     },
     "lodash-es": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+lodash-es@4.17.21/node_modules/lodash-es/lodash.js",
       "file": "lodash-es.js",
-      "fileHash": "27b210c0",
+      "fileHash": "7aeb6a79",
+      "needsInterop": false
+    },
+    "lodash-unified": {
+      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+lodash-unified@1.0.3_@types+lodash-es@4.17.7_lodash-es@4.17.21/node_modules/lodash-unified/import.js",
+      "file": "lodash-unified.js",
+      "fileHash": "98e5953d",
+      "needsInterop": false
+    },
+    "@element-plus/icons": {
+      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+@element-plus+icons@0.0.11/node_modules/@element-plus/icons/es/index.js",
+      "file": "@element-plus_icons.js",
+      "fileHash": "7ff9fac5",
       "needsInterop": false
     }
   },

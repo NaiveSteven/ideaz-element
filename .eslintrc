@@ -1,14 +1,12 @@
 {
   "extends": [
-    "@antfu",
-    "prettier",
-    "plugin:prettier/recommended"
+    "@antfu"
   ],
   "rules": {
     "max-len": [
       "error",
       {
-        "code": 100
+        "code": 200
       }
     ],
     "antfu/if-newline": 0,

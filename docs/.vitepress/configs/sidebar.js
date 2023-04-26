@@ -2,7 +2,7 @@ export default {
   '/api/': getApiSidebar(),
   '/components/': getComponentsSidebar(),
   '/guide/': getGuideSidebar(),
-};
+}
 
 function getApiSidebar() {
   return [
@@ -16,7 +16,7 @@ function getApiSidebar() {
         },
       ],
     },
-  ];
+  ]
 }
 
 function getComponentsSidebar() {
@@ -59,6 +59,15 @@ function getComponentsSidebar() {
           ],
         },
         {
+          text: '数据',
+          items: [
+            {
+              text: 'Table 表格',
+              link: '/components/table',
+            },
+          ],
+        },
+        {
           text: 'Button 按钮',
           link: '/components/button',
         },
@@ -84,7 +93,7 @@ function getComponentsSidebar() {
         },
       ],
     },
-  ];
+  ]
 }
 
 function getGuideSidebar() {
@@ -106,5 +115,5 @@ function getGuideSidebar() {
         },
       ],
     },
-  ];
+  ]
 }
