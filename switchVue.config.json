@@ -9,6 +9,7 @@
     "vue": "3.2.44",
     "vue-router": "latest",
     "element-plus": "latest",
+    "@element-plus/icons": "latest",
     "@vitejs/plugin-vue-jsx": "latest"
   }
 }

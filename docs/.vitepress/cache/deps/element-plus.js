@@ -13097,7 +13097,7 @@ var offset = function(value) {
   };
 };
 
-// node_modules/.pnpm/registry.npmmirror.com+@floating-ui+dom@1.2.6/node_modules/@floating-ui/dom/dist/floating-ui.dom.browser.mjs
+// node_modules/.pnpm/registry.npmmirror.com+@floating-ui+dom@1.2.7/node_modules/@floating-ui/dom/dist/floating-ui.dom.browser.mjs
 function getWindow(node) {
   var _node$ownerDocument;
   return ((_node$ownerDocument = node.ownerDocument) == null ? void 0 : _node$ownerDocument.defaultView) || window;
@@ -13445,6 +13445,13 @@ function getClientRectFromClippingAncestor(element, clippingAncestor, strategy) 
   }
   return rectToClientRect(rect);
 }
+function hasFixedPositionAncestor(element, stopNode) {
+  const parentNode = getParentNode(element);
+  if (parentNode === stopNode || !isElement2(parentNode) || isLastTraversableNode(parentNode)) {
+    return false;
+  }
+  return getComputedStyle$1(parentNode).position === "fixed" || hasFixedPositionAncestor(parentNode, stopNode);
+}
 function getClippingElementAncestors(element, cache2) {
   const cachedResult = cache2.get(element);
   if (cachedResult) {
@@ -13456,11 +13463,11 @@ function getClippingElementAncestors(element, cache2) {
   let currentNode = elementIsFixed ? getParentNode(element) : element;
   while (isElement2(currentNode) && !isLastTraversableNode(currentNode)) {
     const computedStyle = getComputedStyle$1(currentNode);
-    const containingBlock = isContainingBlock(currentNode);
-    if (computedStyle.position === "fixed") {
+    const currentNodeIsContaining = isContainingBlock(currentNode);
+    if (!currentNodeIsContaining && computedStyle.position === "fixed") {
       currentContainingBlockComputedStyle = null;
     }
-    const shouldDropCurrentNode = elementIsFixed ? !containingBlock && !currentContainingBlockComputedStyle : !containingBlock && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && ["absolute", "fixed"].includes(currentContainingBlockComputedStyle.position);
+    const shouldDropCurrentNode = elementIsFixed ? !currentNodeIsContaining && !currentContainingBlockComputedStyle : !currentNodeIsContaining && computedStyle.position === "static" && !!currentContainingBlockComputedStyle && ["absolute", "fixed"].includes(currentContainingBlockComputedStyle.position) || isOverflowElement(currentNode) && !currentNodeIsContaining && hasFixedPositionAncestor(element, currentNode);
     if (shouldDropCurrentNode) {
       result = result.filter((ancestor) => ancestor !== currentNode);
     } else {
