@@ -56,6 +56,10 @@ function getComponentsSidebar() {
               text: 'Form 表单',
               link: '/components/form',
             },
+            {
+              text: 'FilterForm 筛选表单',
+              link: '/components/filter-form',
+            },
           ],
         },
         {

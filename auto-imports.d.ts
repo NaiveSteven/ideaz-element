@@ -82,6 +82,7 @@ declare global {
   const useRouter: typeof import('vue-router')['useRouter']
   const useSlots: typeof import('vue')['useSlots']
   const useVModel: typeof import('./packages/hooks/useVModel')['useVModel']
+  const useWindowReactiveSize: typeof import('./packages/hooks/useWindowReactiveSize')['useWindowReactiveSize']
   const vue2GlobalConfig: typeof import('./packages/hooks/useGlobalConfig')['vue2GlobalConfig']
   const watch: typeof import('vue')['watch']
   const watchEffect: typeof import('vue')['watchEffect']
@@ -175,6 +176,7 @@ declare module 'vue' {
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
     readonly useVModel: UnwrapRef<typeof import('./packages/hooks/useVModel')['useVModel']>
+    readonly useWindowReactiveSize: UnwrapRef<typeof import('./packages/hooks/useWindowReactiveSize')['useWindowReactiveSize']>
     readonly vue2GlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['vue2GlobalConfig']>
     readonly watch: UnwrapRef<typeof import('vue')['watch']>
     readonly watchEffect: UnwrapRef<typeof import('vue')['watchEffect']>

@@ -5,3 +5,4 @@ export * from './useFormItems';
 export * from './useFormItemComponent';
 export * from './useFormItemProps';
 export * from './useFormItemSlots';
+export * from './useFilterFormItems';
