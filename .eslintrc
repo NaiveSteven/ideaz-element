@@ -1,6 +1,7 @@
 {
   "extends": [
-    "@antfu"
+    "@antfu",
+    "prettier"
   ],
   "rules": {
     "max-len": [

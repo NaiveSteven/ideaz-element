@@ -1,4 +1,5 @@
-import { isFunction, isString } from '@ideaz/utils';
+import { isFunction, isObject, isString } from '@ideaz/utils';
+import { resolveDynamicComponent } from '@ideaz/shared';
 import { vueRef as ref } from '@ideaz/directives';
 import {
   useFormItemComponent,
@@ -58,9 +59,8 @@ export default defineComponent({
           {...formItemProps.value}
           v-slots={vSlots.value}
         >
-          {/* {col.type === 'txt'
-            ? null
-            : h(resolveComponent(ComponentName.value), {
+          {h(resolveDynamicComponent({
+            name: ComponentName.value, attrs: {
               modelValue: isFunction(col.attrs && col.attrs.format)
                 ? col.attrs.format(props.formModel[col.prop])
                 : props.formModel[col.prop],
@@ -75,7 +75,8 @@ export default defineComponent({
                   : () => { },
               },
               'onUpdate:modelValue': (val: any) => modify(val),
-            })} */}
+            }
+          }))}
           {formItemProps.value.extra && (
             <div class="c-form-item__extra">
               {isFunction(formItemProps.value.extra)
