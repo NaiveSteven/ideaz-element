@@ -8,7 +8,7 @@ interface IndexType {
 interface ResolveOptions {
   name: string
   attrs: IndexType
-  content: any
+  content?: any
 }
 
 export const resolveDynamicComponent = (options: ResolveOptions) => {
