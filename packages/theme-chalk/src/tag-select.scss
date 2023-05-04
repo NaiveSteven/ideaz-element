@@ -1,0 +1,26 @@
+.z-tag-select__container {
+  display: flex;
+  align-items: center;
+
+  .el-tag--light {
+    border: 1px solid transparent;
+    color: #515a6e;
+    background-color: #fff;
+  }
+
+  .mr-2 {
+    margin-right: 8px;
+  }
+
+  .mr-4 {
+    margin-right: 16px;
+  }
+
+  .mr-6 {
+    margin-right: 24px;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
+}
