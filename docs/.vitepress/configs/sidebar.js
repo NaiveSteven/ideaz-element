@@ -53,6 +53,10 @@ function getComponentsSidebar() {
               link: '/components/input',
             },
             {
+              text: 'TagSelect 标签选择器',
+              link: '/components/tag-select',
+            },
+            {
               text: 'Form 表单',
               link: '/components/form',
             },
