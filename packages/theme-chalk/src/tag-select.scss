@@ -1,5 +1,6 @@
 .z-tag-select__container {
-  display: flex;
+  position: relative;
+  // display: flex;
   align-items: center;
 
   .el-tag--light {
