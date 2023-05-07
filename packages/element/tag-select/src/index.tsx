@@ -75,6 +75,8 @@ export default defineComponent({
       }
     })
 
+    // 支持展开收起项自动隐藏展示、支持传入type、effect等属性、优化title列和tag列的样式（分成两列）
+
     // function computedMore(ele?: any) {
     //   const element = ele || document.getElementsByClassName('z-tag-select__container')[0]
     //   const tagTitle = document.getElementsByClassName('z-tag-select__title')[0]
@@ -193,7 +195,14 @@ export default defineComponent({
       return <div class={cls.value}>
         {props.title && <span class='mr-6 z-tag-select__title'>{props.title}</span>}
         {options.value.map((item: any, index: number) => {
-          return <el-tag effect={isActive(item)} class={index === options.value.length - 1 ? 'cursor-pointer' : 'cursor-pointer mr-4'} onClick={() => handleClickTag(item)}>{item.label}</el-tag>
+          return <el-tag
+            effect={isActive(item)}
+            class={index === options.value.length - 1 ? 'cursor-pointer' : 'cursor-pointer mr-4'}
+            onClick={() => handleClickTag(item)}
+            {...item}
+          >
+            {item.label}
+          </el-tag>
         })}
         <span onClick={handleChangeExpand} class="z-tag-select__expand">
           {isShowMore.value ? '收起' : '展开'}<el-icon class={iconClass.value}><i-arrow-down /></el-icon>
