@@ -28,8 +28,8 @@ export default defineComponent({
     :multiple="true"
     size="small"
     :options="[
-      { label: '标签一', value: 1 },
-      { label: '标签二', value: 2 },
+      { label: '标签一', value: 1, round: true },
+      { label: '标签二', value: 2, type: 'success' },
       { label: '标签三', value: 3 },
       { label: '标签四', value: 4 },
       { label: '标签五', value: 5 },
