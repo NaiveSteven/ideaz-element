@@ -1,7 +1,9 @@
 .z-tag-select__container {
   position: relative;
-  // display: flex;
-  align-items: center;
+  overflow: hidden;
+  padding-right: 50px;
+  max-height: 26px;
+  line-height: 26px;
 
   .el-tag--light {
     border: 1px solid transparent;
@@ -24,4 +26,31 @@
   .cursor-pointer {
     cursor: pointer;
   }
+
+  .z-tag-select__expand {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    // height: 26px;
+    line-height: 28px;
+    font-size: 12px;
+    cursor: pointer;
+    color: var(--el-color-primary);
+  }
+
+  .z-toggle__icon {
+    margin-left: 2px;
+    color: var(--el-color-primary);
+    transition: transform 0.2s;
+    transform: translateY(1px);
+  }
+
+  .z-icon__arrow {
+    transform: rotate(180deg) translateY(-1px);
+    transform-origin: center center;
+  }
+}
+
+.z-tag-select__container--more {
+  max-height: 200px;
 }
