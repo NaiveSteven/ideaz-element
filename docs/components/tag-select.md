@@ -44,3 +44,40 @@ export default defineComponent({
   <div>{{ tagSelect }}</div>
 </template>
 ```
+
+:::
+
+:::demo
+
+```vue
+<script>
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  name: 'TagSelectDemo',
+  setup() {
+    const tagSelect = ref([1])
+
+    return { tagSelect }
+  }
+})
+</script>
+
+<template>
+  <z-tag-select
+    v-model="tagSelect"
+    :multiple="true"
+    size="small"
+    :options="[
+      { label: '标签一', value: 1, round: true },
+      { label: '标签二', value: 2, type: 'success' },
+      { label: '标签三', value: 3, effect: 'light' },
+      { label: '标签四', value: 4, effect: 'plain' },
+    ]"
+    title="筛选项一:"
+  />
+  <div>{{ tagSelect }}</div>
+</template>
+```
+
+:::
