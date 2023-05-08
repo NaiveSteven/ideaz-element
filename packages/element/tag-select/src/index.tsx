@@ -94,23 +94,23 @@ export default defineComponent({
       }
     }
 
-    // 支持展开收起项自动隐藏展示、支持传入type、effect等属性、优化title列和tag列的样式（分成两列）
-
     const handleChangeExpand = () => {
       isExpand.value = !isExpand.value
     }
 
     const isActive = (item: any) => {
+      const effect = item.effect || 'dark'
       if (props.multiple)
-        return (activeTag.value as number[]).includes(item.value) ? 'dark' : 'light'
+        return (activeTag.value as number[]).includes(item.value) ? effect : undefined
 
-      return String(activeTag.value) === String(item.value) ? 'dark' : 'light'
+      return String(activeTag.value) === String(item.value) ? effect : undefined
     }
 
     const handleClickTag = (item: any) => {
+      const activeEffect = item.effect || 'dark'
       const effect = isActive(item)
       if (item.value === 'all') {
-        if (effect === 'dark') {
+        if (effect === activeEffect) {
           if (props.multiple) {
             activeTag.value = []
             emit('change', [])
@@ -136,7 +136,7 @@ export default defineComponent({
       }
       if (props.multiple) {
         const actives = activeTag.value as number[]
-        if (effect === 'dark') {
+        if (effect === activeEffect) {
           const index = actives.indexOf(item.value)
           actives.splice(index, 1)
         }
@@ -145,7 +145,7 @@ export default defineComponent({
         }
       }
       else {
-        if (effect === 'dark') {
+        if (effect === activeEffect) {
           activeTag.value = ''
           emit('change', item)
         }
@@ -173,6 +173,14 @@ export default defineComponent({
         }
       }
     }
+    const getTagClass = (item: any, index: number) => {
+      const effect = item.effect || 'dark'
+      return {
+        'cursor-pointer': true,
+        'mr-4': index !== options.value.length - 1,
+        'z-tag-select__tag--inactive': isActive(item) !== effect,
+      }
+    }
 
     return () => {
       return <div class={cls.value} ref={zTag}>
@@ -180,10 +188,10 @@ export default defineComponent({
         <div class='z-tag-select__content'>
           {options.value.map((item: any, index: number) => {
             return <el-tag
-              effect={isActive(item)}
-              class={index === options.value.length - 1 ? 'cursor-pointer' : 'cursor-pointer mr-4'}
-              onClick={() => handleClickTag(item)}
               {...item}
+              effect={isActive(item)}
+              class={getTagClass(item, index)}
+              onClick={() => handleClickTag(item)}
             >
               {item.label}
             </el-tag>
