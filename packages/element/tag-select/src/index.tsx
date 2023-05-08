@@ -1,5 +1,4 @@
 import elementResizeDetectorMaker from 'element-resize-detector'
-import { useWindowSize } from '@vueuse/core'
 
 export default defineComponent({
   name: 'ZTagSelect',
@@ -44,77 +43,61 @@ export default defineComponent({
     })
 
     const observer = elementResizeDetectorMaker()
+    const isExpand = ref(false)
     const isShowMore = ref(false)
-
-    const { width } = useWindowSize()
-
-    watch(() => width.value, () => {
-      // computedMore()
-    })
+    const zTag = ref()
 
     onMounted(() => {
-      // observer.listenTo(
-      //   { strategy: 'scroll' }, // 基于滚动的情况下，提高性能
-      //   document.querySelector('.z-tag-select__container'),
-      //   computedMore,
-      // )
-      // computedMore()
+      observer.listenTo(
+        { strategy: 'scroll' },
+        zTag.value,
+        computedMore,
+      )
     })
 
     const cls = computed(() => {
       return {
         'z-tag-select__container': true,
-        'z-tag-select__container--more': isShowMore.value,
+        'z-tag-select__container--more': isExpand.value,
       }
     })
 
     const iconClass = computed(() => {
       return {
         'z-toggle__icon': true,
-        'z-icon__arrow': isShowMore.value,
+        'z-icon__arrow': isExpand.value,
       }
     })
 
+    function computedMore() {
+      const element = zTag.value
+      const tagTitle = element.getElementsByClassName('z-tag-select__title')[0]
+      if (element) {
+        const width = element.offsetWidth - 38
+        const tags = element.querySelectorAll('.el-tag')
+        let totalWidth = 0 + (tagTitle ? tagTitle.offsetWidth + 24 : 0)
+        let index = 0
+        for (let i = 0; i < tags.length; i++) {
+          const tag = tags[i]
+          totalWidth = i === tags.length - 1 ? totalWidth + tag.offsetWidth : totalWidth + tag.offsetWidth + 16
+
+          if (totalWidth > width) {
+            index = i
+            break
+          }
+        }
+        if (index > 0)
+          isShowMore.value = true
+
+        else
+          isShowMore.value = false
+      }
+    }
+
     // 支持展开收起项自动隐藏展示、支持传入type、effect等属性、优化title列和tag列的样式（分成两列）
 
-    // function computedMore(ele?: any) {
-    //   const element = ele || document.getElementsByClassName('z-tag-select__container')[0]
-    //   const tagTitle = document.getElementsByClassName('z-tag-select__title')[0]
-    //   if (element) {
-    //     const width = element.offsetWidth
-    //     const tags = element.querySelectorAll('.el-tag')
-    //     // const originTagWidth = props.all ? tags[1].offsetWidth : tags[0].offsetWidth
-    //     let totalWidth = 0 + (tagTitle ? tagTitle.offsetWidth + 20 : 0)
-    //     let index = 0
-    //     for (let i = 0; i < tags.length; i++) {
-    //       const tag = tags[i]
-    //       totalWidth = totalWidth + tag.offsetWidth + 16
-    //       if (totalWidth > width) {
-    //         index = i
-    //         break
-    //       }
-    //     }
-    //     if (index > 0) {
-    //       showHideMore(tags, 'hide', index)
-    //       if (!more) {
-    //         more.onclick = () => {
-    //           if (more.innerHTML.startsWith('+')) {
-    //             showHideMore(tags, 'show', index)
-    //             isShowMore.value = true
-    //           }
-    //           else {
-    //             showHideMore(tags, 'hide', index)
-    //             isShowMore.value = false
-    //           }
-    //         }
-    //       }
-    //       element.appendChild(more)
-    //     }
-    //   }
-    // }
-
     const handleChangeExpand = () => {
-      isShowMore.value = !isShowMore.value
+      isExpand.value = !isExpand.value
     }
 
     const isActive = (item: any) => {
@@ -192,7 +175,7 @@ export default defineComponent({
     }
 
     return () => {
-      return <div class={cls.value}>
+      return <div class={cls.value} ref={zTag}>
         {props.title && <span class='mr-6 z-tag-select__title'>{props.title}</span>}
         {options.value.map((item: any, index: number) => {
           return <el-tag
@@ -204,9 +187,9 @@ export default defineComponent({
             {item.label}
           </el-tag>
         })}
-        <span onClick={handleChangeExpand} class="z-tag-select__expand">
-          {isShowMore.value ? '收起' : '展开'}<el-icon class={iconClass.value}><i-arrow-down /></el-icon>
-        </span>
+        {isShowMore.value && <span onClick={handleChangeExpand} class="z-tag-select__expand">
+          {isExpand.value ? '收起' : '展开'}<el-icon class={iconClass.value}><i-arrow-down /></el-icon>
+        </span>}
       </div>
     }
   },
