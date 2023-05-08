@@ -176,20 +176,22 @@ export default defineComponent({
 
     return () => {
       return <div class={cls.value} ref={zTag}>
-        {props.title && <span class='mr-6 z-tag-select__title'>{props.title}</span>}
-        {options.value.map((item: any, index: number) => {
-          return <el-tag
-            effect={isActive(item)}
-            class={index === options.value.length - 1 ? 'cursor-pointer' : 'cursor-pointer mr-4'}
-            onClick={() => handleClickTag(item)}
-            {...item}
-          >
-            {item.label}
-          </el-tag>
-        })}
-        {isShowMore.value && <span onClick={handleChangeExpand} class="z-tag-select__expand">
-          {isExpand.value ? '收起' : '展开'}<el-icon class={iconClass.value}><i-arrow-down /></el-icon>
-        </span>}
+        {props.title && <span class='z-tag-select__title'>{props.title}</span>}
+        <div class='z-tag-select__content'>
+          {options.value.map((item: any, index: number) => {
+            return <el-tag
+              effect={isActive(item)}
+              class={index === options.value.length - 1 ? 'cursor-pointer' : 'cursor-pointer mr-4'}
+              onClick={() => handleClickTag(item)}
+              {...item}
+            >
+              {item.label}
+            </el-tag>
+          })}
+          {isShowMore.value && <span onClick={handleChangeExpand} class="z-tag-select__expand">
+            {isExpand.value ? '收起' : '展开'}<el-icon class={iconClass.value}><i-arrow-down /></el-icon>
+          </span>}
+        </div>
       </div>
     }
   },
