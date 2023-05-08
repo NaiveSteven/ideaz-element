@@ -1,14 +1,20 @@
 .z-tag-select__container {
   position: relative;
+  display: flex;
   overflow: hidden;
+  line-height: 2;
   padding-right: 38px;
-  max-height: 26px;
-  line-height: 26px;
+  max-height: 36px;
 
   .el-tag--light {
     border: 1px solid transparent;
     color: #515a6e;
     background-color: #fff;
+  }
+
+  .z-tag-select__title {
+    margin-right: 24px;
+    flex-shrink: 0;
   }
 
   .mr-2 {
@@ -19,10 +25,6 @@
     margin-right: 16px;
   }
 
-  .mr-6 {
-    margin-right: 24px;
-  }
-
   .cursor-pointer {
     cursor: pointer;
   }
@@ -31,8 +33,7 @@
     position: absolute;
     top: 1px;
     right: 0;
-    // height: 26px;
-    line-height: 28px;
+    line-height: 34px;
     font-size: 12px;
     cursor: pointer;
     color: var(--el-color-primary);
@@ -42,11 +43,11 @@
     margin-left: 2px;
     color: var(--el-color-primary);
     transition: transform 0.2s;
-    transform: translateY(1px);
+    transform: translateY(1.5px);
   }
 
   .z-icon__arrow {
-    transform: rotate(180deg) translateY(-1px);
+    transform: rotate(180deg) translateY(-1.5px);
     transform-origin: center center;
   }
 }
