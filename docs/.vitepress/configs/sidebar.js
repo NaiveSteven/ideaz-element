@@ -37,6 +37,10 @@ function getComponentsSidebar() {
           text: '表单',
           items: [
             {
+              text: 'Text 文本',
+              link: '/components/text',
+            },
+            {
               text: 'Checkbox 多选框',
               link: '/components/checkbox',
             },
