@@ -1,4 +1,4 @@
-import elementResizeDetectorMaker from 'element-resize-detector'
+import { useShowMore } from './hooks'
 
 export default defineComponent({
   name: 'ZTagSelect',
@@ -26,6 +26,9 @@ export default defineComponent({
   },
   emits: ['change', 'update:modelValue'],
   setup(props, { emit }) {
+    const { isShowMore, zTag } = useShowMore()
+    const isExpand = ref(false)
+
     const activeTag = computed<number[] | number | string | string[]>({
       get() {
         return props.modelValue
@@ -42,19 +45,6 @@ export default defineComponent({
       return props.options
     })
 
-    const observer = elementResizeDetectorMaker()
-    const isExpand = ref(false)
-    const isShowMore = ref(false)
-    const zTag = ref()
-
-    onMounted(() => {
-      observer.listenTo(
-        { strategy: 'scroll' },
-        zTag.value,
-        computedMore,
-      )
-    })
-
     const cls = computed(() => {
       return {
         'z-tag-select__container': true,
@@ -68,31 +58,6 @@ export default defineComponent({
         'z-icon__arrow': isExpand.value,
       }
     })
-
-    function computedMore() {
-      const element = zTag.value
-      const tagTitle = element.getElementsByClassName('z-tag-select__title')[0]
-      if (element) {
-        const width = element.offsetWidth - 38
-        const tags = element.querySelectorAll('.el-tag')
-        let totalWidth = 0 + (tagTitle ? tagTitle.offsetWidth + 24 : 0)
-        let index = 0
-        for (let i = 0; i < tags.length; i++) {
-          const tag = tags[i]
-          totalWidth = i === tags.length - 1 ? totalWidth + tag.offsetWidth : totalWidth + tag.offsetWidth + 16
-
-          if (totalWidth > width) {
-            index = i
-            break
-          }
-        }
-        if (index > 0)
-          isShowMore.value = true
-
-        else
-          isShowMore.value = false
-      }
-    }
 
     const handleChangeExpand = () => {
       isExpand.value = !isExpand.value
@@ -173,6 +138,7 @@ export default defineComponent({
         }
       }
     }
+
     const getTagClass = (item: any, index: number) => {
       const effect = item.effect || 'dark'
       return {
