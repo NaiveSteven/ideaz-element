@@ -30,6 +30,33 @@ export const textProps = {
     type: String,
     default: 'span',
   },
+  tooltip: {
+    type: Boolean,
+    default: true,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  height: {
+    type: Number,
+  },
+  lines: {
+    type: Number,
+    // default: 2,
+  },
+  length: {
+    type: Number,
+    default: 5,
+  },
+  fullWidthRecognition: {
+    type: Boolean,
+    default: false,
+  },
+  text: {
+    type: String,
+    default: '默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默',
+  },
 }
 
 export type TextProps = ExtractPropTypes<typeof textProps>
