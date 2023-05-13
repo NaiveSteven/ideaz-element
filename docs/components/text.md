@@ -9,9 +9,14 @@
 :::demo 使用 `type`、`plain`、`round` 和 `circle` 属性来定义 Button 的样式。
 
 ```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+const a = ref('asdf')
+</script>
+
 <template>
-  <z-text class="mx-1">
-    Default
+  <z-text class="mx-1" type="primary">
+    asdfsf
   </z-text>
 </template>
 

@@ -1,6 +1,10 @@
 import type { ExtractPropTypes } from 'vue-demi'
 
 export const textProps = {
+  value: {
+    type: String,
+    default: '',
+  },
   /**
    * @description text type
    */
@@ -55,7 +59,7 @@ export const textProps = {
   },
   text: {
     type: String,
-    default: '默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默默认文案默',
+    default: '',
   },
 }
 

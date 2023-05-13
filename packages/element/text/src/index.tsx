@@ -55,7 +55,7 @@ function camelCase(name) {
 export default defineComponent({
   name: 'ZText',
   props: textProps,
-  setup(props) {
+  setup(props, { slots }) {
     const ns = useNamespace('text')
     const zText = ref()
     const computedReady = ref(false)
@@ -71,6 +71,10 @@ export default defineComponent({
       ns.is('truncated', props.truncated),
     ])
 
+    const getText = () => {
+      return props.value || props.text || (slots.default?.()[0].children as string)
+    }
+
     const computeText = async () => {
       oversize.value = false
       computedReady.value = false
@@ -79,7 +83,7 @@ export default defineComponent({
       const $el = zText.value
       const $more = moreRef.value
       let n = 1000
-      let text = props.text
+      let text = getText()
       let height = props.height
 
       // 当 height 未定义，且 lines 定义时，计算真实高度，否则使用 this.height
@@ -135,10 +139,7 @@ export default defineComponent({
     }
 
     const init = () => {
-      // if (!props.disabled) {
       computeText()
-      // limitShow()
-      // }
     }
 
     onMounted(() => {
@@ -158,23 +159,23 @@ export default defineComponent({
         content: (() => {
           if (computedReady.value) {
             if (oversize.value) {
-              return <el-tooltip content={props.text}>
+              return <el-tooltip content={getText()}>
                 <div>
-                  <span ref={textRef}>{props.text}</span>
+                  <span ref={textRef}>{getText()}</span>
                   <span v-show={oversize.value} ref={moreRef}>...</span>
                 </div>
               </el-tooltip>
             }
             else {
               return <>
-                <span ref={textRef}>{props.text}</span>
+                <span ref={textRef}>{getText()}</span>
                 <span v-show={oversize.value} ref={moreRef}>...</span>
               </>
             }
           }
           else {
             return <>
-              <span ref={textRef}>{props.text}</span>
+              <span ref={textRef}>{getText()}</span>
               <span v-show={oversize.value} ref={moreRef}>...</span>
             </>
           }
