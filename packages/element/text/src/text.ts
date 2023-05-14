@@ -47,11 +47,11 @@ export const textProps = {
   },
   lines: {
     type: Number,
-    // default: 2,
+    default: 1,
   },
   length: {
     type: Number,
-    default: 5,
+    // default: 5,
   },
   fullWidthRecognition: {
     type: Boolean,

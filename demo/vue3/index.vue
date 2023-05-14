@@ -33,43 +33,36 @@
 //   console.log('expand: ', jsonEditorVueRef.value.jsonEditor.expand)
 // })
 
-const checkbox = ref([1]);
-const val = ref('123');
+const checkbox = ref([1])
+const val = ref('123')
 
 const handleChange = (val: any) => {
-  console.log(val, 'val');
-};
+  console.log(val, 'val')
+}
 </script>
 
 <template>
   <div>
     vue3sf
-    <ZInput
-      v-model="val"
-      :prepend="() => 'asdf'"
-      append="asdf"
-      clearable
-      @clear="handleChange"
-      @change="handleChange"
-    />
-    <ZCheckbox
-      v-model="checkbox"
-      style="width: 300px"
-      class="my-checkbox"
-      size="small"
-      :options="[
-        {
-          label: '1',
-          value: 1,
-          class: 'my-checkbox-test',
-          id: 'my-checkbox-id',
-        },
-        { label: '2', value: 2 },
-      ]"
-      @change="handleChange"
-    />
-    <el-checkbox id="test-id" class="test-class">asd</el-checkbox>
+    <ZInput v-model="val" :prepend="() => 'asdf'" append="asdf" clearable @clear="handleChange" @change="handleChange" />
+    <ZCheckbox v-model="checkbox" style="width: 300px" class="my-checkbox" size="small" :options="[
+      {
+        label: '1',
+        value: 1,
+        class: 'my-checkbox-test',
+        id: 'my-checkbox-id',
+      },
+      { label: '2', value: 2 },
+    ]" @change="handleChange" />
+    <el-checkbox id="test-id" class="test-class">
+      asd
+    </el-checkbox>
     <el-button>asdfsadf</el-button>
+    <el-card style="width: 640px">
+      <z-text type="primary">
+        aaaaaaaaaaaaaaaaaaaaaaaa啊手动阀手动阀手动阀手动阀手动阀手动阀aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      </z-text>
+    </el-card>
     <!-- <p>
       <button @click="data.value = '123'">
         设值为 string
@@ -103,3 +96,9 @@ const handleChange = (val: any) => {
     {{ typeof data.value }} -->
   </div>
 </template>
+
+<style>
+body {
+  line-height: 1.5;
+}
+</style>
