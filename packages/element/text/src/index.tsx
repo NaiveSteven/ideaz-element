@@ -36,21 +36,21 @@ function camelCase(name) {
   }).replace(MOZ_HACK_REGEXP, 'Moz$1')
 }
 
-// export function getStyle(element, styleName) {
-//   if (!isClient) return
-//   if (!element || !styleName) return null
-//   styleName = camelCase(styleName)
-//   if (styleName === 'float')
-//     styleName = 'cssFloat'
+export function getStyle(element, styleName) {
+  if (!isClient) return
+  if (!element || !styleName) return null
+  styleName = camelCase(styleName)
+  if (styleName === 'float')
+    styleName = 'cssFloat'
 
-//   try {
-//     const compute = document.defaultView?.getComputedStyle(element, '')
-//     return element.style?.[styleName] || (compute ? compute?.[styleName] : null)
-//   }
-//   catch (e) {
-//     return element.style[styleName]
-//   }
-// }
+  try {
+    const compute = document.defaultView?.getComputedStyle(element, '')
+    return element.style?.[styleName] || (compute ? compute?.[styleName] : null)
+  }
+  catch (e) {
+    return element.style[styleName]
+  }
+}
 
 export default defineComponent({
   name: 'ZText',
@@ -89,7 +89,7 @@ export default defineComponent({
       // 当 height 未定义，且 lines 定义时，计算真实高度，否则使用 this.height
       if (!height && props.lines) {
         // todo
-        const lineHeight = 24
+        const lineHeight = parseInt(getStyle($el, 'lineHeight'), 10) || 24
         height = lineHeight * props.lines
       }
       if ($text) {
@@ -98,8 +98,6 @@ export default defineComponent({
           const textLength = props.fullWidthRecognition ? getStrFullLength(text) : text.length
           if (textLength > props.length) {
             oversize.value = true
-
-            await nextTick()
             $more.style.display = 'inline-block'
             text = props.fullWidthRecognition ? cutStrByFullLength(text, props.length) : text.slice(0, props.length)
           }
@@ -108,7 +106,6 @@ export default defineComponent({
           if ($el.offsetHeight > height) {
             oversize.value = true
             $more.style.display = 'inline-block'
-            await nextTick()
             while ($el.offsetHeight > height && n > 0) {
               if ($el.offsetHeight > height * 3)
                 $text.innerText = text = text.substring(0, Math.floor(text.length / 2))
@@ -154,6 +151,7 @@ export default defineComponent({
           ref: zText,
           style: {
             display: 'inline-block',
+            wordBreak: 'break-all',
           },
         },
         content: (() => {
