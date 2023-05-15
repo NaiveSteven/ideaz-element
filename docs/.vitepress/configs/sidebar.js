@@ -31,6 +31,10 @@ function getComponentsSidebar() {
               text: 'Grid 栅格',
               link: '/components/grid',
             },
+            {
+              text: 'Watermark 水印',
+              link: '/components/watermark',
+            },
           ],
         },
         {
