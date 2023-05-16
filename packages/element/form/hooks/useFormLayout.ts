@@ -1,4 +1,4 @@
-import type { FormItemConfigItem } from '~/types';
+import type { FormColumn } from '~/types'
 
 export const useFormLayout = (props: any) => {
   const rowLayout = computed(() => {
@@ -9,8 +9,8 @@ export const useFormLayout = (props: any) => {
           interval: 0,
           justify: 'start',
           direction: 'row',
-        };
-  });
+        }
+  })
   const colLayout = computed(() => {
     return props.layout.colLayout
       ? props.layout.colLayout
@@ -20,12 +20,12 @@ export const useFormLayout = (props: any) => {
           md: 12,
           lg: 8,
           xl: 8,
-        };
-  });
+        }
+  })
 
-  const getColLayout = (col: FormItemConfigItem) => {
-    return { ...colLayout.value, ...col.colGrid };
-  };
+  const getColLayout = (col: FormColumn) => {
+    return { ...colLayout.value, ...col.colGrid }
+  }
 
-  return { rowLayout, colLayout, getColLayout };
-};
+  return { rowLayout, colLayout, getColLayout }
+}

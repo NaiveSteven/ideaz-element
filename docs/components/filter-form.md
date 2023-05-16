@@ -34,7 +34,7 @@ const formConfig = {
   },
 }
 
-const formItemConfig = [
+const columns = [
   {
     type: 'input',
     prop: 'activeName',
@@ -111,7 +111,7 @@ const submit = () => {
     :form-model="formModel"
     :form-config="formConfig"
     :options="optionsConfig"
-    :form-item-config="formItemConfig"
+    :columns="columns"
   >
     <template #111>
       <div>asdf</div>

@@ -16,14 +16,14 @@ export const props = {
           lg: 8,
           xl: 8,
         },
-      };
+      }
     },
   },
   formConfig: {
     type: Object,
     default: () => {},
   },
-  formItemConfig: {
+  columns: {
     type: Array,
     default: () => [],
   },
@@ -35,4 +35,4 @@ export const props = {
     type: Object,
     default: () => {},
   },
-};
+}
