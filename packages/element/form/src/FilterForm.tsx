@@ -8,7 +8,7 @@ export default defineComponent({
   props,
   emits: ['search', 'reset'],
   setup(props, { attrs, slots, emit }) {
-    const { isShowToggleButton, formItemConfig, toggleButtonType, layout } = useFilterFormItem(props)
+    const { isShowToggleButton, columns, toggleButtonType, layout } = useFilterFormItem(props)
 
     const handleSearch = () => {
       emit('search')
@@ -24,7 +24,7 @@ export default defineComponent({
         // ref="formRef"
         formModel={formModel}
         formConfig={formConfig}
-        formItemConfig={formItemConfig.value}
+        columns={columns.value}
         options={options || {}}
         layout={layout.value}
         // onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}

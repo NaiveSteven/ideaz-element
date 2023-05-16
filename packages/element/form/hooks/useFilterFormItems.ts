@@ -1,20 +1,20 @@
 import { useWindowReactiveSize } from '@ideaz/hooks'
-import type { FormItemConfigItem } from '~/types'
+import type { FormColumn } from '~/types'
 
 export const useFilterFormItem = (props: Record<any, any>) => {
   const toggleButtonType = ref(props.collapsed ? 'up' : 'expand')
 
   const { windowReactiveSize } = useWindowReactiveSize()
 
-  const virtualFormItemConfig = computed(() => {
-    return props.formItemConfig.map((cur: FormItemConfigItem, index: number) => ({
+  const virtualColumns = computed(() => {
+    return props.columns.map((cur: FormColumn, index: number) => ({
       ...cur,
       hideUseVShow: () => judgeIsHideFormItem(index),
     }))
   })
 
   const btnLayout = computed(() => {
-    const arrLength = virtualFormItemConfig.value.length + 1
+    const arrLength = virtualColumns.value.length + 1
     return {
       class:
         toggleButtonType.value === 'expand'
@@ -43,8 +43,8 @@ export const useFilterFormItem = (props: Record<any, any>) => {
     }
   })
 
-  const formItemConfig = computed(() => {
-    return virtualFormItemConfig.value.concat([
+  const columns = computed(() => {
+    return virtualColumns.value.concat([
       {
         slot: 'button',
         colGrid: btnLayout.value,
@@ -54,16 +54,16 @@ export const useFilterFormItem = (props: Record<any, any>) => {
 
   const isShowToggleButton = computed(() => {
     if (windowReactiveSize.value === 'xl')
-      return virtualFormItemConfig.value.length + 1 > 4
+      return virtualColumns.value.length + 1 > 4
 
     if (windowReactiveSize.value === 'md' || windowReactiveSize.value === 'lg')
-      return virtualFormItemConfig.value.length + 1 > 3
+      return virtualColumns.value.length + 1 > 3
 
     if (
       windowReactiveSize.value === 'sm'
       || windowReactiveSize.value === 'xs'
     )
-      return virtualFormItemConfig.value.length + 1 > 2
+      return virtualColumns.value.length + 1 > 2
 
     return true
   })
@@ -119,5 +119,5 @@ export const useFilterFormItem = (props: Record<any, any>) => {
     }
   })
 
-  return { isShowToggleButton, formItemConfig, toggleButtonType, layout }
+  return { isShowToggleButton, columns, toggleButtonType, layout }
 }

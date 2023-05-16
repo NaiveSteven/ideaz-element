@@ -1,10 +1,10 @@
 import type { IndexOptions, IndexType, Pagination } from './common'
-import type { FormItemConfigItem } from './form'
+import type { FormColumn } from './form'
 import type { Layout } from './layout'
 import type { TableCol } from './table'
 
 export interface TableProCol extends TableCol {
-  formItemProps?: FormItemConfigItem
+  formItemProps?: FormColumn
 }
 
 export interface CTableProConfig {

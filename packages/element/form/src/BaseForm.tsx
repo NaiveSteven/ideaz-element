@@ -9,9 +9,9 @@ import {
 } from '../hooks'
 import { props } from './props'
 import FormItem from './FormItem'
-import type { FormItemConfigItem } from '~/types'
+import type { FormColumn } from '~/types'
 
-const renderContent = (col: FormItemConfigItem, slots: any) => {
+const renderContent = (col: FormColumn, slots: any) => {
   if (col.slot)
     return slots[col.slot] && slots[col.slot]()
 
@@ -54,7 +54,7 @@ export default defineComponent({
         >
           <z-row {...rowLayout.value}>
             {formatFormItems.value.map(
-              (col: FormItemConfigItem, colIndex: number) => {
+              (col: FormColumn, colIndex: number) => {
                 const { scopedSlots } = useFormSlots(col, slots, props)
                 return (
                   <z-col
@@ -64,20 +64,20 @@ export default defineComponent({
                   >
                     {isFunction(col.render) || col.slot
                       ? (
-                          renderContent(col, slots)
-                        )
+                        renderContent(col, slots)
+                      )
                       : (
-                      <FormItem
-                        key={col.__key}
-                        ref={`formItem${colIndex}`}
-                        col={col}
-                        formModel={formModel}
-                        formConfig={formConfig}
-                        options={options}
-                        v-slots={scopedSlots}
-                        onChange={obj => emit('change', obj)}
-                      />
-                        )}
+                        <FormItem
+                          key={col.__key}
+                          ref={`formItem${colIndex}`}
+                          col={col}
+                          formModel={formModel}
+                          formConfig={formConfig}
+                          options={options}
+                          v-slots={scopedSlots}
+                          onChange={obj => emit('change', obj)}
+                        />
+                      )}
                   </z-col>
                 )
               },
