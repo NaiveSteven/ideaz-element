@@ -9,15 +9,16 @@ import ZTable from './table'
 import ZTagSelect from './tag-select'
 import ZText from './text'
 import ZWatermark from './watermark'
+import ZCheckCard from './check-card'
 import { makeInstaller } from './makeInstaller'
 
 const { ZForm, ZFilterForm } = Form
 
-const components = [ZCheckbox, ZRadio, ZSelect, ZRow, ZCol, ZForm, ZInput, ZTable, ZFilterForm, ZTagSelect, ZText, ZWatermark]
+const components = [ZCheckbox, ZRadio, ZSelect, ZRow, ZCol, ZForm, ZInput, ZTable, ZFilterForm, ZTagSelect, ZText, ZWatermark, ZCheckCard]
 
 const installer = makeInstaller([...components])
 
 export default installer
 export * from './types'
 
-export { ZRadio, ZSelect, ZCheckbox, ZRow, ZCol, ZForm, ZInput, ZTable, ZFilterForm, ZTagSelect, ZText, ZWatermark }
+export { ZRadio, ZSelect, ZCheckbox, ZRow, ZCol, ZForm, ZInput, ZTable, ZFilterForm, ZTagSelect, ZText, ZWatermark, ZCheckCard }

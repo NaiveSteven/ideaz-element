@@ -1,0 +1,75 @@
+.z-pro-checkcard-checked {
+  border-color: #1677FF;
+  background-color: #b0d0ff;
+
+  &::after {
+    position: absolute;
+    inset-block-start: 2px;
+    inset-inline-end: 2px;
+    width: 0;
+    height: 0;
+    border: 6px solid #1677FF;
+    border-block-end: 6px solid transparent;
+    border-inline-start: 6px solid transparent;
+    border-start-end-radius: 2px;
+    content: '';
+  }
+}
+
+.z-pro-checkcard-bordered {
+  border: 1px solid #d9d9d9;
+}
+
+.z-pro-checkcard {
+  position: relative;
+  display: inline-block;
+  width: 320px;
+  font-size: 14px;
+  border-radius: 6px;
+  color: rgba(42, 46, 54, 0.88);
+  background-color: #fff;
+  transition: all 0.3s;
+  margin-inline-end: 16px;
+  margin-block-end: 16px;
+  line-height: 1.5714285714285714;
+  vertical-align: top;
+  cursor: pointer;
+
+  .z-pro-checkcard-content {
+    display: flex;
+    padding-inline: 12px;
+    padding-block: 16px;
+
+    .z-pro-checkcard-avatar {
+      padding-inline-end: 8px;
+    }
+
+    .z-pro-checkcard-detail {
+      overflow: hidden;
+      width: 100%;
+
+      >div:not(:last-child) {
+        margin-block-end: 4px;
+      }
+
+      .z-pro-checkcard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .z-pro-checkcard-title {
+          overflow: hidden;
+          font-size: 14px;
+          font-weight: 500;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          color: rgba(42, 46, 54, 0.88);
+        }
+      }
+
+      .z-pro-checkcard-description {
+        color: rgba(42, 46, 54, 0.65);
+      }
+    }
+  }
+}
