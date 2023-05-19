@@ -72,6 +72,10 @@ function getComponentsSidebar() {
               text: 'FilterForm 筛选表单',
               link: '/components/filter-form',
             },
+            {
+              text: 'CheckCard 多选卡片',
+              link: '/components/check-card',
+            },
           ],
         },
         {
