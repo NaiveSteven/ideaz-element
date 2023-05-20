@@ -1,21 +1,3 @@
-.z-pro-checkcard-checked {
-  border-color: #1677FF;
-  background-color: #b0d0ff;
-
-  &::after {
-    position: absolute;
-    inset-block-start: 2px;
-    inset-inline-end: 2px;
-    width: 0;
-    height: 0;
-    border: 6px solid #1677FF;
-    border-block-end: 6px solid transparent;
-    border-inline-start: 6px solid transparent;
-    border-start-end-radius: 2px;
-    content: '';
-  }
-}
-
 .z-pro-checkcard-bordered {
   border: 1px solid #d9d9d9;
 }
@@ -34,6 +16,10 @@
   line-height: 1.5714285714285714;
   vertical-align: top;
   cursor: pointer;
+
+  &:last-child {
+    margin-inline-end: 0;
+  }
 
   .z-pro-checkcard-content {
     display: flex;
@@ -72,4 +58,52 @@
       }
     }
   }
+
+  .z-pro-checkcard-avatar-header {
+    display: flex;
+    align-items: center;
+  }
 }
+
+.z-pro-checkcard-checked {
+  border-color: #1677FF;
+  background-color: #b0d0ff;
+
+  &::after {
+    position: absolute;
+    inset-block-start: 2px;
+    inset-inline-end: 2px;
+    width: 0;
+    height: 0;
+    border: 6px solid #1677FF;
+    border-block-end: 6px solid transparent;
+    border-inline-start: 6px solid transparent;
+    border-start-end-radius: 2px;
+    content: '';
+  }
+}
+
+.z-pro-checkcard-disabled {
+  border-color: #d9d9d9;
+  background-color: rgba(42, 46, 54, 0.04);
+  cursor: not-allowed;
+
+  .z-pro-checkcard-content {
+    .z-pro-checkcard-detail {
+      .z-pro-checkcard-description {
+        color: rgba(42, 46, 54, 0.25);
+      }
+
+      .z-pro-checkcard-header {
+        .z-pro-checkcard-title {
+          color: rgba(42, 46, 54, 0.25);
+        }
+      }
+    }
+  }
+
+  .z-pro-checkcard-avatar {
+    opacity: 0.25;
+  }
+}
+
