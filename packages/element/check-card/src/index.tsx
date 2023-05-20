@@ -9,6 +9,7 @@ const cardProps = {
   },
   disabled: {
     type: Boolean,
+    default: false,
   },
   avatar: {
     type: String,
@@ -33,6 +34,7 @@ const cardProps = {
   },
   bordered: {
     type: Boolean,
+    default: true,
   },
   extra: {
     type: String,
@@ -42,22 +44,23 @@ const cardProps = {
 export default defineComponent({
   name: 'ZCheckCard',
   props: cardProps,
-  emits: ['click'],
+  emits: ['click', 'change'],
   setup(props, { emit }) {
     const stateChecked = ref(props.defaultChecked)
-
     const checkCardProps = ref<ExtractPropTypes<typeof cardProps>>({} as any)
-
     const multiple = ref(false)
+    // const checkCardGroup = inject('check-card-group') as any;
+    const checkCardGroup = null
 
     const handleClick = (e: any) => {
       emit('click', e)
-      // checkCardGroup?.toggleOption?.({ value: props.value });
+      checkCardGroup?.value.toggleOption?.({ value: props.value })
       stateChecked.value = !stateChecked.value
+      emit('change', stateChecked.value)
     }
 
     const prefixCls = 'z-pro-checkcard'
-    const checkCardGroup: any = {}
+
     const getSizeCls = (size?: string) => {
       if (size === 'large') return 'lg'
       if (size === 'small') return 'sm'
@@ -70,13 +73,12 @@ export default defineComponent({
     // }, [props.value]);
 
     /**
-
-    * 头像自定义
-    *
-    * @param prefixCls
-    * @param cover
-    * @returns
-    */
+     * 头像自定义
+     *
+     * @param prefixCls
+     * @param cover
+     * @returns
+     */
     const renderCover = (prefixCls: string, cover: string) => {
       return (
         <div class={`${prefixCls}-cover`}>
@@ -92,24 +94,48 @@ export default defineComponent({
     }
 
     watchEffect(() => {
-      const { avatar, title, description, cover, extra, ...others } = props
-      checkCardProps.value = { ...others }
+      const {
+        defaultChecked,
+        checked,
+        disabled,
+        loading,
+        bordered,
+        value,
+        size,
+      } = props
+
+      checkCardProps.value = {
+        defaultChecked,
+        checked,
+        disabled,
+        loading,
+        bordered,
+        value,
+        size,
+      }
+
       checkCardProps.value.checked = stateChecked.value
 
-      if (checkCardGroup) {
+      if (checkCardGroup?.value) {
         // 受组控制模式
-        checkCardProps.value.disabled = props.disabled || checkCardGroup.disabled
-        checkCardProps.value.loading = props.loading || checkCardGroup.loading
-        checkCardProps.value.bordered = props.bordered || checkCardGroup.bordered
-        multiple.value = checkCardGroup.multiple
+        checkCardProps.value.disabled
+          = props.disabled || checkCardGroup.value.disabled
+        checkCardProps.value.loading
+          = props.loading || checkCardGroup.value.loading
+        checkCardProps.value.bordered
+          = props.bordered || checkCardGroup.value.bordered
 
-        const isChecked = checkCardGroup.multiple
-          ? checkCardGroup.value?.includes(props.value)
-          : checkCardGroup.value === props.value
+        multiple.value = checkCardGroup.value.multiple
+
+        const isChecked = checkCardGroup.value.multiple
+          ? checkCardGroup.value.value?.includes(props.value)
+          : checkCardGroup.value.value === props.value
 
         // loading时check为false
-        checkCardProps.value.checked = checkCardProps.value.loading ? false : isChecked
-        checkCardProps.value.size = props.size || checkCardGroup.size
+        checkCardProps.value.checked = checkCardProps.value.loading
+          ? false
+          : isChecked
+        checkCardProps.value.size = props.size || checkCardGroup.value.size
       }
     })
 
@@ -118,7 +144,7 @@ export default defineComponent({
         disabled = false,
         size,
         loading: cardLoading,
-        bordered = true,
+        bordered,
         checked,
       } = checkCardProps.value
       const sizeCls = getSizeCls(size)
@@ -135,10 +161,7 @@ export default defineComponent({
     })
 
     return () => {
-      const {
-        disabled = false,
-        loading: cardLoading,
-      } = checkCardProps.value
+      const { disabled = false, loading: cardLoading } = checkCardProps.value
       const { avatar, title, description, cover, extra } = props
 
       const metaDom = () => {
