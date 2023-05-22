@@ -59,14 +59,16 @@ export default defineComponent({
       console.log(val, 'handleChange')
     }
 
-    return { dataSource, handleChange }
+    const val = ref(['E', 'F'])
+
+    return { dataSource, handleChange, val }
   }
 })
 </script>
 
 <template>
   <div :style="{ padding: 24, backgroundColor: '#f7f8fa' }">
-    <z-check-card-group :options="dataSource" :multiple="true" @change="handleChange" />
+    <z-check-card-group v-model="val" :options="dataSource" :multiple="true" @change="handleChange" />
   </div>
 </template>
 ```

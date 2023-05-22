@@ -49,8 +49,8 @@ export default defineComponent({
     const stateChecked = ref(props.defaultChecked)
     const checkCardProps = ref<ExtractPropTypes<typeof cardProps>>({} as any)
     const multiple = ref(false)
-    // const checkCardGroup = inject('check-card-group') as any;
-    const checkCardGroup = null
+    const checkCardGroup = inject('check-card-group') as any
+    // const checkCardGroup = null
 
     const handleClick = (e: any) => {
       emit('click', e)

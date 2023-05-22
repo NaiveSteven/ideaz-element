@@ -66,6 +66,9 @@ const checkCardGroupProps = {
   value: {
     type: Object as PropType<CheckGroupValueType>,
   },
+  modelValue: {
+    type: Object as PropType<CheckGroupValueType>,
+  },
   loading: {
     type: Boolean,
   },
@@ -95,12 +98,21 @@ export default defineComponent({
   name: 'ZCheckCardGroup',
   components: { ZCheckCard },
   props: checkCardGroupProps,
-  emits: ['change'],
+  emits: ['change', 'update:modelValue'],
   setup(props, { slots, expose, emit }) {
     const prefixCls = 'z-pro-checkcard'
     const groupPrefixCls = `${prefixCls}-group`
 
-    const stateValue = ref(props.defaultValue)
+    // const stateValue = ref(props.defaultValue)
+    const stateValue = computed({
+      get() {
+        return props.modelValue || props.value
+      },
+      set(val) {
+        emit('update:modelValue', val)
+        emit('change', val)
+      },
+    })
 
     const {
       options = [],
@@ -137,7 +149,6 @@ export default defineComponent({
           changeValue = option.value
 
         stateValue.value = changeValue
-        console.log(stateValue.value, 'stateValue.value')
       }
 
       if (multiple) {
@@ -188,7 +199,6 @@ export default defineComponent({
                 ? (optionValue as any[])?.includes(option.value)
                 : (optionValue as CheckCardValueType) === option.value
             }
-            onChange={() => emit('change', stateValue.value)}
             title={option.title}
             avatar={option.avatar}
             description={option.description}
