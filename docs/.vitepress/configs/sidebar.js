@@ -82,6 +82,10 @@ function getComponentsSidebar() {
           text: '数据',
           items: [
             {
+              text: 'Descriptions 描述列表',
+              link: '/components/descriptions',
+            },
+            {
               text: 'Table 表格',
               link: '/components/table',
             },
