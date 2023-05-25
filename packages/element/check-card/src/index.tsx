@@ -49,7 +49,7 @@ export default defineComponent({
     const stateChecked = ref(props.defaultChecked)
     const checkCardProps = ref<ExtractPropTypes<typeof cardProps>>({} as any)
     const multiple = ref(false)
-    const checkCardGroup = inject('check-card-group') as any
+    const checkCardGroup = inject('check-card-group', null) as any
     // const checkCardGroup = null
 
     const handleClick = (e: any) => {
@@ -85,10 +85,10 @@ export default defineComponent({
           {typeof cover === 'string'
             ? (
               <img src={cover} alt="check-card" />
-            )
+              )
             : (
-              cover
-            )}
+                cover
+              )}
         </div>
       )
     }
@@ -176,12 +176,12 @@ export default defineComponent({
               {typeof avatar === 'string'
                 ? (
                   <el-avatar size={48} shape="square" src={avatar} />
-                )
+                  )
                 : (
-                  avatar
-                )}
+                    avatar
+                  )}
             </div>
-          )
+            )
           : null
 
         const headerDom = (title || extra) && (
@@ -194,7 +194,7 @@ export default defineComponent({
         const descriptionDom = description
           ? (
             <div class={`${prefixCls}-description`}>{description}</div>
-          )
+            )
           : null
 
         const metaClass = computed(() => {
@@ -214,7 +214,7 @@ export default defineComponent({
                   {headerDom}
                   {descriptionDom}
                 </div>
-              )
+                )
               : null}
           </div>
         )
