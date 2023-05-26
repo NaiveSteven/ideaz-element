@@ -8,7 +8,7 @@
 4. 大数据表格
 5. ~~添加`z-filter-form`组件~~
 6. ~~添加`z-check-card`组件~~
-7. 添加`z-tree-select`组件（可以参考 [https://tolking.github.io/element-pro-components/zh-CN/components/tree-select] ）
+7. 添加`z-tree-select`组件（可以参考 [https://tolking.github.io/element-pro-components/zh-CN/components/tree-select] ，上述方案无法实现）
 
 ## FEATURE（new function）
 
@@ -20,9 +20,11 @@
 6. `z-form-filter`组件可以支持`colSize`，（可以参考`pro components` [https://procomponents.ant.design/components/query-filter]）
 7. `z-tag-select`组件`title`优化
 8. `z-form`组件结合操作按钮和接口
-9. `z-check-card`支持`v-model`
+9. ~~`z-check-card`支持`v-model`~~
+10. `z-tag-select`组件支持配置多条配置（思路：`modelValue`传入`object`，`options`传入`object`时，走多条配置逻辑）
 
 ## FIX
 
 1. `Vue2`中日期组件`icon`会造成排序错乱问题
 2. `z-text`组件在`vitepress`文档中的折行不正确问题
+3. ~~`z-check-card`组件修复`inject`报错问题~~
