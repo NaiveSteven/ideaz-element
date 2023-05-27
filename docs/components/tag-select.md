@@ -81,3 +81,61 @@ export default defineComponent({
 ```
 
 :::
+
+:::demo
+
+```vue
+<script>
+import { defineComponent, ref } from 'vue'
+
+export default defineComponent({
+  name: 'TagSelectGroupDemo',
+  setup() {
+    const tagSelect = ref({
+      aaa: [1],
+      bbb: [2]
+    })
+
+    const options = ref([
+      {
+        title: '标签名biaoqianming：',
+        field: 'aaa',
+        multiple: true,
+        options: [
+          { label: '标签一', value: 1, round: true },
+          { label: '标签二', value: 2, type: 'success' },
+          { label: '标签三', value: 3, effect: 'light' },
+          { label: '标签四', value: 4, effect: 'plain' },
+        ]
+      },
+      {
+        title: '城市名：',
+        field: 'bbb',
+        multiple: true,
+        options: [
+          { label: '标', value: 1, round: true },
+          { label: '苏州', value: 2, type: 'success' },
+          { label: '无锡', value: 3, effect: 'light' },
+          { label: '连云港', value: 4, effect: 'plain' },
+        ]
+      }
+    ])
+
+    return { tagSelect, options }
+  }
+})
+</script>
+
+<template>
+  <z-tag-select-group
+    v-model="tagSelect"
+    :options="options"
+    label-width="170px"
+  />
+  <div style="margin-top: 20px">
+    {{ tagSelect }}
+  </div>
+</template>
+```
+
+:::
