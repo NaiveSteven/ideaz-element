@@ -1,98 +1,7 @@
-import type { ExtractPropTypes, PropType } from 'vue-demi'
 import { provide } from 'vue-demi'
-import ZCheckCard from './index.tsx'
-
-export type CheckCardValueType = string | number | boolean
-
-export type CheckGroupValueType =
-  | CheckCardValueType[]
-  | CheckCardValueType
-  | undefined
-
-const groupProps = {
-  title: {
-    type: String,
-  },
-  value: {
-    type: Object as PropType<CheckCardValueType>,
-  },
-  description: {
-    type: String,
-  },
-  size: {
-    type: String as PropType<'large' | 'default' | 'small'>,
-  },
-  avatar: {
-    type: String,
-  },
-  cover: {
-    type: String,
-  },
-  disabled: {
-    type: Boolean,
-  },
-}
-
-export interface AbstractCheckCardGroupProps {
-  /** 指定可选项 */
-  options?: (ExtractPropTypes<typeof groupProps> | string)[]
-  /** 整组失效 */
-  disabled?: boolean
-  /**
-   * 组件尺寸，支持大，中，小三种默认尺寸，用户可以自定义宽高
-   *
-   * @default default
-   */
-  size?: 'large' | 'default' | 'small'
-}
-
-const checkCardGroupProps = {
-  /** 指定可选项 */
-  options: {
-    type: Object as PropType<(ExtractPropTypes<typeof groupProps> | string)[]>,
-  },
-  disabled: {
-    type: Boolean,
-  },
-  size: {
-    type: String as PropType<'large' | 'default' | 'small'>,
-  },
-  multiple: {
-    type: Boolean,
-  },
-  defaultValue: {
-    type: Object as PropType<CheckGroupValueType>,
-  },
-  value: {
-    type: Object as PropType<CheckGroupValueType>,
-  },
-  modelValue: {
-    type: Object as PropType<CheckGroupValueType>,
-  },
-  loading: {
-    type: Boolean,
-  },
-  bordered: {
-    type: Boolean,
-  },
-}
-
-export interface CheckCardGroupState {
-  value: CheckGroupValueType
-  registeredValues: CheckCardValueType[]
-}
-
-export interface CheckCardGroupConnextType {
-  toggleOption?: (option: ExtractPropTypes<typeof groupProps>) => void
-  value?: any
-  disabled?: boolean
-  size?: any
-  loading?: any
-  bordered?: any
-  multiple?: any
-  registerValue?: (value: any) => void
-  cancelValue?: (value: any) => void
-}
+import ZCheckCard from './CheckCard'
+import { checkCardGroupProps } from './props'
+import type { CheckCardProps, CheckCardValueType } from './props'
 
 export default defineComponent({
   name: 'ZCheckCardGroup',
@@ -103,7 +12,6 @@ export default defineComponent({
     const prefixCls = 'z-pro-checkcard'
     const groupPrefixCls = `${prefixCls}-group`
 
-    // const stateValue = ref(props.defaultValue)
     const stateValue = computed({
       get() {
         return props.modelValue || props.value
@@ -119,11 +27,10 @@ export default defineComponent({
       loading = false,
       multiple = false,
       bordered = true,
-      ...restProps
     } = props
 
     const getOptions = () => {
-      return (options as ExtractPropTypes<typeof groupProps>[])?.map(
+      return (options as CheckCardProps[])?.map(
         (option) => {
           if (typeof option === 'string') {
             return {
@@ -136,7 +43,7 @@ export default defineComponent({
       )
     }
 
-    const toggleOption = (option: ExtractPropTypes<typeof groupProps>) => {
+    const toggleOption = (option: CheckCardProps) => {
       if (!multiple) {
         let changeValue
 
@@ -153,8 +60,8 @@ export default defineComponent({
 
       if (multiple) {
         let changeValue = []
-        const stateValues = stateValue.value as any
-        const hasOption = stateValues?.includes(option.value)
+        const stateValues = stateValue.value as CheckCardValueType[]
+        const hasOption = stateValues.includes(option.value)
         changeValue = [...(stateValues || [])]
         if (!hasOption)
           changeValue.push(option.value)
@@ -164,7 +71,7 @@ export default defineComponent({
             itemValue => itemValue !== option.value,
           )
         }
-        const newOptions = getOptions() as any
+        const newOptions = getOptions()
         const newValue = changeValue
           // ?.filter((val) => registerValueMap.current.has(val))
           ?.sort((a, b) => {
@@ -185,10 +92,8 @@ export default defineComponent({
       }
 
       if (options && options.length > 0) {
-        const optionValue = stateValue.value as
-          | ExtractPropTypes<typeof groupProps>[]
-          | CheckCardValueType
-        return getOptions().map((option: any) => (
+        const optionValue = stateValue.value
+        return (getOptions() as CheckCardProps[]).map(option => (
           <ZCheckCard
             key={option.value.toString()}
             disabled={option.disabled}
@@ -196,7 +101,7 @@ export default defineComponent({
             value={option.value}
             checked={
               multiple
-                ? (optionValue as any[])?.includes(option.value)
+                ? (optionValue as CheckCardValueType[])?.includes(option.value)
                 : (optionValue as CheckCardValueType) === option.value
             }
             title={option.title}

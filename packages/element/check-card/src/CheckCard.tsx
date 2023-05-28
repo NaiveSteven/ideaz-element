@@ -1,45 +1,5 @@
-import type { ExtractPropTypes, PropType } from 'vue-demi'
-
-const cardProps = {
-  defaultChecked: {
-    type: Boolean,
-  },
-  checked: {
-    type: Boolean,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  avatar: {
-    type: String,
-  },
-  title: {
-    type: String,
-  },
-  description: {
-    type: String,
-  },
-  value: {
-    type: [String, Number],
-  },
-  loading: {
-    type: Boolean,
-  },
-  cover: {
-    type: String,
-  },
-  size: {
-    type: String as PropType<'small' | 'default' | 'large'>,
-  },
-  bordered: {
-    type: Boolean,
-    default: true,
-  },
-  extra: {
-    type: String,
-  },
-}
+import type { CheckCardProps } from './props'
+import { cardProps } from './props'
 
 export default defineComponent({
   name: 'ZCheckCard',
@@ -47,10 +7,9 @@ export default defineComponent({
   emits: ['click', 'change'],
   setup(props, { emit }) {
     const stateChecked = ref(props.defaultChecked)
-    const checkCardProps = ref<ExtractPropTypes<typeof cardProps>>({} as any)
+    const checkCardProps = ref<CheckCardProps>({} as any)
     const multiple = ref(false)
     const checkCardGroup = inject('check-card-group', null) as any
-    // const checkCardGroup = null
 
     const handleClick = (e: any) => {
       emit('click', e)
@@ -85,10 +44,10 @@ export default defineComponent({
           {typeof cover === 'string'
             ? (
               <img src={cover} alt="check-card" />
-              )
+            )
             : (
-                cover
-              )}
+              cover
+            )}
         </div>
       )
     }
@@ -176,12 +135,12 @@ export default defineComponent({
               {typeof avatar === 'string'
                 ? (
                   <el-avatar size={48} shape="square" src={avatar} />
-                  )
+                )
                 : (
-                    avatar
-                  )}
+                  avatar
+                )}
             </div>
-            )
+          )
           : null
 
         const headerDom = (title || extra) && (
@@ -194,7 +153,7 @@ export default defineComponent({
         const descriptionDom = description
           ? (
             <div class={`${prefixCls}-description`}>{description}</div>
-            )
+          )
           : null
 
         const metaClass = computed(() => {
@@ -214,7 +173,7 @@ export default defineComponent({
                   {headerDom}
                   {descriptionDom}
                 </div>
-                )
+              )
               : null}
           </div>
         )
