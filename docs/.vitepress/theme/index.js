@@ -1,4 +1,5 @@
 import DefaultTheme from 'vitepress/theme'
+import 'uno.css'
 import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
 import './styles/index.scss'
 import '../../../src/styles/index.css'

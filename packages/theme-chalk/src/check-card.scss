@@ -1,8 +1,8 @@
-.z-pro-checkcard-bordered {
+.z-check-card--bordered {
   border: 1px solid #d9d9d9;
 }
 
-.z-pro-checkcard {
+.z-check-card {
   position: relative;
   display: inline-block;
   width: 320px;
@@ -21,16 +21,16 @@
     margin-inline-end: 0;
   }
 
-  .z-pro-checkcard-content {
+  .z-check-card__content {
     display: flex;
     padding-inline: 12px;
     padding-block: 16px;
 
-    .z-pro-checkcard-avatar {
+    .z-check-card__avatar {
       padding-inline-end: 8px;
     }
 
-    .z-pro-checkcard-detail {
+    .z-check-card__detail {
       overflow: hidden;
       width: 100%;
 
@@ -38,12 +38,12 @@
         margin-block-end: 4px;
       }
 
-      .z-pro-checkcard-header {
+      .z-check-card__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
 
-        .z-pro-checkcard-title {
+        .z-check-card__title {
           overflow: hidden;
           font-size: 14px;
           font-weight: 500;
@@ -53,19 +53,28 @@
         }
       }
 
-      .z-pro-checkcard-description {
+      .z-check-card__description {
         color: rgba(42, 46, 54, 0.65);
       }
     }
   }
 
-  .z-pro-checkcard-avatar-header {
+  .z-check-card__avatar-header {
     display: flex;
     align-items: center;
   }
+
+  .z-check-card__cover {
+    padding-inline: 4px;
+    padding-block: 4px;
+  }
+
+  &:not(.z-check-card--disabled):hover {
+    border-color: #1677FF;
+  }
 }
 
-.z-pro-checkcard-checked {
+.z-check-card--checked {
   border-color: #1677FF;
   background-color: #b0d0ff;
 
@@ -83,27 +92,34 @@
   }
 }
 
-.z-pro-checkcard-disabled {
+.z-check-card--disabled {
   border-color: #d9d9d9;
   background-color: rgba(42, 46, 54, 0.04);
   cursor: not-allowed;
 
-  .z-pro-checkcard-content {
-    .z-pro-checkcard-detail {
-      .z-pro-checkcard-description {
+  .z-check-card__content {
+    .z-check-card__detail {
+      .z-check-card__description {
         color: rgba(42, 46, 54, 0.25);
       }
 
-      .z-pro-checkcard-header {
-        .z-pro-checkcard-title {
+      .z-check-card__header {
+        .z-check-card__title {
           color: rgba(42, 46, 54, 0.25);
         }
       }
     }
   }
 
-  .z-pro-checkcard-avatar {
+  .z-check-card__avatar {
     opacity: 0.25;
   }
 }
 
+.z-check-card--lg {
+  width: 440px;
+}
+
+.z-check-card--sm {
+  width: 212px;
+}

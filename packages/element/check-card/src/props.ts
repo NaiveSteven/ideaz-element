@@ -12,13 +12,13 @@ export const cardProps = {
     default: false,
   },
   avatar: {
-    type: String,
+    type: [String, Function],
   },
   title: {
-    type: String,
+    type: [String, Function],
   },
   description: {
-    type: String,
+    type: [String, Function],
   },
   value: {
     type: [String, Number],
@@ -28,7 +28,7 @@ export const cardProps = {
     type: Boolean,
   },
   cover: {
-    type: String,
+    type: [String, Function] as PropType<string | ((h: (type: string, children?: any) => VNode) => VNode)>,
   },
   size: {
     type: String as PropType<'small' | 'default' | 'large'>,
@@ -38,7 +38,10 @@ export const cardProps = {
     default: true,
   },
   extra: {
-    type: String,
+    type: [String, Function],
+  },
+  style: {
+    type: Object,
   },
 }
 
@@ -51,9 +54,9 @@ export type CheckGroupValueType =
   | CheckCardValueType
 
 export const checkCardGroupProps = {
-  /** 指定可选项 */
   options: {
-    type: Object as PropType<(CheckCardProps | string)[]>,
+    type: Array as PropType<(CheckCardProps | string)[]>,
+    default: () => [],
   },
   disabled: {
     type: Boolean,
@@ -64,14 +67,11 @@ export const checkCardGroupProps = {
   multiple: {
     type: Boolean,
   },
-  defaultValue: {
-    type: Object as PropType<CheckGroupValueType>,
-  },
   value: {
-    type: Object as PropType<CheckGroupValueType>,
+    type: [String, Number, Array] as PropType<CheckGroupValueType>,
   },
   modelValue: {
-    type: Object as PropType<CheckGroupValueType>,
+    type: [String, Number, Array] as PropType<CheckGroupValueType>,
   },
   loading: {
     type: Boolean,
