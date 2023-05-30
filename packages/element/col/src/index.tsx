@@ -1,105 +1,58 @@
-import { definePropType, isNumber, isObject } from '@ideaz/utils';
-import { resolveDynamicComponent } from '@ideaz/shared';
-import type { CSSProperties } from 'vue-demi';
-
-export interface ColSizeObject {
-  span?: number;
-  offset?: number;
-  pull?: number;
-  push?: number;
-}
-export type ColSize = number | ColSizeObject;
+import { isNumber, isObject } from '@ideaz/utils'
+import { resolveDynamicComponent } from '@ideaz/shared'
+import type { CSSProperties } from 'vue-demi'
+import { colProps } from './props'
 
 export default defineComponent({
   name: 'ZCol',
-  props: {
-    tag: {
-      type: String,
-      default: 'div',
-    },
-    span: {
-      type: Number,
-      default: 24,
-    },
-    offset: {
-      type: Number,
-      default: 0,
-    },
-    pull: {
-      type: Number,
-      default: 0,
-    },
-    push: {
-      type: Number,
-      default: 0,
-    },
-    xs: {
-      type: definePropType<ColSize>([Number, Object]),
-      default: () => ({} as const),
-    },
-    sm: {
-      type: definePropType<ColSize>([Number, Object]),
-      default: () => ({} as const),
-    },
-    md: {
-      type: definePropType<ColSize>([Number, Object]),
-      default: () => ({} as const),
-    },
-    lg: {
-      type: definePropType<ColSize>([Number, Object]),
-      default: () => ({} as const),
-    },
-    xl: {
-      type: definePropType<ColSize>([Number, Object]),
-      default: () => ({} as const),
-    },
-  },
+  props: colProps,
   emits: ['input', 'update:modelValue'],
   setup(props, { slots }) {
-    const ns = useNamespace('col');
-    const { gutter } = inject('rowContextKey', { gutter: computed(() => 0) });
+    const ns = useNamespace('col')
+    const { gutter } = inject('rowContextKey', { gutter: computed(() => 0) })
 
     const style = computed(() => {
-      const styles: CSSProperties = {};
-      if (gutter.value) {
-        styles.paddingLeft = styles.paddingRight = `${gutter.value / 2}px`;
-      }
-      return styles;
-    });
+      const styles: CSSProperties = {}
+      if (gutter.value)
+        styles.paddingLeft = styles.paddingRight = `${gutter.value / 2}px`
+
+      return styles
+    })
 
     const colKls = computed(() => {
-      const classes: string[] = [];
-      const pos = ['span', 'offset', 'pull', 'push'] as const;
+      const classes: string[] = []
+      const pos = ['span', 'offset', 'pull', 'push'] as const
 
       pos.forEach((prop) => {
-        const size = props[prop];
+        const size = props[prop]
         if (isNumber(size)) {
-          if (prop === 'span') classes.push(ns.b(`${props[prop]}`));
-          else if (size > 0) classes.push(ns.b(`${prop}-${props[prop]}`));
+          if (prop === 'span') classes.push(ns.b(`${props[prop]}`))
+          else if (size > 0) classes.push(ns.b(`${prop}-${props[prop]}`))
         }
-      });
+      })
 
-      const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const;
+      const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
       sizes.forEach((size) => {
         if (isNumber(props[size])) {
-          classes.push(ns.b(`${size}-${props[size]}`));
-        } else if (isObject(props[size])) {
+          classes.push(ns.b(`${size}-${props[size]}`))
+        }
+        else if (isObject(props[size])) {
           Object.entries(props[size]).forEach(([prop, sizeProp]) => {
             classes.push(
               prop !== 'span'
                 ? ns.b(`${size}-${prop}-${sizeProp}`)
-                : ns.b(`${size}-${sizeProp}`)
-            );
-          });
+                : ns.b(`${size}-${sizeProp}`),
+            )
+          })
         }
-      });
+      })
 
       // this is for the fix
-      if (gutter.value) {
-        classes.push(ns.is('guttered'));
-      }
-      return [ns.b(), classes];
-    });
+      if (gutter.value)
+        classes.push(ns.is('guttered'))
+
+      return [ns.b(), classes]
+    })
 
     return () =>
       resolveDynamicComponent({
@@ -109,6 +62,6 @@ export default defineComponent({
           style: style.value,
         },
         content: slots.default?.(),
-      });
+      })
   },
-});
+})

@@ -1,8 +1,8 @@
-import { useComponentMethods } from './useComponentMethods';
+import { useComponentMethods } from './useComponentMethods'
 
 export const useFormComponentAttrs = (props: Record<any, any>) => {
-  const { blur, focus, change, input, clear, visibleChange, removeTag } =
-    useComponentMethods(props);
+  const { blur, focus, change, input, clear, visibleChange, removeTag }
+    = useComponentMethods(props)
   const obj = {
     blur,
     focus,
@@ -11,20 +11,25 @@ export const useFormComponentAttrs = (props: Record<any, any>) => {
     clear,
     visibleChange,
     removeTag,
-  };
-  const attrs = useAttrs();
+  }
+
+  type EventType = keyof typeof obj
+
+  const attrs = useAttrs()
   const onAll = computed(() => {
-    const newOn = {};
+    const newOn: {
+      [K in EventType]: any
+    } = {} as typeof obj
     if (props.on) {
       Object.keys(props.on).forEach((item) => {
-        newOn[item] = obj[item as keyof typeof obj] || function () {};
-      });
+        newOn[item as keyof typeof obj] = obj[item as keyof typeof obj] || function () {}
+      })
     }
-    return newOn;
-  });
+    return newOn
+  })
   const attrsAll = computed(() => {
-    return { ...attrs, ...props.attrs };
-  });
+    return { ...props, ...attrs, ...props.attrs }
+  })
 
-  return { attrsAll, onAll };
-};
+  return { attrsAll, onAll }
+}
