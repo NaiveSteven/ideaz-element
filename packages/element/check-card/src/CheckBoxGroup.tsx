@@ -1,4 +1,5 @@
 import { provide } from 'vue-demi'
+import { useNamespace } from '@ideaz/hooks'
 import ZCheckCard from './CheckCard'
 import { checkCardGroupProps } from './props'
 import type { CheckCardProps, CheckCardValueType } from './props'
@@ -9,8 +10,7 @@ export default defineComponent({
   props: checkCardGroupProps,
   emits: ['change', 'update:modelValue'],
   setup(props, { slots, expose, emit }) {
-    const prefixCls = 'z-pro-checkcard'
-    const groupPrefixCls = `${prefixCls}-group`
+    const ns = useNamespace('check-card')
 
     const stateValue = computed({
       get() {
@@ -22,15 +22,8 @@ export default defineComponent({
       },
     })
 
-    const {
-      options = [],
-      loading = false,
-      multiple = false,
-      bordered = true,
-    } = props
-
     const getOptions = () => {
-      return (options as CheckCardProps[])?.map(
+      return (props.options as CheckCardProps[])?.map(
         (option) => {
           if (typeof option === 'string') {
             return {
@@ -44,7 +37,7 @@ export default defineComponent({
     }
 
     const toggleOption = (option: CheckCardProps) => {
-      if (!multiple) {
+      if (!props.multiple) {
         let changeValue
 
         changeValue = stateValue.value
@@ -58,7 +51,7 @@ export default defineComponent({
         stateValue.value = changeValue
       }
 
-      if (multiple) {
+      if (props.multiple) {
         let changeValue = []
         const stateValues = stateValue.value as CheckCardValueType[]
         const hasOption = stateValues.includes(option.value)
@@ -75,8 +68,8 @@ export default defineComponent({
         const newValue = changeValue
           // ?.filter((val) => registerValueMap.current.has(val))
           ?.sort((a, b) => {
-            const indexA = newOptions.findIndex((opt: any) => opt.value === a)
-            const indexB = newOptions.findIndex((opt: any) => opt.value === b)
+            const indexA = newOptions.findIndex((opt: { title: string; value: any } | CheckCardProps) => opt.value === a)
+            const indexB = newOptions.findIndex((opt: { title: string; value: any } | CheckCardProps) => opt.value === b)
             return indexA - indexB
           })
 
@@ -85,8 +78,9 @@ export default defineComponent({
     }
 
     const children = () => {
+      const { loading, multiple, options } = props
       if (loading) {
-        return new Array(options.length || slots.default?.()?.length || 1)
+        return new Array(options?.length || slots.default?.()?.length || 1)
           .fill(0)
           .map((_, index) => <ZCheckCard key={index} loading />)
       }
@@ -120,7 +114,7 @@ export default defineComponent({
       computed(() => {
         return {
           toggleOption,
-          bordered,
+          bordered: props.bordered,
           value: stateValue.value,
           disabled: props.disabled,
           size: props.size,
@@ -135,7 +129,7 @@ export default defineComponent({
     })
 
     return () => {
-      return <div class={groupPrefixCls}>{children()}</div>
+      return <div class={ns.b('group')}>{children()}</div>
     }
   },
 })

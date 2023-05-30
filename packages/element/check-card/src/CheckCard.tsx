@@ -1,4 +1,8 @@
+import { h } from 'vue-demi'
+import { isFunction } from '@ideaz/utils'
+import { useNamespace } from '@ideaz/hooks'
 import type { CheckCardProps } from './props'
+import type CheckCardGroup from './CheckBoxGroup'
 import { cardProps } from './props'
 
 export default defineComponent({
@@ -7,49 +11,15 @@ export default defineComponent({
   emits: ['click', 'change'],
   setup(props, { emit }) {
     const stateChecked = ref(props.defaultChecked)
-    const checkCardProps = ref<CheckCardProps>({} as any)
+    const checkCardProps = ref<CheckCardProps>({} as CheckCardProps)
     const multiple = ref(false)
-    const checkCardGroup = inject('check-card-group', null) as any
-
-    const handleClick = (e: any) => {
-      emit('click', e)
-      checkCardGroup?.value.toggleOption?.({ value: props.value })
-      stateChecked.value = !stateChecked.value
-      emit('change', stateChecked.value)
-    }
-
-    const prefixCls = 'z-pro-checkcard'
+    const checkCardGroup = inject<typeof CheckCardGroup | null>('check-card-group', null)
+    const ns = useNamespace('check-card')
 
     const getSizeCls = (size?: string) => {
       if (size === 'large') return 'lg'
       if (size === 'small') return 'sm'
       return ''
-    }
-
-    // useEffect(() => {
-    //   checkCardGroup?.registerValue?.(props.value);
-    //   return () => checkCardGroup?.cancelValue?.(props.value);
-    // }, [props.value]);
-
-    /**
-     * 头像自定义
-     *
-     * @param prefixCls
-     * @param cover
-     * @returns
-     */
-    const renderCover = (prefixCls: string, cover: string) => {
-      return (
-        <div class={`${prefixCls}-cover`}>
-          {typeof cover === 'string'
-            ? (
-              <img src={cover} alt="check-card" />
-            )
-            : (
-              cover
-            )}
-        </div>
-      )
     }
 
     watchEffect(() => {
@@ -109,67 +79,93 @@ export default defineComponent({
       const sizeCls = getSizeCls(size)
 
       return {
-        [`${prefixCls}-loading`]: cardLoading,
-        [`${prefixCls}-${sizeCls}`]: sizeCls,
-        [`${prefixCls}-checked`]: checked,
-        [`${prefixCls}-multiple`]: multiple.value,
-        [`${prefixCls}-disabled`]: disabled,
-        [`${prefixCls}-bordered`]: bordered,
-        'z-pro-checkcard': true,
+        [ns.m('loading')]: cardLoading,
+        [ns.m(sizeCls)]: sizeCls,
+        [ns.m('checked')]: checked,
+        [ns.m('multiple')]: multiple.value,
+        [ns.m('disabled')]: disabled,
+        [ns.m('bordered')]: bordered,
+        'z-check-card': true,
       }
     })
 
+    const renderCover = (cover: string | ((h: (type: string, children?: any) => VNode) => VNode)) => {
+      return (
+        <div class={ns.e('cover')}>
+          {typeof cover === 'string'
+            ? (
+              <img src={cover} alt="check-card" />
+            )
+            : (
+              cover(h)
+            )}
+        </div>
+      )
+    }
+
+    const handleClick = (e: MouseEvent) => {
+      emit('click', e)
+      checkCardGroup?.value.toggleOption?.({ value: props.value })
+      stateChecked.value = !stateChecked.value
+      emit('change', stateChecked.value)
+    }
+
     return () => {
       const { disabled = false, loading: cardLoading } = checkCardProps.value
-      const { avatar, title, description, cover, extra } = props
+      const { avatar, title, description, cover, extra, style } = props
 
       const metaDom = () => {
-        if (cardLoading) return 'card-loading'
-        // return <CardLoading prefixCls={prefixCls || ''} />
+        if (cardLoading) return <div class="py-3 px-4"><el-skeleton rows={2} animated /></div>
 
-        if (cover) return renderCover(prefixCls || '', cover)
+        if (cover) return renderCover(cover)
 
         const avatarDom = avatar
           ? (
-            <div class={`${prefixCls}-avatar`}>
+            <div class={ns.e('avatar')}>
               {typeof avatar === 'string'
                 ? (
                   <el-avatar size={48} shape="square" src={avatar} />
                 )
                 : (
-                  avatar
+                  avatar(h)
                 )}
             </div>
           )
           : null
 
         const headerDom = (title || extra) && (
-          <div class={`${prefixCls}-header`}>
-            <div class={`${prefixCls}-title`}>{title}</div>
-            {extra && <div class={`${prefixCls}-extra`}>{extra}</div>}
+          <div class={ns.e('header')}>
+            <div class={ns.e('title')}>
+              {isFunction(title) ? title(h) : title}
+            </div>
+            {extra && <div class={ns.e('extra')}>
+              {isFunction(extra) ? extra(h) : extra}
+            </div>}
           </div>
         )
 
         const descriptionDom = description
           ? (
-            <div class={`${prefixCls}-description`}>{description}</div>
+            <div class={ns.e('description')}>
+              {isFunction(description) ? description(h) : description}
+            </div>
           )
           : null
 
         const metaClass = computed(() => {
           return {
-            [`${prefixCls}-avatar-header`]:
+            [ns.e('avatar-header')]:
               avatarDom && headerDom && !descriptionDom,
-            [`${prefixCls}-content`]: true,
+            [ns.e('content')]: true,
           }
         })
 
         return (
           <div class={metaClass.value}>
             {avatarDom}
-            {headerDom || descriptionDom
+            {(headerDom || descriptionDom)
               ? (
-                <div class={`${prefixCls}-detail`}>
+                <div class={ns.e('detail')}>
                   {headerDom}
                   {descriptionDom}
                 </div>
@@ -182,6 +178,7 @@ export default defineComponent({
       return (
         <div
           class={classString.value}
+          style={style}
           onClick={(e) => {
             if (!cardLoading && !disabled)
               handleClick(e)
