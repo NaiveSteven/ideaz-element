@@ -95,3 +95,10 @@ html.dark {
   }
 }
 
+table, tbody, thead {
+  width: 100%;
+}
+
+table {
+  display: table !important;
+}
