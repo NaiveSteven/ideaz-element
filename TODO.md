@@ -18,10 +18,25 @@
 4. 表格数据和表格头支持拖拽
 5. 表格项`column`中可以直接配置`编辑、新增`表单（可以参考`iview-crud` [https://icrud.iviewui.com/]）
 6. `z-form-filter`组件可以支持`colSize`，（可以参考`pro components` [https://procomponents.ant.design/components/query-filter]）
-7. `z-tag-select`组件`title`优化
+7. ~~`z-tag-select`组件`title`优化~~
 8. `z-form`组件结合操作按钮和接口
 9. ~~`z-check-card`支持`v-model`~~
-10. `z-tag-select`组件支持配置多条配置（思路：`modelValue`传入`object`，`options`传入`object`时，走多条配置逻辑）
+10. ~~`z-tag-select`组件支持配置多条配置（思路：`modelValue`传入`object`，`options`传入`object`时，走多条配置逻辑）~~
+
+## FEATURE（docs and dts）
+
+1. ~~`check-card`组件文档、`dts`文件~~
+2. ~~`checkbox`组件文档、`dts`文件~~
+3. ~~`col`、`row`组件文档、`dts`文件~~
+4. `description`组件文档、`dts`文件
+5. `form`组件文档、`dts`文件
+6. `input`组件文档、`dts`文件
+7. `radio`组件文档、`dts`文件
+8. `select`组件文档、`dts`文件
+9. `table`组件文档、`dts`文件
+10. `tag-select`组件文档、`dts`文件
+11. `text`组件文档、`dts`文件
+12. `watermark`组件文档、`dts`文件
 
 ## FIX
 
