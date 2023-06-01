@@ -4,8 +4,8 @@ import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { get } from 'lodash-unified'
 import { isFunction } from '@ideaz/utils'
-import { descriptionsProps } from './description'
-import type { DescriptionsColumn } from './description'
+import { descriptionsProps } from './descriptions'
+import type { DescriptionsColumn } from './descriptions'
 
 export default defineComponent({
   name: 'ZDescriptions',
