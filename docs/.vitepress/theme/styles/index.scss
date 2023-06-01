@@ -7,6 +7,11 @@
   --vp-c-brand-darker: #454ce1;
   --vp-code-block-bg: #f9fafb;
   --vp-font-family-base: 'Chinese Quotes', 'Inter var', 'Inter', ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', helvetica, arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --vp-layout-max-width: 1400px;
+}
+
+.content-container {
+  max-width: 888px !important;
 }
 
 .demo-block .meta {
@@ -101,4 +106,18 @@ table, tbody, thead {
 
 table {
   display: table !important;
+}
+
+.el-descriptions__table {
+  overflow: initial;
+  margin: 0 !important;
+
+  tr {
+    border: none;
+
+    td {
+      padding: 0;
+      border: none;
+    }
+  }
 }

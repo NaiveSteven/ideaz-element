@@ -1,5 +1,5 @@
-import { resolveDynamicComponent, setFormAlias } from '@ideaz/shared';
-import type { OptionsItem, RadioOptionsItem } from '~/types';
+import { resolveDynamicComponent, setFormAlias } from '@ideaz/shared'
+import type { OptionsItem, RadioOptionsItem } from '~/types'
 
 export default defineComponent({
   name: 'ZRadio',
@@ -18,19 +18,23 @@ export default defineComponent({
       type: Array as PropType<OptionsItem[]>,
       default: () => [],
     },
+    type: {
+      type: String,
+      default: '',
+    },
   },
   emits: ['input', 'update:modelValue'],
   setup(props, { emit, listeners = {} }) {
-    const { attrsAll, onAll } = useFormComponentAttrs(props);
-    const { vModelVal, handleInput } = useVModel(props, emit);
-    const attrs = useAttrs();
+    const { attrsAll, onAll } = useFormComponentAttrs(props)
+    const { vModelVal, handleInput } = useVModel(props, emit)
+    const attrs = useAttrs()
 
     const getChildComponentName = (option: RadioOptionsItem) => {
-      if (!option.type) return 'el-radio';
+      if (!option.type && props.type) return `el-${props.type}`
       if (option.type === 'radio' || option.type === 'radio-button')
-        return `el-${option.type}`;
-      return 'el-radio';
-    };
+        return `el-${option.type}`
+      return 'el-radio'
+    }
 
     return () => {
       return (
@@ -44,7 +48,7 @@ export default defineComponent({
           onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
         >
           {props.options.map((option, index) => {
-            const ChildName = getChildComponentName(option);
+            const ChildName = getChildComponentName(option)
             return resolveDynamicComponent({
               name: ChildName,
               attrs: {
@@ -54,10 +58,10 @@ export default defineComponent({
                 key: index,
               },
               content: () => option[setFormAlias(props).keys.label],
-            });
+            })
           })}
         </el-radio-group>
-      );
-    };
+      )
+    }
   },
-});
+})

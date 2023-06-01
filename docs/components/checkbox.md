@@ -188,12 +188,12 @@ const checkboxVal = ref([1])
 | :-------------------- | :----------------------------------------------------------- | :----------------------------------------- | :----- |
 | value | 选中项绑定值                                                 | `string` / `number` / `boolean`            | —      |
 | label                 | 选中状态的值 | `string` / `number` / `boolean` | —      |
-| true-label            | 选中时的值                                                   | `string` / `number`                        | —      |
-| false-label           | 没有选中时的值                                               | `string` / `number`                        | —      |
+| trueLabel            | 选中时的值                                                   | `string` / `number`                        | —      |
+| falseLabel           | 没有选中时的值                                               | `string` / `number`                        | —      |
 | disabled              | 是否禁用                                                     | `boolean`                                  | false  |
 | border                | 是否显示边框                                                 | `boolean`                                  | false  |
 | size                  | Checkbox 的尺寸                                              | `enum`                                     | —      |
 | name                  | 原生 name 属性                                               | `string`                                   | —      |
-| validate-event        | 输入时是否触发表单的校验                                     | `boolean`                                  | true   |
+| validateEvent        | 输入时是否触发表单的校验                                     | `boolean`                                  | true   |
 | tabindex              | 输入框的 tabindex                                            | `string` / `number`                        | —      |
 | id                    | input id                                                     | `string`                                   | —      |
