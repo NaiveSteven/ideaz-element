@@ -19,17 +19,7 @@ export type IDescriptionsColumns<T = any> = Array<
   DescriptionsColumn<T> & any
 >
 
-export type IDescriptionsProps = ExtractPropTypes<typeof descriptionsProps>
-
-/**
- * Type helper to make it easier to define columns
- * @param columns the columns of Descriptions
- */
-export function defineDescriptionsColumns<T = any>(
-  columns: IDescriptionsColumns<T>,
-): IDescriptionsColumns<T> {
-  return columns
-}
+export type DescriptionsProps = ExtractPropTypes<typeof descriptionsProps>
 
 export const descriptionsProps = {
   columns: Array as PropType<IDescriptionsColumns>,
