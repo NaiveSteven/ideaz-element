@@ -1,2 +1,2 @@
-export * from './useInputSlots';
-export * from './useInputMethods';
+export * from './useInputSlots'
+export * from './useInputMethods'
