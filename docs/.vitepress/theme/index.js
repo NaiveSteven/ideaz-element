@@ -22,7 +22,7 @@ export default {
     DefaultTheme.enhanceApp(ctx)
     useComponents(ctx.app)
     ctx.app.component(Button.name, Button)
-    ctx.app.use(ElementPlus).use(ideazui, { locale: zhCn, size: 'large' })
+    ctx.app.use(ElementPlus).use(ideazui, { locale: zhCn, size: 'default' })
     Object.keys(ElIconModules).forEach((item) => {
       const cur = item
       ctx.app.component(transElIconName(item), ElIconModules[cur])

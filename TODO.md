@@ -28,9 +28,9 @@
 1. ~~`check-card`组件文档、`dts`文件~~
 2. ~~`checkbox`组件文档、`dts`文件~~
 3. ~~`col`、`row`组件文档、`dts`文件~~
-4. `description`组件文档、`dts`文件
+4. ~~`description`组件文档、`dts`文件~~
 5. `form`组件文档、`dts`文件
-6. `input`组件文档、`dts`文件
+6. ~~`input`组件文档、`dts`文件~~
 7. `radio`组件文档、`dts`文件
 8. `select`组件文档、`dts`文件
 9. `table`组件文档、`dts`文件

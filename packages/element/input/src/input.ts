@@ -1,7 +1,7 @@
-import { isString } from '@ideaz/utils';
-import type { ExtractPropTypes, PropType } from 'vue-demi';
+import { isString } from '@ideaz/utils'
+import type { ExtractPropTypes, PropType } from 'vue-demi'
 
-export const definePropType = <T>(val: any): PropType<T> => val;
+export const definePropType = <T>(val: any): PropType<T> => val
 
 export const inputProps = {
   /**
@@ -141,25 +141,25 @@ export const inputProps = {
    * @description input prepend content
    */
   prepend: {
-    type: [String, Function],
+    type: [String, Function] as PropType<string | (() => VNode)>,
   },
   /**
    * @description input append content
    */
   append: {
-    type: [String, Function],
+    type: [String, Function] as PropType<string | (() => VNode)>,
   },
   /**
    * @description input prepend content
    */
   prefix: {
-    type: [String, Function],
+    type: [String, Function] as PropType<string | (() => VNode)>,
   },
   /**
    * @description input append content
    */
   suffix: {
-    type: [String, Function],
+    type: [String, Function] as PropType<string | (() => VNode)>,
   },
   /**
    * @description container role, internal properties provided for use by the picker component
@@ -196,15 +196,15 @@ export const inputProps = {
     type: definePropType<CSSStyleDeclaration>([Object, Array, String]),
     default: () => ({} as const),
   },
-};
-export type InputProps = ExtractPropTypes<typeof inputProps>;
+}
+export type InputProps = ExtractPropTypes<typeof inputProps>
 
 export const inputEmits = {
   'update:modelValue': (value: string) => isString(value),
-  input: (value: string) => isString(value),
-};
+  'input': (value: string) => isString(value),
+}
 
-export const INPUT_SLOTS = ['prepend', 'append', 'prefix', 'suffix'] as const;
+export const INPUT_SLOTS = ['prepend', 'append', 'prefix', 'suffix'] as const
 
 const totalInputEmits = {
   ...inputEmits,
@@ -212,6 +212,6 @@ const totalInputEmits = {
   focus: (evt: FocusEvent) => evt instanceof FocusEvent,
   blur: (evt: FocusEvent) => evt instanceof FocusEvent,
   clear: () => true,
-};
+}
 
-export type InputEmits = typeof totalInputEmits;
+export type InputEmits = typeof totalInputEmits
