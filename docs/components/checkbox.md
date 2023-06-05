@@ -161,11 +161,15 @@ const checkboxVal = ref([1])
 
 :::
 
-### ZCheckbox 属性
+## z-checkbox 属性
 
 | 属性名                | 说明                               | 类型      | 默认值  |
 | :-------------------- | :--------------------------------- | :-------- | :------ |
-| model-value / v-model | 绑定值                             | `object`  | []      |
+| model-value / v-model | 绑定值                             | `array`  | []      |
+| options | 可配置项                                   | `array` | —       |
+| type | checkbox 形式                                   | `string` | el-checkbox       |
+| alias | 键值对配置                                   | `object` | `{ label: 'label', value: 'value', disabled: 'disabled' }`       |
+| border | 是否显示边框                                   | `boolean` | false       |
 | size                  | 多选框组尺寸                       | `enum`    | —       |
 | disabled              | 是否禁用                           | `boolean` | false   |
 | min                   | 可被勾选的 checkbox 的最小数量     | `number`  | —       |
@@ -176,7 +180,7 @@ const checkboxVal = ref([1])
 | tag                   | 复选框组元素标签                   | `string`  | div     |
 | validate-event        | 是否触发表单验证                   | `boolean` | true    |
 
-### ZCheckbox 事件
+## z-checkbox 事件
 
 | 事件名 | 说明                     | 类型       |
 | :----- | :----------------------- | :--------- |
@@ -187,13 +191,12 @@ const checkboxVal = ref([1])
 | 属性名                | 说明                                                         | 类型                                       | 默认值 |
 | :-------------------- | :----------------------------------------------------------- | :----------------------------------------- | :----- |
 | value | 选中项绑定值                                                 | `string` / `number` / `boolean`            | —      |
-| label                 | 选中状态的值 | `string` / `number` / `boolean` | —      |
+| label                 | 文案 | `string` | —      |
 | trueLabel            | 选中时的值                                                   | `string` / `number`                        | —      |
 | falseLabel           | 没有选中时的值                                               | `string` / `number`                        | —      |
 | disabled              | 是否禁用                                                     | `boolean`                                  | false  |
 | border                | 是否显示边框                                                 | `boolean`                                  | false  |
 | size                  | Checkbox 的尺寸                                              | `enum`                                     | —      |
 | name                  | 原生 name 属性                                               | `string`                                   | —      |
-| validateEvent        | 输入时是否触发表单的校验                                     | `boolean`                                  | true   |
-| tabindex              | 输入框的 tabindex                                            | `string` / `number`                        | —      |
 | id                    | input id                                                     | `string`                                   | —      |
+| type                    | Checkbox 形式                                                     | `string`                                   | el-checkbox      |
