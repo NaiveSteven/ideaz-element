@@ -1,4 +1,4 @@
-import { withInstall } from '@ideaz/utils';
-import Select from './src/index.tsx';
+import { withInstall } from '@ideaz/utils'
+import Select from './src/index.tsx'
 
-export default withInstall(Select);
+export default withInstall(Select)
