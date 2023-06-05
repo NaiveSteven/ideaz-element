@@ -1,32 +1,16 @@
 import { resolveDynamicComponent, setFormAlias } from '@ideaz/shared'
-import type { OptionsItem, RadioOptionsItem } from '~/types'
+import { isValid } from '@ideaz/utils'
+import { radioProps } from './props'
+import type { RadioOptionsItem } from './props'
 
 export default defineComponent({
   name: 'ZRadio',
-  props: {
-    value: {
-      type: [String, Number],
-      default: '',
-      required: false,
-    },
-    modelValue: {
-      type: [String, Number],
-      default: '',
-      required: false,
-    },
-    options: {
-      type: Array as PropType<OptionsItem[]>,
-      default: () => [],
-    },
-    type: {
-      type: String,
-      default: '',
-    },
-  },
+  props: radioProps,
   emits: ['input', 'update:modelValue'],
   setup(props, { emit, listeners = {} }) {
     const { attrsAll, onAll } = useFormComponentAttrs(props)
     const { vModelVal, handleInput } = useVModel(props, emit)
+    const size = useFormSize()
     const attrs = useAttrs()
 
     const getChildComponentName = (option: RadioOptionsItem) => {
@@ -39,11 +23,12 @@ export default defineComponent({
     return () => {
       return (
         <el-radio-group
-          value={vModelVal.value}
-          modelValue={vModelVal.value}
           {...{ props: attrsAll.value }}
           {...{ on: { ...onAll.value, ...listeners } }}
           {...attrs}
+          value={vModelVal.value}
+          modelValue={vModelVal.value}
+          size={size.value}
           onInput={handleInput}
           onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
         >
@@ -53,6 +38,7 @@ export default defineComponent({
               name: ChildName,
               attrs: {
                 ...option,
+                border: isValid(option.border) ? option.border : props.border,
                 label: option[setFormAlias(props).keys.value],
                 disabled: option[setFormAlias(props).keys.disabled],
                 key: index,
