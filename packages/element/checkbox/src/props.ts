@@ -9,7 +9,6 @@ export interface CheckboxOptionsItem extends OptionsItem {
   falseLabel?: string | number
   border?: boolean
   size?: 'large' | 'default' | 'small'
-  checked?: boolean
   indeterminate?: boolean
   type?: CheckboxType
   change?: (value: any) => void
