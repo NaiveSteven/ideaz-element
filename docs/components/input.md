@@ -1,6 +1,6 @@
 # Input 输入框
 
-输入框封装，配合`z-form`食用更佳。
+输入框封装，配合`z-form`风味更佳。
 
 ## 基础用法
 
@@ -24,7 +24,7 @@ const val = ref('')
 
 ## 带图标的输入框
 
-可以简单地使用 `prefix-icon` 和 `suffix-icon` 属性。 另外， `prefix` 和 `suffix` 传递函数也能正常工作。
+可以简单地使用 `prefix-icon` 和 `suffix-icon` 属性。 另外， 使用`prefix` 和 `suffix` 传递函数或者插槽也能达到相同效果。
 
 :::demo
 
@@ -46,7 +46,19 @@ const setSuffixIcon = () => {
 
 <template>
   <z-input v-model="val" clearable placeholder="请输入" prefix-icon="i-search" suffix-icon="i-calendar" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入" :prefix="setPrefixIcon" :suffix="setSuffixIcon" />
+  <z-input v-model="value" clearable placeholder="请输入" :prefix="setPrefixIcon" :suffix="setSuffixIcon" class="mb-2" />
+  <z-input v-model="value" clearable placeholder="请输入">
+    <template #prefix>
+      <el-icon>
+        <i-search />
+      </el-icon>
+    </template>
+    <template #suffix>
+      <el-icon>
+        <i-calendar />
+      </el-icon>
+    </template>
+  </z-input>
 </template>
 ```
 
@@ -54,7 +66,7 @@ const setSuffixIcon = () => {
 
 ## 复合型输入框
 
-可以简单地使用 `append` 和 `prepend` 属性。 另外， `append` 和 `prepend` 传递函数也能正常工作。
+可以简单地使用 `append` 和 `prepend` 属性。 另外， 使用`append` 和 `prepend` 传递函数或者插槽也能达到相同效果。
 
 :::demo
 
@@ -75,8 +87,16 @@ const setPrepend = () => {
 </script>
 
 <template>
-  <z-input v-model="val" clearable placeholder="请输入" append="Http://" prepend=".com" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入" :append="setAppend" :prepend="setPrepend" />
+  <z-input v-model="val" clearable placeholder="请输入" prepend="Http://" append=".com" class="mb-2" />
+  <z-input v-model="value" clearable placeholder="请输入" :append="setAppend" :prepend="setPrepend" class="mb-2" />
+  <z-input v-model="value" clearable placeholder="请输入">
+    <template #append>
+      <span>.com</span>
+    </template>
+    <template #prepend>
+      <span>Http://</span>
+    </template>
+  </z-input>
 </template>
 ```
 
@@ -138,3 +158,12 @@ const setPrepend = () => {
 | focus          | 使 input 获取焦点          | `Function` |
 | resizeTextarea | 改变 textarea 大小         | `Function` |
 | select         | 选中 input 中的文字        | `Function` |
+
+## z-input 插槽
+
+| 插槽名 | 说明                | 子标签                |
+| :----- | :------------------ | :-------------------- |
+| prepend | 输入框前置内容 | —                     |
+| append  | 输入框后置内容      | —                     |
+| prefix | 输入框头部内容 | —                     |
+| suffix  | 输入框尾部内容      | —                     |
