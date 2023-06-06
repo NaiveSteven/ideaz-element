@@ -72,6 +72,7 @@ declare global {
   const useCssVars: typeof import('vue')['useCssVars']
   const useExpose: typeof import('./packages/hooks/useExpose')['useExpose']
   const useFormComponentAttrs: typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']
+  const useFormComponentSlots: typeof import('./packages/hooks/useFormComponentSlots')['useFormComponentSlots']
   const useFormSize: typeof import('./packages/hooks/useFormSize')['useFormSize']
   const useGetDerivedNamespace: typeof import('./packages/hooks/useNamespace')['useGetDerivedNamespace']
   const useGlobalConfig: typeof import('./packages/hooks/useGlobalConfig')['useGlobalConfig']
@@ -167,6 +168,7 @@ declare module 'vue' {
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useExpose: UnwrapRef<typeof import('./packages/hooks/useExpose')['useExpose']>
     readonly useFormComponentAttrs: UnwrapRef<typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']>
+    readonly useFormComponentSlots: UnwrapRef<typeof import('./packages/hooks/useFormComponentSlots')['useFormComponentSlots']>
     readonly useFormSize: UnwrapRef<typeof import('./packages/hooks/useFormSize')['useFormSize']>
     readonly useGetDerivedNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['useGetDerivedNamespace']>
     readonly useGlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useGlobalConfig']>
@@ -256,6 +258,7 @@ declare module '@vue/runtime-core' {
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useExpose: UnwrapRef<typeof import('./packages/hooks/useExpose')['useExpose']>
     readonly useFormComponentAttrs: UnwrapRef<typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']>
+    readonly useFormComponentSlots: UnwrapRef<typeof import('./packages/hooks/useFormComponentSlots')['useFormComponentSlots']>
     readonly useFormSize: UnwrapRef<typeof import('./packages/hooks/useFormSize')['useFormSize']>
     readonly useGetDerivedNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['useGetDerivedNamespace']>
     readonly useGlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useGlobalConfig']>

@@ -2,6 +2,7 @@ import type { OptionsItem } from '../../types'
 
 export interface SelectOptionsItem extends OptionsItem {
   options?: OptionsItem[]
+  render?: string | ((h: any, { option }: { option: SelectOptionsItem }) => JSX.Element)
 }
 
 export const selectProps = {
@@ -22,4 +23,12 @@ export const selectProps = {
   alias: {
     type: Object,
   },
+  prefix: {
+    type: [String, Function],
+  },
+  empty: {
+    type: [String, Function],
+  },
 }
+
+export const SELECT_SLOTS = ['prefix', 'empty']

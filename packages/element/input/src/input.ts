@@ -204,7 +204,7 @@ export const inputEmits = {
   'input': (value: string) => isString(value),
 }
 
-export const INPUT_SLOTS = ['prepend', 'append', 'prefix', 'suffix'] as const
+export const INPUT_SLOTS = ['prepend', 'append', 'prefix', 'suffix']
 
 const totalInputEmits = {
   ...inputEmits,

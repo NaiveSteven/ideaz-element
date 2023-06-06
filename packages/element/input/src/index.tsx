@@ -1,7 +1,7 @@
 import { isVue3 } from 'vue-demi'
 import { reactiveOmit } from '@vueuse/core'
 import { isFunction } from '@ideaz/utils'
-import { useInputMethods, useInputSlots } from '../hooks'
+import { useInputMethods } from '../hooks'
 import { INPUT_SLOTS, inputEmits, inputProps } from './input'
 
 export default defineComponent({
@@ -11,7 +11,7 @@ export default defineComponent({
   emits: inputEmits,
   setup: (props, { emit, slots, listeners = {}, attrs }) => {
     const { vModelVal, handleInput } = useVModel(props, emit)
-    const { scopedSlots } = useInputSlots(props, slots)
+    const { scopedSlots } = useFormComponentSlots(props, slots, INPUT_SLOTS)
     const { focus, blur, select, clear, resizeTextarea } = useInputMethods()
     const size = useFormSize()
     useExpose({ focus, blur, select, clear, resizeTextarea })
@@ -28,7 +28,7 @@ export default defineComponent({
             size={size.value}
             modelValue={vModelVal.value}
             onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
-            v-slots={scopedSlots}
+            v-slots={scopedSlots.value}
           />
         )
       }
@@ -42,8 +42,8 @@ export default defineComponent({
             onInput={handleInput}
           >
             {INPUT_SLOTS.map((slot) => {
-              if (isFunction(scopedSlots[slot]))
-                return <template slot={slot}>{(scopedSlots[slot] as () => VNode)()}</template>
+              if (isFunction(scopedSlots.value[slot]))
+                return <template slot={slot}>{(scopedSlots.value[slot] as () => VNode)()}</template>
 
               return null
             })}
