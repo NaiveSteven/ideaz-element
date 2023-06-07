@@ -6,30 +6,27 @@
   padding-right: 38px;
   max-height: 36px;
 
+  .z-tag-select__tag {
+    cursor: pointer;
+  }
+
   .z-tag-select__tag--inactive {
     border: 1px solid transparent;
     color: #515a6e;
     background-color: #fff;
   }
 
+  .z-tag-select__tag--last {
+    margin-right: 16px;
+  }
+
   .z-tag-select__title {
+    display: inline-block;
     margin-right: 24px;
     flex-shrink: 0;
   }
 
-  .mr-2 {
-    margin-right: 8px;
-  }
-
-  .mr-4 {
-    margin-right: 16px;
-  }
-
-  .cursor-pointer {
-    cursor: pointer;
-  }
-
-  .z-tag-select__expand {
+  .z-tag-select--expand {
     position: absolute;
     top: 1px;
     right: 0;
@@ -39,14 +36,14 @@
     color: var(--el-color-primary);
   }
 
-  .z-toggle__icon {
+  .z-tag-select__icon {
     margin-left: 2px;
     color: var(--el-color-primary);
     transition: transform 0.2s;
     transform: translateY(1.5px);
   }
 
-  .z-icon__arrow {
+  .z-tag-select__arrow {
     transform: rotate(180deg) translateY(-1.5px);
     transform-origin: center center;
   }

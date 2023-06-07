@@ -130,7 +130,7 @@ export default defineComponent({
   <z-tag-select-group
     v-model="tagSelect"
     :options="options"
-    label-width="170px"
+    title-width="170px"
   />
   <div style="margin-top: 20px">
     {{ tagSelect }}

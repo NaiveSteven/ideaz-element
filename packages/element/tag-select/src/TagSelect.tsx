@@ -1,32 +1,20 @@
+import { ArrowDown } from '@element-plus/icons'
+import { getPxValue } from '@ideaz/shared'
+import { isValid } from '@ideaz/utils'
 import { useShowMore } from './hooks'
+import type { TagSelectOptionsItem } from './props'
+import { tagSelectProps } from './props'
 
 export default defineComponent({
   name: 'ZTagSelect',
-  props: {
-    options: {
-      type: Array as PropType<any>,
-      default: () => [],
-    },
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
-    modelValue: {
-      type: [String, Number, Array] as PropType<any>,
-      default: '',
-    },
-    title: {
-      type: String,
-      default: '',
-    },
-    all: {
-      type: Boolean,
-      default: true,
-    },
-  },
+  components: { ArrowDown },
+  props: tagSelectProps,
   emits: ['change', 'update:modelValue'],
   setup(props, { emit }) {
     const { isShowMore, zTag } = useShowMore()
+    const ns = useNamespace('tag-select')
+    const size = useFormSize()
+    const { t } = useLocale()
     const isExpand = ref(false)
 
     const activeTag = computed<number[] | number | string | string[]>({
@@ -40,22 +28,22 @@ export default defineComponent({
 
     const options = computed(() => {
       if (props.all && props.multiple)
-        return [{ label: '全部', value: 'all' }, ...props.options]
+        return [{ label: t('tagSelect.all'), value: 'all' }, ...props.options]
 
       return props.options
     })
 
     const cls = computed(() => {
       return {
-        'z-tag-select__container': true,
-        'z-tag-select__container--more': isExpand.value,
+        [ns.e('container')]: true,
+        [ns.em('container', 'more')]: isExpand.value,
       }
     })
 
     const iconClass = computed(() => {
       return {
-        'z-toggle__icon': true,
-        'z-icon__arrow': isExpand.value,
+        [ns.e('icon')]: true,
+        [ns.e('arrow')]: isExpand.value,
       }
     })
 
@@ -63,7 +51,7 @@ export default defineComponent({
       isExpand.value = !isExpand.value
     }
 
-    const isActive = (item: any) => {
+    const isActive = (item: TagSelectOptionsItem) => {
       const effect = item.effect || 'dark'
       if (props.multiple)
         return (activeTag.value as number[]).includes(item.value) ? effect : undefined
@@ -71,7 +59,7 @@ export default defineComponent({
       return String(activeTag.value) === String(item.value) ? effect : undefined
     }
 
-    const handleClickTag = (item: any) => {
+    const handleClickTag = (item: TagSelectOptionsItem) => {
       const activeEffect = item.effect || 'dark'
       const effect = isActive(item)
       if (item.value === 'all') {
@@ -88,8 +76,8 @@ export default defineComponent({
         }
         else {
           if (props.multiple) {
-            activeTag.value = options.value.map((item: any) => item.value)
-            emit('change', options.value.map((item: any) => item.value))
+            activeTag.value = options.value.map((item: TagSelectOptionsItem) => item.value)
+            emit('change', options.value.map((item: TagSelectOptionsItem) => item.value))
             return
           }
           else {
@@ -122,7 +110,7 @@ export default defineComponent({
       // compute is select all or not
       if (props.multiple) {
         const actives = activeTag.value as string[]
-        const values = options.value.map((item: any) => item.value)
+        const values = options.value.map((item: TagSelectOptionsItem) => item.value)
         if (actives.includes('all')) {
           if (actives.length !== values.length) {
             const index = actives.indexOf('all')
@@ -139,31 +127,33 @@ export default defineComponent({
       }
     }
 
-    const getTagClass = (item: any, index: number) => {
+    const getTagClass = (item: TagSelectOptionsItem, index: number) => {
       const effect = item.effect || 'dark'
       return {
-        'cursor-pointer': true,
-        'mr-4': index !== options.value.length - 1,
-        'z-tag-select__tag--inactive': isActive(item) !== effect,
+        [ns.e('tag')]: true,
+        [ns.em('tag', 'last')]: index !== options.value.length - 1,
+        [ns.em('tag', 'inactive')]: isActive(item) !== effect,
       }
     }
 
     return () => {
+      const { titleWidth, title } = props
       return <div class={cls.value} ref={zTag}>
-        {props.title && <span class='z-tag-select__title'>{props.title}</span>}
-        <div class='z-tag-select__content'>
-          {options.value.map((item: any, index: number) => {
+        {title && <span class={ns.e('title')} style={{ width: isValid(titleWidth) ? getPxValue(titleWidth) : 'auto' }}>{title}</span>}
+        <div class={ns.e('content')}>
+          {options.value.map((item: TagSelectOptionsItem, index: number) => {
             return <el-tag
               {...item}
               effect={isActive(item)}
               class={getTagClass(item, index)}
               onClick={() => handleClickTag(item)}
+              size={size.value}
             >
               {item.label}
             </el-tag>
           })}
-          {isShowMore.value && <span onClick={handleChangeExpand} class="z-tag-select__expand">
-            {isExpand.value ? '收起' : '展开'}<el-icon class={iconClass.value}><i-arrow-down /></el-icon>
+          {isShowMore.value && <span onClick={handleChangeExpand} class={ns.m('expand')}>
+            {isExpand.value ? t('tagSelect.retract') : t('tagSelect.expand')}<el-icon class={iconClass.value}><ArrowDown /></el-icon>
           </span>}
         </div>
       </div>
