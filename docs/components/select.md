@@ -194,6 +194,87 @@ const selectVal = ref(11)
 
 :::
 
+## 内容自定义
+
+`option`项配置`render`函数即可自定义内容，或者`render`字段传入`自定义字符 + Slot`使用插槽功能
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const options = ref([
+  {
+    label: '选项一',
+    value: 1,
+    render: (h, { option }) => {
+      return h('span', {}, `自定义${option.value}`)
+    }
+  },
+  {
+    label: '选项二',
+    value: 2,
+    render: 'optionSlot'
+  },
+  { label: '选项三', value: 3 }
+])
+
+const selectVal = ref(1)
+</script>
+
+<template>
+  <z-select v-model="selectVal" :options="options">
+    <template #optionSlot="{ option }">
+      <span>自定义{{ option.label }}</span>
+    </template>
+  </z-select>
+</template>
+```
+
+:::
+
+## 插槽
+
+如果想要自定义组件头部内容或无选项时的列表，配置`prefix`或`empty`属性，或者使用`prefix`或`empty`插槽
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref, resolveComponent } from 'vue'
+
+const options = ref([])
+
+const selectVal = ref()
+
+const setHeader = () => {
+  return h(resolveComponent('el-icon'), {}, () => h(resolveComponent('i-search')))
+}
+
+const setEmpty = () => {
+  return h('div', {}, '自定义内容')
+}
+</script>
+
+<template>
+  <div class="flex flex-col">
+    <z-select v-model="selectVal" :options="options" :prefix="setHeader" :empty="setEmpty" />
+    <z-select v-model="selectVal" :options="options" prefix="header" empty="自定义内容" class="mt-4" />
+    <z-select v-model="selectVal" :options="options" class="mt-4">
+      <template #prefix>
+        <span>头部</span>
+      </template>
+      <template #empty>
+        <span>自定义内容</span>
+      </template>
+    </z-select>
+  </div>
+</template>
+```
+
+:::
+
 ## z-select 属性
 
 | 属性名                           | 说明                                                         | 类型                                       | 可选值                                                       | 默认值           |
@@ -201,6 +282,8 @@ const selectVal = ref(11)
 | model-value / v-model            | 选中项绑定值                                                 | array / string / number / boolean / object | —                                                            | —                |
 | options                         | 可配置项                                                     | array                                    |  —                                                 | —            |
 | alias                         | 键值对配置                                                     | object                                    |  —                                                 | `{ label: 'label', value: 'value', disabled: 'disabled' }`            |
+| prefix                         | Select 组件头部内容                                                     | string /function                                    |  —                                                 | —            |
+| empty                         | 无选项时的列表                                                     | string / function                                    |  —                                                 | —            |
 | multiple                         | 是否多选                                                     | boolean                                    | true/false                                                   | false            |
 | disabled                         | 是否禁用                                                     | boolean                                    | true / false                                                 | false            |
 | value-key                        | 作为 value 唯一标识的键名，绑定值为对象类型时必填            | string                                     | —                                                            | value            |
@@ -250,6 +333,13 @@ const selectVal = ref(11)
 | blur           | 当 input 失去焦点时触发                  | (event: FocusEvent)                |
 | focus          | 当 input 获得焦点时触发                  | (event: FocusEvent)                |
 
+## z-select 插槽
+
+| 插槽名 | 说明                | 子标签                |
+| :----- | :------------------ | :-------------------- |
+| prefix | Select 组件头部内容 | —                     |
+| empty  | 无选项时的列表      | —                     |
+
 ## Option 项可配置属性
 
 | 属性名   | 说明                                    | 类型                               | 可选值 | 默认值 |
@@ -258,3 +348,4 @@ const selectVal = ref(11)
 | label    | 选项的标签，若不设置则默认与`value`相同 | string/number                      | —      | —      |
 | disabled | 是否禁用该选项                          | boolean                            | —      | false  |
 | options | 可配置项（分组时可配置）                          | array                            | —      | —  |
+| render | 选项自定义                          | string / () => VNode                            | —      | —  |
