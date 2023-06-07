@@ -1,45 +1,28 @@
-import TagSelect from './index'
+import TagSelect from './TagSelect'
+import type { TagSelectGroupOptionsItem } from './props'
+import { tagSelectGroupProps } from './props'
 
 export default defineComponent({
   name: 'ZTagSelectGroup',
   components: { TagSelect },
-  props: {
-    modelValue: {
-      type: Object,
-      default: () => ({}),
-    },
-    options: {
-      type: Array,
-      default: () => [],
-    },
-    size: {
-      type: String,
-      default: '',
-    },
-    labelWidth: {
-      type: String,
-      default: 'auto',
-    },
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
-  },
+  props: tagSelectGroupProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const updateModelValue = (val: any, option: any) => {
+    const updateModelValue = (val: any, option: TagSelectGroupOptionsItem) => {
       emit('update:modelValue', { ...props.modelValue, [option.field]: val })
     }
 
     return () => {
+      const { options, size, all, titleWidth, multiple } = props
       return <div>
-        {props.options.map((option: any) => {
+        {options.map((option: TagSelectGroupOptionsItem) => {
           return <TagSelect
             modelValue={props.modelValue[option.field]}
             onUpdate:modelValue={val => updateModelValue(val, option)}
-            size={props.size}
-            labelWidth={props.labelWidth}
-            multiple={props.multiple}
+            size={size}
+            titleWidth={titleWidth}
+            multiple={multiple}
+            all={all}
             {...option}
           />
         })}
