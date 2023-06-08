@@ -41,6 +41,7 @@ module.exports = {
     'selector-type-no-unknown': null,
     'no-duplicate-selectors': null,
     'declaration-block-trailing-semicolon': null,
+    'value-keyword-case': null,
     'selector-pseudo-class-no-unknown': [true, { ignorePseudoClasses: ['global'] }],
     'rule-empty-line-before': [
       'always',

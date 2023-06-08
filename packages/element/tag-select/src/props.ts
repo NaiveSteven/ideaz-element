@@ -11,6 +11,7 @@ export interface TagSelectOptionsItem extends OptionsItem {
   effect?: 'dark' | 'light' | 'plain'
   round?: boolean
   closable?: boolean
+  onClick?: (option: TagSelectOptionsItem) => void
 }
 
 export interface TagSelectGroupOptionsItem {

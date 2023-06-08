@@ -1,6 +1,6 @@
 import { ArrowDown } from '@element-plus/icons'
 import { getPxValue } from '@ideaz/shared'
-import { isValid } from '@ideaz/utils'
+import { isFunction, isValid } from '@ideaz/utils'
 import { useShowMore } from './hooks'
 import type { TagSelectOptionsItem } from './props'
 import { tagSelectProps } from './props'
@@ -60,6 +60,9 @@ export default defineComponent({
     }
 
     const handleClickTag = (item: TagSelectOptionsItem) => {
+      if (isFunction(item.onClick))
+        item.onClick(item)
+
       const activeEffect = item.effect || 'dark'
       const effect = isActive(item)
       if (item.value === 'all') {
@@ -71,7 +74,7 @@ export default defineComponent({
           }
           else {
             activeTag.value = ''
-            emit('change', item)
+            emit('change', item.value)
           }
         }
         else {
@@ -82,7 +85,7 @@ export default defineComponent({
           }
           else {
             activeTag.value = item.value
-            emit('change', item)
+            emit('change', item.value)
           }
         }
         return
@@ -100,11 +103,11 @@ export default defineComponent({
       else {
         if (effect === activeEffect) {
           activeTag.value = ''
-          emit('change', item)
+          emit('change', '')
         }
         else {
           activeTag.value = item.value
-          emit('change', item)
+          emit('change', item.value)
         }
       }
       // compute is select all or not
@@ -115,13 +118,18 @@ export default defineComponent({
           if (actives.length !== values.length) {
             const index = actives.indexOf('all')
             actives.splice(index, 1)
-            emit('change', values)
           }
+          emit('change', actives)
         }
         else {
-          if (actives.length === values.length - 1) {
+          // if select all other tag, then select the all tag
+          if (actives.length === values.length - 1 && props.all) {
             activeTag.value = values
+
             emit('change', values)
+          }
+          else {
+            emit('change', actives)
           }
         }
       }
@@ -143,10 +151,13 @@ export default defineComponent({
         <div class={ns.e('content')}>
           {options.value.map((item: TagSelectOptionsItem, index: number) => {
             return <el-tag
-              {...item}
+              {...{
+                ...item,
+                onClick: () => handleClickTag(item),
+                onClose: () => isFunction(item.onClose) && item.onClose(item),
+              }}
               effect={isActive(item)}
               class={getTagClass(item, index)}
-              onClick={() => handleClickTag(item)}
               size={size.value}
             >
               {item.label}
@@ -156,7 +167,7 @@ export default defineComponent({
             {isExpand.value ? t('tagSelect.retract') : t('tagSelect.expand')}<el-icon class={iconClass.value}><ArrowDown /></el-icon>
           </span>}
         </div>
-      </div>
+      </div >
     }
   },
 })
