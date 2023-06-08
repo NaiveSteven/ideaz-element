@@ -1,8 +1,11 @@
 export default {
   name: 'zh-cn',
-  el: {
-    form: {
-      reset: '重置',
-    },
+  form: {
+    reset: '重置',
   },
-};
+  tagSelect: {
+    all: '全部',
+    expand: '展开',
+    retract: '收起',
+  },
+}

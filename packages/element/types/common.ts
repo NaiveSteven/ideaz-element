@@ -6,7 +6,7 @@ export interface IndexType {
 
 export interface OptionsItem {
   label: string
-  value: string | number
+  value: any
   disabled?: boolean
   [propName: string]: any
 }
