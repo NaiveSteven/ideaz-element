@@ -1,4 +1,5 @@
 import type { ExtractPropTypes } from 'vue-demi'
+import type { ComponentSize } from 'element-plus'
 
 export const textProps = {
   value: {
@@ -16,11 +17,10 @@ export const textProps = {
   /**
    * @description text size
    */
-  // size: {
-  //   type: String,
-  //   values: componentSizes,
-  //   default: '',
-  // },
+  size: {
+    type: String as PropType<ComponentSize>,
+    default: '',
+  },
   /**
    * @description render ellipsis
    */
@@ -51,7 +51,6 @@ export const textProps = {
   },
   length: {
     type: Number,
-    // default: 5,
   },
   fullWidthRecognition: {
     type: Boolean,

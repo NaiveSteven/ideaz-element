@@ -1,62 +1,14 @@
 import { resolveDynamicComponent } from '@ideaz/shared'
+import { cutStrByFullLength, getStrFullLength, getStyle } from '@ideaz/utils'
 import { textProps } from './text'
-
-const getStrFullLength = (str = '') =>
-  str.split('').reduce((pre, cur) => {
-    const charCode = cur.charCodeAt(0)
-    if (charCode >= 0 && charCode <= 128)
-      return pre + 1
-
-    return pre + 2
-  }, 0)
-
-const cutStrByFullLength = (str = '', maxLength: number) => {
-  let showLength = 0
-  return str.split('').reduce((pre, cur) => {
-    const charCode = cur.charCodeAt(0)
-    if (charCode >= 0 && charCode <= 128)
-      showLength += 1
-    else
-      showLength += 2
-
-    if (showLength <= maxLength)
-      return pre + cur
-
-    return pre
-  }, '')
-}
-
-const SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g
-const MOZ_HACK_REGEXP = /^moz([A-Z])/
-const isClient = typeof window !== 'undefined'
-
-function camelCase(name) {
-  return name.replace(SPECIAL_CHARS_REGEXP, (_, separator, letter, offset) => {
-    return offset ? letter.toUpperCase() : letter
-  }).replace(MOZ_HACK_REGEXP, 'Moz$1')
-}
-
-export function getStyle(element, styleName) {
-  if (!isClient) return
-  if (!element || !styleName) return null
-  styleName = camelCase(styleName)
-  if (styleName === 'float')
-    styleName = 'cssFloat'
-
-  try {
-    const compute = document.defaultView?.getComputedStyle(element, '')
-    return element.style?.[styleName] || (compute ? compute?.[styleName] : null)
-  }
-  catch (e) {
-    return element.style[styleName]
-  }
-}
 
 export default defineComponent({
   name: 'ZText',
   props: textProps,
   setup(props, { slots }) {
     const ns = useNamespace('text')
+    const size = useFormSize()
+
     const zText = ref()
     const computedReady = ref(false)
     const oversize = ref(false)
@@ -64,10 +16,10 @@ export default defineComponent({
     const textRef = ref()
     const moreRef = ref()
 
-    const textKls = computed(() => [
+    const textKls = computed<string[]>(() => [
       ns.b(),
       ns.m(props.type),
-      // ns.m(textSize.value),
+      ns.m(size.value),
       ns.is('truncated', props.truncated),
     ])
 
@@ -84,12 +36,11 @@ export default defineComponent({
       const $more = moreRef.value
       let n = 1000
       let text = getText()
-      let height = props.height
+      let height = props.height || 0
 
-      // 当 height 未定义，且 lines 定义时，计算真实高度，否则使用 this.height
+      // 当 height 未定义，且 lines 定义时，计算真实高度，否则使用 props.height
       if (!height && props.lines) {
-        // todo
-        const lineHeight = parseInt(getStyle($el, 'lineHeight'), 10) || 24
+        const lineHeight = parseInt(getStyle($el, 'lineHeight') || '', 10) || 24
         height = lineHeight * props.lines
       }
       if ($text) {
@@ -149,10 +100,6 @@ export default defineComponent({
         attrs: {
           class: textKls.value,
           ref: zText,
-          style: {
-            display: 'inline-block',
-            wordBreak: 'break-all',
-          },
         },
         content: (() => {
           if (computedReady.value) {
