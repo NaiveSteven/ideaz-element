@@ -12,6 +12,7 @@ export interface TagSelectOptionsItem extends OptionsItem {
   round?: boolean
   closable?: boolean
   onClick?: (option: TagSelectOptionsItem) => void
+  onClose?: (option: TagSelectOptionsItem) => void
 }
 
 export interface TagSelectGroupOptionsItem {
