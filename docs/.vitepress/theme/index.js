@@ -1,5 +1,4 @@
 import DefaultTheme from 'vitepress/theme'
-import 'uno.css'
 import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
 import './styles/index.scss'
 import '../../../src/styles/index.css'
@@ -11,6 +10,7 @@ import '@ideaz/theme-chalk/src/index.scss'
 import * as ElIconModules from '@element-plus/icons'
 import Button from '../../../src/components/Button.vue'
 import { useComponents } from './useComponents'
+import 'uno.css'
 
 function transElIconName(iconName) {
   return `i${iconName.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)}`
