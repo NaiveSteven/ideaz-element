@@ -1,5 +1,5 @@
 import { resolveDynamicComponent } from '@ideaz/shared'
-import { cutStrByFullLength, getStrFullLength, getStyle } from '@ideaz/utils'
+import { cutStrByFullLength, getStrFullLength, getStyle, isObject, isValid } from '@ideaz/utils'
 import { textProps } from './text'
 
 export default defineComponent({
@@ -86,17 +86,16 @@ export default defineComponent({
       //   this.$emit('on-show')
     }
 
-    const init = () => {
-      computeText()
-    }
-
     onMounted(() => {
-      init()
+      if (isValid(props.length) || isValid(props.lines))
+        computeText()
     })
 
     return () => {
+      const { tag } = props
+      const tooltipConfig = isObject(props.tooltip) ? props.tooltip : {}
       return resolveDynamicComponent({
-        name: props.tag,
+        name: tag,
         attrs: {
           class: textKls.value,
           ref: zText,
@@ -104,7 +103,7 @@ export default defineComponent({
         content: (() => {
           if (computedReady.value) {
             if (oversize.value) {
-              return <el-tooltip content={getText()}>
+              return <el-tooltip content={getText()} {...tooltipConfig}>
                 <div>
                   <span ref={textRef}>{getText()}</span>
                   <span v-show={oversize.value} ref={moreRef}>...</span>

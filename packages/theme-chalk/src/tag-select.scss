@@ -42,11 +42,9 @@
     margin-left: 2px;
     color: var(--el-color-primary);
     transition: transform 0.2s;
-    // transform: translateY(1.5px);
   }
 
   .z-tag-select__arrow {
-    // transform: rotate(180deg) translateY(-1.5px);
     transform: rotate(180deg);
     transform-origin: center center;
   }

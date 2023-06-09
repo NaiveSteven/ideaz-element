@@ -35,19 +35,14 @@ export const textProps = {
     default: 'span',
   },
   tooltip: {
-    type: Boolean,
-    default: true,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
+    type: [Boolean, Object],
+    default: () => ({}),
   },
   height: {
     type: Number,
   },
   lines: {
     type: Number,
-    default: 1,
   },
   length: {
     type: Number,
