@@ -12,34 +12,34 @@ export const watermarkProps = {
     type: String,
   },
   gapX: {
-    type: Number,
+    type: [Number, String],
   },
   gapY: {
-    type: Number,
+    type: [Number, String],
   },
   zIndex: {
-    type: Number,
+    type: [Number, String],
   },
   width: {
-    type: Number,
+    type: [Number, String],
   },
   height: {
-    type: Number,
+    type: [Number, String],
   },
   offsetTop: {
-    type: Number,
+    type: [Number, String],
   },
   offsetLeft: {
-    type: Number,
+    type: [Number, String],
   },
   rotate: {
-    type: Number,
+    type: [Number, String],
   },
   image: {
     type: String,
   },
   content: {
-    type: String,
+    type: [String, Array],
   },
   fontColor: {
     type: String,
