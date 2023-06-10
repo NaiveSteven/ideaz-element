@@ -1,6 +1,5 @@
 import { ArrowDown } from '@element-plus/icons'
-import { getPxValue } from '@ideaz/shared'
-import { isFunction, isValid } from '@ideaz/utils'
+import { getPxValue, isFunction, isValid } from '@ideaz/utils'
 import { useShowMore } from './hooks'
 import type { TagSelectOptionsItem } from './props'
 import { tagSelectProps } from './props'

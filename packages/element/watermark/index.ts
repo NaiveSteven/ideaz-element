@@ -1,4 +1,4 @@
 import { withInstall } from '@ideaz/utils'
-import WaterMark from './src/index.tsx'
+import WaterMark from './src/index'
 
 export default withInstall(WaterMark)
