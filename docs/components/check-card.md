@@ -454,18 +454,18 @@ const selectedCard = ref('A')
 
 | 属性名           | 说明                                                         | 类型                 | 默认值    |
 | -------------- | ------------------------------------------------------------ | -------------------- | --------- |
-| checked        | 指定当前是否选中                                             | boolean              | false     |
-| bordered       | 是否显示边框                                                 | boolean              | true      |
-| value          | 选项值                                                       | string               | -         |
-| defaultChecked | 初始是否选中                                                 | boolean              | false     |
-| disabled       | 失效状态                                                     | boolean              | false     |
-| size           | 选择框大小，可选 `large` `small`                             | string               | `default` |
-| loading        | 当卡片内容还在加载中时，可以用 loading 展示一个占位          | boolean              | false     |
-| title          | 标题                                                         | string \| VNode  | -         |
-| description    | 描述                                                         | string \| VNode            | -         |
-| avatar         | 选项元素的图片地址                                           | link \| VNode    | -         |
-| extra          | 动作区域                                                     | 卡片右上角的操作区域 | -         |
-| cover          | 卡片背景图片, 注意使用该选项后`title`，`description`和`avatar`失效 | VNode            | -         |
+| checked        | 指定当前是否选中                                             | `boolean`              | false     |
+| bordered       | 是否显示边框                                                 | `boolean`              | true      |
+| value          | 选项值                                                       | `string`               | -         |
+| defaultChecked | 初始是否选中                                                 | `boolean`              | false     |
+| disabled       | 失效状态                                                     | `boolean`              | false     |
+| size           | 选择框大小，可选 `large` `small`                             | `string`               | `default` |
+| loading        | 当卡片内容还在加载中时，可以用 loading 展示一个占位          | `boolean`              | false     |
+| title          | 标题                                                         | `string / VNode`  | -         |
+| description    | 描述                                                         | `string / VNode`            | -         |
+| avatar         | 选项元素的图片地址                                           | `link / VNode`    | -         |
+| extra          | 卡片右上角操作区域                                                     | `string / VNode` | -         |
+| cover          | 卡片背景图片, 注意使用该选项后`title`，`description`和`avatar`失效 | `VNode`            | -         |
 
 ## z-check-card事件
 
@@ -477,14 +477,14 @@ const selectedCard = ref('A')
 
 | 属性名         | 说明                                                  | 类型                                                         | 默认值    |
 | ------------ | ----------------------------------------------------- | ------------------------------------------------------------ | --------- |
-| modelValue | 双向绑定                                        | string \| string[]                                           | -         |
-| multiple     | 多选                                                  | boolean                                                      | false     |
-| bordered     | 是否显示边框                                          | boolean                                                      | true      |
-| disabled     | 整组失效                                              | boolean                                                      | false     |
-| loading      | 当卡片组内容还在加载中时，可以用 loading 展示一个占位 | boolean                                                      | false     |
-| options      | 指定可选项                                            | string[] \| Array<{ title: VNode, value: string, description?: VNode, avatar?: link or VNode, cover?:VNode, disabled?: boolean }> | []        |
-| size         | 选择框大小，可选 `large` `small`                      | string                                                       | `default` |
-| onChange     | 变化时回调函数                                        | Function(checkedValue)                                       | -         |
+| modelValue | 双向绑定                                        | `string / string[]`                                           | -         |
+| multiple     | 多选                                                  | `boolean`                                                      | false     |
+| bordered     | 是否显示边框                                          | `boolean`                                                      | true      |
+| disabled     | 整组失效                                              | `boolean`                                                      | false     |
+| loading      | 当卡片组内容还在加载中时，可以用 loading 展示一个占位 | `boolean`                                                      | false     |
+| options      | 指定可选项                                            | `array` | []        |
+| size         | 选择框大小，可选 `large` `small` `default`                      | `string`                                                       | `default` |
+| onChange     | 变化时回调函数                                        | `Function(checkedValue)`                                       | -         |
 
 ## z-check-card-group事件
 
