@@ -47,8 +47,8 @@ export default defineComponent({
       const rotate = convertToPx(propsRotate)
       const gapY = convertToPx(propsGapY)
       const gapX = convertToPx(propsGapX)
-      const offsetLeft = convertToPx(propsOffsetLeft)
-      const offsetTop = convertToPx(propsOffsetTop)
+      const offsetLeft = convertToPx(propsOffsetLeft || 0)
+      const offsetTop = convertToPx(propsOffsetTop || 0)
 
       const canvas = document.createElement('canvas')
       const ctx = canvas.getContext('2d')
@@ -84,9 +84,9 @@ export default defineComponent({
           ctx.font = `${fontStyle} normal ${fontWeight} ${markSize}px/${markHeight}px ${fontFamily}`
           ctx.fillStyle = fontColor
           if (Array.isArray(content)) {
-            content?.forEach((item: string, index: number) =>
-              ctx.fillText(item, 0, index * 50),
-            )
+            content?.forEach((item, index) => {
+              ctx.fillText(item, 0, index * 50)
+            })
           }
           else {
             ctx.fillText(content, 0, 0)
