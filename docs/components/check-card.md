@@ -486,6 +486,20 @@ const selectedCard = ref('A')
 | size         | 选择框大小，可选 `large` `small` `default`                      | `string`                                                       | `default` |
 | onChange     | 变化时回调函数                                        | `Function(checkedValue)`                                       | -         |
 
+## z-check-card-group Options项可配置属性
+
+| 属性名           | 说明                                                         | 类型                 | 默认值    |
+| -------------- | ------------------------------------------------------------ | -------------------- | --------- |
+| title          | 标题                                                         | `string / VNode`  | -         |
+| value          | 选项值                                                       | `string`               | -         |
+| bordered       | 是否显示边框                                                 | `boolean`              | true      |
+| disabled       | 失效状态                                                     | `boolean`              | false     |
+| size           | 选择框大小，可选 `large` `small`                             | `string`               | `default` |
+| description    | 描述                                                         | `string / VNode`            | -         |
+| avatar         | 选项元素的图片地址                                           | `link / VNode`    | -         |
+| extra          | 卡片右上角操作区域                                                     | `string / VNode` | -         |
+| cover          | 卡片背景图片, 注意使用该选项后`title`，`description`和`avatar`失效 | `VNode`            | -         |
+
 ## z-check-card-group事件
 
 | 事件名           | 说明                                                         | 回调参数                 |

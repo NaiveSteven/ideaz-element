@@ -22,6 +22,8 @@
 8. `z-form`组件结合操作按钮和接口
 9. ~~`z-check-card`支持`v-model`~~
 10. ~~`z-tag-select`组件支持配置多条配置（思路：`modelValue`传入`object`，`options`传入`object`时，走多条配置逻辑）~~
+11. `z-form`、`z-form-item`组件支持`provide`组件属性
+12. `z-tag-select`组件`options.prop`支持路径配置
 
 ## FEATURE（docs and dts）
 
