@@ -1,5 +1,6 @@
-import { resolveDynamicComponent, setFormAlias } from '@ideaz/shared'
+import { resolveDynamicComponent } from '@ideaz/shared'
 import { isValid } from '@ideaz/utils'
+import { get } from 'lodash-unified'
 import { checkboxProps } from './props'
 import type { CheckboxOptionsItem } from './props'
 
@@ -41,11 +42,11 @@ export default defineComponent({
                 attrs: {
                   ...option,
                   border: isValid(option.border) ? option.border : props.border,
-                  label: option[setFormAlias(props).keys.value],
-                  disabled: option[setFormAlias(props).keys.disabled],
-                  key: option[setFormAlias(props).keys.value],
+                  label: get(option, props.alias?.value || 'value', ''),
+                  disabled: get(option, props.alias?.disabled || 'disabled', false),
+                  key: get(option, props.alias?.value || 'value', ''),
                 },
-                content: () => option[setFormAlias(props).keys.label],
+                content: () => get(option, props.alias?.label || 'label', ''),
               })
             })}
         </el-checkbox-group>

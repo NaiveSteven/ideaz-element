@@ -1,5 +1,6 @@
 import { provide } from 'vue-demi'
 import { useNamespace } from '@ideaz/hooks'
+import { get } from 'lodash-unified'
 import ZCheckCard from './CheckCard'
 import { checkCardGroupProps } from './props'
 import type { CheckCardProps, CheckCardValueType } from './props'
@@ -90,15 +91,15 @@ export default defineComponent({
         return (getOptions() as CheckCardProps[]).map(option => (
           <ZCheckCard
             key={option.value.toString()}
-            disabled={option.disabled}
+            disabled={get(option, props.alias?.disabled || 'disabled', false)}
             size={option.size ?? props.size}
-            value={option.value}
+            value={get(option, props.alias?.value || 'value', '')}
             checked={
               multiple
                 ? (optionValue as CheckCardValueType[])?.includes(option.value)
                 : (optionValue as CheckCardValueType) === option.value
             }
-            title={option.title}
+            title={get(option, props.alias?.title || 'title', '')}
             avatar={option.avatar}
             description={option.description}
             cover={option.cover}

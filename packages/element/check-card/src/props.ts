@@ -79,6 +79,9 @@ export const checkCardGroupProps = {
   bordered: {
     type: Boolean,
   },
+  alias: {
+    type: Object,
+  },
 }
 
 export type CheckCardGroupProps = ExtractPropTypes<typeof checkCardGroupProps>
