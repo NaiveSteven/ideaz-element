@@ -22,6 +22,8 @@
 8. `z-form`组件结合操作按钮和接口
 9. ~~`z-check-card`支持`v-model`~~
 10. ~~`z-tag-select`组件支持配置多条配置（思路：`modelValue`传入`object`，`options`传入`object`时，走多条配置逻辑）~~
+11. `z-form`、`z-form-item`组件支持`provide`组件属性
+12. `z-tag-select`组件`options.prop`支持路径配置
 
 ## FEATURE（docs and dts）
 
@@ -31,12 +33,12 @@
 4. ~~`description`组件文档、`dts`文件~~
 5. `form`组件文档、`dts`文件
 6. ~~`input`组件文档、`dts`文件~~
-7. `radio`组件文档、`dts`文件
-8. `select`组件文档、`dts`文件
+7. ~~`radio`组件文档、`dts`文件~~
+8. ~~`select`组件文档、`dts`文件~~
 9. `table`组件文档、`dts`文件
-10. `tag-select`组件文档、`dts`文件
-11. `text`组件文档、`dts`文件
-12. `watermark`组件文档、`dts`文件
+10. ~~`tag-select`组件文档、`dts`文件~~
+11. ~~`text`组件文档、`dts`文件~~
+12. ~~`watermark`组件文档、`dts`文件~~
 
 ## FIX
 

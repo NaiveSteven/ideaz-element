@@ -36,3 +36,33 @@ export const toCamelCase = (str: string) => {
 export const toKebabCase = (str: string) => {
   return str.replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase()
 }
+
+export const getPxValue = (value?: string | number) => {
+  if (typeof value === 'string')
+    return value.trim().endsWith('px') ? value.trim() : `${value.trim()}px`
+
+  if (typeof value === 'number')
+    return `${value.toString()}px`
+
+  return 'auto'
+}
+
+export const convertToPx = (value: string | number) => {
+  if (value === undefined) return value
+  if (typeof value === 'number') {
+    return value
+  }
+  else if (typeof value === 'string') {
+    const trimmed = value.trim()
+    if (trimmed.endsWith('px')) {
+      return parseInt(trimmed.slice(0, -2), 10)
+    }
+    else {
+      const num = parseInt(trimmed, 10)
+      if (!isNaN(num))
+        return num
+    }
+  }
+  // 如果传入的不是数字或可以转换为数字的字符串，则返回 NaN
+  return NaN
+}

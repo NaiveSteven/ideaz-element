@@ -1,3 +1,4 @@
+import { convertToPx } from '@ideaz/utils'
 import { watermarkProps } from './watermark'
 
 const getPixelRatio = (context: any) => {
@@ -19,25 +20,36 @@ export default defineComponent({
   name: 'ZWatermark',
   props: watermarkProps,
   setup(props, { slots }) {
+    const ns = useNamespace('watermark')
     const base64Url = ref('')
 
     onMounted(() => {
       const {
-        gapX = 212,
-        gapY = 222,
-        width = 120,
-        height = 64,
-        rotate = -22, // 默认旋转 -22 度
+        gapX: propsGapX = 212,
+        gapY: propsGapY = 222,
+        width: propsWidth = 120,
+        height: propsHeight = 64,
+        rotate: propsRotate = -22, // 默认旋转 -22 度
         image,
         content,
-        offsetLeft,
-        offsetTop,
+        offsetLeft: propsOffsetLeft,
+        offsetTop: propsOffsetTop,
         fontStyle = 'normal',
         fontWeight = 'normal',
         fontColor = 'rgba(0,0,0,.15)',
-        fontSize = 16,
+        fontSize: propsFontSize = 16,
         fontFamily = 'sans-serif',
       } = props
+      // translate string(such as '20', '20px') and number to number
+      const height = convertToPx(propsHeight)
+      const width = convertToPx(propsWidth)
+      const fontSize = convertToPx(propsFontSize)
+      const rotate = convertToPx(propsRotate)
+      const gapY = convertToPx(propsGapY)
+      const gapX = convertToPx(propsGapX)
+      const offsetLeft = convertToPx(propsOffsetLeft || 0)
+      const offsetTop = convertToPx(propsOffsetTop || 0)
+
       const canvas = document.createElement('canvas')
       const ctx = canvas.getContext('2d')
       const ratio = getPixelRatio(ctx)
@@ -72,9 +84,9 @@ export default defineComponent({
           ctx.font = `${fontStyle} normal ${fontWeight} ${markSize}px/${markHeight}px ${fontFamily}`
           ctx.fillStyle = fontColor
           if (Array.isArray(content)) {
-            content?.forEach((item: string, index: number) =>
-              ctx.fillText(item, 0, index * 50),
-            )
+            content?.forEach((item, index) => {
+              ctx.fillText(item, 0, index * 50)
+            })
           }
           else {
             ctx.fillText(content, 0, 0)
@@ -92,24 +104,27 @@ export default defineComponent({
         style,
         markStyle,
         zIndex = 9,
-        gapX = 212,
-        width = 120,
+        gapX: propsGapX = 212,
+        width: propsWidth = 120,
         markClassName,
         className,
       } = props
+      const width = convertToPx(propsWidth)
+      const gapX = convertToPx(propsGapX)
+
       return (
         <div
           style={{
             position: 'relative',
             ...style,
           }}
-          class={['pro-layout-watermark-wrapper', className]}
+          class={[ns.b('wrapper'), className]}
         >
           {slots.default?.()}
           <div
             class={markClassName}
             style={{
-              zIndex,
+              zIndex: Number(zIndex),
               position: 'absolute',
               left: 0,
               top: 0,
