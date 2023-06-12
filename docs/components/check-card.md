@@ -101,6 +101,8 @@ const val = ref('E')
 
 ## 多选模式
 
+设置`multiple`为`true`开启多选模式。
+
 :::demo
 
 ```vue
@@ -478,6 +480,7 @@ const selectedCard = ref('A')
 | 属性名         | 说明                                                  | 类型                                                         | 默认值    |
 | ------------ | ----------------------------------------------------- | ------------------------------------------------------------ | --------- |
 | modelValue | 双向绑定                                        | `string / string[]`                                           | -         |
+| alias | 键值对配置                                   | `object` | `{ label: 'label', value: 'value', disabled: 'disabled' }`       |
 | multiple     | 多选                                                  | `boolean`                                                      | false     |
 | bordered     | 是否显示边框                                          | `boolean`                                                      | true      |
 | disabled     | 整组失效                                              | `boolean`                                                      | false     |
