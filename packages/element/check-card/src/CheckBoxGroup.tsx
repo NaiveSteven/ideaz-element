@@ -69,8 +69,8 @@ export default defineComponent({
         const newValue = changeValue
           // ?.filter((val) => registerValueMap.current.has(val))
           ?.sort((a, b) => {
-            const indexA = newOptions.findIndex((opt: { title: string; value: any } | CheckCardProps) => opt.value === a)
-            const indexB = newOptions.findIndex((opt: { title: string; value: any } | CheckCardProps) => opt.value === b)
+            const indexA = newOptions.findIndex((opt: { title: string; value: any } | CheckCardProps) => opt.value === a || get(opt, props.alias?.value || 'value', '') === a)
+            const indexB = newOptions.findIndex((opt: { title: string; value: any } | CheckCardProps) => opt.value === b || get(opt, props.alias?.value || 'value', '') === b)
             return indexA - indexB
           })
 
@@ -88,23 +88,24 @@ export default defineComponent({
 
       if (options && options.length > 0) {
         const optionValue = stateValue.value
-        return (getOptions() as CheckCardProps[]).map(option => (
-          <ZCheckCard
-            key={option.value.toString()}
+        return (getOptions() as CheckCardProps[]).map((option) => {
+          const value = get(option, props.alias?.value || 'value', '')
+          return <ZCheckCard
+            key={value.toString()}
             disabled={get(option, props.alias?.disabled || 'disabled', false)}
             size={option.size ?? props.size}
-            value={get(option, props.alias?.value || 'value', '')}
+            value={value}
             checked={
               multiple
-                ? (optionValue as CheckCardValueType[])?.includes(option.value)
-                : (optionValue as CheckCardValueType) === option.value
+                ? (optionValue as CheckCardValueType[])?.includes(value)
+                : (optionValue as CheckCardValueType) === value
             }
             title={get(option, props.alias?.title || 'title', '')}
             avatar={option.avatar}
             description={option.description}
             cover={option.cover}
           />
-        ))
+        })
       }
 
       return slots.default?.()
