@@ -237,6 +237,7 @@ const options = ref([
 ```vue
 <script lang="ts" setup>
 import { ref } from 'vue'
+
 const tagSelect = ref({
   aaa: {
     aaa: [1]
@@ -244,25 +245,30 @@ const tagSelect = ref({
   bbb: [2]
 })
 
+const alias = {
+  label: 'title',
+  value: 'data.key'
+}
+
 const options = ref([
   {
     title: '标签名：',
     field: 'aaa.aaa',
     options: [
-      { label: '标签一', value: 1 },
-      { label: '标签二', value: 2 },
-      { label: '标签三', value: 3, },
-      { label: '标签四', value: 4 },
+      { title: '标签一', data: { key: 1 } },
+      { title: '标签二', data: { key: 2 } },
+      { title: '标签三', data: { key: 3 } },
+      { title: '标签四', data: { key: 4 } },
     ]
   },
   {
     title: '城市名：',
     field: 'bbb',
     options: [
-      { label: '标', value: 1 },
-      { label: '苏州', value: 2 },
-      { label: '无锡', value: 3 },
-      { label: '连云港', value: 4 },
+      { title: '标', data: { key: 1 } },
+      { title: '苏州', data: { key: 2 } },
+      { title: '无锡', data: { key: 3 } },
+      { title: '连云港', data: { key: 4 } },
     ]
   }
 ])
@@ -273,6 +279,7 @@ const options = ref([
     v-model="tagSelect"
     :options="options"
     :multiple="true"
+    :alias="alias"
   />
 </template>
 ```
@@ -384,6 +391,7 @@ const options = ref([
 | :------------------ | :--------------- | :-------- | :---- |
 | modelValue            | 选中项绑定值       | `array` / `string` / `number` | — |
 | options            | 可配置项       | `array` | — |
+| alias              | 字段路径自定义      | `object`    | `{ label: 'label', value: 'value' }` |
 | multiple | 多选 | `boolean` | false |
 | all                 | 全部标签（多选模式下才生效）   | `boolean` | true |
 | titleWidth               | 标题宽度           | `string` / `number`  |  —    |
@@ -402,6 +410,7 @@ const options = ref([
 | :------------------ | :--------------- | :-------- | :---- |
 | modelValue            | 选中项绑定值       | `array` / `string` / `number` | — |
 | options            | 可配置项       | `array` | — |
+| alias              | 字段路径自定义      | `object`    | `{ label: 'label', value: 'value' }` |
 | multiple | 多选 | `boolean` | false |
 | all                 | 全部标签（多选模式下才生效）   | `boolean` | true |
 | titleWidth               | 标题宽度           | `string` / `number`  |  —    |
@@ -411,13 +420,13 @@ const options = ref([
 
 | 属性名              | 说明             | 类型      | 默认  |
 | :------------------ | :--------------- | :-------- | :---- |
+| title              | 标题      | `string`    | — |
 | field                | 绑定数据字段名       | `string`    | —    |
 | options            | 可配置项       | `array` | — |
 | multiple | 多选 | `boolean` | false |
 | all                 | 全部标签（多选模式下才生效）   | `boolean` | true |
 | titleWidth               | 标题宽度           | `string` / `number`  |  —    |
 | size                | Tag 的尺寸       | `enum`    |  —    |
-| title              | 标题      | `string`    | — |
 
 ## z-tag Option 项可配置属性
 

@@ -1,5 +1,6 @@
 import { ArrowDown } from '@element-plus/icons'
 import { getPxValue, isFunction, isValid } from '@ideaz/utils'
+import { get, set } from 'lodash-unified'
 import { useShowMore } from './hooks'
 import type { TagSelectOptionsItem } from './props'
 import { tagSelectProps } from './props'
@@ -26,9 +27,12 @@ export default defineComponent({
     })
 
     const options = computed(() => {
-      if (props.all && props.multiple)
-        return [{ label: t('tagSelect.all'), value: 'all' }, ...props.options]
-
+      if (props.all && props.multiple) {
+        const all: TagSelectOptionsItem = {} as TagSelectOptionsItem
+        set(all, props.alias?.label || 'label', t('tagSelect.all'))
+        set(all, props.alias?.value || 'value', 'all')
+        return [all, ...props.options]
+      }
       return props.options
     })
 
@@ -52,19 +56,20 @@ export default defineComponent({
 
     const isActive = (item: TagSelectOptionsItem) => {
       const effect = item.effect || 'dark'
+      const itemValue = get(item, props.alias?.value || 'value', '')
       if (props.multiple)
-        return (activeTag.value as number[]).includes(item.value) ? effect : undefined
+        return (activeTag.value as number[]).includes(itemValue) ? effect : undefined
 
-      return String(activeTag.value) === String(item.value) ? effect : undefined
+      return String(activeTag.value) === String(itemValue) ? effect : undefined
     }
 
     const handleClickTag = (item: TagSelectOptionsItem) => {
       if (isFunction(item.onClick))
         item.onClick(item)
-
+      const itemValue = get(item, props.alias?.value || 'value', '')
       const activeEffect = item.effect || 'dark'
       const effect = isActive(item)
-      if (item.value === 'all') {
+      if (itemValue === 'all') {
         if (effect === activeEffect) {
           if (props.multiple) {
             activeTag.value = []
@@ -73,18 +78,18 @@ export default defineComponent({
           }
           else {
             activeTag.value = ''
-            emit('change', item.value)
+            emit('change', itemValue)
           }
         }
         else {
           if (props.multiple) {
-            activeTag.value = options.value.map((item: TagSelectOptionsItem) => item.value)
-            emit('change', options.value.map((item: TagSelectOptionsItem) => item.value))
+            activeTag.value = options.value.map((item: TagSelectOptionsItem) => get(item, props.alias?.value || 'value', ''))
+            emit('change', options.value.map((item: TagSelectOptionsItem) => get(item, props.alias?.value || 'value', '')))
             return
           }
           else {
-            activeTag.value = item.value
-            emit('change', item.value)
+            activeTag.value = itemValue
+            emit('change', itemValue)
           }
         }
         return
@@ -92,11 +97,11 @@ export default defineComponent({
       if (props.multiple) {
         const actives = activeTag.value as number[]
         if (effect === activeEffect) {
-          const index = actives.indexOf(item.value)
+          const index = actives.indexOf(itemValue)
           actives.splice(index, 1)
         }
         else {
-          actives.push(item.value)
+          actives.push(itemValue)
         }
       }
       else {
@@ -105,14 +110,14 @@ export default defineComponent({
           emit('change', '')
         }
         else {
-          activeTag.value = item.value
-          emit('change', item.value)
+          activeTag.value = itemValue
+          emit('change', itemValue)
         }
       }
       // compute is select all or not
       if (props.multiple) {
         const actives = activeTag.value as string[]
-        const values = options.value.map((item: TagSelectOptionsItem) => item.value)
+        const values = options.value.map((item: TagSelectOptionsItem) => get(item, props.alias?.value || 'value', ''))
         if (actives.includes('all')) {
           if (actives.length !== values.length) {
             const index = actives.indexOf('all')
@@ -159,7 +164,7 @@ export default defineComponent({
               class={getTagClass(item, index)}
               size={size.value}
             >
-              {item.label}
+              {get(item, props.alias?.label || 'label', '')}
             </el-tag>
           })}
           {isShowMore.value && <span onClick={handleChangeExpand} class={ns.m('expand')}>

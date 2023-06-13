@@ -24,4 +24,5 @@ export interface Alias {
   label?: string
   value?: string
   disabled?: string
+  [propName: string]: any
 }
