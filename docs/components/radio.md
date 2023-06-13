@@ -87,13 +87,13 @@ const radioVal = ref(1)
 import { ref } from 'vue'
 
 const options = ref([
-  { title: '选项一', key: 1 },
-  { title: '选项二', key: 2 },
-  { title: '选项三', key: 3 }
+  { data: { title: '选项一' }, key: 1 },
+  { data: { title: '选项二' }, key: 2 },
+  { data: { title: '选项三' }, key: 3 }
 ])
 
 const alias = {
-  label: 'title',
+  label: 'data.title',
   value: 'key'
 }
 

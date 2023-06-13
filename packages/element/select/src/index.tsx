@@ -1,5 +1,5 @@
-import { setFormAlias } from '@ideaz/shared'
 import { isArray, isFunction, isSlot } from '@ideaz/utils'
+import { get } from 'lodash-unified'
 import type { Slots } from '@ideaz/hooks'
 import { useSelectMethods } from '../hooks'
 import type { SelectOptionsItem } from './props'
@@ -20,7 +20,7 @@ export default defineComponent({
     useExpose({ focus, blur })
 
     const getOption = (option: SelectOptionsItem) => {
-      const value = option[setFormAlias(props).keys.value]
+      const value = get(option, props.alias?.value || 'value', '')
       const optionSlot: Slots = {}
       if (isSlot(option.render) && slots[option.render as string])
         optionSlot.default = () => slots[option.render as string]!({ option })
@@ -29,8 +29,8 @@ export default defineComponent({
         <el-option
           key={value}
           {...{ props: option }}
-          label={option[setFormAlias(props).keys.label]}
-          disabled={option[setFormAlias(props).keys.disabled]}
+          label={get(option, props.alias?.label || 'label', '')}
+          disabled={get(option, props.alias?.disabled || 'disabled', false)}
           value={value}
           v-slots={optionSlot}
         >
