@@ -1,4 +1,5 @@
 import type { ExtractPropTypes, PropType } from 'vue-demi'
+import type { Alias } from '../../types'
 
 export const cardProps = {
   defaultChecked: {
@@ -80,7 +81,7 @@ export const checkCardGroupProps = {
     type: Boolean,
   },
   alias: {
-    type: Object,
+    type: Object as PropType<Alias>,
   },
 }
 

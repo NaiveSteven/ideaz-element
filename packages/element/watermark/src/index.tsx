@@ -135,8 +135,8 @@ export default defineComponent({
               backgroundRepeat: 'repeat',
               ...(base64Url.value
                 ? {
-                  backgroundImage: `url('${base64Url.value}')`,
-                }
+                    backgroundImage: `url('${base64Url.value}')`,
+                  }
                 : {}),
               ...markStyle,
             }}

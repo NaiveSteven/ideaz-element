@@ -1,4 +1,4 @@
-import type { OptionsItem } from '../../types'
+import type { Alias, OptionsItem } from '../../types'
 
 export interface SelectOptionsItem extends OptionsItem {
   options?: OptionsItem[]
@@ -21,7 +21,7 @@ export const selectProps = {
     default: () => [],
   },
   alias: {
-    type: Object,
+    type: Object as PropType<Alias>,
   },
   prefix: {
     type: [String, Function],

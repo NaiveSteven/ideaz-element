@@ -95,10 +95,10 @@ export default defineComponent({
           {typeof cover === 'string'
             ? (
               <img src={cover} alt="check-card" />
-            )
+              )
             : (
-              cover(h)
-            )}
+                cover(h)
+              )}
         </div>
       )
     }
@@ -125,12 +125,12 @@ export default defineComponent({
               {typeof avatar === 'string'
                 ? (
                   <el-avatar size={48} shape="square" src={avatar} />
-                )
+                  )
                 : (
-                  avatar(h)
-                )}
+                    avatar(h)
+                  )}
             </div>
-          )
+            )
           : null
 
         const headerDom = (title || extra) && (
@@ -149,7 +149,7 @@ export default defineComponent({
             <div class={ns.e('description')}>
               {isFunction(description) ? description(h) : description}
             </div>
-          )
+            )
           : null
 
         const metaClass = computed(() => {
@@ -169,7 +169,7 @@ export default defineComponent({
                   {headerDom}
                   {descriptionDom}
                 </div>
-              )
+                )
               : null}
           </div>
         )

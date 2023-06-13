@@ -1,6 +1,6 @@
 import { radioGroupProps } from 'element-plus'
 import type { ExtractPropTypes } from 'vue-demi'
-import type { OptionsItem } from '../../types'
+import type { Alias, OptionsItem } from '../../types'
 
 export type RadioType = 'radio' | 'radio-button'
 
@@ -33,7 +33,7 @@ export const radioProps = {
     default: '',
   },
   alias: {
-    type: Object,
+    type: Object as PropType<Alias>,
   },
   border: {
     type: Boolean,
