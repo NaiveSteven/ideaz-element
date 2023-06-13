@@ -1,6 +1,6 @@
 import type { ExtractPropTypes } from 'vue-demi'
 import type { ComponentSize } from 'element-plus'
-import type { OptionsItem } from '../../types'
+import type { Alias, OptionsItem } from '../../types'
 
 export interface TagSelectOptionsItem extends OptionsItem {
   type?: 'success' | 'info' | 'warning' | 'danger' | ''
@@ -23,6 +23,7 @@ export interface TagSelectGroupOptionsItem {
   titleWidth?: string | number
   size?: ComponentSize
   title?: string
+  alias?: Alias
 }
 
 export const tagSelectGroupProps = {
@@ -47,6 +48,9 @@ export const tagSelectGroupProps = {
   },
   size: {
     type: String as PropType<ComponentSize>,
+  },
+  alias: {
+    type: Object as PropType<Alias>,
   },
 }
 

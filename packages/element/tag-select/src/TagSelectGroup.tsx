@@ -14,7 +14,7 @@ export default defineComponent({
     }
 
     return () => {
-      const { options, size, all, titleWidth, multiple } = props
+      const { options, size, all, titleWidth, multiple, alias } = props
       return <div>
         {options.map((option: TagSelectGroupOptionsItem) => {
           return <TagSelect
@@ -24,6 +24,7 @@ export default defineComponent({
             titleWidth={titleWidth}
             multiple={multiple}
             all={all}
+            alias={alias}
             {...option}
           />
         })}
