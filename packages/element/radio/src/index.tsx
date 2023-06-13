@@ -33,7 +33,7 @@ export default defineComponent({
           onInput={handleInput}
           onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
         >
-          {props.options.map((option, index) => {
+          {props.options.map((option) => {
             const ChildName = getChildComponentName(option)
             return resolveDynamicComponent({
               name: ChildName,
