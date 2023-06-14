@@ -23,11 +23,12 @@
 9. ~~`z-check-card`支持`v-model`~~
 10. ~~`z-tag-select`组件支持配置多条配置（思路：`modelValue`传入`object`，`options`传入`object`时，走多条配置逻辑）~~
 11. `z-form`、`z-form-item`组件支持`provide`组件属性
-12. `z-tag-select`组件`option.label option.value field`支持路径配置
+12. ~~`z-tag-select`组件`option.label option.value field`支持路径配置~~
 13. ~~`z-radio`组件`option.label option.value`支持路径配置~~
 14. ~~`z-checkbox`组件`option.label option.value`支持路径配置~~
 15. ~~`z-select`组件`option.label option.value`支持路径配置~~
 16. ~~`z-check-card`组件`option.label option.value`支持路径配置~~
+17. `z-select`支持拼接`全部`
 
 ## FEATURE（docs and dts）
 
@@ -49,3 +50,24 @@
 1. `Vue2`中日期组件`icon`会造成排序错乱问题
 2. `z-text`组件在`vitepress`文档中的折行不正确问题
 3. ~~`z-check-card`组件修复`inject`报错问题~~
+
+## design
+
+```js
+// z-form
+const config = {
+  columns: [
+    {
+      type: '',
+      field: '',
+      label: '', // formItem
+      fieldProps: {},
+      formItemProps: {},
+      colProps: {},
+      rowProps: {},
+      onClick: () => {},
+    }
+  ],
+  options: {},
+}
+```
