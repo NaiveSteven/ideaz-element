@@ -23,11 +23,12 @@
 9. ~~`z-check-card`支持`v-model`~~
 10. ~~`z-tag-select`组件支持配置多条配置（思路：`modelValue`传入`object`，`options`传入`object`时，走多条配置逻辑）~~
 11. `z-form`、`z-form-item`组件支持`provide`组件属性
-12. `z-tag-select`组件`option.label option.value field`支持路径配置
+12. ~~`z-tag-select`组件`option.label option.value field`支持路径配置~~
 13. ~~`z-radio`组件`option.label option.value`支持路径配置~~
 14. ~~`z-checkbox`组件`option.label option.value`支持路径配置~~
 15. ~~`z-select`组件`option.label option.value`支持路径配置~~
 16. ~~`z-check-card`组件`option.label option.value`支持路径配置~~
+17. `z-select`支持拼接`全部`
 
 ## FEATURE（docs and dts）
 
@@ -49,3 +50,82 @@
 1. `Vue2`中日期组件`icon`会造成排序错乱问题
 2. `z-text`组件在`vitepress`文档中的折行不正确问题
 3. ~~`z-check-card`组件修复`inject`报错问题~~
+
+## design
+
+```js
+// z-form
+const config = {
+  type: 'array' | 'group' | 'collapse', // form type
+  modelValue: {},
+  columns: [
+    {
+      component: string, // component name
+      field: string,
+      label: string | (() => VNode), // formItem
+      tooltip: string | (() => VNode), // formItem
+      colon: boolean, // formItem
+      extra: string | (() => VNode), // formItem
+      fieldProps: {}, // component props
+      formItemProps: {}, // formItem props
+      colProps: {}, // col props
+      rowProps: {}, // row props
+      render: () => {}, // custom
+      // renderFormItem or formItem: () => {}
+      ref: (c: any) => {}, // v-ref
+      rules: [], // form rules
+      modifier: string | ((val: any) => any),
+      onClick: () => {}, // event
+      // default set prop slot
+    }
+  ],
+  options: {},
+}
+```
+
+```js
+// z-table
+const config = {
+  searchFormModel: {},
+  tableColumns: [
+    {
+      label: string,
+      prop: string, // support path set
+      searchForm: {}, // form column
+    }
+  ],
+  options: {}, // options
+  pagination: {}, // pagination component
+  request: {}, // async request
+}
+```
+
+```js
+// z-crud
+const config = {
+  searchFormData: {},
+  operateFormData: {},
+  tableColumns: [
+    {
+      label: string,
+      prop: string, // support path set
+      searchForm: {}, // form column
+    }
+  ],
+  operate: {
+    columns: []
+  },
+  add: {
+    columns: [],
+  },
+  edit: {
+    columns: []
+  },
+  detail: {
+    columns: []
+  },
+  options: {}, // options
+  pagination: {}, // pagination component
+  request: {}, // async request
+}
+```
