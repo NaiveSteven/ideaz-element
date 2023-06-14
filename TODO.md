@@ -56,18 +56,76 @@
 ```js
 // z-form
 const config = {
+  type: 'array' | 'group' | 'collapse', // form type
+  modelValue: {},
   columns: [
     {
-      type: '',
-      field: '',
-      label: '', // formItem
-      fieldProps: {},
-      formItemProps: {},
-      colProps: {},
-      rowProps: {},
-      onClick: () => {},
+      component: string, // component name
+      field: string,
+      label: string | (() => VNode), // formItem
+      tooltip: string | (() => VNode), // formItem
+      colon: boolean, // formItem
+      extra: string | (() => VNode), // formItem
+      fieldProps: {}, // component props
+      formItemProps: {}, // formItem props
+      colProps: {}, // col props
+      rowProps: {}, // row props
+      render: () => {}, // custom
+      // renderFormItem or formItem: () => {}
+      ref: (c: any) => {}, // v-ref
+      rules: [], // form rules
+      modifier: string | ((val: any) => any),
+      onClick: () => {}, // event
+      // default set prop slot
     }
   ],
   options: {},
+}
+```
+
+```js
+// z-table
+const config = {
+  searchFormModel: {},
+  tableColumns: [
+    {
+      label: string,
+      prop: string, // support path set
+      searchForm: {}, // form column
+    }
+  ],
+  options: {}, // options
+  pagination: {}, // pagination component
+  request: {}, // async request
+}
+```
+
+```js
+// z-crud
+const config = {
+  searchFormData: {},
+  operateFormData: {},
+  tableColumns: [
+    {
+      label: string,
+      prop: string, // support path set
+      searchForm: {}, // form column
+    }
+  ],
+  operate: {
+    columns: []
+  },
+  add: {
+    columns: [],
+  },
+  edit: {
+    columns: []
+  },
+  detail: {
+    columns: []
+  },
+  options: {}, // options
+  pagination: {}, // pagination component
+  request: {}, // async request
 }
 ```
