@@ -29,6 +29,7 @@
 15. ~~`z-select`组件`option.label option.value`支持路径配置~~
 16. ~~`z-check-card`组件`option.label option.value`支持路径配置~~
 17. `z-select`支持拼接`全部`
+18. `z-form`组件不再使用`z-col`和`z-row`组件布局，而是采用内置方案
 
 ## FEATURE（docs and dts）
 
@@ -57,6 +58,9 @@
 // z-form
 const config = {
   type: 'array' | 'group' | 'collapse', // form type
+  gutter: number, // form gutter
+  justify: 'start' | 'end' | 'center' | 'space-around' | 'space-between', // form justify
+  align: 'top' | 'middle' | 'bottom', // form align
   modelValue: {},
   columns: [
     {
@@ -68,8 +72,18 @@ const config = {
       extra: string | (() => VNode), // formItem
       fieldProps: {}, // component props
       formItemProps: {}, // formItem props
-      colProps: {}, // col props
-      rowProps: {}, // row props
+      span: number, // col span
+      offset: number, // col offset
+      pull: number, // col pull
+      push: number, // col push
+      xs: number | object, // <576px
+      sm: number | object, // ≥576px
+      md: number | object, // ≥768px
+      lg: number | object, // ≥992px
+      xl: number | object, // ≥1200px
+      xxl: number | object, // ≥1600px
+      // colProps: {}, // col props
+      // rowProps: {}, // row props
       render: () => {}, // custom
       // renderFormItem or formItem: () => {}
       ref: (c: any) => {}, // v-ref
