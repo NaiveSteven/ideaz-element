@@ -39,6 +39,7 @@ const columns = [
     type: 'input',
     prop: 'activeName',
     modifier: 'trim',
+    span: 8,
     formItem: { label: '活动名称' },
     on: {
       input: (val) => {
@@ -52,6 +53,7 @@ const columns = [
   {
     type: 'select',
     prop: 'activeArea',
+    span: 8,
     formItem: { label: '活动区域' },
     on: {
       change: (val) => {
@@ -66,6 +68,7 @@ const columns = [
   {
     type: 'datepicker',
     prop: 'activeTime',
+    span: 8,
     formItem: { label: '活动时间' },
     attrs: {
       type: 'daterange',
@@ -120,3 +123,122 @@ const submit = () => {
   </el-button>
 </template>
 ```
+
+:::
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const cFormRef = ref()
+const formModel = ref({
+  activeName: '',
+  activeArea: '',
+  activeInput: '',
+})
+
+const layout = {
+  colLayout: {
+    xs: 24,
+    sm: 12,
+    md: 12,
+    lg: 12,
+    xl: 12,
+  },
+}
+
+const optionsConfig = {
+  activeArea: [
+    { label: '区域1', value: '1' },
+    { label: '区域2', value: '2' },
+  ],
+}
+
+const formConfig = {
+  labelWidth: '80px',
+  size: 'small',
+  rules: {
+    activeName: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
+  },
+}
+
+const formItemConfig = [
+  {
+    type: 'input',
+    prop: 'activeName',
+    formItem: { label: '活动名称' },
+    rearSlot: 'error',
+    frontSlot: 'nihao',
+    attrs: {
+      placeholder: '请输入活动名称',
+      clearable: true,
+    },
+  },
+  {
+    type: 'select',
+    prop: 'activeArea',
+    formItem: { label: '活动区域' },
+    attrs: {
+      placeholder: '请输入活动区域',
+      clearable: true,
+    },
+  },
+  {
+    type: 'input',
+    prop: 'activeInput',
+    formItem: { label: '输入框' },
+    attrs: {
+      placeholder: '请输入',
+      clearable: true,
+    },
+  },
+  {
+    slot: 'button',
+  },
+]
+
+const submit = () => {
+  cFormRef.value.validate((valid: boolean) => {
+    if (valid) {
+      alert('submit!')
+      console.log(formModel.value, 'formModel.value')
+    }
+    else {
+      console.log('error submit!!')
+      return false
+    }
+  })
+}
+</script>
+
+<template>
+  <z-form
+    ref="cFormRef"
+    :form-model="formModel"
+    :form-config="formConfig"
+    :options="optionsConfig"
+    :columns="formItemConfig"
+    :layout="layout"
+  >
+    <template #error>
+      <div class="el-form-item__error">
+        hhh
+      </div>
+    </template>
+    <template #nihao>
+      <span>11</span>
+    </template>
+    <template #button>
+      <el-form-item label="">
+        <el-button style="width: 100%;" type="primary" @click="submit">
+          提交
+        </el-button>
+      </el-form-item>
+    </template>
+  </z-form>
+</template>
+```
+
+:::
