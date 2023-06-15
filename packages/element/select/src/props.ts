@@ -1,3 +1,4 @@
+import type { ExtractPropTypes } from 'vue-demi'
 import type { Alias, OptionsItem } from '../../types'
 
 export interface SelectOptionsItem extends OptionsItem {
@@ -29,6 +30,14 @@ export const selectProps = {
   empty: {
     type: [String, Function],
   },
+  all: {
+    type: Boolean,
+  },
+  multiple: {
+    type: Boolean,
+  },
 }
 
 export const SELECT_SLOTS = ['prefix', 'empty']
+
+export type SelectProps = ExtractPropTypes<typeof selectProps>

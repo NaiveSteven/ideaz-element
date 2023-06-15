@@ -8,4 +8,7 @@ export default {
     expand: '展开',
     retract: '收起',
   },
+  select: {
+    all: '全部',
+  },
 }

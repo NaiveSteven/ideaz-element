@@ -1,7 +1,7 @@
 import { isArray, isFunction, isSlot } from '@ideaz/utils'
 import { get } from 'lodash-unified'
 import type { Slots } from '@ideaz/hooks'
-import { useSelectMethods } from '../hooks'
+import { useOptions, useSelectMethods } from '../hooks'
 import type { SelectOptionsItem } from './props'
 import { SELECT_SLOTS, selectProps } from './props'
 
@@ -14,6 +14,7 @@ export default defineComponent({
     const { vModelVal, handleInput } = useVModel(props, emit)
     const { focus, blur } = useSelectMethods()
     const { scopedSlots } = useFormComponentSlots(props, slots, SELECT_SLOTS)
+    const { options, handleSelectInput } = useOptions(props, vModelVal)
     const size = useFormSize()
     const attrs = useAttrs()
 
@@ -46,13 +47,13 @@ export default defineComponent({
         modelValue={vModelVal.value}
         {...{ props: attrsAll.value }}
         {...{ on: { ...onAll.value, ...listeners } }}
-        {...attrs}
+        {...{ ...attrs, multiple: props.multiple }}
         size={size.value}
         onInput={handleInput}
-        onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
+        onUpdate:modelValue={handleSelectInput}
         v-slots={scopedSlots.value}
       >
-        {props.options.map((option) => {
+        {options.value.map((option) => {
           if (isArray(option.options)) {
             return <el-option-group label={option.label} key={option.label} disabled={option.disabled}>
               {option.options.map((childOption) => {
