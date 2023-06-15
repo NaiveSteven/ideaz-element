@@ -8,4 +8,7 @@ export default {
     expand: 'expand',
     retract: 'retract',
   },
+  select: {
+    all: 'all',
+  },
 }

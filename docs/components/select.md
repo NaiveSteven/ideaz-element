@@ -149,6 +149,36 @@ const selectVal = ref([1])
 
 :::
 
+## 选择全部
+
+> 前提 multiple 为 true 时，才会生效
+
+当 `all` 为 `true` 时，`options`会拼接`{ label: '全部', value: 'all' }`
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const options = ref([
+  { label: '选项一', value: 1 },
+  { label: '选项二', value: 2 },
+  { label: '选项三', value: 3 }
+])
+
+const selectVal = ref([1])
+</script>
+
+<template>
+  <div class="flex flex-col">
+    <z-select v-model="selectVal" :options="options" multiple all />
+  </div>
+</template>
+```
+
+:::
+
 ## 分组
 
 通过 `option` 中的 `options` 字段配置可以轻松生成分组展示
@@ -285,6 +315,7 @@ const setEmpty = () => {
 | prefix                         | Select 组件头部内容                                                     | `string /function`                                    |  —                                                 | —            |
 | empty                         | 无选项时的列表                                                     | `string / function`                                    |  —                                                 | —            |
 | multiple                         | 是否多选                                                     | `boolean`                                    | true/false                                                   | false            |
+| all                         | 是否全部（`multiple`为`true`时才会生效）                                                     | `boolean`                                    | true/false                                                   | false            |
 | disabled                         | 是否禁用                                                     | `boolean`                                    | true / false                                                 | false            |
 | value-key                        | 作为 value 唯一标识的键名，绑定值为对象类型时必填            | `string`                                     | —                                                            | value            |
 | size                             | 输入框尺寸                                                   | `string`                                     | large/default/small                                          | default          |
