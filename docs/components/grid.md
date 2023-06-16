@@ -16,12 +16,12 @@ element-plus的布局组件，主要用于兼容element-ui
 
 ```vue
 <template>
-  <z-row>
+  <z-row class="mb-5">
     <z-col :span="24">
       <div class="grid-content ep-bg-purple-dark" />
     </z-col>
   </z-row>
-  <z-row>
+  <z-row class="mb-5">
     <z-col :span="12">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -29,7 +29,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple-light" />
     </z-col>
   </z-row>
-  <z-row>
+  <z-row class="mb-5">
     <z-col :span="8">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -40,7 +40,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row>
+  <z-row class="mb-5">
     <z-col :span="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -54,7 +54,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple-light" />
     </z-col>
   </z-row>
-  <z-row>
+  <z-row class="mb-5">
     <z-col :span="4">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -77,9 +77,6 @@ element-plus的布局组件，主要用于兼容element-ui
 </template>
 
 <style lang="scss">
-.z-row {
-  margin-bottom: 20px;
-}
 .z-row:last-child {
   margin-bottom: 0;
 }
@@ -132,9 +129,6 @@ element-plus的布局组件，主要用于兼容element-ui
 </template>
 
 <style>
-.z-row {
-  margin-bottom: 20px;
-}
 .z-row:last-child {
   margin-bottom: 0;
 }
@@ -159,7 +153,7 @@ element-plus的布局组件，主要用于兼容element-ui
 
 ```vue
 <template>
-  <z-row :gutter="20">
+  <z-row :gutter="20" class="mb-5">
     <z-col :span="16">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -167,7 +161,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row :gutter="20">
+  <z-row :gutter="20" class="mb-5">
     <z-col :span="8">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -181,7 +175,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row :gutter="20">
+  <z-row :gutter="20" class="mb-5">
     <z-col :span="4">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -195,9 +189,6 @@ element-plus的布局组件，主要用于兼容element-ui
 </template>
 
 <style>
-.z-row {
-  margin-bottom: 20px;
-}
 .z-row:last-child {
   margin-bottom: 0;
 }
@@ -222,7 +213,7 @@ element-plus的布局组件，主要用于兼容element-ui
 
 ```vue
 <template>
-  <z-row :gutter="20">
+  <z-row :gutter="20" class="mb-5">
     <z-col :span="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -230,7 +221,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row :gutter="20">
+  <z-row :gutter="20" class="mb-5">
     <z-col :span="6" :offset="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -238,7 +229,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row :gutter="20">
+  <z-row :gutter="20" class="mb-5">
     <z-col :span="12" :offset="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -246,9 +237,6 @@ element-plus的布局组件，主要用于兼容element-ui
 </template>
 
 <style>
-.z-row {
-  margin-bottom: 20px;
-}
 .z-row:last-child {
   margin-bottom: 0;
 }
@@ -275,7 +263,7 @@ element-plus的布局组件，主要用于兼容element-ui
 
 ```vue
 <template>
-  <z-row class="row-bg">
+  <z-row class="row-bg mb-5">
     <z-col :span="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -286,7 +274,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row class="row-bg" justify="center">
+  <z-row class="row-bg mb-5" justify="center">
     <z-col :span="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -297,7 +285,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row class="row-bg" justify="end">
+  <z-row class="row-bg mb-5" justify="end">
     <z-col :span="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -308,7 +296,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row class="row-bg" justify="space-between">
+  <z-row class="row-bg mb-5" justify="space-between">
     <z-col :span="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -319,7 +307,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row class="row-bg" justify="space-around">
+  <z-row class="row-bg mb-5" justify="space-around">
     <z-col :span="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -330,7 +318,7 @@ element-plus的布局组件，主要用于兼容element-ui
       <div class="grid-content ep-bg-purple" />
     </z-col>
   </z-row>
-  <z-row class="row-bg" justify="space-evenly">
+  <z-row class="row-bg mb-5" justify="space-evenly">
     <z-col :span="6">
       <div class="grid-content ep-bg-purple" />
     </z-col>
@@ -347,9 +335,6 @@ element-plus的布局组件，主要用于兼容element-ui
 .row-bg {
   padding: 10px 0;
   background-color: #f9fafc;
-}
-.z-row {
-  margin-bottom: 20px;
 }
 .z-row:last-child {
   margin-bottom: 0;

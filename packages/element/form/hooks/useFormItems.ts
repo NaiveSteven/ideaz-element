@@ -5,36 +5,38 @@ import type { FormColumn } from '~/types'
 export const SELECT_TYPES = ['cascader', 'select', 'datepicker', 'picker']
 
 export const useFormItems = (props: Record<any, any>) => {
+  const { t } = useLocale()
+
   const setDefaultPlaceholder = (formItem: FormColumn) => {
     const label = formItem.formItem?.label
     const type = isFunction(formItem.type) ? formItem.type() : formItem.type
     if (SELECT_TYPES.includes(type || ''))
-      return label ? `请选择${label}` : '请选择'
+      return label ? `${t('form.selectPlaceholder')}${label}` : `${t('form.selectPlaceholder')}`
 
     else
-      return label ? `请输入${label}` : '请输入'
+      return label ? `${t('form.inputPlaceholder')}${label}` : `${t('form.inputPlaceholder')}`
   }
 
   const isHide = (item: FormColumn) => {
     return typeof item.hide === 'function' ? item.hide() : item.hide
   }
 
-  const formatFormItems = computed(() => {
+  const formatFormItems = computed<FormColumn[]>(() => {
     const _schema = cloneDeep(
       props.columns.map((item: FormColumn) => ({
         ...item,
-        __key: item.key || item.prop || item.slot || uid(),
+        __key: item.key || item.field || item.slot || uid(),
       })),
     )
     return _schema
       .filter((item: FormColumn) => !isHide(item))
       .map((item: FormColumn) => ({
         ...item,
-        attrs: {
+        fieldProps: {
           placeholder: setDefaultPlaceholder(item),
           clearable: true,
           filterable: true,
-          ...item?.attrs,
+          ...item?.fieldProps,
         },
       }))
   })

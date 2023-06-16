@@ -6,28 +6,12 @@ import {
   useFormItemProps,
   useFormItemSlots,
 } from '../hooks'
+import { formItemProps } from './props'
 
 export default defineComponent({
   name: 'ZFormItem',
   directives: { ref },
-  props: {
-    formConfig: {
-      type: Object,
-      default: () => ({}),
-    },
-    formModel: {
-      type: Object,
-      default: () => { },
-    },
-    options: {
-      type: Object,
-      default: () => { },
-    },
-    col: {
-      type: Object,
-      default: () => { },
-    },
-  },
+  props: formItemProps,
   emits: ['change'],
   setup(props, { slots }) {
     const { componentName: ComponentName } = useFormItemComponent(props)
@@ -38,13 +22,13 @@ export default defineComponent({
       const { col, formModel } = props
       if (col.modifier) {
         if (isFunction(col.modifier))
-          formModel[col.prop!] = col.modifier(val)
+          formModel[col.field!] = col.modifier(val)
 
         if (col.modifier === 'trim')
-          formModel[col.prop!] = isString(val) ? val.trim() : val
+          formModel[col.field!] = isString(val) ? val.trim() : val
       }
       else {
-        formModel[col.prop!] = val
+        formModel[col.field!] = val
       }
     }
 
@@ -54,7 +38,7 @@ export default defineComponent({
       return (
         <el-form-item
           ref="formItem"
-          prop={col.prop}
+          prop={col.field}
           class="c-form-item"
           {...formItemProps.value}
           v-slots={vSlots.value}
@@ -64,17 +48,17 @@ export default defineComponent({
             : h(resolveDynamicComponent({
               name: ComponentName.value,
               attrs: {
-                'modelValue': isFunction(col.attrs && col.attrs.format)
-                  ? col.attrs.format(props.formModel[col.prop])
-                  : props.formModel[col.prop],
-                'prop': col.prop,
+                'modelValue': isFunction(col.fieldProps && col.fieldProps.format)
+                  ? col.fieldProps?.format(props.formModel[col.field!])
+                  : props.formModel[col.field!],
+                'prop': col.field,
                 'options': options
-                  ? (options[col.prop] || (col.attrs && col.attrs.options))
+                  ? (options[col.field!] || (col.fieldProps && col.fieldProps.options))
                   : {},
-                ...col.attrs,
+                ...col.fieldProps,
                 'directives': {
-                  ref: isObject(col.attrs)
-                    ? (col.attrs.ref || (() => { }))
+                  ref: isObject(col.fieldProps)
+                    ? (col.fieldProps.ref || (() => { }))
                     : () => { },
                 },
                 'onUpdate:modelValue': (val: any) => modify(val),

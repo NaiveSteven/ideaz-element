@@ -37,7 +37,7 @@ const formConfig = {
 const columns = [
   {
     type: 'input',
-    prop: 'activeName',
+    field: 'activeName',
     modifier: 'trim',
     span: 8,
     formItem: { label: '活动名称' },
@@ -52,7 +52,7 @@ const columns = [
   },
   {
     type: 'select',
-    prop: 'activeArea',
+    field: 'activeArea',
     span: 8,
     formItem: { label: '活动区域' },
     on: {
@@ -67,10 +67,10 @@ const columns = [
   },
   {
     type: 'datepicker',
-    prop: 'activeTime',
+    field: 'activeTime',
     span: 8,
     formItem: { label: '活动时间' },
-    attrs: {
+    fieldProps: {
       type: 'daterange',
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
@@ -167,32 +167,32 @@ const formConfig = {
 const formItemConfig = [
   {
     type: 'input',
-    prop: 'activeName',
+    field: 'activeName',
     formItem: { label: '活动名称' },
     rearSlot: 'error',
     frontSlot: 'nihao',
     span: 12,
-    attrs: {
+    fieldProps: {
       placeholder: '请输入活动名称',
       clearable: true,
     },
   },
   {
     type: 'select',
-    prop: 'activeArea',
+    field: 'activeArea',
     span: 12,
     formItem: { label: '活动区域' },
-    attrs: {
+    fieldProps: {
       placeholder: '请输入活动区域',
       clearable: true,
     },
   },
   {
     type: 'input',
-    prop: 'activeInput',
+    field: 'activeInput',
     span: 12,
     formItem: { label: '输入框' },
-    attrs: {
+    fieldProps: {
       placeholder: '请输入',
       clearable: true,
     },

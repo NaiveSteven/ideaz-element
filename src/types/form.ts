@@ -2,9 +2,9 @@ import type { IndexType } from './common'
 
 export interface FormColumn {
   type?: string | (() => string)
-  prop?: string
+  field?: string
   formItem?: IndexType
-  attrs?: IndexType
+  fieldProps?: IndexType
   hide?: () => boolean
   hideUseVShow?: () => boolean
   on?: IndexType
