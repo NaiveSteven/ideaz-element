@@ -1,10 +1,10 @@
 // import { withModifiers } from 'vue-demi';
-import { isFunction } from '@ideaz/utils'
 import { useExpose } from '@ideaz/hooks'
+import { isFunction } from '@ideaz/utils'
+
 import {
   useCol,
   useFormItems,
-  // useFormLayout,
   useFormMethods,
   useFormSlots,
   useRow,
@@ -57,38 +57,24 @@ export default defineComponent({
           style={rowStyle.value}
         // onSubmit={withModifiers(function () { }, ['prevent'])}
         >
-          {/* <z-row {...rowLayout.value}> */}
-            {formatFormItems.value.map(
-              (col: FormColumn, colIndex: number) => {
-                const { scopedSlots } = useFormSlots(col, slots, props)
-                const { colKls, colStyle } = useCol(props, { span: 24, ...col })
-                return (
-                  // <z-col
-                  //   v-show={col.hideUseVShow ? !col.hideUseVShow() : true}
-                  //   {...getColLayout(col)}
-                  //   key={col.__key! + colIndex}
-                  // >
-                  isFunction(col.render) || col.slot)
-                  ? (
-                      renderContent(col, slots)
-                    )
-                  : (
-                        <FormItem
-                          key={col.__key}
-                          ref={`formItem${colIndex}`}
-                          col={col}
-                          formModel={formModel}
-                          formConfig={formConfig}
-                          options={options}
-                          class={colKls.value}
-                          style={colStyle.value}
-                          v-slots={scopedSlots}
-                          onChange={obj => emit('change', obj)}
-                        />
-                    )
-              },
-            )}
-          {/* </z-row> */}
+          {formatFormItems.value.map((col: FormColumn, colIndex: number) => {
+            const { scopedSlots } = useFormSlots(col, slots, props)
+            const { colKls, colStyle } = useCol(props, { span: 24, ...col })
+            return <FormItem
+              key={col.__key}
+              ref={`formItem${colIndex}`}
+              col={col}
+              formModel={formModel}
+              formConfig={formConfig}
+              options={options}
+              class={colKls.value}
+              style={colStyle.value}
+              v-slots={scopedSlots}
+              onChange={obj => emit('change', obj)}
+            >
+              {(isFunction(col.render) || col.slot) ? renderContent(col, slots) : null}
+            </FormItem>
+          })}
         </el-form>
       )
     }

@@ -171,6 +171,7 @@ const formItemConfig = [
     formItem: { label: '活动名称' },
     rearSlot: 'error',
     frontSlot: 'nihao',
+    span: 12,
     attrs: {
       placeholder: '请输入活动名称',
       clearable: true,
@@ -179,6 +180,7 @@ const formItemConfig = [
   {
     type: 'select',
     prop: 'activeArea',
+    span: 12,
     formItem: { label: '活动区域' },
     attrs: {
       placeholder: '请输入活动区域',
@@ -188,6 +190,7 @@ const formItemConfig = [
   {
     type: 'input',
     prop: 'activeInput',
+    span: 12,
     formItem: { label: '输入框' },
     attrs: {
       placeholder: '请输入',
@@ -195,6 +198,7 @@ const formItemConfig = [
     },
   },
   {
+    span: 12,
     slot: 'button',
   },
 ]
@@ -220,7 +224,7 @@ const submit = () => {
     :form-config="formConfig"
     :options="optionsConfig"
     :columns="formItemConfig"
-    :layout="layout"
+    justify="center"
   >
     <template #error>
       <div class="el-form-item__error">
@@ -231,11 +235,9 @@ const submit = () => {
       <span>11</span>
     </template>
     <template #button>
-      <el-form-item label="">
-        <el-button style="width: 100%;" type="primary" @click="submit">
-          提交
-        </el-button>
-      </el-form-item>
+      <el-button style="width: 100%;" type="primary" @click="submit">
+        提交
+      </el-button>
     </template>
   </z-form>
 </template>
