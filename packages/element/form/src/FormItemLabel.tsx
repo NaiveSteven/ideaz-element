@@ -1,10 +1,10 @@
-import { isFunction, isObject, isString } from '@ideaz/utils';
+import { isFunction, isObject, isString } from '@ideaz/utils'
 
 export default defineComponent({
   name: 'FormItemLabel',
   props: {
     label: {
-      type: String,
+      type: [String, Function],
       default: '',
     },
     tooltip: {
@@ -18,16 +18,15 @@ export default defineComponent({
   },
   setup(props) {
     return () => {
-      const { label, colon, tooltip } = props;
+      const { label, colon, tooltip } = props
 
       const tooltipProps = isObject(tooltip)
         ? tooltip
-        : { content: isString(tooltip) ? tooltip : '' };
-      const tooltipSlot: any = {};
+        : { content: isString(tooltip) ? tooltip : '' }
+      const tooltipSlot: any = {}
 
-      if (isFunction(tooltip)) {
-        tooltipSlot.content = () => tooltip(h);
-      }
+      if (isFunction(tooltip))
+        tooltipSlot.content = () => tooltip(h)
 
       return (
         <span>
@@ -46,7 +45,7 @@ export default defineComponent({
           </el-tooltip>
           {colon ? ':' : null}
         </span>
-      );
-    };
+      )
+    }
   },
-});
+})

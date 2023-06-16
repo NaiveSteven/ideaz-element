@@ -67,7 +67,7 @@ export default defineComponent({
           {formItemProps.value.extra && (
             <div class="c-form-item__extra">
               {isFunction(formItemProps.value.extra)
-                ? formItemProps.value.extra(h)
+                ? formItemProps.value.extra()
                 : formItemProps.value.extra}
             </div>
           )}

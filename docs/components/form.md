@@ -40,7 +40,7 @@ const columns = [
     field: 'activeName',
     modifier: 'trim',
     span: 8,
-    formItem: { label: '活动名称' },
+    formItemProps: { label: '活动名称' },
     on: {
       input: (val) => {
         console.log(val, 'input event')
@@ -54,7 +54,7 @@ const columns = [
     type: 'select',
     field: 'activeArea',
     span: 8,
-    formItem: { label: '活动区域' },
+    formItemProps: { label: '活动区域' },
     on: {
       change: (val) => {
         console.log(val, 'change event')
@@ -69,7 +69,7 @@ const columns = [
     type: 'datepicker',
     field: 'activeTime',
     span: 8,
-    formItem: { label: '活动时间' },
+    formItemProps: { label: '活动时间' },
     fieldProps: {
       type: 'daterange',
       startPlaceholder: '开始日期',
@@ -168,7 +168,7 @@ const formItemConfig = [
   {
     type: 'input',
     field: 'activeName',
-    formItem: { label: '活动名称' },
+    formItemProps: { label: '活动名称' },
     rearSlot: 'error',
     frontSlot: 'nihao',
     span: 12,
@@ -181,17 +181,21 @@ const formItemConfig = [
     type: 'select',
     field: 'activeArea',
     span: 12,
-    formItem: { label: '活动区域' },
+    label: '活动区域',
+    tooltip: '活动区域',
+    extra: '活动区域',
+    // formItemProps: { label: '活动区域' },
     fieldProps: {
       placeholder: '请输入活动区域',
       clearable: true,
+      size: 'small'
     },
   },
   {
     type: 'input',
     field: 'activeInput',
     span: 12,
-    formItem: { label: '输入框' },
+    formItemProps: { label: '输入框' },
     fieldProps: {
       placeholder: '请输入',
       clearable: true,
