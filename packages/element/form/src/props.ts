@@ -1,3 +1,16 @@
+import type { ExtractPropTypes } from 'vue-demi'
+
+export const RowJustify = [
+  'start',
+  'center',
+  'end',
+  'space-around',
+  'space-between',
+  'space-evenly',
+] as const
+
+export const RowAlign = ['top', 'middle', 'bottom'] as const
+
 export const props = {
   layout: {
     type: Object,
@@ -35,4 +48,20 @@ export const props = {
     type: Object,
     default: () => {},
   },
+  gutter: {
+    type: Number,
+    default: 0,
+  },
+  justify: {
+    type: String,
+    values: RowJustify,
+    default: 'start',
+  },
+  align: {
+    type: String,
+    values: RowAlign,
+    default: 'top',
+  },
 }
+
+export type FormProps = ExtractPropTypes<typeof props>

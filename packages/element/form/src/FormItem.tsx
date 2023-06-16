@@ -1,11 +1,11 @@
-import { isFunction, isObject, isString } from '@ideaz/utils';
-import { resolveDynamicComponent } from '@ideaz/shared';
-import { vueRef as ref } from '@ideaz/directives';
+import { isFunction, isObject, isString } from '@ideaz/utils'
+import { resolveDynamicComponent } from '@ideaz/shared'
+import { vueRef as ref } from '@ideaz/directives'
 import {
   useFormItemComponent,
   useFormItemProps,
   useFormItemSlots,
-} from '../hooks';
+} from '../hooks'
 
 export default defineComponent({
   name: 'ZFormItem',
@@ -30,26 +30,26 @@ export default defineComponent({
   },
   emits: ['change'],
   setup(props, { slots }) {
-    const { componentName: ComponentName } = useFormItemComponent(props);
-    const { formItemProps } = useFormItemProps(props);
-    const { vSlots } = useFormItemSlots(props, slots);
+    const { componentName: ComponentName } = useFormItemComponent(props)
+    const { formItemProps } = useFormItemProps(props)
+    const { vSlots } = useFormItemSlots(props, slots)
 
     const modify = (val: any) => {
-      const { col, formModel } = props;
+      const { col, formModel } = props
       if (col.modifier) {
-        if (isFunction(col.modifier)) {
-          formModel[col.prop!] = col.modifier(val);
-        }
-        if (col.modifier === 'trim') {
-          formModel[col.prop!] = isString(val) ? val.trim() : val;
-        }
-      } else {
-        formModel[col.prop!] = val;
+        if (isFunction(col.modifier))
+          formModel[col.prop!] = col.modifier(val)
+
+        if (col.modifier === 'trim')
+          formModel[col.prop!] = isString(val) ? val.trim() : val
       }
-    };
+      else {
+        formModel[col.prop!] = val
+      }
+    }
 
     return () => {
-      const { col, options } = props;
+      const { col, options } = props
 
       return (
         <el-form-item
@@ -59,24 +59,27 @@ export default defineComponent({
           {...formItemProps.value}
           v-slots={vSlots.value}
         >
-          {h(resolveDynamicComponent({
-            name: ComponentName.value, attrs: {
-              modelValue: isFunction(col.attrs && col.attrs.format)
-                ? col.attrs.format(props.formModel[col.prop])
-                : props.formModel[col.prop],
-              prop: col.prop,
-              options: options
-                ? options[col.prop] || (col.attrs && col.attrs.options)
-                : {},
-              ...col.attrs,
-              directives: {
-                ref: isObject(col.attrs)
-                  ? col.attrs.ref || (() => { })
-                  : () => { },
+          {(isFunction(col.render) || col.slot)
+            ? slots.default?.()
+            : h(resolveDynamicComponent({
+              name: ComponentName.value,
+              attrs: {
+                'modelValue': isFunction(col.attrs && col.attrs.format)
+                  ? col.attrs.format(props.formModel[col.prop])
+                  : props.formModel[col.prop],
+                'prop': col.prop,
+                'options': options
+                  ? (options[col.prop] || (col.attrs && col.attrs.options))
+                  : {},
+                ...col.attrs,
+                'directives': {
+                  ref: isObject(col.attrs)
+                    ? (col.attrs.ref || (() => { }))
+                    : () => { },
+                },
+                'onUpdate:modelValue': (val: any) => modify(val),
               },
-              'onUpdate:modelValue': (val: any) => modify(val),
-            }
-          }))}
+            }))}
           {formItemProps.value.extra && (
             <div class="c-form-item__extra">
               {isFunction(formItemProps.value.extra)
@@ -85,7 +88,7 @@ export default defineComponent({
             </div>
           )}
         </el-form-item>
-      );
-    };
+      )
+    }
   },
-});
+})
