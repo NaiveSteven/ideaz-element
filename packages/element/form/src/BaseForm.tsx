@@ -1,7 +1,6 @@
 // import { withModifiers } from 'vue-demi';
 import { useExpose } from '@ideaz/hooks'
 import { isFunction } from '@ideaz/utils'
-
 import {
   useCol,
   useFormItems,
@@ -9,7 +8,7 @@ import {
   useFormSlots,
   useRow,
 } from '../hooks'
-import { props } from './props'
+import { formProps } from './props'
 import FormItem from './FormItem'
 import type { FormColumn } from '~/types'
 
@@ -24,10 +23,9 @@ const renderContent = (col: FormColumn, slots: any) => {
 export default defineComponent({
   name: 'ZForm',
   components: { FormItem },
-  props,
+  props: formProps,
   emits: ['input', 'update:modelValue', 'change'],
   setup(props, { emit, slots }) {
-    // const { rowLayout, getColLayout } = useFormLayout(props)
     const { formatFormItems } = useFormItems(props)
     const { rowStyle, rowKls } = useRow(props)
     const {

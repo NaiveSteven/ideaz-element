@@ -1,11 +1,11 @@
 import { useFilterFormItem } from '../hooks'
-import { props } from './props'
-import ToggleButton from './ToggleButton.tsx'
+import { formItemProps } from './props'
+import ToggleButton from './ToggleButton'
 
 export default defineComponent({
   name: 'ZFilterForm',
   components: { ToggleButton },
-  props,
+  props: formItemProps,
   emits: ['search', 'reset'],
   setup(props, { attrs, slots, emit }) {
     const { isShowToggleButton, columns, toggleButtonType, layout } = useFilterFormItem(props)
@@ -43,10 +43,10 @@ export default defineComponent({
                       重置
                     </el-button>
                   </div>
-                )
+                  )
                 : (
-                  slots.formOperation()
-                )}
+                    slots.formOperation()
+                  )}
               {isShowToggleButton.value
                 ? (
                   <ToggleButton
@@ -54,7 +54,7 @@ export default defineComponent({
                     modelValue={toggleButtonType.value}
                     onUpdate:modelValue={(val: any) => (toggleButtonType.value = val)}
                   />
-                )
+                  )
                 : null}
             </>
           ),
