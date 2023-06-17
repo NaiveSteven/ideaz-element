@@ -1,4 +1,5 @@
 import type { ExtractPropTypes } from 'vue-demi'
+import type { FormColumn } from '~/types'
 
 export const RowJustify = [
   'start',
@@ -11,33 +12,13 @@ export const RowJustify = [
 
 export const RowAlign = ['top', 'middle', 'bottom'] as const
 
-export const props = {
-  layout: {
-    type: Object,
-    default: () => {
-      return {
-        rowLayout: {
-          gutter: 0,
-          interval: 0,
-          justify: 'start',
-          direction: 'row',
-        },
-        colLayout: {
-          xs: 24,
-          sm: 12,
-          md: 12,
-          lg: 8,
-          xl: 8,
-        },
-      }
-    },
-  },
+export const formProps = {
   formConfig: {
     type: Object,
     default: () => {},
   },
   columns: {
-    type: Array,
+    type: Array as PropType<FormColumn>,
     default: () => [],
   },
   formModel: {
@@ -64,4 +45,24 @@ export const props = {
   },
 }
 
-export type FormProps = ExtractPropTypes<typeof props>
+export const formItemProps = {
+  formConfig: {
+    type: Object,
+    default: () => ({}),
+  },
+  formModel: {
+    type: Object,
+    default: () => { },
+  },
+  options: {
+    type: Object,
+    default: () => { },
+  },
+  col: {
+    type: Object as PropType<FormColumn>,
+    default: () => { },
+  },
+}
+
+export type FormProps = ExtractPropTypes<typeof formProps>
+export type FormItemProps = ExtractPropTypes<typeof formItemProps>
