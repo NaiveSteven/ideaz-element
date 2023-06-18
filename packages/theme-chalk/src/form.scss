@@ -23,29 +23,6 @@
   }
 }
 
-.flex {
-  display: flex;
-}
-
-.justify-between {
-  justify-content: space-between;
-}
-
-.mb-4 {
-  margin-bottom: 16px;
-}
-
-.z-table-pro-btn__col {
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-start;
-}
-
-
-.z-icon__arrow {
-  transform: rotate(180deg);
-  transform-origin: center center;
-}
 
 .z-form-operation__container {
   display: flex;
@@ -55,6 +32,21 @@
   }
 }
 
+.z-table-pro-btn__col {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+
+  .el-form-item__content {
+    flex-wrap: nowrap;
+    justify-content: end;
+  }
+}
+
+.z-button-col__container {
+  padding-top: 1px;
+}
+
 .z-toggle__container {
   cursor: pointer;
   font-size: 14px;
@@ -62,6 +54,11 @@
   .z-toggle__icon {
     color: #409eff;
     transition: transform 0.2s;
+  }
+
+  .z-icon__arrow {
+    transform: rotate(180deg);
+    transform-origin: center center;
   }
 
   // .z-toggle__button--small {
@@ -75,16 +72,6 @@
   // .z-toggle__button--large {
   //   padding: 12px 0 19px 10px;
   // }
-
-  .z-table-pro-btn__col {
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-start;
-  }
-
-  .z-button-col__container {
-    padding-top: 1px;
-  }
 
   .z-toggle__button {
     margin-left: 16px;
