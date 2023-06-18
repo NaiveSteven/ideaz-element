@@ -18,8 +18,8 @@ export default defineComponent({
 
     const iconClass = computed(() => {
       return {
-        'c-toggle__icon': true,
-        'c-icon__arrow': props.modelValue !== 'expand',
+        'z-toggle__icon': true,
+        'z-icon__arrow': props.modelValue !== 'expand',
       }
     })
 
@@ -28,9 +28,9 @@ export default defineComponent({
     }
     return () => {
       return (
-        <div class="c-toggle__container" onClick={handleClick}>
+        <div class="z-toggle__container" onClick={handleClick}>
           <el-button
-            class={`c-toggle__button c-toggle__button--${props.formConfig.size}`}
+            class={`z-toggle__button z-toggle__button--${props.formConfig.size}`}
             link
             type="primary"
           // size={props.formConfig.size}

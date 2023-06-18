@@ -39,7 +39,7 @@ const columns = [
     type: 'input',
     prop: 'activeName',
     modifier: 'trim',
-    formItem: { label: '活动名称' },
+    label: '活动名称',
     on: {
       input: (val) => {
         console.log(val, 'input event')
@@ -52,7 +52,7 @@ const columns = [
   {
     type: 'select',
     prop: 'activeArea',
-    formItem: { label: '活动区域' },
+    label: '活动区域',
     on: {
       change: (val) => {
         console.log(val, 'change event')
@@ -66,7 +66,7 @@ const columns = [
   {
     type: 'datepicker',
     prop: 'activeTime',
-    formItem: { label: '活动时间' },
+    label: '活动时间',
     attrs: {
       type: 'daterange',
       startPlaceholder: '开始日期',
@@ -83,7 +83,7 @@ const columns = [
   {
     type: 'input',
     prop: 'aa',
-    formItem: { label: '测试' }
+    label: '测试'
   }
 ]
 

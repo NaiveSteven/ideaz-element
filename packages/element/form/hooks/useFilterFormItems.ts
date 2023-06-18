@@ -6,9 +6,18 @@ export const useFilterFormItem = (props: Record<any, any>) => {
 
   const { windowReactiveSize } = useWindowReactiveSize()
 
+  const colLayout = {
+    xs: 24,
+    sm: 12,
+    md: 8,
+    lg: 8,
+    xl: 6,
+  }
+
   const virtualColumns = computed(() => {
     return props.columns.map((cur: FormColumn, index: number) => ({
       ...cur,
+      ...colLayout,
       hideUseVShow: () => judgeIsHideFormItem(index),
     }))
   })
@@ -16,10 +25,12 @@ export const useFilterFormItem = (props: Record<any, any>) => {
   const btnLayout = computed(() => {
     const arrLength = virtualColumns.value.length + 1
     return {
-      class:
+      formItemProps: {
+        class:
         toggleButtonType.value === 'expand'
-          ? 'c-button-col__container c-table-pro-btn__col'
-          : 'c-table-pro-btn__col',
+          ? 'z-button-col__container z-table-pro-btn__col'
+          : 'z-table-pro-btn__col',
+      },
       xs: {
         span: 24,
         offset: computedOffset(24, arrLength),
@@ -47,7 +58,7 @@ export const useFilterFormItem = (props: Record<any, any>) => {
     return virtualColumns.value.concat([
       {
         slot: 'button',
-        colGrid: btnLayout.value,
+        ...btnLayout.value,
       },
     ])
   })
@@ -80,9 +91,7 @@ export const useFilterFormItem = (props: Record<any, any>) => {
 
       return 0
     }
-    // 一行几个
     const num = 24 / span
-    // 余数
     const remainder = length % num
     if (remainder === 0)
       return 0
@@ -107,17 +116,5 @@ export const useFilterFormItem = (props: Record<any, any>) => {
     return false
   }
 
-  const layout = computed(() => {
-    return {
-      colLayout: {
-        xs: 24,
-        sm: 12,
-        md: 8,
-        lg: 8,
-        xl: 6,
-      },
-    }
-  })
-
-  return { isShowToggleButton, columns, toggleButtonType, layout }
+  return { isShowToggleButton, columns, toggleButtonType }
 }

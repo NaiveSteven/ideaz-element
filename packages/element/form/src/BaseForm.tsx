@@ -68,6 +68,7 @@ export default defineComponent({
               class={colKls.value}
               style={colStyle.value}
               v-slots={scopedSlots}
+              v-show={isFunction(col.hideUseVShow) ? !col.hideUseVShow() : true}
               onChange={obj => emit('change', obj)}
             >
               {(isFunction(col.render) || col.slot) ? renderContent(col, slots) : null}
