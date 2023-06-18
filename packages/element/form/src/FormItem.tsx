@@ -6,7 +6,7 @@ import {
   useFormItemProps,
   useFormItemSlots,
 } from '../hooks'
-import { formItemProps } from './props'
+import { formItemProps, formItemProvideKey } from './props'
 
 export default defineComponent({
   name: 'ZFormItem',
@@ -17,6 +17,10 @@ export default defineComponent({
     const { componentName: ComponentName } = useFormItemComponent(props)
     const { formItemProps } = useFormItemProps(props)
     const { vSlots } = useFormItemSlots(props, slots)
+
+    provide(formItemProvideKey, {
+      props,
+    })
 
     const modify = (val: any) => {
       const { col, formModel } = props

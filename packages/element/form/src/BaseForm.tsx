@@ -8,7 +8,7 @@ import {
   useFormSlots,
   useRow,
 } from '../hooks'
-import { formProps } from './props'
+import { formProps, formProvideKey } from './props'
 import FormItem from './FormItem'
 import type { FormColumn } from '~/types'
 
@@ -42,6 +42,11 @@ export default defineComponent({
       validateField,
       clearValidate,
       scrollToField,
+    })
+
+    provide(formProvideKey, {
+      props,
+      size: props.formConfig?.size || props.size,
     })
 
     return () => {
