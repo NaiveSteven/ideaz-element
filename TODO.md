@@ -28,8 +28,9 @@
 14. ~~`z-checkbox`组件`option.label option.value`支持路径配置~~
 15. ~~`z-select`组件`option.label option.value`支持路径配置~~
 16. ~~`z-check-card`组件`option.label option.value`支持路径配置~~
-17. `z-select`支持拼接`全部`
-18. `z-form`组件不再使用`z-col`和`z-row`组件布局，而是采用内置方案
+17. ~~`z-select`支持拼接`全部`~~
+18. ~~`z-form`组件不再使用`z-col`和`z-row`组件布局，而是采用内置方案~~
+19. `z-form`组件`class`使用`useNameSpace`
 
 ## FEATURE（docs and dts）
 
@@ -51,6 +52,11 @@
 1. `Vue2`中日期组件`icon`会造成排序错乱问题
 2. `z-text`组件在`vitepress`文档中的折行不正确问题
 3. ~~`z-check-card`组件修复`inject`报错问题~~
+
+## Long Time
+
+1. 统一`slot`和`render`参数问题
+2. 引入路径问题，将`element`包中的所有东西都导出
 
 ## design
 

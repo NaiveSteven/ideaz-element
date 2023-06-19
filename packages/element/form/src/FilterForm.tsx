@@ -1,14 +1,14 @@
 import { useFilterFormItem } from '../hooks'
-import { formItemProps } from './props'
+import { formProps } from './props'
 import ToggleButton from './ToggleButton'
 
 export default defineComponent({
   name: 'ZFilterForm',
   components: { ToggleButton },
-  props: formItemProps,
+  props: formProps,
   emits: ['search', 'reset'],
   setup(props, { attrs, slots, emit }) {
-    const { isShowToggleButton, columns, toggleButtonType, layout } = useFilterFormItem(props)
+    const { isShowToggleButton, columns, toggleButtonType } = useFilterFormItem(props)
 
     const handleSearch = () => {
       emit('search')
@@ -26,7 +26,6 @@ export default defineComponent({
         formConfig={formConfig}
         columns={columns.value}
         options={options || {}}
-        layout={layout.value}
         // onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
         {...attrs}
         v-slots={{
@@ -35,7 +34,7 @@ export default defineComponent({
             <>
               {!slots.formOperation
                 ? (
-                  <div class="c-form-operation__container">
+                  <div class="z-form-operation__container">
                     <el-button type="primary" size={formConfig.size} onClick={handleSearch}>
                       查询
                     </el-button>

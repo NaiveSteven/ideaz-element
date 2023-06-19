@@ -38,7 +38,7 @@ export default defineComponent({
             v-slots={tooltipSlot}
           >
             {tooltip && (
-              <el-icon class="c-form-item-label__icon">
+              <el-icon class="z-form-item-label__icon">
                 <i-question-filled />
               </el-icon>
             )}

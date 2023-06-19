@@ -6,7 +6,7 @@ import {
   useFormItemProps,
   useFormItemSlots,
 } from '../hooks'
-import { formItemProps } from './props'
+import { formItemProps, formItemProvideKey } from './props'
 
 export default defineComponent({
   name: 'ZFormItem',
@@ -17,6 +17,10 @@ export default defineComponent({
     const { componentName: ComponentName } = useFormItemComponent(props)
     const { formItemProps } = useFormItemProps(props)
     const { vSlots } = useFormItemSlots(props, slots)
+
+    provide(formItemProvideKey, {
+      props,
+    })
 
     const modify = (val: any) => {
       const { col, formModel } = props
@@ -39,7 +43,7 @@ export default defineComponent({
         <el-form-item
           ref="formItem"
           prop={col.field}
-          class="c-form-item"
+          class="z-form-item"
           {...formItemProps.value}
           v-slots={vSlots.value}
         >
@@ -65,7 +69,7 @@ export default defineComponent({
               },
             }))}
           {formItemProps.value.extra && (
-            <div class="c-form-item__extra">
+            <div class="z-form-item__extra">
               {isFunction(formItemProps.value.extra)
                 ? formItemProps.value.extra()
                 : formItemProps.value.extra}

@@ -17,6 +17,8 @@ export interface FormColumn {
   render?: any
   rearSlot?: string
   frontSlot?: string
+  class?: string
+  style?: string
   __key?: string // 组件库生成的key
   key?: string // 用户传入的key
 }

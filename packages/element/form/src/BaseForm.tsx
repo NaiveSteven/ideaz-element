@@ -8,7 +8,7 @@ import {
   useFormSlots,
   useRow,
 } from '../hooks'
-import { formProps } from './props'
+import { formProps, formProvideKey } from './props'
 import FormItem from './FormItem'
 import type { FormColumn } from '~/types'
 
@@ -44,6 +44,11 @@ export default defineComponent({
       scrollToField,
     })
 
+    provide(formProvideKey, {
+      props,
+      size: props.formConfig?.size || props.size,
+    })
+
     return () => {
       const { formModel, formConfig = {}, options } = props
 
@@ -68,6 +73,7 @@ export default defineComponent({
               class={colKls.value}
               style={colStyle.value}
               v-slots={scopedSlots}
+              v-show={isFunction(col.hideUseVShow) ? !col.hideUseVShow() : true}
               onChange={obj => emit('change', obj)}
             >
               {(isFunction(col.render) || col.slot) ? renderContent(col, slots) : null}

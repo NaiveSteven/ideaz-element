@@ -13,9 +13,9 @@
     }
     @for $i from 0 through 24 {
       .#{$namespace}-col-#{$size}-#{$i} {
-        @if $i != 0 {
-          display: block;
-        }
+        // @if $i != 0 {
+        //   display: block;
+        // }
 
         max-width: (math.div(1, 24) * $i * 100) * 1%;
         flex: 0 0 (math.div(1, 24) * $i * 100) * 1%;

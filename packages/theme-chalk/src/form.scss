@@ -1,4 +1,4 @@
-.c-form-item {
+.z-form-item {
   .el-form-item__content {
     .el-input,
     .el-cascader,
@@ -8,13 +8,13 @@
     }
   }
 
-  .c-form-item-label__icon {
+  .z-form-item-label__icon {
     transform: translate(0, 2px);
     font-size: 14px;
     cursor: help;
   }
 
-  .c-form-item__extra {
+  .z-form-item__extra {
     clear: both;
     font-size: 12px;
     color: rgba(0, 0, 0, 0.45);
@@ -23,60 +23,59 @@
   }
 }
 
-.flex {
+
+.z-form-operation__container {
   display: flex;
+
+  .el-button+.el-button {
+    margin-left: 8px;
+  }
 }
 
-.justify-between {
-  justify-content: space-between;
-}
-
-.mb-4 {
-  margin-bottom: 16px;
-}
-
-.c-table-pro-btn__col {
+.z-table-pro-btn__col {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
+
+  .el-form-item__content {
+    flex-wrap: nowrap;
+    justify-content: end;
+  }
 }
 
-
-// .c-button-col__container {
-//   padding-top: 1px;
-// }
-
-.c-icon__arrow {
-  transform: rotate(180deg);
-  transform-origin: center center;
+.z-button-col__container {
+  padding-top: 1px;
 }
 
-.c-form-operation__container {
-  display: flex;
-}
-
-.c-toggle__container {
+.z-toggle__container {
   cursor: pointer;
   font-size: 14px;
 
-  .c-toggle__icon {
+  .z-toggle__icon {
     color: #409eff;
     transition: transform 0.2s;
   }
 
-  .c-toggle__button--small {
-    padding: 5px 0 11px 10px;
+  .z-icon__arrow {
+    transform: rotate(180deg);
+    transform-origin: center center;
   }
 
-  .c-toggle__button--default {
-    padding: 8px 0 15px 10px;
-  }
+  // .z-toggle__button--small {
+  //   padding: 5px 0 11px 10px;
+  // }
 
-  .c-toggle__button--large {
-    padding: 12px 0 19px 10px;
-  }
+  // .z-toggle__button--default {
+  //   padding: 8px 0 15px 10px;
+  // }
 
-  .c-toggle__button {
+  // .z-toggle__button--large {
+  //   padding: 12px 0 19px 10px;
+  // }
+
+  .z-toggle__button {
+    margin-left: 16px;
+
     .el-icon {
       margin-left: 2px;
     }
@@ -94,3 +93,6 @@
     }
   }
 }
+
+
+
