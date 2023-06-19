@@ -1,4 +1,4 @@
-import { useFilterFormItem } from '../hooks'
+import { useFilterFormItem, useFormConfig } from '../hooks'
 import { formProps } from './props'
 import ToggleButton from './ToggleButton'
 
@@ -9,6 +9,8 @@ export default defineComponent({
   emits: ['search', 'reset'],
   setup(props, { attrs, slots, emit }) {
     const { isShowToggleButton, columns, toggleButtonType } = useFilterFormItem(props)
+    const { formConfig } = useFormConfig(props)
+    const size = useFormSize()
 
     const handleSearch = () => {
       emit('search')
@@ -19,15 +21,14 @@ export default defineComponent({
     }
 
     return () => {
-      const { formModel, formConfig, options } = props
+      const { formModel, options } = props
       return <z-form
         // ref="formRef"
-        formModel={formModel}
-        formConfig={formConfig}
         columns={columns.value}
         options={options || {}}
         // onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
-        {...attrs}
+        {...{ ...attrs, ...formConfig.value }}
+        formModel={formModel}
         v-slots={{
           // ...FormScopedSlots,
           button: () => (
@@ -35,10 +36,10 @@ export default defineComponent({
               {!slots.formOperation
                 ? (
                   <div class="z-form-operation__container">
-                    <el-button type="primary" size={formConfig.size} onClick={handleSearch}>
+                    <el-button type="primary" size={size.value} onClick={handleSearch}>
                       查询
                     </el-button>
-                    <el-button type="default" size={formConfig.size} onClick={handleReset}>
+                    <el-button type="default" size={size.value} onClick={handleReset}>
                       重置
                     </el-button>
                   </div>
@@ -49,7 +50,6 @@ export default defineComponent({
               {isShowToggleButton.value
                 ? (
                   <ToggleButton
-                    formConfig={formConfig}
                     modelValue={toggleButtonType.value}
                     onUpdate:modelValue={(val: any) => (toggleButtonType.value = val)}
                   />

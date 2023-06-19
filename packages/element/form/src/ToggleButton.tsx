@@ -5,13 +5,11 @@ export default defineComponent({
       type: String,
       default: 'expand',
     },
-    formConfig: {
-      type: Object,
-      default: () => ({}),
-    },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const size = useFormSize()
+
     const text = computed(() => {
       return props.modelValue === 'expand' ? '展开' : '收起'
     })
@@ -30,7 +28,7 @@ export default defineComponent({
       return (
         <div class="z-toggle__container" onClick={handleClick}>
           <el-button
-            class={`z-toggle__button z-toggle__button--${props.formConfig.size}`}
+            class={`z-toggle__button z-toggle__button--${size.value}`}
             link
             type="primary"
           // size={props.formConfig.size}
