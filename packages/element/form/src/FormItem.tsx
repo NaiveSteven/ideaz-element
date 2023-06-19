@@ -1,4 +1,4 @@
-import { isFunction, isObject, isString } from '@ideaz/utils'
+import { extractEvents, isFunction, isObject, isString } from '@ideaz/utils'
 import { resolveDynamicComponent } from '@ideaz/shared'
 import { vueRef as ref } from '@ideaz/directives'
 import {
@@ -66,6 +66,7 @@ export default defineComponent({
                     : () => { },
                 },
                 'onUpdate:modelValue': (val: any) => modify(val),
+                ...extractEvents(col),
               },
             }))}
           {formItemProps.value.extra && (

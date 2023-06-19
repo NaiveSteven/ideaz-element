@@ -1,3 +1,5 @@
+import type { Slot } from 'vue'
+
 export interface IndexOptions { [propName: string]: OptionsItem[] }
 
 export interface IndexType {
@@ -24,4 +26,8 @@ export interface Alias {
   label?: string
   value?: string
   disabled?: string
+}
+
+export interface Slots {
+  [name: string]: undefined | string | (() => JSX.Element) | Slot
 }

@@ -1,5 +1,5 @@
 import type { ExtractPropTypes } from 'vue-demi'
-import type { ComponentSize } from 'element-plus'
+import { formProps as elFormProps } from 'element-plus'
 import type { FormColumn } from '~/types'
 
 export const RowJustify = [
@@ -14,10 +14,7 @@ export const RowJustify = [
 export const RowAlign = ['top', 'middle', 'bottom'] as const
 
 export const formProps = {
-  formConfig: {
-    type: Object,
-    default: () => {},
-  },
+  ...elFormProps,
   columns: {
     type: Array as PropType<FormColumn>,
     default: () => [],
@@ -29,6 +26,10 @@ export const formProps = {
   options: {
     type: Object,
     default: () => {},
+  },
+  colon: {
+    type: Boolean,
+    default: false,
   },
   gutter: {
     type: Number,
@@ -44,10 +45,6 @@ export const formProps = {
     values: RowAlign,
     default: 'top',
   },
-  size: {
-    type: String as PropType<ComponentSize>,
-    default: 'default',
-  },
 }
 
 export const formItemProps = {
@@ -57,15 +54,15 @@ export const formItemProps = {
   },
   formModel: {
     type: Object,
-    default: () => { },
+    default: () => ({ }),
   },
   options: {
     type: Object,
-    default: () => { },
+    default: () => ({ }),
   },
   col: {
     type: Object as PropType<FormColumn>,
-    default: () => { },
+    default: () => ({ }),
   },
 }
 

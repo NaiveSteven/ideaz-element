@@ -1,36 +1,39 @@
 // import { h } from 'vue-demi';
-import { isFunction } from '@ideaz/utils';
-import FormItemLabel from '../src/FormItemLabel';
+import { isFunction } from '@ideaz/utils'
+import FormItemLabel from '../src/FormItemLabel'
+import type { FormProps } from '../src/props'
+import type { FormColumn, Slots } from '~/types'
 
-export const useFormSlots = (col: any, slots: any, props: Record<any, any>) => {
-  const scopedSlots: any = {};
-  const { formConfig } = props;
+export const useFormSlots = (col: FormColumn, slots: Slots, props: FormProps) => {
+  const scopedSlots: Slots = {}
 
   scopedSlots[col.frontSlot || 'label'] = () => {
-    if (col.frontSlot && slots[col.frontSlot]) {
-      return slots[col.frontSlot]();
-    }
-    if (col.formItem && isFunction(col.formItem.label)) {
-      return col.formItem.label(h);
-    }
+    if (col.frontSlot && isFunction(slots[col.frontSlot]))
+      return (slots[col.frontSlot] as (() => VNode))()
+
+    if (isFunction(col.label))
+      return col.label()
+
+    if (col.formItemProps && isFunction(col.formItemProps.label))
+      return col.formItemProps.label()
+
     return (
       <FormItemLabel
         {...{
-          ...col.formItem,
+          ...col.formItemProps,
           colon: Object.prototype.hasOwnProperty.call(
-            col.formItem || {},
-            'colon'
+            col.formItemProps || {},
+            'colon',
           )
-            ? col.formItem.colon
-            : formConfig.colon,
+            ? col.formItemProps?.colon
+            : props.colon,
         }}
       />
-    );
-  };
-
-  if (col.rearSlot && slots[col.rearSlot] && isFunction(slots[col.rearSlot])) {
-    scopedSlots[col.rearSlot] = () => slots[col.rearSlot]();
+    )
   }
 
-  return { scopedSlots };
-};
+  if (col.rearSlot && isFunction(slots[col.rearSlot]))
+    scopedSlots[col.rearSlot] = () => (slots[col.rearSlot!] as (() => VNode))()
+
+  return { scopedSlots }
+}

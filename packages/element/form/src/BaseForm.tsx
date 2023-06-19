@@ -3,6 +3,7 @@ import { useExpose } from '@ideaz/hooks'
 import { isFunction } from '@ideaz/utils'
 import {
   useCol,
+  useFormConfig,
   useFormItems,
   useFormMethods,
   useFormSlots,
@@ -28,6 +29,7 @@ export default defineComponent({
   setup(props, { emit, slots }) {
     const { formatFormItems } = useFormItems(props)
     const { rowStyle, rowKls } = useRow(props)
+    const { formConfig } = useFormConfig(props)
     const {
       resetFields,
       validate,
@@ -46,15 +48,15 @@ export default defineComponent({
 
     provide(formProvideKey, {
       props,
-      size: props.formConfig?.size || props.size,
+      size: formConfig.value.size,
     })
 
     return () => {
-      const { formModel, formConfig = {}, options } = props
+      const { formModel, options } = props
 
       return (
         <el-form
-          {...{ model: formModel, ...formConfig }}
+          {...{ ...formConfig.value, model: formModel }}
           ref="formRef"
           class={rowKls.value}
           style={rowStyle.value}
@@ -68,7 +70,7 @@ export default defineComponent({
               ref={`formItem${colIndex}`}
               col={col}
               formModel={formModel}
-              formConfig={formConfig}
+              formConfig={formConfig.value}
               options={options}
               class={colKls.value}
               style={colStyle.value}
