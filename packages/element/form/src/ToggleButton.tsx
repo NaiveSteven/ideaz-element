@@ -28,10 +28,10 @@ export default defineComponent({
       return (
         <div class="z-toggle__container" onClick={handleClick}>
           <el-button
-            class={`z-toggle__button z-toggle__button--${size.value}`}
+            class='z-toggle__button'
             link
             type="primary"
-          // size={props.formConfig.size}
+            size={size.value}
           >
             {text.value}
             <el-icon class={iconClass.value}><i-arrow-down /></el-icon>
