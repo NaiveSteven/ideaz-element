@@ -26,50 +26,40 @@ const optionsConfig = {
   ],
 }
 
-const formConfig = {
-  labelWidth: '80px',
-  size: 'small',
-  rules: {
-    activeName: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
-  },
-}
-
 const columns = [
   {
     type: 'input',
     field: 'activeName',
     modifier: 'trim',
     span: 8,
-    formItemProps: { label: '活动名称' },
-    on: {
-      input: (val) => {
-        console.log(val, 'input event')
-      },
-      change: (val) => {
-        console.log(val, 'change event')
-      },
+    label: '活动名称',
+    onInput: (val) => {
+      console.log(val, 'input event')
     },
+    onChange: (val) => {
+      console.log(val, 'change event')
+    },
+    rules: {
+      required: true,
+    }
   },
   {
     type: 'select',
     field: 'activeArea',
     span: 8,
-    formItemProps: { label: '活动区域' },
-    on: {
-      change: (val) => {
-        console.log(val, 'change event')
-      },
-      focus: () => {
-        console.log('focus event')
-      },
-      // focus: () => {}
+    label: '活动区域',
+    onChange: (val) => {
+      console.log(val, 'change event')
+    },
+    onFocus: () => {
+      console.log('focus event')
     },
   },
   {
     type: 'datepicker',
     field: 'activeTime',
     span: 8,
-    formItemProps: { label: '活动时间' },
+    label: '活动时间',
     fieldProps: {
       type: 'daterange',
       startPlaceholder: '开始日期',
@@ -77,10 +67,8 @@ const columns = [
       format: 'MM-dd',
       valueFormat: 'MM-dd',
     },
-    on: {
-      change: (val) => {
-        console.log(val, 'change event')
-      },
+    onChange: (val) => {
+      console.log(val, 'change event')
     },
   },
 ]
@@ -107,9 +95,10 @@ const submit = () => {
   <z-form
     ref="cFormRef"
     :form-model="formModel"
-    :form-config="formConfig"
     :options="optionsConfig"
     :columns="columns"
+    label-width="80px"
+    size="small"
   >
     <template #111>
       <div>asdf</div>
@@ -130,7 +119,7 @@ const submit = () => {
 
 ```vue
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 const cFormRef = ref()
 const formModel = ref({
@@ -139,16 +128,6 @@ const formModel = ref({
   activeInput: '',
 })
 
-const layout = {
-  colLayout: {
-    xs: 24,
-    sm: 12,
-    md: 12,
-    lg: 12,
-    xl: 12,
-  },
-}
-
 const optionsConfig = {
   activeArea: [
     { label: '区域1', value: '1' },
@@ -156,19 +135,11 @@ const optionsConfig = {
   ],
 }
 
-const formConfig = {
-  labelWidth: '80px',
-  size: 'small',
-  rules: {
-    activeName: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
-  },
-}
-
 const formItemConfig = [
   {
     type: 'input',
     field: 'activeName',
-    formItemProps: { label: '活动名称' },
+    label: '活动名称',
     rearSlot: 'error',
     frontSlot: 'nihao',
     span: 12,
@@ -176,6 +147,13 @@ const formItemConfig = [
       placeholder: '请输入活动名称',
       clearable: true,
     },
+    onInput: (val) => {
+      console.log(val, 'val')
+    },
+    rules: {
+      required: true,
+      message: '请选择活动区域'
+    }
   },
   {
     type: 'select',
@@ -184,18 +162,24 @@ const formItemConfig = [
     label: '活动区域',
     tooltip: '活动区域',
     extra: '活动区域',
-    // formItemProps: { label: '活动区域' },
     fieldProps: {
       placeholder: '请输入活动区域',
       clearable: true,
-      size: 'small'
     },
+    onChange: (val) => {
+      console.log(val, 'val')
+    },
+    rules: {
+      required: true,
+      message: '请选择活动区域'
+    }
   },
   {
     type: 'input',
     field: 'activeInput',
     span: 12,
-    formItemProps: { label: '输入框' },
+    label: () => h('span', {}, '输入框'),
+    // formItemProps: { label: '输入框' },
     fieldProps: {
       placeholder: '请输入',
       clearable: true,
@@ -225,9 +209,10 @@ const submit = () => {
   <z-form
     ref="cFormRef"
     :form-model="formModel"
-    :form-config="formConfig"
     :options="optionsConfig"
     :columns="formItemConfig"
+    label-width="90px"
+    size="small"
     justify="center"
   >
     <template #error>
