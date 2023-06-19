@@ -1,23 +1,25 @@
 import { isFunction } from '@ideaz/utils'
-import type { Slot } from 'vue'
 import type { FormItemProps } from '../src/props'
 import FormItemLabel from '../src/FormItemLabel'
-
-export interface Slots {
-  [name: string]: undefined | string | (() => JSX.Element) | Slot
-}
+import type { Slots } from '~/types'
 
 export const useFormItemSlots = (props: FormItemProps, slots: any) => {
-  const vSlots = computed<any>(() => {
+  const getContent = () => {
+    const { col } = props
+    if (isFunction(slots[col.frontSlot!]))
+      return slots[col.frontSlot!]()
+
+    if (isFunction(col.label))
+      return col.label()
+  }
+
+  const vSlots = computed<Slots>(() => {
     const { col, formConfig } = props
     const vSlots: Slots = {} as Slots
     if (col.formItemProps?.label || col.frontSlot || col.label) {
       vSlots.label = () => {
-        return isFunction(slots[col.frontSlot!])
-          ? (
-              slots[col.frontSlot!]()
-            )
-          : (
+        return getContent()
+          || (
           <FormItemLabel
             {...{
               label: col.label,
@@ -31,7 +33,7 @@ export const useFormItemSlots = (props: FormItemProps, slots: any) => {
                 : formConfig.colon,
             }}
           />
-            )
+          )
       }
     }
 

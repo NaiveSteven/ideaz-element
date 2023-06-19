@@ -8,7 +8,7 @@ export const useFormItems = (props: Record<any, any>) => {
   const { t } = useLocale()
 
   const setDefaultPlaceholder = (formItem: FormColumn) => {
-    const label = formItem.formItem?.label
+    const label = formItem.formItemProps?.label
     const type = isFunction(formItem.type) ? formItem.type() : formItem.type
     if (SELECT_TYPES.includes(type || ''))
       return label ? `${t('form.selectPlaceholder')}${label}` : `${t('form.selectPlaceholder')}`

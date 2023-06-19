@@ -95,6 +95,7 @@ const config = {
       ref: (c: any) => {}, // v-ref
       rules: [], // form rules
       modifier: string | ((val: any) => any),
+      slot: string,
       onClick: () => {}, // event
       // default set prop slot
     }
