@@ -4,10 +4,10 @@ export const useTableColComponentName = () => {
     const propComponentName = typeof type === 'function' ? type() : type
 
     if (cNames.includes(propComponentName))
-      return `c-${propComponentName}`
+      return `z-${propComponentName}`
 
     else
-      return 'c-dynamic-component'
+      return 'z-dynamic-component'
   }
 
   const getDynamicComponentName = (type: string | (() => string)) => {

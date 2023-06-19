@@ -1,4 +1,5 @@
 import type { ExtractPropTypes } from 'vue-demi'
+import type { ComponentSize } from 'element-plus'
 import type { FormColumn } from '~/types'
 
 export const RowJustify = [
@@ -43,6 +44,10 @@ export const formProps = {
     values: RowAlign,
     default: 'top',
   },
+  size: {
+    type: String as PropType<ComponentSize>,
+    default: 'default',
+  },
 }
 
 export const formItemProps = {
@@ -66,3 +71,5 @@ export const formItemProps = {
 
 export type FormProps = ExtractPropTypes<typeof formProps>
 export type FormItemProps = ExtractPropTypes<typeof formItemProps>
+export const formProvideKey = Symbol('formKey')
+export const formItemProvideKey = Symbol('formItemKey')

@@ -1,5 +1,6 @@
 import { computed, ref, unref } from 'vue-demi'
 import type { MaybeRef } from '@vueuse/core'
+import { formItemProvideKey, formProvideKey } from '../element/form/src/props'
 import { useGlobalSize } from './useGlobalSize'
 import { useProp } from './useProp'
 import { useAttr } from './useAttr'
@@ -20,10 +21,10 @@ export const useFormSize = (
   const globalConfig = ignore.global ? emptyRef : useGlobalSize()
   const form = ignore.form
     ? { size: undefined }
-    : inject('formContextKey', undefined)
+    : inject(formProvideKey, undefined)
   const formItem = ignore.formItem
     ? { size: undefined }
-    : inject('formItemContextKey', undefined)
+    : inject(formItemProvideKey, undefined)
 
   return computed(
     (): any =>

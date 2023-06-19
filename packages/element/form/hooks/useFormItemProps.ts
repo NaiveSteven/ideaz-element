@@ -1,13 +1,16 @@
-import { isFunction } from '@ideaz/utils';
+import { isFunction } from '@ideaz/utils'
+import type { FormItemProps } from '../src/props'
+import type { FormColumn } from '~/types'
 
-export const useFormItemProps = (props: Record<any, any>) => {
+export const useFormItemProps = (props: FormItemProps) => {
   const formItemProps = computed(() => {
-    const myProps = { ...(props.col.formItem || {}) };
-    if (isFunction(myProps.label)) {
-      delete myProps.label;
-    }
-    return myProps;
-  });
+    const { col } = props
+    const myProps = { extra: col.extra, ...col.formItemProps } as FormColumn
+    if (isFunction(myProps.label))
+      delete myProps.label
 
-  return { formItemProps };
-};
+    return myProps
+  })
+
+  return { formItemProps }
+}
