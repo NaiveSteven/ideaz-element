@@ -176,6 +176,9 @@ const formItemConfig = [
       placeholder: '请输入活动名称',
       clearable: true,
     },
+    onInput: (val) => {
+      console.log(val, 'val')
+    }
   },
   {
     type: 'select',
@@ -188,8 +191,10 @@ const formItemConfig = [
     fieldProps: {
       placeholder: '请输入活动区域',
       clearable: true,
-      size: 'small'
     },
+    onChange: (val) => {
+      console.log(val, 'val')
+    }
   },
   {
     type: 'input',

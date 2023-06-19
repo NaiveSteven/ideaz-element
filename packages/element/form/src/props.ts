@@ -57,15 +57,15 @@ export const formItemProps = {
   },
   formModel: {
     type: Object,
-    default: () => { },
+    default: () => ({ }),
   },
   options: {
     type: Object,
-    default: () => { },
+    default: () => ({ }),
   },
   col: {
     type: Object as PropType<FormColumn>,
-    default: () => { },
+    default: () => ({ }),
   },
 }
 
