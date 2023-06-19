@@ -98,6 +98,7 @@ const submit = () => {
     :columns="columns"
     size="small"
     label-width="80px"
+    @reset="reset"
   >
     <template #111>
       <div>asdf</div>

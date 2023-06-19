@@ -1,4 +1,4 @@
-import { useFilterFormItem, useFormConfig } from '../hooks'
+import { useFilterFormItem, useFormConfig, useFormMethods } from '../hooks'
 import { formProps } from './props'
 import ToggleButton from './ToggleButton'
 
@@ -11,6 +11,21 @@ export default defineComponent({
     const { isShowToggleButton, columns, toggleButtonType } = useFilterFormItem(props)
     const { formConfig } = useFormConfig(props)
     const size = useFormSize()
+    const {
+      resetFields,
+      validate,
+      validateField,
+      clearValidate,
+      scrollToField,
+    } = useFormMethods(props)
+
+    useExpose({
+      resetFields,
+      validate,
+      validateField,
+      clearValidate,
+      scrollToField,
+    })
 
     const handleSearch = () => {
       emit('search')
@@ -23,7 +38,7 @@ export default defineComponent({
     return () => {
       const { formModel, options } = props
       return <z-form
-        // ref="formRef"
+        ref="formRef"
         columns={columns.value}
         options={options || {}}
         // onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
