@@ -1,5 +1,7 @@
 .z-form-item {
   .el-form-item__content {
+    align-items: flex-start;
+
     .el-input,
     .el-cascader,
     .el-select,
