@@ -1,4 +1,12 @@
+import type { FormItemProps as ElFormItemProps, FormItemRule, FormRules } from 'element-plus'
 import type { IndexType } from './common'
+
+interface FormItemProps {
+  tooltip?: string | (() => VNode)
+  label?: string | (() => VNode)
+  extra?: string | (() => VNode)
+  colon?: boolean
+}
 
 export interface FormColumn {
   type?: string | (() => string)
@@ -6,7 +14,7 @@ export interface FormColumn {
   label?: string | (() => VNode)
   extra?: string | (() => VNode)
   field?: string
-  formItemProps?: IndexType
+  formItemProps?: ElFormItemProps & FormItemProps
   fieldProps?: IndexType
   hide?: () => boolean
   hideUseVShow?: () => boolean
@@ -19,6 +27,7 @@ export interface FormColumn {
   frontSlot?: string
   class?: string
   style?: string
+  rules?: FormRules | FormItemRule
   __key?: string // 组件库生成的key
   key?: string // 用户传入的key
 }
