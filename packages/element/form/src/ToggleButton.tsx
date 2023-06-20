@@ -9,6 +9,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const size = useFormSize()
+    const ns = useNamespace('form')
 
     const text = computed(() => {
       return props.modelValue === 'expand' ? '展开' : '收起'
@@ -26,9 +27,9 @@ export default defineComponent({
     }
     return () => {
       return (
-        <div class="z-toggle__container" onClick={handleClick}>
+        <div class={ns.b('toggle')} onClick={handleClick}>
           <el-button
-            class='z-toggle__button'
+            class={ns.b('toggle-button')}
             link
             type="primary"
             size={size.value}

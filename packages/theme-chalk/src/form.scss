@@ -26,7 +26,7 @@
 }
 
 
-.z-form-operation__container {
+.z-form-operation {
   display: flex;
 
   .el-button+.el-button {
@@ -34,7 +34,7 @@
   }
 }
 
-.z-table-pro-btn__col {
+.z-form-item-button__col {
   display: flex;
   justify-content: flex-end;
   align-items: flex-start;
@@ -45,16 +45,16 @@
   }
 }
 
-.z-button-col__container {
+.z-form-item-button {
   padding-top: 1px;
 }
 
-.z-toggle__container {
+.z-form-toggle {
   cursor: pointer;
   font-size: 14px;
 
   .z-toggle__icon {
-    color: #409eff;
+    color: var(--el-color-primary);
     transition: transform 0.2s;
   }
 
@@ -63,7 +63,7 @@
     transform-origin: center center;
   }
 
-  .z-toggle__button {
+  .z-form-toggle-button {
     margin-left: 16px;
 
     .el-icon {
@@ -71,15 +71,15 @@
     }
 
     &:hover {
-      color: #409eff;
+      color: var(--el-color-primary);
     }
 
     &:active {
-      color: #409eff;
+      color: var(--el-color-primary);
     }
 
     &:focus {
-      color: #409eff;
+      color: var(--el-color-primary);
     }
   }
 }
