@@ -16,7 +16,7 @@ export const RowAlign = ['top', 'middle', 'bottom'] as const
 export const formProps = {
   ...elFormProps,
   columns: {
-    type: Array as PropType<FormColumn>,
+    type: Array as PropType<FormColumn[]>,
     default: () => [],
   },
   formModel: {
@@ -66,7 +66,16 @@ export const formItemProps = {
   },
 }
 
+export const filterFormProps = {
+  ...formProps,
+  collapsed: {
+    type: Boolean,
+    default: true,
+  },
+}
+
 export type FormProps = ExtractPropTypes<typeof formProps>
 export type FormItemProps = ExtractPropTypes<typeof formItemProps>
+export type FilterFormProps = ExtractPropTypes<typeof filterFormProps>
 export const formProvideKey = Symbol('formKey')
 export const formItemProvideKey = Symbol('formItemKey')

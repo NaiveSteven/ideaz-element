@@ -66,6 +66,15 @@ const columns = [
     },
   },
   {
+    slot: 'slot1',
+    label: 'asdsf'
+  },
+  {
+    type: 'input',
+    field: 'aa',
+    label: 'labelSlot2'
+  },
+  {
     type: 'input',
     field: 'aa',
     label: '测试'
@@ -102,6 +111,12 @@ const submit = () => {
   >
     <template #111>
       <div>asdf</div>
+    </template>
+    <template #slot1>
+      <el-input value="sdf" />
+    </template>
+    <template #labelSlot2>
+      <span>asdfsf</span>
     </template>
   </z-filter-form>
 </template>

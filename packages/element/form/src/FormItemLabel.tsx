@@ -17,6 +17,8 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const ns = useNamespace('form-item')
+
     return () => {
       const { label, colon, tooltip } = props
 
@@ -38,7 +40,7 @@ export default defineComponent({
             v-slots={tooltipSlot}
           >
             {tooltip && (
-              <el-icon class="z-form-item-label__icon">
+              <el-icon class={ns.be('label', 'icon')}>
                 <i-question-filled />
               </el-icon>
             )}

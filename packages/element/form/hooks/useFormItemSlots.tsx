@@ -1,4 +1,4 @@
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isSlot } from '@ideaz/utils'
 import type { FormItemProps } from '../src/props'
 import FormItemLabel from '../src/FormItemLabel'
 import type { Slots } from '~/types'
@@ -6,8 +6,8 @@ import type { Slots } from '~/types'
 export const useFormItemSlots = (props: FormItemProps, slots: any) => {
   const getContent = () => {
     const { col } = props
-    if (isFunction(slots[col.frontSlot!]))
-      return slots[col.frontSlot!]()
+    if (isSlot(col.label) && isFunction(slots[col.label as string]))
+      return slots[col.label as string]()
 
     if (isFunction(col.label))
       return col.label()
@@ -16,7 +16,7 @@ export const useFormItemSlots = (props: FormItemProps, slots: any) => {
   const vSlots = computed<Slots>(() => {
     const { col, formConfig } = props
     const vSlots: Slots = {} as Slots
-    if (col.formItemProps?.label || col.frontSlot || col.label) {
+    if (col.formItemProps?.label || col.label) {
       vSlots.label = () => {
         return getContent()
           || (
@@ -37,12 +37,17 @@ export const useFormItemSlots = (props: FormItemProps, slots: any) => {
       }
     }
 
-    if (
-      col.rearSlot
-      && isFunction(slots[col.rearSlot])
-    ) {
-      vSlots.error = () =>
-        isFunction(slots[col.rearSlot!]) && slots[col.rearSlot!]()
+    if (col.error) {
+      if (isSlot(col.error) && isFunction(slots[col.error as string])) {
+        const error = col.error as string
+        vSlots.error = () => (slots[error!] as (() => VNode))()
+      }
+      else if (isFunction(col.error) && isFunction(slots.error)) {
+        vSlots.error = () => slots.error()
+      }
+      else {
+        vSlots.error = () => slots.error()
+      }
     }
     return vSlots
   })
