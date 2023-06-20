@@ -46,7 +46,7 @@ export default defineComponent({
         {...{ ...attrs, ...formConfig.value }}
         formModel={formModel}
         v-slots={{
-          // ...FormScopedSlots,
+          ...slots,
           button: () => (
             <>
               {!slots.formOperation
