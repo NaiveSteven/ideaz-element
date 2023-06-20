@@ -139,9 +139,8 @@ const formItemConfig = [
   {
     type: 'input',
     field: 'activeName',
-    label: '活动名称',
-    rearSlot: 'error',
-    frontSlot: 'nihao',
+    error: 'errorSlot',
+    label: 'nihaoSlot',
     span: 12,
     fieldProps: {
       placeholder: '请输入活动名称',
@@ -162,6 +161,7 @@ const formItemConfig = [
     label: '活动区域',
     tooltip: '活动区域',
     extra: '活动区域',
+    error: '请选择',
     fieldProps: {
       placeholder: '请输入活动区域',
       clearable: true,
@@ -179,11 +179,15 @@ const formItemConfig = [
     field: 'activeInput',
     span: 12,
     label: () => h('span', {}, '输入框'),
+    error: () => h('div', {}, '请输入'),
     // formItemProps: { label: '输入框' },
     fieldProps: {
       placeholder: '请输入',
       clearable: true,
     },
+    rules: {
+      required: true
+    }
   },
   {
     span: 12,
@@ -215,12 +219,12 @@ const submit = () => {
     size="small"
     justify="center"
   >
-    <template #error>
-      <div class="el-form-item__error">
+    <template #errorSlot>
+      <span>
         hhh
-      </div>
+      </span>
     </template>
-    <template #nihao>
+    <template #nihaoSlot>
       <span>11</span>
     </template>
     <template #button>

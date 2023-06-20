@@ -1,4 +1,5 @@
 import type { FormItemProps as ElFormItemProps, FormItemRule, FormRules } from 'element-plus'
+import type { CSSProperties } from 'vue'
 import type { IndexType } from './common'
 
 interface FormItemProps {
@@ -6,6 +7,8 @@ interface FormItemProps {
   label?: string | (() => VNode)
   extra?: string | (() => VNode)
   colon?: boolean
+  class?: string | string[]
+  style?: CSSProperties
 }
 
 export interface FormColumn {
@@ -14,7 +17,7 @@ export interface FormColumn {
   label?: string | (() => VNode)
   extra?: string | (() => VNode)
   field?: string
-  formItemProps?: ElFormItemProps & FormItemProps
+  formItemProps?: Partial<ElFormItemProps> & FormItemProps
   fieldProps?: IndexType
   hide?: () => boolean
   hideUseVShow?: () => boolean
@@ -23,8 +26,9 @@ export interface FormColumn {
   colGrid?: IndexType
   modifier?: string
   render?: any
-  rearSlot?: string
-  frontSlot?: string
+  // rearSlot?: string
+  // frontSlot?: string
+  error?: string | (() => VNode)
   class?: string
   style?: string
   rules?: FormRules | FormItemRule
