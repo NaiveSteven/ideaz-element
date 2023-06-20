@@ -14,6 +14,7 @@ export default defineComponent({
   props: formItemProps,
   emits: ['change'],
   setup(props, { slots }) {
+    const ns = useNamespace('form-item')
     const { componentName: ComponentName } = useFormItemComponent(props)
     const { formItemProps } = useFormItemProps(props)
     const { vSlots } = useFormItemSlots(props, slots)
@@ -43,7 +44,7 @@ export default defineComponent({
         <el-form-item
           ref="formItem"
           prop={col.field}
-          class="z-form-item"
+          class={ns.b()}
           {...formItemProps.value}
           v-slots={vSlots.value}
         >
@@ -70,7 +71,7 @@ export default defineComponent({
               },
             }))}
           {formItemProps.value.extra && (
-            <div class="z-form-item__extra">
+            <div class={ns.e('extra')}>
               {isFunction(formItemProps.value.extra)
                 ? formItemProps.value.extra()
                 : formItemProps.value.extra}

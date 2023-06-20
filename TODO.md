@@ -30,7 +30,7 @@
 16. ~~`z-check-card`组件`option.label option.value`支持路径配置~~
 17. ~~`z-select`支持拼接`全部`~~
 18. ~~`z-form`组件不再使用`z-col`和`z-row`组件布局，而是采用内置方案~~
-19. `z-form`组件`class`使用`useNameSpace`
+19. ~~`z-form`组件`class`使用`useNameSpace`~~
 
 ## FEATURE（docs and dts）
 

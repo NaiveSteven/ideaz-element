@@ -1,9 +1,11 @@
 import { useWindowReactiveSize } from '@ideaz/hooks'
+import type { FilterFormProps } from '../src/props'
 import type { FormColumn } from '~/types'
 
-export const useFilterFormItem = (props: Record<any, any>) => {
+export const useFilterFormItem = (props: FilterFormProps) => {
   const toggleButtonType = ref(props.collapsed ? 'up' : 'expand')
 
+  const ns = useNamespace('form-item')
   const { windowReactiveSize } = useWindowReactiveSize()
 
   const colLayout = {
@@ -14,7 +16,7 @@ export const useFilterFormItem = (props: Record<any, any>) => {
     xl: 6,
   }
 
-  const virtualColumns = computed(() => {
+  const virtualColumns = computed<FormColumn[]>(() => {
     return props.columns.map((cur: FormColumn, index: number) => ({
       ...cur,
       ...colLayout,
@@ -22,14 +24,14 @@ export const useFilterFormItem = (props: Record<any, any>) => {
     }))
   })
 
-  const btnLayout = computed(() => {
+  const btnLayout = computed<FormColumn>(() => {
     const arrLength = virtualColumns.value.length + 1
     return {
       formItemProps: {
         class:
         toggleButtonType.value === 'expand'
-          ? 'z-button-col__container z-table-pro-btn__col'
-          : 'z-table-pro-btn__col',
+          ? [ns.b('button'), ns.be('button', 'col')]
+          : ns.be('button', 'col'),
       },
       xs: {
         span: 24,
@@ -54,7 +56,7 @@ export const useFilterFormItem = (props: Record<any, any>) => {
     }
   })
 
-  const columns = computed(() => {
+  const columns = computed<FormColumn[]>(() => {
     return virtualColumns.value.concat([
       {
         slot: 'button',
