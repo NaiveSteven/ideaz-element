@@ -26,46 +26,33 @@ const optionsConfig = {
   ],
 }
 
-const formConfig = {
-  labelWidth: '80px',
-  size: 'small',
-  rules: {
-    activeName: [{ required: true, message: '请输入活动名称', trigger: 'blur' }],
-  },
-}
-
 const columns = [
   {
     type: 'input',
-    prop: 'activeName',
+    field: 'activeName',
     modifier: 'trim',
     label: '活动名称',
-    on: {
-      input: (val) => {
-        console.log(val, 'input event')
-      },
-      change: (val) => {
-        console.log(val, 'change event')
-      },
+    onInput: (val) => {
+      console.log(val, 'input event')
+    },
+    onChange: (val) => {
+      console.log(val, 'change event')
     },
   },
   {
     type: 'select',
-    prop: 'activeArea',
+    field: 'activeArea',
     label: '活动区域',
-    on: {
-      change: (val) => {
-        console.log(val, 'change event')
-      },
-      focus: () => {
-        console.log('focus event')
-      },
-      // focus: () => {}
+    onChange: (val) => {
+      console.log(val, 'change event')
+    },
+    onFocus: () => {
+      console.log('focus event')
     },
   },
   {
     type: 'datepicker',
-    prop: 'activeTime',
+    field: 'activeTime',
     label: '活动时间',
     attrs: {
       type: 'daterange',
@@ -74,15 +61,13 @@ const columns = [
       format: 'MM-dd',
       valueFormat: 'MM-dd',
     },
-    on: {
-      change: (val) => {
-        console.log(val, 'change event')
-      },
+    onChange: (val) => {
+      console.log(val, 'change event')
     },
   },
   {
     type: 'input',
-    prop: 'aa',
+    field: 'aa',
     label: '测试'
   }
 ]
@@ -109,9 +94,11 @@ const submit = () => {
   <z-filter-form
     ref="cFormRef"
     :form-model="formModel"
-    :form-config="formConfig"
     :options="optionsConfig"
     :columns="columns"
+    size="small"
+    label-width="80px"
+    @reset="reset"
   >
     <template #111>
       <div>asdf</div>
