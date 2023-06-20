@@ -1,5 +1,5 @@
 // import { h } from 'vue-demi';
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isSlot } from '@ideaz/utils'
 import FormItemLabel from '../src/FormItemLabel'
 import type { FormProps } from '../src/props'
 import type { FormColumn, Slots } from '~/types'
@@ -7,9 +7,15 @@ import type { FormColumn, Slots } from '~/types'
 export const useFormSlots = (col: FormColumn, slots: Slots, props: FormProps) => {
   const scopedSlots: Slots = {}
 
-  scopedSlots[col.frontSlot || 'label'] = () => {
-    if (col.frontSlot && isFunction(slots[col.frontSlot]))
-      return (slots[col.frontSlot] as (() => VNode))()
+  const getLabelSlotName = () => {
+    if (isSlot(col.label)) return col.label as string
+    return 'label'
+  }
+
+  scopedSlots[getLabelSlotName()] = () => {
+    const labelSlotName = getLabelSlotName()
+    if (isSlot(col.label) && isFunction(slots[labelSlotName]))
+      return (slots[labelSlotName] as (() => VNode))()
 
     if (isFunction(col.label))
       return col.label()
@@ -32,8 +38,18 @@ export const useFormSlots = (col: FormColumn, slots: Slots, props: FormProps) =>
     )
   }
 
-  if (col.rearSlot && isFunction(slots[col.rearSlot]))
-    scopedSlots[col.rearSlot] = () => (slots[col.rearSlot!] as (() => VNode))()
+  if (col.error) {
+    if (isSlot(col.error) && isFunction(slots[col.error as string])) {
+      const error = col.error as string
+      scopedSlots[error] = () => <div class="el-form-item__error">{(slots[error!] as (() => VNode))()}</div>
+    }
+    else if (isFunction(col.error)) {
+      scopedSlots.error = () => <div class="el-form-item__error">{(col.error as (() => VNode))()}</div>
+    }
+    else {
+      scopedSlots.error = () => <div class="el-form-item__error">{col.error}</div>
+    }
+  }
 
   return { scopedSlots }
 }

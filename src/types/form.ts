@@ -23,8 +23,9 @@ export interface FormColumn {
   colGrid?: IndexType
   modifier?: string
   render?: any
-  rearSlot?: string
-  frontSlot?: string
+  // rearSlot?: string
+  // frontSlot?: string
+  error?: string | (() => VNode)
   class?: string
   style?: string
   rules?: FormRules | FormItemRule
