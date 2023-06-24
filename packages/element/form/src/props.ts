@@ -15,13 +15,13 @@ export const RowAlign = ['top', 'middle', 'bottom'] as const
 
 export const formProps = {
   ...elFormProps,
+  modelValue: {
+    type: Object,
+    default: () => ({}),
+  },
   columns: {
     type: Array as PropType<FormColumn[]>,
     default: () => [],
-  },
-  formModel: {
-    type: Object,
-    default: () => {},
   },
   options: {
     type: Object,
@@ -52,7 +52,7 @@ export const formItemProps = {
     type: Object,
     default: () => ({}),
   },
-  formModel: {
+  modelValue: {
     type: Object,
     default: () => ({ }),
   },

@@ -64,8 +64,8 @@ const columns = [
       type: 'daterange',
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
-      format: 'MM-dd',
-      valueFormat: 'MM-dd',
+      // format: 'MM-dd',
+      // valueFormat: 'MM-dd',
     },
     onChange: (val) => {
       console.log(val, 'change event')
@@ -94,7 +94,7 @@ const submit = () => {
 <template>
   <z-form
     ref="cFormRef"
-    :form-model="formModel"
+    v-model="formModel"
     :options="optionsConfig"
     :columns="columns"
     label-width="80px"
@@ -212,7 +212,7 @@ const submit = () => {
 <template>
   <z-form
     ref="cFormRef"
-    :form-model="formModel"
+    v-model="formModel"
     :options="optionsConfig"
     :columns="formItemConfig"
     label-width="90px"
