@@ -94,7 +94,7 @@ const config = {
       render: () => {}, // custom
       // renderFormItem or formItem: () => {}
       ref: (c: any) => {}, // v-ref
-      rules: [], // form rules
+      rules: [] | object, // form rules
       modifier: string | ((val: any) => any),
       onClick: () => {}, // event
       // default set prop slot

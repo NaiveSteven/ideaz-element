@@ -28,7 +28,7 @@ const optionsConfig = {
 
 const columns = [
   {
-    type: 'input',
+    component: 'input',
     field: 'activeName',
     modifier: 'trim',
     span: 8,
@@ -44,7 +44,7 @@ const columns = [
     }
   },
   {
-    type: 'select',
+    component: 'select',
     field: 'activeArea',
     span: 8,
     label: '活动区域',
@@ -56,7 +56,7 @@ const columns = [
     },
   },
   {
-    type: 'datepicker',
+    component: 'datepicker',
     field: 'activeTime',
     span: 8,
     label: '活动时间',
@@ -137,7 +137,7 @@ const optionsConfig = {
 
 const formItemConfig = [
   {
-    type: 'input',
+    component: 'input',
     field: 'activeName',
     error: 'errorSlot',
     label: 'nihaoSlot',
@@ -155,7 +155,7 @@ const formItemConfig = [
     }
   },
   {
-    type: 'select',
+    component: 'select',
     field: 'activeArea',
     span: 12,
     label: '活动区域',
@@ -175,7 +175,7 @@ const formItemConfig = [
     }
   },
   {
-    type: 'input',
+    component: 'input',
     field: 'activeInput',
     span: 12,
     label: () => h('span', {}, '输入框'),

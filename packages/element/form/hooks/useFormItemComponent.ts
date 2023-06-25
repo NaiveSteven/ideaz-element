@@ -1,24 +1,29 @@
-export const useFormItemComponent = (props: Record<any, any>) => {
-  const getComponentName = (type: string | (() => string)) => {
-    const cNames = ['select', 'radio', 'checkbox'];
-    const eleNames = ['input', 'datepicker', 'switch'];
-    const propComponentName = typeof type === 'function' ? type() : type;
+import type { FormItemProps } from '../src/props'
 
-    if (cNames.includes(propComponentName)) {
-      return `z-${propComponentName}`;
-    } else if (eleNames.includes(propComponentName)) {
-      if (propComponentName === 'datepicker') {
-        return 'el-date-picker';
-      }
-      return `el-${propComponentName}`;
-    } else {
-      return propComponentName || 'unknown';
+const Z_COMPONENT_NAMES = ['select', 'radio', 'checkbox', 'input']
+const ELEMENT_COMPONENT_NAMES = ['datepicker', 'switch']
+
+export const useFormItemComponent = (props: FormItemProps) => {
+  const getComponentName = (component: string | (() => string)) => {
+    const propComponentName = typeof component === 'function' ? component() : component
+
+    if (Z_COMPONENT_NAMES.includes(propComponentName)) {
+      return `z-${propComponentName}`
     }
-  };
+    else if (ELEMENT_COMPONENT_NAMES.includes(propComponentName)) {
+      if (propComponentName === 'datepicker')
+        return 'el-date-picker'
+
+      return `el-${propComponentName}`
+    }
+    else {
+      return propComponentName || 'unknown'
+    }
+  }
 
   const componentName = computed(() => {
-    return getComponentName(props.col.type);
-  });
+    return getComponentName(props.col.component || 'unknown')
+  })
 
-  return { componentName };
-};
+  return { componentName }
+}
