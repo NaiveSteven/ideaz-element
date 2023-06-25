@@ -6,7 +6,7 @@ export default defineComponent({
   name: 'ZFilterForm',
   components: { ToggleButton },
   props: filterFormProps,
-  emits: ['search', 'reset'],
+  emits: ['search', 'reset', 'update:modelValue'],
   setup(props, { attrs, slots, emit }) {
     const { isShowToggleButton, columns, toggleButtonType } = useFilterFormItem(props)
     const { formConfig } = useFormConfig(props)
@@ -37,14 +37,14 @@ export default defineComponent({
     }
 
     return () => {
-      const { formModel, options } = props
+      const { modelValue, options } = props
       return <z-form
         ref="formRef"
         columns={columns.value}
         options={options || {}}
         // onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
         {...{ ...attrs, ...formConfig.value }}
-        formModel={formModel}
+        v-model={modelValue}
         v-slots={{
           ...slots,
           button: () => (
