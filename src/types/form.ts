@@ -12,7 +12,7 @@ interface FormItemProps {
 }
 
 export interface FormColumn {
-  type?: string | (() => string)
+  component?: string | (() => string)
   tooltip?: string | (() => VNode)
   label?: string | (() => VNode)
   extra?: string | (() => VNode)
