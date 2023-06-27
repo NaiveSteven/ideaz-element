@@ -45,6 +45,9 @@ export const formProps = {
     values: RowAlign,
     default: 'top',
   },
+  column: {
+    type: Number,
+  },
 }
 
 export const formItemProps = {

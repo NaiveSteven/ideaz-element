@@ -64,7 +64,7 @@ export default defineComponent({
         >
           {formatFormItems.value.map((col: FormColumn, colIndex: number) => {
             const { scopedSlots } = useFormSlots(col, slots, props)
-            const { colKls, colStyle } = useCol(props, { span: 24, ...col })
+            const { colKls, colStyle } = useCol(props, col)
             return <FormItem
               key={col.__key}
               ref={`formItem${colIndex}`}
