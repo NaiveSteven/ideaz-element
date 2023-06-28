@@ -12,8 +12,8 @@ export default defineComponent({
   name: 'ZFormItem',
   directives: { ref },
   props: formItemProps,
-  emits: ['change'],
-  setup(props, { slots }) {
+  emits: ['change', 'update:modelValue'],
+  setup(props, { slots, emit }) {
     const ns = useNamespace('form-item')
     const { componentName: ComponentName } = useFormItemComponent(props)
     const { formItemProps } = useFormItemProps(props)
@@ -24,16 +24,16 @@ export default defineComponent({
     })
 
     const modify = (val: any) => {
-      const { col, formModel } = props
+      const { col } = props
       if (col.modifier) {
         if (isFunction(col.modifier))
-          formModel[col.field!] = col.modifier(val)
+          emit('update:modelValue', col.modifier(val), col.field)
 
         if (col.modifier === 'trim')
-          formModel[col.field!] = isString(val) ? val.trim() : val
+          emit('update:modelValue', isString(val) ? val.trim() : val, col.field)
       }
       else {
-        formModel[col.field!] = val
+        emit('update:modelValue', val, col.field)
       }
     }
 
@@ -54,8 +54,8 @@ export default defineComponent({
               name: ComponentName.value,
               attrs: {
                 'modelValue': isFunction(col.fieldProps && col.fieldProps.format)
-                  ? col.fieldProps?.format(props.formModel[col.field!])
-                  : props.formModel[col.field!],
+                  ? col.fieldProps?.format(props.modelValue[col.field!])
+                  : props.modelValue[col.field!],
                 'prop': col.field,
                 'options': options
                   ? (options[col.field!] || (col.fieldProps && col.fieldProps.options))

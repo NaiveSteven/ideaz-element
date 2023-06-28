@@ -28,7 +28,7 @@ const optionsConfig = {
 
 const columns = [
   {
-    type: 'input',
+    component: 'input',
     field: 'activeName',
     modifier: 'trim',
     label: '活动名称',
@@ -40,7 +40,7 @@ const columns = [
     },
   },
   {
-    type: 'select',
+    component: 'select',
     field: 'activeArea',
     label: '活动区域',
     onChange: (val) => {
@@ -51,7 +51,7 @@ const columns = [
     },
   },
   {
-    type: 'datepicker',
+    component: 'datepicker',
     field: 'activeTime',
     label: '活动时间',
     attrs: {
@@ -70,12 +70,12 @@ const columns = [
     label: 'asdsf'
   },
   {
-    type: 'input',
+    component: 'input',
     field: 'aa',
     label: 'labelSlot2'
   },
   {
-    type: 'input',
+    component: 'input',
     field: 'aa',
     label: '测试'
   }

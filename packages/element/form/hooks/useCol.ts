@@ -1,10 +1,40 @@
 import { isNumber, isObject } from '@ideaz/utils'
 import type { CSSProperties } from 'vue-demi'
 import type { FormProps } from '../src/props'
+import type { FormColumn } from '~/types'
 
 export const useCol = (props: FormProps, formItem: any) => {
+  let col: FormColumn
   const ns = useNamespace('col')
   const gutter = computed(() => props.gutter || 0)
+
+  if (props.column) {
+    const columnSpan = Math.floor(24 / props.column)
+    col = {
+      xs: {
+        span: 24,
+      },
+      sm: {
+        span: columnSpan >= 12 ? columnSpan : 12,
+      },
+      md: {
+        span: columnSpan,
+      },
+      lg: {
+        span: columnSpan,
+      },
+      xl: {
+        span: columnSpan,
+      },
+      ...formItem,
+    }
+  }
+  else {
+    col = {
+      span: 24,
+      ...formItem,
+    }
+  }
 
   const colStyle = computed(() => {
     const styles: CSSProperties = {}
@@ -19,20 +49,20 @@ export const useCol = (props: FormProps, formItem: any) => {
     const pos = ['span', 'offset', 'pull', 'push'] as const
 
     pos.forEach((prop) => {
-      const size = formItem[prop]
+      const size = col[prop]
       if (isNumber(size)) {
-        if (prop === 'span') classes.push(ns.b(`${formItem[prop]}`))
-        else if (size > 0) classes.push(ns.b(`${prop}-${formItem[prop]}`))
+        if (prop === 'span') classes.push(ns.b(`${col[prop]}`))
+        else if (size > 0) classes.push(ns.b(`${prop}-${col[prop]}`))
       }
     })
 
     const sizes = ['xs', 'sm', 'md', 'lg', 'xl'] as const
     sizes.forEach((size) => {
-      if (isNumber(formItem[size])) {
-        classes.push(ns.b(`${size}-${formItem[size]}`))
+      if (isNumber(col[size])) {
+        classes.push(ns.b(`${size}-${col[size]}`))
       }
-      else if (isObject(formItem[size])) {
-        Object.entries(formItem[size]).forEach(([prop, sizeProp]) => {
+      else if (isObject(col[size])) {
+        Object.entries(col[size]!).forEach(([prop, sizeProp]) => {
           classes.push(
             prop !== 'span'
               ? ns.b(`${size}-${prop}-${sizeProp}`)

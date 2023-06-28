@@ -52,11 +52,11 @@ export default defineComponent({
     })
 
     return () => {
-      const { formModel, options } = props
+      const { modelValue, options } = props
 
       return (
         <el-form
-          {...{ ...formConfig.value, model: formModel }}
+          {...{ ...formConfig.value, model: modelValue }}
           ref="formRef"
           class={rowKls.value}
           style={rowStyle.value}
@@ -64,19 +64,22 @@ export default defineComponent({
         >
           {formatFormItems.value.map((col: FormColumn, colIndex: number) => {
             const { scopedSlots } = useFormSlots(col, slots, props)
-            const { colKls, colStyle } = useCol(props, { span: 24, ...col })
+            const { colKls, colStyle } = useCol(props, col)
             return <FormItem
               key={col.__key}
               ref={`formItem${colIndex}`}
               col={col}
-              formModel={formModel}
+              modelValue={modelValue}
               formConfig={formConfig.value}
               options={options}
               class={colKls.value}
               style={colStyle.value}
               v-slots={scopedSlots}
               v-show={isFunction(col.hideUseVShow) ? !col.hideUseVShow() : true}
-              onChange={obj => emit('change', obj)}
+              onUpdate:modelValue={(val: any, field: string) => {
+                emit('update:modelValue', { ...modelValue, [field]: val })
+                emit('change', { prop: val, field })
+              }}
             >
               {(isFunction(col.render) || col.slot) ? renderContent(col, slots) : null}
             </FormItem>

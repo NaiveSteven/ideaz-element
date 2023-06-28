@@ -22,7 +22,7 @@
 8. `z-form`组件结合操作按钮和接口
 9. ~~`z-check-card`支持`v-model`~~
 10. ~~`z-tag-select`组件支持配置多条配置（思路：`modelValue`传入`object`，`options`传入`object`时，走多条配置逻辑）~~
-11. `z-form`、`z-form-item`组件支持`provide`组件属性
+11. ~~`z-form`、`z-form-item`组件支持`provide`组件属性~~
 12. ~~`z-tag-select`组件`option.label option.value field`支持路径配置~~
 13. ~~`z-radio`组件`option.label option.value`支持路径配置~~
 14. ~~`z-checkbox`组件`option.label option.value`支持路径配置~~
@@ -31,6 +31,9 @@
 17. ~~`z-select`支持拼接`全部`~~
 18. ~~`z-form`组件不再使用`z-col`和`z-row`组件布局，而是采用内置方案~~
 19. ~~`z-form`组件`class`使用`useNameSpace`~~
+20. ~~`z-form`和`z-filter-form`组件使用`v-model`~~
+21. ~~`z-form`支持`type`为`group`或`collapse`或`array`~~
+22. ~~`z-input`支持`copy`
 
 ## FEATURE（docs and dts）
 
@@ -93,7 +96,7 @@ const config = {
       render: () => {}, // custom
       // renderFormItem or formItem: () => {}
       ref: (c: any) => {}, // v-ref
-      rules: [], // form rules
+      rules: [] | object, // form rules
       modifier: string | ((val: any) => any),
       slot: string,
       onClick: () => {}, // event
