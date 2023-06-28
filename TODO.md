@@ -32,6 +32,8 @@
 18. ~~`z-form`组件不再使用`z-col`和`z-row`组件布局，而是采用内置方案~~
 19. ~~`z-form`组件`class`使用`useNameSpace`~~
 20. ~~`z-form`和`z-filter-form`组件使用`v-model`~~
+21. ~~`z-form`支持`type`为`group`或`collapse`或`array`~~
+22. ~~`z-input`支持`copy`
 
 ## FEATURE（docs and dts）
 
