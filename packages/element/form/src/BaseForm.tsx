@@ -8,6 +8,7 @@ import {
 } from '../hooks'
 import { formProps, formProvideKey } from './props'
 import FormColumns from './FormColumns'
+import type { FormColumn } from '~/types'
 
 export default defineComponent({
   name: 'ZForm',
@@ -39,8 +40,42 @@ export default defineComponent({
       size: formConfig.value.size,
     })
 
-    return () => {
+    const renderCommonColumn = (contentColumns: FormColumn[]) => {
       const { modelValue, options } = props
+
+      return <FormColumns
+        modelValue={modelValue}
+        options={options}
+        columns={contentColumns}
+        v-slots={slots}
+        onUpdate:modelValue={(...args) => { emit('update:modelValue', ...args) }}
+        onChange={(...args) => { emit('change', ...args) }}
+      />
+    }
+
+    const renderContent = () => {
+      const { type, columns } = props
+
+      if (type === 'group') {
+        return columns.map((column) => {
+          if (column.label && column.children && column.children.length) {
+            return <>
+              <el-divider content-position="left">{column.label}</el-divider>
+              {renderCommonColumn(column.children || [])}
+            </>
+          }
+          else {
+            return renderCommonColumn([column])
+          }
+        })
+      }
+      else {
+        return renderCommonColumn(formatFormItems.value)
+      }
+    }
+
+    return () => {
+      const { modelValue } = props
 
       return (
         <el-form
@@ -50,16 +85,7 @@ export default defineComponent({
           style={rowStyle.value}
         // onSubmit={withModifiers(function () { }, ['prevent'])}
         >
-          <FormColumns
-            modelValue={modelValue}
-            options={options}
-            columns={formatFormItems.value}
-            v-slots={slots}
-            onUpdate:modelValue={(...args) => {
-              emit('update:modelValue', ...args)
-            }}
-            onChange={(...args) => { emit('change', ...args) }}
-          />
+          {renderContent()}
         </el-form>
       )
     }

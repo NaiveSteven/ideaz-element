@@ -48,6 +48,10 @@ export const formProps = {
   column: {
     type: Number,
   },
+  type: {
+    type: String as PropType<'normal' | 'group' | 'array' | 'collapse'>,
+    default: 'normal',
+  },
 }
 
 export const formItemProps = {
