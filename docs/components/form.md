@@ -475,3 +475,127 @@ const submit = () => {
 ```
 
 :::
+
+## CollapseForm
+
+:::demo 使用 `type`、`plain`、`round` 和 `circle` 属性来定义 Button 的样式。
+
+```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const cFormRef = ref()
+const formModel = ref({
+  activeName: '',
+  activeArea: '',
+  activeTime: [],
+})
+
+const optionsConfig = {
+  activeArea: [
+    { label: '区域1', value: '1' },
+    { label: '区域2', value: '2' },
+  ],
+}
+
+const columns = [
+  {
+    label: '文本1',
+    children: [
+      {
+        component: 'input',
+        field: 'activeName',
+        modifier: 'trim',
+        label: '活动名称',
+        onInput: (val) => {
+          console.log(val, 'input event')
+        },
+        onChange: (val) => {
+          console.log(val, 'change event')
+        },
+        rules: {
+          required: true,
+        }
+      }
+    ]
+  },
+  {
+    label: '文本2',
+    children: [
+      {
+        component: 'select',
+        field: 'activeArea',
+        label: '活动区域',
+        onChange: (val) => {
+          console.log(val, 'change event')
+        },
+        onFocus: () => {
+          console.log('focus event')
+        },
+      },
+      {
+        component: 'datepicker',
+        field: 'activeTime',
+        label: '活动时间',
+        fieldProps: {
+          type: 'daterange',
+          startPlaceholder: '开始日期',
+          endPlaceholder: '结束日期',
+          // format: 'MM-dd',
+          // valueFormat: 'MM-dd',
+        },
+        onChange: (val) => {
+          console.log(val, 'change event')
+        },
+      },
+    ]
+  },
+  {
+    slot: 'operate'
+  }
+]
+
+const reset = () => {
+  cFormRef.value.resetFields()
+}
+
+const submit = () => {
+  cFormRef.value.validate((valid: boolean) => {
+    if (valid) {
+      alert('submit!')
+      console.log(formModel.value, 'config.formModel')
+    }
+    else {
+      console.log('error submit!!')
+      return false
+    }
+  })
+}
+</script>
+
+<template>
+  <z-form
+    ref="cFormRef"
+    v-model="formModel"
+    :options="optionsConfig"
+    :columns="columns"
+    label-width="80px"
+    size="default"
+    type="collapse"
+  >
+    <template #111>
+      <div>asdf</div>
+    </template>
+    <template #operate>
+      <el-button type="primary" @click="submit">
+        提交
+      </el-button>
+      <el-button @click="reset">
+        重置
+      </el-button>
+    </template>
+  </z-form>
+</template>
+```
+
+:::

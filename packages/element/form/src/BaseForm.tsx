@@ -27,6 +27,8 @@ export default defineComponent({
       scrollToField,
     } = useFormMethods(props)
 
+    const activeCollapse = ref('')
+
     useExpose({
       resetFields,
       validate,
@@ -64,10 +66,20 @@ export default defineComponent({
               {renderCommonColumn(column.children || [])}
             </>
           }
-          else {
-            return renderCommonColumn([column])
-          }
+          return renderCommonColumn([column])
         })
+      }
+      else if (type === 'collapse') {
+        return <el-collapse v-model={activeCollapse.value} class='w-full'>
+          {columns.map((column) => {
+            if (column.label && column.children && column.children.length) {
+              return <el-collapse-item title={column.label} name={column.label}>
+                {renderCommonColumn(column.children || [])}
+              </el-collapse-item>
+            }
+            return renderCommonColumn([column])
+          })}
+        </el-collapse>
       }
       else {
         return renderCommonColumn(formatFormItems.value)
