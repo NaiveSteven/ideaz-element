@@ -52,6 +52,10 @@ export const formProps = {
     type: String as PropType<'normal' | 'group' | 'array' | 'collapse'>,
     default: 'normal',
   },
+  contentPosition: {
+    type: String as PropType<'left' | 'right' | 'center'>,
+    default: 'center',
+  },
 }
 
 export const formItemProps = {

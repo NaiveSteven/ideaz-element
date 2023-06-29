@@ -54,13 +54,13 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { type, columns } = props
+      const { type, columns, contentPosition } = props
 
       if (type === 'group') {
         return columns.map((column) => {
           if (column.label && column.children && column.children.length) {
             return <>
-              <el-divider content-position="left">{column.label}</el-divider>
+              <el-divider content-position={contentPosition}>{column.label}</el-divider>
               {renderCommonColumn(column.children || [])}
             </>
           }
