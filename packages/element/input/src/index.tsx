@@ -28,6 +28,7 @@ export default defineComponent({
             size={size.value}
             modelValue={vModelVal.value}
             onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
+            onInput={handleInput}
             v-slots={scopedSlots.value}
           />
         )
