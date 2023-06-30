@@ -44,4 +44,5 @@ export interface FormColumn {
   __key?: string // 组件库生成的key
   key?: string // 用户传入的key
   children?: FormColumn[]
+  disabled?: boolean
 }

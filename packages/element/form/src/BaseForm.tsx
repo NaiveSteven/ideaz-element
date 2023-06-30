@@ -14,7 +14,7 @@ export default defineComponent({
   name: 'ZForm',
   components: { FormColumns },
   props: formProps,
-  emits: ['input', 'update:modelValue', 'change'],
+  emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change'],
   setup(props, { emit, slots }) {
     const { formatFormItems } = useFormItems(props)
     const { rowStyle, rowKls } = useRow(props)
@@ -56,7 +56,7 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { type, columns, contentPosition } = props
+      const { type, columns, contentPosition, activeCollapse, accordion } = props
 
       if (type === 'group') {
         return columns.map((column) => {
@@ -70,10 +70,16 @@ export default defineComponent({
         })
       }
       else if (type === 'collapse') {
-        return <el-collapse v-model={activeCollapse.value} class='w-full'>
+        return <el-collapse
+          modelValue={activeCollapse}
+          accordion={accordion}
+          class='w-full'
+          onUpdate:activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
+          onChange={(val: string[] | string) => { emit('collapse-change', val) }}
+        >
           {columns.map((column) => {
             if (column.label && column.children && column.children.length) {
-              return <el-collapse-item title={column.label} name={column.label}>
+              return <el-collapse-item title={column.label} name={column.label} disabled={column.disabled}>
                 {renderCommonColumn(column.children || [])}
               </el-collapse-item>
             }

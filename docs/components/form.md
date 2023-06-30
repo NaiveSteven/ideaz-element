@@ -484,6 +484,7 @@ const submit = () => {
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+const activeCollapse = ref('文本1')
 const cFormRef = ref()
 const formModel = ref({
   activeName: '',
@@ -571,17 +572,24 @@ const submit = () => {
     }
   })
 }
+
+const handleCollapseChange = (val: string) => {
+  console.log(val, 'val')
+}
 </script>
 
 <template>
   <z-form
     ref="cFormRef"
     v-model="formModel"
+    v-model:activeCollapse="activeCollapse"
     :options="optionsConfig"
     :columns="columns"
     label-width="80px"
     size="default"
     type="collapse"
+    accordion
+    @collapse-change="handleCollapseChange"
   >
     <template #111>
       <div>asdf</div>
