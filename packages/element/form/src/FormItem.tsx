@@ -1,5 +1,6 @@
 import { extractEvents, isFunction, isObject, isString } from '@ideaz/utils'
 import { resolveDynamicComponent } from '@ideaz/shared'
+import { get } from 'lodash-unified'
 import { vueRef as ref } from '@ideaz/directives'
 import {
   useFormItemComponent,
@@ -54,8 +55,8 @@ export default defineComponent({
               name: ComponentName.value,
               attrs: {
                 'modelValue': isFunction(col.fieldProps && col.fieldProps.format)
-                  ? col.fieldProps?.format(props.modelValue[col.field!])
-                  : props.modelValue[col.field!],
+                  ? col.fieldProps?.format(get(props.modelValue, col.field!))
+                  : get(props.modelValue, col.field!),
                 'prop': col.field,
                 'options': options
                   ? (options[col.field!] || (col.fieldProps && col.fieldProps.options))

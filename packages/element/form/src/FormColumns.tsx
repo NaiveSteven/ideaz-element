@@ -1,4 +1,5 @@
 import { isFunction } from '@ideaz/utils'
+import { cloneDeep, set } from 'lodash-unified'
 import {
   useCol,
   useFormSlots,
@@ -59,7 +60,7 @@ export default defineComponent({
           v-slots={scopedSlots}
           v-show={isFunction(col.hideUseVShow) ? !col.hideUseVShow() : true}
           onUpdate:modelValue={(val: any, field: string) => {
-            emit('update:modelValue', { ...modelValue, [field]: val })
+            emit('update:modelValue', set(cloneDeep(modelValue), field, val))
             emit('change', { prop: val, field })
           }}
         >
