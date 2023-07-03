@@ -1,11 +1,12 @@
 import { getCurrentInstance } from 'vue-demi'
 import { cloneDeep } from 'lodash-es'
-import { isObject } from '@ideaz/utils'
+import { isFunction, isObject } from '@ideaz/utils'
+import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import type { validateCallback, validateFieldCallback } from '~/types'
 
 interface ElForm {
-  validate: (callback: validateCallback) => Promise<boolean>
+  validate: (callback?: validateCallback) => Promise<boolean>
   validateField: (
     props: string[] | string,
     callback: validateFieldCallback
@@ -22,10 +23,33 @@ export const useFormMethods = (props?: any) => {
       ? cloneDeep(props.formModel)
       : null
 
-  const validate = async (callback: validateCallback) => {
+  const runArrayFormMethods = (method: string, props?: any) => {
+    Object.keys(ctx!.$refs).forEach((key) => {
+      if (key.includes('arrayForm'))
+        (ctx!.$refs[key] as typeof ElForm)[method](props)
+    })
+  }
+
+  const validate = async (callback?: validateCallback) => {
     try {
-      const res = await (ctx?.$refs.formRef as ElForm).validate(callback)
-      return res
+      if (props && props.type === 'array') {
+        let isPassValidate = true
+        const keys = Object.keys(ctx!.$refs)
+        for (let index = 0; index < keys.length; index++) {
+          const key = keys[index]
+          if (key.includes('arrayForm') && ctx!.$refs[key]) {
+            await (ctx!.$refs[key] as typeof ElForm).validate((val: boolean) => {
+              if (!val)
+                isPassValidate = false
+            })
+          }
+        }
+        return isFunction(callback) ? callback(isPassValidate) : isPassValidate
+      }
+      else {
+        const res = await (ctx?.$refs.formRef as ElForm).validate(callback)
+        return res
+      }
     }
     catch (error) {
       return false
@@ -49,12 +73,17 @@ export const useFormMethods = (props?: any) => {
   }
 
   const resetFields = () => {
-    (ctx?.$refs.formRef as ElForm).resetFields()
-    // 表单项使用 hide，条件满足显示元素，最后一个表单项数据无法被重置。手动清空
-    if (originFormModel) {
-      Object.keys(originFormModel).forEach((key) => {
-        props!.formModel[key] = originFormModel[key]
-      })
+    if (props && props.type === 'array') {
+      runArrayFormMethods('resetFields')
+    }
+    else {
+      (ctx?.$refs.formRef as ElForm).resetFields()
+      // 表单项使用 hide，条件满足显示元素，最后一个表单项数据无法被重置。手动清空
+      if (originFormModel) {
+        Object.keys(originFormModel).forEach((key) => {
+          props!.formModel[key] = originFormModel[key]
+        })
+      }
     }
   }
 
@@ -62,8 +91,12 @@ export const useFormMethods = (props?: any) => {
     (ctx?.$refs.formRef as ElForm).scrollToField(prop)
   }
 
-  const clearValidate = (props: string[] | string) => {
-    (ctx?.$refs.formRef as ElForm).clearValidate(props)
+  const clearValidate = (attrs: string[] | string) => {
+    if (props && props.type === 'array')
+      runArrayFormMethods('clearValidate', props)
+
+    else
+      (ctx?.$refs.formRef as ElForm).clearValidate(attrs)
   }
 
   return { resetFields, validate, validateField, clearValidate, scrollToField }
