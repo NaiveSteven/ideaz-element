@@ -1,5 +1,6 @@
 // import { withModifiers } from 'vue-demi';
 import { useExpose } from '@ideaz/hooks'
+import { cloneDeep } from 'lodash-es'
 import {
   useFormConfig,
   useFormItems,
@@ -8,11 +9,12 @@ import {
 } from '../hooks'
 import { formProps, formProvideKey } from './props'
 import FormColumns from './FormColumns'
+import OperationCard from './OperationCard'
 import type { FormColumn } from '~/types'
 
 export default defineComponent({
   name: 'ZForm',
-  components: { FormColumns },
+  components: { FormColumns, OperationCard },
   props: formProps,
   emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change'],
   setup(props, { emit, slots }) {
@@ -26,6 +28,16 @@ export default defineComponent({
       clearValidate,
       scrollToField,
     } = useFormMethods(props)
+    const ns = useNamespace('form')
+    const arrayFormColumns = reactive<{ [propName: string]: FormColumn[][] }>({})
+
+    if (props.type === 'array') {
+      props.columns.forEach((column) => {
+        const field = column.field!
+        if (column.label && column.children && column.children.length)
+          arrayFormColumns[field] = [column.children]
+      })
+    }
 
     useExpose({
       resetFields,
@@ -54,7 +66,7 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { type, columns, contentPosition, activeCollapse, accordion } = props
+      const { type, columns, contentPosition, activeCollapse, accordion, modelValue, options } = props
 
       if (type === 'group') {
         return columns.map((column) => {
@@ -71,7 +83,7 @@ export default defineComponent({
         return <el-collapse
           modelValue={activeCollapse}
           accordion={accordion}
-          class='w-full'
+          class={ns.b('collapse-item')}
           onUpdate:activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
           onChange={(val: string[] | string) => { emit('collapse-change', val) }}
         >
@@ -84,6 +96,40 @@ export default defineComponent({
             return renderCommonColumn([column])
           })}
         </el-collapse>
+      }
+      else if (type === 'array') {
+        return columns.map((column) => {
+          if (column.label && column.children && column.children.length) {
+            const field = column.field!
+            return <el-form-item label={column.label} prop={column.field} class={ns.b('array-form-item')}>
+              {modelValue[field].map((data: any, index: number) => {
+                return <OperationCard
+                  onAdd={() => {
+                    // arrayFormColumns[field].push(child)
+                    // emit('update:modelValue', { ...modelValue, [field]: modelValue[field].concat({}) })
+                  }}
+                  onDelete={() => {
+                    // arrayFormColumns[field].splice(index, 1)
+                  }}
+                >
+                  <FormColumns
+                    modelValue={data}
+                    options={options}
+                    columns={column.children}
+                    v-slots={slots}
+                    onUpdate:modelValue={(val: any) => {
+                      const item = cloneDeep(modelValue[field])
+                      item.splice(index, 1, val)
+                      emit('update:modelValue', { ...modelValue, [field]: item })
+                    }}
+                    onChange={(...args) => { emit('change', ...args) }}
+                  />
+                </OperationCard>
+              })}
+            </el-form-item>
+          }
+          return renderCommonColumn([column])
+        })
       }
       else {
         return renderCommonColumn(formatFormItems.value)
