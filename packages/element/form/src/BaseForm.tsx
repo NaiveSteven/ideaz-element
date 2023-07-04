@@ -107,13 +107,14 @@ export default defineComponent({
                 const formProps = omit(column, ['children', 'field'])
                 return <OperationCard
                   onAdd={() => {
-                    // arrayFormColumns[field].push(child)
-                    // emit('update:modelValue', { ...modelValue, [field]: modelValue[field].concat({}) })
+                    const model = { ...modelValue }
+                    model[field].push({})
+                    emit('update:modelValue', model)
                   }}
                   onDelete={() => {
-                    const val = cloneDeep(modelValue)
-                    val[field].splice(index, 1)
-                    emit('update:modelValue', val)
+                    const model = cloneDeep(modelValue)
+                    model[field].splice(index, 1)
+                    emit('update:modelValue', model)
                   }}
                 >
                   <el-form model={data} {...formProps} ref={`arrayForm${i}`}>
