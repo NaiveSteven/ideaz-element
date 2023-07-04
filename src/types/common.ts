@@ -12,7 +12,15 @@ export interface OptionsItem {
   disabled?: boolean
   [propName: string]: any
 }
-export type validateCallback = (isSuccess: boolean, field: object) => void
+
+export interface ValidateField {
+  [propName: string]: {
+    field: string
+    fieldValue: any
+    message: string
+  }
+}
+export type validateCallback = (isSuccess: boolean, field: ValidateField) => void
 export type validateFieldCallback = (errorMessage: string) => void
 
 export interface Pagination {

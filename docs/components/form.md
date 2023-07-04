@@ -680,6 +680,9 @@ const columns = [
         onFocus: () => {
           console.log('focus event')
         },
+        rules: {
+          required: true,
+        }
       },
       {
         component: 'datepicker',
@@ -719,8 +722,8 @@ const handleValidate = () => {
 }
 
 const submit = () => {
-  cFormRef.value.validate((valid: boolean) => {
-    console.log(formModel.value, 'config.formModel')
+  cFormRef.value.validate((valid: boolean, data) => {
+    console.log(formModel.value, data, 'config.formModel')
     if (valid) {
       alert('submit!')
     }

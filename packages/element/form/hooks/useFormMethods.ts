@@ -1,9 +1,8 @@
 import { getCurrentInstance } from 'vue-demi'
 import { cloneDeep } from 'lodash-es'
 import { isFunction, isObject } from '@ideaz/utils'
-import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
-import type { validateCallback, validateFieldCallback } from '~/types'
+import type { ValidateField, validateCallback, validateFieldCallback } from '~/types'
 
 interface ElForm {
   validate: (callback?: validateCallback) => Promise<boolean>
@@ -23,31 +22,34 @@ export const useFormMethods = (props?: any) => {
       ? cloneDeep(props.formModel)
       : null
 
-  const runArrayFormMethods = (method: string, props?: any) => {
+  const runArrayFormMethods = (method: string, props?: any, callback?: validateCallback | validateFieldCallback) => {
     Object.keys(ctx!.$refs).forEach((key) => {
       if (key.includes('arrayForm'))
-        (ctx!.$refs[key] as typeof ElForm)[method](props)
+        (ctx!.$refs[key] as ElForm)[method as keyof ElForm](props, callback as validateFieldCallback)
     })
   }
 
-  const validate = async (callback?: validateCallback) => {
+  const validate = async (callback?: validateFieldCallback | validateCallback) => {
     try {
       if (props && props.type === 'array') {
         let isPassValidate = true
         const keys = Object.keys(ctx!.$refs)
+        let fields: ValidateField = {}
         for (let index = 0; index < keys.length; index++) {
           const key = keys[index]
           if (key.includes('arrayForm') && ctx!.$refs[key]) {
-            await (ctx!.$refs[key] as typeof ElForm).validate((val: boolean) => {
-              if (!val)
+            await (ctx!.$refs[key] as ElForm).validate((val: boolean, field: ValidateField) => {
+              if (!val) {
                 isPassValidate = false
+                fields = { ...fields, ...field }
+              }
             })
           }
         }
-        return isFunction(callback) ? callback(isPassValidate) : isPassValidate
+        return isFunction(callback) ? (callback as validateCallback)(isPassValidate, fields) : isPassValidate
       }
       else {
-        const res = await (ctx?.$refs.formRef as ElForm).validate(callback)
+        const res = await (ctx?.$refs.formRef as ElForm).validate(callback as validateCallback)
         return res
       }
     }
