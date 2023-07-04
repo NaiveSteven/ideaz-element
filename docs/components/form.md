@@ -680,6 +680,9 @@ const columns = [
         onFocus: () => {
           console.log('focus event')
         },
+        rules: {
+          required: true,
+        }
       },
       {
         component: 'datepicker',
@@ -712,11 +715,17 @@ const reset = () => {
   cFormRef.value.resetFields()
 }
 
+const handleValidate = () => {
+  cFormRef.value.validate((val) => {
+    console.log(val, 'handleValidate')
+  })
+}
+
 const submit = () => {
-  cFormRef.value.validate((valid: boolean) => {
+  cFormRef.value.validate((valid: boolean, data) => {
+    console.log(formModel.value, data, 'config.formModel')
     if (valid) {
       alert('submit!')
-      console.log(formModel.value, 'config.formModel')
     }
     else {
       console.log('error submit!!')
@@ -727,6 +736,9 @@ const submit = () => {
 </script>
 
 <template>
+  <el-button @click="handleValidate">
+    校验
+  </el-button>
   <z-form
     ref="cFormRef"
     v-model="formModel"
