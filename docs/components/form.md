@@ -739,7 +739,7 @@ const submit = () => {
   <el-button @click="handleValidate">
     校验
   </el-button>
-  <!-- <z-form
+  <z-form
     ref="cFormRef"
     v-model="formModel"
     :options="optionsConfig"
@@ -759,7 +759,7 @@ const submit = () => {
         重置
       </el-button>
     </template>
-  </z-form> -->
+  </z-form>
 </template>
 ```
 
@@ -853,9 +853,6 @@ const submit = () => {
 </script>
 
 <template>
-  <el-button @click="handleValidate">
-    校验
-  </el-button>
   <z-form
     ref="cFormRef"
     v-model="formModel"

@@ -1,5 +1,6 @@
 // import { withModifiers } from 'vue-demi';
 import { useExpose } from '@ideaz/hooks'
+import { cloneDeep, omit } from 'lodash-unified'
 import {
   useFormConfig,
   useFormItems,
@@ -66,6 +67,7 @@ export default defineComponent({
 
     const renderContent = () => {
       const { type, columns, contentPosition, activeCollapse, accordion, modelValue, options } = props
+      const isChildren = columns.some(column => column.children)
 
       if (type === 'group') {
         return columns.map((column) => {
@@ -96,10 +98,10 @@ export default defineComponent({
           })}
         </el-collapse>
       }
-      else if (type === 'array') {
+      else if (type === 'array' && !isChildren) {
         const model = [...modelValue as any[]]
         return modelValue.map((data: any, index: number) => {
-          // const formProps = omit(props, ['columns', 'type', 'modelValue'])
+          const formProps = omit(props, ['columns', 'type', 'modelValue'])
           return <OperationCard
             onAdd={() => {
               emit('update:modelValue', [...model, {}])
@@ -109,10 +111,9 @@ export default defineComponent({
               emit('update:modelValue', model)
             }}
           >
-            <el-form model={data} ref={`arrayForm${index}`}>
+            <el-form {...{ labelWidth: formConfig.value.labelWidth, formProps }} model={data} ref={`arrayForm${index}`}>
               <FormColumns
                 modelValue={data}
-                // 待修改
                 options={options}
                 columns={columns}
                 v-slots={slots}
@@ -125,46 +126,47 @@ export default defineComponent({
             </el-form>
           </OperationCard>
         })
-        // return columns.map((column, i) => {
-        //   if (column.label && column.children && column.children.length) {
-        //     const field = column.field!
-        //     return <el-form-item label={column.label} prop={column.field} class={ns.b('array-form-item')}>
-        //       {modelValue[field].map((data: any, index: number) => {
-        //         const formProps = omit(column, ['children', 'field'])
-        //         return <OperationCard
-        //           onAdd={() => {
-        //             const model = { ...modelValue }
-        //             model[field].push({})
-        //             emit('update:modelValue', model)
-        //           }}
-        //           onDelete={() => {
-        //             const model = cloneDeep(modelValue)
-        //             model[field].splice(index, 1)
-        //             emit('update:modelValue', model)
-        //           }}
-        //         >
-        //           <el-form model={data} {...formProps} ref={`arrayForm${i}`}>
-        //             <FormColumns
-        //               modelValue={data}
-        //               // 待修改
-        //               options={options}
-        //               columns={column.children}
-        //               v-slots={slots}
-        //               onUpdate:modelValue={(val: any) => {
-        //                 const item = cloneDeep(modelValue[field])
-        //                 item.splice(index, 1, val)
-        //                 emit('update:modelValue', { ...modelValue, [field]: item })
-        //               }}
-        //               onChange={(...args) => { emit('change', ...args) }}
-        //             />
-        //           </el-form>
-        //         </OperationCard>
-        //       })}
-        //     </el-form-item>
-        //   }
-        //   return renderCommonColumn([column])
-        // })
-      // }
+      }
+      else if (type === 'array' && isChildren) {
+        return columns.map((column, i) => {
+          if (column.label && column.children && column.children.length) {
+            const field = column.field!
+            return <el-form-item label={column.label} prop={column.field} class={ns.b('array-form-item')}>
+              {(modelValue as { [propName: string]: any })[field].map((data: any, index: number) => {
+                const formProps = omit(column, ['children', 'field'])
+                return <OperationCard
+                  onAdd={() => {
+                    const model = { ...modelValue } as { [propName: string]: any }
+                    model[field].push({})
+                    emit('update:modelValue', model)
+                  }}
+                  onDelete={() => {
+                    const model = cloneDeep(modelValue) as { [propName: string]: any }
+                    model[field].splice(index, 1)
+                    emit('update:modelValue', model)
+                  }}
+                >
+                  <el-form model={data} {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} ref={`arrayForm${i}`}>
+                    <FormColumns
+                      modelValue={data}
+                      // 待修改
+                      options={options}
+                      columns={column.children}
+                      v-slots={slots}
+                      onUpdate:modelValue={(val: any) => {
+                        const item = cloneDeep((modelValue as { [propName: string]: any })[field])
+                        item.splice(index, 1, val)
+                        emit('update:modelValue', { ...modelValue, [field]: item })
+                      }}
+                      onChange={(...args) => { emit('change', ...args) }}
+                    />
+                  </el-form>
+                </OperationCard>
+              })}
+            </el-form-item>
+          }
+          return renderCommonColumn([column])
+        })
       }
       else {
         return renderCommonColumn(formatFormItems.value)
