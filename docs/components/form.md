@@ -739,6 +739,123 @@ const submit = () => {
   <el-button @click="handleValidate">
     校验
   </el-button>
+  <!-- <z-form
+    ref="cFormRef"
+    v-model="formModel"
+    :options="optionsConfig"
+    :columns="columns"
+    label-width="80px"
+    size="default"
+    type="array"
+  >
+    <template #111>
+      <div>asdf</div>
+    </template>
+    <template #operate>
+      <el-button type="primary" @click="submit">
+        提交
+      </el-button>
+      <el-button @click="reset">
+        重置
+      </el-button>
+    </template>
+  </z-form> -->
+</template>
+```
+
+:::
+
+## ArrayForm type
+
+:::demo 使用 `type`、`plain`、`round` 和 `circle` 属性来定义 Button 的样式。
+
+```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const cFormRef = ref()
+const formModel = ref([{
+  activeName: '',
+  activeArea: '',
+  activeTime: [],
+}])
+
+const optionsConfig = {
+  activeArea: [
+    { label: '区域1', value: '1' },
+    { label: '区域2', value: '2' },
+  ],
+}
+
+const columns = [
+  {
+    component: 'input',
+    field: 'activeName',
+    modifier: 'trim',
+    label: '活动名称',
+    onInput: (val) => {
+      console.log(val, 'input event')
+    },
+    onChange: (val) => {
+      console.log(val, 'change event')
+    },
+    rules: {
+      required: true,
+    }
+  },
+  {
+    component: 'select',
+    field: 'activeArea',
+    label: '活动区域',
+    onChange: (val) => {
+      console.log(val, 'change event')
+    },
+    onFocus: () => {
+      console.log('focus event')
+    },
+  },
+  {
+    component: 'datepicker',
+    field: 'activeTime',
+    label: '活动时间',
+    fieldProps: {
+      type: 'daterange',
+      startPlaceholder: '开始日期',
+      endPlaceholder: '结束日期',
+      // format: 'MM-dd',
+      // valueFormat: 'MM-dd',
+    },
+    onChange: (val) => {
+      console.log(val, 'change event')
+    },
+  },
+  {
+    slot: 'operate'
+  }
+]
+
+const reset = () => {
+  cFormRef.value.resetFields()
+}
+
+const submit = () => {
+  cFormRef.value.validate((valid: boolean, data) => {
+    console.log(formModel.value, data, 'config.formModel')
+    if (valid) {
+      alert('submit!')
+    }
+    else {
+      console.log('error submit!!')
+      return false
+    }
+  })
+}
+</script>
+
+<template>
+  <el-button @click="handleValidate">
+    校验
+  </el-button>
   <z-form
     ref="cFormRef"
     v-model="formModel"
@@ -762,3 +879,5 @@ const submit = () => {
   </z-form>
 </template>
 ```
+
+:::
