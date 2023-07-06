@@ -59,11 +59,11 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { type, columns, contentPosition, activeCollapse, accordion, modelValue, options } = props
-      const isChildren = columns.some(column => column.children)
+      const { type, contentPosition, activeCollapse, accordion, modelValue, options } = props
+      const isChildren = formatFormItems.value.some(column => column.children)
 
       if (type === 'group') {
-        return columns.map((column) => {
+        return formatFormItems.value.map((column) => {
           if (column.label && column.children && column.children.length) {
             return <>
               <el-divider content-position={contentPosition}>{column.label}</el-divider>
@@ -81,7 +81,7 @@ export default defineComponent({
           onUpdate:activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
           onChange={(val: string[] | string) => { emit('collapse-change', val) }}
         >
-          {columns.map((column) => {
+          {formatFormItems.value.map((column) => {
             if (column.label && column.children && column.children.length) {
               return <el-collapse-item title={column.label} name={column.label} disabled={column.disabled}>
                 {renderCommonColumn(column.children || [])}
@@ -107,7 +107,7 @@ export default defineComponent({
                 <FormColumns
                   modelValue={data}
                   options={options}
-                  columns={columns}
+                  columns={formatFormItems.value}
                   v-slots={slots}
                   onUpdate:modelValue={(val: any) => {
                     model.splice(index, 1, val)
@@ -124,7 +124,7 @@ export default defineComponent({
         </>
       }
       else if (type === 'array' && isChildren) {
-        return columns.map((column, i) => {
+        return formatFormItems.value.map((column, i) => {
           if (column.label && column.children && column.children.length) {
             const field = column.field!
             return <el-form-item label={column.label} prop={column.field} class={ns.b('array-form-item')}>

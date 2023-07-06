@@ -8,8 +8,8 @@ export const useFormItems = (props: Record<any, any>) => {
   const { t } = useLocale()
 
   const setDefaultPlaceholder = (formItem: FormColumn) => {
-    const label = formItem.formItemProps?.label
-    const type = isFunction(formItem.type) ? formItem.type() : formItem.type
+    const label = formItem.label || formItem.formItemProps?.label || ''
+    const type = isFunction(formItem.component) ? formItem.component() : formItem.component
     if (SELECT_TYPES.includes(type || ''))
       return label ? `${t('form.selectPlaceholder')}${label}` : `${t('form.selectPlaceholder')}`
 
@@ -22,12 +22,31 @@ export const useFormItems = (props: Record<any, any>) => {
   }
 
   const formatFormItems = computed<FormColumn[]>(() => {
-    const _schema = cloneDeep(
-      props.columns.map((item: FormColumn) => ({
-        ...item,
-        __key: item.key || item.field || item.slot || uid(),
-      })),
-    )
+    const _schema = cloneDeep(props.columns).map((item: FormColumn) => ({
+      ...item,
+      __key: item.key || item.field || item.slot || uid(),
+      children: item.children
+        ? item.children.map((child) => {
+          const isPlaceholder = Object.keys(child.fieldProps || {}).some(key => key.includes('placeholder') || key.includes('Placeholder'))
+          const fieldProps = !isPlaceholder
+            ? {
+                placeholder: setDefaultPlaceholder(child),
+                clearable: true,
+                filterable: true,
+                ...child?.fieldProps,
+              }
+            : {
+                clearable: true,
+                filterable: true,
+                ...child?.fieldProps,
+              }
+          return {
+            ...child,
+            fieldProps,
+          }
+        })
+        : undefined,
+    }))
     return _schema
       .filter((item: FormColumn) => !isHide(item))
       .map((item: FormColumn) => ({
