@@ -16,7 +16,7 @@ export const RowAlign = ['top', 'middle', 'bottom'] as const
 export const formProps = {
   ...elFormProps,
   modelValue: {
-    type: [Object, Array],
+    type: [Object, Array] as PropType<any>,
     default: () => ({}),
   },
   activeCollapse: {

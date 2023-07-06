@@ -90,35 +90,35 @@
 
 .z-form-array-form-item {
   width: 100%;
+}
 
-  .z-array-form-item-card {
-    position: relative;
-    overflow: visible;
-    margin-bottom: 12px;
-    width: 100%;
+.z-array-form-item-card {
+  position: relative;
+  overflow: visible;
+  margin-bottom: 12px;
+  width: 100%;
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+  &:last-child {
+    margin-bottom: 0;
+  }
 
-    .z-array-form-operation--add {
-      position: absolute;
-      top: -12px;
-      right: 20px;
-    }
+  .z-array-form-operation--add {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+  }
 
-    .z-array-form-operation--delete {
-      position: absolute;
-      top: -12px;
-      right: -12px;
-    }
+  .z-array-form-operation--delete {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+  }
 
-    .el-form-item {
-      margin-bottom: 18px;
-    }
+  .el-form-item {
+    margin-bottom: 18px;
+  }
 
-    .el-card__body .el-form-item:nth-last-child(1) {
-      margin-bottom: 0;
-    }
+  .el-card__body .el-form-item:nth-last-child(1) {
+    margin-bottom: 0;
   }
 }

@@ -739,7 +739,7 @@ const submit = () => {
   <el-button @click="handleValidate">
     校验
   </el-button>
-  <!-- <z-form
+  <z-form
     ref="cFormRef"
     v-model="formModel"
     :options="optionsConfig"
@@ -759,7 +759,7 @@ const submit = () => {
         重置
       </el-button>
     </template>
-  </z-form> -->
+  </z-form>
 </template>
 ```
 
@@ -839,10 +839,10 @@ const reset = () => {
 }
 
 const submit = () => {
-  cFormRef.value.validate((valid: boolean) => {
+  cFormRef.value.validate((valid: boolean, data) => {
+    console.log(formModel.value, data, 'config.formModel')
     if (valid) {
       alert('submit!')
-      console.log(formModel.value, 'config.formModel')
     }
     else {
       console.log('error submit!!')

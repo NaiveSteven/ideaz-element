@@ -1,6 +1,6 @@
 import type { FormItemProps as ElFormItemProps, FormItemRule, FormRules } from 'element-plus'
 import type { CSSProperties } from 'vue'
-import type { IndexType } from './common'
+import type { IndexType, OptionsItem } from './common'
 
 interface FormItemProps {
   tooltip?: string | (() => VNode)
@@ -45,4 +45,5 @@ export interface FormColumn {
   key?: string // 用户传入的key
   children?: FormColumn[]
   disabled?: boolean
+  options?: OptionsItem[]
 }
