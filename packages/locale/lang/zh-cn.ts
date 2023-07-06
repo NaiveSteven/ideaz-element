@@ -4,6 +4,7 @@ export default {
     reset: '重置',
     inputPlaceholder: '请输入',
     selectPlaceholder: '请选择',
+    add: '添加',
   },
   tagSelect: {
     all: '全部',
