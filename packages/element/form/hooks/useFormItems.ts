@@ -2,7 +2,7 @@ import { cloneDeep } from 'lodash-es'
 import { isFunction, uid } from '@ideaz/utils'
 import type { FormColumn } from '~/types'
 
-export const SELECT_TYPES = ['cascader', 'select', 'datepicker', 'picker']
+export const SELECT_TYPES = ['cascader', 'select', 'datepicker', 'picker', 'checkbox', 'radio']
 
 export const useFormItems = (props: Record<any, any>) => {
   const { t } = useLocale()
@@ -10,7 +10,7 @@ export const useFormItems = (props: Record<any, any>) => {
   const setDefaultPlaceholder = (formItem: FormColumn) => {
     const label = formItem.label || formItem.formItemProps?.label || ''
     const type = isFunction(formItem.component) ? formItem.component() : formItem.component
-    if (SELECT_TYPES.includes(type || ''))
+    if (SELECT_TYPES.includes((type || '').toLowerCase()))
       return label ? `${t('form.selectPlaceholder')}${label}` : `${t('form.selectPlaceholder')}`
 
     else

@@ -46,4 +46,5 @@ export interface FormColumn {
   children?: FormColumn[]
   disabled?: boolean
   options?: OptionsItem[]
+  required?: boolean
 }
