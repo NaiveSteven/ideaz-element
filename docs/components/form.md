@@ -799,9 +799,7 @@ const columns = [
     onChange: (val) => {
       console.log(val, 'change event')
     },
-    rules: {
-      required: true,
-    }
+    required: true
   },
   {
     component: 'select',

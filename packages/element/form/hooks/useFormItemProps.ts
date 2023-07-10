@@ -1,11 +1,16 @@
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isValid } from '@ideaz/utils'
 import type { FormItemProps } from '../src/props'
-import type { FormColumn } from '~/types'
 
 export const useFormItemProps = (props: FormItemProps) => {
   const formItemProps = computed(() => {
     const { col } = props
-    const myProps = { extra: col.extra, rules: col.rules, ...col.formItemProps } as FormColumn
+    const myProps = { extra: col.extra, rules: col.rules, ...col.formItemProps }
+    if (col.required === true && !isValid(col.rules)) {
+      myProps.rules = {
+        required: true,
+        message: col.fieldProps?.placeholder,
+      }
+    }
     if (isFunction(myProps.label))
       delete myProps.label
 
