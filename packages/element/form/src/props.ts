@@ -53,7 +53,7 @@ export const formProps = {
     type: Number,
   },
   type: {
-    type: String as PropType<'normal' | 'group' | 'array' | 'collapse'>,
+    type: String as PropType<'normal' | 'group' | 'array' | 'collapse' | 'step'>,
     default: 'normal',
   },
   contentPosition: {

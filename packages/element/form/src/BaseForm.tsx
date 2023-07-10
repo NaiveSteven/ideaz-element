@@ -32,6 +32,8 @@ export default defineComponent({
     const ns = useNamespace('form')
     const { t } = useLocale()
 
+    const activeStep = ref(0)
+
     useExpose({
       resetFields,
       validate,
@@ -175,6 +177,31 @@ export default defineComponent({
           }
           return renderCommonColumn([column])
         })
+      }
+      else if (type === 'step') {
+        return <>
+          <el-steps active={activeStep.value} finish-status="success" class="w-full mb-5">
+            {formatFormItems.value.map((column) => {
+              return <el-step title={column.label} />
+            })}
+          </el-steps>
+          {formatFormItems.value.map((column, index) => {
+            if (index === activeStep.value) {
+              if (column.label && column.children && column.children.length)
+                return renderCommonColumn(column.children || [])
+              return renderCommonColumn([column])
+            }
+            return null
+          })}
+          <el-form-item>
+            <el-button disabled={activeStep.value === 0} onClick={() => {
+              if (activeStep.value-- <= 0) activeStep.value = 0
+            }}>上一步</el-button>
+            <el-button disabled={activeStep.value === formatFormItems.value.length - 1} onClick={() => {
+              if (activeStep.value++ >= formatFormItems.value.length - 1) activeStep.value = 0
+            }}>下一步</el-button>
+          </el-form-item>
+        </>
       }
       else {
         return renderCommonColumn(formatFormItems.value)
