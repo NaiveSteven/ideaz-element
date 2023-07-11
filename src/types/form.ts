@@ -47,4 +47,6 @@ export interface FormColumn {
   disabled?: boolean
   options?: OptionsItem[]
   required?: boolean
+  icon?: string | (() => VNode)
+  description?: string | (() => VNode)
 }
