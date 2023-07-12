@@ -64,6 +64,18 @@ export const formProps = {
     type: Boolean,
     default: false,
   },
+  processStatus: {
+    type: String as PropType<'wait' | 'process' | 'finish' | 'error' | 'success'>,
+    default: 'process',
+  },
+  finishStatus: {
+    type: String as PropType<'wait' | 'process' | 'finish' | 'error' | 'success'>,
+    default: 'finish',
+  },
+  simple: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 export const formItemProps = {
