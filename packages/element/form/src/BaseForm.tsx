@@ -2,6 +2,7 @@
 import { useExpose } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons'
+import { isFunction } from '@ideaz/utils'
 import {
   useFormConfig,
   useFormItems,
@@ -182,7 +183,11 @@ export default defineComponent({
         return <>
           <el-steps active={activeStep.value} finish-status="success" class="w-full mb-5">
             {formatFormItems.value.map((column) => {
-              return <el-step title={column.label} />
+              return <el-step v-slots={{
+                icon: (isFunction(column.icon) && column.icon) || (isFunction(slots.stepIcon) && slots.stepIcon(column)) || (() => column.icon),
+                description: (isFunction(column.description) && column.description) || (isFunction(slots.stepDescription) && slots.stepDescription) || (() => column.description),
+                title: (isFunction(column.label) && column.label) || (isFunction(slots.stepTitle) && slots.stepTitle) || (() => column.label),
+              }}/>
             })}
           </el-steps>
           {formatFormItems.value.map((column, index) => {
@@ -196,10 +201,10 @@ export default defineComponent({
           <el-form-item>
             <el-button disabled={activeStep.value === 0} onClick={() => {
               if (activeStep.value-- <= 0) activeStep.value = 0
-            }}>上一步</el-button>
+            }}>{t('form.previousStep')}</el-button>
             <el-button disabled={activeStep.value === formatFormItems.value.length - 1} onClick={() => {
               if (activeStep.value++ >= formatFormItems.value.length - 1) activeStep.value = 0
-            }}>下一步</el-button>
+            }}>{t('form.nextStep')}</el-button>
           </el-form-item>
         </>
       }

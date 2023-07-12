@@ -5,6 +5,8 @@ export default {
     inputPlaceholder: '请输入',
     selectPlaceholder: '请选择',
     add: '添加',
+    previousStep: '上一步',
+    nextStep: '下一步',
   },
   tagSelect: {
     all: '全部',

@@ -5,6 +5,8 @@ export default {
     inputPlaceholder: 'please input',
     selectPlaceholder: 'please select',
     add: 'add',
+    previousStep: 'previous step',
+    nextStep: 'next step',
   },
   tagSelect: {
     all: 'all',
