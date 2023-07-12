@@ -883,7 +883,7 @@ const submit = () => {
 
 ```vue
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 const cFormRef = ref()
 const formModel = ref({
@@ -916,6 +916,7 @@ const optionsConfig = {
 const columns = [
   {
     label: '文本1',
+    description: () => h('span', {}, 'asdfasdf'),
     field: 'a',
     children: [
       {
@@ -1018,6 +1019,9 @@ const submit = () => {
       <el-button @click="reset">
         重置
       </el-button>
+    </template>
+    <template #stepDescription>
+      <span>stepDescription</span>
     </template>
   </z-form>
 </template>
