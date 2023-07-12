@@ -482,7 +482,7 @@ const submit = () => {
 
 ```vue
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 const activeCollapse = ref('文本1')
 const cFormRef = ref()
@@ -501,7 +501,7 @@ const optionsConfig = {
 
 const columns = [
   {
-    label: '文本1',
+    label: () => h('span', {}, '文本a'),
     children: [
       {
         component: 'input',
@@ -521,7 +521,7 @@ const columns = [
     ]
   },
   {
-    label: '文本2',
+    label: 'aaa',
     children: [
       {
         component: 'select',
@@ -593,6 +593,9 @@ const handleCollapseChange = (val: string) => {
   >
     <template #111>
       <div>asdf</div>
+    </template>
+    <template #aaa>
+      <span>wewrwer</span>
     </template>
     <template #operate>
       <el-button type="primary" @click="submit">
@@ -915,7 +918,7 @@ const optionsConfig = {
 
 const columns = [
   {
-    label: '文本1',
+    label: 'aaaaa',
     description: () => h('span', {}, 'asdfasdf'),
     field: 'a',
     children: [
@@ -1020,8 +1023,8 @@ const submit = () => {
         重置
       </el-button>
     </template>
-    <template #stepDescription>
-      <span>stepDescription</span>
+    <template #aaa>
+      <span>aaasda</span>
     </template>
   </z-form>
 </template>
