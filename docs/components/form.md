@@ -651,6 +651,7 @@ const columns = [
   {
     label: '文本1',
     field: 'a',
+    max: 2,
     children: [
       {
         component: 'input',
@@ -747,6 +748,7 @@ const submit = () => {
     v-model="formModel"
     :options="optionsConfig"
     :columns="columns"
+    :max="3"
     label-width="80px"
     size="default"
     type="array"
@@ -859,6 +861,7 @@ const submit = () => {
     v-model="formModel"
     :options="optionsConfig"
     :columns="columns"
+    :max="2"
     label-width="80px"
     size="default"
     type="array"

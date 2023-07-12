@@ -66,7 +66,7 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { type, contentPosition, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple } = props
+      const { type, contentPosition, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max } = props
       const isChildren = formatFormItems.value.some(column => column.children)
 
       if (type === 'group') {
@@ -111,6 +111,7 @@ export default defineComponent({
                 model.splice(index, 1)
                 emit('update:modelValue', model)
               }}
+              addVisible={modelValue.length !== max}
             >
               <el-form {...{ labelWidth: formConfig.value.labelWidth, formProps }} model={data} ref={`arrayForm${index}`}>
                 <FormColumns
@@ -127,15 +128,17 @@ export default defineComponent({
               </el-form>
             </OperationCard>
           })}
-          <el-button style="width: 100%" onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
-            {t('form.add')}
-          </el-button>
+          {modelValue.length !== max
+            && <el-button class="w-full" onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
+              {t('form.add')}
+            </el-button>}
         </>
       }
       else if (type === 'array' && isChildren) {
         return formatFormItems.value.map((column, i) => {
           if (column.label && column.children && column.children.length) {
             const field = column.field!
+            const maxLength = column.max || max
             return <el-form-item label={column.label} prop={column.field} class={ns.b('array-form-item')}>
               <>
                 {modelValue[field].map((data: any, index: number) => {
@@ -151,6 +154,7 @@ export default defineComponent({
                       model[field].splice(index, 1)
                       emit('update:modelValue', model)
                     }}
+                    addVisible={modelValue[field].length !== maxLength}
                   >
                     <el-form model={data} {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} ref={`arrayForm${i}`}>
                       <FormColumns
@@ -168,17 +172,18 @@ export default defineComponent({
                     </el-form>
                   </OperationCard>
                 })}
-                <el-button
-                  style="width: 100%"
-                  onClick={() => {
-                    const model = { ...modelValue }
-                    model[field].push({})
-                    emit('update:modelValue', model)
-                  }}
-                  icon={Plus}
-                >
-                  {t('form.add')}
-                </el-button>
+                {modelValue[field].length !== maxLength
+                  && <el-button
+                    style="width: 100%"
+                    onClick={() => {
+                      const model = { ...modelValue }
+                      model[field].push({})
+                      emit('update:modelValue', model)
+                    }}
+                    icon={Plus}
+                  >
+                    {t('form.add')}
+                  </el-button>}
               </>
             </el-form-item>
           }

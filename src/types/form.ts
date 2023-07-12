@@ -51,4 +51,5 @@ export interface FormColumn {
   icon?: string | (() => VNode)
   description?: string | (() => VNode)
   status?: '' | 'wait' | 'process' | 'finish' | 'error' | 'success'
+  max?: number
 }

@@ -76,6 +76,9 @@ export const formProps = {
     type: Boolean,
     default: false,
   },
+  max: {
+    type: Number,
+  },
 }
 
 export const formItemProps = {

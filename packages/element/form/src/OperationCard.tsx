@@ -2,6 +2,12 @@ import { Delete, Plus } from '@element-plus/icons'
 
 export default defineComponent({
   name: 'ZOperationCard',
+  props: {
+    addVisible: {
+      type: Boolean,
+      default: true,
+    },
+  },
   emits: ['add', 'delete'],
   setup(props, { slots, emit }) {
     const ns = useNamespace('array-form')
@@ -9,7 +15,8 @@ export default defineComponent({
     return () => {
       return <el-card shadow='never' class={ns.b('item-card')}>
         {slots.default?.()}
-        <el-button
+        {props.addVisible
+          ? <el-button
           type="primary"
           icon={Plus}
           circle
@@ -17,6 +24,7 @@ export default defineComponent({
           size='small'
           onClick={() => emit('add')}
         />
+          : null}
         <el-button
           type="danger"
           icon={Delete}
