@@ -2,7 +2,7 @@
 import { useExpose } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons'
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isString } from '@ideaz/utils'
 import { getCurrentInstance } from 'vue-demi'
 import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
@@ -88,9 +88,11 @@ export default defineComponent({
           onUpdate:activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
           onChange={(val: string[] | string) => { emit('collapse-change', val) }}
         >
-          {formatFormItems.value.map((column) => {
+          {formatFormItems.value.map((column, index) => {
             if (column.label && column.children && column.children.length) {
-              return <el-collapse-item title={column.label} name={column.label} disabled={column.disabled}>
+              return <el-collapse-item name={index} disabled={column.disabled} v-slots={{
+                title: (isFunction(column.label) && column.label) || (isString(column.label) && slots[column.label]) || (() => column.label),
+              }}>
                 {renderCommonColumn(column.children || [])}
               </el-collapse-item>
             }
@@ -188,9 +190,9 @@ export default defineComponent({
           <el-steps active={activeStep.value} finishStatus={finishStatus} processStatus={processStatus} simple={simple} class="w-full mb-5">
             {formatFormItems.value.map((column) => {
               return <el-step status={column.status} v-slots={{
-                icon: (isFunction(column.icon) && column.icon) || (isFunction(slots.stepIcon) && slots.stepIcon(column)) || (() => column.icon),
-                description: (isFunction(column.description) && column.description) || (isFunction(slots.stepDescription) && slots.stepDescription) || (() => column.description),
-                title: (isFunction(column.label) && column.label) || (isFunction(slots.stepTitle) && slots.stepTitle) || (() => column.label),
+                icon: (isFunction(column.icon) && column.icon) || (isString(column.icon) && slots[column.icon]) || (() => column.icon),
+                description: (isFunction(column.description) && column.description) || (isString(column.description) && slots[column.description]) || (() => column.description),
+                title: (isFunction(column.label) && column.label) || (isString(column.label) && slots[column.label]) || (() => column.label),
               }} />
             })}
           </el-steps>

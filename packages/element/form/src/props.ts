@@ -70,7 +70,7 @@ export const formProps = {
   },
   finishStatus: {
     type: String as PropType<'wait' | 'process' | 'finish' | 'error' | 'success'>,
-    default: 'finish',
+    default: 'success',
   },
   simple: {
     type: Boolean,
