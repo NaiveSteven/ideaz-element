@@ -1,6 +1,7 @@
 export default {
   name: 'zh-cn',
   form: {
+    search: '查询',
     reset: '重置',
     inputPlaceholder: '请输入',
     selectPlaceholder: '请选择',
