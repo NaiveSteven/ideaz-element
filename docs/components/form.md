@@ -527,6 +527,7 @@ const columns = [
         component: 'select',
         field: 'activeArea',
         label: '活动区域',
+        md: 12,
         onChange: (val) => {
           console.log(val, 'change event')
         },
@@ -538,6 +539,7 @@ const columns = [
         component: 'datepicker',
         field: 'activeTime',
         label: '活动时间',
+        md: 12,
         fieldProps: {
           type: 'daterange',
           startPlaceholder: '开始日期',

@@ -84,7 +84,7 @@ export default defineComponent({
         return <el-collapse
           modelValue={activeCollapse}
           accordion={accordion}
-          class={ns.b('collapse-item')}
+          class={ns.b('collapse')}
           onUpdate:activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
           onChange={(val: string[] | string) => { emit('collapse-change', val) }}
         >
@@ -129,7 +129,7 @@ export default defineComponent({
             </OperationCard>
           })}
           {modelValue.length !== max
-            && <el-button class="w-full" onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
+            && <el-button class={ns.bm('array', 'add')} onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
               {t('form.add')}
             </el-button>}
         </>
@@ -174,7 +174,7 @@ export default defineComponent({
                 })}
                 {modelValue[field].length !== maxLength
                   && <el-button
-                    style="width: 100%"
+                    class={ns.bm('array', 'add')}
                     onClick={() => {
                       const model = { ...modelValue }
                       model[field].push({})
@@ -192,7 +192,7 @@ export default defineComponent({
       }
       else if (type === 'step') {
         return <>
-          <el-steps active={activeStep.value} finishStatus={finishStatus} processStatus={processStatus} simple={simple} class="w-full mb-5">
+          <el-steps active={activeStep.value} finishStatus={finishStatus} processStatus={processStatus} simple={simple} class={ns.b('steps')}>
             {formatFormItems.value.map((column) => {
               return <el-step status={column.status} v-slots={{
                 icon: (isFunction(column.icon) && column.icon) || (isString(column.icon) && slots[column.icon]) || (() => column.icon),
@@ -248,7 +248,7 @@ export default defineComponent({
         <el-form
           {...{ ...formConfig.value, model: modelValue }}
           ref="formRef"
-          class={rowKls.value}
+          class={[rowKls.value, ns.b('')]}
           style={rowStyle.value}
         // onSubmit={withModifiers(function () { }, ['prevent'])}
         >
