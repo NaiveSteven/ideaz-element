@@ -84,9 +84,6 @@
   }
 }
 
-.z-form-collapse-item {
-  width: 100%;
-}
 
 .z-form-array-form-item {
   width: 100%;
@@ -120,5 +117,27 @@
 
   .el-card__body .el-form-item:nth-last-child(1) {
     margin-bottom: 0;
+  }
+}
+
+.z-form {
+  .z-form-collapse {
+    width: 100%;
+
+    .el-collapse-item__content {
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      box-sizing: border-box;
+    }
+  }
+
+  .z-form-steps {
+    margin-bottom: 20px;
+    width: 100%;
+  }
+
+  .z-form-array--add {
+    width: 100%;
   }
 }
