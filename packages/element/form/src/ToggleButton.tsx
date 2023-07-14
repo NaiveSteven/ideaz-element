@@ -10,9 +10,10 @@ export default defineComponent({
   setup(props, { emit }) {
     const size = useFormSize()
     const ns = useNamespace('form')
+    const { t } = useLocale()
 
     const text = computed(() => {
-      return props.modelValue === 'expand' ? '展开' : '收起'
+      return props.modelValue === 'expand' ? t('tagSelect.expand') : t('tagSelect.retract')
     })
 
     const iconClass = computed(() => {

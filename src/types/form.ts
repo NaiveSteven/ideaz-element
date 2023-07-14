@@ -47,6 +47,9 @@ export interface FormColumn {
   disabled?: boolean
   options?: OptionsItem[]
   required?: boolean
+  // step
   icon?: string | (() => VNode)
   description?: string | (() => VNode)
+  status?: '' | 'wait' | 'process' | 'finish' | 'error' | 'success'
+  max?: number
 }

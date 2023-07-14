@@ -482,7 +482,7 @@ const submit = () => {
 
 ```vue
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 const activeCollapse = ref('文本1')
 const cFormRef = ref()
@@ -501,7 +501,7 @@ const optionsConfig = {
 
 const columns = [
   {
-    label: '文本1',
+    label: () => h('span', {}, '文本a'),
     children: [
       {
         component: 'input',
@@ -521,12 +521,13 @@ const columns = [
     ]
   },
   {
-    label: '文本2',
+    label: 'aaa',
     children: [
       {
         component: 'select',
         field: 'activeArea',
         label: '活动区域',
+        md: 12,
         onChange: (val) => {
           console.log(val, 'change event')
         },
@@ -538,6 +539,7 @@ const columns = [
         component: 'datepicker',
         field: 'activeTime',
         label: '活动时间',
+        md: 12,
         fieldProps: {
           type: 'daterange',
           startPlaceholder: '开始日期',
@@ -594,6 +596,9 @@ const handleCollapseChange = (val: string) => {
     <template #111>
       <div>asdf</div>
     </template>
+    <template #aaa>
+      <span>wewrwer</span>
+    </template>
     <template #operate>
       <el-button type="primary" @click="submit">
         提交
@@ -648,6 +653,7 @@ const columns = [
   {
     label: '文本1',
     field: 'a',
+    max: 2,
     children: [
       {
         component: 'input',
@@ -744,6 +750,7 @@ const submit = () => {
     v-model="formModel"
     :options="optionsConfig"
     :columns="columns"
+    :max="3"
     label-width="80px"
     size="default"
     type="array"
@@ -856,6 +863,7 @@ const submit = () => {
     v-model="formModel"
     :options="optionsConfig"
     :columns="columns"
+    :max="2"
     label-width="80px"
     size="default"
     type="array"
@@ -915,7 +923,7 @@ const optionsConfig = {
 
 const columns = [
   {
-    label: '文本1',
+    label: 'aaaaa',
     description: () => h('span', {}, 'asdfasdf'),
     field: 'a',
     children: [
@@ -1020,8 +1028,8 @@ const submit = () => {
         重置
       </el-button>
     </template>
-    <template #stepDescription>
-      <span>stepDescription</span>
+    <template #aaa>
+      <span>aaasda</span>
     </template>
   </z-form>
 </template>

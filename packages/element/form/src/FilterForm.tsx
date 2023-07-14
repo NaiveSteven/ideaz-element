@@ -12,6 +12,7 @@ export default defineComponent({
     const { formConfig } = useFormConfig(props)
     const size = useFormSize()
     const ns = useNamespace('form')
+    const { t } = useLocale()
     const {
       resetFields,
       validate,
@@ -53,10 +54,10 @@ export default defineComponent({
                 ? (
                   <div class={ns.b('operation')}>
                     <el-button type="primary" size={size.value} onClick={handleSearch}>
-                      查询
+                      {t('form.search')}
                     </el-button>
                     <el-button type="default" size={size.value} onClick={handleReset}>
-                      重置
+                      {t('form.reset')}
                     </el-button>
                   </div>
                   )

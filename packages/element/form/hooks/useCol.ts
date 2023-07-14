@@ -3,7 +3,7 @@ import type { CSSProperties } from 'vue-demi'
 import type { FormProps } from '../src/props'
 import type { FormColumn } from '~/types'
 
-export const useCol = (props: FormProps, formItem: any) => {
+export const useCol = (props: FormProps, formItem: FormColumn) => {
   let col: FormColumn
   const ns = useNamespace('col')
   const gutter = computed(() => props.gutter || 0)

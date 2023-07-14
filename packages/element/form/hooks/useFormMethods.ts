@@ -2,6 +2,7 @@ import { getCurrentInstance } from 'vue-demi'
 import { cloneDeep } from 'lodash-es'
 import { isFunction, isObject } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
+import type { FormProps } from '../src/props'
 import type { ValidateField, validateCallback, validateFieldCallback } from '~/types'
 
 interface ElForm {
@@ -15,11 +16,11 @@ interface ElForm {
   scrollToField: (prop: string) => void
 }
 
-export const useFormMethods = (props?: any) => {
+export const useFormMethods = (props?: FormProps) => {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-  const originFormModel
-    = (isObject(props) && isObject(props.formModel))
-      ? cloneDeep(props.formModel)
+  const originModelValue
+    = (isObject(props) && isObject(props.modelValue))
+      ? cloneDeep(props.modelValue)
       : null
 
   const runArrayFormMethods = (method: string, props?: any, callback?: validateCallback | validateFieldCallback) => {
@@ -81,9 +82,9 @@ export const useFormMethods = (props?: any) => {
     else {
       (ctx?.$refs.formRef as ElForm).resetFields()
       // 表单项使用 hide，条件满足显示元素，最后一个表单项数据无法被重置。手动清空
-      if (originFormModel) {
-        Object.keys(originFormModel).forEach((key) => {
-          props!.formModel[key] = originFormModel[key]
+      if (originModelValue) {
+        Object.keys(originModelValue).forEach((key) => {
+          props!.modelValue[key] = originModelValue[key]
         })
       }
     }
