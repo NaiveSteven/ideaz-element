@@ -1,10 +1,10 @@
 import { isObject } from '@ideaz/utils'
 
-export const usePagination = (props: Record<any, any>, attrs: any, emit: any) => {
+export const usePagination = (props: Record<any, any>, emit: any) => {
   const tableData = ref([])
 
   const attrsAll = computed<any>(() => {
-    return { ...props, ...attrs, size: props.size, border: props.border }
+    return { ...props, size: props.size, border: props.border }
   })
 
   watch(
@@ -84,7 +84,7 @@ export const usePagination = (props: Record<any, any>, attrs: any, emit: any) =>
   }
 
   const handleRefresh = () => {
-    const page = isObject(props.pagination) && props.pagination.page ? props.pagination.page : 1
+    const page = (isObject(props.pagination) && props.pagination.page) ? props.pagination.page : 1
     handleCurrentChange(page)
   }
 

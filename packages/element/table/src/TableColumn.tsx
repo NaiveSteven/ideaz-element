@@ -3,7 +3,7 @@ import {
   useRadioColumnMethods,
   useTableColumnSlots,
 } from '../hooks'
-import RadioColumn from './RadioColumn.vue'
+import RadioColumn from './RadioColumn'
 
 export default defineComponent({
   name: 'ZTableColumn',
