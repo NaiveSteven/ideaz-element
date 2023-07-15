@@ -1,7 +1,7 @@
 import { isArray, isDef, isFunction, isObject } from '@ideaz/utils'
 import type { TableCol } from '~/types'
 
-export const getIsReturnToolBar = (tableCol: TableCol, toolBar: IndexType | boolean) => {
+export const getIsReturnToolBar = (tableCol: TableCol, toolBar: { [propName: string]: any } | boolean) => {
   const isHide = isFunction(tableCol.hide) ? tableCol.hide() : tableCol.hide
   const isFixed = isDef(tableCol.fixed)
 

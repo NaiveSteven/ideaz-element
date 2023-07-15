@@ -1,6 +1,8 @@
 import { isObject } from '@ideaz/utils'
+import type { ITableProps } from '../src/props'
+import type { Pagination } from '~/types'
 
-export const usePagination = (props: Record<any, any>, emit: any) => {
+export const usePagination = (props: ITableProps, emit: any) => {
   const tableData = ref([])
 
   const attrsAll = computed<any>(() => {
@@ -10,7 +12,7 @@ export const usePagination = (props: Record<any, any>, emit: any) => {
   watch(
     () => attrsAll.value,
     () => {
-      const { pagination = {} } = props
+      const { pagination = ({} as Pagination) } = props
       if (
         attrsAll.value.data
         && pagination.total
@@ -25,7 +27,7 @@ export const usePagination = (props: Record<any, any>, emit: any) => {
   )
 
   const paginationAttrs = computed(() => {
-    const { pagination = {} } = props
+    const { pagination = ({} as Pagination) } = props
     return {
       ...pagination,
       layout: pagination.layout || 'total, prev, pager, next',
@@ -34,7 +36,7 @@ export const usePagination = (props: Record<any, any>, emit: any) => {
   })
 
   const isPaginationByFront = computed(() => {
-    const { pagination = {} } = props
+    const { pagination = ({} as Pagination) } = props
     if (
       attrsAll.value.data
       && attrsAll.value.data.length === pagination.total
@@ -44,42 +46,42 @@ export const usePagination = (props: Record<any, any>, emit: any) => {
     return false
   })
 
-  function getTableData(pagination: { page: number; page_size: number }) {
+  function getTableData(pagination: Pagination) {
     const page = pagination.page
-    const page_size = pagination.page_size
+    const pageSize = pagination.pageSize
     const list = attrsAll.value.data
     const length = attrsAll.value.data.length
-    let start = (page - 1) * page_size
-    let end = page * page_size
+    let start = (page - 1) * pageSize
+    let end = page * pageSize
     if (start >= length) start = 0
     if (end >= length) end = length
     tableData.value = list.slice(start, end)
   }
 
   const handleCurrentChange = (val: number) => {
-    const { pagination = {} } = props
+    const { pagination = ({} as Pagination) } = props
     if (isPaginationByFront.value) {
       getTableData({
         page: val,
-        page_size: pagination.page_size,
+        pageSize: pagination.pageSize,
       })
       props.pagination.page = val
     }
     else {
       emit('refresh', {
         page: val,
-        page_size: pagination.page_size,
+        pageSize: pagination.pageSize,
       })
     }
   }
 
   const handleSizeChange = (val: number) => {
     if (isPaginationByFront.value) {
-      getTableData({ page: 1, page_size: val })
-      props.pagination.page_size = val
+      getTableData({ page: 1, pageSize: val })
+      props.pagination.pageSize = val
     }
     else {
-      emit('refresh', { page: 1, page_size: val })
+      emit('refresh', { page: 1, pageSize: val })
     }
   }
 

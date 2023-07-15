@@ -3,7 +3,7 @@ import { useExpose } from '@ideaz/hooks'
 import { isFunction } from '@ideaz/utils'
 import {
   usePagination,
-  useTableCols,
+  useTableColumns,
   useTableMethods,
   useTableSlots,
 } from '../hooks'
@@ -16,7 +16,7 @@ export default defineComponent({
   components: { TableColumn, ToolBar },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change', 'on-update-table-column'],
+  emits: ['refresh', 'radio-change'],
   setup(props, { emit, slots }) {
     const {
       setCurrentRow,
@@ -55,7 +55,7 @@ export default defineComponent({
       sortTableCols,
       originFormatTableCols,
       tableKey,
-    } = useTableCols(props)
+    } = useTableColumns(props)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
     const size = ref(props.size)
 
@@ -66,8 +66,7 @@ export default defineComponent({
         <div class="c-table-plus__container">
           <div class="tool-bar__container"
             style={{
-              marginBottom:
-                (toolBar || (toolBar && isFunction(topRender)) || isFunction(slots.top)) ? '16px' : 0,
+              marginBottom: (toolBar || (toolBar && isFunction(topRender)) || isFunction(slots.top)) ? '16px' : 0,
             }}
           >
             <div class="tool-bar__left">
@@ -125,7 +124,6 @@ export default defineComponent({
                 class="c-table-plus__pagination"
                 background
                 small
-                pageSize={pagination.pageSize}
                 currentPage={pagination.page}
                 total={pagination.total}
                 {...paginationAttrs.value}

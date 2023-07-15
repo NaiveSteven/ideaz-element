@@ -4,6 +4,7 @@ import type {
   DefaultRow,
   TableProps,
 } from 'element-plus/es/components/table/src/table/defaults'
+import type { Pagination, TableCol } from '~/types'
 
 export const tableProps = {
   data: {
@@ -94,12 +95,12 @@ export const tableProps = {
   headerAlign: String as PropType<'left' | 'center' | 'right'>,
   size: String as PropType<ComponentSize>,
   loading: Boolean,
-  tableCols: {
-    type: Array,
+  columns: {
+    type: Array as PropType<TableCol[]>,
     default: () => [],
   },
   pagination: {
-    type: Object as PropType<{ page: number;pageSize: number;total: number }>,
+    type: Object as PropType<Pagination>,
     default: () => ({ page: 1, pageSize: 0, total: 0 }),
   },
   isPagination: {
