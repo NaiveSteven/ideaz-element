@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash-es'
 import { useExpose } from '@ideaz/hooks'
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isObject } from '@ideaz/utils'
 import {
   usePagination,
   useTableColumns,
@@ -59,8 +59,26 @@ export default defineComponent({
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
     const size = ref(props.size)
 
+    const renderPagination = () => {
+      const { pagination } = props
+      return isObject(pagination)
+        ? (
+        <el-pagination
+          class="c-table-plus__pagination"
+          background
+          small
+          currentPage={pagination.page}
+          total={pagination.total}
+          {...paginationAttrs.value}
+          onUpdate:current-page={handleCurrentChange}
+          onUpdate:page-size={handleSizeChange}
+        />
+          )
+        : null
+    }
+
     return () => {
-      const { pagination, isPagination, loading, topRender, toolBar } = props
+      const { loading, topRender, toolBar } = props
 
       return (
         <div class="c-table-plus__container">
@@ -118,20 +136,7 @@ export default defineComponent({
               )
             })}
           </el-table>
-          {(isPagination || pagination.pageSize)
-            ? (
-              <el-pagination
-                class="c-table-plus__pagination"
-                background
-                small
-                currentPage={pagination.page}
-                total={pagination.total}
-                {...paginationAttrs.value}
-                onUpdate:current-page={handleCurrentChange}
-                onUpdate:page-size={handleSizeChange}
-              />
-              )
-            : null}
+          {renderPagination()}
         </div>
       )
     }

@@ -12,7 +12,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
   watch(
     () => attrsAll.value,
     () => {
-      const { pagination = ({} as Pagination) } = props
+      const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
       if (
         attrsAll.value.data
         && pagination.total
@@ -27,7 +27,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
   )
 
   const paginationAttrs = computed(() => {
-    const { pagination = ({} as Pagination) } = props
+    const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
     return {
       ...pagination,
       layout: pagination.layout || 'total, prev, pager, next',
@@ -36,7 +36,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
   })
 
   const isPaginationByFront = computed(() => {
-    const { pagination = ({} as Pagination) } = props
+    const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
     if (
       attrsAll.value.data
       && attrsAll.value.data.length === pagination.total
@@ -59,13 +59,13 @@ export const usePagination = (props: ITableProps, emit: any) => {
   }
 
   const handleCurrentChange = (val: number) => {
-    const { pagination = ({} as Pagination) } = props
+    const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
     if (isPaginationByFront.value) {
       getTableData({
         page: val,
         pageSize: pagination.pageSize,
       })
-      props.pagination.page = val
+      pagination.page = val
     }
     else {
       emit('refresh', {
@@ -76,7 +76,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
   }
 
   const handleSizeChange = (val: number) => {
-    if (isPaginationByFront.value) {
+    if (isPaginationByFront.value && isObject(props.pagination)) {
       getTableData({ page: 1, pageSize: val })
       props.pagination.pageSize = val
     }

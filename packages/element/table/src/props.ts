@@ -100,12 +100,8 @@ export const tableProps = {
     default: () => [],
   },
   pagination: {
-    type: Object as PropType<Pagination>,
+    type: [Object, Boolean] as PropType<Pagination | boolean>,
     default: () => ({ page: 1, pageSize: 0, total: 0 }),
-  },
-  isPagination: {
-    type: Boolean,
-    default: false,
   },
   topRender: {
     type: Function,
