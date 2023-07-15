@@ -1,4 +1,6 @@
-export const props = {
+import type { ExtractPropTypes } from 'vue'
+
+export const tableProps = {
   loading: {
     type: Boolean,
     default: false,
@@ -14,10 +16,6 @@ export const props = {
   pagination: {
     type: Object,
     default: () => ({ page: 1, page_size: 0, total: 0 }),
-  },
-  statisticsCustomClass: {
-    type: String,
-    default: '',
   },
   isPagination: {
     type: Boolean,
@@ -47,4 +45,6 @@ export const props = {
     type: Boolean,
     default: false,
   },
-};
+}
+
+export type TableProps = ExtractPropTypes<typeof tableProps>

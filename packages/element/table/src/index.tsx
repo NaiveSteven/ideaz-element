@@ -6,15 +6,15 @@ import {
   useTableMethods,
   useTableSlots,
 } from '../hooks'
-import CTableColumn from './CTableColumn'
+import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'
-import { props } from './props'
+import { tableProps } from './props'
 
 export default defineComponent({
   name: 'ZTable',
-  components: { CTableColumn, ToolBar },
+  components: { TableColumn, ToolBar },
   inheritAttrs: false,
-  props,
+  props: tableProps,
   emits: ['refresh', 'radio-change', 'on-update-table-column'],
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
@@ -108,7 +108,7 @@ export default defineComponent({
             {slots.append && slots.append()}
             {formatTableCols.value.map((item, index) => {
               return (
-                <c-table-column
+                <TableColumn
                   ref={`cTableColumn${index}`}
                   tableCol={item}
                   size={size.value}
@@ -119,7 +119,7 @@ export default defineComponent({
               )
             })}
           </el-table>
-          {isPagination || pagination.page_size
+          {(isPagination || pagination.page_size)
             ? (
               <el-pagination
                 class="c-table-plus__pagination"
@@ -132,7 +132,7 @@ export default defineComponent({
                 onUpdate:current-page={handleCurrentChange}
                 onUpdate:page-size={handleSizeChange}
               />
-            )
+              )
             : null}
         </div>
       )
