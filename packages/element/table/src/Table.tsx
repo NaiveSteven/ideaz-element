@@ -1,5 +1,6 @@
 import { cloneDeep } from 'lodash-es'
 import { useExpose } from '@ideaz/hooks'
+import { isFunction } from '@ideaz/utils'
 import {
   usePagination,
   useTableCols,
@@ -17,7 +18,6 @@ export default defineComponent({
   props: tableProps,
   emits: ['refresh', 'radio-change', 'on-update-table-column'],
   setup(props, { emit, slots }) {
-    const attrs = useAttrs()
     const {
       setCurrentRow,
       toggleRowSelection,
@@ -48,7 +48,7 @@ export default defineComponent({
       handleCurrentChange,
       handleSizeChange,
       handleRefresh,
-    } = usePagination(props, attrs, emit)
+    } = usePagination(props, emit)
     const {
       formatTableCols,
       middleTableCols,
@@ -65,9 +65,10 @@ export default defineComponent({
       return (
         <div class="c-table-plus__container">
           <div class="tool-bar__container"
-          // style={{
-          //   marginBottom: toolbar || (toolbar && isFunction(toprender)) || isFunction(slots.top) ? '16px' : 0,
-          // }}
+            style={{
+              marginBottom:
+                (toolBar || (toolBar && isFunction(topRender)) || isFunction(slots.top)) ? '16px' : 0,
+            }}
           >
             <div class="tool-bar__left">
               {topRender ? topRender() : null}
@@ -102,7 +103,6 @@ export default defineComponent({
             class="c-table-plus"
             key={tableKey.value}
             v-slots={tableSlots}
-            {...attrs}
             {...{ ...attrsAll.value, data: tableData.value, size: size.value }}
           >
             {slots.append && slots.append()}
@@ -119,13 +119,13 @@ export default defineComponent({
               )
             })}
           </el-table>
-          {(isPagination || pagination.page_size)
+          {(isPagination || pagination.pageSize)
             ? (
               <el-pagination
                 class="c-table-plus__pagination"
                 background
                 small
-                pageSize={pagination.page_size}
+                pageSize={pagination.pageSize}
                 currentPage={pagination.page}
                 total={pagination.total}
                 {...paginationAttrs.value}
