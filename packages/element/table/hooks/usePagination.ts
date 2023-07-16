@@ -1,4 +1,5 @@
 import { isObject } from '@ideaz/utils'
+import { reactiveOmit } from '@vueuse/core'
 import type { ITableProps } from '../src/props'
 import type { Pagination } from '~/types'
 
@@ -6,7 +7,8 @@ export const usePagination = (props: ITableProps, emit: any) => {
   const tableData = ref([])
 
   const attrsAll = computed<any>(() => {
-    return { ...props, size: props.size, border: props.border }
+    const omitProps = reactiveOmit(props, ['pagination', 'columns', 'draggable', 'topRender', 'toolBar', 'loading'])
+    return { ...omitProps, size: props.size, border: props.border }
   })
 
   watch(

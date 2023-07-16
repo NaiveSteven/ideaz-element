@@ -117,4 +117,31 @@ export const tableProps = {
   },
 }
 
+export const tableColumnProps = {
+  column: {
+    type: Object as PropType<TableCol>,
+    default: () => ({}),
+  },
+  size: {
+    type: String as PropType<ComponentSize>,
+    default: 'small',
+  },
+  tableProps: {
+    type: Object as PropType<ITableProps>,
+    default: () => ({}),
+  },
+}
+
+export const radioColumnProps = {
+  column: {
+    type: Object as PropType<TableCol>,
+    default: () => ({}),
+  },
+  tableProps: {
+    type: Object as PropType<ITableProps>,
+    default: () => ({}),
+  },
+}
+
 export type ITableProps = ExtractPropTypes<typeof tableProps>
+export type TableColumnProps = ExtractPropTypes<typeof tableColumnProps>

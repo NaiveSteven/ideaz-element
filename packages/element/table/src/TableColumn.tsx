@@ -4,24 +4,12 @@ import {
   useTableColumnSlots,
 } from '../hooks'
 import RadioColumn from './RadioColumn'
+import { tableColumnProps } from './props'
 
 export default defineComponent({
   name: 'ZTableColumn',
   components: { RadioColumn },
-  props: {
-    tableCol: {
-      type: Object,
-      default: () => ({}),
-    },
-    size: {
-      type: String,
-      default: 'small',
-    },
-    tableAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  props: tableColumnProps,
   emits: ['radio-change'],
   setup(props, { emit, slots }) {
     const { clearSelection, toggleRadioSelection } = useRadioColumnMethods()
@@ -33,18 +21,18 @@ export default defineComponent({
     })
 
     const attrsAll = computed(() => {
-      return { align: 'center', ...props.tableCol }
+      return { align: 'center', ...props.column }
     })
 
     return () => {
-      const { tableCol, tableAttrs } = props
+      const { column, tableProps } = props
 
-      if (tableCol.type === 'radio') {
+      if (column.type === 'radio') {
         return (
           <RadioColumn
             ref="radioColumn"
-            tableCol={tableCol}
-            tableAttrs={tableAttrs}
+            column={column}
+            tableProps={tableProps}
             onRadio-change={(row: any) => emit('radio-change', row)}
           />
         )
