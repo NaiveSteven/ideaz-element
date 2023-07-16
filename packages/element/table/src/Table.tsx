@@ -57,6 +57,7 @@ export default defineComponent({
       tableKey,
     } = useTableColumns(props)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
+    const ns = useNamespace('table')
     const size = ref(props.size)
 
     const renderPagination = () => {
@@ -64,7 +65,7 @@ export default defineComponent({
       return isObject(pagination)
         ? (
         <el-pagination
-          class="c-table-plus__pagination"
+          class={ns.e('pagination')}
           background
           small
           currentPage={pagination.page}
@@ -81,13 +82,13 @@ export default defineComponent({
       const { loading, topRender, toolBar } = props
 
       return (
-        <div class="c-table-plus__container">
-          <div class="tool-bar__container"
+        <div class={ns.e('container')}>
+          <div class={ns.be('tool-bar', 'container')}
             style={{
               marginBottom: (toolBar || (toolBar && isFunction(topRender)) || isFunction(slots.top)) ? '16px' : 0,
             }}
           >
-            <div class="tool-bar__left">
+            <div class={ns.bm('tool-bar', 'left')}>
               {topRender ? topRender() : null}
               {slots.top ? slots.top() : null}
             </div>
@@ -115,9 +116,9 @@ export default defineComponent({
             )}
           </div>
           <el-table
-            ref="cTableRefs"
+            ref="zTableRef"
             v-loading={loading}
-            class="c-table-plus"
+            class={ns.b('')}
             key={tableKey.value}
             v-slots={tableSlots}
             {...{ ...attrsAll.value, data: tableData.value, size: size.value }}
@@ -126,7 +127,7 @@ export default defineComponent({
             {formatTableCols.value.map((item, index) => {
               return (
                 <TableColumn
-                  ref={`cTableColumn${index}`}
+                  ref={`zTableColumn${index}`}
                   tableCol={item}
                   size={size.value}
                   tableAttrs={attrsAll.value}
