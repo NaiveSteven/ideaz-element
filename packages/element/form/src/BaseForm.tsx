@@ -156,7 +156,7 @@ export default defineComponent({
                     }}
                     addVisible={modelValue[field].length !== maxLength}
                   >
-                    <el-form model={data} {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} ref={`arrayForm${i}`}>
+                    <el-form {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} model={data} ref={`arrayForm${index}${field}`}>
                       <FormColumns
                         modelValue={data}
                         options={column.options || options}

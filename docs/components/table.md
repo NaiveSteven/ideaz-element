@@ -20,11 +20,11 @@ interface RowData {
   username: string
 }
 
-const pagination = ref({ page_size: 20, page: 1, total: 40 })
+const pagination = ref({ pageSize: 20, page: 1, total: 40 })
 const loading = ref(false)
 const tableData = ref<RowData[]>([])
 
-const tableCols = [
+const columns = [
   {
     prop: 'name',
     label: '姓名',
@@ -75,9 +75,9 @@ const getData = () => {
     loading.value = false
   }, 1000)
 }
-const handlePaginationChange = (val: { page: number; page_size: number }) => {
+const handlePaginationChange = (val: { page: number; pageSize: number }) => {
   pagination.value.page = val.page
-  pagination.value.page_size = val.page_size
+  pagination.value.pageSize = val.pageSize
   getData()
 }
 
@@ -88,7 +88,7 @@ getData()
   <z-table
     ref="cTableRef"
     :loading="loading"
-    :table-cols="tableCols"
+    :columns="columns"
     :data="tableData"
     :pagination="pagination"
     @refresh="handlePaginationChange"
@@ -120,13 +120,13 @@ const loading = ref(false)
 const tableData = ref<RowData[]>([])
 
 const pagination = ref({
-  page_size: 2,
+  pageSize: 2,
   page: 1,
   total: 20,
   layout: 'total, prev, pager, next, jumper, ->',
 })
 
-const tableCols = [
+const columns = [
   {
     type: 'radio',
   },
@@ -201,7 +201,7 @@ function setRowDisabled(row) {
 const handlePaginationChange = (val) => {
   console.log(val, 'pagination change')
   pagination.value.page = val.page
-  pagination.value.page_size = val.page_size
+  pagination.value.pageSize = val.pageSize
   getData()
 }
 
@@ -224,7 +224,7 @@ getData()
     ref="tablePlus"
     row-key="id"
     :loading="loading"
-    :table-cols="tableCols"
+    :columns="columns"
     :data="tableData"
     :pagination="pagination"
     @radio-change="handleRadioChange"

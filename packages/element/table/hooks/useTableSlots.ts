@@ -2,14 +2,14 @@ import { isFunction, isObject, isString } from '@ideaz/utils'
 import type { Ref } from 'vue-demi'
 import type { TableCol } from '~/types'
 
-export const useTableSlots = (tableCols: Ref<TableCol[]>, slots: any) => {
+export const useTableSlots = (columns: Ref<TableCol[]>, slots: any) => {
   const scopedSlots: any = {}
   const tableSlots: any = {}
 
   watch(
-    () => tableCols.value,
+    () => columns.value,
     () => {
-      tableCols.value.forEach((item: TableCol) => {
+      columns.value.forEach((item: TableCol) => {
         if (item.slot && slots[item.slot]) {
           scopedSlots[item.slot] = (scope: any) =>
             slots[item.slot]({ ...scope, $index: scope.index })

@@ -4,6 +4,7 @@ import type {
   DefaultRow,
   TableProps,
 } from 'element-plus/es/components/table/src/table/defaults'
+import type { Pagination, TableCol } from '~/types'
 
 export const tableProps = {
   data: {
@@ -94,17 +95,13 @@ export const tableProps = {
   headerAlign: String as PropType<'left' | 'center' | 'right'>,
   size: String as PropType<ComponentSize>,
   loading: Boolean,
-  tableCols: {
-    type: Array,
+  columns: {
+    type: Array as PropType<TableCol[]>,
     default: () => [],
   },
   pagination: {
-    type: Object as PropType<{ page: number;pageSize: number;total: number }>,
+    type: [Object, Boolean] as PropType<Pagination | boolean>,
     default: () => ({ page: 1, pageSize: 0, total: 0 }),
-  },
-  isPagination: {
-    type: Boolean,
-    default: false,
   },
   topRender: {
     type: Function,
@@ -120,4 +117,31 @@ export const tableProps = {
   },
 }
 
+export const tableColumnProps = {
+  column: {
+    type: Object as PropType<TableCol>,
+    default: () => ({}),
+  },
+  size: {
+    type: String as PropType<ComponentSize>,
+    default: 'small',
+  },
+  tableProps: {
+    type: Object as PropType<ITableProps>,
+    default: () => ({}),
+  },
+}
+
+export const radioColumnProps = {
+  column: {
+    type: Object as PropType<TableCol>,
+    default: () => ({}),
+  },
+  tableProps: {
+    type: Object as PropType<ITableProps>,
+    default: () => ({}),
+  },
+}
+
 export type ITableProps = ExtractPropTypes<typeof tableProps>
+export type TableColumnProps = ExtractPropTypes<typeof tableColumnProps>

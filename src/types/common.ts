@@ -25,9 +25,11 @@ export type validateFieldCallback = (errorMessage: string) => void
 
 export interface Pagination {
   page: number
-  page_size: number
-  total: number
-  [propName: string]: any
+  pageSize: number
+  total?: number
+  layout?: string
+  pageSizes?: number[]
+  type?: 'front' | 'backbone'
 }
 
 export interface Alias {

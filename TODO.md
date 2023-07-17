@@ -34,7 +34,7 @@
 20. ~~`z-form`和`z-filter-form`组件使用`v-model`~~
 21. ~~`z-form`支持`type`为`group`~~
 22. ~~`z-form`支持`type`为`collapse`~~
-23. `z-form`支持`type`为`array`
+23. ~~`z-form`支持`type`为`array`~~
 24. `z-input`支持`copy`
 
 ## FEATURE（docs and dts）
