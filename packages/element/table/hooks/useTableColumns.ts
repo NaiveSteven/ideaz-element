@@ -11,6 +11,7 @@ export const useTableColumns = (props: ITableProps) => {
   if (props.columns && props.columns.length) {
     props.columns.forEach((item: TableCol) => {
       item.__uid = uid()
+      item.__isEdit = true
     })
   }
 

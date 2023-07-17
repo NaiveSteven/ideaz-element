@@ -28,6 +28,7 @@ const columns = [
   {
     prop: 'name',
     label: '姓名',
+    showOverflowTooltip: true
   },
   {
     prop: 'address',
@@ -37,7 +38,21 @@ const columns = [
     prop: 'date',
     label: '日期',
   },
+  {
+    type: 'el-input',
+    prop: 'name',
+    label: '测试',
+    showOverflowTooltip: true
+  },
+  {
+    label: '操作',
+    slot: 'buttons'
+  },
 ]
+
+const click = (row) => {
+  row.__isEdit = !row.__isEdit
+}
 
 const getData = () => {
   loading.value = true
@@ -92,7 +107,13 @@ getData()
     :data="tableData"
     :pagination="pagination"
     @refresh="handlePaginationChange"
-  />
+  >
+    <template #buttons="{ row }">
+      <el-button @click="click(row)">
+        点击
+      </el-button>
+    </template>
+  </z-table>
 </template>
 ```
 

@@ -1,52 +1,57 @@
 import { isFunction } from '@ideaz/utils'
+import type { TableColumnProps } from '../src/props'
 import { useTableColComponentName } from './useTableColComponentName'
 
-export const useTableColumnSlots = (props: any, slots: any) => {
+export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
   const scopedSlots = shallowRef<any>({})
 
   watch(
-    () => props.tableCol,
+    () => props.column,
     () => {
-      const { tableCol = {}, size } = props
+      const { column = {}, size } = props
       const { getComponentName, getDynamicComponentName } = useTableColComponentName()
-      const componentName = getComponentName(tableCol.type!)
+      const componentName = getComponentName(column.type!)
 
       if (
-        !['index', 'selection', 'expand', 'radio', undefined].includes(tableCol.type)
-        || tableCol.slot
-        || tableCol.render
+        !['index', 'selection', 'expand', 'radio', undefined].includes(column.type)
+        || column.slot
+        || column.render
       ) {
         scopedSlots.value.default = (scope: any) => {
-          if (tableCol.slot && slots[tableCol.slot])
-            return slots[tableCol.slot]({ ...scope, index: scope.$index })
+          if (column.slot && slots[column.slot])
+            return slots[column.slot]({ ...scope, index: scope.$index })
 
-          if (isFunction(tableCol.render))
-            return tableCol.render(h, { ...scope, index: scope.$index })
+          if (isFunction(column.render))
+            return column.render(h, { ...scope, index: scope.$index })
 
-          if (tableCol.type === 'button') {
-            // return useRenderDropdownButton(tableCol, slots, scope, size);
+          if (column.type === 'button') {
+            // return useRenderDropdownButton(column, slots, scope, size);
             return <span>button</span>
           }
-          return h(resolveComponent(componentName), {
-            'modelValue': scope.row[tableCol.prop],
-            'onUpdate:modelValue': (val: any) => {
-              scope.row[tableCol.prop] = val
-            },
-            'componentName': getDynamicComponentName(tableCol.type),
-            'on': tableCol.on,
-            'rowData': scope.row,
-            size,
-            'options': tableCol.options,
-            ...tableCol.attrs,
-            'disabled':
-              tableCol.isDisabled && tableCol.isDisabled(scope.row, scope.$index, scope.column),
-          })
+          const row = scope.row
+
+          return row.__isEdit === true
+            ? h(resolveComponent(componentName), {
+              'modelValue': scope.row[column.prop],
+              'onUpdate:modelValue': (val: any) => {
+                scope.row[column.prop] = val
+              },
+              'componentName': getDynamicComponentName(column.type!),
+              'on': column.on,
+              'rowData': scope.row,
+              size,
+              'options': column.options,
+              ...column.attrs,
+              'disabled':
+              column.isDisabled && column.isDisabled(scope.row, scope.$index, scope.column),
+            })
+            : <span>{scope.row[column.prop]}</span>
         }
       }
 
-      if (tableCol.headerSlot && slots[tableCol.headerSlot]) {
+      if (column.headerSlot && slots[column.headerSlot]) {
         scopedSlots.value.header = (scope: any) =>
-          slots[tableCol.headerSlot]({ ...scope, index: scope.$index })
+          slots[column.headerSlot]({ ...scope, index: scope.$index })
       }
     },
     { immediate: true, deep: true },
