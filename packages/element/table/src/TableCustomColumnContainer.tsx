@@ -25,13 +25,17 @@ export default defineComponent({
     },
   },
   emits: ['update:modelValue'],
-  setup(props) {
+  setup(props, { emit }) {
     const { attrsAll, onAll } = useFormComponentAttrs(props)
 
     return () => {
       return h(resolveComponent(props.componentName), {
         ...attrsAll.value,
-        on: onAll,
+        ...onAll.value,
+        'modelValue': props.modelValue,
+        'onUpdate:modelValue': (val: any) => {
+          emit('update:modelValue', val)
+        },
       })
     }
   },

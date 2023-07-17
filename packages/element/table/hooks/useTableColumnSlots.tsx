@@ -28,7 +28,15 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
             // return useRenderDropdownButton(column, slots, scope, size);
             return <span>button</span>
           }
+
           const row = scope.row
+          // if (props.columnIndex === props.columnsLength - 1 && props.tableProps.editable) {
+          //   return <>
+          //     <el-button type="primary" link onClick={() => { row.__isEdit = true }}>编辑</el-button>
+          //     <el-button type="primary" link onClick={() => { row.__isEdit = false }}>保存</el-button>
+          //     <el-button link>删除</el-button>
+          //   </>
+          // }
 
           return row.__isEdit === true
             ? h(resolveComponent(componentName), {

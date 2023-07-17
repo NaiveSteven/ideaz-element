@@ -115,6 +115,10 @@ export const tableProps = {
     type: Boolean,
     default: false,
   },
+  editable: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 export const tableColumnProps = {
@@ -129,6 +133,13 @@ export const tableColumnProps = {
   tableProps: {
     type: Object as PropType<ITableProps>,
     default: () => ({}),
+  },
+  columnIndex: {
+    type: Number,
+  },
+  columnsLength: {
+    type: Number,
+    default: 0,
   },
 }
 

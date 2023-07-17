@@ -23,7 +23,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
         getTableData(pagination)
 
       else
-        tableData.value = attrsAll.value.data
+        tableData.value = props.editable ? attrsAll.value.data.map((item: any) => ({ ...item, __isEdit: false })) : attrsAll.value.data
     },
     { immediate: true },
   )
