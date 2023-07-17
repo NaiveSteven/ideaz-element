@@ -1,7 +1,7 @@
-import { useIsShowButton } from '../hooks'
+import type { BtnItem } from '~/types'
 
 export default defineComponent({
-  name: 'TableButton',
+  name: 'ZTableButton',
   props: {
     button: {
       type: Object,
@@ -17,9 +17,21 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const getIsShowButton = (button: BtnItem, row: any, index: number, column: any) => {
+      const keys = Object.keys(button)
+      if (keys.includes('hide')) {
+        return typeof button.hide === 'boolean'
+          ? !button.hide
+          : typeof button.hide === 'function'
+            ? !(button.hide as (row: any, index: number, column: any) => boolean)(row, index, column)
+            : true
+      }
+      return true
+    }
+
     return () => {
       const { size, button, scope } = props
-      const isShowButton = useIsShowButton(
+      const isShowButton = getIsShowButton(
         button,
         scope.row,
         scope.$index,
@@ -27,12 +39,6 @@ export default defineComponent({
       )
 
       if (isShowButton) {
-        const buttonProps = { ...button }
-        if (buttonProps.type === 'text') {
-          delete buttonProps.type
-          buttonProps.link = true
-          buttonProps.type = 'primary'
-        }
         return (
           <el-button
             size={size}
@@ -40,7 +46,7 @@ export default defineComponent({
               button.isDisabled
               && button.isDisabled(scope.row, scope.$index, scope.column)
             }
-            {...buttonProps}
+            {...button}
             onClick={
               button.click
                 ? () => button.click!(scope.row, scope.$index, scope.column)

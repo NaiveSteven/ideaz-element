@@ -1,9 +1,9 @@
 import { cloneDeep } from 'lodash-es'
 import { useExpose } from '@ideaz/hooks'
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isObject } from '@ideaz/utils'
 import {
   usePagination,
-  useTableCols,
+  useTableColumns,
   useTableMethods,
   useTableSlots,
 } from '../hooks'
@@ -16,7 +16,7 @@ export default defineComponent({
   components: { TableColumn, ToolBar },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change', 'on-update-table-column'],
+  emits: ['refresh', 'radio-change'],
   setup(props, { emit, slots }) {
     const {
       setCurrentRow,
@@ -55,52 +55,77 @@ export default defineComponent({
       sortTableCols,
       originFormatTableCols,
       tableKey,
-    } = useTableCols(props)
+    } = useTableColumns(props)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
+    const ns = useNamespace('table')
     const size = ref(props.size)
 
+    const renderPagination = () => {
+      const { pagination } = props
+      return isObject(pagination)
+        ? (
+          <el-pagination
+            class={ns.e('pagination')}
+            background
+            small
+            currentPage={pagination.page}
+            total={pagination.total}
+            {...paginationAttrs.value}
+            onUpdate:current-page={handleCurrentChange}
+            onUpdate:page-size={handleSizeChange}
+          />
+          )
+        : null
+    }
+
+    const renderToolBar = () => {
+      const { topRender, toolBar } = props
+
+      return <div
+        class={ns.be('tool-bar', 'container')}
+        style={{
+          marginBottom: (toolBar || (toolBar && isFunction(topRender)) || isFunction(slots.top)) ? '16px' : 0,
+        }}
+      >
+        <div class={ns.bm('tool-bar', 'left')}>
+          {topRender ? topRender() : null}
+          {slots.top ? slots.top() : null}
+        </div>
+        {toolBar && (
+          <ToolBar
+            formatTableCols={formatTableCols.value}
+            middleTableCols={middleTableCols.value}
+            originFormatTableCols={originFormatTableCols.value}
+            sortTableCols={sortTableCols.value}
+            size={size.value}
+            toolBar={props.toolBar}
+            onColumns-change={(data) => {
+              middleTableCols.value = cloneDeep(data)
+              tableKey.value = new Date().valueOf()
+            }}
+            onSize-change={(val) => {
+              size.value = val
+            }}
+            onTable-cols-change={(val) => {
+              sortTableCols.value = cloneDeep(val)
+              tableKey.value = new Date().valueOf()
+            }}
+            onRefresh={() => handleRefresh()}
+          />
+        )}
+      </div>
+    }
+
     return () => {
-      const { pagination, isPagination, loading, topRender, toolBar } = props
+      const { loading } = props
 
       return (
-        <div class="c-table-plus__container">
-          <div class="tool-bar__container"
-            style={{
-              marginBottom:
-                (toolBar || (toolBar && isFunction(topRender)) || isFunction(slots.top)) ? '16px' : 0,
-            }}
-          >
-            <div class="tool-bar__left">
-              {topRender ? topRender() : null}
-              {slots.top ? slots.top() : null}
-            </div>
-            {toolBar && (
-              <ToolBar
-                formatTableCols={formatTableCols.value}
-                middleTableCols={middleTableCols.value}
-                originFormatTableCols={originFormatTableCols.value}
-                sortTableCols={sortTableCols.value}
-                size={size.value}
-                toolBar={props.toolBar}
-                onColumns-change={(data) => {
-                  middleTableCols.value = cloneDeep(data)
-                  tableKey.value = new Date().valueOf()
-                }}
-                onSize-change={(val) => {
-                  size.value = val
-                }}
-                onTable-cols-change={(val) => {
-                  sortTableCols.value = cloneDeep(val)
-                  tableKey.value = new Date().valueOf()
-                }}
-                onRefresh={() => handleRefresh()}
-              />
-            )}
-          </div>
+        <div class={ns.e('container')}>
+          {renderToolBar()}
           <el-table
-            ref="cTableRefs"
+            ref="zTableRef"
             v-loading={loading}
-            class="c-table-plus"
+            class={ns.b('')}
             key={tableKey.value}
             v-slots={tableSlots}
             {...{ ...attrsAll.value, data: tableData.value, size: size.value }}
@@ -109,31 +134,17 @@ export default defineComponent({
             {formatTableCols.value.map((item, index) => {
               return (
                 <TableColumn
-                  ref={`cTableColumn${index}`}
-                  tableCol={item}
+                  ref={`zTableColumn${index}`}
+                  column={item}
                   size={size.value}
-                  tableAttrs={attrsAll.value}
+                  tableProps={attrsAll.value}
                   onRadio-change={(row: any) => emit('radio-change', row)}
                   v-slots={scopedSlots}
                 />
               )
             })}
           </el-table>
-          {(isPagination || pagination.pageSize)
-            ? (
-              <el-pagination
-                class="c-table-plus__pagination"
-                background
-                small
-                pageSize={pagination.pageSize}
-                currentPage={pagination.page}
-                total={pagination.total}
-                {...paginationAttrs.value}
-                onUpdate:current-page={handleCurrentChange}
-                onUpdate:page-size={handleSizeChange}
-              />
-              )
-            : null}
+          {renderPagination()}
         </div>
       )
     }

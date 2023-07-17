@@ -1,27 +1,19 @@
 import { isFunction, isString } from '@ideaz/utils'
+import { radioColumnProps } from './props'
 
 export default defineComponent({
   name: 'ZRadioColumn',
-  props: {
-    tableCol: {
-      type: Object,
-      default: () => ({}),
-    },
-    tableAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-  },
+  props: radioColumnProps,
   emits: ['radio-change'],
   setup(props, { emit, expose }) {
     const radioValue = ref('')
 
     const attrsAll = computed(() => {
-      return { width: 48, align: 'center', ...props.tableCol }
+      return { width: 48, align: 'center', ...props.column }
     })
 
     const getRowKey = (rowData: any) => {
-      const rowKey = props.tableAttrs.rowKey || props.tableAttrs['row-key']
+      const { rowKey } = props.tableProps
       if (isFunction(rowKey))
         return rowKey(rowData)
 
@@ -41,7 +33,7 @@ export default defineComponent({
     }
 
     const toggleRadioSelection = (row: any) => {
-      const rowKey = props.tableAttrs.rowKey || props.tableAttrs['row-key']
+      const { rowKey } = props.tableProps
       const rowKeyVal = isFunction(rowKey)
         ? rowKey(row)
         : isString(rowKey)

@@ -44,6 +44,7 @@ export default defineComponent({
       handleReset,
       handleDataChange,
     } = useToolBarTableCols(props, emit)
+    const ns = useNamespace('table')
 
     const TABLE_SIZE_LIST = [
       {
@@ -74,9 +75,9 @@ export default defineComponent({
 
     return () => {
       return (
-        <div class="tool-bar">
+        <div class={ns.b('tool-bar')}>
           <el-tooltip class="item" effect="dark" content="刷新" placement="top" showAfter={500}>
-            <el-icon size="18px" class="mr-12">
+            <el-icon size="18px" class="mr-3">
               <i-refresh-right class="el-icon-refresh-right" onClick={handleRefresh} />
             </el-icon>
           </el-tooltip>
@@ -102,7 +103,7 @@ export default defineComponent({
                 ),
               }}
             >
-              <el-icon class="mr-12">
+              <el-icon class="mr-3">
                 <i-d-caret />
               </el-icon>
             </el-dropdown>

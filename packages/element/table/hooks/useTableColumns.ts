@@ -1,19 +1,20 @@
 import { isArray, isFunction, isObject, isString, uid } from '@ideaz/utils'
 import { getIsReturnToolBar } from '../utils'
+import type { ITableProps } from '../src/props'
 import type { TableCol } from '~/types'
 
-export const useTableCols = (props: any) => {
+export const useTableColumns = (props: ITableProps) => {
   const middleTableCols = ref<TableCol[]>([])
   const sortTableCols = ref<TableCol[]>([])
   const tableKey = ref(new Date().valueOf())
 
-  if (props.tableCols && props.tableCols.length) {
-    props.tableCols.forEach((item: TableCol) => {
+  if (props.columns && props.columns.length) {
+    props.columns.forEach((item: TableCol) => {
       item.__uid = uid()
     })
   }
 
-  middleTableCols.value = props.tableCols.filter((item: TableCol) => {
+  middleTableCols.value = props.columns.filter((item: TableCol) => {
     let isUncheck = false
     const toolBar = props.toolBar
     if (isObject(toolBar)) {
@@ -35,11 +36,11 @@ export const useTableCols = (props: any) => {
 
   const originFormatTableCols = computed(() => {
     tableKey.value = new Date().valueOf()
-    sortTableCols.value = props.tableCols.filter((item: TableCol) => {
+    sortTableCols.value = props.columns.filter((item: TableCol) => {
       return getIsReturnToolBar(item, props.toolBar)
     })
 
-    return props.tableCols.map((item: TableCol) => item)
+    return props.columns.map((item: TableCol) => item)
   })
 
   return {
