@@ -139,6 +139,8 @@ export default defineComponent({
                   size={size.value}
                   tableProps={attrsAll.value}
                   onRadio-change={(row: any) => emit('radio-change', row)}
+                  columnIndex={index}
+                  columnsLength={formatTableCols.value.length}
                   v-slots={scopedSlots}
                 />
               )

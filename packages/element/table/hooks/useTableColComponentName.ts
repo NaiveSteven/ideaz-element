@@ -7,7 +7,7 @@ export const useTableColComponentName = () => {
       return `z-${propComponentName}`
 
     else
-      return 'z-dynamic-component'
+      return 'z-table-custom-column-container'
   }
 
   const getDynamicComponentName = (type: string | (() => string)) => {
