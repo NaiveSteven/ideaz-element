@@ -36,6 +36,8 @@
 22. ~~`z-form`支持`type`为`collapse`~~
 23. ~~`z-form`支持`type`为`array`~~
 24. `z-input`支持`copy`
+25. `z-table`支持`editable`
+26. `z-table`表格头支持`tooltip`
 
 ## FEATURE（docs and dts）
 
