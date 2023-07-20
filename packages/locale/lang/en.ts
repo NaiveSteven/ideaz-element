@@ -17,4 +17,11 @@ export default {
   select: {
     all: 'all',
   },
+  table: {
+    save: 'save',
+    cancel: 'cancel',
+    edit: 'edit',
+    delete: 'delete',
+    action: 'action',
+  },
 }

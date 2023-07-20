@@ -25,28 +25,28 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
   const middleTableCols = ref<TableCol[]>([])
   const sortTableCols = ref<TableCol[]>([])
   const tableKey = ref(new Date().valueOf())
+  const { t } = useLocale()
 
   if (props.columns && props.columns.length) {
     props.columns.forEach((item: TableCol) => {
       item.__uid = uid()
-      item.__isEdit = true
     })
   }
 
   const columns = (props.editable && props.columns.length > 0 && props.columns[props.columns.length - 1]?.type !== 'button')
     ? props.columns.concat([{
       type: 'button',
-      label: '操作',
+      label: t('table.action'),
       buttons: [
         {
-          label: '编辑',
+          label: t('table.edit'),
           type: 'primary',
           link: true,
           hide: row => row.__isEdit,
           click: (row, index, column) => { row.__isEdit = true },
         },
         {
-          label: '保存',
+          label: t('table.save'),
           type: 'primary',
           link: true,
           hide: row => !row.__isEdit,
@@ -56,7 +56,7 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           },
         },
         {
-          label: '取消',
+          label: t('table.cancel'),
           type: 'primary',
           link: true,
           hide: row => !row.__isEdit,
@@ -66,7 +66,7 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           },
         },
         {
-          label: '删除',
+          label: t('table.delete'),
           type: 'primary',
           link: true,
           click: (row, index) => {
@@ -98,11 +98,11 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
 
   const originFormatTableCols = computed(() => {
     tableKey.value = new Date().valueOf()
-    sortTableCols.value = props.columns.filter((item: TableCol) => {
+    sortTableCols.value = columns.filter((item: TableCol) => {
       return getIsReturnToolBar(item, props.toolBar)
     })
 
-    return props.columns.map((item: TableCol) => item)
+    return columns.map((item: TableCol) => item)
   })
 
   return {
