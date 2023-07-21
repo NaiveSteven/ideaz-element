@@ -19,11 +19,25 @@ export const usePagination = (props: ITableProps, emit: any) => {
         attrsAll.value.data
         && pagination.total
         && attrsAll.value.data.length === pagination.total
-      )
+      ) {
         getTableData(pagination)
-
-      else
-        tableData.value = props.editable ? attrsAll.value.data.map((item: any) => ({ ...item, __isEdit: false })) : attrsAll.value.data
+      }
+      else {
+        if (props.editable) {
+          const columnProps = props.columns.map(column => column.prop).filter(prop => prop)
+          tableData.value = attrsAll.value.data.map((item: any) => {
+            const obj: { [propName: string]: string } = {}
+            columnProps.forEach((prop) => {
+              if (Object.hasOwnProperty.call(item, prop))
+                obj[`${prop}Prop`] = item[prop]
+            })
+            return { ...item, __isEdit: false, ...obj }
+          })
+        }
+        else {
+          tableData.value = attrsAll.value.data
+        }
+      }
     },
     { immediate: true },
   )

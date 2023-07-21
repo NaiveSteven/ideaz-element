@@ -31,6 +31,15 @@ const columns = [
     showOverflowTooltip: true
   },
   {
+    type: 'select',
+    attrs: {
+      options: [
+        { label: '选项1', value: '1' },
+        { label: '选项2', value: '2' },
+        { label: '选项3', value: '3' },
+        { label: '选项4', value: '4' },
+      ]
+    },
     prop: 'address',
     label: '地址',
   },
@@ -44,10 +53,10 @@ const columns = [
     label: '测试',
     showOverflowTooltip: true
   },
-  {
-    label: '操作',
-    slot: 'buttons'
-  },
+  // {
+  //   label: '操作',
+  //   slot: 'buttons'
+  // },
 ]
 
 const click = (row) => {

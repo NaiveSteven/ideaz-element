@@ -1,5 +1,6 @@
 import { isFunction } from '@ideaz/utils'
 import type { TableColumnProps } from '../src/props'
+import TableButton from '../src/TableButton'
 import { useTableColComponentName } from './useTableColComponentName'
 
 export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
@@ -24,19 +25,17 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
           if (isFunction(column.render))
             return column.render(h, { ...scope, index: scope.$index })
 
-          if (column.type === 'button') {
+          if (column.type === 'button' && !props.tableProps.editable) {
             // return useRenderDropdownButton(column, slots, scope, size);
             return <span>button</span>
           }
 
           const row = scope.row
-          // if (props.columnIndex === props.columnsLength - 1 && props.tableProps.editable) {
-          //   return <>
-          //     <el-button type="primary" link onClick={() => { row.__isEdit = true }}>编辑</el-button>
-          //     <el-button type="primary" link onClick={() => { row.__isEdit = false }}>保存</el-button>
-          //     <el-button link>删除</el-button>
-          //   </>
-          // }
+          if (column.type === 'button' && props.tableProps.editable) {
+            return column.buttons?.map((button) => {
+              return <TableButton button={button} scope={scope} />
+            })
+          }
 
           return row.__isEdit === true
             ? h(resolveComponent(componentName), {
@@ -51,7 +50,7 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
               'options': column.options,
               ...column.attrs,
               'disabled':
-              column.isDisabled && column.isDisabled(scope.row, scope.$index, scope.column),
+                column.isDisabled && column.isDisabled(scope.row, scope.$index, scope.column),
             })
             : <span>{scope.row[column.prop]}</span>
         }

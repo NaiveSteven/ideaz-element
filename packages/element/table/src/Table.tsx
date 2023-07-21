@@ -55,7 +55,7 @@ export default defineComponent({
       sortTableCols,
       originFormatTableCols,
       tableKey,
-    } = useTableColumns(props)
+    } = useTableColumns(props, tableData)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
     const ns = useNamespace('table')
     const size = ref(props.size)

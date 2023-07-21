@@ -17,4 +17,11 @@ export default {
   select: {
     all: '全部',
   },
+  table: {
+    save: '保存',
+    cancel: '取消',
+    edit: '编辑',
+    delete: '删除',
+    action: '操作',
+  },
 }
