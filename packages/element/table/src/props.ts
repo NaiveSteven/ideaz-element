@@ -119,6 +119,10 @@ export const tableProps = {
     type: Boolean,
     default: false,
   },
+  options: {
+    type: Object,
+    default: () => {},
+  },
 }
 
 export const tableColumnProps = {

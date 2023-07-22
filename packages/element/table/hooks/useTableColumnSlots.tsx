@@ -6,6 +6,27 @@ import { useTableColComponentName } from './useTableColComponentName'
 export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
   const scopedSlots = shallowRef<any>({})
 
+  const getLabel = (row: any) => {
+    const { column = {} } = props
+    const options = props.tableProps.options
+    if (column.type === 'radio' || (column.type === 'select' && !column.attrs?.multiple))
+      return options[column.prop] ? options[column.prop].find((item: { label: string; value: any }) => item.value === row?.[column.prop])?.label : ''
+
+    if ((column.type === 'select' && column.attrs?.multiple) || column.type === 'checkbox') {
+      const label: string[] = []
+      if (row[column.prop]) {
+        row[column.prop].forEach((item: any) => {
+          label.push(options[column.prop].find((option: { label: string; value: any }) => option.value === item)?.label)
+        })
+      }
+      return label.join(',')
+    }
+    if (column.type === 'el-switch')
+      return row[column.prop] ? (column.attrs?.activeText || 'true') : (column.attrs?.inactiveText || 'false')
+
+    return row[column.prop]
+  }
+
   watch(
     () => props.column,
     () => {
@@ -52,7 +73,7 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
               'disabled':
                 column.isDisabled && column.isDisabled(scope.row, scope.$index, scope.column),
             })
-            : <span>{scope.row[column.prop]}</span>
+            : <span>{getLabel(scope.row)}</span>
         }
       }
 

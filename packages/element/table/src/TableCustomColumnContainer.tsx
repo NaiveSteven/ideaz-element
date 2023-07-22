@@ -2,7 +2,7 @@ export default defineComponent({
   name: 'ZTableCustomColumnContainer',
   props: {
     modelValue: {
-      type: [String, Number, Array] as PropType<any>,
+      type: [String, Number, Array, Boolean] as PropType<any>,
     },
     prop: {
       type: String,
