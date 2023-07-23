@@ -1,10 +1,11 @@
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isObject, isString } from '@ideaz/utils'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
 import { useTableColComponentName } from './useTableColComponentName'
 
 export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
   const scopedSlots = shallowRef<any>({})
+  const ns = useNamespace('table-column')
 
   const getLabel = (row: any) => {
     const { column = {} } = props
@@ -80,6 +81,35 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
       if (column.headerSlot && slots[column.headerSlot]) {
         scopedSlots.value.header = (scope: any) =>
           slots[column.headerSlot]({ ...scope, index: scope.$index })
+      }
+      if (!column.headerSlot && column.tooltip) {
+        const tooltip = column.tooltip
+        const tooltipProps = isObject(tooltip)
+          ? tooltip
+          : { content: isString(tooltip) ? tooltip : '' }
+        const tooltipSlot: any = {}
+
+        scopedSlots.value.header = (scope: any) => {
+          if (isFunction(tooltip))
+            tooltipSlot.content = () => tooltip(scope)
+          return (
+            <span>
+              {column.label}
+              <el-tooltip
+                effect="dark"
+                placement="top"
+                {...tooltipProps}
+                v-slots={tooltipSlot}
+              >
+                {tooltip && (
+                  <el-icon class={ns.be('label', 'icon')}>
+                    <i-question-filled />
+                  </el-icon>
+                )}
+              </el-tooltip>
+            </span>
+          )
+        }
       }
     },
     { immediate: true, deep: true },

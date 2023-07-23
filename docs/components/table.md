@@ -10,7 +10,7 @@
 
 ```vue
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 interface RowData {
   date: string
@@ -28,10 +28,14 @@ const columns = [
   {
     prop: 'name',
     label: '姓名',
+    tooltip: '姓名Tooltip',
+    labelClassName: 'labelClassName',
+    sortable: true,
     showOverflowTooltip: true
   },
   {
     type: 'select',
+    labelClassName: 'labelClassName',
     attrs: {
       options: [
         { label: '选项1', value: '1' },
@@ -44,6 +48,9 @@ const columns = [
     label: '地址',
   },
   {
+    tooltip: (scoped) => {
+      return h('span', {}, scoped.$index)
+    },
     prop: 'date',
     label: '日期',
   },

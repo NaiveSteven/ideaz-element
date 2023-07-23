@@ -51,6 +51,12 @@
       }
     }
   }
+
+  .z-table-column-label__icon {
+    transform: translate(0, 2.5px);
+    font-size: 14px;
+    cursor: help;
+  }
 }
 
 .column-popover__inner {
