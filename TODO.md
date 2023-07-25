@@ -41,7 +41,7 @@
 27. `z-table`的`editable`支持保存时校验配置
 28. `z-table`的`editable`支持新增
 29. `z-table`的`button`支持`dropdown`
-30. `z-table`的`button`点击事件都改为`onClick`
+30. ~~`z-table`的`button`点击事件都改为`onClick`~~
 31. `z-table`的`isDisabled`改为`disabled`
 
 ## FEATURE（docs and dts）

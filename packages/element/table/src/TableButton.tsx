@@ -11,7 +11,6 @@ export default defineComponent({
     },
     size: {
       type: String,
-      default: 'small',
     },
     scope: {
       type: Object,
@@ -24,6 +23,9 @@ export default defineComponent({
   },
   setup(props) {
     const ns = useNamespace('table-column')
+    const size = useFormSize()
+    const { t } = useLocale()
+
     const FILTER_KEYS = ['children', 'type', 'hide', 'onClick', 'isDisabled']
 
     const getButtonVisible = (button: BtnItem, row: any, index: number, column: any) => {
@@ -51,8 +53,8 @@ export default defineComponent({
           return props.tableColumnSlots[reference]({ ...scope, index: scope.$index })
       }
       return (
-        <el-button type="primary" link size='small'>
-          {isString(dropdownProps.reference) ? dropdownProps.reference : '更多'}
+        <el-button type="primary" link size={size.value}>
+          {isString(dropdownProps.reference) ? dropdownProps.reference : t('table.more')}
           <el-icon class="el-icon--right">
             <i-arrow-down />
           </el-icon>
@@ -61,7 +63,7 @@ export default defineComponent({
     }
 
     return () => {
-      const { size, button, scope } = props
+      const { button, scope } = props
       const isShowButton = getButtonVisible(
         button,
         scope.row,
@@ -74,7 +76,7 @@ export default defineComponent({
           const dropdownProps = reactiveOmit(button, FILTER_KEYS)
           return <el-dropdown
             type="primary"
-            size={'small'}
+            size={size.value}
             trigger="click"
             class={ns.e('dropdown')}
             {...dropdownProps}
@@ -109,7 +111,7 @@ export default defineComponent({
         }
         return (
           <el-button
-            size={size}
+            size={size.value}
             disabled={
               button.isDisabled
               && button.isDisabled(scope.row, scope.$index, scope.column)

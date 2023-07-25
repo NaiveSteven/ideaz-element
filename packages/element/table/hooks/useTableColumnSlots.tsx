@@ -55,7 +55,7 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
           const row = scope.row
           if (column.type === 'button' && props.tableProps.editable) {
             return column.buttons?.map((button) => {
-              return <TableButton button={button} scope={scope} />
+              return <TableButton button={button} scope={scope} size={size}/>
             })
           }
 
