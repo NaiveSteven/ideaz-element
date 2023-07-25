@@ -64,6 +64,31 @@ const columns = [
     type: 'el-switch',
     prop: 'switch',
     label: '开关',
+  },
+  {
+    type: 'button',
+    label: '操作',
+    width: 300,
+    buttons: [
+      {
+        type: 'primary',
+        link: true,
+        size: 'small',
+        label: '更多'
+      },
+      {
+        type: 'dropdown',
+        children: [
+          {
+            divided: true,
+            label: 'dropdown按钮1'
+          },
+          {
+            label: 'dropdown按钮2'
+          }
+        ]
+      }
+    ]
   }
   // {
   //   label: '操作',

@@ -57,6 +57,11 @@
     font-size: 14px;
     cursor: help;
   }
+
+  .z-table-column__dropdown {
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 .column-popover__inner {
