@@ -1,12 +1,21 @@
-import { isFunction, isString } from '@ideaz/utils'
+import { isBoolean, isFunction, isString } from '@ideaz/utils'
 import { reactiveOmit } from '@vueuse/core'
 import type { BtnItem } from '~/types'
+
+interface DropdownProps {
+  disabled?: boolean | ((row: any, index: number, column: any) => boolean)
+  reference?: string | ((h: any, scope: any) => VNode)
+  size?: string
+  trigger?: string
+  type?: string
+  onCommand?: (command: string) => void
+}
 
 export default defineComponent({
   name: 'ZTableButton',
   props: {
     button: {
-      type: Object,
+      type: Object as PropType<BtnItem>,
       default: () => ({}),
     },
     size: {
@@ -26,23 +35,35 @@ export default defineComponent({
     const size = useFormSize()
     const { t } = useLocale()
 
-    const FILTER_KEYS = ['children', 'type', 'hide', 'onClick', 'isDisabled']
+    const FILTER_KEYS = ['children', 'type', 'hide', 'onClick']
 
     const getButtonVisible = (button: BtnItem, row: any, index: number, column: any) => {
       const keys = Object.keys(button)
       if (keys.includes('hide')) {
-        return typeof button.hide === 'boolean'
+        return isBoolean(button.hide)
           ? !button.hide
-          : typeof button.hide === 'function'
+          : isFunction(button.hide)
             ? !(button.hide as (row: any, index: number, column: any) => boolean)(row, index, column)
             : true
       }
       return true
     }
 
+    const getDisabled = (button: BtnItem, row: any, index: number, column: any) => {
+      const keys = Object.keys(button)
+      if (keys.includes('disabled')) {
+        return isBoolean(button.disabled)
+          ? button.disabled
+          : isFunction(button.disabled)
+            ? (button.disabled as (row: any, index: number, column: any) => boolean)(row, index, column)
+            : false
+      }
+      return false
+    }
+
     const renderReference = (
       scope: any,
-      dropdownProps: any,
+      dropdownProps: DropdownProps,
     ) => {
       const reference = dropdownProps.reference
       if (isFunction(reference))
@@ -92,10 +113,7 @@ export default defineComponent({
                     return (
                       <el-dropdown-item
                         {...dropdownProps}
-                        disabled={
-                          dropdownItem.isDisabled
-                          && dropdownItem.isDisabled(scope.row, scope.$index, scope.column)
-                        }
+                        disabled={getDisabled(dropdownItem, scope.row, scope.$index, scope.column)}
                         command={dropdownItem.label}
                       >
                         {dropdownItem.label}
@@ -112,12 +130,9 @@ export default defineComponent({
         return (
           <el-button
             size={size.value}
-            disabled={
-              button.isDisabled
-              && button.isDisabled(scope.row, scope.$index, scope.column)
-            }
             {...{
               ...button,
+              disabled: getDisabled(button, scope.row, scope.$index, scope.column),
               onClick: () => {
                 if (isFunction(button.onClick)) button.onClick(scope.row, scope.$index, scope.column)
               },

@@ -1,4 +1,4 @@
-import { isFunction, isObject, isString } from '@ideaz/utils'
+import { isBoolean, isFunction, isObject, isString } from '@ideaz/utils'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
 import { useTableColComponentName } from './useTableColComponentName'
@@ -72,7 +72,11 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
               'options': column.options,
               ...column.attrs,
               'disabled':
-                column.isDisabled && column.isDisabled(scope.row, scope.$index, scope.column),
+              isBoolean(column.disabled)
+                ? column.disabled
+                : isFunction(column.disabled)
+                  ? column.disabled(scope.row, scope.$index, scope.column)
+                  : false,
             })
             : <span>{getLabel(scope.row)}</span>
         }

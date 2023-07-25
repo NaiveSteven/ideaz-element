@@ -75,6 +75,7 @@ const columns = [
         link: true,
         size: 'small',
         label: '更多',
+        disabled: row => row.name === '王小虎',
         onClick: (row) => { console.log(row, '更多') }
       },
       {
@@ -82,6 +83,7 @@ const columns = [
         children: [
           {
             divided: true,
+            disabled: true,
             label: 'dropdown按钮1',
             onClick: (row) => { console.log(row, 'dropdown按钮1') }
           },
