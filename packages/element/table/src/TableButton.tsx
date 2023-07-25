@@ -24,6 +24,7 @@ export default defineComponent({
   },
   setup(props) {
     const ns = useNamespace('table-column')
+    const FILTER_KEYS = ['children', 'type', 'hide', 'onClick', 'isDisabled']
 
     const getButtonVisible = (button: BtnItem, row: any, index: number, column: any) => {
       const keys = Object.keys(button)
@@ -70,7 +71,7 @@ export default defineComponent({
 
       if (isShowButton) {
         if (button.type === 'dropdown') {
-          const dropdownProps = reactiveOmit(button, ['children', 'type', 'hide', 'click'])
+          const dropdownProps = reactiveOmit(button, FILTER_KEYS)
           return <el-dropdown
             type="primary"
             size={'small'}
@@ -78,24 +79,24 @@ export default defineComponent({
             class={ns.e('dropdown')}
             {...dropdownProps}
             onCommand={(command: string) => {
-              const btn = button.children.find((item: BtnItem) => item.label === command)
-              if (btn && isFunction(btn.click)) btn.click(scope.row, scope.$index, scope.column)
+              const dropdownItem = button.children.find((item: BtnItem) => item.label === command)
+              if (dropdownItem && isFunction(dropdownItem.onClick)) dropdownItem.onClick(scope.row, scope.$index, scope.column)
             }}
             v-slots={{
               dropdown: () => (
                 <el-dropdown-menu>
-                  {button.children.map((button: BtnItem) => {
-                    const dropdownProps = reactiveOmit(button, ['children', 'type', 'hide', 'click', 'isDisabled'])
+                  {button.children.map((dropdownItem: BtnItem) => {
+                    const dropdownProps = reactiveOmit(dropdownItem, FILTER_KEYS)
                     return (
                       <el-dropdown-item
                         {...dropdownProps}
                         disabled={
-                          button.isDisabled
-                          && button.isDisabled(scope.row, scope.$index, scope.column)
+                          dropdownItem.isDisabled
+                          && dropdownItem.isDisabled(scope.row, scope.$index, scope.column)
                         }
-                        command={button.label}
+                        command={dropdownItem.label}
                       >
-                        {button.label}
+                        {dropdownItem.label}
                       </el-dropdown-item>
                     )
                   })}
@@ -113,12 +114,12 @@ export default defineComponent({
               button.isDisabled
               && button.isDisabled(scope.row, scope.$index, scope.column)
             }
-            {...button}
-            onClick={
-              button.click
-                ? () => button.click!(scope.row, scope.$index, scope.column)
-                : () => { }
-            }
+            {...{
+              ...button,
+              onClick: () => {
+                if (isFunction(button.onClick)) button.onClick(scope.row, scope.$index, scope.column)
+              },
+            }}
           >
             {button.label}
           </el-button>

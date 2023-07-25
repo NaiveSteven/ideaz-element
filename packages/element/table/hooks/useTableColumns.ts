@@ -43,14 +43,14 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           type: 'primary',
           link: true,
           hide: row => row.__isEdit,
-          click: (row, index, column) => { row.__isEdit = true },
+          onClick: (row, index, column) => { row.__isEdit = true },
         },
         {
           label: t('table.save'),
           type: 'primary',
           link: true,
           hide: row => !row.__isEdit,
-          click: (row, index, column) => {
+          onClick: (row, index, column) => {
             replacePropertyValues(row)
             row.__isEdit = false
           },
@@ -60,7 +60,7 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           type: 'primary',
           link: true,
           hide: row => !row.__isEdit,
-          click: (row, index, column) => {
+          onClick: (row, index, column) => {
             replacePropertyValues(row, true)
             row.__isEdit = false
           },
@@ -69,7 +69,7 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           label: t('table.delete'),
           type: 'primary',
           link: true,
-          click: (row, index) => {
+          onClick: (row, index) => {
             tableData.value.splice(index, 1)
           },
         },

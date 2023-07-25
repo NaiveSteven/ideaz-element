@@ -7,7 +7,7 @@ export interface BtnItem {
   disabled?: ((row: any, index: number) => boolean) | boolean
   whenShowCb?: (row: any, index: number, column: any) => boolean
   hide?: ((row: any, index: number) => boolean) | boolean
-  click?: (row: any, index: number, column: any) => void
+  onClick?: (row: any, index: number, column: any) => void
   [propName: string]: any
 }
 

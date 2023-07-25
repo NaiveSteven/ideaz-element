@@ -74,17 +74,20 @@ const columns = [
         type: 'primary',
         link: true,
         size: 'small',
-        label: '更多'
+        label: '更多',
+        onClick: (row) => { console.log(row, '更多') }
       },
       {
         type: 'dropdown',
         children: [
           {
             divided: true,
-            label: 'dropdown按钮1'
+            label: 'dropdown按钮1',
+            onClick: (row) => { console.log(row, 'dropdown按钮1') }
           },
           {
-            label: 'dropdown按钮2'
+            label: 'dropdown按钮2',
+            onClick: (row) => { console.log(row, 'dropdown按钮2') }
           }
         ]
       }
