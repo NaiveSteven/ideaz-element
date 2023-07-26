@@ -58,6 +58,11 @@ const columns = [
     type: 'el-input',
     prop: 'name',
     label: '测试',
+    rules: {
+      message: '请输入用户名',
+      trigger: 'blur',
+      required: true
+    },
     showOverflowTooltip: true
   },
   {
@@ -65,36 +70,36 @@ const columns = [
     prop: 'switch',
     label: '开关',
   },
-  {
-    type: 'button',
-    label: '操作',
-    width: 300,
-    buttons: [
-      {
-        type: 'primary',
-        link: true,
-        size: 'small',
-        label: '更多',
-        disabled: row => row.name === '王小虎',
-        onClick: (row) => { console.log(row, '更多') }
-      },
-      {
-        type: 'dropdown',
-        children: [
-          {
-            divided: true,
-            disabled: true,
-            label: 'dropdown按钮1',
-            onClick: (row) => { console.log(row, 'dropdown按钮1') }
-          },
-          {
-            label: 'dropdown按钮2',
-            onClick: (row) => { console.log(row, 'dropdown按钮2') }
-          }
-        ]
-      }
-    ]
-  }
+  // {
+  //   type: 'button',
+  //   label: '操作',
+  //   width: 300,
+  //   buttons: [
+  //     {
+  //       type: 'primary',
+  //       link: true,
+  //       size: 'small',
+  //       label: '更多',
+  //       disabled: row => row.name === '王小虎',
+  //       onClick: (row) => { console.log(row, '更多') }
+  //     },
+  //     {
+  //       type: 'dropdown',
+  //       children: [
+  //         {
+  //           divided: true,
+  //           disabled: true,
+  //           label: 'dropdown按钮1',
+  //           onClick: (row) => { console.log(row, 'dropdown按钮1') }
+  //         },
+  //         {
+  //           label: 'dropdown按钮2',
+  //           onClick: (row) => { console.log(row, 'dropdown按钮2') }
+  //         }
+  //       ]
+  //     }
+  //   ]
+  // }
   // {
   //   label: '操作',
   //   slot: 'buttons'

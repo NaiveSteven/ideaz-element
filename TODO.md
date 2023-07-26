@@ -45,6 +45,7 @@
 31. ~~`z-table`的`isDisabled`改为`disabled`~~
 32. `TableButton`组件代码优化
 33. `z-table`组件的`toolbar`更改（代码重写，功能修改和新增）
+34. `z-table`的`disabled`、`onClick`事件传递参数统一
 
 ## FEATURE（docs and dts）
 
