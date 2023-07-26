@@ -37,7 +37,14 @@
 23. ~~`z-form`支持`type`为`array`~~
 24. `z-input`支持`copy`
 25. `z-table`支持`editable`
-26. `z-table`表格头支持`tooltip`
+26. ~~`z-table`表格头支持`tooltip`~~
+27. `z-table`的`editable`支持保存时校验配置
+28. `z-table`的`editable`支持新增
+29. ~~`z-table`的`button`支持`dropdown`~~
+30. ~~`z-table`的`button`点击事件都改为`onClick`~~
+31. ~~`z-table`的`isDisabled`改为`disabled`~~
+32. `TableButton`组件代码优化
+33. `z-table`组件的`toolbar`更改（代码重写，功能修改和新增）
 
 ## FEATURE（docs and dts）
 

@@ -7,7 +7,11 @@ export interface BtnItem {
   disabled?: ((row: any, index: number) => boolean) | boolean
   whenShowCb?: (row: any, index: number, column: any) => boolean
   hide?: ((row: any, index: number) => boolean) | boolean
-  click?: (row: any, index: number, column: any) => void
+  onClick?: (row: any, index: number, column: any) => void
+  trigger?: string
+  reference?: string | ((h: any, scope: any) => VNode)
+  size?: string
+  onCommand: (command: string) => void
   [propName: string]: any
 }
 
@@ -23,8 +27,7 @@ export interface TableCol {
   on?: {
     [propName: string]: any
   }
-  isDisabled?: any
-  disabled?: ((row: any, index: number) => boolean) | boolean
+  disabled?: ((row: any, index: number, column?: any) => boolean) | boolean
   options?: OptionsItem[]
   dropdown?:
   | number

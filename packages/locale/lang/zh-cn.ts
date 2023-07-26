@@ -23,5 +23,6 @@ export default {
     edit: '编辑',
     delete: '删除',
     action: '操作',
+    more: '更多',
   },
 }

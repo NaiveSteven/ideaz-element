@@ -23,5 +23,6 @@ export default {
     edit: 'edit',
     delete: 'delete',
     action: 'action',
+    more: 'more',
   },
 }
