@@ -47,18 +47,13 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
           if (isFunction(column.render))
             return column.render(h, { ...scope, index: scope.$index })
 
-          if (column.type === 'button' && !props.tableProps.editable) {
-            // return useRenderDropdownButton(column, slots, scope, size);
-            return <span>button</span>
-          }
-
-          const row = scope.row
-          if (column.type === 'button' && props.tableProps.editable) {
+          if (column.type === 'button') {
             return column.buttons?.map((button) => {
               return <TableButton button={button} scope={scope} size={size} />
             })
           }
 
+          const row = scope.row
           return row.__isEdit === true
             ? <el-form-item prop={`tableData.${scope.$index}.${column.prop}`} rules={column.rules} class={[ns.b('form-item'), ns.bm('form-item', size)]}>
               {h(resolveComponent(componentName), {
