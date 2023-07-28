@@ -60,7 +60,7 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
           }
 
           return row.__isEdit === true
-            ? <el-form-item prop={`tableData.${scope.$index}.${column.prop}`} rules={column.rules}>
+            ? <el-form-item prop={`tableData.${scope.$index}.${column.prop}`} rules={column.rules} class={[ns.b('form-item'), ns.bm('form-item', size)]}>
               {h(resolveComponent(componentName), {
                 'modelValue': scope.row[column.prop],
                 'onUpdate:modelValue': (val: any) => {

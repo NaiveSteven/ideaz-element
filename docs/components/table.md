@@ -185,6 +185,7 @@ getData()
     :pagination="pagination"
     :options="options"
     editable
+    size="small"
     @refresh="handlePaginationChange"
   >
     <template #buttons="{ row }">
