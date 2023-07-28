@@ -38,7 +38,7 @@ export default defineComponent({
         )
       }
       return (
-        <el-table-column {...attrsAll.value} v-slots={scopedSlots.value} />
+        <el-table-column {...attrsAll.value} v-slots={scopedSlots.value}/>
       )
     }
   },

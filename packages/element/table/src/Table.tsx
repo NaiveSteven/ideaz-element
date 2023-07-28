@@ -55,6 +55,7 @@ export default defineComponent({
       sortTableCols,
       originFormatTableCols,
       tableKey,
+      zTableFormRef,
     } = useTableColumns(props, tableData)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
     const ns = useNamespace('table')
@@ -116,36 +117,57 @@ export default defineComponent({
       </div>
     }
 
-    return () => {
-      const { loading } = props
+    const renderTable = () => {
+      const { loading, editable } = props
 
+      return (
+        <el-table
+          ref="zTableRef"
+          v-loading={loading}
+          class={[ns.b(''), editable && ns.b('editable')]}
+          key={tableKey.value}
+          v-slots={tableSlots}
+          {...{ ...attrsAll.value, data: tableData.value, size: size.value }}
+        >
+          {slots.append && slots.append()}
+          {formatTableCols.value.map((item, index) => {
+            return (
+              <TableColumn
+                ref={`zTableColumn${index}`}
+                column={item}
+                size={size.value}
+                tableProps={attrsAll.value}
+                onRadio-change={(row: any) => emit('radio-change', row)}
+                columnIndex={index}
+                columnsLength={formatTableCols.value.length}
+                v-slots={scopedSlots}
+              />
+            )
+          })}
+        </el-table>
+      )
+    }
+
+    const renderContent = () => {
+      const { editable } = props
+      if (editable) {
+        return (
+          <el-form
+            ref={zTableFormRef}
+            model={{ tableData: tableData.value }}
+          >
+            {renderTable()}
+          </el-form>
+        )
+      }
+      return renderTable()
+    }
+
+    return () => {
       return (
         <div class={ns.e('container')}>
           {renderToolBar()}
-          <el-table
-            ref="zTableRef"
-            v-loading={loading}
-            class={ns.b('')}
-            key={tableKey.value}
-            v-slots={tableSlots}
-            {...{ ...attrsAll.value, data: tableData.value, size: size.value }}
-          >
-            {slots.append && slots.append()}
-            {formatTableCols.value.map((item, index) => {
-              return (
-                <TableColumn
-                  ref={`zTableColumn${index}`}
-                  column={item}
-                  size={size.value}
-                  tableProps={attrsAll.value}
-                  onRadio-change={(row: any) => emit('radio-change', row)}
-                  columnIndex={index}
-                  columnsLength={formatTableCols.value.length}
-                  v-slots={scopedSlots}
-                />
-              )
-            })}
-          </el-table>
+          {renderContent()}
           {renderPagination()}
         </div>
       )

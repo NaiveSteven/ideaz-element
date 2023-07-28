@@ -47,37 +47,34 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
           if (isFunction(column.render))
             return column.render(h, { ...scope, index: scope.$index })
 
-          if (column.type === 'button' && !props.tableProps.editable) {
-            // return useRenderDropdownButton(column, slots, scope, size);
-            return <span>button</span>
+          if (column.type === 'button') {
+            return column.buttons?.map((button) => {
+              return <TableButton button={button} scope={scope} size={size} />
+            })
           }
 
           const row = scope.row
-          if (column.type === 'button' && props.tableProps.editable) {
-            return column.buttons?.map((button) => {
-              return <TableButton button={button} scope={scope} size={size}/>
-            })
-          }
-
           return row.__isEdit === true
-            ? h(resolveComponent(componentName), {
-              'modelValue': scope.row[column.prop],
-              'onUpdate:modelValue': (val: any) => {
-                scope.row[column.prop] = val
-              },
-              'componentName': getDynamicComponentName(column.type!),
-              'on': column.on,
-              'rowData': scope.row,
-              size,
-              'options': column.options,
-              ...column.attrs,
-              'disabled':
-              isBoolean(column.disabled)
-                ? column.disabled
-                : isFunction(column.disabled)
-                  ? column.disabled(scope.row, scope.$index, scope.column)
-                  : false,
-            })
+            ? <el-form-item prop={`tableData.${scope.$index}.${column.prop}`} rules={column.rules} class={[ns.b('form-item'), ns.bm('form-item', size)]}>
+              {h(resolveComponent(componentName), {
+                'modelValue': scope.row[column.prop],
+                'onUpdate:modelValue': (val: any) => {
+                  scope.row[column.prop] = val
+                },
+                'componentName': getDynamicComponentName(column.type!),
+                'on': column.on,
+                'rowData': scope.row,
+                size,
+                'options': column.options,
+                ...column.attrs,
+                'disabled':
+                  isBoolean(column.disabled)
+                    ? column.disabled
+                    : isFunction(column.disabled)
+                      ? column.disabled(scope.row, scope.$index, scope.column)
+                      : false,
+              })}
+            </el-form-item>
             : <span>{getLabel(scope.row)}</span>
         }
       }

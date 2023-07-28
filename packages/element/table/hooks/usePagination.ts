@@ -24,6 +24,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
       }
       else {
         if (props.editable) {
+          const editableType = isObject(props.editable) ? (props.editable.type || 'single') : 'single'
           const columnProps = props.columns.map(column => column.prop).filter(prop => prop)
           tableData.value = attrsAll.value.data.map((item: any) => {
             const obj: { [propName: string]: string } = {}
@@ -31,7 +32,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
               if (Object.hasOwnProperty.call(item, prop))
                 obj[`${prop}Prop`] = item[prop]
             })
-            return { ...item, __isEdit: false, ...obj }
+            return { ...item, __isEdit: editableType !== 'single', ...obj }
           })
         }
         else {

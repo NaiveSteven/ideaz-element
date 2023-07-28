@@ -25,12 +25,21 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
   const middleTableCols = ref<TableCol[]>([])
   const sortTableCols = ref<TableCol[]>([])
   const tableKey = ref(new Date().valueOf())
+  const zTableFormRef = ref()
+  const editableType = ref<'single' | 'multiple'>(isObject(props.editable) ? (props.editable.type || 'single') : 'single')
   const { t } = useLocale()
 
   if (props.columns && props.columns.length) {
     props.columns.forEach((item: TableCol) => {
       item.__uid = uid()
     })
+  }
+
+  const generateValidateFields = (index: number) => {
+    if (tableData.value.length)
+      return Object.keys(tableData.value[0]).map(prop => `tableData.${index}.${prop}`)
+
+    return []
   }
 
   const columns = (props.editable && props.columns.length > 0 && props.columns[props.columns.length - 1]?.type !== 'button')
@@ -42,24 +51,32 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           label: t('table.edit'),
           type: 'primary',
           link: true,
-          hide: row => row.__isEdit,
+          hide: row => row.__isEdit || editableType.value === 'multiple',
           onClick: (row, index, column) => { row.__isEdit = true },
         },
         {
           label: t('table.save'),
           type: 'primary',
           link: true,
-          hide: row => !row.__isEdit,
+          hide: row => !row.__isEdit || editableType.value === 'multiple',
           onClick: (row, index, column) => {
-            replacePropertyValues(row)
-            row.__isEdit = false
+            if (!zTableFormRef.value)
+              return
+            zTableFormRef.value.validateField
+            && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
+              if (!validated)
+                return
+
+              replacePropertyValues(row)
+              row.__isEdit = false
+            })
           },
         },
         {
           label: t('table.cancel'),
           type: 'primary',
           link: true,
-          hide: row => !row.__isEdit,
+          hide: row => !row.__isEdit || editableType.value === 'multiple',
           onClick: (row, index, column) => {
             replacePropertyValues(row, true)
             row.__isEdit = false
@@ -112,5 +129,6 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
     sortTableCols,
     tableKey,
     getIsReturnToolBar,
+    zTableFormRef,
   }
 }

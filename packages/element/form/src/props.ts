@@ -15,6 +15,7 @@ export const RowAlign = ['top', 'middle', 'bottom'] as const
 
 export const formProps = {
   ...elFormProps,
+  rules: elFormProps.rules,
   modelValue: {
     type: [Object, Array] as PropType<any>,
     default: () => ({}),
