@@ -65,9 +65,12 @@
 }
 
 .z-table-editable {
-  .el-table__cell {
-    padding: 18px 0;
+  .el-table__row {
+    .el-table__cell {
+      padding: 18px 0;
+    }
   }
+
 
   .z-table-column-form-item {
     margin-bottom: 0;
