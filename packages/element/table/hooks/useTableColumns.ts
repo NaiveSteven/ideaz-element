@@ -26,6 +26,7 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
   const sortTableCols = ref<TableCol[]>([])
   const tableKey = ref(new Date().valueOf())
   const zTableFormRef = ref()
+  const editableType = ref<'single' | 'multiple'>(isObject(props.editable) ? (props.editable.type || 'single') : 'single')
   const { t } = useLocale()
 
   if (props.columns && props.columns.length) {
@@ -50,14 +51,14 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           label: t('table.edit'),
           type: 'primary',
           link: true,
-          hide: row => row.__isEdit,
+          hide: row => row.__isEdit || editableType.value === 'multiple',
           onClick: (row, index, column) => { row.__isEdit = true },
         },
         {
           label: t('table.save'),
           type: 'primary',
           link: true,
-          hide: row => !row.__isEdit,
+          hide: row => !row.__isEdit || editableType.value === 'multiple',
           onClick: (row, index, column) => {
             if (!zTableFormRef.value)
               return
@@ -75,7 +76,7 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           label: t('table.cancel'),
           type: 'primary',
           link: true,
-          hide: row => !row.__isEdit,
+          hide: row => !row.__isEdit || editableType.value === 'multiple',
           onClick: (row, index, column) => {
             replacePropertyValues(row, true)
             row.__isEdit = false

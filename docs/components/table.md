@@ -23,6 +23,7 @@ interface RowData {
 const pagination = ref({ pageSize: 20, page: 1, total: 40 })
 const loading = ref(false)
 const tableData = ref<RowData[]>([])
+const cTableRef = ref()
 
 const columns = [
   {
@@ -173,10 +174,17 @@ const handlePaginationChange = (val: { page: number; pageSize: number }) => {
   getData()
 }
 
+const handleClick = () => {
+  console.log(tableData.value, 'tableData')
+}
+
 getData()
 </script>
 
 <template>
+  <el-button @click="handleClick">
+    获取数据
+  </el-button>
   <z-table
     ref="cTableRef"
     :loading="loading"
@@ -184,7 +192,7 @@ getData()
     :data="tableData"
     :pagination="pagination"
     :options="options"
-    editable
+    :editable="{ type: 'multiple' }"
     size="small"
     @refresh="handlePaginationChange"
   >

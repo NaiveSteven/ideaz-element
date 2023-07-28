@@ -116,7 +116,7 @@ export const tableProps = {
     default: false,
   },
   editable: {
-    type: Boolean,
+    type: [Boolean, Object] as PropType<boolean | { type: 'multiple' | 'single' }>,
     default: false,
   },
   options: {
