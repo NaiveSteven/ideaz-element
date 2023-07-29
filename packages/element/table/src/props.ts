@@ -123,6 +123,10 @@ export const tableProps = {
     type: Object,
     default: () => {},
   },
+  maxLength: {
+    type: Number,
+    default: undefined,
+  },
 }
 
 export const tableColumnProps = {

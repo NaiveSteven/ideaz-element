@@ -38,9 +38,9 @@
 24. `z-input`支持`copy`
 25. `z-table`支持`editable`
 26. ~~`z-table`表格头支持`tooltip`~~
-27. `z-table`的`editable`支持保存时校验配置
-28. `z-table`的`editable`支持新增
-29. `z-table`的`editable`支持全量编辑
+27. ~~`z-table`的`editable`支持保存时校验配置~~
+28. ~~`z-table`的`editable`支持新增~~
+29. ~~`z-table`的`editable`支持全量编辑~~
 30. ~~`z-table`的`button`支持`dropdown`~~
 31. ~~`z-table`的`button`点击事件都改为`onClick`~~
 32. ~~`z-table`的`isDisabled`改为`disabled`~~
