@@ -187,9 +187,9 @@ getData()
   </el-button>
   <z-table
     ref="cTableRef"
+    :data="tableData"
     :loading="loading"
     :columns="columns"
-    :data="tableData"
     :pagination="pagination"
     :options="options"
     :editable="{ type: 'multiple' }"

@@ -1,10 +1,11 @@
-import { isObject } from '@ideaz/utils'
+import { isObject, uid } from '@ideaz/utils'
 import { reactiveOmit } from '@vueuse/core'
+import { set } from 'lodash-unified'
 import type { ITableProps } from '../src/props'
 import type { Pagination } from '~/types'
 
 export const usePagination = (props: ITableProps, emit: any) => {
-  const tableData = ref([])
+  const tableData = ref<any>([])
 
   const attrsAll = computed<any>(() => {
     const omitProps = reactiveOmit(props, ['pagination', 'columns', 'draggable', 'topRender', 'toolBar', 'loading'])
@@ -63,6 +64,14 @@ export const usePagination = (props: ITableProps, emit: any) => {
     return false
   })
 
+  const addTableData = () => {
+    const rowData = { __isEdit: true }
+    if (props.rowKey)
+      set(rowData, String(props.rowKey), uid())
+
+    tableData.value.push(rowData)
+  }
+
   function getTableData(pagination: Pagination) {
     const page = pagination.page
     const pageSize = pagination.pageSize
@@ -111,6 +120,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
     paginationAttrs,
     attrsAll,
     tableData,
+    addTableData,
     handleCurrentChange,
     handleSizeChange,
     handleRefresh,

@@ -16,7 +16,7 @@ export default defineComponent({
   components: { TableColumn, ToolBar },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change'],
+  emits: ['refresh', 'radio-change', 'update:data'],
   setup(props, { emit, slots }) {
     const {
       setCurrentRow,
@@ -45,6 +45,7 @@ export default defineComponent({
       paginationAttrs,
       attrsAll,
       tableData,
+      addTableData,
       handleCurrentChange,
       handleSizeChange,
       handleRefresh,
@@ -129,7 +130,6 @@ export default defineComponent({
           v-slots={tableSlots}
           {...{ ...attrsAll.value, data: tableData.value, size: size.value }}
         >
-          {slots.append && slots.append()}
           {formatTableCols.value.map((item, index) => {
             return (
               <TableColumn
@@ -150,14 +150,18 @@ export default defineComponent({
 
     const renderContent = () => {
       const { editable } = props
+      const position = isObject(editable) ? (editable.position || 'bottom') : 'bottom'
       if (editable) {
         return (
-          <el-form
-            ref={zTableFormRef}
-            model={{ tableData: tableData.value }}
-          >
-            {renderTable()}
-          </el-form>
+          <>
+            <el-form
+              ref={zTableFormRef}
+              model={{ tableData: tableData.value }}
+            >
+              {renderTable()}
+            </el-form>
+            {position === 'bottom' && <el-button icon='i-plus' class='w-full mt-2' onClick={() => addTableData()}>新增数据</el-button>}
+          </>
         )
       }
       return renderTable()
