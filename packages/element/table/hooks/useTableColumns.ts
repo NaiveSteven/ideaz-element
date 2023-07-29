@@ -21,7 +21,7 @@ function replacePropertyValues(obj: any, reverse = false) {
   return obj
 }
 
-export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
+export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<any>) => {
   const middleTableCols = ref<TableCol[]>([])
   const sortTableCols = ref<TableCol[]>([])
   const tableKey = ref(new Date().valueOf())
@@ -60,6 +60,7 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           link: true,
           hide: row => !row.__isEdit || editableType.value === 'multiple',
           onClick: (row, index, column) => {
+            emit('save', row, index, column)
             if (!zTableFormRef.value)
               return
             zTableFormRef.value.validateField
@@ -78,6 +79,7 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           link: true,
           hide: row => !row.__isEdit || editableType.value === 'multiple',
           onClick: (row, index, column) => {
+            emit('cancel', row, index, column)
             replacePropertyValues(row, true)
             row.__isEdit = false
           },
@@ -87,6 +89,7 @@ export const useTableColumns = (props: ITableProps, tableData: Ref<any>) => {
           type: 'primary',
           link: true,
           onClick: (row, index) => {
+            emit('delete', row, index)
             tableData.value.splice(index, 1)
           },
         },

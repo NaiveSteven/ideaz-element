@@ -59,11 +59,12 @@ const columns = [
     type: 'el-input',
     prop: 'name',
     label: '测试',
-    rules: {
-      message: '请输入用户名',
-      trigger: 'blur',
-      required: true
-    },
+    required: true,
+    // rules: {
+    //   message: '请输入用户名',
+    //   trigger: 'blur',
+    //   required: true
+    // },
     showOverflowTooltip: true
   },
   {
@@ -187,13 +188,14 @@ getData()
   </el-button>
   <z-table
     ref="cTableRef"
+    :data="tableData"
     :loading="loading"
     :columns="columns"
-    :data="tableData"
     :pagination="pagination"
     :options="options"
     :editable="{ type: 'multiple' }"
     size="small"
+    :max-length="5"
     @refresh="handlePaginationChange"
   >
     <template #buttons="{ row }">

@@ -39,5 +39,8 @@ export const useTableSlots = (columns: Ref<TableCol[]>, slots: any) => {
   if (isFunction(slots.empty))
     tableSlots.empty = () => slots.empty()
 
+  if (isFunction(slots.append))
+    tableSlots.append = () => slots.append()
+
   return { scopedSlots, tableSlots }
 }
