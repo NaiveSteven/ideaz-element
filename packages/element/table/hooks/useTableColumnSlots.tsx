@@ -1,11 +1,13 @@
 import { isBoolean, isFunction, isObject, isString } from '@ideaz/utils'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
+import { SELECT_TYPES } from '../../form/hooks'
 import { useTableColComponentName } from './useTableColComponentName'
 
 export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
   const scopedSlots = shallowRef<any>({})
   const ns = useNamespace('table-column')
+  const { t } = useLocale()
 
   const getLabel = (row: any) => {
     const { column = {} } = props
@@ -26,6 +28,28 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
       return row[column.prop] ? (column.attrs?.activeText || 'true') : (column.attrs?.inactiveText || 'false')
 
     return row[column.prop]
+  }
+
+  const getRules = () => {
+    const column = props.column
+    const label = props.column.label
+    const type = isFunction(column.type) ? column.type() : column.type
+    let message = ''
+    let rules = {}
+    if (SELECT_TYPES.includes((type || '').toLowerCase()))
+      message = label ? `${t('form.selectPlaceholder')}${label}` : `${t('form.selectPlaceholder')}`
+
+    else
+      message = label ? `${t('form.inputPlaceholder')}${label}` : `${t('form.inputPlaceholder')}`
+
+    if (column.required === true || column.rules?.required) {
+      rules = {
+        required: true,
+        message,
+        ...column.rules,
+      }
+    }
+    return rules
   }
 
   watch(
@@ -54,8 +78,9 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
           }
 
           const row = scope.row
+
           return row.__isEdit === true
-            ? <el-form-item prop={`tableData.${scope.$index}.${column.prop}`} rules={column.rules} class={[ns.b('form-item'), ns.bm('form-item', size)]}>
+            ? <el-form-item prop={`tableData.${scope.$index}.${column.prop}`} rules={getRules()} class={[ns.b('form-item'), ns.bm('form-item', size)]}>
               {h(resolveComponent(componentName), {
                 'modelValue': scope.row[column.prop],
                 'onUpdate:modelValue': (val: any) => {

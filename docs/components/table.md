@@ -59,11 +59,12 @@ const columns = [
     type: 'el-input',
     prop: 'name',
     label: '测试',
-    rules: {
-      message: '请输入用户名',
-      trigger: 'blur',
-      required: true
-    },
+    required: true,
+    // rules: {
+    //   message: '请输入用户名',
+    //   trigger: 'blur',
+    //   required: true
+    // },
     showOverflowTooltip: true
   },
   {
