@@ -2,32 +2,14 @@ import { isArray, isFunction, isObject, isString, uid } from '@ideaz/utils'
 import type { Ref } from 'vue'
 import { getIsReturnToolBar } from '../utils'
 import type { ITableProps } from '../src/props'
+import { useEditableColumns } from './useEditableColumns'
 import type { TableCol } from '~/types'
-
-function replacePropertyValues(obj: any, reverse = false) {
-  for (const key in obj) {
-    if (key.endsWith('Prop')) {
-      const valueKey = key.slice(0, -4)
-      if (Object.hasOwnProperty.call(obj, valueKey)) {
-        if (reverse)
-          obj[valueKey] = obj[key]
-
-        else
-          obj[key] = obj[valueKey]
-      }
-    }
-  }
-
-  return obj
-}
 
 export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<any>) => {
   const middleTableCols = ref<TableCol[]>([])
   const sortTableCols = ref<TableCol[]>([])
   const tableKey = ref(new Date().valueOf())
-  const zTableFormRef = ref()
-  const editableType = ref<'single' | 'multiple'>(isObject(props.editable) ? (props.editable.type || 'single') : 'single')
-  const { t } = useLocale()
+  const { columns, zTableFormRef } = useEditableColumns(props, emit, tableData)
 
   if (props.columns && props.columns.length) {
     props.columns.forEach((item: TableCol) => {
@@ -35,67 +17,6 @@ export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<an
     })
   }
 
-  const generateValidateFields = (index: number) => {
-    if (tableData.value.length)
-      return Object.keys(tableData.value[0]).map(prop => `tableData.${index}.${prop}`)
-
-    return []
-  }
-
-  const columns = (props.editable && props.columns.length > 0 && props.columns[props.columns.length - 1]?.type !== 'button')
-    ? props.columns.concat([{
-      type: 'button',
-      label: t('table.action'),
-      buttons: [
-        {
-          label: t('table.edit'),
-          type: 'primary',
-          link: true,
-          hide: row => row.__isEdit || editableType.value === 'multiple',
-          onClick: (row, index, column) => { row.__isEdit = true },
-        },
-        {
-          label: t('table.save'),
-          type: 'primary',
-          link: true,
-          hide: row => !row.__isEdit || editableType.value === 'multiple',
-          onClick: (row, index, column) => {
-            emit('save', row, index, column)
-            if (!zTableFormRef.value)
-              return
-            zTableFormRef.value.validateField
-            && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
-              if (!validated)
-                return
-
-              replacePropertyValues(row)
-              row.__isEdit = false
-            })
-          },
-        },
-        {
-          label: t('table.cancel'),
-          type: 'primary',
-          link: true,
-          hide: row => !row.__isEdit || editableType.value === 'multiple',
-          onClick: (row, index, column) => {
-            emit('cancel', row, index, column)
-            replacePropertyValues(row, true)
-            row.__isEdit = false
-          },
-        },
-        {
-          label: t('table.delete'),
-          type: 'primary',
-          link: true,
-          onClick: (row, index) => {
-            emit('delete', row, index)
-            tableData.value.splice(index, 1)
-          },
-        },
-      ],
-    }])
-    : props.columns
   middleTableCols.value = columns.filter((item: TableCol) => {
     let isUncheck = false
     const toolBar = props.toolBar
