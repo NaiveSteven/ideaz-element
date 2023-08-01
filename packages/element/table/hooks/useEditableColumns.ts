@@ -106,7 +106,7 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
     columns = props.columns.map((item: any) => {
       if (item.type === 'button') {
         if (isFunction(item.buttons))
-          item.buttons = item.buttons({ renderEdit: renderEdit(), renderSave: renderSave(), renderCancel: renderCancel(), renderDelete: renderDelete() })
+          item.buttons = item.buttons({ renderEdit: renderEdit(), renderSave: renderSave(), renderCancel: renderCancel(), renderDelete: renderDelete() }, tableData)
       }
       return item
     })
