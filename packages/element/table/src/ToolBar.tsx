@@ -1,12 +1,14 @@
 // import draggable from 'vuedraggable'
 import { DCaret, Operation, Refresh } from '@element-plus/icons'
 import { useToolBarTableCols } from '../hooks'
+import ZFullScreen from './FullScreen'
 import type { ITableProps } from './props'
 import type { TableCol } from '~/types'
 
 export default defineComponent({
   name: 'ToolBar',
   components: {
+    ZFullScreen,
     // Draggable: draggable,
   },
   props: {
@@ -82,10 +84,10 @@ export default defineComponent({
       const loading = props.tableProps?.loading
       return (
         <div class={ns.b('tool-bar')}>
-          <el-tooltip class="item" effect="dark" content="刷新" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content="刷新" placement="top" showAfter={300}>
             <el-button v-loading={loading} icon={Refresh} text onClick={handleRefresh}></el-button>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="密度" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content="密度" placement="top" showAfter={300}>
             <el-dropdown
               onCommand={handleCommand}
               trigger="click"
@@ -110,7 +112,10 @@ export default defineComponent({
               <el-button icon={DCaret} text></el-button>
             </el-dropdown>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="列设置" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content="全屏" placement="top" showAfter={300}>
+            <ZFullScreen getElement={() => document.getElementsByClassName('z-table__container')[0]} useText={false}></ZFullScreen>
+          </el-tooltip>
+          <el-tooltip effect="dark" content="列设置" placement="top" showAfter={300}>
             <div>
               <el-popover
                 placement="bottom"
