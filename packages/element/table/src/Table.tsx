@@ -101,6 +101,7 @@ export default defineComponent({
             sortTableCols={sortTableCols.value}
             size={size.value}
             toolBar={props.toolBar}
+            tableProps={props}
             onColumns-change={(data) => {
               middleTableCols.value = cloneDeep(data)
               tableKey.value = new Date().valueOf()

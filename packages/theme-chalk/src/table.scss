@@ -16,17 +16,37 @@
     .z-table-tool-bar {
       display: flex;
       align-items: center;
-      margin-left: 16px;
       min-width: 78px;
       line-height: 0;
 
+      .el-button {
+        padding: 8px 12px;
+
+        &:focus {
+          background-color: transparent;
+        }
+      }
+
       i {
-        font-size: 18px;
+        font-size: 16px;
         color: rgb(0, 0, 0, 0.85);
         cursor: pointer;
 
         &:hover {
           color: #1677ff;
+        }
+      }
+
+      .el-loading-mask {
+        background-color: rgba(255, 255, 255, 1);
+
+        .el-loading-spinner {
+          margin-top: calc(0px - 25px / 2);
+
+          .circular {
+            width: 25px;
+            height: 25px;
+          }
         }
       }
     }

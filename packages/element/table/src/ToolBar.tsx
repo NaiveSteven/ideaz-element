@@ -1,5 +1,7 @@
 // import draggable from 'vuedraggable'
+import { DCaret, Operation, Refresh } from '@element-plus/icons'
 import { useToolBarTableCols } from '../hooks'
+import type { ITableProps } from './props'
 import type { TableCol } from '~/types'
 
 export default defineComponent({
@@ -32,6 +34,9 @@ export default defineComponent({
       type: [Boolean, Object],
       default: undefined,
     },
+    tableProps: {
+      type: Object as PropType<ITableProps>,
+    },
   },
   emits: ['columns-change', 'size-change', 'refresh', 'table-cols-change'],
   setup(props, { emit }) {
@@ -48,12 +53,12 @@ export default defineComponent({
 
     const TABLE_SIZE_LIST = [
       {
-        label: '宽松',
-        size: 'large',
+        label: '默认',
+        size: 'default',
       },
       {
-        label: '中等',
-        size: 'default',
+        label: '宽松',
+        size: 'large',
       },
       {
         label: '紧凑',
@@ -74,14 +79,13 @@ export default defineComponent({
     }
 
     return () => {
+      const loading = props.tableProps?.loading
       return (
         <div class={ns.b('tool-bar')}>
-          <el-tooltip class="item" effect="dark" content="刷新" placement="top" showAfter={500}>
-            <el-icon size="18px" class="mr-3">
-              <i-refresh-right class="el-icon-refresh-right" onClick={handleRefresh} />
-            </el-icon>
+          <el-tooltip class="item" effect="dark" content="刷新" placement="top" showAfter={300}>
+            <el-button v-loading={loading} icon={Refresh} text onClick={handleRefresh}></el-button>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="尺寸" placement="top" showAfter={500}>
+          <el-tooltip class="item" effect="dark" content="密度" placement="top" showAfter={300}>
             <el-dropdown
               onCommand={handleCommand}
               trigger="click"
@@ -103,12 +107,10 @@ export default defineComponent({
                 ),
               }}
             >
-              <el-icon class="mr-3">
-                <i-d-caret />
-              </el-icon>
+              <el-button icon={DCaret} text></el-button>
             </el-dropdown>
           </el-tooltip>
-          <el-tooltip class="item" effect="dark" content="列设置" placement="top" showAfter={500}>
+          <el-tooltip class="item" effect="dark" content="列设置" placement="top" showAfter={300}>
             <div>
               <el-popover
                 placement="bottom"
@@ -116,9 +118,7 @@ export default defineComponent({
                 trigger="click"
                 v-slots={{
                   reference: () => (
-                    <el-icon>
-                      <i-setting class="el-icon-setting" />
-                    </el-icon>
+                    <el-button icon={Operation} text></el-button>
                   ),
                 }}
               >
