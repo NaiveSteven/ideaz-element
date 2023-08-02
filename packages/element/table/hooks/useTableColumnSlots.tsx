@@ -1,4 +1,4 @@
-import { isBoolean, isFunction, isObject, isString } from '@ideaz/utils'
+import { isBoolean, isEmptyObject, isFunction, isObject, isString } from '@ideaz/utils'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
 import { SELECT_TYPES } from '../../form/hooks'
@@ -49,7 +49,7 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
         ...column.rules,
       }
     }
-    return rules
+    return isEmptyObject(rules) ? null : rules
   }
 
   watch(

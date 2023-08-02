@@ -72,6 +72,24 @@ const columns = [
     prop: 'switch',
     label: '开关',
   },
+  {
+    type: 'button',
+    label: '操作',
+    buttons: ({ renderEdit, renderCancel, renderDelete, renderSave }, tableData) => {
+      return [
+        {
+          type: 'primary',
+          link: true,
+          label: '复制',
+          // hide: row => row.__isEdit,
+          onClick: (row) => {
+            tableData.value.push({ ...row })
+          }
+        },
+        renderEdit, renderCancel, renderDelete, renderSave
+      ]
+    }
+  }
   // {
   //   type: 'button',
   //   label: '操作',

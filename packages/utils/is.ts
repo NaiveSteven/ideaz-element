@@ -100,3 +100,10 @@ export function isUrl(path: string): boolean {
 }
 
 export const isSlot = (val: any) => !!(isString(val) && (val.includes('slot') || val.includes('Slot')))
+
+export const isEmptyObject = (obj: any) => {
+  if (typeof obj !== 'object' || obj === null)
+    return true
+
+  return Object.keys(obj).length === 0
+}

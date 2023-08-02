@@ -43,7 +43,7 @@ export default defineComponent({
     })
     const {
       paginationAttrs,
-      attrsAll,
+      tableAttributes,
       tableData,
       addTableData,
       handleCurrentChange,
@@ -128,7 +128,7 @@ export default defineComponent({
           class={[ns.b(''), editable && ns.b('editable')]}
           key={tableKey.value}
           v-slots={tableSlots}
-          {...{ ...attrsAll.value, data: tableData.value, size: size.value }}
+          {...{ ...tableAttributes.value, data: tableData.value, size: size.value }}
         >
           {formatTableCols.value.map((item, index) => {
             return (
@@ -136,7 +136,7 @@ export default defineComponent({
                 ref={`zTableColumn${index}`}
                 column={item}
                 size={size.value}
-                tableProps={attrsAll.value}
+                tableProps={tableAttributes.value}
                 onRadio-change={(row: any) => emit('radio-change', row)}
                 columnIndex={index}
                 columnsLength={formatTableCols.value.length}

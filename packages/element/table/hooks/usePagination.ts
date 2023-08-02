@@ -7,19 +7,19 @@ import type { Pagination } from '~/types'
 export const usePagination = (props: ITableProps, emit: any) => {
   const tableData = ref<any>([])
 
-  const attrsAll = computed<any>(() => {
+  const tableAttributes = computed<any>(() => {
     const omitProps = reactiveOmit(props, ['pagination', 'columns', 'draggable', 'topRender', 'toolBar', 'loading'])
-    return { ...omitProps, size: props.size, border: props.border }
+    return { ...omitProps }
   })
 
   watch(
-    () => attrsAll.value,
+    () => tableAttributes.value,
     () => {
       const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
       if (
-        attrsAll.value.data
+        tableAttributes.value.data
         && pagination.total
-        && attrsAll.value.data.length === pagination.total
+        && tableAttributes.value.data.length === pagination.total
       ) {
         getTableData(pagination)
       }
@@ -27,7 +27,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
         if (props.editable) {
           const editableType = isObject(props.editable) ? (props.editable.type || 'single') : 'single'
           const columnProps = props.columns.map(column => column.prop).filter(prop => prop)
-          tableData.value = attrsAll.value.data.map((item: any) => {
+          tableData.value = tableAttributes.value.data.map((item: any) => {
             const obj: { [propName: string]: string } = {}
             columnProps.forEach((prop) => {
               if (Object.hasOwnProperty.call(item, prop))
@@ -37,7 +37,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
           })
         }
         else {
-          tableData.value = attrsAll.value.data
+          tableData.value = tableAttributes.value.data
         }
       }
     },
@@ -56,8 +56,8 @@ export const usePagination = (props: ITableProps, emit: any) => {
   const isPaginationByFront = computed(() => {
     const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
     if (
-      attrsAll.value.data
-      && attrsAll.value.data.length === pagination.total
+      tableAttributes.value.data
+      && tableAttributes.value.data.length === pagination.total
       && paginationAttrs.value.type === 'front'
     )
       return true
@@ -75,8 +75,8 @@ export const usePagination = (props: ITableProps, emit: any) => {
   function getTableData(pagination: Pagination) {
     const page = pagination.page
     const pageSize = pagination.pageSize
-    const list = attrsAll.value.data
-    const length = attrsAll.value.data.length
+    const list = tableAttributes.value.data
+    const length = tableAttributes.value.data.length
     let start = (page - 1) * pageSize
     let end = page * pageSize
     if (start >= length) start = 0
@@ -118,7 +118,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
 
   return {
     paginationAttrs,
-    attrsAll,
+    tableAttributes,
     tableData,
     addTableData,
     handleCurrentChange,
