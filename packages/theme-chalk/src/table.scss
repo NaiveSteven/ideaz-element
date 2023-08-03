@@ -1,6 +1,7 @@
 .z-table__container {
   background-color: #fff;
 
+
   .z-table__pagination {
     justify-content: flex-end;
     margin-top: 16px;
@@ -19,6 +20,7 @@
       display: flex;
       align-items: center;
       line-height: 0;
+
 
       .el-button {
         padding: 8px 12px;
@@ -91,7 +93,6 @@
       padding: 18px 0;
     }
   }
-
 
   .z-table-column-form-item {
     margin-bottom: 0;
@@ -220,4 +221,13 @@
 
 .column-popover__container {
   box-sizing: border-box;
+}
+
+.z-full-screen-class {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
 }
