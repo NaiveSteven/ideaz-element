@@ -1,14 +1,12 @@
 // import draggable from 'vuedraggable'
-import { DCaret, Operation, Refresh } from '@element-plus/icons'
+import { DCaret, FullScreen, Operation, Refresh } from '@element-plus/icons'
 import { useToolBarTableCols } from '../hooks'
-import ZFullScreen from './FullScreen'
 import type { ITableProps } from './props'
 import type { TableCol } from '~/types'
 
 export default defineComponent({
   name: 'ToolBar',
   components: {
-    ZFullScreen,
     // Draggable: draggable,
   },
   props: {
@@ -113,7 +111,9 @@ export default defineComponent({
             </el-dropdown>
           </el-tooltip>
           <el-tooltip effect="dark" content="全屏" placement="top" showAfter={300}>
-            <ZFullScreen getElement={() => document.getElementsByClassName('z-table__container')[0]} useText={false}></ZFullScreen>
+            <z-full-screen getElement={() => document.getElementsByClassName('z-table__container')[0]}>
+              <el-button icon={FullScreen} text />
+            </z-full-screen>
           </el-tooltip>
           <el-tooltip effect="dark" content="列设置" placement="top" showAfter={300}>
             <div>
