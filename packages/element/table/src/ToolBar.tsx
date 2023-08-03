@@ -111,16 +111,8 @@ export default defineComponent({
             </el-dropdown>
           </el-tooltip>
           <el-tooltip effect="dark" content="全屏" placement="top" showAfter={300}>
-          <z-full-screen onChange={(val: boolean) => {
-            const element = document.getElementsByClassName('z-table__container')[0]
-
-            if (val)
-              element.classList.add('z-full-screen-class')
-
-            else
-              element.classList.remove('z-full-screen-class')
-          }}>
-              <el-button icon={FullScreen} text/>
+            <z-full-screen getElement={() => document.getElementsByClassName('z-table__container')[0]} teleported={true}>
+              <el-button icon={FullScreen} text />
             </z-full-screen>
           </el-tooltip>
           <el-tooltip effect="dark" content="列设置" placement="top" showAfter={300}>

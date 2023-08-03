@@ -10,13 +10,26 @@ export default defineComponent({
       type: Function as PropType<() => EnhancedHTMLElement>,
       default: () => document.body,
     },
+    teleported: {
+      type: Boolean,
+      default: false,
+    },
   },
   emits: ['change'],
   setup(props, { emit, slots }) {
     const ns = useNamespace('full-screen')
+
     const { isTargetFullscreen, toggleFullscreen } = useFullscreen({
-      getElement: props.getElement,
-      onFullscreenChange: (value) => {
+      getElement: props.teleported ? () => document.body : props.getElement,
+      onFullscreenChange: (value: boolean) => {
+        if (props.teleported) {
+          const element = props.getElement()
+          if (value)
+            element.classList.add('z-full-screen-class')
+
+          else
+            element.classList.remove('z-full-screen-class')
+        }
         emit('change', value)
       },
     })
