@@ -3,6 +3,7 @@ import type { Ref } from 'vue'
 import { getIsReturnToolBar } from '../utils'
 import type { ITableProps } from '../src/props'
 import { useEditableColumns } from './useEditableColumns'
+
 import type { TableCol } from '~/types'
 
 export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<any>) => {
@@ -37,11 +38,15 @@ export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<an
     })
   })
 
+  sortTableCols.value = columns.filter((item: TableCol) => {
+    return getIsReturnToolBar(item, props.toolBar)
+  })
+
   const originFormatTableCols = computed(() => {
     tableKey.value = new Date().valueOf()
-    sortTableCols.value = columns.filter((item: TableCol) => {
-      return getIsReturnToolBar(item, props.toolBar)
-    })
+    // sortTableCols.value = columns.filter((item: TableCol) => {
+    //   return getIsReturnToolBar(item, props.toolBar)
+    // })
 
     return columns.map((item: TableCol) => item)
   })
@@ -52,7 +57,6 @@ export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<an
     originFormatTableCols,
     sortTableCols,
     tableKey,
-    getIsReturnToolBar,
     zTableFormRef,
   }
 }

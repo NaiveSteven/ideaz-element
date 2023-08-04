@@ -24,6 +24,11 @@ const pagination = ref({ pageSize: 20, page: 1, total: 40 })
 const loading = ref(false)
 const tableData = ref<RowData[]>([])
 const cTableRef = ref()
+const isShowName = ref(false)
+
+const changeNameVisible = () => {
+  isShowName.value = !isShowName.value
+}
 
 const columns = [
   {
@@ -32,6 +37,7 @@ const columns = [
     tooltip: '姓名Tooltip',
     labelClassName: 'labelClassName',
     sortable: true,
+    hide: () => !isShowName.value,
     showOverflowTooltip: true
   },
   {
@@ -204,6 +210,9 @@ getData()
   <el-button @click="handleClick">
     获取数据
   </el-button>
+  <el-button @click="changeNameVisible">
+    姓名列显隐
+  </el-button>
   <z-table
     ref="cTableRef"
     :data="tableData"
@@ -212,6 +221,7 @@ getData()
     :pagination="pagination"
     :options="options"
     :editable="{ type: 'multiple' }"
+    :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
     size="small"
     :max-length="5"
     @refresh="handlePaginationChange"

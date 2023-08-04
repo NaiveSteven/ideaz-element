@@ -1,9 +1,28 @@
 // import draggable from 'vuedraggable'
 import { DCaret, FullScreen, Operation, Refresh } from '@element-plus/icons'
 import { VueDraggable } from 'vue-draggable-plus'
+import { isFunction } from '@ideaz/utils'
 import { useToolBarTableCols } from '../hooks'
 import type { ITableProps } from './props'
 import type { TableCol } from '~/types'
+
+const mergeArraysByUID = (arr1: TableCol[], arr2: TableCol[]) => {
+  const uidMap: any = {}
+  const mergedArray = [...arr2]
+
+  arr1.forEach((item: TableCol, index: number) => {
+    uidMap[item.__uid] = index
+  })
+
+  arr1.forEach((item: TableCol) => {
+    if (!mergedArray.some(mergedItem => mergedItem.__uid === item.__uid)) {
+      const insertIndex = uidMap[item.__uid]
+      mergedArray.splice(insertIndex, 0, item)
+    }
+  })
+
+  return mergedArray
+}
 
 export default defineComponent({
   name: 'ToolBar',
@@ -12,19 +31,19 @@ export default defineComponent({
   },
   props: {
     formatTableCols: {
-      type: Array,
+      type: Array as PropType<TableCol[]>,
       default: () => [],
     },
     sortTableCols: {
-      type: Array,
+      type: Array as PropType<TableCol[]>,
       default: () => [],
     },
     middleTableCols: {
-      type: Array,
+      type: Array as PropType<TableCol[]>,
       default: () => [],
     },
     originFormatTableCols: {
-      type: Array,
+      type: Array as PropType<TableCol[]>,
       default: () => [],
     },
     size: {
@@ -75,12 +94,14 @@ export default defineComponent({
       emit('size-change', command)
     }
 
-    const handleEnd = () => {
-      handleDataChange(props.sortTableCols as TableCol[], props.middleTableCols as TableCol[])
-    }
+    // const handleEnd = () => {
+    //   console.log(props.sortTableCols, 'props.sortTableCols')
+    //   // handleDataChange(props.sortTableCols as TableCol[], props.middleTableCols as TableCol[])
+    // }
 
     return () => {
       const loading = props.tableProps?.loading
+      const sortTableCols = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide)
       return (
         <div class={ns.b('tool-bar')}>
           <el-tooltip effect="dark" content="刷新" placement="top" showAfter={300}>
@@ -155,12 +176,12 @@ export default defineComponent({
                       onChange={handleCheckedTableColsChange}
                     >
                       <draggable
-                        modelValue={props.sortTableCols}
+                        modelValue={sortTableCols}
                         animation={200}
-                        onEnd={handleEnd}
+                        onEnd={() => handleDataChange(mergeArraysByUID(props.sortTableCols, sortTableCols), props.middleTableCols)}
                         ghostClass='column-popover-checkbox__drag--ghost'
                       >
-                        {props.sortTableCols.map((item: any, index) => {
+                        {sortTableCols.map((item: any, index) => {
                           return (
                             <div key={index} class='column-popover-checkbox'>
                               <el-checkbox label={item.__uid} key={index}>
