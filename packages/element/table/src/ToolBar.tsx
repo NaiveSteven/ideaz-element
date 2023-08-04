@@ -1,5 +1,5 @@
 // import draggable from 'vuedraggable'
-import { DCaret, FullScreen, Operation, Refresh } from '@element-plus/icons'
+import { Back, DCaret, FullScreen, Operation, Refresh, Right } from '@element-plus/icons'
 import { VueDraggable } from 'vue-draggable-plus'
 import { isFunction } from '@ideaz/utils'
 import { useToolBarTableCols } from '../hooks'
@@ -69,7 +69,7 @@ export default defineComponent({
       handleReset,
       handleDataChange,
     } = useToolBarTableCols(props, emit)
-    const ns = useNamespace('table')
+    const ns = useNamespace('table-tool-bar')
 
     const TABLE_SIZE_LIST = [
       {
@@ -103,7 +103,7 @@ export default defineComponent({
       const loading = props.tableProps?.loading
       const sortTableCols = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide)
       return (
-        <div class={ns.b('tool-bar')}>
+        <div class={ns.b('')}>
           <el-tooltip effect="dark" content="刷新" placement="top" showAfter={300}>
             <el-button v-loading={loading} icon={Refresh} text onClick={handleRefresh}></el-button>
           </el-tooltip>
@@ -188,6 +188,14 @@ export default defineComponent({
                                 {item.label || item.type}
                               </el-checkbox>
                               <i class='el-icon-rank' />
+                              <div class={ns.be('setting-item', 'extra')}>
+                                <el-tooltip effect="dark" content="左固定" placement="top" showAfter={300}>
+                                  <el-button icon={Back} text></el-button>
+                                </el-tooltip>
+                                <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
+                                  <el-button icon={Right} text></el-button>
+                                </el-tooltip>
+                              </div>
                             </div>
                           )
                         })}

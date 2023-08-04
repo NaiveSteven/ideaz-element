@@ -1,68 +1,77 @@
 {
-  "hash": "33c96242",
-  "browserHash": "43156912",
+  "hash": "abc54dbe",
+  "browserHash": "10b53fb2",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+vue@3.2.44/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "ff5fe2fc",
+      "fileHash": "cf8dcb6c",
       "needsInterop": false
     },
     "element-plus": {
-      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+element-plus@2.3.5_vue@3.2.44/node_modules/element-plus/es/index.mjs",
+      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+element-plus@2.3.5_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "5087d578",
+      "fileHash": "4ab03faa",
       "needsInterop": false
     },
     "@element-plus/icons": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+@element-plus+icons@0.0.11/node_modules/@element-plus/icons/es/index.js",
       "file": "@element-plus_icons.js",
-      "fileHash": "6032ac2f",
+      "fileHash": "4a8ca0b8",
+      "needsInterop": false
+    },
+    "lodash-unified": {
+      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+lodash-unified@1.0.3_@types+lodash-es@4.17.8_lodash-es@4.17.21_lodash@4.17.21/node_modules/lodash-unified/import.js",
+      "file": "lodash-unified.js",
+      "fileHash": "802ddcfa",
+      "needsInterop": false
+    },
+    "vue-demi": {
+      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+vue-demi@0.14.5_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/vue-demi/lib/index.mjs",
+      "file": "vue-demi.js",
+      "fileHash": "c3c59d31",
       "needsInterop": false
     },
     "lodash-es": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+lodash-es@4.17.21/node_modules/lodash-es/lodash.js",
       "file": "lodash-es.js",
-      "fileHash": "0555bb65",
-      "needsInterop": false
-    },
-    "vue-demi": {
-      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+vue-demi@0.14.5_vue@3.2.44/node_modules/vue-demi/lib/index.mjs",
-      "file": "vue-demi.js",
-      "fileHash": "bc045dc3",
+      "fileHash": "4217aca4",
       "needsInterop": false
     },
     "@vueuse/core": {
-      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+@vueuse+core@10.1.2_vue@3.2.44/node_modules/@vueuse/core/index.mjs",
+      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+@vueuse+core@10.3.0_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/@vueuse/core/index.mjs",
       "file": "@vueuse_core.js",
-      "fileHash": "2d617cc5",
+      "fileHash": "5cd0bf00",
       "needsInterop": false
     },
-    "lodash-unified": {
-      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+lodash-unified@1.0.3_@types+lodash-es@4.17.7_lodash-es@4.17.21/node_modules/lodash-unified/import.js",
-      "file": "lodash-unified.js",
-      "fileHash": "1cc4ebb4",
+    "vue-draggable-plus": {
+      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+vue-draggable-plus@0.2.4_@types+sortablejs@1.15.1_@vue+composition-api@1.0.0/node_modules/vue-draggable-plus/dist/vue-draggable-plus.js",
+      "file": "vue-draggable-plus.js",
+      "fileHash": "524a04d6",
       "needsInterop": false
     },
     "element-resize-detector": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+element-resize-detector@1.2.4/node_modules/element-resize-detector/src/element-resize-detector.js",
       "file": "element-resize-detector.js",
-      "fileHash": "6bc91cdf",
+      "fileHash": "ee3787c8",
       "needsInterop": true
     }
   },
   "chunks": {
-    "chunk-DMZCDE3F": {
-      "file": "chunk-DMZCDE3F.js"
+    "chunk-YUUNX4AB": {
+      "file": "chunk-YUUNX4AB.js"
     },
-    "chunk-ZOCGWABZ": {
-      "file": "chunk-ZOCGWABZ.js"
+    "chunk-6QBOWGRM": {
+      "file": "chunk-6QBOWGRM.js"
     },
-    "chunk-QQTU7X7S": {
-      "file": "chunk-QQTU7X7S.js"
+    "chunk-YG5YS44E": {
+      "file": "chunk-YG5YS44E.js"
     },
-    "chunk-4EOJPDL2": {
-      "file": "chunk-4EOJPDL2.js"
+    "chunk-OH3DV4HH": {
+      "file": "chunk-OH3DV4HH.js"
+    },
+    "chunk-5WWUZCGV": {
+      "file": "chunk-5WWUZCGV.js"
     }
   }
 }

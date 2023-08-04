@@ -21,7 +21,6 @@
       align-items: center;
       line-height: 0;
 
-
       .el-button {
         padding: 8px 12px;
 
@@ -181,6 +180,23 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 4px;
+
+        .z-table-tool-bar-setting-item__extra {
+          display: flex;
+
+          .el-button+.el-button {
+            margin-left: 0;
+          }
+
+          .el-button {
+            padding: 4px;
+            height: auto;
+
+            &:focus {
+              background-color: transparent;
+            }
+          }
+        }
 
         .el-icon-rank {
           font-size: 14px;

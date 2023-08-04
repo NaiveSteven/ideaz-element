@@ -1,4 +1,4 @@
-// node_modules/.pnpm/registry.npmmirror.com+vue-demi@0.14.5_vue@3.2.44/node_modules/vue-demi/lib/index.mjs
+// node_modules/.pnpm/registry.npmmirror.com+vue-demi@0.14.5_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/vue-demi/lib/index.mjs
 var isVue2 = false;
 var isVue3 = true;
 var Vue2 = void 0;
@@ -29,4 +29,4 @@ export {
   set,
   del
 };
-//# sourceMappingURL=chunk-DMZCDE3F.js.map
+//# sourceMappingURL=chunk-YG5YS44E.js.map
