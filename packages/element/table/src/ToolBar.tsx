@@ -1,5 +1,6 @@
 // import draggable from 'vuedraggable'
 import { DCaret, FullScreen, Operation, Refresh } from '@element-plus/icons'
+import { VueDraggable } from 'vue-draggable-plus'
 import { useToolBarTableCols } from '../hooks'
 import type { ITableProps } from './props'
 import type { TableCol } from '~/types'
@@ -7,7 +8,7 @@ import type { TableCol } from '~/types'
 export default defineComponent({
   name: 'ToolBar',
   components: {
-    // Draggable: draggable,
+    Draggable: VueDraggable,
   },
   props: {
     formatTableCols: {
@@ -153,29 +154,23 @@ export default defineComponent({
                       size="small"
                       onChange={handleCheckedTableColsChange}
                     >
-                      {/* <draggable
-                        list={props.sortTableCols}
-                        sort={true}
+                      <draggable
+                        modelValue={props.sortTableCols}
                         animation={200}
-                        filter=".not-drag"
-                        ghost-class="column-popover-checkbox__drag--ghost"
-                        item-key="key"
                         onEnd={handleEnd}
-                        v-slots={{
-                          item: ({ element, index }: { element: TableCol; index: number }) => {
-                            return (
-                              <div key={index} class="column-popover-checkbox">
-                                <el-checkbox label={element.__uid} key={index}>
-                                  {element.label || element.type}
-                                </el-checkbox>
-                                <el-icon class="el-icon-rank">
-                                  <i-rank />
-                                </el-icon>
-                              </div>
-                            )
-                          },
-                        }}
-                      /> */}
+                        ghostClass='column-popover-checkbox__drag--ghost'
+                      >
+                        {props.sortTableCols.map((item: any, index) => {
+                          return (
+                            <div key={index} class='column-popover-checkbox'>
+                              <el-checkbox label={item.__uid} key={index}>
+                                {item.label || item.type}
+                              </el-checkbox>
+                              <i class='el-icon-rank' />
+                            </div>
+                          )
+                        })}
+                      </draggable>
                     </el-checkbox-group>
                   </div>
                 </div>

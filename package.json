@@ -20,11 +20,14 @@
     "@vueuse/core": "latest",
     "lodash-es": "latest",
     "lodash-unified": "latest",
+    "sortablejs": "^1.15.0",
     "vue-demi": "latest",
+    "vue-draggable-plus": "^0.2.4",
     "vue-global-config": "latest"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^0.37.0",
+    "@element-plus/icons": "latest",
     "@iconify-json/carbon": "^1.1.16",
     "@ideaz/directives": "workspace:*",
     "@ideaz/element": "workspace:*",
@@ -38,8 +41,12 @@
     "@unocss/reset": "^0.50.6",
     "@unocss/transformer-directives": "^0.50.6",
     "@unocss/transformer-variant-group": "^0.50.6",
+    "@vitejs/plugin-vue": "latest",
+    "@vitejs/plugin-vue-jsx": "latest",
+    "@vue/compiler-sfc": "latest",
     "@vue/test-utils": "latest",
     "case-police": "latest",
+    "element-plus": "latest",
     "element-resize-detector": "latest",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.8.0",
@@ -69,12 +76,7 @@
     "vitest": "latest",
     "vue": "3.2.44",
     "vue-router": "latest",
-    "vue-tsc": "^1.2.0",
-    "@vitejs/plugin-vue": "latest",
-    "@vue/compiler-sfc": "latest",
-    "element-plus": "latest",
-    "@element-plus/icons": "latest",
-    "@vitejs/plugin-vue-jsx": "latest"
+    "vue-tsc": "^1.2.0"
   },
   "peerDependencies": {
     "@vue/composition-api": ">=1",
