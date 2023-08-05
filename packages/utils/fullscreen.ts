@@ -25,7 +25,7 @@ export function isUndefined(val: unknown): val is undefined {
 }
 
 /**
- * @description 判断浏览器当前状态是否允许进入全屏
+ * @description Determine whether the current state of the browser allows full screen access
  */
 export function isFullscreenEnabled(): boolean {
   return !!(
@@ -37,7 +37,7 @@ export function isFullscreenEnabled(): boolean {
 }
 
 /**
- * @description 获取全屏元素
+ * @description Get Full Screen Elements
  */
 export function getFullscreenElement(): Element | null {
   const doc: EnhancedDocument = document
@@ -45,7 +45,7 @@ export function getFullscreenElement(): Element | null {
 }
 
 /**
- * @description 判断当前是否是全屏状态
+ * @description Determine whether the current state is full screen
  */
 export function isFullscreen(): boolean {
   return !!getFullscreenElement() || window.innerHeight === window.screen.height
@@ -82,11 +82,12 @@ export async function exitFullscreen() {
 }
 
 /**
- * 进入全屏
+ * Enter full screen
  * https://developer.mozilla.org/zh-CN/docs/Web/API/Element/requestFullScreen
- * 存在 top-layer 叠加问题，如果要规避叠加顺序带来的问题，需要手动判断全屏状态，如果当前已经是全屏状态，可以先退出全屏，再让目标元素进入全屏
- * @param {EnhancedHTMLElement} [element=document.body] - 全屏目标元素，默认是 body
- * @param {FullscreenOptions} options - 全屏选项
+ * There is a problem with top layer stacking. If you want to avoid the problem caused by stacking order,
+ * you need to manually determine the full screen status. If the current state is already full screen, you can exit full screen first and then let the target element enter full screen
+ * @param {EnhancedHTMLElement} [element=document.body] - Full screen target element, default to body
+ * @param {FullscreenOptions} options - Full screen options
  */
 export async function enterFullscreen(element: EnhancedHTMLElement = document.body, options?: FullscreenOptions) {
   try {
@@ -111,9 +112,9 @@ export async function enterFullscreen(element: EnhancedHTMLElement = document.bo
 }
 
 /**
- * @description 监听全屏变化事件
- * @param {Function} callback 回调函数
- * @param {boolean|AddEventListenerOptions} options 监听事件选项
+ * @description Monitor full screen change events
+ * @param {Function} callback
+ * @param {boolean|AddEventListenerOptions} options Listening Event Options
  */
 export function listenFullscreen(callback: EventListener, options?: boolean | AddEventListenerOptions): void {
   const doc: EnhancedDocument = document
@@ -134,9 +135,9 @@ export function listenFullscreen(callback: EventListener, options?: boolean | Ad
 }
 
 /**
- * @description 移除监听全屏变化事件
- * @param {Function} callback 回调函数
- * @param {boolean|EventListenerOptions} options 监听事件选项
+ * @description Remove monitoring for full screen change events
+ * @param {Function} callback
+ * @param {boolean|EventListenerOptions} options Listening Event Options
  */
 export function unlistenFullscreen(callback: EventListener, options?: boolean | EventListenerOptions): void {
   const doc: EnhancedDocument = document
@@ -157,8 +158,8 @@ export function unlistenFullscreen(callback: EventListener, options?: boolean | 
 }
 
 /**
- * 阻止F11按键的默认行为，并根据当前的全屏状态调用进入/退出全屏，
- * 解决通过F11按键和API两种方式进入全屏时出现的状态不一致问题。
+ * Block the default behavior of the F11 button and call enter/exit full screen based on the current full screen state,
+ * Resolve the issue of inconsistent status when entering full screen through both F11 button and API methods.
  */
 export function patchF11DefaultAction(): void {
   window.addEventListener('keydown', (e) => {

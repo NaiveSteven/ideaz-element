@@ -1,31 +1,49 @@
 // import draggable from 'vuedraggable'
-import { DCaret, Operation, Refresh } from '@element-plus/icons'
+import { Back, DCaret, FullScreen, Operation, Refresh, Right } from '@element-plus/icons'
+import { VueDraggable } from 'vue-draggable-plus'
+import { isFunction } from '@ideaz/utils'
 import { useToolBarTableCols } from '../hooks'
-import ZFullScreen from './FullScreen'
 import type { ITableProps } from './props'
 import type { TableCol } from '~/types'
+
+const mergeArraysByUID = (arr1: TableCol[], arr2: TableCol[]) => {
+  const uidMap: any = {}
+  const mergedArray = [...arr2]
+
+  arr1.forEach((item: TableCol, index: number) => {
+    uidMap[item.__uid] = index
+  })
+
+  arr1.forEach((item: TableCol) => {
+    if (!mergedArray.some(mergedItem => mergedItem.__uid === item.__uid)) {
+      const insertIndex = uidMap[item.__uid]
+      mergedArray.splice(insertIndex, 0, item)
+    }
+  })
+
+  return mergedArray
+}
 
 export default defineComponent({
   name: 'ToolBar',
   components: {
-    ZFullScreen,
-    // Draggable: draggable,
+    Draggable: VueDraggable,
   },
   props: {
     formatTableCols: {
-      type: Array,
+      type: Array as PropType<TableCol[]>,
       default: () => [],
     },
     sortTableCols: {
-      type: Array,
+      type: Array as PropType<TableCol[]>,
       default: () => [],
     },
     middleTableCols: {
-      type: Array,
+      type: Array as PropType<TableCol[]>,
       default: () => [],
     },
     originFormatTableCols: {
-      type: Array,
+      type: Array as PropType<TableCol[]>,
       default: () => [],
     },
     size: {
@@ -51,7 +69,7 @@ export default defineComponent({
       handleReset,
       handleDataChange,
     } = useToolBarTableCols(props, emit)
-    const ns = useNamespace('table')
+    const ns = useNamespace('table-tool-bar')
 
     const TABLE_SIZE_LIST = [
       {
@@ -76,14 +94,16 @@ export default defineComponent({
       emit('size-change', command)
     }
 
-    const handleEnd = () => {
-      handleDataChange(props.sortTableCols as TableCol[], props.middleTableCols as TableCol[])
-    }
+    // const handleEnd = () => {
+    //   console.log(props.sortTableCols, 'props.sortTableCols')
+    //   // handleDataChange(props.sortTableCols as TableCol[], props.middleTableCols as TableCol[])
+    // }
 
     return () => {
       const loading = props.tableProps?.loading
+      const sortTableCols = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide)
       return (
-        <div class={ns.b('tool-bar')}>
+        <div class={ns.b('')}>
           <el-tooltip effect="dark" content="刷新" placement="top" showAfter={300}>
             <el-button v-loading={loading} icon={Refresh} text onClick={handleRefresh}></el-button>
           </el-tooltip>
@@ -113,7 +133,9 @@ export default defineComponent({
             </el-dropdown>
           </el-tooltip>
           <el-tooltip effect="dark" content="全屏" placement="top" showAfter={300}>
-            <ZFullScreen getElement={() => document.getElementsByClassName('z-table__container')[0]} useText={false}></ZFullScreen>
+            <z-full-screen getElement={() => document.getElementsByClassName('z-table__container')[0]} teleported={true}>
+              <el-button icon={FullScreen} text />
+            </z-full-screen>
           </el-tooltip>
           <el-tooltip effect="dark" content="列设置" placement="top" showAfter={300}>
             <div>
@@ -153,29 +175,31 @@ export default defineComponent({
                       size="small"
                       onChange={handleCheckedTableColsChange}
                     >
-                      {/* <draggable
-                        list={props.sortTableCols}
-                        sort={true}
+                      <draggable
+                        modelValue={sortTableCols}
                         animation={200}
-                        filter=".not-drag"
-                        ghost-class="column-popover-checkbox__drag--ghost"
-                        item-key="key"
-                        onEnd={handleEnd}
-                        v-slots={{
-                          item: ({ element, index }: { element: TableCol; index: number }) => {
-                            return (
-                              <div key={index} class="column-popover-checkbox">
-                                <el-checkbox label={element.__uid} key={index}>
-                                  {element.label || element.type}
-                                </el-checkbox>
-                                <el-icon class="el-icon-rank">
-                                  <i-rank />
-                                </el-icon>
+                        onEnd={() => handleDataChange(mergeArraysByUID(props.sortTableCols, sortTableCols), props.middleTableCols)}
+                        ghostClass='column-popover-checkbox__drag--ghost'
+                      >
+                        {sortTableCols.map((item: any, index) => {
+                          return (
+                            <div key={index} class='column-popover-checkbox'>
+                              <el-checkbox label={item.__uid} key={index}>
+                                {item.label || item.type}
+                              </el-checkbox>
+                              <i class='el-icon-rank' />
+                              <div class={ns.be('setting-item', 'extra')}>
+                                <el-tooltip effect="dark" content="左固定" placement="top" showAfter={300}>
+                                  <el-button icon={Back} text></el-button>
+                                </el-tooltip>
+                                <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
+                                  <el-button icon={Right} text></el-button>
+                                </el-tooltip>
                               </div>
-                            )
-                          },
-                        }}
-                      /> */}
+                            </div>
+                          )
+                        })}
+                      </draggable>
                     </el-checkbox-group>
                   </div>
                 </div>

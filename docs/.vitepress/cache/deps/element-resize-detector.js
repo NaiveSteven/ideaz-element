@@ -1,6 +1,6 @@
 import {
   __commonJS
-} from "./chunk-4EOJPDL2.js";
+} from "./chunk-5WWUZCGV.js";
 
 // node_modules/.pnpm/registry.npmmirror.com+element-resize-detector@1.2.4/node_modules/element-resize-detector/src/collection-utils.js
 var require_collection_utils = __commonJS({

@@ -1,6 +1,7 @@
 .z-table__container {
   background-color: #fff;
 
+
   .z-table__pagination {
     justify-content: flex-end;
     margin-top: 16px;
@@ -18,7 +19,6 @@
     .z-table-tool-bar {
       display: flex;
       align-items: center;
-      min-width: 78px;
       line-height: 0;
 
       .el-button {
@@ -92,7 +92,6 @@
       padding: 18px 0;
     }
   }
-
 
   .z-table-column-form-item {
     margin-bottom: 0;
@@ -182,6 +181,23 @@
         align-items: center;
         margin-bottom: 4px;
 
+        .z-table-tool-bar-setting-item__extra {
+          display: flex;
+
+          .el-button+.el-button {
+            margin-left: 0;
+          }
+
+          .el-button {
+            padding: 4px;
+            height: auto;
+
+            &:focus {
+              background-color: transparent;
+            }
+          }
+        }
+
         .el-icon-rank {
           font-size: 14px;
           color: rgba(0, 0, 0, 0.88);
@@ -221,4 +237,13 @@
 
 .column-popover__container {
   box-sizing: border-box;
+}
+
+.z-full-screen-class {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
 }

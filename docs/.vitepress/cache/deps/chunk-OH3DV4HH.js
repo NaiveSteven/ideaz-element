@@ -1,6 +1,6 @@
 import {
   __export
-} from "./chunk-4EOJPDL2.js";
+} from "./chunk-5WWUZCGV.js";
 
 // node_modules/.pnpm/registry.npmmirror.com+vue@3.2.44/node_modules/vue/dist/vue.runtime.esm-bundler.js
 var vue_runtime_esm_bundler_exports = {};
@@ -8356,7 +8356,7 @@ var defineSSRCustomElement = (options) => {
 };
 var BaseClass = typeof HTMLElement !== "undefined" ? HTMLElement : class {
 };
-var VueElement = class extends BaseClass {
+var VueElement = class _VueElement extends BaseClass {
   constructor(_def, _props = {}, hydrate2) {
     super();
     this._def = _def;
@@ -8508,7 +8508,7 @@ var VueElement = class extends BaseClass {
         };
         let parent = this;
         while (parent = parent && (parent.parentNode || parent.host)) {
-          if (parent instanceof VueElement) {
+          if (parent instanceof _VueElement) {
             instance.parent = parent._instance;
             break;
           }
@@ -9575,4 +9575,4 @@ export {
   compile2 as compile,
   vue_runtime_esm_bundler_exports
 };
-//# sourceMappingURL=chunk-ZOCGWABZ.js.map
+//# sourceMappingURL=chunk-OH3DV4HH.js.map
