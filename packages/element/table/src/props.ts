@@ -162,5 +162,36 @@ export const radioColumnProps = {
   },
 }
 
+export const toolBarProps = {
+  formatTableCols: {
+    type: Array as PropType<TableCol[]>,
+    default: () => [],
+  },
+  sortTableCols: {
+    type: Array as PropType<TableCol[]>,
+    default: () => [],
+  },
+  middleTableCols: {
+    type: Array as PropType<TableCol[]>,
+    default: () => [],
+  },
+  originFormatTableCols: {
+    type: Array as PropType<TableCol[]>,
+    default: () => [],
+  },
+  size: {
+    type: String,
+    default: 'small',
+  },
+  toolBar: {
+    type: [Boolean, Object],
+    default: undefined,
+  },
+  tableProps: {
+    type: Object as PropType<ITableProps>,
+  },
+}
+
 export type ITableProps = ExtractPropTypes<typeof tableProps>
 export type TableColumnProps = ExtractPropTypes<typeof tableColumnProps>
+export type ToolBarProps = ExtractPropTypes<typeof toolBarProps>

@@ -1,9 +1,9 @@
 // import draggable from 'vuedraggable'
-import { Back, DCaret, FullScreen, Operation, Refresh, Right } from '@element-plus/icons'
+import { Back, DCaret, FullScreen, Operation, Refresh, Right, VideoPause } from '@element-plus/icons'
 import { VueDraggable } from 'vue-draggable-plus'
 import { isFunction } from '@ideaz/utils'
-import { useToolBarTableCols } from '../hooks'
-import type { ITableProps } from './props'
+import { useFixedTableCols, useToolBarTableCols } from '../hooks'
+import { toolBarProps } from './props'
 import type { TableCol } from '~/types'
 
 const mergeArraysByUID = (arr1: TableCol[], arr2: TableCol[]) => {
@@ -29,47 +29,52 @@ export default defineComponent({
   components: {
     Draggable: VueDraggable,
   },
-  props: {
-    formatTableCols: {
-      type: Array as PropType<TableCol[]>,
-      default: () => [],
-    },
-    sortTableCols: {
-      type: Array as PropType<TableCol[]>,
-      default: () => [],
-    },
-    middleTableCols: {
-      type: Array as PropType<TableCol[]>,
-      default: () => [],
-    },
-    originFormatTableCols: {
-      type: Array as PropType<TableCol[]>,
-      default: () => [],
-    },
-    size: {
-      type: String,
-      default: 'small',
-    },
-    toolBar: {
-      type: [Boolean, Object],
-      default: undefined,
-    },
-    tableProps: {
-      type: Object as PropType<ITableProps>,
-    },
-  },
+  props: toolBarProps,
   emits: ['columns-change', 'size-change', 'refresh', 'table-cols-change'],
   setup(props, { emit }) {
     const {
-      checkAll,
-      isIndeterminate,
       checkedTableCols,
       handleCheckAllChange,
       handleCheckedTableColsChange,
       handleReset,
       handleDataChange,
     } = useToolBarTableCols(props, emit)
+    const {
+      handleTableColFixed,
+      leftFixedTableCols,
+      rightFixedTableCols,
+      leftCheckedTableColsUids,
+      rightCheckedTableColsUids,
+      handleResetFixedTableCols,
+      handleFixedCheckedTableColsChange,
+    } = useFixedTableCols(props, emit)
     const ns = useNamespace('table-tool-bar')
+
+    const isIndeterminate = ref(getIsIndeterminate(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value))
+    const checkAll = ref(getIsCheckAll(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value))
+
+    function getIsCheckAll(leftChecked: string[], centerChecked: string[], rightChecked: string[]) {
+      const leftFixedTableColsUids = leftFixedTableCols.value.map(item => item.__uid)
+      const centerTableColsUids = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide).map(item => item.__uid)
+      const rightFixedTableColsUids = rightFixedTableCols.value.map(item => item.__uid)
+      return (leftFixedTableColsUids.every(item => leftChecked.includes(item)))
+      && (centerTableColsUids.every(item => centerChecked.includes(item)))
+      && (rightFixedTableColsUids.every(item => rightChecked.includes(item)))
+    }
+
+    function getIsIndeterminate(leftChecked: string[], centerChecked: string[], rightChecked: string[]) {
+      const leftIndeterminate = leftFixedTableCols.value.map(item => item.__uid).some(__uid => leftChecked.includes(__uid))
+      const centerIndeterminate = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide).map(item => item.__uid).some(__uid => centerChecked.includes(__uid))
+      const rightIndeterminate = rightFixedTableCols.value.map(item => item.__uid).some(__uid => rightChecked.includes(__uid))
+      return (leftIndeterminate || centerIndeterminate || rightIndeterminate)
+      && !getIsCheckAll(leftChecked, centerChecked, rightChecked)
+      && Boolean(leftChecked.length || centerChecked.length || rightChecked.length)
+    }
+
+    watchEffect(() => {
+      isIndeterminate.value = getIsIndeterminate(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value)
+      checkAll.value = getIsCheckAll(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value)
+    })
 
     const TABLE_SIZE_LIST = [
       {
@@ -94,10 +99,10 @@ export default defineComponent({
       emit('size-change', command)
     }
 
-    // const handleEnd = () => {
-    //   console.log(props.sortTableCols, 'props.sortTableCols')
-    //   // handleDataChange(props.sortTableCols as TableCol[], props.middleTableCols as TableCol[])
-    // }
+    const resetAll = () => {
+      handleReset()
+      handleResetFixedTableCols()
+    }
 
     return () => {
       const loading = props.tableProps?.loading
@@ -141,7 +146,7 @@ export default defineComponent({
             <div>
               <el-popover
                 placement="bottom"
-                width="150"
+                width="200"
                 trigger="click"
                 v-slots={{
                   reference: () => (
@@ -162,11 +167,50 @@ export default defineComponent({
                     >
                       列展示
                     </el-checkbox>
-                    <a onClick={handleReset} class="column-popover__reset">
+                    <a onClick={resetAll} class="column-popover__reset">
                       重置
                     </a>
                   </div>
                   <div class="column-popover__content">
+                    <el-divider>
+                      左固定
+                    </el-divider>
+                    <el-checkbox-group
+                      modelValue={leftCheckedTableColsUids.value}
+                      onUpdate:modelValue={(val: any) => {
+                        leftCheckedTableColsUids.value = val
+                      }}
+                      size="small"
+                      onChange={() => handleFixedCheckedTableColsChange('left')}
+                    >
+                      <draggable
+                        modelValue={leftFixedTableCols.value}
+                        animation={200}
+                        ghostClass='column-popover-checkbox__drag--ghost'
+                      >
+                        {leftFixedTableCols.value.map((item: any, index) => {
+                          return (
+                            <div key={index} class='column-popover-checkbox'>
+                              <el-checkbox label={item.__uid} key={index}>
+                                {item.label || item.type}
+                              </el-checkbox>
+                              <i class='el-icon-rank' />
+                              <div class={ns.be('setting-item', 'extra')}>
+                                <el-tooltip effect="dark" content="取消固定" placement="top" showAfter={300}>
+                                  <el-button icon={VideoPause} text onClick={() => handleTableColFixed(item, false)}></el-button>
+                                </el-tooltip>
+                                <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
+                                  <el-button icon={Right} text></el-button>
+                                </el-tooltip>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </draggable>
+                    </el-checkbox-group>
+                    <el-divider>
+                      不固定
+                    </el-divider>
                     <el-checkbox-group
                       modelValue={checkedTableCols.value}
                       onUpdate:modelValue={(val: any) => {
@@ -190,10 +234,10 @@ export default defineComponent({
                               <i class='el-icon-rank' />
                               <div class={ns.be('setting-item', 'extra')}>
                                 <el-tooltip effect="dark" content="左固定" placement="top" showAfter={300}>
-                                  <el-button icon={Back} text></el-button>
+                                  <el-button icon={Back} text onClick={() => handleTableColFixed(item, 'left')}></el-button>
                                 </el-tooltip>
                                 <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
-                                  <el-button icon={Right} text></el-button>
+                                  <el-button icon={Right} text onClick={() => handleTableColFixed(item, 'right')}></el-button>
                                 </el-tooltip>
                               </div>
                             </div>
