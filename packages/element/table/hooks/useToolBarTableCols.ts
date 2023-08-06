@@ -36,40 +36,6 @@ export const useToolBarTableCols = (props: any, emit: any) => {
       .map(item => item.__uid)
   }
 
-  const handleChangeTableCols = (values: string[]) => {
-    const data: TableCol[] = []
-    if (values && values.length > 0) {
-      const otherData = props.originFormatTableCols.filter(
-        (item: TableCol) =>
-          !props.sortTableCols.map((cur: TableCol) => cur.__uid).includes(item.__uid),
-      )
-
-      props.sortTableCols.forEach((tableCol: TableCol) => {
-        values.forEach((value) => {
-          if (value === tableCol.__uid)
-            data.push(tableCol)
-        })
-      })
-      otherData.forEach((item: TableCol) => {
-        const i = props.originFormatTableCols.findIndex(
-          (tableCol: TableCol) => item.__uid === tableCol.__uid,
-        )
-        if (i > -1)
-          data.splice(i, 0, item)
-      })
-    }
-    emit('columns-change', data)
-  }
-
-  const handleCheckAllChange = (val: string[]) => {
-    checkedTableCols.value = val ? props.sortTableCols.map((item: TableCol) => item.__uid) : []
-    handleChangeTableCols(val ? props.sortTableCols.map((item: TableCol) => item.__uid) : [])
-  }
-
-  const handleCheckedTableColsChange = (val: string[]) => {
-    handleChangeTableCols(val)
-  }
-
   const handleDataChange = (val: TableCol[], tableCols: TableCol[]) => {
     const data: TableCol[] = []
     const otherData = tableCols.filter(
@@ -102,8 +68,6 @@ export const useToolBarTableCols = (props: any, emit: any) => {
 
   return {
     checkedTableCols,
-    handleCheckAllChange,
-    handleCheckedTableColsChange,
     handleReset,
     handleDataChange,
   }

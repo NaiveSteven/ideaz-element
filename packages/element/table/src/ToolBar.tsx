@@ -34,8 +34,6 @@ export default defineComponent({
   setup(props, { emit }) {
     const {
       checkedTableCols,
-      handleCheckAllChange,
-      handleCheckedTableColsChange,
       handleReset,
       handleDataChange,
     } = useToolBarTableCols(props, emit)
@@ -47,7 +45,9 @@ export default defineComponent({
       rightCheckedTableColsUids,
       handleResetFixedTableCols,
       handleFixedCheckedTableColsChange,
-    } = useFixedTableCols(props, emit)
+      handleSortTableCols,
+      handleLeftFixedDragChange,
+    } = useFixedTableCols(props, emit, checkedTableCols)
     const ns = useNamespace('table-tool-bar')
 
     const isIndeterminate = ref(getIsIndeterminate(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value))
@@ -75,6 +75,46 @@ export default defineComponent({
       isIndeterminate.value = getIsIndeterminate(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value)
       checkAll.value = getIsCheckAll(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value)
     })
+
+    // center checked table cols
+    const handleChangeTableCols = (values: string[]) => {
+      const data: TableCol[] = []
+      if (values && values.length > 0) {
+        const otherData = props.originFormatTableCols.filter(
+          (item: TableCol) =>
+            !props.sortTableCols.map((cur: TableCol) => cur.__uid).includes(item.__uid),
+        )
+
+        props.sortTableCols.forEach((tableCol: TableCol) => {
+          values.forEach((value) => {
+            if (value === tableCol.__uid)
+              data.push(tableCol)
+          })
+        })
+        // need check is fixed
+        otherData.forEach((item: TableCol) => {
+          const column: TableCol = {
+            ...item,
+            fixed: leftCheckedTableColsUids.value.includes(item.__uid) ? 'left' : rightCheckedTableColsUids.value.includes(item.__uid) ? 'right' : undefined,
+          }
+          const i = props.originFormatTableCols.findIndex(
+            (tableCol: TableCol) => column.__uid === tableCol.__uid,
+          )
+          if (i > -1)
+            data.splice(i, 0, column)
+        })
+      }
+      emit('columns-change', data)
+    }
+
+    const handleCheckAllChange = (val: string[]) => {
+      checkedTableCols.value = val ? props.sortTableCols.map((item: TableCol) => item.__uid) : []
+      handleChangeTableCols(val ? props.sortTableCols.map((item: TableCol) => item.__uid) : [])
+    }
+
+    const handleCheckedTableColsChange = (val: string[]) => {
+      handleChangeTableCols(val)
+    }
 
     const TABLE_SIZE_LIST = [
       {
@@ -181,12 +221,16 @@ export default defineComponent({
                         leftCheckedTableColsUids.value = val
                       }}
                       size="small"
-                      onChange={() => handleFixedCheckedTableColsChange('left')}
+                      onChange={(val: string[]) => handleFixedCheckedTableColsChange('left', val)}
                     >
                       <draggable
                         modelValue={leftFixedTableCols.value}
                         animation={200}
                         ghostClass='column-popover-checkbox__drag--ghost'
+                        onChange={() => handleLeftFixedDragChange()}
+                        onEnd={(dragData: any) => {
+                          handleSortTableCols(dragData, 'left')
+                        }}
                       >
                         {leftFixedTableCols.value.map((item: any, index) => {
                           return (
