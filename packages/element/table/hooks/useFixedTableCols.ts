@@ -127,7 +127,7 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
 
   function getOriginSortTableColsWithoutFixed(tableCol: TableCol) {
     const fixedUids = leftCheckedTableColsUids.value.concat(rightCheckedTableColsUids.value).filter(uid => uid !== tableCol.__uid)
-    return originSortTableCols.value.filter(item => !fixedUids.includes(item.__uid))
+    return props.originFormatTableCols.filter(item => !fixedUids.includes(item.__uid))
   }
 
   return {
