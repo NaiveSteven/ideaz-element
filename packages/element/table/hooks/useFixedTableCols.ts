@@ -1,6 +1,6 @@
-import { isArray, isObject, isString } from '@ideaz/utils'
+import { isArray, isObject } from '@ideaz/utils'
 import type { ToolBarProps } from '../src/props'
-import { getIsReturnToolBar } from '../utils'
+import { getCheckData, getIsReturnToolBar } from '../utils'
 import type { TableCol } from '~/types'
 
 export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedTableCols: Ref<string[]>) => {
@@ -69,8 +69,19 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
   }
 
   const handleResetFixedTableCols = () => {
-    leftFixedTableCols.value = originSortTableCols.value.filter((tableCol: TableCol) => tableCol.fixed === 'left')
-    rightFixedTableCols.value = originSortTableCols.value.filter((tableCol: TableCol) => tableCol.fixed === 'right')
+    const tableCols = props.originFormatTableCols.filter((item) => {
+      if (isObject(props.toolBar)) {
+        return isArray(props.toolBar.exclude)
+          ? !props.toolBar.exclude.includes(item.label)
+          : true
+      }
+      return true
+    })
+
+    leftFixedTableCols.value = props.originFormatTableCols.filter((tableCol: TableCol) => tableCol.fixed === 'left')
+    rightFixedTableCols.value = props.originFormatTableCols.filter((tableCol: TableCol) => tableCol.fixed === 'right')
+    leftCheckedTableColsUids.value = tableCols.filter((tableCol: TableCol) => tableCol.fixed === 'left').map(item => item.__uid)
+    rightCheckedTableColsUids.value = tableCols.filter((tableCol: TableCol) => tableCol.fixed === 'right').map(item => item.__uid)
   }
 
   const handleFixedCheckedTableColsChange = (direction: 'left' | 'right', checkedData: string[]) => {
@@ -111,18 +122,7 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
   // get origin formatTableCols to reset fixed table column
   function getOriginFormatTableColsWithoutFixed(tableCol: TableCol) {
     const fixedUids = leftCheckedTableColsUids.value.concat(rightCheckedTableColsUids.value).filter(uid => uid !== tableCol.__uid)
-    return props.originFormatTableCols.filter((item: TableCol) => {
-      let isUncheck = false
-      const toolBar = props.toolBar
-      if (isObject(toolBar)) {
-        if (isString(toolBar.uncheck))
-          isUncheck = item.label === item.toolBar.uncheck
-
-        if (isArray(toolBar.uncheck))
-          isUncheck = toolBar.uncheck.includes(item.label)
-      }
-      return !isUncheck && !fixedUids.includes(item.__uid)
-    })
+    return getCheckData(props.toolBar, props.originFormatTableCols).filter(item => !fixedUids.includes(item.__uid))
   }
 
   function getOriginSortTableColsWithoutFixed(tableCol: TableCol) {

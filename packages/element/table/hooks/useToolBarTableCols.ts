@@ -1,5 +1,4 @@
-import { isArray, isObject, isString } from '@ideaz/utils'
-import { getIsReturnToolBar } from '../utils'
+import { getCheckData, getIsReturnToolBar } from '../utils'
 import type { TableCol } from '~/types'
 
 export const useToolBarTableCols = (props: any, emit: any) => {
@@ -17,22 +16,8 @@ export const useToolBarTableCols = (props: any, emit: any) => {
     { deep: true },
   )
 
-  function getCheckData(data: TableCol[]) {
-    return data
-      .filter((item) => {
-        if (isObject(props.toolBar)) {
-          if (isString(props.toolBar.uncheck))
-            return item.label !== props.toolBar.uncheck
-
-          if (isArray(props.toolBar.uncheck))
-            return !props.toolBar.uncheck.includes(item.label)
-        }
-        return true
-      })
-  }
-
   function getOriginCheckedTableCols(data: TableCol[]) {
-    return getCheckData(data)
+    return getCheckData(props.toolBar, data)
       .map(item => item.__uid)
   }
 
@@ -63,7 +48,7 @@ export const useToolBarTableCols = (props: any, emit: any) => {
     )
     checkedTableCols.value = getOriginCheckedTableCols(filterToolBarData)
     emit('table-cols-change', filterToolBarData)
-    emit('columns-change', getCheckData(props.originFormatTableCols))
+    emit('columns-change', getCheckData(props.toolBar, props.originFormatTableCols))
   }
 
   return {
