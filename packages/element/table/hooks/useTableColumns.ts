@@ -3,7 +3,6 @@ import type { Ref } from 'vue'
 import { getIsReturnToolBar } from '../utils'
 import type { ITableProps } from '../src/props'
 import { useEditableColumns } from './useEditableColumns'
-
 import type { TableCol } from '~/types'
 
 export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<any>) => {

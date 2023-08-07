@@ -59,7 +59,39 @@ const columns = [
       return h('span', {}, scoped.$index)
     },
     prop: 'date',
-    label: '日期',
+    label: '日期234',
+  },
+  {
+    prop: 'daate2',
+    label: '日期34',
+  },
+  {
+    prop: 'daateq',
+    label: '日期345',
+  },
+  {
+    prop: 'daatew',
+    label: '日期1',
+  },
+  {
+    prop: 'daatee',
+    label: '日期2',
+  },
+  {
+    prop: 'daates',
+    label: '日期3',
+  },
+  {
+    prop: 'daated',
+    label: '日期4',
+  },
+  {
+    prop: 'daatex',
+    label: '日期5',
+  },
+  {
+    prop: 'daatextre',
+    label: '日期5ert',
   },
   {
     type: 'el-input',
