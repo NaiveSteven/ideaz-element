@@ -232,10 +232,10 @@ export default defineComponent({
                           handleSortTableCols(dragData, 'left')
                         }}
                       >
-                        {leftFixedTableCols.value.map((item: any, index) => {
+                        {leftFixedTableCols.value.map((item: any) => {
                           return (
-                            <div key={index} class='column-popover-checkbox'>
-                              <el-checkbox label={item.__uid} key={index}>
+                            <div key={item.__uid} class='column-popover-checkbox'>
+                              <el-checkbox label={item.__uid} key={item.__uid}>
                                 {item.label || item.type}
                               </el-checkbox>
                               <i class='el-icon-rank' />
@@ -269,10 +269,10 @@ export default defineComponent({
                         onEnd={() => handleDataChange(mergeArraysByUID(props.sortTableCols, sortTableCols), props.middleTableCols)}
                         ghostClass='column-popover-checkbox__drag--ghost'
                       >
-                        {sortTableCols.map((item: any, index) => {
+                        {sortTableCols.map((item: any) => {
                           return (
-                            <div key={index} class='column-popover-checkbox'>
-                              <el-checkbox label={item.__uid} key={index}>
+                            <div key={item.__uid} class='column-popover-checkbox'>
+                              <el-checkbox label={item.__uid} key={item.__uid}>
                                 {item.label || item.type}
                               </el-checkbox>
                               <i class='el-icon-rank' />
