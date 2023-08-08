@@ -32,9 +32,13 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
     const middleTableList = [...props.middleTableCols]
     const sortTableList = [...props.sortTableCols]
     const item = { ...tableCol, fixed: direction }
-    middleTableList.splice(middleTableIndex, 1)
+    if (middleTableIndex > -1)
+      middleTableList.splice(middleTableIndex, 1)
+
     if (direction) {
-      sortTableList.splice(sortTableIndex, 1)
+      if (sortTableIndex > -1)
+        sortTableList.splice(sortTableIndex, 1)
+
       // if checked, when push to left or right, checked too
       if (centerCheckedTableCols.value.includes(tableCol.__uid)) {
         if (direction === 'left')
@@ -62,8 +66,11 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
       if (rightCheckedTableIndex > -1)
         rightCheckedTableColsUids.value.splice(rightCheckedTableIndex, 1)
 
-      middleTableList.splice(originMiddleTableIndex, 0, item)
-      sortTableList.splice(sortTableIndex, 0, item)
+      if (middleTableIndex > -1)
+        middleTableList.splice(originMiddleTableIndex, 0, item)
+
+      if (sortTableIndex > -1)
+        sortTableList.splice(sortTableIndex, 0, item)
     }
 
     if (direction === 'left')
