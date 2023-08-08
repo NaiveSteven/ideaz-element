@@ -72,8 +72,6 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
     if (direction === 'right')
       rightFixedTableCols.value.push(item)
 
-    // console.log(getCheckedFixedCols(direction), middleTableList.filter(item => !item.fixed).concat(getCheckedFixedCols(direction)), 'sortTableList')
-    console.log(leftCheckedTableColsUids.value, getCheckedFixedCols(direction), 'asdf')
     emit('columns-change', middleTableList.filter(item => !item.fixed).concat(getCheckedFixedCols(direction)))
     emit('table-cols-change', sortTableList)
   }
@@ -142,10 +140,9 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
   }
 
   function getOriginSortTableColsWithoutFixed(tableCol: TableCol) {
-    const fixedUids = leftCheckedTableColsUids.value.concat(rightCheckedTableColsUids.value).filter(uid => uid !== tableCol.__uid)
+    const fixedUids = leftFixedTableCols.value.concat(rightFixedTableCols.value).filter(item => item.__uid !== tableCol.__uid).map(item => item.__uid)
 
-    return props.originFormatTableCols.filter(item => !fixedUids.includes(item.__uid)
-    && (centerCheckedTableCols.value.includes(item.__uid) || leftCheckedTableColsUids.value.includes(item.__uid) || rightCheckedTableColsUids.value.includes(item.__uid)))
+    return props.originFormatTableCols.filter(item => !fixedUids.includes(item.__uid))
   }
 
   return {
