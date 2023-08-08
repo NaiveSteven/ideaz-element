@@ -59,6 +59,11 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
       const rightFixedTableIndex = rightFixedTableCols.value.findIndex((item: TableCol) => item.__uid === tableCol.__uid)
       const leftCheckedTableIndex = leftCheckedTableColsUids.value.findIndex((item: string) => item === tableCol.__uid)
       const rightCheckedTableIndex = rightCheckedTableColsUids.value.findIndex((item: string) => item === tableCol.__uid)
+
+      // if fixed column checked, center column checked too
+      if (leftCheckedTableIndex > -1 || rightCheckedTableIndex > -1)
+        centerCheckedTableCols.value.push(tableCol.__uid)
+
       if (leftFixedTableCols.value.length && leftFixedTableIndex > -1)
         leftFixedTableCols.value.splice(leftFixedTableIndex, 1)
 
