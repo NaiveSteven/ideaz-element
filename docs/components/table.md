@@ -68,6 +68,7 @@ const columns = [
   },
   {
     prop: 'daateq',
+    fixed: 'right',
     label: '日期345',
   },
   {

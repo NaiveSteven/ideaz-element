@@ -47,6 +47,7 @@ export default defineComponent({
       handleFixedCheckedTableColsChange,
       handleSortTableCols,
       handleLeftFixedDragChange,
+      handleFixedTableCol,
     } = useFixedTableCols(props, emit, checkedTableCols)
     const ns = useNamespace('table-tool-bar')
 
@@ -244,7 +245,7 @@ export default defineComponent({
                                   <el-button icon={VideoPause} text onClick={() => handleTableColFixed(item, false)}></el-button>
                                 </el-tooltip>
                                 <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
-                                  <el-button icon={Right} text></el-button>
+                                  <el-button icon={Right} text onClick={() => handleFixedTableCol(item, 'right')}></el-button>
                                 </el-tooltip>
                               </div>
                             </div>
@@ -282,6 +283,46 @@ export default defineComponent({
                                 </el-tooltip>
                                 <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
                                   <el-button icon={Right} text onClick={() => handleTableColFixed(item, 'right')}></el-button>
+                                </el-tooltip>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </draggable>
+                    </el-checkbox-group>
+                    <el-divider>
+                      右固定
+                    </el-divider>
+                    <el-checkbox-group
+                      modelValue={rightCheckedTableColsUids.value}
+                      onUpdate:modelValue={(val: any) => {
+                        rightCheckedTableColsUids.value = val
+                      }}
+                      size="small"
+                      onChange={(val: string[]) => handleFixedCheckedTableColsChange('right', val)}
+                    >
+                      <draggable
+                        modelValue={rightFixedTableCols.value}
+                        animation={200}
+                        ghostClass='column-popover-checkbox__drag--ghost'
+                        onChange={() => handleLeftFixedDragChange()}
+                        onEnd={(dragData: any) => {
+                          handleSortTableCols(dragData, 'right')
+                        }}
+                      >
+                        {rightFixedTableCols.value.map((item: any) => {
+                          return (
+                            <div key={item.__uid} class='column-popover-checkbox'>
+                              <el-checkbox label={item.__uid} key={item.__uid}>
+                                {item.label || item.type}
+                              </el-checkbox>
+                              <i class='el-icon-rank' />
+                              <div class={ns.be('setting-item', 'extra')}>
+                                <el-tooltip effect="dark" content="左固定" placement="top" showAfter={300}>
+                                  <el-button icon={Back} text onClick={() => handleFixedTableCol(item, 'left')}></el-button>
+                                </el-tooltip>
+                                <el-tooltip effect="dark" content="取消" placement="top" showAfter={300}>
+                                  <el-button icon={VideoPause} text onClick={() => handleTableColFixed(item, false)}></el-button>
                                 </el-tooltip>
                               </div>
                             </div>

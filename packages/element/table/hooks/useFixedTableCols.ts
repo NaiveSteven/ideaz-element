@@ -11,6 +11,32 @@ function getArrayDifference(array1: TableCol[], array2: string[]) {
   return difference.map(obj => obj.__uid)
 }
 
+function sortByUidOrder(array1: TableCol[], array2: TableCol[]) {
+  const uidMap: any = {}
+
+  // 创建一个映射以便根据__uid字段查找对象在第一个数组中的索引
+  array1.forEach((obj, index) => {
+    uidMap[obj.__uid] = index
+  })
+
+  // 根据第一个数组中对象的顺序重新排序第二个数组
+  const sortedArray = array2.sort((a, b) => {
+    const indexA = uidMap[a.__uid]
+    const indexB = uidMap[b.__uid]
+    return indexA - indexB
+  })
+
+  return sortedArray
+}
+
+function removeObjectsByFieldValue(array: TableCol[], fieldValue: any, fieldName = '__uid') {
+  return array.filter(obj => obj[fieldName] !== fieldValue)
+}
+
+function removeItemsByValue(array: string[], value: any) {
+  return array.filter(item => item !== value)
+}
+
 export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedTableCols: Ref<string[]>) => {
   const leftFixedTableCols = ref<TableCol[]>(props.originFormatTableCols.filter((tableCol: TableCol) => tableCol.fixed === 'left'))
   const rightFixedTableCols = ref<TableCol[]>(props.originFormatTableCols.filter((tableCol: TableCol) => tableCol.fixed === 'right'))
@@ -93,6 +119,26 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
     emit('table-cols-change', sortTableList)
   }
 
+  const handleFixedTableCol = (tableCol: TableCol, direction: 'left' | 'right') => {
+    const item = { ...tableCol, fixed: direction }
+    if (direction === 'left') {
+      leftFixedTableCols.value.push(item)
+      if (rightCheckedTableColsUids.value.includes(tableCol.__uid))
+        leftCheckedTableColsUids.value.push(tableCol.__uid)
+
+      rightFixedTableCols.value = removeObjectsByFieldValue(rightFixedTableCols.value, tableCol.__uid)
+      rightCheckedTableColsUids.value = removeItemsByValue(rightCheckedTableColsUids.value, tableCol.__uid)
+    }
+    else {
+      rightFixedTableCols.value.push(item)
+      if (leftCheckedTableColsUids.value.includes(tableCol.__uid))
+        rightCheckedTableColsUids.value.push(tableCol.__uid)
+
+      leftFixedTableCols.value = removeObjectsByFieldValue(leftFixedTableCols.value, tableCol.__uid)
+      leftCheckedTableColsUids.value = removeItemsByValue(leftCheckedTableColsUids.value, tableCol.__uid)
+    }
+  }
+
   const handleResetFixedTableCols = () => {
     const tableCols = props.originFormatTableCols.filter((item) => {
       if (isObject(props.toolBar)) {
@@ -172,6 +218,7 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
     leftCheckedTableColsUids,
     rightCheckedTableColsUids,
     handleLeftFixedDragChange,
+    handleFixedTableCol,
     handleFixedCheckedTableColsChange,
   }
 }
