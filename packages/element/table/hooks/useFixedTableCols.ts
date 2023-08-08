@@ -46,6 +46,11 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
 
         if (direction === 'right')
           rightCheckedTableColsUids.value.push(tableCol.__uid)
+
+        // if checked, delete checked uids at the same time
+        const centerCheckedIndex = centerCheckedTableCols.value.findIndex((uid: string) => tableCol.__uid === uid)
+        if (centerCheckedIndex > -1)
+          centerCheckedTableCols.value.splice(centerCheckedIndex, 1)
       }
     }
     else {
