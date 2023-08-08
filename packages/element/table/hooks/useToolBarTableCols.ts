@@ -1,14 +1,14 @@
-import { isArray, isObject, isString } from '@ideaz/utils'
-import { getIsReturnToolBar } from '../utils'
+import { getCheckData, getIsReturnToolBar } from '../utils'
 import type { TableCol } from '~/types'
 
 export const useToolBarTableCols = (props: any, emit: any) => {
   const checkedTableCols = ref(getOriginCheckedTableCols(props.sortTableCols))
 
+  // todo
   watch(
     () => props.formatTableCols,
     () => {
-      const uids = props.formatTableCols.map((item: TableCol) => item.__uid)
+      const uids = props.formatTableCols.map((item: TableCol) => item.__uid && !item.fixed)
       uids.forEach((uid: string) => {
         if (!checkedTableCols.value.includes(uid))
           checkedTableCols.value.push(uid)
@@ -17,22 +17,9 @@ export const useToolBarTableCols = (props: any, emit: any) => {
     { deep: true },
   )
 
-  function getCheckData(data: TableCol[]) {
-    return data
-      .filter((item) => {
-        if (isObject(props.toolBar)) {
-          if (isString(props.toolBar.uncheck))
-            return item.label !== props.toolBar.uncheck
-
-          if (isArray(props.toolBar.uncheck))
-            return !props.toolBar.uncheck.includes(item.label)
-        }
-        return true
-      })
-  }
-
   function getOriginCheckedTableCols(data: TableCol[]) {
-    return getCheckData(data)
+    return getCheckData(props.toolBar, data)
+      .filter(item => !item.fixed)
       .map(item => item.__uid)
   }
 
@@ -63,7 +50,7 @@ export const useToolBarTableCols = (props: any, emit: any) => {
     )
     checkedTableCols.value = getOriginCheckedTableCols(filterToolBarData)
     emit('table-cols-change', filterToolBarData)
-    emit('columns-change', getCheckData(props.originFormatTableCols))
+    emit('columns-change', getCheckData(props.toolBar, props.originFormatTableCols))
   }
 
   return {

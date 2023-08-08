@@ -63,10 +63,12 @@ const columns = [
   },
   {
     prop: 'daate2',
+    fixed: 'left',
     label: '日期34',
   },
   {
     prop: 'daateq',
+    fixed: 'right',
     label: '日期345',
   },
   {

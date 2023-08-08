@@ -1,6 +1,6 @@
-import { isArray, isFunction, isObject, isString, uid } from '@ideaz/utils'
+import { isFunction, uid } from '@ideaz/utils'
 import type { Ref } from 'vue'
-import { getIsReturnToolBar } from '../utils'
+import { getCheckData, getIsReturnToolBar } from '../utils'
 import type { ITableProps } from '../src/props'
 import { useEditableColumns } from './useEditableColumns'
 import type { TableCol } from '~/types'
@@ -17,18 +17,7 @@ export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<an
     })
   }
 
-  middleTableCols.value = columns.filter((item: TableCol) => {
-    let isUncheck = false
-    const toolBar = props.toolBar
-    if (isObject(toolBar)) {
-      if (isString(toolBar.uncheck))
-        isUncheck = item.label === item.toolBar.uncheck
-
-      if (isArray(toolBar.uncheck))
-        isUncheck = toolBar.uncheck.includes(item.label)
-    }
-    return !isUncheck
-  })
+  middleTableCols.value = getCheckData(props.toolBar, columns)
 
   const formatTableCols = computed(() => {
     tableKey.value = new Date().valueOf()
