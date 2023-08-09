@@ -159,6 +159,12 @@
   }
 
   .column-popover__content {
+    margin-top: 4px;
+
+    .el-divider--horizontal {
+      margin: 20px 0;
+    }
+
     .el-checkbox-group {
       display: flex;
       flex-direction: column;
@@ -194,6 +200,10 @@
 
             &:focus {
               background-color: transparent;
+            }
+
+            &:hover{
+              color: var(--el-color-primary);
             }
           }
         }
