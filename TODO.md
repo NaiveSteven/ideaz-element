@@ -148,6 +148,10 @@ const config = {
       label: string,
       prop: string, // support path set
       searchForm: {}, // form column
+      search: {},
+      add: {},
+      edit: {},
+      detail: {}
     }
   ],
   operate: {

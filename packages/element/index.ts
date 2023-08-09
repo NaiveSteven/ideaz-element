@@ -12,6 +12,7 @@ import ZWatermark from './watermark'
 import CheckCard from './check-card'
 import ZDescription from './descriptions'
 import ZFullScreen from './full-screen'
+import ZCrud from './crud'
 import { makeInstaller } from './makeInstaller'
 
 const { ZForm, ZFilterForm } = Form
@@ -20,7 +21,7 @@ const { ZCheckCard, ZCheckCardGroup } = CheckCard
 const { ZTagSelect, ZTagSelectGroup } = TagSelect
 
 const components = [ZCheckbox, ZRadio, ZSelect, ZRow, ZCol, ZForm, ZInput,
-  ZTable, ZFilterForm, ZTagSelect, ZText, ZWatermark, ZCheckCard, ZCheckCardGroup, ZDescription, ZTagSelectGroup, ZTableCustomColumnContainer, ZFullScreen]
+  ZTable, ZFilterForm, ZTagSelect, ZText, ZWatermark, ZCheckCard, ZCheckCardGroup, ZDescription, ZTagSelectGroup, ZTableCustomColumnContainer, ZFullScreen, ZCrud]
 
 const installer = makeInstaller([...components])
 
@@ -29,5 +30,5 @@ export * from './types'
 
 export {
   ZRadio, ZSelect, ZCheckbox, ZRow, ZCol, ZForm, ZInput, ZTable, ZFilterForm,
-  ZTagSelect, ZText, ZWatermark, ZCheckCard, ZCheckCardGroup, ZDescription, ZTagSelectGroup, ZTableCustomColumnContainer, ZFullScreen,
+  ZTagSelect, ZText, ZWatermark, ZCheckCard, ZCheckCardGroup, ZDescription, ZTagSelectGroup, ZTableCustomColumnContainer, ZFullScreen, ZCrud,
 }
