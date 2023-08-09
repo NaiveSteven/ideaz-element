@@ -38,7 +38,7 @@ export default defineComponent({
       handleDataChange,
     } = useToolBarTableCols(props, emit)
     const {
-      handleTableColFixed,
+      handleTableColFixedFromCenter,
       leftFixedTableCols,
       rightFixedTableCols,
       leftCheckedTableColsUids,
@@ -46,8 +46,9 @@ export default defineComponent({
       handleResetFixedTableCols,
       handleFixedCheckedTableColsChange,
       handleSortTableCols,
+      handleUnfixedTableCol,
       handleLeftFixedDragChange,
-      handleFixedTableCol,
+      handleFixedTableColFromSide,
     } = useFixedTableCols(props, emit, checkedTableCols)
     const ns = useNamespace('table-tool-bar')
 
@@ -242,10 +243,10 @@ export default defineComponent({
                               <i class='el-icon-rank' />
                               <div class={ns.be('setting-item', 'extra')}>
                                 <el-tooltip effect="dark" content="取消固定" placement="top" showAfter={300}>
-                                  <el-button icon={VideoPause} text onClick={() => handleTableColFixed(item, false)}></el-button>
+                                  <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
                                 </el-tooltip>
                                 <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
-                                  <el-button icon={Right} text onClick={() => handleFixedTableCol(item, 'right')}></el-button>
+                                  <el-button icon={Right} text onClick={() => handleFixedTableColFromSide(item, 'right')}></el-button>
                                 </el-tooltip>
                               </div>
                             </div>
@@ -279,10 +280,10 @@ export default defineComponent({
                               <i class='el-icon-rank' />
                               <div class={ns.be('setting-item', 'extra')}>
                                 <el-tooltip effect="dark" content="左固定" placement="top" showAfter={300}>
-                                  <el-button icon={Back} text onClick={() => handleTableColFixed(item, 'left')}></el-button>
+                                  <el-button icon={Back} text onClick={() => handleTableColFixedFromCenter(item, 'left')}></el-button>
                                 </el-tooltip>
                                 <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
-                                  <el-button icon={Right} text onClick={() => handleTableColFixed(item, 'right')}></el-button>
+                                  <el-button icon={Right} text onClick={() => handleTableColFixedFromCenter(item, 'right')}></el-button>
                                 </el-tooltip>
                               </div>
                             </div>
@@ -319,10 +320,10 @@ export default defineComponent({
                               <i class='el-icon-rank' />
                               <div class={ns.be('setting-item', 'extra')}>
                                 <el-tooltip effect="dark" content="左固定" placement="top" showAfter={300}>
-                                  <el-button icon={Back} text onClick={() => handleFixedTableCol(item, 'left')}></el-button>
+                                  <el-button icon={Back} text onClick={() => handleFixedTableColFromSide(item, 'left')}></el-button>
                                 </el-tooltip>
-                                <el-tooltip effect="dark" content="取消" placement="top" showAfter={300}>
-                                  <el-button icon={VideoPause} text onClick={() => handleTableColFixed(item, false)}></el-button>
+                                <el-tooltip effect="dark" content="取消固定" placement="top" showAfter={300}>
+                                  <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
                                 </el-tooltip>
                               </div>
                             </div>
