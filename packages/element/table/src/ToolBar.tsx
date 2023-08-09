@@ -247,7 +247,7 @@ export default defineComponent({
             <div>
               <el-popover
                 placement="bottom"
-                width="200"
+                width="190"
                 trigger="click"
                 v-slots={{
                   reference: () => (
@@ -279,7 +279,7 @@ export default defineComponent({
                         {config.titleVisible ? <el-divider>{config.title}</el-divider> : null}
                         <el-checkbox-group
                           v-model={config.checkboxModelValue.value}
-                          size="small"
+                          size='small'
                           onChange={config.checkboxChange}
                         >
                           <draggable
@@ -295,7 +295,6 @@ export default defineComponent({
                                   <el-checkbox label={item.__uid} key={item.__uid}>
                                     {item.label || item.type}
                                   </el-checkbox>
-                                  <i class='el-icon-rank' />
                                   <div class={ns.be('setting-item', 'extra')}>
                                     {config.extraContent(item)}
                                   </div>
