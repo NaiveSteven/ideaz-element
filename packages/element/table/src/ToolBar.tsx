@@ -47,7 +47,7 @@ export default defineComponent({
       handleFixedCheckedTableColsChange,
       handleSortTableCols,
       handleUnfixedTableCol,
-      handleLeftFixedDragChange,
+      handleSideFixedDragChange,
       handleFixedTableColFromSide,
     } = useFixedTableCols(props, emit, checkedTableCols)
     const ns = useNamespace('table-tool-bar')
@@ -229,7 +229,7 @@ export default defineComponent({
                         modelValue={leftFixedTableCols.value}
                         animation={200}
                         ghostClass='column-popover-checkbox__drag--ghost'
-                        onChange={() => handleLeftFixedDragChange()}
+                        onChange={() => handleSideFixedDragChange('left')}
                         onEnd={(dragData: any) => {
                           handleSortTableCols(dragData, 'left')
                         }}
@@ -306,7 +306,7 @@ export default defineComponent({
                         modelValue={rightFixedTableCols.value}
                         animation={200}
                         ghostClass='column-popover-checkbox__drag--ghost'
-                        onChange={() => handleLeftFixedDragChange()}
+                        onChange={() => handleSideFixedDragChange('right')}
                         onEnd={(dragData: any) => {
                           handleSortTableCols(dragData, 'right')
                         }}

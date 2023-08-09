@@ -162,8 +162,12 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
     emit('columns-change', props.middleTableCols.filter(item => !item.fixed).concat(tableCols))
   }
 
-  const handleLeftFixedDragChange = () => {
-    oldLeftFixedTableCols.value = [...leftFixedTableCols.value]
+  const handleSideFixedDragChange = (direction: 'left' | 'right') => {
+    if (direction === 'left')
+      oldLeftFixedTableCols.value = [...leftFixedTableCols.value]
+
+    else
+      oldRightFixedTableCols.value = [...rightFixedTableCols.value]
   }
 
   const handleSortTableCols = (dragData: any, direction: 'left' | 'right') => {
@@ -219,7 +223,7 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
     handleSortTableCols,
     leftCheckedTableColsUids,
     rightCheckedTableColsUids,
-    handleLeftFixedDragChange,
+    handleSideFixedDragChange,
     handleUnfixedTableCol,
     handleFixedTableColFromSide,
     handleFixedCheckedTableColsChange,
