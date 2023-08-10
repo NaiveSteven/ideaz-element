@@ -89,6 +89,10 @@ function getComponentsSidebar() {
               text: 'Table 表格',
               link: '/components/table',
             },
+            {
+              text: 'Crud 增删改查',
+              link: '/components/crud',
+            },
           ],
         },
       ],

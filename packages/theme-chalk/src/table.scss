@@ -159,6 +159,12 @@
   }
 
   .column-popover__content {
+    margin-top: 4px;
+
+    .el-divider--horizontal {
+      margin: 20px 0;
+    }
+
     .el-checkbox-group {
       display: flex;
       flex-direction: column;
@@ -168,8 +174,8 @@
         padding: 0;
         height: 3px;
         font-size: 0;
-        border: 2px solid #409eff;
-        background: #409eff;
+        border: 2px solid var(--el-color-primary);
+        background: var(--el-color-primary);
         content: '';
         box-sizing: border-box;
         outline-width: 0;
@@ -181,8 +187,40 @@
         align-items: center;
         margin-bottom: 4px;
 
-        .z-table-tool-bar-setting-item__extra {
+        .el-checkbox {
           display: flex;
+          align-items: center;
+          margin-right: 0;
+          margin-bottom: 0;
+
+          .el-checkbox__input {
+            line-height: 0;
+            // transform: translateY(1px);
+          }
+
+          .el-checkbox__label {
+            display: inline-block;
+            overflow: hidden;
+            width: 108px;
+            max-width: 108px;
+            font-size: 14px;
+            font-weight: 400;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: rgba(0, 0, 0, 0.88);
+          }
+        }
+
+        &:hover {
+          background-color: rgba(42, 46, 54, 0.04);
+
+          .z-table-tool-bar-setting-item__extra {
+            display: flex;
+          }
+        }
+
+        .z-table-tool-bar-setting-item__extra {
+          display: none;
 
           .el-button+.el-button {
             margin-left: 0;
@@ -195,35 +233,11 @@
             &:focus {
               background-color: transparent;
             }
+
+            &:hover {
+              color: var(--el-color-primary);
+            }
           }
-        }
-
-        .el-icon-rank {
-          font-size: 14px;
-          color: rgba(0, 0, 0, 0.88);
-          cursor: grab;
-        }
-      }
-
-      .el-checkbox {
-        display: flex;
-        align-items: center;
-        margin-right: 0;
-        margin-bottom: 0;
-
-        .el-checkbox__input {
-          line-height: 0;
-          // transform: translateY(1px);
-        }
-
-        .el-checkbox__label {
-          overflow: hidden;
-          max-width: 85px;
-          font-size: 13px;
-          font-weight: 400;
-          text-overflow: ellipsis;
-          white-space: nowrap;
-          color: rgba(0, 0, 0, 0.88);
         }
       }
     }
