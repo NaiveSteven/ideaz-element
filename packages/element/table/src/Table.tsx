@@ -80,6 +80,8 @@ export default defineComponent({
         : null
     }
 
+    console.log(props, '内部')
+
     const renderToolBar = () => {
       const { topRender, toolBar } = props
 

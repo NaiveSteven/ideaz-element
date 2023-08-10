@@ -1,12 +1,17 @@
+import { useAttrs } from 'element-plus'
+import { pick } from 'lodash-unified'
 import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
+import { crudProps, formKeys, tableKeys } from './props'
 
 export default defineComponent({
   name: 'ZCrud',
-  props: {},
+  props: crudProps,
   setup(props) {
+    const attrs = useAttrs()
+
     const {
       setCurrentRow,
       toggleRowSelection,
@@ -18,7 +23,6 @@ export default defineComponent({
       toggleRadioSelection,
       sort,
     } = useTableMethods()
-
     const {
       resetFields,
       validate,
@@ -48,11 +52,11 @@ export default defineComponent({
     })
 
     const renderTable = () => {
-      return <z-table ref="zTableRef"></z-table>
+      return <z-table ref="zTableRef" {...{ ...pick(props, tableKeys), columns: props.columns, ...attrs.value }}></z-table>
     }
 
     const renderForm = () => {
-      return <z-filter-form ref="formRef"></z-filter-form>
+      return <z-filter-form ref="formRef" {...{ ...pick(props, formKeys), columns: [], ...attrs.value }}></z-filter-form>
     }
 
     return () => {
