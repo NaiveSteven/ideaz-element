@@ -4,6 +4,7 @@ import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
+import { useFormColumns } from '../hooks'
 import { crudProps, formKeys, tableKeys } from './props'
 
 export default defineComponent({
@@ -30,6 +31,7 @@ export default defineComponent({
       clearValidate,
       scrollToField,
     } = useFormMethods(props)
+    const { formColumns } = useFormColumns(props)
 
     useExpose({
       resetFields,
@@ -56,7 +58,7 @@ export default defineComponent({
     }
 
     const renderForm = () => {
-      return <z-filter-form ref="formRef" {...{ ...pick(props, formKeys), columns: [], ...attrs.value }}></z-filter-form>
+      return <z-filter-form ref="formRef" {...{ ...pick(props, formKeys), columns: formColumns.value, ...attrs.value }}></z-filter-form>
     }
 
     return () => {

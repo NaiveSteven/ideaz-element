@@ -24,6 +24,7 @@ const pagination = ref({ pageSize: 20, page: 1, total: 40 })
 const loading = ref(false)
 const tableData = ref<RowData[]>([])
 const cTableRef = ref()
+const formModel = ref({ address: '' })
 const isShowName = ref(false)
 
 const changeNameVisible = () => {
@@ -52,6 +53,7 @@ const columns = [
       ]
     },
     prop: 'address',
+    search: true,
     label: '地址',
   },
   {
@@ -254,6 +256,7 @@ getData()
     :columns="columns"
     :pagination="pagination"
     :options="options"
+    :form-model="formModel"
     :editable="{ type: 'multiple' }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
     size="small"
