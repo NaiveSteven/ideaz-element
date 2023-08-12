@@ -102,7 +102,7 @@ const submit = () => {
 <template>
   <z-filter-form
     ref="cFormRef"
-    :form-model="formModel"
+    v-model="formModel"
     :options="optionsConfig"
     :columns="columns"
     size="small"

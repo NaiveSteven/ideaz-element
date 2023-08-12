@@ -45,7 +45,8 @@ export default defineComponent({
         options={options || {}}
         // onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
         {...{ ...attrs, ...formConfig.value }}
-        v-model={modelValue}
+        modelValue={modelValue}
+        onUpdate:modelValue={(val: any) => { emit('update:modelValue', val) }}
         v-slots={{
           ...slots,
           button: () => (

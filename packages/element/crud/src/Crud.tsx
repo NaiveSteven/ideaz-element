@@ -10,7 +10,8 @@ import { crudProps, formKeys, tableKeys } from './props'
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  setup(props) {
+  emits: ['update:formData'],
+  setup(props, { emit }) {
     const attrs = useAttrs()
 
     const {
@@ -58,7 +59,13 @@ export default defineComponent({
     }
 
     const renderForm = () => {
-      return <z-filter-form ref="formRef" {...{ ...pick(props, formKeys), columns: formColumns.value, ...attrs.value }}></z-filter-form>
+      return <z-filter-form
+        ref="formRef"
+        {...{ ...pick(props, formKeys), columns: formColumns.value, ...attrs.value }}
+        modelValue={props.formData}
+        onUpdate:modelValue={(val: any) => { emit('update:formData', val) }}
+      >
+      </z-filter-form>
     }
 
     return () => {

@@ -10,7 +10,7 @@ export const useFormColumns = (props: any) => {
         label: column.label,
         clearable: true,
         filterable: true,
-        ...column,
+        ...column.search,
       }
     })
   })

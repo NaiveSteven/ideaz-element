@@ -15,4 +15,8 @@ export const crudProps = {
   ..._tableProps,
   ..._formProps,
   columns: Array as PropType<any>,
+  formData: {
+    type: Object as PropType<any>,
+    default: () => ({}),
+  },
 }

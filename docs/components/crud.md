@@ -53,7 +53,9 @@ const columns = [
       ]
     },
     prop: 'address',
-    search: true,
+    search: {
+      component: 'input'
+    },
     label: '地址',
   },
   {
@@ -251,12 +253,12 @@ getData()
   </el-button>
   <z-crud
     ref="cTableRef"
+    v-model:formData="formModel"
     :data="tableData"
     :loading="loading"
     :columns="columns"
     :pagination="pagination"
     :options="options"
-    :form-model="formModel"
     :editable="{ type: 'multiple' }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
     size="small"
