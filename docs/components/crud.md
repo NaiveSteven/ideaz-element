@@ -241,6 +241,10 @@ const handleClick = () => {
   console.log(tableData.value, 'tableData')
 }
 
+const handleDivClick = () => {
+  console.log('handleDivClick')
+}
+
 getData()
 </script>
 
@@ -259,6 +263,7 @@ getData()
     :columns="columns"
     :pagination="pagination"
     :options="options"
+    :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
     :editable="{ type: 'multiple' }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
     size="small"

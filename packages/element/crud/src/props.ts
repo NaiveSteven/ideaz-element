@@ -19,4 +19,12 @@ export const crudProps = {
     type: Object as PropType<any>,
     default: () => ({}),
   },
+  tableDecorator: {
+    type: Object as PropType<any>,
+    default: () => ({}),
+  },
+  formDecorator: {
+    type: Object as PropType<any>,
+    default: () => ({}),
+  },
 }
