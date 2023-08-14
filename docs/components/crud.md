@@ -24,6 +24,7 @@ const pagination = ref({ pageSize: 20, page: 1, total: 40 })
 const loading = ref(false)
 const tableData = ref<RowData[]>([])
 const cTableRef = ref()
+const formModel = ref({ address: '' })
 const isShowName = ref(false)
 
 const changeNameVisible = () => {
@@ -52,6 +53,9 @@ const columns = [
       ]
     },
     prop: 'address',
+    search: {
+      component: 'input'
+    },
     label: '地址',
   },
   {
@@ -237,6 +241,10 @@ const handleClick = () => {
   console.log(tableData.value, 'tableData')
 }
 
+const handleDivClick = () => {
+  console.log('handleDivClick')
+}
+
 getData()
 </script>
 
@@ -249,11 +257,13 @@ getData()
   </el-button>
   <z-crud
     ref="cTableRef"
+    v-model:formData="formModel"
     :data="tableData"
     :loading="loading"
     :columns="columns"
     :pagination="pagination"
     :options="options"
+    :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
     :editable="{ type: 'multiple' }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
     size="small"
