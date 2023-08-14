@@ -45,9 +45,9 @@
 31. ~~`z-table`的`button`支持`dropdown`~~
 32. ~~`z-table`的`button`点击事件都改为`onClick`~~
 33. ~~`z-table`的`isDisabled`改为`disabled`~~
-34. `TableButton`组件代码优化
-35. `z-table`组件的`toolbar`更改（代码重写，功能修改和新增）
-36. `z-table`的`disabled`、`onClick`事件传递参数统一
+34. ~~`TableButton`组件代码优化~~
+35. ~~`z-table`组件的`toolbar`更改（代码重写，功能修改和新增）~~
+36. ~~`z-table`的`disabled`、`onClick`事件传递参数统一~~
 37. `z-table`支持`watermark`
 
 ## FEATURE（docs and dts）
