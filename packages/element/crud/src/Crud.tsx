@@ -10,7 +10,7 @@ import { crudProps, formKeys, tableKeys } from './props'
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData'],
+  emits: ['update:formData', 'update:pagination'],
   setup(props, { emit }) {
     const attrs = useAttrs()
 

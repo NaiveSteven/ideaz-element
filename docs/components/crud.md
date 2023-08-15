@@ -258,10 +258,10 @@ getData()
   <z-crud
     ref="cTableRef"
     v-model:formData="formModel"
+    v-model:pagination="pagination"
     :data="tableData"
     :loading="loading"
     :columns="columns"
-    :pagination="pagination"
     :options="options"
     :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
     :editable="{ type: 'multiple' }"
