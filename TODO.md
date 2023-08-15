@@ -49,6 +49,8 @@
 35. ~~`z-table`组件的`toolbar`更改（代码重写，功能修改和新增）~~
 36. ~~`z-table`的`disabled`、`onClick`事件传递参数统一~~
 37. `z-table`支持`watermark`
+38. `z-crud`支持缓存
+39. `z-crud`支持`request`
 
 ## FEATURE（docs and dts）
 
