@@ -72,6 +72,7 @@
 1. `Vue2`中日期组件`icon`会造成排序错乱问题
 2. `z-text`组件在`vitepress`文档中的折行不正确问题
 3. ~~`z-check-card`组件修复`inject`报错问题~~
+4. `z-crud`表单输入一个字符，刷新两次问题
 
 ## Long Time
 

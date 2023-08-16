@@ -4,13 +4,13 @@ import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
-import { useFormColumns } from '../hooks'
-import { crudProps, formKeys, tableKeys } from './props'
+import { useCrudConfig, useFormColumns } from '../hooks'
+import { crudProps, formKeys } from './props'
 
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination'],
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'sort-change'],
   setup(props, { emit }) {
     const attrs = useAttrs()
 
@@ -32,6 +32,15 @@ export default defineComponent({
       clearValidate,
       scrollToField,
     } = useFormMethods(props)
+    const {
+      handleSearch,
+      tableProps,
+      handleReset,
+      handleKeyDown,
+      handlePaginationChange,
+      middleFormData,
+      isUseFormDataStorage,
+    } = useCrudConfig(props, emit)
     const { formColumns } = useFormColumns(props)
     const ns = useNamespace('crud')
 
@@ -65,7 +74,7 @@ export default defineComponent({
     const renderTable = () => {
       return renderDecorator({
         ...props.tableDecorator,
-        children: <z-table ref="zTableRef" {...{ ...pick(props, tableKeys), columns: props.columns, ...attrs.value }}></z-table>,
+        children: <z-table ref="zTableRef" {...tableProps.value} onRefresh={handlePaginationChange}></z-table>,
       })
     }
 
@@ -79,14 +88,18 @@ export default defineComponent({
         children: <z-filter-form
           ref="formRef"
           {...{ ...pick(props, formKeys), columns: formColumns.value, ...attrs.value }}
-          modelValue={props.formData}
+          modelValue={isUseFormDataStorage.value ? middleFormData.value : props.formData}
           onUpdate:modelValue={(val: any) => { emit('update:formData', val) }}
+          onSearch={handleSearch}
+          onReset={handleReset}
+          onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
         >
         </z-filter-form>,
       })
     }
 
     return () => {
+      console.log('刷新')
       return <div class={ns.b('')}>
         {renderForm()}
         {renderTable()}

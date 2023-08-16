@@ -5,17 +5,17 @@ import type { Pagination } from '~/types'
 
 export const usePaginationStorage = (props: CrudProps, emit: any) => {
   const originPagination = ref(cloneDeep(props.pagination || {}))
-  const tableProName = props.key || ''
+  const zCrudName = props.name
 
   const middlePagination = ref<Pagination>(
     sessionStorage.getItem('zCrudPagination')
-      ? (JSON.parse(sessionStorage.getItem('zCrudPagination')!)[tableProName]
+      ? (JSON.parse(sessionStorage.getItem('zCrudPagination')!)[zCrudName]
           || originPagination.value)
       : originPagination.value,
   )
 
   const isUsePaginationStorage = computed(() => {
-    return props.key && props.paginationStorage !== false
+    return props.name && props.paginationStorage !== false
   })
 
   watch(

@@ -28,12 +28,17 @@ export const crudProps = {
     type: Object as PropType<any>,
     default: () => ({}),
   },
-  key: {
+  name: {
     type: String,
     default: '',
   },
   paginationStorage: {
     type: Boolean,
+    default: undefined,
+  },
+  formStorage: {
+    type: Boolean,
+    default: undefined,
   },
 }
 
