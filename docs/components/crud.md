@@ -10,7 +10,7 @@
 
 ```vue
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { h, onMounted, ref } from 'vue'
 
 interface RowData {
   date: string
@@ -193,6 +193,7 @@ const cancel = (row) => {
 
 const getData = () => {
   loading.value = true
+  console.log(pagination.value, formModel.value, 'pagination')
   setTimeout(() => {
     tableData.value = [
       {
@@ -245,7 +246,9 @@ const handleDivClick = () => {
   console.log('handleDivClick')
 }
 
-getData()
+onMounted(() => {
+  getData()
+})
 </script>
 
 <template>
@@ -258,10 +261,11 @@ getData()
   <z-crud
     ref="cTableRef"
     v-model:formData="formModel"
+    v-model:pagination="pagination"
+    name="name"
     :data="tableData"
     :loading="loading"
     :columns="columns"
-    :pagination="pagination"
     :options="options"
     :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
     :editable="{ type: 'multiple' }"

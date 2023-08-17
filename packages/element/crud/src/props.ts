@@ -1,4 +1,5 @@
 import { omit } from 'lodash-unified'
+import type { ExtractPropTypes } from 'vue'
 import { tableProps } from '../../table/src/props'
 import { formProps } from '../../form/src/props'
 
@@ -27,4 +28,18 @@ export const crudProps = {
     type: Object as PropType<any>,
     default: () => ({}),
   },
+  name: {
+    type: String,
+    default: '',
+  },
+  paginationStorage: {
+    type: Boolean,
+    default: undefined,
+  },
+  formStorage: {
+    type: Boolean,
+    default: undefined,
+  },
 }
+
+export type CrudProps = ExtractPropTypes<typeof crudProps>
