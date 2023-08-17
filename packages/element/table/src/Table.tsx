@@ -1,6 +1,6 @@
 import { cloneDeep } from 'lodash-es'
 import { useExpose } from '@ideaz/hooks'
-import { isFunction, isObject } from '@ideaz/utils'
+import { isFunction, isObject, isString } from '@ideaz/utils'
 import {
   usePagination,
   useTableColumns,
@@ -149,6 +149,20 @@ export default defineComponent({
       )
     }
 
+    const renderTableDecorator = () => {
+      if (isString(props.watermark)) {
+        return <z-watermark content={props.watermark} gapY={80}>
+          {renderTable()}
+        </z-watermark>
+      }
+      if (isObject(props.watermark)) {
+        return <z-watermark {...{ gapY: 80, ...props.watermark }} >
+          {renderTable()}
+        </z-watermark>
+      }
+      return renderTable()
+    }
+
     const renderContent = () => {
       const { editable, maxLength } = props
       const position = isObject(editable) ? (editable.position || 'bottom') : 'bottom'
@@ -159,7 +173,7 @@ export default defineComponent({
               ref={zTableFormRef}
               model={{ tableData: tableData.value }}
             >
-              {renderTable()}
+              {renderTableDecorator()}
             </el-form>
             {position === 'bottom'
               && maxLength !== tableData.value.length
@@ -173,7 +187,7 @@ export default defineComponent({
           </>
         )
       }
-      return renderTable()
+      return renderTableDecorator()
     }
 
     return () => {
