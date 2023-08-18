@@ -1,3 +1,5 @@
+import type { ExtractPropTypes } from 'vue'
+
 export const watermarkProps = {
   className: {
     type: String,
@@ -57,3 +59,5 @@ export const watermarkProps = {
     type: [String, Number],
   },
 }
+
+export type WatermarkProps = ExtractPropTypes<typeof watermarkProps>

@@ -4,6 +4,7 @@ import type {
   DefaultRow,
   TableProps,
 } from 'element-plus/es/components/table/src/table/defaults'
+import type { WatermarkProps } from '../../watermark/src/watermark'
 import type { Pagination, TableCol } from '~/types'
 
 export const tableProps = {
@@ -126,6 +127,10 @@ export const tableProps = {
   maxLength: {
     type: Number,
     default: undefined,
+  },
+  watermark: {
+    type: [String, Object, Boolean] as PropType<boolean | string | WatermarkProps>,
+    default: false,
   },
 }
 
