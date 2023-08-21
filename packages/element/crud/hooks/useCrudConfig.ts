@@ -13,12 +13,6 @@ export const useCrudConfig = (props: CrudProps, emit: any) => {
   const { middlePagination, originPagination, isUsePaginationStorage }
     = usePaginationStorage(props, emit)
 
-  const tableProps = computed(() => {
-    return {
-
-    }
-  })
-
   const handleSearch = debounce(() => {
     if (isUseFormDataStorage.value)
       updateTableProFormData(props, props.formData)
@@ -28,13 +22,6 @@ export const useCrudConfig = (props: CrudProps, emit: any) => {
 
     emit('search')
   }, 200)
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.keyCode === 13) {
-      e.preventDefault()
-      handleSearch()
-    }
-  }
 
   const handleReset = () => {
     (ctx!.$refs.formRef as typeof ElForm).resetFields()
@@ -94,9 +81,7 @@ export const useCrudConfig = (props: CrudProps, emit: any) => {
 
   return {
     handleSearch,
-    tableProps,
     handleReset,
-    handleKeyDown,
     handlePaginationChange,
     middleFormData,
     isUseFormDataStorage,

@@ -44,7 +44,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   const {
     handleSearch: searchByCustom,
     handleReset: resetByCustom,
-    handleKeyDown,
     handlePaginationChange: changePaginationByCustom,
     middleFormData,
     isUseFormDataStorage,
@@ -155,6 +154,13 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     if (isRequest()) {
       setPaginationData({ page: 1 })
       getTableData()
+    }
+  }
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.keyCode === 13) {
+      e.preventDefault()
+      handleSearch()
     }
   }
 

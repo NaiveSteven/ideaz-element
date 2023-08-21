@@ -294,6 +294,11 @@ const handleDivClick = () => {
   console.log('handleDivClick')
 }
 
+const testClick = () => {
+  console.log(formModel.value, 'formModel')
+  console.log(pagination.value, 'pagination')
+}
+
 onMounted(() => {
   // getData()
 })
@@ -323,7 +328,6 @@ onMounted(() => {
     export="sadf"
     size="small"
     :max-length="5"
-    @refresh="handlePaginationChange"
   >
     <template #buttons="{ row }">
       <el-button @click="click(row)">
@@ -337,7 +341,7 @@ onMounted(() => {
       </el-button>
     </template>
     <template #topRight>
-      <el-button size="small" type="primary">
+      <el-button size="small" type="primary" @click="testClick">
         测试
       </el-button>
     </template>
