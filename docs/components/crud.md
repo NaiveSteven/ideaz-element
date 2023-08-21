@@ -336,6 +336,16 @@ onMounted(() => {
         取消
       </el-button>
     </template>
+    <template #topRight>
+      <el-button size="small" type="primary">
+        测试
+      </el-button>
+    </template>
+    <template #topLeft>
+      <el-button size="small" type="primary">
+        测试
+      </el-button>
+    </template>
   </z-crud>
 </template>
 ```

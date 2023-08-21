@@ -85,8 +85,11 @@ export default defineComponent({
           topRender={() =>
             (slots.topLeft || slots.topRight || props.export) && (
               <div class={ns.b('top')}>
-                <div>{slots.topLeft && slots.topLeft()}</div>
-                <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.be('top', 'export')} onClick={handleExport}>导出</el-button>
+                <div>
+                  {slots.topLeft && slots.topLeft()}
+                  <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.be('top', 'export')} onClick={handleExport}>导出</el-button>
+                </div>
+                <div>{slots.topRight && slots.topRight()}</div>
               </div>
             )
           }
