@@ -1,27 +1,21 @@
-import { debounce, pick } from 'lodash-unified'
+import { debounce } from 'lodash-unified'
 import type { ElForm } from 'element-plus'
 import { isObject } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
 import type { CrudProps } from '../src/props'
-import { tableKeys } from '../src/props'
 import { useFormStorage } from './useFormStorage'
 import { usePaginationStorage } from './usePaginationStorage'
 
 export const useCrudConfig = (props: CrudProps, emit: any) => {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-  const attrs = useAttrs()
+
   const { middleFormData, originFormData, isUseFormDataStorage } = useFormStorage(props, emit)
   const { middlePagination, originPagination, isUsePaginationStorage }
     = usePaginationStorage(props, emit)
 
   const tableProps = computed(() => {
     return {
-      ...pick(props, tableKeys),
-      columns: props.columns,
-      ...attrs,
-      pagination: isUsePaginationStorage.value
-        ? middlePagination.value
-        : (props.pagination || {}),
+
     }
   })
 
@@ -106,5 +100,8 @@ export const useCrudConfig = (props: CrudProps, emit: any) => {
     handlePaginationChange,
     middleFormData,
     isUseFormDataStorage,
+    middlePagination,
+    isUsePaginationStorage,
+    updateTableProPagination,
   }
 }

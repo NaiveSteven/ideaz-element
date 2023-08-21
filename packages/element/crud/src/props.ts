@@ -40,6 +40,19 @@ export const crudProps = {
     type: Boolean,
     default: undefined,
   },
+  request: {
+    type: Object as PropType<any>,
+  },
+  export: {
+    type: [Function, String],
+  },
+}
+
+export interface TableDataReq {
+  alias: {
+    list: string | ((res: any) => any)
+    total: string | ((res: any) => any)
+  }
 }
 
 export type CrudProps = ExtractPropTypes<typeof crudProps>

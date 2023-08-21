@@ -24,8 +24,8 @@ export type validateCallback = (isSuccess: boolean, field: ValidateField) => voi
 export type validateFieldCallback = (errorMessage: string) => void
 
 export interface Pagination {
-  page: number
-  pageSize: number
+  page?: number
+  pageSize?: number
   total?: number
   layout?: string
   pageSizes?: number[]
