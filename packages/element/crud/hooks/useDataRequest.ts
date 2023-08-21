@@ -104,9 +104,9 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       if (isObject(req) && isFunction(req.api))
         res = await req.api(params)
 
-      tableData.value = getAliasData(res, req).list
+      tableData.value = isFunction(req.data) ? req.data(getAliasData(res, req).list) : getAliasData(res, req).list
       if (props.data)
-        emit('update:data', isFunction(req.data) ? req.data(res) : tableData.value)
+        emit('update:data', tableData.value)
 
       if (props.pagination)
         emit('update:pagination', pagination.value)
