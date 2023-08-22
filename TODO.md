@@ -152,11 +152,11 @@ const config = {
     {
       label: string,
       prop: string, // support path set
-      searchForm: {}, // form column
       search: {},
+      operate: {}, // add , edit and search common config
       add: {},
       edit: {},
-      detail: {}
+      detail: true, // true or false
     }
   ],
   operate: {
