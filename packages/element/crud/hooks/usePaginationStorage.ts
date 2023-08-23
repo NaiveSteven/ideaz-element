@@ -26,23 +26,25 @@ export const usePaginationStorage = (props: CrudProps, emit: any) => {
         Object.keys(props.pagination).forEach((key) => {
           pagination[key] = middlePagination.value[key as keyof Pagination]
         })
+        // console.log(pagination, 'pagination')
         emit('update:pagination', pagination)
       }
     },
     { deep: true, immediate: true },
   )
 
-  watch(
-    () => props.pagination,
-    () => {
-      if (isObject(props.pagination) && isUsePaginationStorage) {
-        Object.keys(props.pagination).forEach((key) => {
-          middlePagination.value[key] = (props.pagination as Pagination)![key as keyof Pagination]
-        })
-      }
-    },
-    { deep: true },
-  )
+  // watch(
+  //   () => props.pagination,
+  //   () => {
+  //     if (isObject(props.pagination) && isUsePaginationStorage) {
+  //       Object.keys(props.pagination).forEach((key) => {
+  //         middlePagination.value[key] = (props.pagination as Pagination)![key as keyof Pagination]
+  //       })
+  //       console.log(props.pagination, 'props.pagination')
+  //     }
+  //   },
+  //   { deep: true },
+  // )
 
   return { middlePagination, originPagination, isUsePaginationStorage }
 }

@@ -4,16 +4,15 @@ import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
-import { useCrudConfig, useFormColumns } from '../hooks'
+import { useDataRequest, useFormColumns } from '../hooks'
 import { crudProps, formKeys } from './props'
 
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'sort-change'],
-  setup(props, { emit }) {
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'sort-change', 'update:data'],
+  setup(props, { emit, slots }) {
     const attrs = useAttrs()
-
     const {
       setCurrentRow,
       toggleRowSelection,
@@ -38,9 +37,14 @@ export default defineComponent({
       handleReset,
       handleKeyDown,
       handlePaginationChange,
+      handleSortChange,
       middleFormData,
       isUseFormDataStorage,
-    } = useCrudConfig(props, emit)
+      handleCheckboxChange,
+      handleRadioChange,
+      handleExport,
+      getTableData,
+    } = useDataRequest(props, emit)
     const { formColumns } = useFormColumns(props)
     const ns = useNamespace('crud')
 
@@ -62,6 +66,7 @@ export default defineComponent({
       clearSort,
       toggleRadioSelection,
       sort,
+      getTableData,
     })
 
     const renderDecorator = (decoratorProps: any) => {
@@ -74,7 +79,26 @@ export default defineComponent({
     const renderTable = () => {
       return renderDecorator({
         ...props.tableDecorator,
-        children: <z-table ref="zTableRef" {...tableProps.value} onRefresh={handlePaginationChange}></z-table>,
+        children: <z-table
+          ref="zTableRef"
+          {...tableProps.value}
+          topRender={() =>
+            (slots.topLeft || slots.topRight || props.export) && (
+              <div class={ns.b('top')}>
+                <div>
+                  {slots.topLeft && slots.topLeft()}
+                  <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.be('top', 'export')} onClick={handleExport}>导出</el-button>
+                </div>
+                <div>{slots.topRight && slots.topRight()}</div>
+              </div>
+            )
+          }
+          onRefresh={handlePaginationChange}
+          onSort-change={handleSortChange}
+          onSelection-change={handleCheckboxChange}
+          onRadio-change={handleRadioChange}
+        >
+        </z-table>,
       })
     }
 

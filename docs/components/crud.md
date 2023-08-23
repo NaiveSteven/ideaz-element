@@ -26,9 +26,57 @@ const tableData = ref<RowData[]>([])
 const cTableRef = ref()
 const formModel = ref({ address: '' })
 const isShowName = ref(false)
+const reqConfig = ref({
+  api: getReqData
+})
+
+function getReqData() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          page: 1,
+          page_size: 2,
+          total: 200,
+          list: [
+            {
+              date: '2016-05-02',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1518 弄',
+              select: '1',
+              username: 'username1',
+            },
+            {
+              date: '2016-05-04',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1517 弄',
+              select: '2',
+              username: 'username2',
+            },
+            {
+              date: '2016-05-01',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1519 弄',
+              select: '3',
+              username: 'username3',
+            },
+            {
+              date: '2016-05-03',
+              name: '王小虎',
+              address: '上海市普陀区金沙江路 1516 弄',
+              select: '4',
+              username: 'username4',
+            },
+          ]
+        }
+      })
+    }, 100)
+  })
+}
 
 const changeNameVisible = () => {
   isShowName.value = !isShowName.value
+  console.log(tableData.value, 'shuju')
 }
 
 const columns = [
@@ -246,8 +294,13 @@ const handleDivClick = () => {
   console.log('handleDivClick')
 }
 
+const testClick = () => {
+  console.log(formModel.value, 'formModel')
+  console.log(pagination.value, 'pagination')
+}
+
 onMounted(() => {
-  getData()
+  // getData()
 })
 </script>
 
@@ -262,17 +315,19 @@ onMounted(() => {
     ref="cTableRef"
     v-model:formData="formModel"
     v-model:pagination="pagination"
+    v-model:data="tableData"
     name="name"
-    :data="tableData"
     :loading="loading"
     :columns="columns"
     :options="options"
     :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
     :editable="{ type: 'multiple' }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
+    :request="reqConfig"
+    watermark="测试"
+    export="sadf"
     size="small"
     :max-length="5"
-    @refresh="handlePaginationChange"
   >
     <template #buttons="{ row }">
       <el-button @click="click(row)">
@@ -283,6 +338,16 @@ onMounted(() => {
       </el-button>
       <el-button @click="cancel(row)">
         取消
+      </el-button>
+    </template>
+    <template #topRight>
+      <el-button size="small" type="primary" @click="testClick">
+        测试
+      </el-button>
+    </template>
+    <template #topLeft>
+      <el-button size="small" type="primary">
+        测试
       </el-button>
     </template>
   </z-crud>

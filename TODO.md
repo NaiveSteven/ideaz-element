@@ -52,6 +52,7 @@
 38. ~~`z-crud`支持缓存~~
 39. ~~`z-crud`支持`request`~~
 40. `z-crud`支持编辑、新增、查看和删除配置
+41. `z-table`支持数据项排列
 
 ## FEATURE（docs and dts）
 
@@ -151,11 +152,11 @@ const config = {
     {
       label: string,
       prop: string, // support path set
-      searchForm: {}, // form column
       search: {},
+      operate: {}, // add , edit and search common config
       add: {},
       edit: {},
-      detail: {}
+      detail: true, // true or false
     }
   ],
   operate: {
