@@ -1,4 +1,5 @@
 import type { OptionsItem } from './common'
+import type { FormColumn } from './form'
 
 export interface BtnItem {
   label?: string
@@ -12,6 +13,11 @@ export interface BtnItem {
   reference?: string | ((h: any, scope: any) => VNode)
   size?: string
   onCommand: (command: string) => void
+  [propName: string]: any
+}
+
+export interface TableFormConfig {
+  columns: FormColumn[]
   [propName: string]: any
 }
 
@@ -40,5 +46,10 @@ export interface TableCol {
     [propName: string]: any
   }
   | any
+  add: boolean | FormColumn
+  edit: boolean | FormColumn
+  detail: boolean | any
+  search: boolean | FormColumn
+  form: FormColumn
   [propName: string]: any
 }

@@ -45,7 +45,7 @@ export default defineComponent({
       handleExport,
       getTableData,
     } = useDataRequest(props, emit)
-    const { formColumns } = useFormColumns(props)
+    const { isShowDialog, addFormColumns, editFormColumns, searchFormColumns } = useFormColumns(props)
     const ns = useNamespace('crud')
 
     useExpose({
@@ -102,7 +102,7 @@ export default defineComponent({
       })
     }
 
-    const renderForm = () => {
+    const renderSearchForm = () => {
       return renderDecorator({
         ...props.formDecorator,
         style: {
@@ -111,7 +111,7 @@ export default defineComponent({
         },
         children: <z-filter-form
           ref="formRef"
-          {...{ ...pick(props, formKeys), columns: formColumns.value, ...attrs.value }}
+          {...{ ...pick(props, formKeys), columns: searchFormColumns.value, ...attrs.value }}
           modelValue={isUseFormDataStorage.value ? middleFormData.value : props.formData}
           onUpdate:modelValue={(val: any) => { emit('update:formData', val) }}
           onSearch={handleSearch}
@@ -122,11 +122,22 @@ export default defineComponent({
       })
     }
 
+    const renderOperateForm = () => {
+      return <z-form></z-form>
+    }
+
+    const renderDialog = () => {
+      return <el-dialog modelValue={isShowDialog.value}>
+        {renderOperateForm()}
+      </el-dialog>
+    }
+
     return () => {
       console.log('刷新')
       return <div class={ns.b('')}>
-        {renderForm()}
+        {renderSearchForm()}
         {renderTable()}
+        {renderDialog()}
       </div>
     }
   },

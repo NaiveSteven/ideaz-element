@@ -2,6 +2,7 @@ import { omit } from 'lodash-unified'
 import type { ExtractPropTypes } from 'vue'
 import { tableProps } from '../../table/src/props'
 import { formProps } from '../../form/src/props'
+import type { TableFormConfig } from '~/types'
 
 const _tableProps = omit(tableProps, 'columns')
 const _formProps = omit(formProps, 'columns')
@@ -45,6 +46,26 @@ export const crudProps = {
   },
   export: {
     type: [Function, String],
+  },
+  add: {
+    type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
+    default: false,
+  },
+  edit: {
+    type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
+    default: false,
+  },
+  search: {
+    type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
+    default: false,
+  },
+  form: {
+    type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
+    default: false,
+  },
+  detail: {
+    type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
+    default: false,
   },
 }
 
