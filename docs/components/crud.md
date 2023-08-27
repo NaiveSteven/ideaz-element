@@ -87,7 +87,10 @@ const columns = [
     labelClassName: 'labelClassName',
     sortable: true,
     hide: () => !isShowName.value,
-    showOverflowTooltip: true
+    showOverflowTooltip: true,
+    form: {
+      component: 'input',
+    }
   },
   {
     type: 'select',
@@ -101,10 +104,10 @@ const columns = [
       ]
     },
     prop: 'address',
-    search: {
-      component: 'input'
-    },
     label: '地址',
+    form: {
+      component: 'input'
+    }
   },
   {
     tooltip: (scoped) => {

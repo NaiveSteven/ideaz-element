@@ -3,8 +3,6 @@ import type { CrudProps } from '../src/props'
 import type { TableCol } from '~/types'
 
 export const useFormColumns = (props: CrudProps) => {
-  const isShowDialog = ref(false)
-
   const getColumns = (key: keyof typeof props) => {
     if (isObject(props.form) && props.form.columns && !props[key]) return props.form.columns
     if (isObject(props[key]) && props[key].columns) return props[key].columns
@@ -35,5 +33,7 @@ export const useFormColumns = (props: CrudProps) => {
 
   const searchFormColumns = computed(() => getColumns('search'))
 
-  return { isShowDialog, addFormColumns, editFormColumns, searchFormColumns }
+  const detailColumns = computed(() => getColumns('detail'))
+
+  return { addFormColumns, editFormColumns, searchFormColumns, detailColumns }
 }

@@ -2,6 +2,9 @@ import type { CrudProps } from '../src/props'
 
 export const useTableColumns = (props: CrudProps, emit: any) => {
   const { t } = useLocale()
+  const rowData = ref({})
+  const isShowDialog = ref(false)
+  const currentMode = ref<'add' | 'view' | 'edit'>('add')
 
   const renderEdit = () => {
     return {
@@ -9,7 +12,9 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
       type: 'primary',
       link: true,
       onClick: (row, index, column) => {
-
+        rowData.value = row
+        currentMode.value = 'edit'
+        isShowDialog.value = true
       },
     }
   }
@@ -20,6 +25,8 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
       type: 'primary',
       link: true,
       onClick: (row, index) => {
+        rowData.value = row
+        isShowDialog.value = true
         emit('delete', row, index)
       },
     }
@@ -38,5 +45,5 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
     ])
   })
 
-  return { tableColumns }
+  return { tableColumns, isShowDialog, rowData, currentMode }
 }

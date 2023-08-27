@@ -67,6 +67,10 @@ export const crudProps = {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
     default: false,
   },
+  dialog: {
+    type: Object as PropType<any>,
+    default: () => ({}),
+  },
 }
 
 export interface TableDataReq {
