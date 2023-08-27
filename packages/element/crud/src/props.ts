@@ -71,6 +71,14 @@ export const crudProps = {
     type: Object as PropType<any>,
     default: () => ({}),
   },
+  addFormData: {
+    type: Object as PropType<any>,
+    default: () => ({}),
+  },
+  editFormData: {
+    type: Object as PropType<any>,
+    default: () => ({}),
+  },
 }
 
 export interface TableDataReq {
