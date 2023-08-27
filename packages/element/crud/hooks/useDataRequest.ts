@@ -5,6 +5,7 @@ import type { ComponentInternalInstance } from 'vue'
 import { tableKeys } from '../src/props'
 import type { CrudProps, TableDataReq } from '../src/props'
 import { useCrudConfig } from './useCrudConfig'
+import { useTableColumns } from './useTableColumns'
 import type { Pagination } from '~/types'
 
 export function stringifyObject(obj: any) {
@@ -51,6 +52,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     middlePagination,
     updateTableProPagination,
   } = useCrudConfig(props, emit)
+  const { tableColumns, isShowDialog, rowData, currentMode } = useTableColumns(props, emit)
   const attrs = useAttrs()
 
   const isRequest = () => {
@@ -64,7 +66,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   const tableProps = computed(() => {
     return {
       ...pick(props, tableKeys),
-      columns: props.columns,
+      columns: tableColumns.value,
       ...attrs,
       pagination: isUsePaginationStorage.value
         ? middlePagination.value
@@ -254,5 +256,8 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     handleRadioChange,
     handleExport,
     getTableData,
+    isShowDialog,
+    rowData,
+    currentMode,
   }
 }

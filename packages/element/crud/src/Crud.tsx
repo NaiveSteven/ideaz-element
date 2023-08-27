@@ -4,7 +4,7 @@ import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
-import { useDataRequest, useFormColumns } from '../hooks'
+import { useDataRequest, useDialogConfig, useFormColumns } from '../hooks'
 import { crudProps, formKeys } from './props'
 
 export default defineComponent({
@@ -44,8 +44,12 @@ export default defineComponent({
       handleRadioChange,
       handleExport,
       getTableData,
+      isShowDialog,
+      rowData,
+      currentMode,
     } = useDataRequest(props, emit)
-    const { formColumns } = useFormColumns(props)
+    const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
+    const { dialogProps, handleCancel, handleConfirm } = useDialogConfig(props, currentMode)
     const ns = useNamespace('crud')
 
     useExpose({
@@ -102,7 +106,7 @@ export default defineComponent({
       })
     }
 
-    const renderForm = () => {
+    const renderSearchForm = () => {
       return renderDecorator({
         ...props.formDecorator,
         style: {
@@ -111,7 +115,7 @@ export default defineComponent({
         },
         children: <z-filter-form
           ref="formRef"
-          {...{ ...pick(props, formKeys), columns: formColumns.value, ...attrs.value }}
+          {...{ ...pick(props, formKeys), columns: searchFormColumns.value, ...attrs.value }}
           modelValue={isUseFormDataStorage.value ? middleFormData.value : props.formData}
           onUpdate:modelValue={(val: any) => { emit('update:formData', val) }}
           onSearch={handleSearch}
@@ -122,11 +126,30 @@ export default defineComponent({
       })
     }
 
+    const renderOperateForm = () => {
+      const columns = currentMode.value === 'add' ? addFormColumns.value : currentMode.value === 'edit' ? editFormColumns.value : detailColumns.value
+      return <z-form columns={columns}></z-form>
+    }
+
+    const renderDialog = () => {
+      return <el-dialog modelValue={isShowDialog.value} {...dialogProps.value} v-slots={{
+        footer: () => {
+          return <>
+            <el-button onClick={handleCancel}>取消</el-button>
+            <el-button type="primary" onClick={handleConfirm}>确认</el-button>
+          </>
+        },
+      }}>
+        {renderOperateForm()}
+      </el-dialog>
+    }
+
     return () => {
       console.log('刷新')
       return <div class={ns.b('')}>
-        {renderForm()}
+        {renderSearchForm()}
         {renderTable()}
+        {renderDialog()}
       </div>
     }
   },
