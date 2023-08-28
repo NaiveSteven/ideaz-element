@@ -29,6 +29,8 @@ const isShowName = ref(false)
 const reqConfig = ref({
   api: getReqData
 })
+const addFormData = ref({})
+const editFormData = ref({})
 
 function getReqData() {
   return new Promise((resolve) => {
@@ -300,6 +302,8 @@ const handleDivClick = () => {
 const testClick = () => {
   console.log(formModel.value, 'formModel')
   console.log(pagination.value, 'pagination')
+  console.log(addFormData.value, 'addFormData')
+  console.log(editFormData.value, 'editFormData')
 }
 
 onMounted(() => {
@@ -319,6 +323,8 @@ onMounted(() => {
     v-model:formData="formModel"
     v-model:pagination="pagination"
     v-model:data="tableData"
+    v-model:addFormData="addFormData"
+    v-model:editFormData="editFormData"
     name="name"
     :loading="loading"
     :columns="columns"

@@ -2,6 +2,7 @@ import type { Ref } from 'vue'
 import type { CrudProps } from '../src/props'
 
 export const useDialogConfig = (props: CrudProps, currentMode: Ref<'edit' | 'add' | 'view'>) => {
+  const dialogFormData = ref({})
   const dialogProps = computed(() => {
     const { dialog } = props
     return {
@@ -16,5 +17,5 @@ export const useDialogConfig = (props: CrudProps, currentMode: Ref<'edit' | 'add
 
   const handleConfirm = () => {}
 
-  return { dialogProps, handleCancel, handleConfirm }
+  return { dialogProps, dialogFormData, handleCancel, handleConfirm }
 }
