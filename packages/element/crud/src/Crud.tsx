@@ -47,6 +47,7 @@ export default defineComponent({
       isShowDialog,
       rowData,
       currentMode,
+      isShowDrawer,
     } = useDataRequest(props, emit)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
     const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
@@ -169,12 +170,30 @@ export default defineComponent({
       </el-dialog>
     }
 
+    const renderDrawer = () => {
+      return <el-drawer
+        modelValue={isShowDrawer.value}
+        onUpdate:modelValue={(val: boolean) => isShowDrawer.value = val}
+        {...dialogProps.value}
+        v-slots={{
+          footer: () => {
+            return <>
+              <el-button>取消</el-button>
+              <el-button type="primary">确认</el-button>
+            </>
+          },
+        }}>
+        asdf
+      </el-drawer>
+    }
+
     return () => {
       console.log('刷新')
       return <div class={ns.b('')}>
         {renderSearchForm()}
         {renderTable()}
         {renderDialog()}
+        {renderDrawer()}
       </div>
     }
   },

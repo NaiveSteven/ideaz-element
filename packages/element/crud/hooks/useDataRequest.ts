@@ -52,7 +52,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     middlePagination,
     updateTableProPagination,
   } = useCrudConfig(props, emit)
-  const { tableColumns, isShowDialog, rowData, currentMode } = useTableColumns(props, emit)
+  const { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer } = useTableColumns(props, emit)
   const attrs = useAttrs()
 
   const isRequest = () => {
@@ -259,5 +259,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     isShowDialog,
     rowData,
     currentMode,
+    isShowDrawer,
   }
 }
