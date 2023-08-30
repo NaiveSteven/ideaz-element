@@ -1,6 +1,7 @@
 import type { Ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue-demi'
+import { isFunction } from '@ideaz/utils'
 import type ZTable from '../../table/src/Table'
 import type { CrudProps } from '../src/props'
 import type { ValidateField } from '~/types'
@@ -16,6 +17,7 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
     return {
       title: dialog.title ? dialog.title : currentMode.value === 'add' ? '新增' : currentMode.value === 'edit' ? '编辑' : '查看',
       width: '680px',
+      ...dialog,
     }
   })
 
@@ -51,5 +53,11 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
     })
   }
 
-  return { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm }
+  const handleDialogClosed = () => {
+    dialogForm.value.resetFields()
+    if (isFunction(props.dialog?.onClosed))
+      props.dialog.onClosed()
+  }
+
+  return { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed }
 }

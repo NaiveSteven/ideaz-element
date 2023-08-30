@@ -49,7 +49,7 @@ export default defineComponent({
       currentMode,
     } = useDataRequest(props, emit)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
-    const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
+    const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
     const ns = useNamespace('crud')
 
     useExpose({
@@ -91,6 +91,16 @@ export default defineComponent({
               <div class={ns.b('top')}>
                 <div>
                   {slots.topLeft && slots.topLeft()}
+                  <el-button
+                    size={tableProps.value.size || 'small'}
+                    type='primary'
+                    onClick={() => {
+                      currentMode.value = 'add'
+                      isShowDialog.value = true
+                    }}
+                  >
+                    新增
+                  </el-button>
                   <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.be('top', 'export')} onClick={handleExport}>导出</el-button>
                 </div>
                 <div>{slots.topRight && slots.topRight()}</div>
@@ -142,14 +152,19 @@ export default defineComponent({
     }
 
     const renderDialog = () => {
-      return <el-dialog modelValue={isShowDialog.value} onUpdate:modelValue={(val: boolean) => isShowDialog.value = val} {...dialogProps.value} v-slots={{
-        footer: () => {
-          return <>
-            <el-button onClick={handleCancel}>取消</el-button>
-            <el-button type="primary" onClick={handleConfirm}>确认</el-button>
-          </>
-        },
-      }}>
+      return <el-dialog
+        modelValue={isShowDialog.value}
+        onUpdate:modelValue={(val: boolean) => isShowDialog.value = val}
+        {...dialogProps.value}
+        onClosed={handleDialogClosed}
+        v-slots={{
+          footer: () => {
+            return <>
+              <el-button onClick={handleCancel}>取消</el-button>
+              <el-button type="primary" onClick={handleConfirm}>确认</el-button>
+            </>
+          },
+        }}>
         {renderOperateForm()}
       </el-dialog>
     }

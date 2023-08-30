@@ -310,6 +310,10 @@ const handleCancel = (a) => {
   console.log(a, 'handleCancel')
 }
 
+const handleClose = () => {
+  console.log('dialog close')
+}
+
 onMounted(() => {
   // getData()
 })
@@ -342,6 +346,7 @@ onMounted(() => {
     export="sadf"
     size="small"
     :max-length="5"
+    :dialog="{ onClose: handleClose }"
     @cancel="handleCancel"
     @submit="() => {}"
     @reset="() => {}"
