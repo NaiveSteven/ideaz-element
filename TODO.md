@@ -53,6 +53,9 @@
 39. ~~`z-crud`支持`request`~~
 40. `z-crud`支持编辑、新增、查看和删除配置
 41. `z-table`支持数据项排列
+42. `z-crud`支持`selection`提示
+43. `z-crud`编辑、新增、查看和删除支持接口和非接口配置
+44. `z-crud`事件梳理，例如：`editable`下的事件和`crud`的事件
 
 ## FEATURE（docs and dts）
 
@@ -75,6 +78,7 @@
 2. `z-text`组件在`vitepress`文档中的折行不正确问题
 3. ~~`z-check-card`组件修复`inject`报错问题~~
 4. `z-crud`表单输入一个字符，刷新两次问题
+5. `z-crud`表单底部和顶部高度不对称问题
 
 ## Long Time
 

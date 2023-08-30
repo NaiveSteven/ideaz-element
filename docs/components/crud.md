@@ -92,7 +92,8 @@ const columns = [
     showOverflowTooltip: true,
     form: {
       component: 'input',
-    }
+    },
+    detail: true,
   },
   {
     type: 'select',
@@ -107,6 +108,7 @@ const columns = [
     },
     prop: 'address',
     label: '地址',
+    detail: true,
     form: {
       component: 'input'
     }
@@ -116,6 +118,7 @@ const columns = [
       return h('span', {}, scoped.$index)
     },
     prop: 'date',
+    detail: true,
     label: '日期234',
   },
   {
@@ -156,6 +159,7 @@ const columns = [
     type: 'el-input',
     prop: 'name',
     label: '测试',
+    detail: true,
     required: true,
     // rules: {
     //   message: '请输入用户名',
@@ -306,6 +310,14 @@ const testClick = () => {
   console.log(editFormData.value, 'editFormData')
 }
 
+const handleCancel = (a) => {
+  console.log(a, 'handleCancel')
+}
+
+const handleClose = () => {
+  console.log('dialog close')
+}
+
 onMounted(() => {
   // getData()
 })
@@ -329,6 +341,7 @@ onMounted(() => {
     :loading="loading"
     :columns="columns"
     :options="options"
+    :form="{ rules: { address: [{ required: true }] } }"
     :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
     :editable="{ type: 'multiple' }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
@@ -337,6 +350,10 @@ onMounted(() => {
     export="sadf"
     size="small"
     :max-length="5"
+    :dialog="{ onClose: handleClose }"
+    @cancel="handleCancel"
+    @submit="() => {}"
+    @reset="() => {}"
   >
     <template #buttons="{ row }">
       <el-button @click="click(row)">
