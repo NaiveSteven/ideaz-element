@@ -1,11 +1,11 @@
-import { isObject } from '@ideaz/utils'
+import { isArray, isObject } from '@ideaz/utils'
 import type { CrudProps } from '../src/props'
 import type { TableCol } from '~/types'
 
 export const useFormColumns = (props: CrudProps) => {
   const getColumns = (key: keyof typeof props) => {
-    if (isObject(props.form) && props.form.columns && !props[key]) return props.form.columns
-    if (isObject(props[key]) && props[key].columns) return props[key].columns
+    if (isObject(props.form) && isArray(props.form.columns) && !props[key]) return props.form.columns
+    if (isObject(props[key]) && isArray(props[key].columns)) return props[key].columns
     return props.columns.filter((column: TableCol) => (column[key]) || (column.form && column[key] !== false)).map((column: TableCol) => {
       const commonConfig = {
         field: column.prop,

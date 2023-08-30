@@ -4,7 +4,7 @@ import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
-import { useDataRequest, useDialogConfig, useFormColumns } from '../hooks'
+import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns } from '../hooks'
 import { crudProps, formKeys } from './props'
 
 export default defineComponent({
@@ -51,6 +51,8 @@ export default defineComponent({
     } = useDataRequest(props, emit)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
     const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
+    const { drawerProps } = useDrawerConfig(props)
+    const { descriptionColumns, descriptionProps } = useDescriptions(props)
     const ns = useNamespace('crud')
 
     useExpose({
@@ -174,16 +176,9 @@ export default defineComponent({
       return <el-drawer
         modelValue={isShowDrawer.value}
         onUpdate:modelValue={(val: boolean) => isShowDrawer.value = val}
-        {...dialogProps.value}
-        v-slots={{
-          footer: () => {
-            return <>
-              <el-button>取消</el-button>
-              <el-button type="primary">确认</el-button>
-            </>
-          },
-        }}>
-        asdf
+        {...drawerProps.value}
+      >
+        <z-descriptions columns={descriptionColumns.value} detail={rowData.value} {...descriptionProps.value}/>
       </el-drawer>
     }
 

@@ -71,6 +71,10 @@ export const crudProps = {
     type: Object as PropType<any>,
     default: () => ({}),
   },
+  drawer: {
+    type: Object as PropType<any>,
+    default: () => ({}),
+  },
   addFormData: {
     type: Object as PropType<any>,
     default: () => ({}),

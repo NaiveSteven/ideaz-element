@@ -92,7 +92,8 @@ const columns = [
     showOverflowTooltip: true,
     form: {
       component: 'input',
-    }
+    },
+    detail: true,
   },
   {
     type: 'select',
@@ -107,6 +108,7 @@ const columns = [
     },
     prop: 'address',
     label: '地址',
+    detail: true,
     form: {
       component: 'input'
     }
@@ -116,6 +118,7 @@ const columns = [
       return h('span', {}, scoped.$index)
     },
     prop: 'date',
+    detail: true,
     label: '日期234',
   },
   {
@@ -156,6 +159,7 @@ const columns = [
     type: 'el-input',
     prop: 'name',
     label: '测试',
+    detail: true,
     required: true,
     // rules: {
     //   message: '请输入用户名',
