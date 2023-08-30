@@ -306,6 +306,10 @@ const testClick = () => {
   console.log(editFormData.value, 'editFormData')
 }
 
+const handleCancel = (a) => {
+  console.log(a, 'handleCancel')
+}
+
 onMounted(() => {
   // getData()
 })
@@ -329,6 +333,7 @@ onMounted(() => {
     :loading="loading"
     :columns="columns"
     :options="options"
+    :form="{ rules: { address: [{ required: true }] } }"
     :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
     :editable="{ type: 'multiple' }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
@@ -337,6 +342,9 @@ onMounted(() => {
     export="sadf"
     size="small"
     :max-length="5"
+    @cancel="handleCancel"
+    @submit="() => {}"
+    @reset="() => {}"
   >
     <template #buttons="{ row }">
       <el-button @click="click(row)">

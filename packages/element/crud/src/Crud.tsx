@@ -10,7 +10,7 @@ import { crudProps, formKeys } from './props'
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData'],
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'submit', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData'],
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
     const {
@@ -49,7 +49,7 @@ export default defineComponent({
       currentMode,
     } = useDataRequest(props, emit)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
-    const { dialogProps, dialogFormData, handleCancel, handleConfirm } = useDialogConfig(props, currentMode)
+    const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
     const ns = useNamespace('crud')
 
     useExpose({
@@ -129,7 +129,10 @@ export default defineComponent({
     const renderOperateForm = () => {
       const columns = currentMode.value === 'add' ? addFormColumns.value : currentMode.value === 'edit' ? editFormColumns.value : detailColumns.value
       const formData = currentMode.value === 'add' ? props.addFormData : currentMode.value === 'edit' ? props.editFormData : rowData.value
+      const formProps = omit(props.form || {}, ['columns'])
       return <z-form
+        {...formProps}
+        ref={dialogForm}
         columns={columns}
         modelValue={dialogFormData.value}
         onUpdate:modelValue={(val: any) => { dialogFormData.value = val }}

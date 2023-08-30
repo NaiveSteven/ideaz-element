@@ -79,6 +79,9 @@ export const crudProps = {
     type: Object as PropType<any>,
     default: () => ({}),
   },
+  onCancel: {
+    type: Function,
+  },
 }
 
 export interface TableDataReq {
