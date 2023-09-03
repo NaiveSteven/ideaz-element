@@ -6,7 +6,7 @@ export const useDialog = (props: DialogProps, emit: any) => {
   const dialogRef = ref()
 
   const dialogConfig = computed(() => {
-    return omit(props, ['cancelButtonProps', 'confirmButtonProps', 'title'])
+    return omit({ ...props, width: props.type !== 'normal' ? 420 : props.width }, ['cancelButtonProps', 'confirmButtonProps', 'title'])
   })
 
   const done = () => {

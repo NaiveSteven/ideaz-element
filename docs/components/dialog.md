@@ -34,6 +34,7 @@ const renderTitle = () => {
   </el-button>
   <z-dialog
     v-model="isShowDialog"
+    type="info"
     :close-on-click-modal="true"
     @confirm="handleConfirm"
   >

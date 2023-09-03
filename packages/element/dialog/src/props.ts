@@ -20,6 +20,14 @@ export const dialogProps = {
   title: {
     type: [Function, String] as PropType<() => VNode | string>,
   },
+  type: {
+    type: String as PropType<'normal' | 'warning' | 'danger' | 'info'>,
+    default: 'normal',
+  },
+  message: {
+    type: String,
+    default: '',
+  },
 }
 
 export type DialogProps = ExtractPropTypes<typeof dialogProps>

@@ -1,3 +1,4 @@
+import { WarningFilled } from '@element-plus/icons'
 import { isFunction, isString } from '@ideaz/utils'
 import { useDialog } from '../hooks'
 import { dialogProps } from './props'
@@ -8,6 +9,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'cancel', 'confirm'],
   setup(props, { emit, slots }) {
     const { dialogConfig, dialogRef, handleCancel, handleConfirm } = useDialog(props, emit)
+    const ns = useNamespace('dialog')
 
     const getHeader = () => {
       if (isFunction(props.title))
@@ -19,36 +21,65 @@ export default defineComponent({
       return slots.header || slots.title
     }
 
+    const renderDialogFooter = () => {
+      const { type } = props
+      if (isFunction(slots.footer))
+        return slots.footer
+
+      if (type === 'info') {
+        return <div class={ns.e('footer')}>
+          <el-button
+            type="primary"
+            size="default"
+            onClick={handleConfirm}
+          >知道了</el-button>
+        </div>
+      }
+      return <div class={ns.e('footer')}>
+        <el-button
+          type="default"
+          size="default"
+          onClick={handleCancel}
+          {...props.cancelButtonProps}
+        >{props.cancelButtonProps.label || '取消'}</el-button>
+        <el-button
+          type={(type === 'warning' || type === 'danger') ? type : 'primary'}
+          size="default"
+          onClick={handleConfirm}
+          {...props.confirmButtonProps}
+        >{props.confirmButtonProps.label || '确认'}</el-button>
+      </div>
+    }
+
+    const renderContent = () => {
+      if (props.type !== 'normal') {
+        return <div class={ns.e('content')}>
+          <div class={ns.e('container')}>
+            <el-icon class={[ns.e('status'), ns.bm('icon', props.type)]}>
+              <WarningFilled />
+            </el-icon>
+            <div class={ns.e('message')}>
+              <p>{slots.default?.() || props.message}</p>
+            </div>
+          </div>
+        </div>
+      }
+      return slots.default?.()
+    }
+
     return () => {
       return <el-dialog
         ref={dialogRef}
+        class={[ns.b(''), props.type !== 'normal' && ns.b('tip')]}
         {...dialogConfig.value}
         modelValue={props.modelValue}
         onUpdate:modelValue={(val: boolean) => emit('update:modelValue', val)}
         v-slots={{
-          footer: () => {
-            if (isFunction(slots.footer))
-              return slots.footer
-
-            return <div class="c-dialog__footer">
-              <el-button
-                type="default"
-                size="default"
-                onClick={handleCancel}
-                {...props.cancelButtonProps}
-              >{props.cancelButtonProps.label || '取消'}</el-button>
-              <el-button
-                type="primary"
-                size="default"
-                onClick={handleConfirm}
-                {...props.confirmButtonProps}
-              >{props.confirmButtonProps.label || '确认'}</el-button>
-            </div>
-          },
+          footer: () => renderDialogFooter(),
           header: getHeader(),
         }}
       >
-        {slots.default?.()}
+        {renderContent()}
       </el-dialog>
     }
   },
