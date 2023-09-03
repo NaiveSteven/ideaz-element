@@ -1,4 +1,4 @@
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isString } from '@ideaz/utils'
 import { useDialog } from '../hooks'
 import { dialogProps } from './props'
 
@@ -8,6 +8,16 @@ export default defineComponent({
   emits: ['update:modelValue', 'cancel', 'confirm'],
   setup(props, { emit, slots }) {
     const { dialogConfig, dialogRef, handleCancel, handleConfirm } = useDialog(props, emit)
+
+    const getHeader = () => {
+      if (isFunction(props.title))
+        return () => props.title?.()
+
+      if (isString(props.title))
+        return () => props.title
+
+      return slots.header || slots.title
+    }
 
     return () => {
       return <el-dialog
@@ -35,7 +45,7 @@ export default defineComponent({
               >{props.confirmButtonProps.label || '确认'}</el-button>
             </div>
           },
-          header: slots.header || slots.title || (() => props.title?.()),
+          header: getHeader(),
         }}
       >
         {slots.default?.()}

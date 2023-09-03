@@ -14,10 +14,10 @@ import { h, ref } from 'vue'
 
 const isShowDialog = ref(false)
 
-const handleConfirm = (done, b) => {
+const handleConfirm = (done) => {
   // this.$message.success('成功')
   // isShowDialog.value = false
-  console.log(done, b, 'sdf')
+  console.log(done, 'sdf')
 }
 const handleBeforeClose = () => {
 
@@ -35,12 +35,11 @@ const renderTitle = () => {
   <z-dialog
     v-model="isShowDialog"
     :close-on-click-modal="true"
-    :title="renderTitle"
     @confirm="handleConfirm"
   >
-    <!-- <template #header>
+    <template #header>
       <span>slotTitle</span>
-    </template> -->
+    </template>
     <span>这是一段信息</span>
   </z-dialog>
 </template>
