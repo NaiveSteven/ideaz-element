@@ -10,10 +10,38 @@
 
 ```vue
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
+
+const isShowDialog = ref(false)
+
+const handleConfirm = (done, b) => {
+  // this.$message.success('成功')
+  // isShowDialog.value = false
+  console.log(done, b, 'sdf')
+}
+const handleBeforeClose = () => {
+
+}
+
+const renderTitle = () => {
+  return h('span', {}, 'title')
+}
 </script>
 
 <template>
-  <z-dialog />
+  <el-button link @click="isShowDialog = true">
+    点击打开 Dialog
+  </el-button>
+  <z-dialog
+    v-model="isShowDialog"
+    :close-on-click-modal="true"
+    :title="renderTitle"
+    @confirm="handleConfirm"
+  >
+    <!-- <template #header>
+      <span>slotTitle</span>
+    </template> -->
+    <span>这是一段信息</span>
+  </z-dialog>
 </template>
 ```
