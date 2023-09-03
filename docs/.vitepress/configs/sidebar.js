@@ -95,6 +95,15 @@ function getComponentsSidebar() {
             },
           ],
         },
+        {
+          text: '反馈',
+          items: [
+            {
+              text: 'Dialog 弹窗',
+              link: '/components/dialog',
+            },
+          ],
+        },
       ],
     },
   ]

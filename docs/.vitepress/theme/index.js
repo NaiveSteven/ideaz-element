@@ -6,7 +6,7 @@ import 'element-plus/dist/index.css'
 import '@ideaz/theme-chalk/src/index.scss'
 import ElementPlus from 'element-plus'
 import zhCn from '@ideaz/locale/lang/zh-cn'
-import ideazui from '@ideaz/element'
+import ideazui, { ZDialogTip } from '@ideaz/element'
 import * as ElIconModules from '@element-plus/icons'
 import Button from '../../../src/components/Button.vue'
 import { useComponents } from './useComponents'
@@ -15,6 +15,8 @@ import 'uno.css'
 function transElIconName(iconName) {
   return `i${iconName.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)}`
 }
+
+window.ZDialogTip = ZDialogTip
 
 export default {
   ...DefaultTheme,

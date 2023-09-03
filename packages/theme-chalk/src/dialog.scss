@@ -1,0 +1,69 @@
+.z-dialog {
+
+}
+
+
+.z-dialog-tip {
+  .el-dialog__body {
+    padding: 0;
+  }
+
+  .el-dialog__header {
+    margin: 0;
+    padding: 15px;
+    padding-bottom: 10px;
+    font-size: 18px;
+    line-height: 18px;
+
+    .el-dialog__headerbtn {
+      width: 43px;
+      height: 40px;
+    }
+  }
+
+  .el-dialog__footer {
+    padding: 5px 15px 10px;
+  }
+
+  .z-dialog__content {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: #606266;
+
+    .z-dialog__container {
+      position: relative;
+
+      .z-dialog__status {
+        // color: #e6a23c;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 24px!important;
+      }
+
+      .z-dialog-icon--warning {
+        color: var(--el-color-warning);
+      }
+
+      .z-dialog-icon--danger {
+        color: var(--el-color-danger);
+      }
+
+      .z-dialog-icon--info {
+        color: var(--el-color-primary);
+      }
+
+      .z-dialog__message {
+        margin: 0;
+        padding-right: 12px;
+        padding-left: 36px;
+        word-break: break-word;
+
+        p {
+          margin: 0;
+          line-height: 24px;
+        }
+      }
+    }
+  }
+}

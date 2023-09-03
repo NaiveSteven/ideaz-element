@@ -56,6 +56,8 @@
 42. `z-crud`支持`selection`提示
 43. `z-crud`编辑、新增、查看和删除支持接口和非接口配置
 44. `z-crud`事件梳理，例如：`editable`下的事件和`crud`的事件
+45. 添加`z-dialog`组件
+46. `z-dialog`组件支持`info`、`danger`、`warning`等`type`
 
 ## FEATURE（docs and dts）
 
@@ -79,6 +81,7 @@
 3. ~~`z-check-card`组件修复`inject`报错问题~~
 4. `z-crud`表单输入一个字符，刷新两次问题
 5. `z-crud`表单底部和顶部高度不对称问题
+6. `z-dialog`导入方式组件关闭销毁问题
 
 ## Long Time
 
