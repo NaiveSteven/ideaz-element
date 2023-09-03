@@ -1,63 +1,72 @@
 {
   "hash": "abc54dbe",
-  "browserHash": "10b53fb2",
+  "browserHash": "66152a6d",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+vue@3.2.44/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "cf8dcb6c",
+      "fileHash": "f8598e65",
       "needsInterop": false
     },
     "element-plus": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+element-plus@2.3.5_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/element-plus/es/index.mjs",
       "file": "element-plus.js",
-      "fileHash": "4ab03faa",
+      "fileHash": "8c503e02",
       "needsInterop": false
     },
     "@element-plus/icons": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+@element-plus+icons@0.0.11/node_modules/@element-plus/icons/es/index.js",
       "file": "@element-plus_icons.js",
-      "fileHash": "4a8ca0b8",
+      "fileHash": "6531cad2",
       "needsInterop": false
     },
     "lodash-unified": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+lodash-unified@1.0.3_@types+lodash-es@4.17.8_lodash-es@4.17.21_lodash@4.17.21/node_modules/lodash-unified/import.js",
       "file": "lodash-unified.js",
-      "fileHash": "802ddcfa",
+      "fileHash": "41de4a04",
       "needsInterop": false
     },
     "vue-demi": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+vue-demi@0.14.5_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/vue-demi/lib/index.mjs",
       "file": "vue-demi.js",
-      "fileHash": "c3c59d31",
+      "fileHash": "9266b217",
       "needsInterop": false
     },
     "lodash-es": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+lodash-es@4.17.21/node_modules/lodash-es/lodash.js",
       "file": "lodash-es.js",
-      "fileHash": "4217aca4",
+      "fileHash": "772c018b",
       "needsInterop": false
     },
     "@vueuse/core": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+@vueuse+core@10.3.0_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/@vueuse/core/index.mjs",
       "file": "@vueuse_core.js",
-      "fileHash": "5cd0bf00",
+      "fileHash": "f8116822",
       "needsInterop": false
     },
     "vue-draggable-plus": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+vue-draggable-plus@0.2.4_@types+sortablejs@1.15.1_@vue+composition-api@1.0.0/node_modules/vue-draggable-plus/dist/vue-draggable-plus.js",
       "file": "vue-draggable-plus.js",
-      "fileHash": "524a04d6",
+      "fileHash": "7628f88c",
       "needsInterop": false
     },
     "element-resize-detector": {
       "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+element-resize-detector@1.2.4/node_modules/element-resize-detector/src/element-resize-detector.js",
       "file": "element-resize-detector.js",
-      "fileHash": "ee3787c8",
+      "fileHash": "f4b71f66",
       "needsInterop": true
+    },
+    "@vue/shared": {
+      "src": "../../../../node_modules/.pnpm/registry.npmmirror.com+@vue+shared@3.3.4/node_modules/@vue/shared/dist/shared.esm-bundler.js",
+      "file": "@vue_shared.js",
+      "fileHash": "50c36744",
+      "needsInterop": false
     }
   },
   "chunks": {
+    "chunk-ZVYR2FUI": {
+      "file": "chunk-ZVYR2FUI.js"
+    },
     "chunk-YUUNX4AB": {
       "file": "chunk-YUUNX4AB.js"
     },

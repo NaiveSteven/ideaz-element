@@ -10,9 +10,10 @@
 
 ```vue
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { getCurrentInstance, h, ref } from 'vue'
 
 const isShowDialog = ref(false)
+const a = getCurrentInstance()
 
 const handleConfirm = (done) => {
   // this.$message.success('成功')
@@ -26,10 +27,16 @@ const handleBeforeClose = () => {
 const renderTitle = () => {
   return h('span', {}, 'title')
 }
+
+const handleOpen = () => {
+  window.ZDialogTip.warning('sdf', 'title').then(() => {
+    console.log('111')
+  })
+}
 </script>
 
 <template>
-  <el-button link @click="isShowDialog = true">
+  <el-button link @click="handleOpen">
     点击打开 Dialog
   </el-button>
   <z-dialog
