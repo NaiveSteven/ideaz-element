@@ -58,6 +58,7 @@
 44. `z-crud`事件梳理，例如：`editable`下的事件和`crud`的事件
 45. 添加`z-dialog`组件
 46. `z-dialog`组件支持`info`、`danger`、`warning`等`type`
+47. `z-dialog`组件`loading`等`props`命名
 
 ## FEATURE（docs and dts）
 
@@ -73,6 +74,8 @@
 10. ~~`tag-select`组件文档、`dts`文件~~
 11. ~~`text`组件文档、`dts`文件~~
 12. ~~`watermark`组件文档、`dts`文件~~
+13. `crud`组件文档、`dts`文件
+14. `dialog`组件文档、`dts`文件
 
 ## FIX
 
