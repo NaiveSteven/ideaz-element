@@ -59,6 +59,7 @@
 45. 添加`z-dialog`组件
 46. `z-dialog`组件支持`info`、`danger`、`warning`等`type`
 47. `z-dialog`组件`loading`等`props`命名
+48. `z-crud`组件`editable`事件内置
 
 ## FEATURE（docs and dts）
 
