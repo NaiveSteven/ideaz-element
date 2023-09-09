@@ -1,5 +1,5 @@
 // import draggable from 'vuedraggable'
-import { Back, DCaret, FullScreen, Operation, Refresh, Right, VideoPause } from '@element-plus/icons'
+import { Back, DCaret, FullScreen, Operation, Refresh, Right, VideoPause } from '@element-plus/icons-vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { isFunction } from '@ideaz/utils'
 import { useFixedTableCols, useToolBarTableCols } from '../hooks'
@@ -51,6 +51,7 @@ export default defineComponent({
       handleFixedTableColFromSide,
     } = useFixedTableCols(props, emit, checkedTableCols)
     const ns = useNamespace('table-tool-bar')
+    const { t } = useLocale()
 
     const isIndeterminate = ref(getIsIndeterminate(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value))
     const checkAll = ref(getIsCheckAll(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value))
@@ -120,15 +121,15 @@ export default defineComponent({
 
     const TABLE_SIZE_LIST = [
       {
-        label: '默认',
+        label: t('common.default'),
         size: 'default',
       },
       {
-        label: '宽松',
+        label: t('table.loose'),
         size: 'large',
       },
       {
-        label: '紧凑',
+        label: t('table.compact'),
         size: 'small',
       },
     ]
@@ -148,7 +149,7 @@ export default defineComponent({
 
     const getContentConfig = (sortTableCols: TableCol[]) => [
       {
-        title: '左固定',
+        title: t('table.leftFixed'),
         titleVisible: leftFixedTableCols.value.length,
         checkboxModelValue: leftCheckedTableColsUids,
         checkboxChange: (val: string[]) => handleFixedCheckedTableColsChange('left', val),
@@ -157,34 +158,34 @@ export default defineComponent({
         dragEnd: (dragData: any) => handleSortTableCols(dragData, 'left'),
         checkboxData: leftFixedTableCols.value,
         extraContent: (item: TableCol) => <>
-          <el-tooltip effect="dark" content="取消固定" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
             <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
           </el-tooltip>
-          <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
             <el-button icon={Right} text onClick={() => handleFixedTableColFromSide(item, 'right')}></el-button>
           </el-tooltip>
         </>,
       },
       {
-        title: '不固定',
+        title: t('table.unfixed'),
         titleVisible: leftFixedTableCols.value.length || rightFixedTableCols.value.length,
         checkboxModelValue: checkedTableCols,
         checkboxChange: handleCheckedTableColsChange,
         dragModelValue: sortTableCols,
-        dragChange: () => {},
+        dragChange: () => { },
         dragEnd: () => handleDataChange(mergeArraysByUID(props.sortTableCols, sortTableCols), props.middleTableCols),
         checkboxData: sortTableCols,
         extraContent: (item: TableCol) => <>
-          <el-tooltip effect="dark" content="左固定" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
             <el-button icon={Back} text onClick={() => handleTableColFixedFromCenter(item, 'left')}></el-button>
           </el-tooltip>
-          <el-tooltip effect="dark" content="右固定" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
             <el-button icon={Right} text onClick={() => handleTableColFixedFromCenter(item, 'right')}></el-button>
           </el-tooltip>
         </>,
       },
       {
-        title: '右固定',
+        title: t('table.rightFixed'),
         titleVisible: rightFixedTableCols.value.length,
         checkboxModelValue: rightCheckedTableColsUids,
         checkboxChange: (val: string[]) => handleFixedCheckedTableColsChange('right', val),
@@ -193,10 +194,10 @@ export default defineComponent({
         dragEnd: (dragData: any) => handleSortTableCols(dragData, 'right'),
         checkboxData: rightFixedTableCols.value,
         extraContent: (item: TableCol) => <>
-          <el-tooltip effect="dark" content="左固定" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
             <el-button icon={Back} text onClick={() => handleFixedTableColFromSide(item, 'left')}></el-button>
           </el-tooltip>
-          <el-tooltip effect="dark" content="取消固定" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
             <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
           </el-tooltip>
         </>,
@@ -205,15 +206,16 @@ export default defineComponent({
 
     return () => {
       const loading = props.tableProps?.loading
-      const sortTableCols = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide)
+      const fullScreenElement = props.tableProps?.fullScreenElement
+      const sortTableCols = props.sortTableCols.filter((item: TableCol) => isFunction(item.hide) ? !item.hide() : !item.hide)
       const CONTENT_CONFIG = getContentConfig(sortTableCols)
 
       return (
         <div class={ns.b('')}>
-          <el-tooltip effect="dark" content="刷新" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content={t('common.refresh')} placement="top" showAfter={300}>
             <el-button v-loading={loading} icon={Refresh} text onClick={handleRefresh}></el-button>
           </el-tooltip>
-          <el-tooltip effect="dark" content="密度" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content={t('table.density')} placement="top" showAfter={300}>
             <el-dropdown
               onCommand={handleCommand}
               trigger="click"
@@ -238,12 +240,12 @@ export default defineComponent({
               <el-button icon={DCaret} text></el-button>
             </el-dropdown>
           </el-tooltip>
-          <el-tooltip effect="dark" content="全屏" placement="top" showAfter={300}>
-            <z-full-screen getElement={() => document.getElementsByClassName('z-table__container')[0]} teleported={true}>
+          <el-tooltip effect="dark" content={t('common.fullScreen')} placement="top" showAfter={300}>
+            <z-full-screen getElement={fullScreenElement || document.getElementsByClassName('z-table__container')[0]} teleported={true}>
               <el-button icon={FullScreen} text />
             </z-full-screen>
           </el-tooltip>
-          <el-tooltip effect="dark" content="列设置" placement="top" showAfter={300}>
+          <el-tooltip effect="dark" content={t('table.columnSetting')} placement="top" showAfter={300}>
             <div>
               <el-popover
                 placement="bottom"
@@ -266,10 +268,10 @@ export default defineComponent({
                       }}
                       size="small"
                     >
-                      列展示
+                      {t('table.columnDisplay')}
                     </el-checkbox>
                     <a onClick={resetAll} class="column-popover__reset">
-                      重置
+                      {t('common.reset')}
                     </a>
                   </div>
                   <div class="column-popover__content">

@@ -1,4 +1,4 @@
-import { Delete, Plus } from '@element-plus/icons'
+import { Delete, Plus } from '@element-plus/icons-vue'
 
 export default defineComponent({
   name: 'ZOperationCard',

@@ -29,9 +29,34 @@ const renderTitle = () => {
 }
 
 const handleOpen = () => {
-  window.ZDialogTip.warning('sdf', 'title').then(() => {
-    console.log('111')
+  // isShowDialog.value = true
+  // window.ZDialogTip.warning('sdf', 'title', {
+  //   onConfirm: ({ done, confirmBtnLoading }) => {
+  //     // done()
+  //     confirmBtnLoading.value = true
+  //     // console.log(ctx, 'extend onConfirm')
+  //   },
+  //   onCancel: ({ done, cancelBtnLoading }) => {
+  //     cancelBtnLoading.value = true
+  //     console.log('cancel onCancel')
+  //   }
+  // })
+  window.ZDialogTip({
+    type: 'warning',
+    message: () => h('span', {}, 'message renderasdfsf'),
+    // title: '标题',
+    onConfirm: ({ done, confirmBtnLoading }) => {
+      confirmBtnLoading.value = true
+    },
+    onCancel: ({ done, cancelBtnLoading }) => {
+      done()
+    }
   })
+  // window.ZDialogTip.close()
+}
+
+const handleClose = () => {
+  console.log('closeff')
 }
 </script>
 
@@ -41,8 +66,8 @@ const handleOpen = () => {
   </el-button>
   <z-dialog
     v-model="isShowDialog"
-    type="info"
-    :close-on-click-modal="true"
+    type="warning"
+    @closed="handleClose"
     @confirm="handleConfirm"
   >
     <template #header>

@@ -76,7 +76,8 @@
     "vitest": "latest",
     "vue": "3.2.44",
     "vue-router": "latest",
-    "vue-tsc": "^1.2.0"
+    "vue-tsc": "^1.2.0",
+    "@element-plus/icons-vue": "latest"
   },
   "peerDependencies": {
     "@vue/composition-api": ">=1",

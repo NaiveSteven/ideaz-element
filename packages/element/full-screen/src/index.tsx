@@ -7,7 +7,7 @@ export default defineComponent({
   name: 'ZFullScreen',
   props: {
     getElement: {
-      type: Function as PropType<() => EnhancedHTMLElement>,
+      type: [Function, HTMLElement] as PropType<() => EnhancedHTMLElement | HTMLElement>,
       default: () => document.body,
     },
     teleported: {
@@ -23,12 +23,14 @@ export default defineComponent({
       getElement: props.teleported ? () => document.body : props.getElement,
       onFullscreenChange: (value: boolean) => {
         if (props.teleported) {
-          const element = props.getElement()
-          if (value)
-            element.classList.add('z-full-screen-class')
+          const element = isFunction(props.getElement) ? props.getElement() : props.getElement
+          if (element) {
+            if (value)
+              element.classList.add('z-full-screen-class')
 
-          else
-            element.classList.remove('z-full-screen-class')
+            else
+              element.classList.remove('z-full-screen-class')
+          }
         }
         emit('change', value)
       },

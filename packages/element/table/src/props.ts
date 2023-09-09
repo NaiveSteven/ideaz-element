@@ -104,10 +104,6 @@ export const tableProps = {
     type: [Object, Boolean] as PropType<Pagination | boolean>,
     default: () => ({ page: 1, pageSize: 0, total: 0 }),
   },
-  topRender: {
-    type: Function,
-    default: () => null,
-  },
   toolBar: {
     type: [Boolean, Object],
     default: true,
@@ -132,6 +128,9 @@ export const tableProps = {
     type: [String, Object, Boolean] as PropType<boolean | string | WatermarkProps>,
     default: false,
   },
+  fullScreenElement: {
+    type: [Function, HTMLElement] as PropType<() => HTMLElement | HTMLElement>,
+  }
 }
 
 export const tableColumnProps = {

@@ -1,4 +1,4 @@
-import { ArrowDown } from '@element-plus/icons'
+import { ArrowDown } from '@element-plus/icons-vue'
 import { getPxValue, isFunction, isValid } from '@ideaz/utils'
 import { get, set } from 'lodash-unified'
 import { useShowMore } from './hooks'

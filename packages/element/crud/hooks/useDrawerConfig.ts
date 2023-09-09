@@ -1,13 +1,38 @@
+import { get } from 'lodash-unified'
+import { isFunction, isString } from '@ideaz/utils'
 import type { CrudProps } from '../src/props'
 
 export const useDrawerConfig = (props: CrudProps) => {
+  const viewData = ref<any>({})
+  const isDescLoading = ref(false)
+
+  const { t } = useLocale()
+
   const drawerProps = computed(() => {
     return {
-      title: '查看',
+      title: t('common.view'),
       size: 520,
       ...props.drawer,
     }
   })
 
-  return { drawerProps }
+  const handleDrawerOpen = async (row: any) => {
+    if (props.request?.viewApi) {
+      isDescLoading.value = true
+      try {
+        const detail = props.request?.alias?.detail
+        const res = await props.request?.viewApi({ [props.dataKey]: row[props.dataKey] })
+        viewData.value = isFunction(detail) ? detail(res) : isString(detail) ? get(res, detail) : res?.data
+      }
+      catch (error) {
+        console.log(error, 'detail error')
+      }
+      isDescLoading.value = false
+    }
+    else {
+      viewData.value = row
+    }
+  }
+
+  return { drawerProps, isDescLoading, viewData, handleDrawerOpen }
 }

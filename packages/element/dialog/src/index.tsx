@@ -1,4 +1,4 @@
-import { WarningFilled } from '@element-plus/icons'
+import { WarningFilled } from '@element-plus/icons-vue'
 import { isFunction, isString } from '@ideaz/utils'
 import { useDialog } from '../hooks'
 import { dialogProps } from './props'
@@ -6,11 +6,11 @@ import { dialogProps } from './props'
 export default defineComponent({
   name: 'ZDialog',
   props: dialogProps,
-  emits: ['update:modelValue', 'cancel', 'confirm'],
+  emits: ['update:modelValue', 'cancel', 'confirm', 'vanish'],
   setup(props, { emit, slots, expose }) {
-    const { dialogConfig, dialogRef, handleCancel, handleConfirm } = useDialog(props, emit)
+    const { isShowDialog, dialogConfig, confirmBtnProps, cancelBtnProps, handleCancel, handleConfirm, handleClosed, done } = useDialog(props, emit)
     const ns = useNamespace('dialog')
-    const isShowDialog = ref(false)
+    const { t } = useLocale()
 
     const getHeader = () => {
       if (isFunction(props.title))
@@ -18,6 +18,10 @@ export default defineComponent({
 
       if (isString(props.title))
         return () => props.title
+
+      // default config
+      if (props.extend)
+        return () => t('dialog.tip')
 
       return slots.header || slots.title
     }
@@ -33,7 +37,7 @@ export default defineComponent({
             type="primary"
             size="default"
             onClick={handleConfirm}
-          >知道了</el-button>
+          >{t('dialog.got')}</el-button>
         </div>
       }
       return <div class={ns.e('footer')}>
@@ -41,14 +45,14 @@ export default defineComponent({
           type="default"
           size="default"
           onClick={handleCancel}
-          {...props.cancelButtonProps}
-        >{props.cancelButtonProps.label || '取消'}</el-button>
+          {...cancelBtnProps.value}
+        >{cancelBtnProps.value.label}</el-button>
         <el-button
           type={(type === 'warning' || type === 'danger') ? type : 'primary'}
           size="default"
           onClick={handleConfirm}
-          {...props.confirmButtonProps}
-        >{props.confirmButtonProps.label || '确认'}</el-button>
+          {...confirmBtnProps.value}
+        >{confirmBtnProps.value.label}</el-button>
       </div>
     }
 
@@ -70,15 +74,16 @@ export default defineComponent({
 
     expose({
       isShowDialog,
+      done,
     })
 
     return () => {
       return <el-dialog
-        ref={dialogRef}
         class={[ns.b(''), props.type !== 'normal' && ns.b('tip')]}
         {...dialogConfig.value}
         modelValue={props.modelValue || isShowDialog.value}
         onUpdate:modelValue={(val: boolean) => { isShowDialog.value = val; emit('update:modelValue', val) }}
+        onClosed={handleClosed}
         v-slots={{
           footer: () => renderDialogFooter(),
           header: getHeader(),

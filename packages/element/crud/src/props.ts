@@ -13,6 +13,23 @@ type TableKeys = Array<keyof typeof tableProps>
 export const tableKeys = Object.keys(_tableProps) as TableKeys
 export const formKeys = Object.keys(formProps) as FormKeys
 
+export interface RequestConfig {
+  deleteApi?: any
+  submitApi?: any
+  searchApi?: any
+  alias?: {
+    list: string | ((res: any) => any)
+    total: string | ((res: any) => any)
+    detail: string | ((res: any) => any)
+  }
+  params?: any
+  viewApi?: any
+  beforeData?: any
+  afterData?: any
+  func?: any
+  data?: any
+}
+
 export const crudProps = {
   ..._tableProps,
   ..._formProps,
@@ -20,6 +37,9 @@ export const crudProps = {
   formData: {
     type: Object as PropType<any>,
     default: () => ({}),
+  },
+  selectionData: {
+    type: Array as PropType<any>,
   },
   tableDecorator: {
     type: Object as PropType<any>,
@@ -42,7 +62,7 @@ export const crudProps = {
     default: undefined,
   },
   request: {
-    type: Object as PropType<any>,
+    type: Object as PropType<RequestConfig>,
   },
   export: {
     type: [Function, String],
@@ -86,13 +106,10 @@ export const crudProps = {
   onCancel: {
     type: Function,
   },
-}
-
-export interface TableDataReq {
-  alias: {
-    list: string | ((res: any) => any)
-    total: string | ((res: any) => any)
-  }
+  dataKey: {
+    type: String,
+    default: 'id',
+  },
 }
 
 export type CrudProps = ExtractPropTypes<typeof crudProps>

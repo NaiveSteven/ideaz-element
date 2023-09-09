@@ -1,16 +1,18 @@
 import { useAttrs } from 'element-plus'
 import { omit, pick } from 'lodash-unified'
+import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
-import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns } from '../hooks'
+import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
 import { crudProps, formKeys } from './props'
 
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'submit', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData'],
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'submit', 'delete',
+    'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'selection-change'],
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
     const {
@@ -40,7 +42,6 @@ export default defineComponent({
       handleSortChange,
       middleFormData,
       isUseFormDataStorage,
-      handleCheckboxChange,
       handleRadioChange,
       handleExport,
       getTableData,
@@ -49,11 +50,13 @@ export default defineComponent({
       currentMode,
       isShowDrawer,
     } = useDataRequest(props, emit)
+    const { selectionData, isSelection, handleCheckboxChange, handleCloseAlert, handleMultipleDelete } = useSelectionData(props, emit, tableProps, getTableData)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
     const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
-    const { drawerProps } = useDrawerConfig(props)
+    const { drawerProps, isDescLoading, viewData, handleDrawerOpen } = useDrawerConfig(props)
     const { descriptionColumns, descriptionProps } = useDescriptions(props)
     const ns = useNamespace('crud')
+    const { t } = useLocale()
 
     useExpose({
       resetFields,
@@ -89,27 +92,48 @@ export default defineComponent({
         children: <z-table
           ref="zTableRef"
           {...tableProps.value}
-          topRender={() =>
-            (slots.topLeft || slots.topRight || props.export) && (
-              <div class={ns.b('top')}>
-                <div>
-                  {slots.topLeft && slots.topLeft()}
-                  <el-button
+          v-slots={{
+            ...slots,
+            topLeft: () => {
+              return <>
+                {slots.topLeft && slots.topLeft()}
+                <el-button
+                  size={tableProps.value.size || 'small'}
+                  type='primary'
+                  icon={Plus}
+                  onClick={() => {
+                    currentMode.value = 'add'
+                    isShowDialog.value = true
+                  }}
+                >
+                  {t('crud.add')}
+                </el-button>
+                {!!props.export && <el-button size={tableProps.value.size || 'small'} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
+                {!!isSelection.value
+                  && <el-button
+                    plain
                     size={tableProps.value.size || 'small'}
-                    type='primary'
-                    onClick={() => {
-                      currentMode.value = 'add'
-                      isShowDialog.value = true
-                    }}
-                  >
-                    新增
-                  </el-button>
-                  <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.be('top', 'export')} onClick={handleExport}>导出</el-button>
-                </div>
-                <div>{slots.topRight && slots.topRight()}</div>
-              </div>
-            )
-          }
+                    type='danger'
+                    class={ns.e('multiple-delete')}
+                    icon={Delete}
+                    onClick={handleMultipleDelete}>
+                    {t('crud.multipleDelete')}
+                  </el-button>}
+              </>
+            },
+            topBottom: () => {
+              if (isSelection.value) {
+                return <el-alert
+                  title={t('crud.selected') + selectionData.value.length + t('crud.term')}
+                  type="success"
+                  close-text={t('crud.unselect')}
+                  onClose={handleCloseAlert}
+                />
+              }
+
+              return slots.topBottom?.()
+            },
+          }}
           onRefresh={handlePaginationChange}
           onSort-change={handleSortChange}
           onSelection-change={handleCheckboxChange}
@@ -155,21 +179,16 @@ export default defineComponent({
     }
 
     const renderDialog = () => {
-      return <el-dialog
+      return <z-dialog
         modelValue={isShowDialog.value}
         onUpdate:modelValue={(val: boolean) => isShowDialog.value = val}
         {...dialogProps.value}
         onClosed={handleDialogClosed}
-        v-slots={{
-          footer: () => {
-            return <>
-              <el-button onClick={handleCancel}>取消</el-button>
-              <el-button type="primary" onClick={handleConfirm}>确认</el-button>
-            </>
-          },
-        }}>
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      >
         {renderOperateForm()}
-      </el-dialog>
+      </z-dialog>
     }
 
     const renderDrawer = () => {
@@ -177,8 +196,9 @@ export default defineComponent({
         modelValue={isShowDrawer.value}
         onUpdate:modelValue={(val: boolean) => isShowDrawer.value = val}
         {...drawerProps.value}
+        onOpen={() => handleDrawerOpen(rowData.value)}
       >
-        <z-descriptions columns={descriptionColumns.value} detail={rowData.value} {...descriptionProps.value}/>
+        <z-descriptions v-loading={isDescLoading.value} columns={descriptionColumns.value} detail={viewData.value} {...descriptionProps.value} />
       </el-drawer>
     }
 

@@ -9,8 +9,35 @@
 
   .z-table-tool-bar__container {
     display: flex;
+    flex-direction: column;
     align-items: center;
     margin-bottom: 16px;
+
+    .z-table-tool-bar--top {
+      width: 100%;
+    }
+
+    .z-table-tool-bar--center {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+
+      .z-table-tool-bar--center-slot {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      .z-table-too-bar {
+        width: 100%;
+      }
+    }
+
+    .z-table-tool-bar--top-bottom {
+      width: 100%;
+    }
 
     .z-table-tool-bar--left {
       width: 100%;

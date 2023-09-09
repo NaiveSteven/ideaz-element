@@ -3,7 +3,7 @@ import { isArray, isBoolean, isFunction, isObject, isString } from '@ideaz/utils
 import type { ElTable } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { tableKeys } from '../src/props'
-import type { CrudProps, TableDataReq } from '../src/props'
+import type { CrudProps, RequestConfig } from '../src/props'
 import { useCrudConfig } from './useCrudConfig'
 import { useTableColumns } from './useTableColumns'
 import type { Pagination } from '~/types'
@@ -22,7 +22,7 @@ export function stringifyObject(obj: any) {
   return keyValuePairs.join('&')
 }
 
-function getAliasData(res: any, req: TableDataReq) {
+function getAliasData(res: any, req: RequestConfig) {
   const list = req?.alias?.list
   const total = req?.alias?.total
   return {
@@ -52,7 +52,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     middlePagination,
     updateTableProPagination,
   } = useCrudConfig(props, emit)
-  const { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer } = useTableColumns(props, emit)
+  const { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer } = useTableColumns(props, emit, getTableData)
   const attrs = useAttrs()
 
   const isRequest = () => {
@@ -63,11 +63,12 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     )
   }
 
-  const tableProps = computed(() => {
+  const tableProps = computed<any>(() => {
     return {
       ...pick(props, tableKeys),
       columns: tableColumns.value,
       ...attrs,
+      fullScreenElement: document.getElementsByClassName('z-crud')[0],
       pagination: isUsePaginationStorage.value
         ? middlePagination.value
         : isRequest()
@@ -84,9 +85,8 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   })
 
   async function getTableData(payload?: { column: any; prop: string; order: string }) {
-    const req = props.request
+    const req = props.request || {}
     const params = getParams(payload)
-    // 用户直接覆盖整个方法
     if (isObject(req) && isFunction(req.func)) {
       req.func({
         params,
@@ -102,8 +102,8 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       if (isFunction(req))
         res = await req(params)
 
-      if (isObject(req) && isFunction(req.api))
-        res = await req.api(params)
+      if (isObject(req) && isFunction(req.searchApi))
+        res = await req.searchApi(params)
 
       tableData.value = isFunction(req.data) ? req.data(getAliasData(res, req).list) : getAliasData(res, req).list
       if (props.data)
@@ -124,7 +124,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   }
 
   function getParams(payload?: { column: any; prop: string; order: string }) {
-    const req = props.request
+    const req = props.request || {}
     const params = {
       ...props.formData,
       ...payload,
@@ -189,10 +189,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     return { ...targetPagination.value }
   }
 
-  const handleCheckboxChange = (selection: any) => {
-    emit('selection-change', selection)
-  }
-
   const handleRadioChange = (selection: any) => {
     emit('radio-change', selection)
   }
@@ -252,7 +248,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     handleSortChange,
     middleFormData,
     isUseFormDataStorage,
-    handleCheckboxChange,
     handleRadioChange,
     handleExport,
     getTableData,

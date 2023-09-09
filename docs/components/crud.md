@@ -27,7 +27,7 @@ const cTableRef = ref()
 const formModel = ref({ address: '' })
 const isShowName = ref(false)
 const reqConfig = ref({
-  api: getReqData
+  searchApi: getReqData
 })
 const addFormData = ref({})
 const editFormData = ref({})
@@ -82,6 +82,9 @@ const changeNameVisible = () => {
 }
 
 const columns = [
+  {
+    type: 'selection'
+  },
   {
     prop: 'name',
     label: '姓名',
@@ -318,6 +321,14 @@ const handleClose = () => {
   console.log('dialog close')
 }
 
+const handleDrawerOpen = () => {
+  // console.log('handleDrawerOpen')
+}
+
+const handleSelectionChange = () => {
+  console.log('selection')
+}
+
 onMounted(() => {
   // getData()
 })
@@ -351,9 +362,11 @@ onMounted(() => {
     size="small"
     :max-length="5"
     :dialog="{ onClose: handleClose }"
+    :drawer="{ onOpen: handleDrawerOpen }"
     @cancel="handleCancel"
     @submit="() => {}"
     @reset="() => {}"
+    @selection-change="handleSelectionChange"
   >
     <template #buttons="{ row }">
       <el-button @click="click(row)">

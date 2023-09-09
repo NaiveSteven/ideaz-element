@@ -1,6 +1,9 @@
+import { ElMessage } from 'element-plus'
+import { Delete, EditPen, View } from '@element-plus/icons-vue'
+import DialogTip from '../../dialog/src/dialog'
 import type { CrudProps } from '../src/props'
 
-export const useTableColumns = (props: CrudProps, emit: any) => {
+export const useTableColumns = (props: CrudProps, emit: any, getTableData: () => void) => {
   const { t } = useLocale()
   const rowData = ref({})
   const isShowDialog = ref(false)
@@ -9,9 +12,10 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
 
   const renderEdit = () => {
     return {
-      label: t('table.edit'),
+      label: t('common.edit'),
       type: 'primary',
       link: true,
+      icon: markRaw(EditPen),
       onClick: (row, index, column) => {
         rowData.value = row
         currentMode.value = 'edit'
@@ -22,12 +26,34 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
 
   const renderDelete = () => {
     return {
-      label: t('table.delete'),
-      type: 'primary',
+      label: t('common.delete'),
+      type: 'danger',
       link: true,
+      icon: markRaw(Delete),
       onClick: (row, index) => {
         rowData.value = row
-        isShowDrawer.value = true
+        if (props.request?.deleteApi) {
+          DialogTip({
+            type: 'danger',
+            message: '确定删除该条数据吗',
+            onConfirm: async ({ done, confirmBtnLoading }: { done: () => void; confirmBtnLoading: Ref<boolean> }) => {
+              const dataKey = props.dataKey
+              confirmBtnLoading.value = true
+              try {
+                await props.request?.deleteApi({ [dataKey]: row[dataKey] })
+                confirmBtnLoading.value = false
+                done()
+                ElMessage.success(t('common.success'))
+                getTableData()
+              }
+              catch (error) {
+                console.log(error, 'delete error')
+              }
+              confirmBtnLoading.value = false
+            },
+          })
+        }
+        emit('delete', row)
       },
     }
   }
@@ -37,6 +63,7 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
       label: '查看',
       type: 'primary',
       link: true,
+      icon: markRaw(View),
       onClick: (row, index) => {
         rowData.value = row
         isShowDrawer.value = true
@@ -50,8 +77,8 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
         type: 'button',
         label: t('table.action'),
         buttons: [
-          renderEdit(),
           renderView(),
+          renderEdit(),
           renderDelete(),
         ],
       },
