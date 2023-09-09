@@ -6,6 +6,7 @@ import {
 } from '../../table/hooks'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns } from '../hooks'
 import { crudProps, formKeys } from './props'
+import type { TableCol } from '~/types'
 
 export default defineComponent({
   name: 'ZCrud',
@@ -107,6 +108,12 @@ export default defineComponent({
                 </el-button>
                 {!!props.export && <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
               </>
+            },
+            topBottom: () => {
+              if (tableProps.value.columns.filter((column: TableCol) => column.type === 'selection').length > 0)
+                return <el-alert title={'asdf'} type="info" close-text={t('crud.unselect')} />
+
+              return slots.topBottom?.()
             },
           }}
           onRefresh={handlePaginationChange}

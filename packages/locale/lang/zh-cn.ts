@@ -38,6 +38,7 @@ export default {
   crud: {
     add: '新增',
     export: '导出',
+    unselect: '取消选择',
   },
   watermark: {
     tip: '当前环境不支持Canvas',

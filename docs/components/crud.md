@@ -83,6 +83,9 @@ const changeNameVisible = () => {
 
 const columns = [
   {
+    type: 'selection'
+  },
+  {
     prop: 'name',
     label: '姓名',
     tooltip: '姓名Tooltip',

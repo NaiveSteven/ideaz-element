@@ -38,6 +38,7 @@ export default {
   crud: {
     add: 'add',
     export: 'export',
+    unselect: 'unselect',
   },
   watermark: {
     tip: 'The current environment does not support Canvas',

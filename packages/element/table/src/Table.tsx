@@ -126,7 +126,7 @@ export default defineComponent({
             />
           )}
         </div>
-        <div class={ns.bm('tool-bar', 'top-bottom')}>
+        <div class={ns.bm('tool-bar', 'top-bottom')} style={{ marginTop: (props.toolBar || slots.topLeft || slots.topRight || slots.top) ? '16px' : 0 }} >
           {slots.topBottom ? slots.topBottom() : null}
         </div>
       </div>
