@@ -31,12 +31,13 @@ const renderTitle = () => {
 const handleOpen = () => {
   // isShowDialog.value = true
   window.ZDialogTip.warning('sdf', 'title', {
-    onConfirm: (done, ctx) => {
+    onConfirm: ({ done, confirmBtnLoading }) => {
       // done()
-      console.log(ctx, 'extend onConfirm')
+      confirmBtnLoading.value = true
+      // console.log(ctx, 'extend onConfirm')
     },
-    onCancel: (done) => {
-      done()
+    onCancel: ({ done, cancelBtnLoading }) => {
+      cancelBtnLoading.value = true
       console.log('cancel onCancel')
     }
   })

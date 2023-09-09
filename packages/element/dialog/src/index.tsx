@@ -8,7 +8,7 @@ export default defineComponent({
   props: dialogProps,
   emits: ['update:modelValue', 'cancel', 'confirm', 'vanish'],
   setup(props, { emit, slots, expose }) {
-    const { isShowDialog, dialogConfig, handleCancel, handleConfirm, handleClosed, done } = useDialog(props, emit)
+    const { isShowDialog, dialogConfig, confirmBtnProps, cancelBtnProps, handleCancel, handleConfirm, handleClosed, done } = useDialog(props, emit)
     const ns = useNamespace('dialog')
 
     const getHeader = () => {
@@ -40,14 +40,14 @@ export default defineComponent({
           type="default"
           size="default"
           onClick={handleCancel}
-          {...props.cancelButtonProps}
-        >{props.cancelButtonProps.label || '取消'}</el-button>
+          {...cancelBtnProps.value}
+        >{cancelBtnProps.value.label}</el-button>
         <el-button
           type={(type === 'warning' || type === 'danger') ? type : 'primary'}
           size="default"
           onClick={handleConfirm}
-          {...props.confirmButtonProps}
-        >{props.confirmButtonProps.label || '确认'}</el-button>
+          {...confirmBtnProps.value}
+        >{confirmBtnProps.value.label}</el-button>
       </div>
     }
 

@@ -32,6 +32,20 @@ export const dialogProps = {
     type: Boolean,
     default: false,
   },
+  isConfirmButtonLoading: {
+    type: Boolean,
+    default: false,
+  },
+  isCancelButtonLoading: {
+    type: Boolean,
+    default: false,
+  },
+  confirmButtonLabel: {
+    type: String,
+  },
+  cancelButtonLabel: {
+    type: String,
+  },
 }
 
 export type DialogProps = ExtractPropTypes<typeof dialogProps>
