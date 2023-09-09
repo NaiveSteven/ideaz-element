@@ -29,7 +29,7 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
       link: true,
       onClick: (row, index) => {
         rowData.value = row
-        if (props.request.delete) {
+        if (props.request?.deleteApi) {
           DialogTip({
             type: 'danger',
             message: '确定删除该条数据吗',
@@ -37,7 +37,7 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
               const dataKey = props.dataKey
               confirmBtnLoading.value = true
               try {
-                await props.request.delete({ [dataKey]: row[dataKey] })
+                await props.request?.deleteApi({ [dataKey]: row[dataKey] })
                 confirmBtnLoading.value = false
                 done()
                 ElMessage.success(t('common.success'))

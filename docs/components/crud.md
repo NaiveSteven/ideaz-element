@@ -27,7 +27,7 @@ const cTableRef = ref()
 const formModel = ref({ address: '' })
 const isShowName = ref(false)
 const reqConfig = ref({
-  api: getReqData
+  search: getReqData
 })
 const addFormData = ref({})
 const editFormData = ref({})
@@ -318,6 +318,10 @@ const handleClose = () => {
   console.log('dialog close')
 }
 
+const handleDrawerOpen = () => {
+  // console.log('handleDrawerOpen')
+}
+
 onMounted(() => {
   // getData()
 })
@@ -351,6 +355,7 @@ onMounted(() => {
     size="small"
     :max-length="5"
     :dialog="{ onClose: handleClose }"
+    :drawer="{ onOpen: handleDrawerOpen }"
     @cancel="handleCancel"
     @submit="() => {}"
     @reset="() => {}"

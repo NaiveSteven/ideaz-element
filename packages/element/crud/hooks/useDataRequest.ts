@@ -101,8 +101,8 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       if (isFunction(req))
         res = await req(params)
 
-      if (isObject(req) && isFunction(req.api))
-        res = await req.api(params)
+      if (isObject(req) && isFunction(req.search))
+        res = await req.search(params)
 
       tableData.value = isFunction(req.data) ? req.data(getAliasData(res, req).list) : getAliasData(res, req).list
       if (props.data)

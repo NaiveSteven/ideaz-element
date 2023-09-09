@@ -42,7 +42,7 @@ export const crudProps = {
     default: undefined,
   },
   request: {
-    type: Object as PropType<any>,
+    type: Object as PropType<{ deleteApi: any;submitApi: any;alias: any;viewApi: any }>,
   },
   export: {
     type: [Function, String],

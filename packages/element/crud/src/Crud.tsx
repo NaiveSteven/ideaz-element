@@ -51,7 +51,7 @@ export default defineComponent({
     } = useDataRequest(props, emit)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
     const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
-    const { drawerProps } = useDrawerConfig(props)
+    const { drawerProps, isDescLoading, viewData, handleDrawerOpen } = useDrawerConfig(props)
     const { descriptionColumns, descriptionProps } = useDescriptions(props)
     const ns = useNamespace('crud')
     const { t } = useLocale()
@@ -173,8 +173,9 @@ export default defineComponent({
         modelValue={isShowDrawer.value}
         onUpdate:modelValue={(val: boolean) => isShowDrawer.value = val}
         {...drawerProps.value}
+        onOpen={() => handleDrawerOpen(rowData.value)}
       >
-        <z-descriptions columns={descriptionColumns.value} detail={rowData.value} {...descriptionProps.value} />
+        <z-descriptions v-loading={isDescLoading.value} columns={descriptionColumns.value} detail={viewData.value} {...descriptionProps.value} />
       </el-drawer>
     }
 
