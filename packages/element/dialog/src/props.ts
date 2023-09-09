@@ -28,6 +28,10 @@ export const dialogProps = {
     type: String,
     default: '',
   },
+  extend: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 export type DialogProps = ExtractPropTypes<typeof dialogProps>

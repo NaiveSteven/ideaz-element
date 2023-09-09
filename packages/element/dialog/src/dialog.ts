@@ -5,31 +5,16 @@ import { isElement, isFunction, isObject, isString, isUndefined } from '@ideaz/u
 import type { AppContext, ComponentPublicInstance } from 'vue'
 import DialogConstructor from './index'
 
-export type Action = 'confirm' | 'close' | 'cancel'
-
 export interface IDialogTip {
   _context: AppContext | null
-
-  /** Show a message box */
-  // (message: string, title?: string, type?: string): Promise<MessageBoxData>
-
-  /** Show a message box */
   (
     options: any,
     appContext?: AppContext | null
-  ): Promise<any>
-
-  /** Show an alert message box */
-  alert: any
-
-  /** Show a confirm message box */
-  confirm: any
-
-  /** Show a prompt message box */
-  prompt: any
-
-  /** Close current message box */
-  close(): void
+  ): any
+  normal: any
+  warning: any
+  info: any
+  danger: any
 }
 
 const dialogInstance = new Map<
@@ -104,6 +89,7 @@ const showMessage = (options: any, appContext?: AppContext | null) => {
 
   // Adding destruct method.
   // when transition leaves emitting `vanish` evt. so that we can do the clean job.
+
   options.onVanish = () => {
     // not sure if this causes mem leak, need proof to verify that.
     // maybe calling out like 1000 msg-box then close them all.
@@ -113,32 +99,6 @@ const showMessage = (options: any, appContext?: AppContext | null) => {
     // but render(null, container) did that job for us. so that we do not call that directly
   }
 
-  options.onAction = (action: Action) => {
-    const currentMsg = dialogInstance.get(vm)!
-    let resolve: Action | { value: string; action: Action }
-    if (options.showInput)
-      resolve = { value: vm.inputValue, action }
-
-    else
-      resolve = action
-
-    if (options.callback) {
-      options.callback(resolve, instance.proxy)
-    }
-    else {
-      if (action === 'cancel' || action === 'close') {
-        if (options.distinguishCancelAndClose && action !== 'cancel')
-          currentMsg.reject('close')
-
-        else
-          currentMsg.reject('cancel')
-      }
-      else {
-        currentMsg.resolve(resolve)
-      }
-    }
-  }
-
   for (const prop in options) {
     if (hasOwn(options, prop) && !hasOwn(vm.$props, prop))
       vm[prop as keyof ComponentPublicInstance] = options[prop]
@@ -146,18 +106,14 @@ const showMessage = (options: any, appContext?: AppContext | null) => {
 
   // change visibility after everything is settled
   instance.exposed!.isShowDialog.value = true
-  return vm
+  return instance
 }
 
-async function DialogTip(
-  options: any,
-  appContext?: AppContext | null
-): Promise<any>
 function DialogTip(
   options: any | string | VNode,
   appContext: AppContext | null = null,
-): Promise<{ value: string; action: Action } | Action> {
-  if (!isClient) return Promise.reject()
+) {
+  if (!isClient) return
   let callback: any | undefined
   if (isString(options) || isVNode(options)) {
     options = {
@@ -168,18 +124,14 @@ function DialogTip(
     callback = options.callback
   }
 
-  return new Promise((resolve, reject) => {
-    const vm = showMessage(
-      options,
-      appContext ?? (DialogTip as IDialogTip)._context,
-    )
-    // collect this vm in order to handle upcoming events.
-    dialogInstance.set(vm, {
-      options,
-      callback,
-      resolve,
-      reject,
-    })
+  const vm = showMessage(
+    options,
+    appContext ?? (DialogTip as IDialogTip)._context,
+  )
+  // collect this vm in order to handle upcoming events.
+  dialogInstance.set(vm, {
+    options,
+    callback,
   })
 }
 
@@ -207,7 +159,7 @@ function messageBoxFactory(type: typeof Dialog_VARIANTS[number]) {
         {
           title: titleOrOpts,
           message,
-          // ...MESSAGE_BOX_DEFAULT_OPTS[boxType],
+          extend: true,
         },
         options,
         {
@@ -228,11 +180,8 @@ Dialog_VARIANTS.forEach((type) => {
 })
 
 DialogTip.close = () => {
-  // instance.setupInstall.doClose()
-  // instance.setupInstall.state.visible = false
-
-  dialogInstance.forEach((_, vm) => {
-    vm.done()
+  dialogInstance.forEach((_, instance) => {
+    instance.exposed.done()
   })
 
   dialogInstance.clear()

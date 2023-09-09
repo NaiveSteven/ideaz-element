@@ -6,11 +6,10 @@ import { dialogProps } from './props'
 export default defineComponent({
   name: 'ZDialog',
   props: dialogProps,
-  emits: ['update:modelValue', 'cancel', 'confirm'],
+  emits: ['update:modelValue', 'cancel', 'confirm', 'vanish'],
   setup(props, { emit, slots, expose }) {
-    const { dialogConfig, dialogRef, handleCancel, handleConfirm } = useDialog(props, emit)
+    const { isShowDialog, dialogConfig, handleCancel, handleConfirm, handleClosed, done } = useDialog(props, emit)
     const ns = useNamespace('dialog')
-    const isShowDialog = ref(false)
 
     const getHeader = () => {
       if (isFunction(props.title))
@@ -70,15 +69,16 @@ export default defineComponent({
 
     expose({
       isShowDialog,
+      done,
     })
 
     return () => {
       return <el-dialog
-        ref={dialogRef}
         class={[ns.b(''), props.type !== 'normal' && ns.b('tip')]}
         {...dialogConfig.value}
         modelValue={props.modelValue || isShowDialog.value}
         onUpdate:modelValue={(val: boolean) => { isShowDialog.value = val; emit('update:modelValue', val) }}
+        onClosed={handleClosed}
         v-slots={{
           footer: () => renderDialogFooter(),
           header: getHeader(),

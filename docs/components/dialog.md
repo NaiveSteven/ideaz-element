@@ -29,9 +29,22 @@ const renderTitle = () => {
 }
 
 const handleOpen = () => {
-  window.ZDialogTip.warning('sdf', 'title').then(() => {
-    console.log('111')
+  // isShowDialog.value = true
+  window.ZDialogTip.warning('sdf', 'title', {
+    onConfirm: (done, ctx) => {
+      // done()
+      console.log(ctx, 'extend onConfirm')
+    },
+    onCancel: (done) => {
+      done()
+      console.log('cancel onCancel')
+    }
   })
+  // window.ZDialogTip.close()
+}
+
+const handleClose = () => {
+  console.log('closeff')
 }
 </script>
 
@@ -43,6 +56,7 @@ const handleOpen = () => {
     v-model="isShowDialog"
     type="info"
     :close-on-click-modal="true"
+    @closed="handleClose"
     @confirm="handleConfirm"
   >
     <template #header>
