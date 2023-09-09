@@ -27,7 +27,7 @@ const cTableRef = ref()
 const formModel = ref({ address: '' })
 const isShowName = ref(false)
 const reqConfig = ref({
-  search: getReqData
+  searchApi: getReqData
 })
 const addFormData = ref({})
 const editFormData = ref({})

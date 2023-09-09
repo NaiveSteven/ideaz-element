@@ -3,7 +3,7 @@ import { isArray, isBoolean, isFunction, isObject, isString } from '@ideaz/utils
 import type { ElTable } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { tableKeys } from '../src/props'
-import type { CrudProps, TableDataReq } from '../src/props'
+import type { CrudProps, RequestConfig } from '../src/props'
 import { useCrudConfig } from './useCrudConfig'
 import { useTableColumns } from './useTableColumns'
 import type { Pagination } from '~/types'
@@ -22,7 +22,7 @@ export function stringifyObject(obj: any) {
   return keyValuePairs.join('&')
 }
 
-function getAliasData(res: any, req: TableDataReq) {
+function getAliasData(res: any, req: RequestConfig) {
   const list = req?.alias?.list
   const total = req?.alias?.total
   return {
@@ -84,7 +84,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   })
 
   async function getTableData(payload?: { column: any; prop: string; order: string }) {
-    const req = props.request
+    const req = props.request || {}
     const params = getParams(payload)
     if (isObject(req) && isFunction(req.func)) {
       req.func({
@@ -101,8 +101,8 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       if (isFunction(req))
         res = await req(params)
 
-      if (isObject(req) && isFunction(req.search))
-        res = await req.search(params)
+      if (isObject(req) && isFunction(req.searchApi))
+        res = await req.searchApi(params)
 
       tableData.value = isFunction(req.data) ? req.data(getAliasData(res, req).list) : getAliasData(res, req).list
       if (props.data)
@@ -123,7 +123,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   }
 
   function getParams(payload?: { column: any; prop: string; order: string }) {
-    const req = props.request
+    const req = props.request || {}
     const params = {
       ...props.formData,
       ...payload,

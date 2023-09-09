@@ -1,3 +1,5 @@
+import { get } from 'lodash-unified'
+import { isFunction, isString } from '@ideaz/utils'
 import type { CrudProps } from '../src/props'
 
 export const useDrawerConfig = (props: CrudProps) => {
@@ -18,8 +20,9 @@ export const useDrawerConfig = (props: CrudProps) => {
     if (props.request?.viewApi) {
       isDescLoading.value = true
       try {
+        const detail = props.request?.alias?.detail
         const res = await props.request?.viewApi({ [props.dataKey]: row[props.dataKey] })
-        viewData.value = res.data
+        viewData.value = isFunction(detail) ? detail(res) : isString(detail) ? get(res, detail) : res?.data
       }
       catch (error) {
         console.log(error, 'detail error')
