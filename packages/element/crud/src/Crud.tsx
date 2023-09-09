@@ -90,27 +90,25 @@ export default defineComponent({
         children: <z-table
           ref="zTableRef"
           {...tableProps.value}
-          topRender={() =>
-            (slots.topLeft || slots.topRight || props.export) && (
-              <div class={ns.b('top')}>
-                <div>
-                  {slots.topLeft && slots.topLeft()}
-                  <el-button
-                    size={tableProps.value.size || 'small'}
-                    type='primary'
-                    onClick={() => {
-                      currentMode.value = 'add'
-                      isShowDialog.value = true
-                    }}
-                  >
-                    {t('crud.add')}
-                  </el-button>
-                  <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.be('top', 'export')} onClick={handleExport}>{t('crud.export')}</el-button>
-                </div>
-                <div>{slots.topRight && slots.topRight()}</div>
-              </div>
-            )
-          }
+          v-slots={{
+            ...slots,
+            topLeft: () => {
+              return <>
+                {slots.topLeft && slots.topLeft()}
+                <el-button
+                  size={tableProps.value.size || 'small'}
+                  type='primary'
+                  onClick={() => {
+                    currentMode.value = 'add'
+                    isShowDialog.value = true
+                  }}
+                >
+                  {t('crud.add')}
+                </el-button>
+                {!!props.export && <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
+              </>
+            },
+          }}
           onRefresh={handlePaginationChange}
           onSort-change={handleSortChange}
           onSelection-change={handleCheckboxChange}

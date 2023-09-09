@@ -82,41 +82,53 @@ export default defineComponent({
     }
 
     const renderToolBar = () => {
-      const { topRender, toolBar } = props
+      const { toolBar } = props
 
       return <div
         class={ns.be('tool-bar', 'container')}
         style={{
-          marginBottom: (toolBar || (toolBar && isFunction(topRender)) || isFunction(slots.top)) ? '16px' : 0,
+          marginBottom: (toolBar || isFunction(slots.top)) ? '16px' : 0,
         }}
       >
-        <div class={ns.bm('tool-bar', 'left')}>
-          {topRender ? topRender() : null}
+        <div class={ns.bm('tool-bar', 'top')}>
           {slots.top ? slots.top() : null}
         </div>
-        {toolBar && (
-          <ToolBar
-            formatTableCols={formatTableCols.value}
-            middleTableCols={middleTableCols.value}
-            originFormatTableCols={originFormatTableCols.value}
-            sortTableCols={sortTableCols.value}
-            size={size.value}
-            toolBar={props.toolBar}
-            tableProps={props}
-            onColumns-change={(data) => {
-              middleTableCols.value = cloneDeep(data)
-              tableKey.value = new Date().valueOf()
-            }}
-            onSize-change={(val) => {
-              size.value = val
-            }}
-            onTable-cols-change={(val) => {
-              sortTableCols.value = cloneDeep(val)
-              tableKey.value = new Date().valueOf()
-            }}
-            onRefresh={() => handleRefresh()}
-          />
-        )}
+        <div class={ns.bm('tool-bar', 'center')}>
+          <div class={ns.bm('tool-bar', 'center-slot')}>
+            <div class={ns.bm('too-bar', 'top-left')}>
+              {slots.topLeft ? slots.topLeft() : null}
+            </div>
+            <div class={ns.bm('tool-bar', 'top-right')}>
+              {slots.topRight ? slots.topRight() : null}
+            </div>
+          </div>
+          {toolBar && (
+            <ToolBar
+              formatTableCols={formatTableCols.value}
+              middleTableCols={middleTableCols.value}
+              originFormatTableCols={originFormatTableCols.value}
+              sortTableCols={sortTableCols.value}
+              size={size.value}
+              toolBar={props.toolBar}
+              tableProps={props}
+              onColumns-change={(data) => {
+                middleTableCols.value = cloneDeep(data)
+                tableKey.value = new Date().valueOf()
+              }}
+              onSize-change={(val) => {
+                size.value = val
+              }}
+              onTable-cols-change={(val) => {
+                sortTableCols.value = cloneDeep(val)
+                tableKey.value = new Date().valueOf()
+              }}
+              onRefresh={() => handleRefresh()}
+            />
+          )}
+        </div>
+        <div class={ns.bm('tool-bar', 'top-bottom')}>
+          {slots.topBottom ? slots.topBottom() : null}
+        </div>
       </div>
     }
 

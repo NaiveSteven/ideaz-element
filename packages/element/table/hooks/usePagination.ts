@@ -8,7 +8,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
   const tableData = ref<any>([])
 
   const tableAttributes = computed<any>(() => {
-    const omitProps = reactiveOmit(props, ['pagination', 'columns', 'draggable', 'topRender', 'toolBar', 'loading'])
+    const omitProps = reactiveOmit(props, ['pagination', 'columns', 'draggable', 'toolBar', 'loading'])
     return { ...omitProps }
   })
 
