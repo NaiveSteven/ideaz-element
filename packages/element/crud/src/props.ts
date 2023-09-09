@@ -86,6 +86,10 @@ export const crudProps = {
   onCancel: {
     type: Function,
   },
+  dataKey: {
+    type: String,
+    default: 'id',
+  },
 }
 
 export interface TableDataReq {

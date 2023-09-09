@@ -1,3 +1,5 @@
+import { ElMessage } from 'element-plus'
+import DialogTip from '../../dialog/src/dialog'
 import type { CrudProps } from '../src/props'
 
 export const useTableColumns = (props: CrudProps, emit: any) => {
@@ -27,7 +29,27 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
       link: true,
       onClick: (row, index) => {
         rowData.value = row
-        isShowDrawer.value = true
+        if (props.request.delete) {
+          DialogTip({
+            type: 'danger',
+            message: '确定删除该条数据吗',
+            onConfirm: async ({ done, confirmBtnLoading }) => {
+              const dataKey = props.dataKey
+              confirmBtnLoading.value = true
+              try {
+                await props.request.delete({ [dataKey]: row[dataKey] })
+                confirmBtnLoading.value = false
+                done()
+                ElMessage.success(t('common.success'))
+              }
+              catch (error) {
+                console.log(error, 'delete error')
+              }
+              confirmBtnLoading.value = false
+            },
+          })
+        }
+        emit('delete', row)
       },
     }
   }

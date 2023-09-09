@@ -10,7 +10,7 @@ import { crudProps, formKeys } from './props'
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'submit', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData'],
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'submit', 'delete', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData'],
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
     const {
@@ -156,21 +156,16 @@ export default defineComponent({
     }
 
     const renderDialog = () => {
-      return <el-dialog
+      return <z-dialog
         modelValue={isShowDialog.value}
         onUpdate:modelValue={(val: boolean) => isShowDialog.value = val}
         {...dialogProps.value}
         onClosed={handleDialogClosed}
-        v-slots={{
-          footer: () => {
-            return <>
-              <el-button onClick={handleCancel}>{t('common.cancel')}</el-button>
-              <el-button type="primary" onClick={handleConfirm}>{t('common.confirm')}</el-button>
-            </>
-          },
-        }}>
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      >
         {renderOperateForm()}
-      </el-dialog>
+      </z-dialog>
     }
 
     const renderDrawer = () => {
