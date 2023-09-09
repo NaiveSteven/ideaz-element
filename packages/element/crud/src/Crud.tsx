@@ -4,14 +4,15 @@ import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
-import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns } from '../hooks'
+import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
 import { crudProps, formKeys } from './props'
 import type { TableCol } from '~/types'
 
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'submit', 'delete', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData'],
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'submit', 'delete',
+    'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'selection-change'],
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
     const {
@@ -41,7 +42,6 @@ export default defineComponent({
       handleSortChange,
       middleFormData,
       isUseFormDataStorage,
-      handleCheckboxChange,
       handleRadioChange,
       handleExport,
       getTableData,
@@ -50,6 +50,7 @@ export default defineComponent({
       currentMode,
       isShowDrawer,
     } = useDataRequest(props, emit)
+    const { selectionData, handleCheckboxChange } = useSelectionData(props, emit)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
     const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
     const { drawerProps, isDescLoading, viewData, handleDrawerOpen } = useDrawerConfig(props)
@@ -110,8 +111,8 @@ export default defineComponent({
               </>
             },
             topBottom: () => {
-              if (tableProps.value.columns.filter((column: TableCol) => column.type === 'selection').length > 0)
-                return <el-alert title={'asdf'} type="info" close-text={t('crud.unselect')} />
+              if (tableProps.value.columns.filter((column: TableCol) => column.type === 'selection').length > 0 && selectionData.value.length > 0)
+                return <el-alert title={t('crud.selected') + selectionData.value.length + t('crud.term')} type="success" close-text={t('crud.unselect')} />
 
               return slots.topBottom?.()
             },

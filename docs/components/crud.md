@@ -325,6 +325,10 @@ const handleDrawerOpen = () => {
   // console.log('handleDrawerOpen')
 }
 
+const handleSelectionChange = () => {
+  console.log('selection')
+}
+
 onMounted(() => {
   // getData()
 })
@@ -362,6 +366,7 @@ onMounted(() => {
     @cancel="handleCancel"
     @submit="() => {}"
     @reset="() => {}"
+    @selection-change="handleSelectionChange"
   >
     <template #buttons="{ row }">
       <el-button @click="click(row)">

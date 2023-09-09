@@ -38,6 +38,9 @@ export const crudProps = {
     type: Object as PropType<any>,
     default: () => ({}),
   },
+  selectionData: {
+    type: Array as PropType<any>,
+  },
   tableDecorator: {
     type: Object as PropType<any>,
     default: () => ({}),

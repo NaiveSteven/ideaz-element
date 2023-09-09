@@ -39,6 +39,8 @@ export default {
     add: '新增',
     export: '导出',
     unselect: '取消选择',
+    selected: '已选择',
+    term: '项',
   },
   watermark: {
     tip: '当前环境不支持Canvas',

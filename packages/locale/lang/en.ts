@@ -39,6 +39,8 @@ export default {
     add: 'add',
     export: 'export',
     unselect: 'unselect',
+    selected: 'selected',
+    term: 'term',
   },
   watermark: {
     tip: 'The current environment does not support Canvas',

@@ -6,10 +6,11 @@ import type { Pagination } from '~/types'
 
 export const usePagination = (props: ITableProps, emit: any) => {
   const tableData = ref<any>([])
+  const attrs = useAttrs()
 
   const tableAttributes = computed<any>(() => {
     const omitProps = reactiveOmit(props, ['pagination', 'columns', 'draggable', 'toolBar', 'loading'])
-    return { ...omitProps }
+    return { ...attrs, ...omitProps }
   })
 
   watch(

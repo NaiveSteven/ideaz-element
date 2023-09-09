@@ -188,10 +188,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     return { ...targetPagination.value }
   }
 
-  const handleCheckboxChange = (selection: any) => {
-    emit('selection-change', selection)
-  }
-
   const handleRadioChange = (selection: any) => {
     emit('radio-change', selection)
   }
@@ -251,7 +247,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     handleSortChange,
     middleFormData,
     isUseFormDataStorage,
-    handleCheckboxChange,
     handleRadioChange,
     handleExport,
     getTableData,
