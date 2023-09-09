@@ -43,8 +43,8 @@ const handleOpen = () => {
   // })
   window.ZDialogTip({
     type: 'warning',
-    message: 'ssfsdf',
-    title: '标题',
+    message: () => h('span', {}, 'message renderasdfsf'),
+    // title: '标题',
     onConfirm: ({ done, confirmBtnLoading }) => {
       confirmBtnLoading.value = true
     },
@@ -66,8 +66,7 @@ const handleClose = () => {
   </el-button>
   <z-dialog
     v-model="isShowDialog"
-    type="info"
-    :close-on-click-modal="true"
+    type="warning"
     @closed="handleClose"
     @confirm="handleConfirm"
   >

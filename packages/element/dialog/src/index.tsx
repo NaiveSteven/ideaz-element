@@ -19,6 +19,10 @@ export default defineComponent({
       if (isString(props.title))
         return () => props.title
 
+      // default config
+      if (props.extend)
+        return () => t('dialog.tip')
+
       return slots.header || slots.title
     }
 
@@ -33,7 +37,7 @@ export default defineComponent({
             type="primary"
             size="default"
             onClick={handleConfirm}
-          >{t('common.got')}</el-button>
+          >{t('dialog.got')}</el-button>
         </div>
       }
       return <div class={ns.e('footer')}>

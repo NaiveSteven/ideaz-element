@@ -3,6 +3,14 @@ import type { ExtractPropTypes } from 'vue-demi'
 
 export const dialogProps = {
   ...elDialogProps,
+  closeOnClickModal: {
+    type: Boolean,
+    default: false,
+  },
+  draggable: {
+    type: Boolean,
+    default: true,
+  },
   confirmButtonProps: {
     type: Object as PropType<any>,
     default: () => ({}),
@@ -25,7 +33,7 @@ export const dialogProps = {
     default: 'normal',
   },
   message: {
-    type: String,
+    type: [String, Function, Object],
     default: '',
   },
   extend: {

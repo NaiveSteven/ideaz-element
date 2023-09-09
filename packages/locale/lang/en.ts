@@ -33,6 +33,7 @@ export default {
   },
   dialog: {
     got: 'got it',
+    tip: 'tip',
   },
   crud: {
     add: 'add',

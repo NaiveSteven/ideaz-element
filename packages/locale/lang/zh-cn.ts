@@ -33,6 +33,7 @@ export default {
   },
   dialog: {
     got: '知道了',
+    tip: '提示',
   },
   crud: {
     add: '新增',

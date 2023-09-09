@@ -12,7 +12,7 @@ export const useButton = (props: DialogProps) => {
   const confirmBtnProps = computed(() => {
     return {
       ...props.confirmButtonProps,
-      label: props.extend ? confirmBtnLabel.value : props.confirmButtonLabel,
+      label: props.extend ? confirmBtnLabel.value : (props.confirmButtonLabel || t('common.confirm')),
       loading: props.extend ? isConfirmBtnLoading.value : props.isConfirmButtonLoading,
     }
   })
@@ -20,7 +20,7 @@ export const useButton = (props: DialogProps) => {
   const cancelBtnProps = computed(() => {
     return {
       ...props.cancelButtonProps,
-      label: props.extend ? cancelBtnLabel.value : props.cancelButtonLabel,
+      label: props.extend ? cancelBtnLabel.value : (props.cancelButtonLabel || t('common.cancel')),
       loading: props.extend ? isCancelBtnLoading.value : props.isCancelButtonLoading,
     }
   })

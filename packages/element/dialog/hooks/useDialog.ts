@@ -15,6 +15,7 @@ export const useDialog = (props: DialogProps, emit: any) => {
 
   const done = () => {
     isShowDialog.value = false
+    emit('update:modelValue', false)
   }
 
   const handleCancel = () => {
@@ -34,6 +35,9 @@ export const useDialog = (props: DialogProps, emit: any) => {
   }
 
   const handleConfirm = () => {
+    if (props.type === 'info' && !props.onConfirm)
+      done()
+
     emit('confirm', { done, confirmBtnLoading: isConfirmBtnLoading })
   }
 
