@@ -30,15 +30,26 @@ const renderTitle = () => {
 
 const handleOpen = () => {
   // isShowDialog.value = true
-  window.ZDialogTip.warning('sdf', 'title', {
+  // window.ZDialogTip.warning('sdf', 'title', {
+  //   onConfirm: ({ done, confirmBtnLoading }) => {
+  //     // done()
+  //     confirmBtnLoading.value = true
+  //     // console.log(ctx, 'extend onConfirm')
+  //   },
+  //   onCancel: ({ done, cancelBtnLoading }) => {
+  //     cancelBtnLoading.value = true
+  //     console.log('cancel onCancel')
+  //   }
+  // })
+  window.ZDialogTip({
+    type: 'warning',
+    message: 'ssfsdf',
+    title: '标题',
     onConfirm: ({ done, confirmBtnLoading }) => {
-      // done()
       confirmBtnLoading.value = true
-      // console.log(ctx, 'extend onConfirm')
     },
     onCancel: ({ done, cancelBtnLoading }) => {
-      cancelBtnLoading.value = true
-      console.log('cancel onCancel')
+      done()
     }
   })
   // window.ZDialogTip.close()

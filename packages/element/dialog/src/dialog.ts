@@ -124,6 +124,8 @@ function DialogTip(
     callback = options.callback
   }
 
+  options.extend = true
+
   const vm = showMessage(
     options,
     appContext ?? (DialogTip as IDialogTip)._context,
@@ -144,7 +146,7 @@ function messageBoxFactory(type: typeof Dialog_VARIANTS[number]) {
   ) => {
     let titleOrOpts = ''
     if (isObject(title) || isObject(message)) {
-      options = title
+      options = title || message
       titleOrOpts = ''
     }
     else if (isUndefined(title)) {
@@ -159,7 +161,6 @@ function messageBoxFactory(type: typeof Dialog_VARIANTS[number]) {
         {
           title: titleOrOpts,
           message,
-          extend: true,
         },
         options,
         {
