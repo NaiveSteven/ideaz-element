@@ -21,6 +21,7 @@ export default defineComponent({
   props: watermarkProps,
   setup(props, { slots }) {
     const ns = useNamespace('watermark')
+    const { t } = useLocale()
     const base64Url = ref('')
 
     onMounted(() => {
@@ -29,7 +30,7 @@ export default defineComponent({
         gapY: propsGapY = 222,
         width: propsWidth = 120,
         height: propsHeight = 64,
-        rotate: propsRotate = -22, // 默认旋转 -22 度
+        rotate: propsRotate = -22, // default -22
         image,
         content,
         offsetLeft: propsOffsetLeft,
@@ -63,7 +64,6 @@ export default defineComponent({
       canvas.setAttribute('height', canvasHeight)
 
       if (ctx) {
-        // 旋转字符 rotate
         ctx.translate(canvasOffsetLeft * ratio, canvasOffsetTop * ratio)
         ctx.rotate((Math.PI / 180) * Number(rotate))
         const markWidth = width * ratio
@@ -95,7 +95,7 @@ export default defineComponent({
         }
       }
       else {
-        console.error('当前环境不支持Canvas')
+        console.error(t('watermark.tip'))
       }
     })
 

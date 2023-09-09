@@ -3,8 +3,11 @@ import type { DialogProps } from '../src/props'
 export const useButton = (props: DialogProps) => {
   const isConfirmBtnLoading = ref(false)
   const isCancelBtnLoading = ref(false)
-  const confirmBtnLabel = ref('确认')
-  const cancelBtnLabel = ref('取消')
+
+  const { t } = useLocale()
+
+  const confirmBtnLabel = ref(t('common.confirm'))
+  const cancelBtnLabel = ref(t('common.cancel'))
 
   const confirmBtnProps = computed(() => {
     return {

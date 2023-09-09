@@ -86,7 +86,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   async function getTableData(payload?: { column: any; prop: string; order: string }) {
     const req = props.request
     const params = getParams(payload)
-    // 用户直接覆盖整个方法
     if (isObject(req) && isFunction(req.func)) {
       req.func({
         params,

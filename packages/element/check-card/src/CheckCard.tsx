@@ -46,7 +46,6 @@ export default defineComponent({
       checkCardProps.value.checked = stateChecked.value
 
       if (checkCardGroup?.value) {
-        // 受组控制模式
         checkCardProps.value.disabled
           = props.disabled || checkCardGroup.value.disabled
         checkCardProps.value.loading
@@ -60,7 +59,7 @@ export default defineComponent({
           ? checkCardGroup.value.value?.includes(props.value)
           : checkCardGroup.value.value === props.value
 
-        // loading时check为false
+        // check is false
         checkCardProps.value.checked = checkCardProps.value.loading
           ? false
           : isChecked

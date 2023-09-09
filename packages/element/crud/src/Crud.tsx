@@ -54,6 +54,7 @@ export default defineComponent({
     const { drawerProps } = useDrawerConfig(props)
     const { descriptionColumns, descriptionProps } = useDescriptions(props)
     const ns = useNamespace('crud')
+    const { t } = useLocale()
 
     useExpose({
       resetFields,
@@ -102,9 +103,9 @@ export default defineComponent({
                       isShowDialog.value = true
                     }}
                   >
-                    新增
+                    {t('crud.add')}
                   </el-button>
-                  <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.be('top', 'export')} onClick={handleExport}>导出</el-button>
+                  <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.be('top', 'export')} onClick={handleExport}>{t('crud.export')}</el-button>
                 </div>
                 <div>{slots.topRight && slots.topRight()}</div>
               </div>
@@ -163,8 +164,8 @@ export default defineComponent({
         v-slots={{
           footer: () => {
             return <>
-              <el-button onClick={handleCancel}>取消</el-button>
-              <el-button type="primary" onClick={handleConfirm}>确认</el-button>
+              <el-button onClick={handleCancel}>{t('common.cancel')}</el-button>
+              <el-button type="primary" onClick={handleConfirm}>{t('common.confirm')}</el-button>
             </>
           },
         }}>
@@ -178,7 +179,7 @@ export default defineComponent({
         onUpdate:modelValue={(val: boolean) => isShowDrawer.value = val}
         {...drawerProps.value}
       >
-        <z-descriptions columns={descriptionColumns.value} detail={rowData.value} {...descriptionProps.value}/>
+        <z-descriptions columns={descriptionColumns.value} detail={rowData.value} {...descriptionProps.value} />
       </el-drawer>
     }
 

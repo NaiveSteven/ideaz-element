@@ -34,7 +34,7 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
 
   const renderEdit = () => {
     return {
-      label: t('table.edit'),
+      label: t('common.edit'),
       type: 'primary',
       link: true,
       hide: (row: any) => row.__isEdit || editableType.value === 'multiple',
@@ -44,7 +44,7 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
 
   const renderSave = () => {
     return {
-      label: t('table.save'),
+      label: t('common.save'),
       type: 'primary',
       link: true,
       hide: row => !row.__isEdit || editableType.value === 'multiple',
@@ -66,7 +66,7 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
 
   const renderCancel = () => {
     return {
-      label: t('table.cancel'),
+      label: t('common.cancel'),
       type: 'primary',
       link: true,
       hide: row => !row.__isEdit || editableType.value === 'multiple',
@@ -80,7 +80,7 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
 
   const renderDelete = () => {
     return {
-      label: t('table.delete'),
+      label: t('common.delete'),
       type: 'primary',
       link: true,
       onClick: (row, index) => {

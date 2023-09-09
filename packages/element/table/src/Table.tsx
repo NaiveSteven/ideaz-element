@@ -60,6 +60,7 @@ export default defineComponent({
     } = useTableColumns(props, emit, tableData)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
     const ns = useNamespace('table')
+    const { t } = useLocale()
     const size = ref(props.size)
 
     const renderPagination = () => {
@@ -182,7 +183,7 @@ export default defineComponent({
                 class='w-full mt-2'
                 onClick={() => addTableData()}
               >
-                新增数据
+                {t('table.addData')}
               </el-button>}
           </>
         )

@@ -42,7 +42,7 @@ export default defineComponent({
         let changeValue
 
         changeValue = stateValue.value
-        // 单选模式
+
         if (changeValue === option.value)
           changeValue = undefined
 

@@ -9,7 +9,7 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
 
   const renderEdit = () => {
     return {
-      label: t('table.edit'),
+      label: t('common.edit'),
       type: 'primary',
       link: true,
       onClick: (row, index, column) => {
@@ -22,7 +22,7 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
 
   const renderDelete = () => {
     return {
-      label: t('table.delete'),
+      label: t('common.delete'),
       type: 'primary',
       link: true,
       onClick: (row, index) => {

@@ -10,6 +10,7 @@ export default defineComponent({
   setup(props, { emit, slots, expose }) {
     const { isShowDialog, dialogConfig, confirmBtnProps, cancelBtnProps, handleCancel, handleConfirm, handleClosed, done } = useDialog(props, emit)
     const ns = useNamespace('dialog')
+    const { t } = useLocale()
 
     const getHeader = () => {
       if (isFunction(props.title))
@@ -32,7 +33,7 @@ export default defineComponent({
             type="primary"
             size="default"
             onClick={handleConfirm}
-          >知道了</el-button>
+          >{t('common.got')}</el-button>
         </div>
       }
       return <div class={ns.e('footer')}>

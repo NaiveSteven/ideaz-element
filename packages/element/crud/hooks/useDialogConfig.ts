@@ -12,10 +12,12 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
   const dialogForm = ref()
   const dialogFormData = ref({})
 
+  const { t } = useLocale()
+
   const dialogProps = computed(() => {
     const { dialog } = props
     return {
-      title: dialog.title ? dialog.title : currentMode.value === 'add' ? '新增' : currentMode.value === 'edit' ? '编辑' : '查看',
+      title: dialog.title ? dialog.title : currentMode.value === 'add' ? t('crud.add') : currentMode.value === 'edit' ? t('common.edit') : t('common.view'),
       width: '680px',
       ...dialog,
     }
@@ -45,7 +47,7 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
             params = { ...dialogFormData.value, id: rowData.value.id }
 
           await submitApi(params)
-          ElMessage.success('成功')
+          ElMessage.success(t('common.success'))
           done();
           (ctx?.$refs?.zTableRef as typeof ZTable).getTableData()
         }
