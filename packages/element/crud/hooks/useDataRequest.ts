@@ -68,6 +68,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       ...pick(props, tableKeys),
       columns: tableColumns.value,
       ...attrs,
+      fullScreenElement: document.getElementsByClassName('z-crud')[0],
       pagination: isUsePaginationStorage.value
         ? middlePagination.value
         : isRequest()

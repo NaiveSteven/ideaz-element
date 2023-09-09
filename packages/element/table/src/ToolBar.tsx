@@ -206,7 +206,8 @@ export default defineComponent({
 
     return () => {
       const loading = props.tableProps?.loading
-      const sortTableCols = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide)
+      const fullScreenElement = props.tableProps?.fullScreenElement
+      const sortTableCols = props.sortTableCols.filter((item: TableCol) => isFunction(item.hide) ? !item.hide() : !item.hide)
       const CONTENT_CONFIG = getContentConfig(sortTableCols)
 
       return (
@@ -240,7 +241,7 @@ export default defineComponent({
             </el-dropdown>
           </el-tooltip>
           <el-tooltip effect="dark" content={t('common.fullScreen')} placement="top" showAfter={300}>
-            <z-full-screen getElement={() => document.getElementsByClassName('z-table__container')[0]} teleported={true}>
+            <z-full-screen getElement={fullScreenElement || document.getElementsByClassName('z-table__container')[0]} teleported={true}>
               <el-button icon={FullScreen} text />
             </z-full-screen>
           </el-tooltip>

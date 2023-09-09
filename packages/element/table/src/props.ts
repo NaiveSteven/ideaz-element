@@ -128,6 +128,9 @@ export const tableProps = {
     type: [String, Object, Boolean] as PropType<boolean | string | WatermarkProps>,
     default: false,
   },
+  fullScreenElement: {
+    type: [Function, HTMLElement] as PropType<() => HTMLElement | HTMLElement>,
+  }
 }
 
 export const tableColumnProps = {
