@@ -1,7 +1,7 @@
 // import { withModifiers } from 'vue-demi';
 import { useExpose } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
-import { Plus } from '@element-plus/icons'
+import { Plus } from '@element-plus/icons-vue'
 import { isFunction, isString } from '@ideaz/utils'
 import { getCurrentInstance } from 'vue-demi'
 import type { ElForm } from 'element-plus'

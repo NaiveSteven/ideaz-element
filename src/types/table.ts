@@ -46,10 +46,10 @@ export interface TableCol {
     [propName: string]: any
   }
   | any
-  add: boolean | FormColumn
-  edit: boolean | FormColumn
-  detail: boolean | any
-  search: boolean | FormColumn
-  form: FormColumn
+  add?: boolean | FormColumn
+  edit?: boolean | FormColumn
+  detail?: boolean | any
+  search?: boolean | FormColumn
+  form?: FormColumn
   [propName: string]: any
 }

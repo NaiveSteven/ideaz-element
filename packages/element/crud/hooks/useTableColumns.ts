@@ -1,4 +1,5 @@
 import { ElMessage } from 'element-plus'
+import { Delete, EditPen, View } from '@element-plus/icons-vue'
 import DialogTip from '../../dialog/src/dialog'
 import type { CrudProps } from '../src/props'
 
@@ -14,6 +15,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
       label: t('common.edit'),
       type: 'primary',
       link: true,
+      icon: markRaw(EditPen),
       onClick: (row, index, column) => {
         rowData.value = row
         currentMode.value = 'edit'
@@ -25,15 +27,16 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
   const renderDelete = () => {
     return {
       label: t('common.delete'),
-      type: 'primary',
+      type: 'danger',
       link: true,
+      icon: markRaw(Delete),
       onClick: (row, index) => {
         rowData.value = row
         if (props.request?.deleteApi) {
           DialogTip({
             type: 'danger',
             message: '确定删除该条数据吗',
-            onConfirm: async ({ done, confirmBtnLoading }) => {
+            onConfirm: async ({ done, confirmBtnLoading }: { done: () => void; confirmBtnLoading: Ref<boolean> }) => {
               const dataKey = props.dataKey
               confirmBtnLoading.value = true
               try {
@@ -60,6 +63,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
       label: '查看',
       type: 'primary',
       link: true,
+      icon: markRaw(View),
       onClick: (row, index) => {
         rowData.value = row
         isShowDrawer.value = true
@@ -73,8 +77,8 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
         type: 'button',
         label: t('table.action'),
         buttons: [
-          renderEdit(),
           renderView(),
+          renderEdit(),
           renderDelete(),
         ],
       },

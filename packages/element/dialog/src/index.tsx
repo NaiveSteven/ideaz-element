@@ -1,4 +1,4 @@
-import { WarningFilled } from '@element-plus/icons'
+import { WarningFilled } from '@element-plus/icons-vue'
 import { isFunction, isString } from '@ideaz/utils'
 import { useDialog } from '../hooks'
 import { dialogProps } from './props'

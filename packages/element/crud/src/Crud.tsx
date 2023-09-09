@@ -1,5 +1,6 @@
 import { useAttrs } from 'element-plus'
 import { omit, pick } from 'lodash-unified'
+import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
@@ -99,6 +100,7 @@ export default defineComponent({
                 <el-button
                   size={tableProps.value.size || 'small'}
                   type='primary'
+                  icon={Plus}
                   onClick={() => {
                     currentMode.value = 'add'
                     isShowDialog.value = true
@@ -106,13 +108,14 @@ export default defineComponent({
                 >
                   {t('crud.add')}
                 </el-button>
-                {!!props.export && <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
+                {!!props.export && <el-button size={tableProps.value.size || 'small'} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
                 {!!isSelection.value
                   && <el-button
                     plain
                     size={tableProps.value.size || 'small'}
                     type='danger'
                     class={ns.e('multiple-delete')}
+                    icon={Delete}
                     onClick={handleMultipleDelete}>
                     {t('crud.multipleDelete')}
                   </el-button>}
