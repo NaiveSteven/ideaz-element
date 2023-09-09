@@ -56,8 +56,11 @@
 42. `z-crud`支持`selection`提示
 43. `z-crud`编辑、新增、查看和删除支持接口和非接口配置
 44. `z-crud`事件梳理，例如：`editable`下的事件和`crud`的事件
-45. 添加`z-dialog`组件
-46. `z-dialog`组件支持`info`、`danger`、`warning`等`type`
+45. ~~添加`z-dialog`组件~~
+46. ~~`z-dialog`组件支持`info`、`danger`、`warning`等`type`~~
+47. `z-dialog`组件`loading`等`props`命名
+48. `z-crud`组件`editable`事件内置
+49. `z-crud`增删改查支持自定义
 
 ## FEATURE（docs and dts）
 
@@ -73,6 +76,9 @@
 10. ~~`tag-select`组件文档、`dts`文件~~
 11. ~~`text`组件文档、`dts`文件~~
 12. ~~`watermark`组件文档、`dts`文件~~
+13. `crud`组件文档、`dts`文件
+14. `dialog`组件文档、`dts`文件
+15. `full-screen`组件文档
 
 ## FIX
 
