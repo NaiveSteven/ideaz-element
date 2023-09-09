@@ -78,6 +78,7 @@
 12. ~~`watermark`组件文档、`dts`文件~~
 13. `crud`组件文档、`dts`文件
 14. `dialog`组件文档、`dts`文件
+15. `full-screen`组件文档
 
 ## FIX
 
