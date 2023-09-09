@@ -41,6 +41,7 @@ export default {
     unselect: '取消选择',
     selected: '已选择',
     term: '项',
+    multipleDelete: '批量删除',
   },
   watermark: {
     tip: '当前环境不支持Canvas',

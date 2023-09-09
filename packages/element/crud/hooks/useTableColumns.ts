@@ -2,7 +2,7 @@ import { ElMessage } from 'element-plus'
 import DialogTip from '../../dialog/src/dialog'
 import type { CrudProps } from '../src/props'
 
-export const useTableColumns = (props: CrudProps, emit: any) => {
+export const useTableColumns = (props: CrudProps, emit: any, getTableData: () => void) => {
   const { t } = useLocale()
   const rowData = ref({})
   const isShowDialog = ref(false)
@@ -41,6 +41,7 @@ export const useTableColumns = (props: CrudProps, emit: any) => {
                 confirmBtnLoading.value = false
                 done()
                 ElMessage.success(t('common.success'))
+                getTableData()
               }
               catch (error) {
                 console.log(error, 'delete error')

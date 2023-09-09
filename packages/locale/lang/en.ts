@@ -41,6 +41,7 @@ export default {
     unselect: 'unselect',
     selected: 'selected',
     term: 'term',
+    multipleDelete: 'multiple delete',
   },
   watermark: {
     tip: 'The current environment does not support Canvas',

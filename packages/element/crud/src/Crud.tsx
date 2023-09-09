@@ -6,7 +6,6 @@ import {
 } from '../../table/hooks'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
 import { crudProps, formKeys } from './props'
-import type { TableCol } from '~/types'
 
 export default defineComponent({
   name: 'ZCrud',
@@ -50,7 +49,7 @@ export default defineComponent({
       currentMode,
       isShowDrawer,
     } = useDataRequest(props, emit)
-    const { selectionData, handleCheckboxChange } = useSelectionData(props, emit)
+    const { selectionData, isSelection, handleCheckboxChange, handleCloseAlert, handleMultipleDelete } = useSelectionData(props, emit, tableProps, getTableData)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
     const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
     const { drawerProps, isDescLoading, viewData, handleDrawerOpen } = useDrawerConfig(props)
@@ -108,11 +107,26 @@ export default defineComponent({
                   {t('crud.add')}
                 </el-button>
                 {!!props.export && <el-button size={tableProps.value.size || 'small'} type='primary' class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
+                {!!isSelection.value
+                  && <el-button
+                    plain
+                    size={tableProps.value.size || 'small'}
+                    type='danger'
+                    class={ns.e('multiple-delete')}
+                    onClick={handleMultipleDelete}>
+                    {t('crud.multipleDelete')}
+                  </el-button>}
               </>
             },
             topBottom: () => {
-              if (tableProps.value.columns.filter((column: TableCol) => column.type === 'selection').length > 0 && selectionData.value.length > 0)
-                return <el-alert title={t('crud.selected') + selectionData.value.length + t('crud.term')} type="success" close-text={t('crud.unselect')} />
+              if (isSelection.value) {
+                return <el-alert
+                  title={t('crud.selected') + selectionData.value.length + t('crud.term')}
+                  type="success"
+                  close-text={t('crud.unselect')}
+                  onClose={handleCloseAlert}
+                />
+              }
 
               return slots.topBottom?.()
             },

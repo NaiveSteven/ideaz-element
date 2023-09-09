@@ -1,3 +1,11 @@
 .z-crud {
+  .z-table-tool-bar--top-bottom {
+    .el-alert__close-btn {
+      // top: 8px
+    }
 
+    .el-alert__title {
+      vertical-align: baseline;
+    }
+  }
 }
