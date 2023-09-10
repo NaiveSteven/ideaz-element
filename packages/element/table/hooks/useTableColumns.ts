@@ -6,8 +6,8 @@ import { useEditableColumns } from './useEditableColumns'
 import type { TableCol } from '~/types'
 
 export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<any>) => {
-  const middleTableCols = ref<TableCol[]>([])
-  const sortTableCols = ref<TableCol[]>([])
+  const middleTableCols = shallowRef<TableCol[]>([])
+  const sortTableCols = shallowRef<TableCol[]>([])
   const tableKey = ref(new Date().valueOf())
   const { columns, zTableFormRef } = useEditableColumns(props, emit, tableData)
 
