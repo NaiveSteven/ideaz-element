@@ -61,7 +61,7 @@
 47. `z-dialog`组件`loading`等`props`命名
 48. `z-crud`组件`editable`事件内置
 49. `z-crud`增删改查支持自定义
-50. `z-table`全屏提示切换
+50. ~~`z-table`全屏提示切换~~
 
 ## FEATURE（docs and dts）
 
