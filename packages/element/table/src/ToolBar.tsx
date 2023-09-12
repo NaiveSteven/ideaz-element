@@ -56,6 +56,8 @@ export default defineComponent({
     const isIndeterminate = ref(getIsIndeterminate(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value))
     const checkAll = ref(getIsCheckAll(leftCheckedTableColsUids.value, checkedTableCols.value, rightCheckedTableColsUids.value))
 
+    const isFullScreen = ref(false)
+
     function getIsCheckAll(leftChecked: string[], centerChecked: string[], rightChecked: string[]) {
       const leftFixedTableColsUids = leftFixedTableCols.value.map(item => item.__uid)
       const centerTableColsUids = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide).map(item => item.__uid)
@@ -240,8 +242,8 @@ export default defineComponent({
               <el-button icon={DCaret} text></el-button>
             </el-dropdown>
           </el-tooltip>
-          <el-tooltip effect="dark" content={t('common.fullScreen')} placement="top" showAfter={300}>
-            <z-full-screen getElement={fullScreenElement || document.getElementsByClassName('z-table__container')[0]} teleported={true}>
+          <el-tooltip effect="dark" content={isFullScreen.value ? t('common.cancelFullScreen') : t('common.fullScreen')} placement="top" showAfter={300}>
+            <z-full-screen getElement={fullScreenElement || document.getElementsByClassName('z-table__container')[0]} teleported={true} onChange={(val: boolean) => isFullScreen.value = val}>
               <el-button icon={FullScreen} text />
             </z-full-screen>
           </el-tooltip>
