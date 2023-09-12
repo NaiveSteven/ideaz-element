@@ -20,6 +20,7 @@ export const useCrudConfig = (props: CrudProps, emit: any) => {
     if (isUsePaginationStorage.value)
       updateTableProPagination(props.pagination)
 
+    emit('update:formData', middleFormData.value)
     emit('search')
   }, 200)
 

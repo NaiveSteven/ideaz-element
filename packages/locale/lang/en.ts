@@ -57,6 +57,7 @@ export default {
     default: 'default',
     refresh: 'refresh',
     fullScreen: 'full screen',
+    cancelFullScreen: 'cancel full screen',
     reset: 'reset',
   },
 }

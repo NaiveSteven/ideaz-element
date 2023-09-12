@@ -153,8 +153,8 @@ export default defineComponent({
         children: <z-filter-form
           ref="formRef"
           {...{ ...pick(props, formKeys), columns: searchFormColumns.value, ...attrs.value }}
-          modelValue={isUseFormDataStorage.value ? middleFormData.value : props.formData}
-          onUpdate:modelValue={(val: any) => { emit('update:formData', val) }}
+          modelValue={middleFormData.value}
+          onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
           onSearch={handleSearch}
           onReset={handleReset}
           onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}

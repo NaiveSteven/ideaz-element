@@ -57,6 +57,7 @@ export default {
     default: '默认',
     refresh: '刷新',
     fullScreen: '全屏',
+    cancelFullScreen: '取消全屏',
     reset: '重置',
   },
 }
