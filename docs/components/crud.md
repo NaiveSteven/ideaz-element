@@ -330,7 +330,7 @@ const handleSelectionChange = () => {
 }
 
 onMounted(() => {
-  // getData()
+  getData()
 })
 </script>
 
@@ -356,7 +356,6 @@ onMounted(() => {
     :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
     :editable="{ type: 'multiple' }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
-    :request="reqConfig"
     watermark="测试"
     export="sadf"
     size="small"
@@ -366,6 +365,7 @@ onMounted(() => {
     @cancel="handleCancel"
     @submit="() => {}"
     @reset="() => {}"
+    @refresh="handlePaginationChange"
     @selection-change="handleSelectionChange"
   >
     <template #buttons="{ row }">

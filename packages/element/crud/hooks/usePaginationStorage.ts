@@ -5,33 +5,39 @@ import type { Pagination } from '~/types'
 
 export const usePaginationStorage = (props: CrudProps, emit: any) => {
   const originPagination = ref(cloneDeep(props.pagination || {}))
-  const zCrudName = props.name
 
-  const middlePagination = ref<Pagination>(
-    sessionStorage.getItem('zCrudPagination')
-      ? (JSON.parse(sessionStorage.getItem('zCrudPagination')!)[zCrudName]
-          || originPagination.value)
-      : originPagination.value,
-  )
+  const middlePagination = computed<Pagination>({
+    get() {
+      return isObject(props.pagination) ? props.pagination : {}
+    },
+    set(val) {
+      emit('update:pagination', val)
+    },
+  })
 
   const isUsePaginationStorage = computed(() => {
     return props.name && props.paginationStorage !== false
   })
 
-  watch(
-    () => middlePagination.value,
-    () => {
-      if (isObject(props.pagination) && isUsePaginationStorage) {
-        const pagination: Pagination = {} as Pagination
-        Object.keys(props.pagination).forEach((key) => {
-          pagination[key] = middlePagination.value[key as keyof Pagination]
-        })
-        // console.log(pagination, 'pagination')
-        emit('update:pagination', pagination)
-      }
-    },
-    { deep: true, immediate: true },
-  )
+  onMounted(() => {
+    if (isObject(props.formData) && window.sessionStorage.getItem('zCrudPagination') && JSON.parse(window.sessionStorage.getItem('zCrudPagination')!)[props.name])
+      emit('update:pagination', (JSON.parse(sessionStorage.getItem('zCrudPagination')!)[props.name]))
+  })
+
+  // watch(
+  //   () => middlePagination.value,
+  //   () => {
+  //     if (isObject(props.pagination) && isUsePaginationStorage) {
+  //       const pagination: Pagination = {} as Pagination
+  //       Object.keys(props.pagination).forEach((key) => {
+  //         pagination[key] = middlePagination.value[key as keyof Pagination]
+  //       })
+  //       // console.log(pagination, 'pagination')
+  //       emit('update:pagination', pagination)
+  //     }
+  //   },
+  //   { deep: true, immediate: true },
+  // )
 
   // watch(
   //   () => props.pagination,
