@@ -60,8 +60,11 @@
 46. ~~`z-dialog`组件支持`info`、`danger`、`warning`等`type`~~
 47. `z-dialog`组件`loading`等`props`命名
 48. `z-crud`组件`editable`事件内置
-49. `z-crud`增删改查支持自定义
-50. ~~`z-table`全屏提示切换~~
+49. `z-crud`、`z-table`等组件`size`统一规划
+50. `z-crud`、`z-table`等组件按钮加上`icon`
+51. `z-crud`增删改查支持自定义
+52. `z-table`全屏提示切换
+53. `z-crud`支持`alert`配置
 
 ## FEATURE（docs and dts）
 
@@ -88,7 +91,8 @@
 3. ~~`z-check-card`组件修复`inject`报错问题~~
 4. `z-crud`表单输入一个字符，刷新两次问题
 5. `z-crud`表单底部和顶部高度不对称问题
-6. `z-dialog`导入方式组件关闭销毁问题
+6. ~~`z-dialog`导入方式组件关闭销毁问题~~
+7. 修复`z-crud`全屏问题
 
 ## Long Time
 
@@ -167,7 +171,7 @@ const config = {
       label: string,
       prop: string, // support path set
       search: {},
-      operate: {}, // add , edit and search common config
+      form: {}, // add , edit and search common config
       add: {},
       edit: {},
       detail: true, // true or false

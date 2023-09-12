@@ -59,6 +59,7 @@ export default defineComponent({
         modelValue={modelValue}
         options={options}
         columns={contentColumns}
+        formProps={props}
         v-slots={slots}
         onUpdate:modelValue={(...args) => { emit('update:modelValue', ...args) }}
         onChange={(...args) => { emit('change', ...args) }}
