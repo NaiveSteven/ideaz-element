@@ -33,6 +33,7 @@ const addFormData = ref({})
 const editFormData = ref({})
 
 function getReqData() {
+  console.log(pagination.value, 'getReqData')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -351,6 +352,7 @@ onMounted(() => {
     name="name"
     :loading="loading"
     :columns="columns"
+    :request="reqConfig"
     :options="options"
     :form="{ rules: { address: [{ required: true }] } }"
     :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
@@ -365,7 +367,6 @@ onMounted(() => {
     @cancel="handleCancel"
     @submit="() => {}"
     @reset="() => {}"
-    @refresh="handlePaginationChange"
     @selection-change="handleSelectionChange"
   >
     <template #buttons="{ row }">

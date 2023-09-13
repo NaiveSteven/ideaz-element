@@ -1,5 +1,5 @@
 import { get, pick } from 'lodash-unified'
-import { isArray, isBoolean, isFunction, isObject, isString } from '@ideaz/utils'
+import { isArray, isFunction, isObject, isString } from '@ideaz/utils'
 import type { ElTable } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { tableKeys } from '../src/props'
@@ -35,12 +35,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   const sortableData = ref<any>({})
   const isTableLoading = ref(false)
   const tableData = ref<any>([])
-  const pagination = ref({
-    page: 1,
-    pageSize: 10,
-    total: 0,
-    ...(isBoolean(props.pagination) ? {} : props.pagination),
-  })
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const {
     handleSearch: searchByCustom,
@@ -69,11 +63,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       columns: tableColumns.value,
       ...attrs,
       fullScreenElement: document.getElementsByClassName('z-crud')[0],
-      pagination: isUsePaginationStorage.value
-        ? middlePagination.value
-        : isRequest()
-          ? pagination.value
-          : (props.pagination || {}),
+      pagination: middlePagination.value,
       data: isRequest() ? tableData.value : props.data,
       loading: isRequest() ? isTableLoading.value : props.loading,
     }
@@ -92,7 +82,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
         params,
         data: tableData,
         loading: isTableLoading,
-        pagination: isRequest() ? pagination : middlePagination,
+        pagination: middlePagination,
       })
       return
     }
@@ -108,9 +98,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       tableData.value = isFunction(req.data) ? req.data(getAliasData(res, req).list) : getAliasData(res, req).list
       if (props.data)
         emit('update:data', tableData.value)
-
-      if (props.pagination)
-        emit('update:pagination', pagination.value)
 
       if (props.pagination === false)
         setPaginationData({ total: Number(getAliasData(res, req).total) })
@@ -175,18 +162,16 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   }
 
   function setPaginationData(data: Pagination) {
-    const targetPagination = isUsePaginationStorage.value ? middlePagination : pagination
+    const pagination = { ...middlePagination.value }
     Object.keys(data).forEach((key) => {
-      if (Object.hasOwnProperty.call(targetPagination.value, key))
-        targetPagination.value[key] = data[key as keyof typeof targetPagination.value]
+      if (Object.hasOwnProperty.call(middlePagination.value, key))
+        pagination[key] = data[key as keyof typeof middlePagination.value]
     })
+    middlePagination.value = pagination
     if (isUsePaginationStorage.value)
-      updateTableProPagination(targetPagination.value)
+      updateTableProPagination(middlePagination.value)
 
-    if (props.pagination)
-      emit('update:pagination', pagination.value)
-
-    return { ...targetPagination.value }
+    return { ...middlePagination.value }
   }
 
   const handleRadioChange = (selection: any) => {
