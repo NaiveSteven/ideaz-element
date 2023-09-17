@@ -65,6 +65,7 @@
 51. `z-crud`增删改查支持自定义
 52. `z-table`全屏提示切换
 53. `z-crud`支持`alert`配置
+54. `z-crud`组件测试
 
 ## FEATURE（docs and dts）
 
