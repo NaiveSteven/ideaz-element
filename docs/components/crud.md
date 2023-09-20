@@ -330,6 +330,11 @@ const handleSelectionChange = () => {
   console.log('selection')
 }
 
+const handleDeleteRow = (data) => {
+  console.log(data, tableData.value, 'data')
+  tableData.value.splice(data.index, 1)
+}
+
 onMounted(() => {
   getData()
 })
@@ -356,7 +361,7 @@ onMounted(() => {
     :options="options"
     :form="{ rules: { address: [{ required: true }] } }"
     :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
-    :editable="{ type: 'multiple' }"
+    :editable="{ type: 'multiple', onDelete: handleDeleteRow }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
     watermark="测试"
     export="sadf"
