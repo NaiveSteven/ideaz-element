@@ -107,6 +107,10 @@ export const filterFormProps = {
     type: Boolean,
     default: true,
   },
+  searchLoading: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 export type FormProps = ExtractPropTypes<typeof formProps>
