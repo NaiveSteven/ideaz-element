@@ -16,7 +16,7 @@ export const usePaginationStorage = (props: CrudProps, emit: any) => {
   })
 
   const isUsePaginationStorage = computed(() => {
-    return props.name && props.paginationStorage !== false
+    return props.name && props.paginationStorage !== false && isObject(props.pagination) && props.pagination.pageSize
   })
 
   onMounted(() => {

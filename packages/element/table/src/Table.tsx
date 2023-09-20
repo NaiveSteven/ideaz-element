@@ -65,7 +65,7 @@ export default defineComponent({
 
     const renderPagination = () => {
       const { pagination } = props
-      return isObject(pagination)
+      return (isObject(pagination) && pagination.pageSize)
         ? (
           <el-pagination
             class={ns.e('pagination')}
