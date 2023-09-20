@@ -1,6 +1,19 @@
 .z-crud {
   background: #fff;
 
+  .z-crud-filter-form__container {
+    .el-card__body {
+      padding: 18px;
+      padding-bottom: 0;
+    }
+  }
+
+  .z-crud-table__container {
+    .el-card__body {
+      padding: 18px;
+    }
+  }
+
   .z-table-tool-bar--top-bottom {
     .el-alert__close-btn {
       // top: 8px
