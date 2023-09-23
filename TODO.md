@@ -53,20 +53,21 @@
 39. ~~`z-crud`支持`request`~~
 40. `z-crud`支持编辑、新增、查看和删除配置
 41. `z-table`支持数据项排列
-42. `z-crud`支持`selection`提示
+42. ~~`z-crud`支持`selection`提示~~
 43. `z-crud`编辑、新增、查看和删除支持接口和非接口配置
 44. `z-crud`事件梳理，例如：`editable`下的事件和`crud`的事件
 45. ~~添加`z-dialog`组件~~
 46. ~~`z-dialog`组件支持`info`、`danger`、`warning`等`type`~~
 47. `z-dialog`组件`loading`等`props`命名
-48. `z-crud`组件`editable`事件内置
+48. ~~`z-crud`组件`editable`事件内置~~
 49. `z-crud`、`z-table`等组件`size`统一规划
-50. `z-crud`、`z-table`等组件按钮加上`icon`
+50. ~~`z-crud`、`z-table`等组件按钮加上`icon`~~
 51. `z-crud`增删改查支持自定义
 52. ~~`z-table`全屏提示切换~~
 53. `z-crud`支持`alert`配置
-54. `z-crud`组件测试
-55. `z-form`逻辑联动
+54. ~~`z-crud`的`pagination`优化~~
+55. `z-crud`的`tableData`优化
+56. `z-crud`支持外部让表格`loading`
 
 ## FEATURE（docs and dts）
 
@@ -92,9 +93,9 @@
 2. `z-text`组件在`vitepress`文档中的折行不正确问题
 3. ~~`z-check-card`组件修复`inject`报错问题~~
 4. `z-crud`表单输入一个字符，刷新两次问题
-5. `z-crud`表单底部和顶部高度不对称问题
+5. ~~`z-crud`表单底部和顶部高度不对称问题~~
 6. ~~`z-dialog`导入方式组件关闭销毁问题~~
-7. 修复`z-crud`全屏问题
+7. ~~修复`z-crud`全屏问题~~
 
 ## Long Time
 

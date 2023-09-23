@@ -89,6 +89,7 @@ export default defineComponent({
     const renderTable = () => {
       return renderDecorator({
         ...props.tableDecorator,
+        class: ns.be('table', 'container'),
         children: <z-table
           ref="zTableRef"
           {...tableProps.value}
@@ -150,9 +151,10 @@ export default defineComponent({
           marginBottom: '16px',
           ...props.formDecorator?.style,
         },
+        class: ns.be('filter-form', 'container'),
         children: <z-filter-form
           ref="formRef"
-          {...{ ...pick(props, formKeys), columns: searchFormColumns.value, ...attrs.value }}
+          {...{ ...pick(props, formKeys), columns: searchFormColumns.value, ...attrs.value, searchLoading: tableProps.value.loading }}
           modelValue={middleFormData.value}
           onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
           onSearch={handleSearch}

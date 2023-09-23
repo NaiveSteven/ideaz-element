@@ -54,7 +54,7 @@ export default defineComponent({
               {!slots.formOperation
                 ? (
                   <div class={ns.b('operation')}>
-                    <el-button type="primary" size={size.value} onClick={handleSearch}>
+                    <el-button type="primary" size={size.value} onClick={handleSearch} loading={props.searchLoading}>
                       {t('form.search')}
                     </el-button>
                     <el-button type="default" size={size.value} onClick={handleReset}>

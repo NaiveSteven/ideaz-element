@@ -1,11 +1,19 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from 'vue'
-import type { ComponentSize } from 'element-plus'
+import type { ComponentSize, ElForm, TableColumnCtx } from 'element-plus'
 import type {
   DefaultRow,
   TableProps,
 } from 'element-plus/es/components/table/src/table/defaults'
 import type { WatermarkProps } from '../../watermark/src/watermark'
 import type { Pagination, TableCol } from '~/types'
+export interface TableEdit {
+  type?: 'multiple' | 'single'
+  position?: 'bottom' | 'top'
+  onEdit?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
+  onSave?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
+  onDelete?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
+  onCancel?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
+}
 
 export const tableProps = {
   data: {
@@ -113,8 +121,7 @@ export const tableProps = {
     default: false,
   },
   editable: {
-    type: [Boolean, Object] as PropType<boolean | { type: 'multiple' | 'single'; position: 'bottom' | 'top' }>,
-    default: false,
+    type: [Object] as PropType<TableEdit>,
   },
   options: {
     type: Object,
@@ -130,7 +137,7 @@ export const tableProps = {
   },
   fullScreenElement: {
     type: [Function, HTMLElement] as PropType<() => HTMLElement | HTMLElement>,
-  }
+  },
 }
 
 export const tableColumnProps = {

@@ -1,5 +1,6 @@
 import { isFunction, isObject } from '@ideaz/utils'
 import type { Ref } from 'vue'
+import type { TableColumnCtx } from 'element-plus'
 import type { ITableProps } from '../src/props'
 
 function replacePropertyValues(obj: any, reverse = false) {
@@ -38,7 +39,13 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
       type: 'primary',
       link: true,
       hide: (row: any) => row.__isEdit || editableType.value === 'multiple',
-      onClick: (row, index, column) => { row.__isEdit = true },
+      onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
+        if (isFunction(props.editable?.onEdit))
+          props.editable?.onEdit({ row, index, column, formRef: zTableFormRef.value })
+
+        else
+          row.__isEdit = true
+      },
     }
   }
 
@@ -47,19 +54,23 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
       label: t('common.save'),
       type: 'primary',
       link: true,
-      hide: row => !row.__isEdit || editableType.value === 'multiple',
-      onClick: (row, index, column) => {
-        emit('save', row, index, column)
+      hide: (row: any) => !row.__isEdit || editableType.value === 'multiple',
+      onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
         if (!zTableFormRef.value)
           return
-        zTableFormRef.value.validateField
-        && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
-          if (!validated)
-            return
+        if (isFunction(props.editable?.onSave)) {
+          props.editable?.onSave({ row, index, column, formRef: zTableFormRef.value })
+        }
+        else {
+          zTableFormRef.value.validateField
+          && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
+            if (!validated)
+              return
 
-          replacePropertyValues(row)
-          row.__isEdit = false
-        })
+            replacePropertyValues(row)
+            row.__isEdit = false
+          })
+        }
       },
     }
   }
@@ -69,11 +80,15 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
       label: t('common.cancel'),
       type: 'primary',
       link: true,
-      hide: row => !row.__isEdit || editableType.value === 'multiple',
-      onClick: (row, index, column) => {
-        emit('cancel', row, index, column)
-        replacePropertyValues(row, true)
-        row.__isEdit = false
+      hide: (row: any) => !row.__isEdit || editableType.value === 'multiple',
+      onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
+        if (isFunction(props.editable?.onCancel)) {
+          props.editable?.onCancel({ row, index, column, formRef: zTableFormRef.value })
+        }
+        else {
+          replacePropertyValues(row, true)
+          row.__isEdit = false
+        }
       },
     }
   }
@@ -83,9 +98,12 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
       label: t('common.delete'),
       type: 'primary',
       link: true,
-      onClick: (row, index) => {
-        emit('delete', row, index)
-        tableData.value.splice(index, 1)
+      onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
+        if (isFunction(props.editable?.onDelete))
+          props.editable?.onDelete({ row, index, column, formRef: zTableFormRef.value })
+
+        else
+          tableData.value.splice(index, 1)
       },
     }
   }
