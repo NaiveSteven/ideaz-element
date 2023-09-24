@@ -8,6 +8,15 @@ export const usePagination = (props: ITableProps, emit: any) => {
   const tableData = ref<any>([])
   const attrs = useAttrs()
 
+  const pagination = computed<Pagination>({
+    get() {
+      return isObject(props.pagination) ? props.pagination : {}
+    },
+    set(val) {
+      emit('update:pagination', val)
+    },
+  })
+
   const tableAttributes = computed<any>(() => {
     const omitProps = reactiveOmit(props, ['pagination', 'columns', 'draggable', 'toolBar', 'loading'])
     return { ...attrs, ...omitProps }
@@ -16,13 +25,12 @@ export const usePagination = (props: ITableProps, emit: any) => {
   watch(
     () => tableAttributes.value,
     () => {
-      const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
       if (
         tableAttributes.value.data
-        && pagination.total
-        && tableAttributes.value.data.length === pagination.total
+        && pagination.value.total
+        && tableAttributes.value.data.length === pagination.value.total
       ) {
-        getTableData(pagination)
+        getTableData(pagination.value)
       }
       else {
         if (props.editable) {
@@ -46,19 +54,17 @@ export const usePagination = (props: ITableProps, emit: any) => {
   )
 
   const paginationAttrs = computed(() => {
-    const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
     return {
-      ...pagination,
-      layout: pagination.layout || 'total, prev, pager, next',
-      pageSizes: pagination.pageSizes || [100, 200, 300, 400, 500],
+      ...pagination.value,
+      layout: pagination.value.layout || 'total, prev, pager, next',
+      pageSizes: pagination.value.pageSizes || [100, 200, 300, 400, 500],
     }
   })
 
   const isPaginationByFront = computed(() => {
-    const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
     if (
       tableAttributes.value.data
-      && tableAttributes.value.data.length === pagination.total
+      && tableAttributes.value.data.length === pagination.value.total
       && paginationAttrs.value.type === 'front'
     )
       return true
@@ -74,8 +80,8 @@ export const usePagination = (props: ITableProps, emit: any) => {
   }
 
   function getTableData(pagination: Pagination) {
-    const page = pagination.page
-    const pageSize = pagination.pageSize
+    const page = pagination.page!
+    const pageSize = pagination.pageSize!
     const list = tableAttributes.value.data
     const length = tableAttributes.value.data.length
     let start = (page - 1) * pageSize
@@ -86,34 +92,32 @@ export const usePagination = (props: ITableProps, emit: any) => {
   }
 
   const handleCurrentChange = (val: number) => {
-    const pagination = isObject(props.pagination) ? props.pagination : {} as Pagination
+    emit('update:pagination', { ...pagination.value, page: val })
     if (isPaginationByFront.value) {
       getTableData({
         page: val,
-        pageSize: pagination.pageSize,
+        pageSize: pagination.value.pageSize,
       })
-      pagination.page = val
     }
     else {
       emit('refresh', {
         page: val,
-        pageSize: pagination.pageSize,
+        pageSize: pagination.value.pageSize,
       })
     }
   }
 
   const handleSizeChange = (val: number) => {
-    if (isPaginationByFront.value && isObject(props.pagination)) {
+    emit('update:pagination', { ...pagination.value, pageSize: val })
+    if (isPaginationByFront.value)
       getTableData({ page: 1, pageSize: val })
-      props.pagination.pageSize = val
-    }
-    else {
+
+    else
       emit('refresh', { page: 1, pageSize: val })
-    }
   }
 
   const handleRefresh = () => {
-    const page = (isObject(props.pagination) && props.pagination.page) ? props.pagination.page : 1
+    const page = pagination.value.page ? pagination.value.page : 1
     handleCurrentChange(page)
   }
 
@@ -121,6 +125,7 @@ export const usePagination = (props: ITableProps, emit: any) => {
     paginationAttrs,
     tableAttributes,
     tableData,
+    pagination,
     addTableData,
     handleCurrentChange,
     handleSizeChange,
