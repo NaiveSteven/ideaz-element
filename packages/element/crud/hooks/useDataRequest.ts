@@ -42,9 +42,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     handlePaginationChange: changePaginationByCustom,
     middleFormData,
     isUseFormDataStorage,
-    isUsePaginationStorage,
     middlePagination,
-    updateTableProPagination,
   } = useCrudConfig(props, emit)
   const { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer } = useTableColumns(props, emit, getTableData)
   const attrs = useAttrs()
@@ -168,8 +166,8 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
         pagination[key] = data[key as keyof typeof middlePagination.value]
     })
     middlePagination.value = pagination
-    if (isUsePaginationStorage.value)
-      updateTableProPagination(middlePagination.value)
+    // if (isUsePaginationStorage.value)
+    //   updateTableProPagination(middlePagination.value)
 
     return { ...middlePagination.value }
   }
