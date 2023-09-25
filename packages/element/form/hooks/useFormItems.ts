@@ -19,7 +19,7 @@ export const useFormItems = (props: FormProps) => {
   }
 
   const isHide = (item: FormColumn) => {
-    return typeof item.hide === 'function' ? item.hide() : item.hide
+    return typeof item.hide === 'function' ? item.hide(props.modelValue) : item.hide
   }
 
   const formatFormItems = computed<FormColumn[]>(() => {
