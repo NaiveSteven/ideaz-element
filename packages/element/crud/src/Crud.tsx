@@ -1,6 +1,7 @@
 import { useAttrs } from 'element-plus'
 import { omit, pick } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
+import { isFunction } from '@ideaz/utils'
 import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
@@ -86,6 +87,20 @@ export default defineComponent({
       return h(name, omit(decoratorProps, ['children', 'name']), isNativeTag ? decoratorProps.children : () => decoratorProps.children)
     }
 
+    const renderAlert = () => {
+      const { alert } = props
+      if (isFunction(alert.render))
+        return alert.render(selectionData.value)
+
+      return <el-alert
+        title={t('crud.selected') + selectionData.value.length + t('crud.term')}
+        type="success"
+        close-text={t('crud.unselect')}
+        onClose={handleCloseAlert}
+        {...alert}
+      />
+    }
+
     const renderTable = () => {
       return renderDecorator({
         ...props.tableDecorator,
@@ -123,14 +138,8 @@ export default defineComponent({
               </>
             },
             topBottom: () => {
-              if (isSelection.value) {
-                return <el-alert
-                  title={t('crud.selected') + selectionData.value.length + t('crud.term')}
-                  type="success"
-                  close-text={t('crud.unselect')}
-                  onClose={handleCloseAlert}
-                />
-              }
+              if (isSelection.value)
+                return renderAlert()
 
               return slots.topBottom?.()
             },
