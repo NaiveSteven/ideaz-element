@@ -1,5 +1,5 @@
 import { omit } from 'lodash-unified'
-import type { ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes, VNode } from 'vue'
 import { tableProps } from '../../table/src/props'
 import { formProps } from '../../form/src/props'
 import type { TableFormConfig } from '~/types'
@@ -28,6 +28,18 @@ export interface RequestConfig {
   afterData?: any
   func?: any
   data?: any
+}
+
+export interface AlertConfig {
+  render?: (selectionData: any) => VNode
+  title?: string | ((selectionData: any) => VNode)
+  type?: 'success' | 'warning' | 'info' | 'error'
+  description?: string
+  closeable?: boolean
+  center?: boolean
+  closeText?: string
+  showIcon?: boolean
+  effect?: 'light' | 'dark'
 }
 
 export const crudProps = {
@@ -109,6 +121,10 @@ export const crudProps = {
   dataKey: {
     type: String,
     default: 'id',
+  },
+  alert: {
+    type: Object as PropType<AlertConfig>,
+    default: () => ({}),
   },
 }
 

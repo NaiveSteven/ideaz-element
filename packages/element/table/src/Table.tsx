@@ -16,7 +16,7 @@ export default defineComponent({
   components: { TableColumn, ToolBar },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change', 'update:data'],
+  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination'],
   setup(props, { emit, slots }) {
     const {
       setCurrentRow,
@@ -42,6 +42,7 @@ export default defineComponent({
       sort,
     })
     const {
+      pagination,
       paginationAttrs,
       tableAttributes,
       tableData,
@@ -64,16 +65,15 @@ export default defineComponent({
     const size = ref(props.size)
 
     const renderPagination = () => {
-      const { pagination } = props
-      return (isObject(pagination) && pagination.pageSize)
+      return pagination.value.pageSize
         ? (
           <el-pagination
             class={ns.e('pagination')}
             background
             small
-            currentPage={pagination.page}
-            total={pagination.total}
             {...paginationAttrs.value}
+            currentPage={pagination.value.page}
+            total={pagination.value.total}
             onUpdate:current-page={handleCurrentChange}
             onUpdate:page-size={handleSizeChange}
           />

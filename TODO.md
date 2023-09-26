@@ -68,6 +68,10 @@
 54. ~~`z-crud`的`pagination`优化~~
 55. `z-crud`的`tableData`优化
 56. `z-crud`支持外部让表格`loading`
+57. `z-form`支持逻辑联动，例如：被`hide`隐藏起来的元素，接口提交时不提交
+58. ~~`z-form`的`hide`等内置功能，支持`formData`传入~~
+59. `z-crud`纯前端分页和筛选
+60. `z-crud`前端分页未向上抛出数据，`v-model:data`此时会失效
 
 ## FEATURE（docs and dts）
 

@@ -33,7 +33,7 @@ const addFormData = ref({})
 const editFormData = ref({})
 
 function getReqData() {
-  console.log(pagination.value, 'getReqData')
+  // console.log(pagination.value, 'getReqData')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -48,6 +48,7 @@ function getReqData() {
               address: '上海市普陀区金沙江路 1518 弄',
               select: '1',
               username: 'username1',
+              switch: true
             },
             {
               date: '2016-05-04',
@@ -55,6 +56,7 @@ function getReqData() {
               address: '上海市普陀区金沙江路 1517 弄',
               select: '2',
               username: 'username2',
+              switch: false
             },
             {
               date: '2016-05-01',
@@ -62,6 +64,7 @@ function getReqData() {
               address: '上海市普陀区金沙江路 1519 弄',
               select: '3',
               username: 'username3',
+              switch: true
             },
             {
               date: '2016-05-03',
@@ -69,6 +72,7 @@ function getReqData() {
               address: '上海市普陀区金沙江路 1516 弄',
               select: '4',
               username: 'username4',
+              switch: false
             },
           ]
         }
@@ -79,7 +83,7 @@ function getReqData() {
 
 const changeNameVisible = () => {
   isShowName.value = !isShowName.value
-  console.log(tableData.value, 'shuju')
+  // console.log(tableData.value, 'shuju')
 }
 
 const columns = [
@@ -254,7 +258,7 @@ const cancel = (row) => {
 
 const getData = () => {
   loading.value = true
-  console.log(pagination.value, formModel.value, 'pagination')
+  // console.log(pagination.value, formModel.value, 'pagination')
   setTimeout(() => {
     tableData.value = [
       {
@@ -300,7 +304,8 @@ const handlePaginationChange = (val: { page: number; pageSize: number }) => {
 }
 
 const handleClick = () => {
-  console.log(tableData.value, 'tableData')
+  loading.value = true
+  // console.log(tableData.value, 'tableData')
 }
 
 const handleDivClick = () => {
@@ -354,8 +359,8 @@ onMounted(() => {
     v-model:data="tableData"
     v-model:addFormData="addFormData"
     v-model:editFormData="editFormData"
+    v-model:loading="loading"
     name="name"
-    :loading="loading"
     :columns="columns"
     :request="reqConfig"
     :options="options"

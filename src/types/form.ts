@@ -19,8 +19,8 @@ export interface FormColumn {
   field?: string
   formItemProps?: Partial<ElFormItemProps> & FormItemProps
   fieldProps?: IndexType
-  hide?: () => boolean
-  hideUseVShow?: () => boolean
+  hide?: (formData: any) => boolean
+  hideUseVShow?: (formData: any) => boolean
   on?: IndexType
   slot?: string
   colGrid?: IndexType

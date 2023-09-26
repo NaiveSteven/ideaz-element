@@ -20,7 +20,7 @@ interface RowData {
   username: string
 }
 
-const pagination = ref({ pageSize: 20, page: 1, total: 40 })
+const pagination = ref({ pageSize: 20, page: 1, total: 40, type: 'front' })
 const loading = ref(false)
 const tableData = ref<RowData[]>([])
 const cTableRef = ref()
@@ -192,7 +192,7 @@ const getData = () => {
   setTimeout(() => {
     tableData.value = [
       {
-        date: '2016-05-02',
+        date: `2016-05-02${pagination.value.page}`,
         name: '王小虎',
         address: '1',
         select: '1',
@@ -228,13 +228,20 @@ const getData = () => {
   }, 1000)
 }
 const handlePaginationChange = (val: { page: number; pageSize: number }) => {
-  pagination.value.page = val.page
-  pagination.value.pageSize = val.pageSize
+  // pagination.value.page = val.page
+  // pagination.value.pageSize = val.pageSize
   getData()
 }
 
 const handleClick = () => {
-  console.log(tableData.value, 'tableData')
+  console.log(pagination.value, 'pagination')
+  // console.log(tableData.value, 'tableData')
+}
+
+const handleModel = (aa) => {
+  // console.log(aa, pagination.value, 'paginationbefore')
+  pagination.value = aa
+  console.log(aa, pagination.value, 'pagination')
 }
 
 getData()
@@ -249,10 +256,10 @@ getData()
   </el-button>
   <z-table
     ref="cTableRef"
+    v-model:pagination="pagination"
     :data="tableData"
     :loading="loading"
     :columns="columns"
-    :pagination="pagination"
     :options="options"
     :editable="{ type: 'multiple' }"
     :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
