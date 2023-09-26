@@ -2,6 +2,7 @@ import { useAttrs } from 'element-plus'
 import { omit, pick } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { isFunction } from '@ideaz/utils'
+import type { ComponentInternalInstance } from 'vue'
 import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
@@ -42,7 +43,6 @@ export default defineComponent({
       handlePaginationChange,
       handleSortChange,
       middleFormData,
-      isUseFormDataStorage,
       handleRadioChange,
       handleExport,
       getTableData,
@@ -79,6 +79,7 @@ export default defineComponent({
       sort,
       getTableData,
     })
+    const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
 
     const renderDecorator = (decoratorProps: any) => {
       const nativeTags = ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
@@ -93,11 +94,16 @@ export default defineComponent({
         return alert.render(selectionData.value)
 
       return <el-alert
-        title={t('crud.selected') + selectionData.value.length + t('crud.term')}
         type="success"
         close-text={t('crud.unselect')}
         onClose={handleCloseAlert}
-        {...alert}
+        {...omit(props.alert, 'title')}
+        v-slots={{
+          title: isFunction(alert.title)
+            ? () => (alert.title as Function)(selectionData.value, ctx!.$refs.zTableRef)
+            : () => (alert.title || t('crud.selected') + selectionData.value.length + t('crud.term')),
+          default: isFunction(alert.content) ? () => (alert.content as Function)(selectionData.value, ctx!.$refs.zTableRef) : () => (alert.content || ''),
+        }}
       />
     }
 

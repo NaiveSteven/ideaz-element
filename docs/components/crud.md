@@ -340,6 +340,16 @@ const handleDeleteRow = (data) => {
   tableData.value.splice(data.index, 1)
 }
 
+const getAlertTitle = (selectionData, table) => {
+  console.log(table, 'table')
+  return `已选择 ${selectionData.length} 项`
+}
+
+const getAlertContent = (selectionData, table) => {
+  console.log(table, 'table')
+  return `已选择 ${selectionData.length} 项`
+}
+
 onMounted(() => {
   getData()
 })
@@ -374,6 +384,7 @@ onMounted(() => {
     :max-length="5"
     :dialog="{ onClose: handleClose }"
     :drawer="{ onOpen: handleDrawerOpen }"
+    :alert="{ title: getAlertTitle, content: getAlertContent }"
     @cancel="handleCancel"
     @submit="() => {}"
     @reset="() => {}"
