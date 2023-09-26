@@ -33,7 +33,6 @@ function getAliasData(res: any, req: RequestConfig) {
 
 export const useDataRequest = (props: CrudProps, emit: any) => {
   const sortableData = ref<any>({})
-  const isTableLoading = ref(false)
   const tableData = ref<any>([])
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const {
@@ -55,6 +54,15 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     )
   }
 
+  const isLoading = computed({
+    get() {
+      return props.loading || false
+    },
+    set(val) {
+      emit('update:loading', val)
+    },
+  })
+
   const tableProps = computed<any>(() => {
     return {
       ...pick(props, tableKeys),
@@ -63,7 +71,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       fullScreenElement: document.getElementsByClassName('z-crud')[0],
       pagination: middlePagination.value,
       data: isRequest() ? tableData.value : props.data,
-      loading: isRequest() ? isTableLoading.value : props.loading,
+      loading: isLoading.value,
     }
   })
 
@@ -79,12 +87,12 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       req.func({
         params,
         data: tableData,
-        loading: isTableLoading,
+        loading: isLoading,
         pagination: middlePagination,
       })
       return
     }
-    isTableLoading.value = true
+    isLoading.value = true
     try {
       let res = null
       if (isFunction(req))
@@ -100,11 +108,11 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       if (props.pagination === false)
         setPaginationData({ total: Number(getAliasData(res, req).total) })
 
-      isTableLoading.value = false
+      isLoading.value = false
       return res
     }
     catch (error) {
-      isTableLoading.value = false
+      isLoading.value = false
     }
   }
 

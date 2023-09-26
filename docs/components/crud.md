@@ -304,7 +304,8 @@ const handlePaginationChange = (val: { page: number; pageSize: number }) => {
 }
 
 const handleClick = () => {
-  console.log(tableData.value, 'tableData')
+  loading.value = true
+  // console.log(tableData.value, 'tableData')
 }
 
 const handleDivClick = () => {
@@ -358,8 +359,8 @@ onMounted(() => {
     v-model:data="tableData"
     v-model:addFormData="addFormData"
     v-model:editFormData="editFormData"
+    v-model:loading="loading"
     name="name"
-    :loading="loading"
     :columns="columns"
     :request="reqConfig"
     :options="options"
