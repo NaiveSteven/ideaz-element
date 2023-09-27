@@ -58,6 +58,7 @@ export default defineComponent({
     const { descriptionColumns, descriptionProps } = useDescriptions(props)
     const ns = useNamespace('crud')
     const { t } = useLocale()
+    const size = useFormSize()
 
     provide(crudProvideKey, {
       props,
@@ -125,7 +126,7 @@ export default defineComponent({
               return <>
                 {slots.topLeft && slots.topLeft()}
                 <el-button
-                  size={tableProps.value.size || 'small'}
+                  size={size.value}
                   type='primary'
                   icon={Plus}
                   onClick={() => {
@@ -135,11 +136,11 @@ export default defineComponent({
                 >
                   {t('crud.add')}
                 </el-button>
-                {!!props.export && <el-button size={tableProps.value.size || 'small'} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
+                {!!props.export && <el-button size={size.value} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
                 {!!isSelection.value
                   && <el-button
                     plain
-                    size={tableProps.value.size || 'small'}
+                    size={size.value}
                     type='danger'
                     class={ns.e('multiple-delete')}
                     icon={Delete}

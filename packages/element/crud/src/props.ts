@@ -1,6 +1,6 @@
 import { omit } from 'lodash-unified'
 import type { ExtractPropTypes, VNode } from 'vue'
-import type { ElTable } from 'element-plus'
+import type { ComponentSize, ElTable } from 'element-plus'
 import { tableProps } from '../../table/src/props'
 import { formProps } from '../../form/src/props'
 import type { TableFormConfig } from '~/types'
@@ -47,6 +47,10 @@ export interface AlertConfig {
 export const crudProps = {
   ..._tableProps,
   ..._formProps,
+  size: {
+    type: String as PropType<ComponentSize>,
+    default: 'small',
+  },
   columns: Array as PropType<any>,
   formData: {
     type: Object as PropType<any>,

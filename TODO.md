@@ -72,6 +72,7 @@
 58. ~~`z-form`的`hide`等内置功能，支持`formData`传入~~
 59. `z-crud`纯前端分页和筛选
 60. `z-crud`前端分页未向上抛出数据，`v-model:data`此时会失效
+61. `z-form`的`OperationCard`组件`size`适配
 
 ## FEATURE（docs and dts）
 

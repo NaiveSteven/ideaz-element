@@ -9,18 +9,20 @@ export default defineComponent({
   props: tagSelectGroupProps,
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const size = useFormSize()
+
     const updateModelValue = (val: any, option: TagSelectGroupOptionsItem) => {
       emit('update:modelValue', set(cloneDeep(props.modelValue), option.field, val))
     }
 
     return () => {
-      const { options, size, all, titleWidth, multiple, alias } = props
+      const { options, all, titleWidth, multiple, alias } = props
       return <div>
         {options.map((option: TagSelectGroupOptionsItem) => {
           return <TagSelect
             modelValue={get(props.modelValue, option.field, '')}
             onUpdate:modelValue={val => updateModelValue(val, option)}
-            size={size}
+            size={size.value}
             titleWidth={titleWidth}
             multiple={multiple}
             all={all}
