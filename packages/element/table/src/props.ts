@@ -206,3 +206,4 @@ export const toolBarProps = {
 export type ITableProps = ExtractPropTypes<typeof tableProps>
 export type TableColumnProps = ExtractPropTypes<typeof tableColumnProps>
 export type ToolBarProps = ExtractPropTypes<typeof toolBarProps>
+export const tableProvideKey = Symbol('tableKey')

@@ -11,6 +11,7 @@ export default defineComponent({
   name: 'ZDescriptions',
   props: descriptionsProps,
   setup(props, { slots }) {
+    const size = useFormSize()
     const config = reactiveOmit(
       props,
       'columns',
@@ -22,7 +23,7 @@ export default defineComponent({
     function createDetail(item: DescriptionsColumn) {
       if (slots[`detail-${item.prop}`]) {
         return (slots[`detail-${item.prop}`] as Slot)({
-          size: props.size,
+          size: size.value,
           item: props.detail,
         })
       }
@@ -33,7 +34,7 @@ export default defineComponent({
           `[ProDescriptions] the [prop] slot will to remove, use 'detail-[prop]' replace ${item.prop}`,
         )
         return (slots[item.prop] as Slot)({
-          size: props.size,
+          size: size.value,
           item: props.detail,
           detail: props.detail,
         })
@@ -51,7 +52,7 @@ export default defineComponent({
     function createLabel(item: DescriptionsColumn) {
       if (slots[`detail-${item.prop}-label`]) {
         return (slots[`detail-${item.prop}-label`] as Slot)({
-          size: props.size,
+          size: size.value,
           item,
         })
       }
@@ -61,7 +62,7 @@ export default defineComponent({
           `[ProDescriptions] the [prop]-label slot will to remove, use 'detail-[prop]-label' replace ${item.prop}-label`,
         )
         return (slots[`${item.prop}-label`] as Slot)({
-          size: props.size,
+          size: size.value,
           item,
         })
       }
@@ -96,9 +97,9 @@ export default defineComponent({
       h(ElDescriptions, mergeProps(config, { class: 'pro-descriptions' }), {
         default: () => [createDefault(), slots.default && slots.default()],
         title: () =>
-          slots.title ? slots.title({ size: props.size }) : null,
+          slots.title ? slots.title({ size: size.value }) : null,
         extra: () =>
-          slots.extra ? slots.extra({ size: props.size }) : null,
+          slots.extra ? slots.extra({ size: size.value }) : null,
       })
   },
 })

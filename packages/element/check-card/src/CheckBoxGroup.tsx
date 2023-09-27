@@ -12,6 +12,7 @@ export default defineComponent({
   emits: ['change', 'update:modelValue'],
   setup(props, { slots, expose, emit }) {
     const ns = useNamespace('check-card')
+    const size = useFormSize()
 
     const stateValue = computed({
       get() {
@@ -93,7 +94,7 @@ export default defineComponent({
           return <ZCheckCard
             key={value.toString()}
             disabled={get(option, props.alias?.disabled || 'disabled', false)}
-            size={option.size ?? props.size}
+            size={option.size || size.value}
             value={value}
             checked={
               multiple
@@ -119,7 +120,7 @@ export default defineComponent({
           bordered: props.bordered,
           value: stateValue.value,
           disabled: props.disabled,
-          size: props.size,
+          size: size.value,
           loading: props.loading,
           multiple: props.multiple,
         }

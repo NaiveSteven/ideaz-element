@@ -9,7 +9,7 @@ import {
 } from '../hooks'
 import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'
-import { tableProps } from './props'
+import { tableProps, tableProvideKey } from './props'
 
 export default defineComponent({
   name: 'ZTable',
@@ -63,6 +63,11 @@ export default defineComponent({
     const ns = useNamespace('table')
     const { t } = useLocale()
     const size = ref(props.size)
+
+    provide(tableProvideKey, {
+      props,
+      size: size.value,
+    })
 
     const renderPagination = () => {
       return pagination.value.pageSize

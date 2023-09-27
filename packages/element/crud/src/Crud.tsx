@@ -8,7 +8,7 @@ import {
   useTableMethods,
 } from '../../table/hooks'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
-import { crudProps, formKeys } from './props'
+import { crudProps, crudProvideKey, formKeys } from './props'
 
 export default defineComponent({
   name: 'ZCrud',
@@ -58,6 +58,11 @@ export default defineComponent({
     const { descriptionColumns, descriptionProps } = useDescriptions(props)
     const ns = useNamespace('crud')
     const { t } = useLocale()
+
+    provide(crudProvideKey, {
+      props,
+      size: tableProps.value.size,
+    })
 
     useExpose({
       resetFields,
