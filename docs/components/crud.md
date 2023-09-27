@@ -304,8 +304,7 @@ const handlePaginationChange = (val: { page: number; pageSize: number }) => {
 }
 
 const handleClick = () => {
-  loading.value = true
-  // console.log(tableData.value, 'tableData')
+  console.log(tableData.value, 'tableData')
 }
 
 const handleDivClick = () => {

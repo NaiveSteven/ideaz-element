@@ -1,5 +1,5 @@
 import { get, pick } from 'lodash-unified'
-import { isArray, isFunction, isObject, isString } from '@ideaz/utils'
+import { isFunction, isObject, isString } from '@ideaz/utils'
 import type { ElTable } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { tableKeys } from '../src/props'
@@ -33,7 +33,6 @@ function getAliasData(res: any, req: RequestConfig) {
 
 export const useDataRequest = (props: CrudProps, emit: any) => {
   const sortableData = ref<any>({})
-  const tableData = ref<any>([])
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const {
     handleSearch: searchByCustom,
@@ -63,6 +62,15 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     },
   })
 
+  const tableData = computed<any>({
+    get() {
+      return props.data
+    },
+    set(val) {
+      emit('update:data', val)
+    },
+  })
+
   const tableProps = computed<any>(() => {
     return {
       ...pick(props, tableKeys),
@@ -70,14 +78,9 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       ...attrs,
       fullScreenElement: document.getElementsByClassName('z-crud')[0],
       pagination: middlePagination.value,
-      data: isRequest() ? tableData.value : props.data,
+      data: tableData.value,
       loading: isLoading.value,
     }
-  })
-
-  watch(() => props.data, () => {
-    if (isArray(props.data))
-      tableData.value = props.data
   })
 
   async function getTableData(payload?: { column: any; prop: string; order: string }) {
@@ -102,8 +105,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
         res = await req.searchApi(params)
 
       tableData.value = isFunction(req.data) ? req.data(getAliasData(res, req).list) : getAliasData(res, req).list
-      if (props.data)
-        emit('update:data', tableData.value)
 
       if (props.pagination === false)
         setPaginationData({ total: Number(getAliasData(res, req).total) })
