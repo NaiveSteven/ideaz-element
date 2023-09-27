@@ -52,7 +52,7 @@
 38. ~~`z-crud`支持缓存~~
 39. ~~`z-crud`支持`request`~~
 40. `z-crud`支持编辑、新增、查看和删除配置
-41. `z-table`支持数据项排列
+41. ~~`z-table`支持数据项排列~~
 42. ~~`z-crud`支持`selection`提示~~
 43. `z-crud`编辑、新增、查看和删除支持接口和非接口配置
 44. `z-crud`事件梳理，例如：`editable`下的事件和`crud`的事件
@@ -73,6 +73,7 @@
 59. `z-crud`纯前端分页和筛选
 60. `z-crud`前端分页未向上抛出数据，`v-model:data`此时会失效
 61. `z-form`的`OperationCard`组件`size`适配
+62. `z-table`数据项拖拽添加把手
 
 ## FEATURE（docs and dts）
 
