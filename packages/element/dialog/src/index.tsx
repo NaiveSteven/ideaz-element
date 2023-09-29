@@ -29,7 +29,10 @@ export default defineComponent({
     const renderDialogFooter = () => {
       const { type } = props
       if (isFunction(slots.footer))
-        return slots.footer
+        return slots.footer()
+
+      if (isFunction(props.renderFooter))
+        return props.renderFooter()
 
       if (type === 'info') {
         return <div class={ns.e('footer')}>
@@ -37,6 +40,7 @@ export default defineComponent({
             type="primary"
             size="default"
             onClick={handleConfirm}
+            {...confirmBtnProps.value}
           >{t('dialog.got')}</el-button>
         </div>
       }

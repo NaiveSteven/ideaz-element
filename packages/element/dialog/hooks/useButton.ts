@@ -12,16 +12,16 @@ export const useButton = (props: DialogProps) => {
   const confirmBtnProps = computed(() => {
     return {
       ...props.confirmButtonProps,
-      label: props.extend ? confirmBtnLabel.value : (props.confirmButtonLabel || t('common.confirm')),
-      loading: props.extend ? isConfirmBtnLoading.value : props.isConfirmButtonLoading,
+      label: props.extend ? confirmBtnLabel.value : (props.confirmButtonLabel || props.confirmButtonProps.label || t('common.confirm')),
+      loading: props.extend ? isConfirmBtnLoading.value : (props.confirmButtonLoading || props.confirmButtonProps.loading),
     }
   })
 
   const cancelBtnProps = computed(() => {
     return {
       ...props.cancelButtonProps,
-      label: props.extend ? cancelBtnLabel.value : (props.cancelButtonLabel || t('common.cancel')),
-      loading: props.extend ? isCancelBtnLoading.value : props.isCancelButtonLoading,
+      label: props.extend ? cancelBtnLabel.value : (props.cancelButtonLabel || props.cancelButtonProps.label || t('common.cancel')),
+      loading: props.extend ? isCancelBtnLoading.value : (props.cancelButtonLoading || props.cancelButtonProps.loading),
     }
   })
 
