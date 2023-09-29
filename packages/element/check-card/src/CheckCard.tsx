@@ -15,6 +15,7 @@ export default defineComponent({
     const multiple = ref(false)
     const checkCardGroup = inject<typeof CheckCardGroup | null>('check-card-group', null)
     const ns = useNamespace('check-card')
+    const size = useFormSize()
 
     const getSizeCls = (size?: string) => {
       if (size === 'large') return 'lg'
@@ -30,7 +31,6 @@ export default defineComponent({
         loading,
         bordered,
         value,
-        size,
       } = props
 
       checkCardProps.value = {
@@ -40,7 +40,7 @@ export default defineComponent({
         loading,
         bordered,
         value,
-        size,
+        size: size.value,
       }
 
       checkCardProps.value.checked = stateChecked.value
@@ -63,19 +63,18 @@ export default defineComponent({
         checkCardProps.value.checked = checkCardProps.value.loading
           ? false
           : isChecked
-        checkCardProps.value.size = props.size || checkCardGroup.value.size
+        checkCardProps.value.size = size.value
       }
     })
 
     const classString = computed(() => {
       const {
         disabled = false,
-        size,
         loading: cardLoading,
         bordered,
         checked,
       } = checkCardProps.value
-      const sizeCls = getSizeCls(size)
+      const sizeCls = getSizeCls(size.value)
 
       return {
         [ns.m('loading')]: cardLoading,

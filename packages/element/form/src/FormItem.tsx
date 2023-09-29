@@ -19,6 +19,7 @@ export default defineComponent({
     const { componentName: ComponentName } = useFormItemComponent(props)
     const { formItemProps } = useFormItemProps(props)
     const { vSlots } = useFormItemSlots(props, slots)
+    const size = useFormSize()
 
     provide(formItemProvideKey, {
       props,
@@ -61,6 +62,7 @@ export default defineComponent({
                 'options': options
                   ? (options[col.field!] || (col.fieldProps && col.fieldProps.options))
                   : {},
+                'size': size.value,
                 ...col.fieldProps,
                 'directives': {
                   ref: isObject(col.fieldProps)

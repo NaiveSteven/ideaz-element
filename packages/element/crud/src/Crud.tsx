@@ -2,12 +2,13 @@ import { useAttrs } from 'element-plus'
 import { omit, pick } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { isFunction } from '@ideaz/utils'
+import type { ComponentInternalInstance } from 'vue'
 import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
-import { crudProps, formKeys } from './props'
+import { crudProps, crudProvideKey, formKeys } from './props'
 
 export default defineComponent({
   name: 'ZCrud',
@@ -42,7 +43,6 @@ export default defineComponent({
       handlePaginationChange,
       handleSortChange,
       middleFormData,
-      isUseFormDataStorage,
       handleRadioChange,
       handleExport,
       getTableData,
@@ -58,6 +58,12 @@ export default defineComponent({
     const { descriptionColumns, descriptionProps } = useDescriptions(props)
     const ns = useNamespace('crud')
     const { t } = useLocale()
+    const size = useFormSize()
+
+    provide(crudProvideKey, {
+      props,
+      size: tableProps.value.size,
+    })
 
     useExpose({
       resetFields,
@@ -79,6 +85,7 @@ export default defineComponent({
       sort,
       getTableData,
     })
+    const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
 
     const renderDecorator = (decoratorProps: any) => {
       const nativeTags = ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
@@ -93,11 +100,16 @@ export default defineComponent({
         return alert.render(selectionData.value)
 
       return <el-alert
-        title={t('crud.selected') + selectionData.value.length + t('crud.term')}
         type="success"
         close-text={t('crud.unselect')}
         onClose={handleCloseAlert}
-        {...alert}
+        {...omit(props.alert, 'title')}
+        v-slots={{
+          title: isFunction(alert.title)
+            ? () => (alert.title as Function)(selectionData.value, ctx!.$refs.zTableRef)
+            : () => (alert.title || t('crud.selected') + selectionData.value.length + t('crud.term')),
+          default: isFunction(alert.content) ? () => (alert.content as Function)(selectionData.value, ctx!.$refs.zTableRef) : () => (alert.content || ''),
+        }}
       />
     }
 
@@ -114,7 +126,7 @@ export default defineComponent({
               return <>
                 {slots.topLeft && slots.topLeft()}
                 <el-button
-                  size={tableProps.value.size || 'small'}
+                  size={size.value}
                   type='primary'
                   icon={Plus}
                   onClick={() => {
@@ -124,11 +136,11 @@ export default defineComponent({
                 >
                   {t('crud.add')}
                 </el-button>
-                {!!props.export && <el-button size={tableProps.value.size || 'small'} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
+                {!!props.export && <el-button size={size.value} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
                 {!!isSelection.value
                   && <el-button
                     plain
-                    size={tableProps.value.size || 'small'}
+                    size={size.value}
                     type='danger'
                     class={ns.e('multiple-delete')}
                     icon={Delete}

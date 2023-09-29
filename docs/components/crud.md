@@ -304,8 +304,7 @@ const handlePaginationChange = (val: { page: number; pageSize: number }) => {
 }
 
 const handleClick = () => {
-  loading.value = true
-  // console.log(tableData.value, 'tableData')
+  console.log(tableData.value, 'tableData')
 }
 
 const handleDivClick = () => {
@@ -338,6 +337,16 @@ const handleSelectionChange = () => {
 const handleDeleteRow = (data) => {
   console.log(data, tableData.value, 'data')
   tableData.value.splice(data.index, 1)
+}
+
+const getAlertTitle = (selectionData, table) => {
+  console.log(table, 'table')
+  return `已选择 ${selectionData.length} 项`
+}
+
+const getAlertContent = (selectionData, table) => {
+  console.log(table, 'table')
+  return `已选择 ${selectionData.length} 项`
 }
 
 onMounted(() => {
@@ -374,6 +383,7 @@ onMounted(() => {
     :max-length="5"
     :dialog="{ onClose: handleClose }"
     :drawer="{ onOpen: handleDrawerOpen }"
+    :alert="{ title: getAlertTitle, content: getAlertContent }"
     @cancel="handleCancel"
     @submit="() => {}"
     @reset="() => {}"

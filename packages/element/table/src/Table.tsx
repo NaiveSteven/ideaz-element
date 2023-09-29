@@ -7,16 +7,18 @@ import {
   useTableMethods,
   useTableSlots,
 } from '../hooks'
+import { draggable } from '../../../directives'
 import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'
-import { tableProps } from './props'
+import { tableProps, tableProvideKey } from './props'
 
 export default defineComponent({
   name: 'ZTable',
   components: { TableColumn, ToolBar },
+  directives: { draggable },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination'],
+  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end'],
   setup(props, { emit, slots }) {
     const {
       setCurrentRow,
@@ -63,6 +65,60 @@ export default defineComponent({
     const ns = useNamespace('table')
     const { t } = useLocale()
     const size = ref(props.size)
+
+    const draggableOptions = [
+      {
+        selector: 'tbody',
+        options: {
+          animation: 150,
+          ghostClass: 'ghost',
+          onEnd: (evt: any) => {
+            const { newIndex, oldIndex } = evt
+            const arr = [...tableData.value]
+
+            // 拖动元素与新位置原元素互换位置
+            // ES6 解构写法
+            // [arr[newIndex as number],arr[oldIndex as number]] = [arr[oldIndex as number],arr[newIndex as number]]
+            // ES5 普通写法
+            // arr.splice(newIndex as number,1, ...arr.splice(oldIndex as number,1,arr[newIndex as number]))
+            // 拖动元素至新位置后其余依次下移
+            const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
+            arr.splice(newIndex as number, 0, moveRowData)
+
+            tableData.value = []
+            nextTick(() => {
+              tableData.value = [...arr]
+              emit('drag-sort-end', tableData.value)
+            })
+          },
+        },
+      },
+      {
+        selector: '.el-table__header-wrapper tr',
+        options: {
+          animation: 150,
+          delay: 0,
+          ghostClass: 'table-col__ghost',
+          onEnd: (evt: any) => {
+            // emit('on-update-table-column', dropCol[evt.oldIndex], evt.newIndex, evt.oldIndex);
+
+            const { newIndex, oldIndex } = evt
+            const arr = [...middleTableCols.value]
+            const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
+            arr.splice(newIndex as number, 0, moveRowData)
+            middleTableCols.value = []
+            nextTick(() => {
+              middleTableCols.value = [...arr]
+            })
+          },
+        },
+      },
+    ]
+
+    provide(tableProvideKey, {
+      props,
+      size: size.value,
+    })
 
     const renderPagination = () => {
       return pagination.value.pageSize
@@ -142,6 +198,7 @@ export default defineComponent({
           class={[ns.b(''), editable && ns.b('editable')]}
           key={tableKey.value}
           v-slots={tableSlots}
+          v-draggable={draggableOptions}
           {...{ ...tableAttributes.value, data: tableData.value, size: size.value }}
         >
           {formatTableCols.value.map((item, index) => {

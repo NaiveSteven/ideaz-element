@@ -40,6 +40,7 @@ export default defineComponent({
               return resolveDynamicComponent({
                 name: ChildName,
                 attrs: {
+                  size: size.value,
                   ...option,
                   border: isValid(option.border) ? option.border : props.border,
                   label: get(option, props.alias?.value || 'value', ''),

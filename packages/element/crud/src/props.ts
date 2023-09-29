@@ -1,5 +1,6 @@
 import { omit } from 'lodash-unified'
 import type { ExtractPropTypes, VNode } from 'vue'
+import type { ComponentSize, ElTable } from 'element-plus'
 import { tableProps } from '../../table/src/props'
 import { formProps } from '../../form/src/props'
 import type { TableFormConfig } from '~/types'
@@ -32,7 +33,7 @@ export interface RequestConfig {
 
 export interface AlertConfig {
   render?: (selectionData: any) => VNode
-  title?: string | ((selectionData: any) => VNode)
+  title?: string | ((selectionData: any, tableRef: typeof ElTable) => VNode)
   type?: 'success' | 'warning' | 'info' | 'error'
   description?: string
   closeable?: boolean
@@ -40,11 +41,16 @@ export interface AlertConfig {
   closeText?: string
   showIcon?: boolean
   effect?: 'light' | 'dark'
+  content: string | ((selectionData: any, tableRef: typeof ElTable) => VNode)
 }
 
 export const crudProps = {
   ..._tableProps,
   ..._formProps,
+  size: {
+    type: String as PropType<ComponentSize>,
+    default: 'small',
+  },
   columns: Array as PropType<any>,
   formData: {
     type: Object as PropType<any>,
@@ -129,3 +135,4 @@ export const crudProps = {
 }
 
 export type CrudProps = ExtractPropTypes<typeof crudProps>
+export const crudProvideKey = Symbol('crudKey')
