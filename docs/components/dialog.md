@@ -411,10 +411,18 @@ const renderTitle = () => {
 }
 
 const handleOpen = () => {
+  isShowDialog.value = true
+}
+
+const openDialog = () => {
   window.ZDialogTip({
     type: 'warning',
     message: '内容',
     title: '标题',
+    beforeClose: (done) => {
+      console.log('before close extend')
+      done()
+    },
     onConfirm: ({ done, confirmBtnLoading }) => {
       confirmBtnLoading.value = true
     },
@@ -437,6 +445,9 @@ function delay(time: number) {
 
 <template>
   <el-button link type="primary" @click="handleOpen">
+    点击打开 Dialog
+  </el-button>
+  <el-button link type="primary" @click="openDialog">
     点击打开 Dialog
   </el-button>
   <z-dialog
