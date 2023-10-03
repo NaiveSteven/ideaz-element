@@ -72,8 +72,15 @@
 58. ~~`z-form`的`hide`等内置功能，支持`formData`传入~~
 59. `z-crud`纯前端分页和筛选
 60. `z-crud`前端分页未向上抛出数据，`v-model:data`此时会失效
-61. `z-form`的`OperationCard`组件`size`适配
-62. `z-table`数据项拖拽添加把手
+61. `z-table`的`pagination`支持位置调整
+62. `z-form`的`OperationCard`组件`size`适配
+63. `z-table`数据项拖拽添加把手
+
+## LONG_TERM FEATURE
+
+1. 更换`vitepress`模板，目前的`vitepress`模板问题较多
+2. `z-crud`的`default-key`相关处理
+3. 样式文件包含过多不需要的`element-plus`的样式代码，需要精简
 
 ## FEATURE（docs and dts）
 

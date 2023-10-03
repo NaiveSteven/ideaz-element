@@ -40,11 +40,11 @@ export const dialogProps = {
     type: Boolean,
     default: false,
   },
-  isConfirmButtonLoading: {
+  confirmButtonLoading: {
     type: Boolean,
     default: false,
   },
-  isCancelButtonLoading: {
+  cancelButtonLoading: {
     type: Boolean,
     default: false,
   },
@@ -53,6 +53,9 @@ export const dialogProps = {
   },
   cancelButtonLabel: {
     type: String,
+  },
+  renderFooter: {
+    type: Function as PropType<() => VNode>,
   },
 }
 
