@@ -102,6 +102,10 @@ function getComponentsSidebar() {
               text: 'Dialog 弹窗',
               link: '/components/dialog',
             },
+            {
+              text: 'FullScreen 全屏',
+              link: '/components/full-screen',
+            },
           ],
         },
       ],
