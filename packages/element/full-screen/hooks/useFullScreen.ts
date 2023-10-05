@@ -4,6 +4,7 @@ import {
   exitFullscreen,
   getFullscreenElement,
   isFullscreen,
+  isFunction,
   listenFullscreen,
 } from '@ideaz/utils'
 
@@ -24,7 +25,7 @@ export const useFullscreen = ({ getElement = () => document.body, onFullscreenCh
       exitFullscreen()
 
     else
-      enterFullscreen(getElement())
+      enterFullscreen(isFunction(getElement) ? getElement() : getElement)
   }
   onMounted(() => {
     checkFullscreenStatus()
