@@ -6,9 +6,15 @@ import { useFullscreen } from '../hooks/useFullScreen'
 export default defineComponent({
   name: 'ZFullScreen',
   props: {
-    getElement: {
+    el: {
       type: [Function, HTMLElement] as PropType<() => EnhancedHTMLElement | HTMLElement>,
       default: () => document.body,
+    },
+    renderExit: {
+      type: Function as PropType<() => VNode>,
+    },
+    renderEnter: {
+      type: Function as PropType<() => VNode>,
     },
   },
   emits: ['change'],
@@ -16,9 +22,9 @@ export default defineComponent({
     const ns = useNamespace('full-screen')
 
     const { isTargetFullscreen, toggleFullscreen } = useFullscreen({
-      getElement: props.getElement,
+      getElement: props.el,
       onFullscreenChange: (value: boolean) => {
-        const element = isFunction(props.getElement) ? props.getElement() : props.getElement
+        const element = isFunction(props.el) ? props.el() : props.el
         if (element) {
           if (value)
             element.classList.add('z-full-screen-class')
@@ -32,12 +38,16 @@ export default defineComponent({
 
     const renderContent = () => {
       if (isTargetFullscreen.value) {
-        if (isFunction(slots.enter))
-          return slots.enter()
-      }
-      else {
         if (isFunction(slots.exit))
           return slots.exit()
+        if (isFunction(props.renderExit))
+          return props.renderExit()
+      }
+      else {
+        if (isFunction(slots.enter))
+          return slots.enter()
+        if (isFunction(props.renderEnter))
+          return props.renderEnter()
       }
       return slots.default?.()
     }
