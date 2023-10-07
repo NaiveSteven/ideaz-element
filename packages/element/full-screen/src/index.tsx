@@ -6,13 +6,15 @@ import { useFullscreen } from '../hooks/useFullScreen'
 export default defineComponent({
   name: 'ZFullScreen',
   props: {
-    getElement: {
+    el: {
       type: [Function, HTMLElement] as PropType<() => EnhancedHTMLElement | HTMLElement>,
       default: () => document.body,
     },
-    teleported: {
-      type: Boolean,
-      default: false,
+    renderExit: {
+      type: Function as PropType<() => VNode>,
+    },
+    renderEnter: {
+      type: Function as PropType<() => VNode>,
     },
   },
   emits: ['change'],
@@ -20,17 +22,15 @@ export default defineComponent({
     const ns = useNamespace('full-screen')
 
     const { isTargetFullscreen, toggleFullscreen } = useFullscreen({
-      getElement: props.teleported ? () => document.body : props.getElement,
+      getElement: props.el,
       onFullscreenChange: (value: boolean) => {
-        if (props.teleported) {
-          const element = isFunction(props.getElement) ? props.getElement() : props.getElement
-          if (element) {
-            if (value)
-              element.classList.add('z-full-screen-class')
+        const element = isFunction(props.el) ? props.el() : props.el
+        if (element) {
+          if (value)
+            element.classList.add('z-full-screen-class')
 
-            else
-              element.classList.remove('z-full-screen-class')
-          }
+          else
+            element.classList.remove('z-full-screen-class')
         }
         emit('change', value)
       },
@@ -38,12 +38,16 @@ export default defineComponent({
 
     const renderContent = () => {
       if (isTargetFullscreen.value) {
-        if (isFunction(slots.enter))
-          return slots.enter()
-      }
-      else {
         if (isFunction(slots.exit))
           return slots.exit()
+        if (isFunction(props.renderExit))
+          return props.renderExit()
+      }
+      else {
+        if (isFunction(slots.enter))
+          return slots.enter()
+        if (isFunction(props.renderEnter))
+          return props.renderEnter()
       }
       return slots.default?.()
     }

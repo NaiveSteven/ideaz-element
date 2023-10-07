@@ -1,4 +1,12 @@
 import {
+  Vue2,
+  del,
+  install,
+  isVue2,
+  isVue3,
+  set
+} from "./chunk-QUDU2NE5.js";
+import {
   BaseTransition,
   Comment,
   EffectScope,
@@ -145,31 +153,8 @@ import {
   withMemo,
   withModifiers,
   withScopeId
-} from "./chunk-55LBTGIN.js";
+} from "./chunk-OH3DV4HH.js";
 import "./chunk-5WWUZCGV.js";
-
-// node_modules/.pnpm/vue-demi@0.14.0_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/vue-demi/lib/index.mjs
-var isVue2 = false;
-var isVue3 = true;
-var Vue2 = void 0;
-function install() {
-}
-function set(target, key, val) {
-  if (Array.isArray(target)) {
-    target.length = Math.max(target.length, key);
-    target.splice(key, 1, val);
-    return val;
-  }
-  target[key] = val;
-  return val;
-}
-function del(target, key) {
-  if (Array.isArray(target)) {
-    target.splice(key, 1);
-    return;
-  }
-  delete target[key];
-}
 export {
   BaseTransition,
   Comment,

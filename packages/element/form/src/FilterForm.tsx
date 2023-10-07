@@ -1,3 +1,5 @@
+import type { ElForm } from 'element-plus'
+import type { ComponentInternalInstance } from 'vue'
 import { useFilterFormItem, useFormConfig, useFormMethods } from '../hooks'
 import { filterFormProps } from './props'
 import ToggleButton from './ToggleButton'
@@ -12,6 +14,7 @@ export default defineComponent({
     const { formConfig } = useFormConfig(props)
     const size = useFormSize()
     const ns = useNamespace('form')
+    const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
     const { t } = useLocale()
     const {
       resetFields,
@@ -30,10 +33,14 @@ export default defineComponent({
     })
 
     const handleSearch = () => {
-      emit('search')
+      (ctx?.$refs.formRef as typeof ElForm).validate((val: boolean) => {
+        if (val)
+          emit('search')
+      })
     }
 
     const handleReset = () => {
+      (ctx?.$refs.formRef as typeof ElForm).resetFields()
       emit('reset')
     }
 

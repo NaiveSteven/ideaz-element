@@ -3,7 +3,7 @@ import {
   isVue2,
   isVue3,
   set
-} from "./chunk-S7U75UBA.js";
+} from "./chunk-QUDU2NE5.js";
 import {
   Fragment,
   TransitionGroup,
@@ -39,37 +39,19 @@ import {
   version,
   watch,
   watchEffect
-} from "./chunk-55LBTGIN.js";
+} from "./chunk-OH3DV4HH.js";
 import "./chunk-5WWUZCGV.js";
 
-// node_modules/.pnpm/@vueuse+shared@10.0.2_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/@vueuse/shared/index.mjs
-var __defProp$b = Object.defineProperty;
-var __defProps$8 = Object.defineProperties;
-var __getOwnPropDescs$8 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$d = Object.getOwnPropertySymbols;
-var __hasOwnProp$d = Object.prototype.hasOwnProperty;
-var __propIsEnum$d = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$b = (obj, key, value) => key in obj ? __defProp$b(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$b = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$d.call(b, prop))
-      __defNormalProp$b(a, prop, b[prop]);
-  if (__getOwnPropSymbols$d)
-    for (var prop of __getOwnPropSymbols$d(b)) {
-      if (__propIsEnum$d.call(b, prop))
-        __defNormalProp$b(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$8 = (a, b) => __defProps$8(a, __getOwnPropDescs$8(b));
+// node_modules/.pnpm/registry.npmmirror.com+@vueuse+shared@10.4.1_vue@3.2.44/node_modules/@vueuse/shared/index.mjs
 function computedEager(fn, options) {
   var _a;
   const result = shallowRef();
   watchEffect(() => {
     result.value = fn();
-  }, __spreadProps$8(__spreadValues$b({}, options), {
+  }, {
+    ...options,
     flush: (_a = options == null ? void 0 : options.flush) != null ? _a : "sync"
-  }));
+  });
   return readonly(result);
 }
 function computedWithControl(source, fn) {
@@ -211,25 +193,9 @@ function get(obj, key) {
 function isDefined(v) {
   return unref(v) != null;
 }
-var __defProp$a = Object.defineProperty;
-var __getOwnPropSymbols$c = Object.getOwnPropertySymbols;
-var __hasOwnProp$c = Object.prototype.hasOwnProperty;
-var __propIsEnum$c = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$a = (obj, key, value) => key in obj ? __defProp$a(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$a = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$c.call(b, prop))
-      __defNormalProp$a(a, prop, b[prop]);
-  if (__getOwnPropSymbols$c)
-    for (var prop of __getOwnPropSymbols$c(b)) {
-      if (__propIsEnum$c.call(b, prop))
-        __defNormalProp$a(a, prop, b[prop]);
-    }
-  return a;
-};
 function makeDestructurable(obj, arr) {
   if (typeof Symbol !== "undefined") {
-    const clone = __spreadValues$a({}, obj);
+    const clone = { ...obj };
     Object.defineProperty(clone, Symbol.iterator, {
       enumerable: false,
       value() {
@@ -321,7 +287,7 @@ function reactiveOmit(obj, ...keys2) {
     () => typeof predicate === "function" ? Object.fromEntries(Object.entries(toRefs(obj)).filter(([k, v]) => !predicate(toValue(v), k))) : Object.fromEntries(Object.entries(toRefs(obj)).filter((e) => !flatKeys.includes(e[0])))
   );
 }
-var isClient = typeof window !== "undefined";
+var isClient = typeof window !== "undefined" && typeof document !== "undefined";
 var isDef = (val) => typeof val !== "undefined";
 var notNullish = (val) => val != null;
 var assert = (condition, ...infos) => {
@@ -463,6 +429,21 @@ var directiveHooks = {
   updated: isVue3 ? "updated" : "componentUpdated",
   unmounted: isVue3 ? "unmounted" : "unbind"
 };
+function cacheStringFunction(fn) {
+  const cache = /* @__PURE__ */ Object.create(null);
+  return (str) => {
+    const hit = cache[str];
+    return hit || (cache[str] = fn(str));
+  };
+}
+var hyphenateRE = /\B([A-Z])/g;
+var hyphenate = cacheStringFunction(
+  (str) => str.replace(hyphenateRE, "-$1").toLowerCase()
+);
+var camelizeRE = /-(\w)/g;
+var camelize = cacheStringFunction((str) => {
+  return str.replace(camelizeRE, (_, c) => c ? c.toUpperCase() : "");
+});
 function promiseTimeout(ms, throwOnTimeout = false, reason = "Timeout") {
   return new Promise((resolve, reject) => {
     if (throwOnTimeout)
@@ -501,7 +482,7 @@ function increaseWithUnit(target, delta) {
     return target + delta;
   const value = ((_a = target.match(/^-?[0-9]+\.?[0-9]*/)) == null ? void 0 : _a[0]) || "";
   const unit = target.slice(value.length);
-  const result = parseFloat(value) + delta;
+  const result = Number.parseFloat(value) + delta;
   if (Number.isNaN(result))
     return target;
   return result + unit;
@@ -537,10 +518,10 @@ function reactivePick(obj, ...keys2) {
 }
 function refAutoReset(defaultValue, afterMs = 1e4) {
   return customRef((track, trigger) => {
-    let value = defaultValue;
+    let value = toValue(defaultValue);
     let timer;
     const resetAfter = () => setTimeout(() => {
-      value = defaultValue;
+      value = toValue(defaultValue);
       trigger();
     }, toValue(afterMs));
     tryOnScopeDispose(() => {
@@ -666,6 +647,36 @@ function set2(...args) {
     }
   }
 }
+function watchWithFilter(source, cb, options = {}) {
+  const {
+    eventFilter = bypassFilter,
+    ...watchOptions
+  } = options;
+  return watch(
+    source,
+    createFilterWrapper(
+      eventFilter,
+      cb
+    ),
+    watchOptions
+  );
+}
+function watchPausable(source, cb, options = {}) {
+  const {
+    eventFilter: filter,
+    ...watchOptions
+  } = options;
+  const { eventFilter, pause, resume, isActive } = pausableFilter(filter);
+  const stop = watchWithFilter(
+    source,
+    cb,
+    {
+      ...watchOptions,
+      eventFilter
+    }
+  );
+  return { stop, pause, resume, isActive };
+}
 function syncRef(left, right, options = {}) {
   var _a, _b;
   const {
@@ -675,28 +686,35 @@ function syncRef(left, right, options = {}) {
     direction = "both",
     transform = {}
   } = options;
-  let watchLeft;
-  let watchRight;
+  const watchers = [];
   const transformLTR = (_a = transform.ltr) != null ? _a : (v) => v;
   const transformRTL = (_b = transform.rtl) != null ? _b : (v) => v;
   if (direction === "both" || direction === "ltr") {
-    watchLeft = watch(
+    watchers.push(watchPausable(
       left,
-      (newValue) => right.value = transformLTR(newValue),
+      (newValue) => {
+        watchers.forEach((w) => w.pause());
+        right.value = transformLTR(newValue);
+        watchers.forEach((w) => w.resume());
+      },
       { flush, deep, immediate }
-    );
+    ));
   }
   if (direction === "both" || direction === "rtl") {
-    watchRight = watch(
+    watchers.push(watchPausable(
       right,
-      (newValue) => left.value = transformRTL(newValue),
+      (newValue) => {
+        watchers.forEach((w) => w.pause());
+        left.value = transformRTL(newValue);
+        watchers.forEach((w) => w.resume());
+      },
       { flush, deep, immediate }
-    );
+    ));
   }
-  return () => {
-    watchLeft == null ? void 0 : watchLeft();
-    watchRight == null ? void 0 : watchRight();
+  const stop = () => {
+    watchers.forEach((w) => w.stop());
   };
+  return stop;
 }
 function syncRefs(source, targets, options = {}) {
   const {
@@ -712,43 +730,30 @@ function syncRefs(source, targets, options = {}) {
     { flush, deep, immediate }
   );
 }
-var __defProp$9 = Object.defineProperty;
-var __defProps$7 = Object.defineProperties;
-var __getOwnPropDescs$7 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$b = Object.getOwnPropertySymbols;
-var __hasOwnProp$b = Object.prototype.hasOwnProperty;
-var __propIsEnum$b = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$9 = (obj, key, value) => key in obj ? __defProp$9(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$9 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$b.call(b, prop))
-      __defNormalProp$9(a, prop, b[prop]);
-  if (__getOwnPropSymbols$b)
-    for (var prop of __getOwnPropSymbols$b(b)) {
-      if (__propIsEnum$b.call(b, prop))
-        __defNormalProp$9(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$7 = (a, b) => __defProps$7(a, __getOwnPropDescs$7(b));
-function toRefs2(objectRef) {
+function toRefs2(objectRef, options = {}) {
   if (!isRef(objectRef))
     return toRefs(objectRef);
-  const result = Array.isArray(objectRef.value) ? new Array(objectRef.value.length) : {};
+  const result = Array.isArray(objectRef.value) ? Array.from({ length: objectRef.value.length }) : {};
   for (const key in objectRef.value) {
     result[key] = customRef(() => ({
       get() {
         return objectRef.value[key];
       },
       set(v) {
-        if (Array.isArray(objectRef.value)) {
-          const copy = [...objectRef.value];
-          copy[key] = v;
-          objectRef.value = copy;
+        var _a;
+        const replaceRef = (_a = toValue(options.replaceRef)) != null ? _a : true;
+        if (replaceRef) {
+          if (Array.isArray(objectRef.value)) {
+            const copy = [...objectRef.value];
+            copy[key] = v;
+            objectRef.value = copy;
+          } else {
+            const newObject = { ...objectRef.value, [key]: v };
+            Object.setPrototypeOf(newObject, Object.getPrototypeOf(objectRef.value));
+            objectRef.value = newObject;
+          }
         } else {
-          const newObject = __spreadProps$7(__spreadValues$9({}, objectRef.value), { [key]: v });
-          Object.setPrototypeOf(newObject, objectRef.value);
-          objectRef.value = newObject;
+          objectRef.value[key] = v;
         }
       }
     }));
@@ -999,17 +1004,18 @@ function useArrayUnique(list, compareFn) {
   });
 }
 function useCounter(initialValue = 0, options = {}) {
+  let _initialValue = unref(initialValue);
   const count = ref(initialValue);
   const {
-    max = Infinity,
-    min = -Infinity
+    max = Number.POSITIVE_INFINITY,
+    min = Number.NEGATIVE_INFINITY
   } = options;
   const inc = (delta = 1) => count.value = Math.min(max, count.value + delta);
   const dec = (delta = 1) => count.value = Math.max(min, count.value - delta);
   const get2 = () => count.value;
   const set3 = (val) => count.value = Math.max(min, Math.min(max, val));
-  const reset = (val = initialValue) => {
-    initialValue = val;
+  const reset = (val = _initialValue) => {
+    _initialValue = val;
     return set3(val);
   };
   return { count, inc, dec, get: get2, set: set3, reset };
@@ -1060,11 +1066,14 @@ function formatDate(date, formatStr, options = {}) {
     a: () => meridiem(hours, minutes, true),
     aa: () => meridiem(hours, minutes, true, true)
   };
-  return formatStr.replace(REGEX_FORMAT, (match, $1) => $1 || matches[match]());
+  return formatStr.replace(REGEX_FORMAT, (match, $1) => {
+    var _a2, _b;
+    return (_b = $1 != null ? $1 : (_a2 = matches[match]) == null ? void 0 : _a2.call(matches)) != null ? _b : match;
+  });
 }
 function normalizeDate(date) {
   if (date === null)
-    return /* @__PURE__ */ new Date(NaN);
+    return new Date(Number.NaN);
   if (date === void 0)
     return /* @__PURE__ */ new Date();
   if (date instanceof Date)
@@ -1125,22 +1134,6 @@ function useIntervalFn(cb, interval = 1e3, options = {}) {
     resume
   };
 }
-var __defProp$8 = Object.defineProperty;
-var __getOwnPropSymbols$a = Object.getOwnPropertySymbols;
-var __hasOwnProp$a = Object.prototype.hasOwnProperty;
-var __propIsEnum$a = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$8 = (obj, key, value) => key in obj ? __defProp$8(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$8 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$a.call(b, prop))
-      __defNormalProp$8(a, prop, b[prop]);
-  if (__getOwnPropSymbols$a)
-    for (var prop of __getOwnPropSymbols$a(b)) {
-      if (__propIsEnum$a.call(b, prop))
-        __defNormalProp$8(a, prop, b[prop]);
-    }
-  return a;
-};
 function useInterval(interval = 1e3, options = {}) {
   const {
     controls: exposeControls = false,
@@ -1161,10 +1154,11 @@ function useInterval(interval = 1e3, options = {}) {
     { immediate }
   );
   if (exposeControls) {
-    return __spreadValues$8({
+    return {
       counter,
-      reset
-    }, controls);
+      reset,
+      ...controls
+    };
   } else {
     return counter;
   }
@@ -1216,22 +1210,6 @@ function useTimeoutFn(cb, interval, options = {}) {
     stop
   };
 }
-var __defProp$7 = Object.defineProperty;
-var __getOwnPropSymbols$9 = Object.getOwnPropertySymbols;
-var __hasOwnProp$9 = Object.prototype.hasOwnProperty;
-var __propIsEnum$9 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$7 = (obj, key, value) => key in obj ? __defProp$7(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$7 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$9.call(b, prop))
-      __defNormalProp$7(a, prop, b[prop]);
-  if (__getOwnPropSymbols$9)
-    for (var prop of __getOwnPropSymbols$9(b)) {
-      if (__propIsEnum$9.call(b, prop))
-        __defNormalProp$7(a, prop, b[prop]);
-    }
-  return a;
-};
 function useTimeout(interval = 1e3, options = {}) {
   const {
     controls: exposeControls = false,
@@ -1244,9 +1222,10 @@ function useTimeout(interval = 1e3, options = {}) {
   );
   const ready = computed(() => !controls.isPending.value);
   if (exposeControls) {
-    return __spreadValues$7({
-      ready
-    }, controls);
+    return {
+      ready,
+      ...controls
+    };
   } else {
     return ready;
   }
@@ -1261,7 +1240,7 @@ function useToNumber(value, options = {}) {
     let resolved = toValue(value);
     if (typeof resolved === "string")
       resolved = Number[method](resolved, radix);
-    if (nanToZero && isNaN(resolved))
+    if (nanToZero && Number.isNaN(resolved))
       resolved = 0;
     return resolved;
   });
@@ -1296,7 +1275,7 @@ function watchArray(source, cb, options) {
     ...source instanceof Function ? source() : Array.isArray(source) ? source : toValue(source)
   ];
   return watch(source, (newList, _, onCleanup) => {
-    const oldListRemains = new Array(oldList.length);
+    const oldListRemains = Array.from({ length: oldList.length });
     const added = [];
     for (const obj of newList) {
       let found = false;
@@ -1315,57 +1294,11 @@ function watchArray(source, cb, options) {
     oldList = [...newList];
   }, options);
 }
-var __getOwnPropSymbols$8 = Object.getOwnPropertySymbols;
-var __hasOwnProp$8 = Object.prototype.hasOwnProperty;
-var __propIsEnum$8 = Object.prototype.propertyIsEnumerable;
-var __objRest$5 = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$8.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$8)
-    for (var prop of __getOwnPropSymbols$8(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$8.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
-function watchWithFilter(source, cb, options = {}) {
-  const _a = options, {
-    eventFilter = bypassFilter
-  } = _a, watchOptions = __objRest$5(_a, [
-    "eventFilter"
-  ]);
-  return watch(
-    source,
-    createFilterWrapper(
-      eventFilter,
-      cb
-    ),
-    watchOptions
-  );
-}
-var __getOwnPropSymbols$7 = Object.getOwnPropertySymbols;
-var __hasOwnProp$7 = Object.prototype.hasOwnProperty;
-var __propIsEnum$7 = Object.prototype.propertyIsEnumerable;
-var __objRest$4 = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$7.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$7)
-    for (var prop of __getOwnPropSymbols$7(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$7.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 function watchAtMost(source, cb, options) {
-  const _a = options, {
-    count
-  } = _a, watchOptions = __objRest$4(_a, [
-    "count"
-  ]);
+  const {
+    count,
+    ...watchOptions
+  } = options;
   const current = ref(0);
   const stop = watchWithFilter(
     source,
@@ -1379,118 +1312,36 @@ function watchAtMost(source, cb, options) {
   );
   return { count: current, stop };
 }
-var __defProp$6 = Object.defineProperty;
-var __defProps$6 = Object.defineProperties;
-var __getOwnPropDescs$6 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$6 = Object.getOwnPropertySymbols;
-var __hasOwnProp$6 = Object.prototype.hasOwnProperty;
-var __propIsEnum$6 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$6 = (obj, key, value) => key in obj ? __defProp$6(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$6 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$6.call(b, prop))
-      __defNormalProp$6(a, prop, b[prop]);
-  if (__getOwnPropSymbols$6)
-    for (var prop of __getOwnPropSymbols$6(b)) {
-      if (__propIsEnum$6.call(b, prop))
-        __defNormalProp$6(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$6 = (a, b) => __defProps$6(a, __getOwnPropDescs$6(b));
-var __objRest$3 = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$6.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$6)
-    for (var prop of __getOwnPropSymbols$6(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$6.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 function watchDebounced(source, cb, options = {}) {
-  const _a = options, {
+  const {
     debounce = 0,
-    maxWait = void 0
-  } = _a, watchOptions = __objRest$3(_a, [
-    "debounce",
-    "maxWait"
-  ]);
+    maxWait = void 0,
+    ...watchOptions
+  } = options;
   return watchWithFilter(
     source,
     cb,
-    __spreadProps$6(__spreadValues$6({}, watchOptions), {
+    {
+      ...watchOptions,
       eventFilter: debounceFilter(debounce, { maxWait })
-    })
+    }
   );
 }
-var __defProp$5 = Object.defineProperty;
-var __defProps$5 = Object.defineProperties;
-var __getOwnPropDescs$5 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$5 = Object.getOwnPropertySymbols;
-var __hasOwnProp$5 = Object.prototype.hasOwnProperty;
-var __propIsEnum$5 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$5 = (obj, key, value) => key in obj ? __defProp$5(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$5 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$5.call(b, prop))
-      __defNormalProp$5(a, prop, b[prop]);
-  if (__getOwnPropSymbols$5)
-    for (var prop of __getOwnPropSymbols$5(b)) {
-      if (__propIsEnum$5.call(b, prop))
-        __defNormalProp$5(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$5 = (a, b) => __defProps$5(a, __getOwnPropDescs$5(b));
 function watchDeep(source, cb, options) {
   return watch(
     source,
     cb,
-    __spreadProps$5(__spreadValues$5({}, options), {
+    {
+      ...options,
       deep: true
-    })
+    }
   );
 }
-var __defProp$4 = Object.defineProperty;
-var __defProps$4 = Object.defineProperties;
-var __getOwnPropDescs$4 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$4 = Object.getOwnPropertySymbols;
-var __hasOwnProp$4 = Object.prototype.hasOwnProperty;
-var __propIsEnum$4 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$4 = (obj, key, value) => key in obj ? __defProp$4(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$4 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$4.call(b, prop))
-      __defNormalProp$4(a, prop, b[prop]);
-  if (__getOwnPropSymbols$4)
-    for (var prop of __getOwnPropSymbols$4(b)) {
-      if (__propIsEnum$4.call(b, prop))
-        __defNormalProp$4(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$4 = (a, b) => __defProps$4(a, __getOwnPropDescs$4(b));
-var __objRest$2 = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$4.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$4)
-    for (var prop of __getOwnPropSymbols$4(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$4.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 function watchIgnorable(source, cb, options = {}) {
-  const _a = options, {
-    eventFilter = bypassFilter
-  } = _a, watchOptions = __objRest$2(_a, [
-    "eventFilter"
-  ]);
+  const {
+    eventFilter = bypassFilter,
+    ...watchOptions
+  } = options;
   const filteredCb = createFilterWrapper(
     eventFilter,
     cb
@@ -1528,7 +1379,7 @@ function watchIgnorable(source, cb, options = {}) {
         () => {
           syncCounter.value++;
         },
-        __spreadProps$4(__spreadValues$4({}, watchOptions), { flush: "sync" })
+        { ...watchOptions, flush: "sync" }
       )
     );
     ignoreUpdates = (updater) => {
@@ -1556,32 +1407,14 @@ function watchIgnorable(source, cb, options = {}) {
   }
   return { stop, ignoreUpdates, ignorePrevAsyncUpdates };
 }
-var __defProp$3 = Object.defineProperty;
-var __defProps$3 = Object.defineProperties;
-var __getOwnPropDescs$3 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$3 = Object.getOwnPropertySymbols;
-var __hasOwnProp$3 = Object.prototype.hasOwnProperty;
-var __propIsEnum$3 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$3 = (obj, key, value) => key in obj ? __defProp$3(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$3 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$3.call(b, prop))
-      __defNormalProp$3(a, prop, b[prop]);
-  if (__getOwnPropSymbols$3)
-    for (var prop of __getOwnPropSymbols$3(b)) {
-      if (__propIsEnum$3.call(b, prop))
-        __defNormalProp$3(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$3 = (a, b) => __defProps$3(a, __getOwnPropDescs$3(b));
 function watchImmediate(source, cb, options) {
   return watch(
     source,
     cb,
-    __spreadProps$3(__spreadValues$3({}, options), {
+    {
+      ...options,
       immediate: true
-    })
+    }
   );
 }
 function watchOnce(source, cb, options) {
@@ -1590,121 +1423,22 @@ function watchOnce(source, cb, options) {
     return cb(...args);
   }, options);
 }
-var __defProp$2 = Object.defineProperty;
-var __defProps$2 = Object.defineProperties;
-var __getOwnPropDescs$2 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$2 = Object.getOwnPropertySymbols;
-var __hasOwnProp$2 = Object.prototype.hasOwnProperty;
-var __propIsEnum$2 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$2 = (obj, key, value) => key in obj ? __defProp$2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$2 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$2.call(b, prop))
-      __defNormalProp$2(a, prop, b[prop]);
-  if (__getOwnPropSymbols$2)
-    for (var prop of __getOwnPropSymbols$2(b)) {
-      if (__propIsEnum$2.call(b, prop))
-        __defNormalProp$2(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$2 = (a, b) => __defProps$2(a, __getOwnPropDescs$2(b));
-var __objRest$1 = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$2.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$2)
-    for (var prop of __getOwnPropSymbols$2(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$2.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
-function watchPausable(source, cb, options = {}) {
-  const _a = options, {
-    eventFilter: filter
-  } = _a, watchOptions = __objRest$1(_a, [
-    "eventFilter"
-  ]);
-  const { eventFilter, pause, resume, isActive } = pausableFilter(filter);
-  const stop = watchWithFilter(
-    source,
-    cb,
-    __spreadProps$2(__spreadValues$2({}, watchOptions), {
-      eventFilter
-    })
-  );
-  return { stop, pause, resume, isActive };
-}
-var __defProp$1 = Object.defineProperty;
-var __defProps$1 = Object.defineProperties;
-var __getOwnPropDescs$1 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$1 = Object.getOwnPropertySymbols;
-var __hasOwnProp$1 = Object.prototype.hasOwnProperty;
-var __propIsEnum$1 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$1 = (obj, key, value) => key in obj ? __defProp$1(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$1 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$1.call(b, prop))
-      __defNormalProp$1(a, prop, b[prop]);
-  if (__getOwnPropSymbols$1)
-    for (var prop of __getOwnPropSymbols$1(b)) {
-      if (__propIsEnum$1.call(b, prop))
-        __defNormalProp$1(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$1 = (a, b) => __defProps$1(a, __getOwnPropDescs$1(b));
-var __objRest = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$1.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$1)
-    for (var prop of __getOwnPropSymbols$1(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$1.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 function watchThrottled(source, cb, options = {}) {
-  const _a = options, {
+  const {
     throttle = 0,
     trailing = true,
-    leading = true
-  } = _a, watchOptions = __objRest(_a, [
-    "throttle",
-    "trailing",
-    "leading"
-  ]);
+    leading = true,
+    ...watchOptions
+  } = options;
   return watchWithFilter(
     source,
     cb,
-    __spreadProps$1(__spreadValues$1({}, watchOptions), {
+    {
+      ...watchOptions,
       eventFilter: throttleFilter(throttle, trailing, leading)
-    })
+    }
   );
 }
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 function watchTriggerable(source, cb, options = {}) {
   let cleanupFn;
   function onEffect() {
@@ -1730,9 +1464,10 @@ function watchTriggerable(source, cb, options = {}) {
     });
     return res2;
   };
-  return __spreadProps(__spreadValues({}, res), {
+  return {
+    ...res,
     trigger
-  });
+  };
 }
 function getWatchSources(sources) {
   if (isReactive(sources))
@@ -1755,7 +1490,7 @@ function whenever(source, cb, options) {
   );
 }
 
-// node_modules/.pnpm/@vueuse+core@10.0.2_@vue+composition-api@1.0.0_vue@3.2.44/node_modules/@vueuse/core/index.mjs
+// node_modules/.pnpm/registry.npmmirror.com+@vueuse+core@10.4.1_vue@3.2.44/node_modules/@vueuse/core/index.mjs
 function computedAsync(evaluationCallback, initialState, optionsOrRef) {
   let options;
   if (isRef(optionsOrRef)) {
@@ -1828,46 +1563,32 @@ function computedInject(key, options, defaultSource, treatDefaultAsFactory) {
     });
   }
 }
-var __defProp$o = Object.defineProperty;
-var __defProps$b = Object.defineProperties;
-var __getOwnPropDescs$b = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$r = Object.getOwnPropertySymbols;
-var __hasOwnProp$r = Object.prototype.hasOwnProperty;
-var __propIsEnum$r = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$o = (obj, key, value) => key in obj ? __defProp$o(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$o = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$r.call(b, prop))
-      __defNormalProp$o(a, prop, b[prop]);
-  if (__getOwnPropSymbols$r)
-    for (var prop of __getOwnPropSymbols$r(b)) {
-      if (__propIsEnum$r.call(b, prop))
-        __defNormalProp$o(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$b = (a, b) => __defProps$b(a, __getOwnPropDescs$b(b));
-function createReusableTemplate() {
+function createReusableTemplate(options = {}) {
   if (!isVue3 && !version.startsWith("2.7.")) {
     if (true)
       throw new Error("[VueUse] createReusableTemplate only works in Vue 2.7 or above.");
     return;
   }
-  let render;
+  const {
+    inheritAttrs = true
+  } = options;
+  const render = shallowRef();
   const define = defineComponent({
     setup(_, { slots }) {
       return () => {
-        render = slots.default;
+        render.value = slots.default;
       };
     }
   });
   const reuse = defineComponent({
-    inheritAttrs: false,
+    inheritAttrs,
     setup(_, { attrs, slots }) {
       return () => {
-        if (!render && true)
+        var _a;
+        if (!render.value && true)
           throw new Error("[VueUse] Failed to find the definition of reusable template");
-        return render == null ? void 0 : render(__spreadProps$b(__spreadValues$o({}, attrs), { $slots: slots }));
+        const vnode = (_a = render.value) == null ? void 0 : _a.call(render, { ...keysToCamelKebabCase(attrs), $slots: slots });
+        return inheritAttrs && (vnode == null ? void 0 : vnode.length) === 1 ? vnode[0] : vnode;
       };
     }
   });
@@ -1875,6 +1596,12 @@ function createReusableTemplate() {
     { define, reuse },
     [define, reuse]
   );
+}
+function keysToCamelKebabCase(obj) {
+  const newObj = {};
+  for (const key in obj)
+    newObj[camelize(key)] = obj[key];
+  return newObj;
 }
 function createTemplatePromise(options = {}) {
   if (!isVue3) {
@@ -1974,9 +1701,10 @@ function useEventListener(...args) {
       cleanup();
       if (!el)
         return;
+      const optionsClone = isObject(options2) ? { ...options2 } : options2;
       cleanups.push(
         ...events2.flatMap((event) => {
-          return listeners.map((listener) => register(el, event, listener, options2));
+          return listeners.map((listener) => register(el, event, listener, optionsClone));
         })
       );
     },
@@ -1997,6 +1725,7 @@ function onClickOutside(target, handler, options = {}) {
   if (isIOS && !_iOSWorkaround) {
     _iOSWorkaround = true;
     Array.from(window2.document.body.children).forEach((el) => el.addEventListener("click", noop));
+    window2.document.documentElement.addEventListener("click", noop);
   }
   let shouldListen = true;
   const shouldIgnore = (event) => {
@@ -2029,34 +1758,17 @@ function onClickOutside(target, handler, options = {}) {
         shouldListen = !e.composedPath().includes(el) && !shouldIgnore(e);
     }, { passive: true }),
     detectIframe && useEventListener(window2, "blur", (event) => {
-      var _a;
-      const el = unrefElement(target);
-      if (((_a = window2.document.activeElement) == null ? void 0 : _a.tagName) === "IFRAME" && !(el == null ? void 0 : el.contains(window2.document.activeElement)))
-        handler(event);
+      setTimeout(() => {
+        var _a;
+        const el = unrefElement(target);
+        if (((_a = window2.document.activeElement) == null ? void 0 : _a.tagName) === "IFRAME" && !(el == null ? void 0 : el.contains(window2.document.activeElement)))
+          handler(event);
+      }, 0);
     })
   ].filter(Boolean);
   const stop = () => cleanup.forEach((fn) => fn());
   return stop;
 }
-var __defProp$n = Object.defineProperty;
-var __defProps$a = Object.defineProperties;
-var __getOwnPropDescs$a = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$q = Object.getOwnPropertySymbols;
-var __hasOwnProp$q = Object.prototype.hasOwnProperty;
-var __propIsEnum$q = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$n = (obj, key, value) => key in obj ? __defProp$n(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$n = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$q.call(b, prop))
-      __defNormalProp$n(a, prop, b[prop]);
-  if (__getOwnPropSymbols$q)
-    for (var prop of __getOwnPropSymbols$q(b)) {
-      if (__propIsEnum$q.call(b, prop))
-        __defNormalProp$n(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$a = (a, b) => __defProps$a(a, __getOwnPropDescs$a(b));
 function createKeyPredicate(keyFilter) {
   if (typeof keyFilter === "function")
     return keyFilter;
@@ -2103,13 +1815,13 @@ function onKeyStroke(...args) {
   return useEventListener(target, eventName, listener, passive);
 }
 function onKeyDown(key, handler, options = {}) {
-  return onKeyStroke(key, handler, __spreadProps$a(__spreadValues$n({}, options), { eventName: "keydown" }));
+  return onKeyStroke(key, handler, { ...options, eventName: "keydown" });
 }
 function onKeyPressed(key, handler, options = {}) {
-  return onKeyStroke(key, handler, __spreadProps$a(__spreadValues$n({}, options), { eventName: "keypress" }));
+  return onKeyStroke(key, handler, { ...options, eventName: "keypress" });
 }
 function onKeyUp(key, handler, options = {}) {
-  return onKeyStroke(key, handler, __spreadProps$a(__spreadValues$n({}, options), { eventName: "keyup" }));
+  return onKeyStroke(key, handler, { ...options, eventName: "keyup" });
 }
 var DEFAULT_DELAY = 500;
 function onLongPress(target, handler, options) {
@@ -2141,8 +1853,7 @@ function onLongPress(target, handler, options) {
     once: (_b = options == null ? void 0 : options.modifiers) == null ? void 0 : _b.once
   };
   useEventListener(elementRef, "pointerdown", onDown, listenerOptions);
-  useEventListener(elementRef, "pointerup", clear, listenerOptions);
-  useEventListener(elementRef, "pointerleave", clear, listenerOptions);
+  useEventListener(elementRef, ["pointerup", "pointerleave"], clear, listenerOptions);
 }
 function isFocusedElementEditable() {
   const { activeElement, body } = document;
@@ -2203,11 +1914,23 @@ function templateRef(key, initialValue = null) {
 }
 function useActiveElement(options = {}) {
   var _a;
-  const { window: window2 = defaultWindow } = options;
+  const {
+    window: window2 = defaultWindow,
+    deep = true
+  } = options;
   const document2 = (_a = options.document) != null ? _a : window2 == null ? void 0 : window2.document;
+  const getDeepActiveElement = () => {
+    var _a2;
+    let element = document2 == null ? void 0 : document2.activeElement;
+    if (deep) {
+      while (element == null ? void 0 : element.shadowRoot)
+        element = (_a2 = element == null ? void 0 : element.shadowRoot) == null ? void 0 : _a2.activeElement;
+    }
+    return element;
+  };
   const activeElement = computedWithControl(
     () => null,
-    () => document2 == null ? void 0 : document2.activeElement
+    () => getDeepActiveElement()
   );
   if (window2) {
     useEventListener(window2, "blur", (event) => {
@@ -2246,7 +1969,7 @@ function useRafFn(fn, options = {}) {
   function loop(timestamp2) {
     if (!isActive.value || !window2)
       return;
-    const delta = timestamp2 - previousFrameTimestamp;
+    const delta = timestamp2 - (previousFrameTimestamp || timestamp2);
     fn({ delta, timestamp: timestamp2 });
     previousFrameTimestamp = timestamp2;
     rafId = window2.requestAnimationFrame(loop);
@@ -2435,9 +2158,7 @@ function useAnimate(target, keyframes, options) {
       syncResume();
     onReady == null ? void 0 : onReady(animate.value);
   }
-  useEventListener(animate, "cancel", syncPause);
-  useEventListener(animate, "finish", syncPause);
-  useEventListener(animate, "remove", syncPause);
+  useEventListener(animate, ["cancel", "finish", "remove"], syncPause);
   const { resume: resumeRef, pause: pauseRef } = useRafFn(() => {
     if (!animate.value)
       return;
@@ -2476,18 +2197,20 @@ function useAnimate(target, keyframes, options) {
     playbackRate
   };
 }
-function useAsyncQueue(tasks, options = {}) {
+function useAsyncQueue(tasks, options) {
   const {
     interrupt = true,
     onError = noop,
-    onFinished = noop
-  } = options;
+    onFinished = noop,
+    signal
+  } = options || {};
   const promiseState = {
+    aborted: "aborted",
+    fulfilled: "fulfilled",
     pending: "pending",
-    rejected: "rejected",
-    fulfilled: "fulfilled"
+    rejected: "rejected"
   };
-  const initialResult = Array.from(new Array(tasks.length), () => ({ state: promiseState.pending, data: null }));
+  const initialResult = Array.from(Array.from({ length: tasks.length }), () => ({ state: promiseState.pending, data: null }));
   const result = reactive(initialResult);
   const activeIndex = ref(-1);
   if (!tasks || tasks.length === 0) {
@@ -2505,16 +2228,27 @@ function useAsyncQueue(tasks, options = {}) {
   tasks.reduce((prev, curr) => {
     return prev.then((prevRes) => {
       var _a;
+      if (signal == null ? void 0 : signal.aborted) {
+        updateResult(promiseState.aborted, new Error("aborted"));
+        return;
+      }
       if (((_a = result[activeIndex.value]) == null ? void 0 : _a.state) === promiseState.rejected && interrupt) {
         onFinished();
         return;
       }
-      return curr(prevRes).then((currentRes) => {
+      const done = curr(prevRes).then((currentRes) => {
         updateResult(promiseState.fulfilled, currentRes);
         activeIndex.value === tasks.length - 1 && onFinished();
         return currentRes;
       });
+      if (!signal)
+        return done;
+      return Promise.race([done, whenAborted(signal)]);
     }).catch((e) => {
+      if (signal == null ? void 0 : signal.aborted) {
+        updateResult(promiseState.aborted, e);
+        return e;
+      }
       updateResult(promiseState.rejected, e);
       onError();
       return e;
@@ -2524,6 +2258,15 @@ function useAsyncQueue(tasks, options = {}) {
     activeIndex,
     result
   };
+}
+function whenAborted(signal) {
+  return new Promise((resolve, reject) => {
+    const error = new Error("aborted");
+    if (signal.aborted)
+      reject(error);
+    else
+      signal.addEventListener("abort", () => reject(error), { once: true });
+  });
 }
 function useAsyncState(promise, initialState, options) {
   const {
@@ -2565,12 +2308,23 @@ function useAsyncState(promise, initialState, options) {
   }
   if (immediate)
     execute(delay);
-  return {
+  const shell = {
     state,
     isReady,
     isLoading,
     error,
     execute
+  };
+  function waitUntilIsLoaded() {
+    return new Promise((resolve, reject) => {
+      until(isLoading).toBe(false).then(() => resolve(shell)).catch(reject);
+    });
+  }
+  return {
+    ...shell,
+    then(onFulfilled, onRejected) {
+      return waitUntilIsLoaded().then(onFulfilled, onRejected);
+    }
   };
 }
 var defaults = {
@@ -2686,8 +2440,7 @@ function useBattery({ navigator = defaultNavigator } = {}) {
     navigator.getBattery().then((_battery) => {
       battery = _battery;
       updateBatteryInfo.call(battery);
-      for (const event of events2)
-        useEventListener(battery, event, updateBatteryInfo, { passive: true });
+      useEventListener(battery, events2, updateBatteryInfo, { passive: true });
     });
   }
   return {
@@ -2773,29 +2526,33 @@ function useMediaQuery(query, options = {}) {
   const isSupported = useSupported(() => window2 && "matchMedia" in window2 && typeof window2.matchMedia === "function");
   let mediaQuery;
   const matches = ref(false);
+  const handler = (event) => {
+    matches.value = event.matches;
+  };
   const cleanup = () => {
     if (!mediaQuery)
       return;
     if ("removeEventListener" in mediaQuery)
-      mediaQuery.removeEventListener("change", update);
+      mediaQuery.removeEventListener("change", handler);
     else
-      mediaQuery.removeListener(update);
+      mediaQuery.removeListener(handler);
   };
-  const update = () => {
+  const stopWatch = watchEffect(() => {
     if (!isSupported.value)
       return;
     cleanup();
-    mediaQuery = window2.matchMedia(toRef2(query).value);
-    matches.value = !!(mediaQuery == null ? void 0 : mediaQuery.matches);
-    if (!mediaQuery)
-      return;
+    mediaQuery = window2.matchMedia(toValue(query));
     if ("addEventListener" in mediaQuery)
-      mediaQuery.addEventListener("change", update);
+      mediaQuery.addEventListener("change", handler);
     else
-      mediaQuery.addListener(update);
-  };
-  watchEffect(update);
-  tryOnScopeDispose(() => cleanup());
+      mediaQuery.addListener(handler);
+    matches.value = mediaQuery.matches;
+  });
+  tryOnScopeDispose(() => {
+    stopWatch();
+    cleanup();
+    mediaQuery = void 0;
+  });
   return matches;
 }
 var breakpointsTailwind = {
@@ -2852,6 +2609,12 @@ var breakpointsMasterCss = {
   "2xl": 1600,
   "3xl": 1920,
   "4xl": 2560
+};
+var breakpointsPrimeFlex = {
+  sm: 576,
+  md: 768,
+  lg: 992,
+  xl: 1200
 };
 function useBreakpoints(breakpoints, options = {}) {
   function getValue2(k, delta) {
@@ -2961,22 +2724,6 @@ function useBroadcastChannel(options) {
     isClosed
   };
 }
-var __defProp$m = Object.defineProperty;
-var __getOwnPropSymbols$p = Object.getOwnPropertySymbols;
-var __hasOwnProp$p = Object.prototype.hasOwnProperty;
-var __propIsEnum$p = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$m = (obj, key, value) => key in obj ? __defProp$m(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$m = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$p.call(b, prop))
-      __defNormalProp$m(a, prop, b[prop]);
-  if (__getOwnPropSymbols$p)
-    for (var prop of __getOwnPropSymbols$p(b)) {
-      if (__propIsEnum$p.call(b, prop))
-        __defNormalProp$m(a, prop, b[prop]);
-    }
-  return a;
-};
 var WRITABLE_PROPERTIES = [
   "hash",
   "host",
@@ -3004,12 +2751,13 @@ function useBrowserLocation({ window: window2 = defaultWindow } = {}) {
     const { origin } = (window2 == null ? void 0 : window2.location) || {};
     for (const key of WRITABLE_PROPERTIES)
       refs[key].value = (_a = window2 == null ? void 0 : window2.location) == null ? void 0 : _a[key];
-    return reactive(__spreadValues$m({
+    return reactive({
       trigger,
       state: state2,
       length,
-      origin
-    }, refs));
+      origin,
+      ...refs
+    });
   };
   const state = ref(buildState("load"));
   if (window2) {
@@ -3034,7 +2782,6 @@ function useClipboard(options = {}) {
     copiedDuring = 1500,
     legacy = false
   } = options;
-  const events2 = ["copy", "cut"];
   const isClipboardApiSupported = useSupported(() => navigator && "clipboard" in navigator);
   const isSupported = computed(() => isClipboardApiSupported.value || legacy);
   const text = ref("");
@@ -3049,10 +2796,8 @@ function useClipboard(options = {}) {
       text.value = legacyRead();
     }
   }
-  if (isSupported.value && read) {
-    for (const event of events2)
-      useEventListener(event, updateText);
-  }
+  if (isSupported.value && read)
+    useEventListener(["copy", "cut"], updateText);
   async function copy(value = toValue(source)) {
     if (isSupported.value && value != null) {
       if (isClipboardApiSupported.value)
@@ -3085,25 +2830,6 @@ function useClipboard(options = {}) {
     copy
   };
 }
-var __defProp$l = Object.defineProperty;
-var __defProps$9 = Object.defineProperties;
-var __getOwnPropDescs$9 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$o = Object.getOwnPropertySymbols;
-var __hasOwnProp$o = Object.prototype.hasOwnProperty;
-var __propIsEnum$o = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$l = (obj, key, value) => key in obj ? __defProp$l(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$l = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$o.call(b, prop))
-      __defNormalProp$l(a, prop, b[prop]);
-  if (__getOwnPropSymbols$o)
-    for (var prop of __getOwnPropSymbols$o(b)) {
-      if (__propIsEnum$o.call(b, prop))
-        __defNormalProp$l(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$9 = (a, b) => __defProps$9(a, __getOwnPropDescs$9(b));
 function cloneFnJSON(source) {
   return JSON.parse(JSON.stringify(source));
 }
@@ -3119,11 +2845,12 @@ function useCloned(source, options = {}) {
   function sync() {
     cloned.value = clone(toValue(source));
   }
-  if (!manual && isRef(source)) {
-    watch(source, sync, __spreadProps$9(__spreadValues$l({}, options), {
+  if (!manual && (isRef(source) || typeof source === "function")) {
+    watch(source, sync, {
+      ...options,
       deep,
       immediate
-    }));
+    });
   } else {
     sync();
   }
@@ -3146,22 +2873,6 @@ function setSSRHandler(key, fn) {
 function guessSerializerType(rawInit) {
   return rawInit == null ? "any" : rawInit instanceof Set ? "set" : rawInit instanceof Map ? "map" : rawInit instanceof Date ? "date" : typeof rawInit === "boolean" ? "boolean" : typeof rawInit === "string" ? "string" : typeof rawInit === "object" ? "object" : !Number.isNaN(rawInit) ? "number" : "any";
 }
-var __defProp$k = Object.defineProperty;
-var __getOwnPropSymbols$n = Object.getOwnPropertySymbols;
-var __hasOwnProp$n = Object.prototype.hasOwnProperty;
-var __propIsEnum$n = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$k = (obj, key, value) => key in obj ? __defProp$k(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$k = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$n.call(b, prop))
-      __defNormalProp$k(a, prop, b[prop]);
-  if (__getOwnPropSymbols$n)
-    for (var prop of __getOwnPropSymbols$n(b)) {
-      if (__propIsEnum$n.call(b, prop))
-        __defNormalProp$k(a, prop, b[prop]);
-    }
-  return a;
-};
 var StorageSerializers = {
   boolean: {
     read: (v) => v === "true",
@@ -3275,7 +2986,7 @@ function useStorage(key, defaults2, storage, options = {}) {
       if (typeof mergeDefaults === "function")
         return mergeDefaults(value, rawInit);
       else if (type === "object" && !Array.isArray(value))
-        return __spreadValues$k(__spreadValues$k({}, rawInit), value);
+        return { ...rawInit, ...value };
       return value;
     } else if (typeof rawValue !== "string") {
       return rawValue;
@@ -3297,7 +3008,8 @@ function useStorage(key, defaults2, storage, options = {}) {
       return;
     pauseWatch();
     try {
-      data.value = read(event);
+      if ((event == null ? void 0 : event.newValue) !== serializer.write(data.value))
+        data.value = read(event);
     } catch (e) {
       onError(e);
     } finally {
@@ -3311,22 +3023,6 @@ function useStorage(key, defaults2, storage, options = {}) {
 function usePreferredDark(options) {
   return useMediaQuery("(prefers-color-scheme: dark)", options);
 }
-var __defProp$j = Object.defineProperty;
-var __getOwnPropSymbols$m = Object.getOwnPropertySymbols;
-var __hasOwnProp$m = Object.prototype.hasOwnProperty;
-var __propIsEnum$m = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$j = (obj, key, value) => key in obj ? __defProp$j(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$j = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$m.call(b, prop))
-      __defNormalProp$j(a, prop, b[prop]);
-  if (__getOwnPropSymbols$m)
-    for (var prop of __getOwnPropSymbols$m(b)) {
-      if (__propIsEnum$m.call(b, prop))
-        __defNormalProp$j(a, prop, b[prop]);
-    }
-  return a;
-};
 function useColorMode(options = {}) {
   const {
     selector = "html",
@@ -3340,32 +3036,29 @@ function useColorMode(options = {}) {
     emitAuto,
     disableTransition = true
   } = options;
-  const modes = __spreadValues$j({
+  const modes = {
     auto: "",
     light: "light",
-    dark: "dark"
-  }, options.modes || {});
+    dark: "dark",
+    ...options.modes || {}
+  };
   const preferredDark = usePreferredDark({ window: window2 });
   const system = computed(() => preferredDark.value ? "dark" : "light");
-  const store = storageRef || (storageKey == null ? ref(initialValue) : useStorage(storageKey, initialValue, storage, { window: window2, listenToStorageChanges }));
-  const state = computed({
-    get() {
-      return store.value === "auto" && !emitAuto ? system.value : store.value;
-    },
-    set(v) {
-      store.value = v;
-    }
-  });
+  const store = storageRef || (storageKey == null ? toRef2(initialValue) : useStorage(storageKey, initialValue, storage, { window: window2, listenToStorageChanges }));
+  const state = computed(
+    () => store.value === "auto" ? system.value : store.value
+  );
   const updateHTMLAttrs = getSSRHandler(
     "updateHTMLAttrs",
     (selector2, attribute2, value) => {
-      const el = typeof selector2 === "string" ? window2 == null ? void 0 : window2.document.querySelector(selector2) : toValue(selector2);
+      const el = typeof selector2 === "string" ? window2 == null ? void 0 : window2.document.querySelector(selector2) : unrefElement(selector2);
       if (!el)
         return;
       let style;
       if (disableTransition) {
         style = window2.document.createElement("style");
-        style.appendChild(document.createTextNode("*{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}"));
+        const styleString = "*,*::before,*::after{-webkit-transition:none!important;-moz-transition:none!important;-o-transition:none!important;-ms-transition:none!important;transition:none!important}";
+        style.appendChild(document.createTextNode(styleString));
         window2.document.head.appendChild(style);
       }
       if (attribute2 === "class") {
@@ -3387,8 +3080,7 @@ function useColorMode(options = {}) {
   );
   function defaultOnChanged(mode) {
     var _a;
-    const resolvedMode = mode === "auto" ? system.value : mode;
-    updateHTMLAttrs(selector, attribute, (_a = modes[resolvedMode]) != null ? _a : resolvedMode);
+    updateHTMLAttrs(selector, attribute, (_a = modes[mode]) != null ? _a : mode);
   }
   function onChanged(mode) {
     if (options.onChanged)
@@ -3397,13 +3089,19 @@ function useColorMode(options = {}) {
       defaultOnChanged(mode);
   }
   watch(state, onChanged, { flush: "post", immediate: true });
-  if (emitAuto)
-    watch(system, () => onChanged(state.value), { flush: "post" });
   tryOnMounted(() => onChanged(state.value));
+  const auto = computed({
+    get() {
+      return emitAuto ? store.value : state.value;
+    },
+    set(v) {
+      store.value = v;
+    }
+  });
   try {
-    return Object.assign(state, { store, system });
+    return Object.assign(auto, { store, system, state });
   } catch (e) {
-    return state;
+    return auto;
   }
 }
 function useConfirmDialog(revealed = ref(false)) {
@@ -3438,23 +3136,8 @@ function useConfirmDialog(revealed = ref(false)) {
     onCancel: cancelHook.on
   };
 }
-var __getOwnPropSymbols$l = Object.getOwnPropertySymbols;
-var __hasOwnProp$l = Object.prototype.hasOwnProperty;
-var __propIsEnum$l = Object.prototype.propertyIsEnumerable;
-var __objRest$32 = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$l.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$l)
-    for (var prop of __getOwnPropSymbols$l(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$l.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 function useMutationObserver(target, callback, options = {}) {
-  const _a = options, { window: window2 = defaultWindow } = _a, mutationOptions = __objRest$32(_a, ["window"]);
+  const { window: window2 = defaultWindow, ...mutationOptions } = options;
   let observer;
   const isSupported = useSupported(() => window2 && "MutationObserver" in window2);
   const cleanup = () => {
@@ -3502,7 +3185,7 @@ function useCssVar(prop, target, options = {}) {
   }
   if (observe) {
     useMutationObserver(elRef, updateCssVar, {
-      attributes: true,
+      attributeFilter: ["style", "class"],
       window: window2
     });
   }
@@ -3537,7 +3220,7 @@ function useCycleList(list, options) {
   const index = computed({
     get() {
       var _a;
-      const targetList = toValue(list);
+      const targetList = listRef.value;
       let index2 = (options == null ? void 0 : options.getIndexOf) ? options.getIndexOf(state.value, targetList) : targetList.indexOf(state.value);
       if (index2 < 0)
         index2 = (_a = options == null ? void 0 : options.fallbackIndex) != null ? _a : 0;
@@ -3576,32 +3259,13 @@ function useCycleList(list, options) {
     prev
   };
 }
-var __defProp$i = Object.defineProperty;
-var __defProps$82 = Object.defineProperties;
-var __getOwnPropDescs$82 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$k = Object.getOwnPropertySymbols;
-var __hasOwnProp$k = Object.prototype.hasOwnProperty;
-var __propIsEnum$k = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$i = (obj, key, value) => key in obj ? __defProp$i(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$i = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$k.call(b, prop))
-      __defNormalProp$i(a, prop, b[prop]);
-  if (__getOwnPropSymbols$k)
-    for (var prop of __getOwnPropSymbols$k(b)) {
-      if (__propIsEnum$k.call(b, prop))
-        __defNormalProp$i(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$82 = (a, b) => __defProps$82(a, __getOwnPropDescs$82(b));
 function useDark(options = {}) {
   const {
     valueDark = "dark",
-    valueLight = "",
-    window: window2 = defaultWindow
+    valueLight = ""
   } = options;
-  const mode = useColorMode(__spreadProps$82(__spreadValues$i({}, options), {
+  const mode = useColorMode({
+    ...options,
     onChanged: (mode2, defaultHandler) => {
       var _a;
       if (options.onChanged)
@@ -3613,17 +3277,17 @@ function useDark(options = {}) {
       dark: valueDark,
       light: valueLight
     }
-  }));
-  const preferredDark = usePreferredDark({ window: window2 });
+  });
   const isDark = computed({
     get() {
       return mode.value === "dark";
     },
     set(v) {
-      if (v === preferredDark.value)
+      const modeVal = v ? "dark" : "light";
+      if (mode.system.value === modeVal)
         mode.value = "auto";
       else
-        mode.value = v ? "dark" : "light";
+        mode.value = modeVal;
     }
   });
   return isDark;
@@ -3664,7 +3328,7 @@ function useManualRefHistory(source, options = {}) {
     undoStack.value.unshift(last.value);
     last.value = _createHistoryRecord();
     if (options.capacity && undoStack.value.length > options.capacity)
-      undoStack.value.splice(options.capacity, Infinity);
+      undoStack.value.splice(options.capacity, Number.POSITIVE_INFINITY);
     if (redoStack.value.length)
       redoStack.value.splice(0, redoStack.value.length);
   };
@@ -3707,25 +3371,6 @@ function useManualRefHistory(source, options = {}) {
     redo
   };
 }
-var __defProp$h = Object.defineProperty;
-var __defProps$72 = Object.defineProperties;
-var __getOwnPropDescs$72 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$j = Object.getOwnPropertySymbols;
-var __hasOwnProp$j = Object.prototype.hasOwnProperty;
-var __propIsEnum$j = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$h = (obj, key, value) => key in obj ? __defProp$h(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$h = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$j.call(b, prop))
-      __defNormalProp$h(a, prop, b[prop]);
-  if (__getOwnPropSymbols$j)
-    for (var prop of __getOwnPropSymbols$j(b)) {
-      if (__propIsEnum$j.call(b, prop))
-        __defNormalProp$h(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$72 = (a, b) => __defProps$72(a, __getOwnPropDescs$72(b));
 function useRefHistory(source, options = {}) {
   const {
     deep = false,
@@ -3753,7 +3398,7 @@ function useRefHistory(source, options = {}) {
       source2.value = value;
     });
   }
-  const manualHistory = useManualRefHistory(source, __spreadProps$72(__spreadValues$h({}, options), { clone: options.clone || deep, setSource }));
+  const manualHistory = useManualRefHistory(source, { ...options, clone: options.clone || deep, setSource });
   const { clear, commit: manualCommit } = manualHistory;
   function commit() {
     ignorePrevAsyncUpdates();
@@ -3777,38 +3422,22 @@ function useRefHistory(source, options = {}) {
     stop();
     clear();
   }
-  return __spreadProps$72(__spreadValues$h({}, manualHistory), {
+  return {
+    ...manualHistory,
     isTracking,
     pause,
     resume,
     commit,
     batch,
     dispose
-  });
+  };
 }
-var __defProp$g = Object.defineProperty;
-var __defProps$62 = Object.defineProperties;
-var __getOwnPropDescs$62 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$i = Object.getOwnPropertySymbols;
-var __hasOwnProp$i = Object.prototype.hasOwnProperty;
-var __propIsEnum$i = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$g = (obj, key, value) => key in obj ? __defProp$g(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$g = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$i.call(b, prop))
-      __defNormalProp$g(a, prop, b[prop]);
-  if (__getOwnPropSymbols$i)
-    for (var prop of __getOwnPropSymbols$i(b)) {
-      if (__propIsEnum$i.call(b, prop))
-        __defNormalProp$g(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$62 = (a, b) => __defProps$62(a, __getOwnPropDescs$62(b));
 function useDebouncedRefHistory(source, options = {}) {
   const filter = options.debounce ? debounceFilter(options.debounce) : void 0;
-  const history = useRefHistory(source, __spreadProps$62(__spreadValues$g({}, options), { eventFilter: filter }));
-  return __spreadValues$g({}, history);
+  const history = useRefHistory(source, { ...options, eventFilter: filter });
+  return {
+    ...history
+  };
 }
 function useDeviceMotion(options = {}) {
   const {
@@ -4038,25 +3667,6 @@ function useDocumentVisibility({ document: document2 = defaultDocument } = {}) {
   });
   return visibility;
 }
-var __defProp$f = Object.defineProperty;
-var __defProps$52 = Object.defineProperties;
-var __getOwnPropDescs$52 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$h = Object.getOwnPropertySymbols;
-var __hasOwnProp$h = Object.prototype.hasOwnProperty;
-var __propIsEnum$h = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$f = (obj, key, value) => key in obj ? __defProp$f(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$f = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$h.call(b, prop))
-      __defNormalProp$f(a, prop, b[prop]);
-  if (__getOwnPropSymbols$h)
-    for (var prop of __getOwnPropSymbols$h(b)) {
-      if (__propIsEnum$h.call(b, prop))
-        __defNormalProp$f(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$52 = (a, b) => __defProps$52(a, __getOwnPropDescs$52(b));
 function useDraggable(target, options = {}) {
   var _a, _b;
   const {
@@ -4070,6 +3680,7 @@ function useDraggable(target, options = {}) {
     initialValue,
     axis = "both",
     draggingElement = defaultWindow,
+    containerElement,
     handle: draggingHandle = target
   } = options;
   const position = ref(
@@ -4088,11 +3699,13 @@ function useDraggable(target, options = {}) {
       e.stopPropagation();
   };
   const start = (e) => {
+    var _a2;
     if (!filterEvent(e))
       return;
     if (toValue(exact) && e.target !== toValue(target))
       return;
-    const rect = toValue(target).getBoundingClientRect();
+    const container = (_a2 = toValue(containerElement)) != null ? _a2 : toValue(target);
+    const rect = container.getBoundingClientRect();
     const pos = {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top
@@ -4134,62 +3747,61 @@ function useDraggable(target, options = {}) {
     useEventListener(draggingElement, "pointermove", move, config);
     useEventListener(draggingElement, "pointerup", end, config);
   }
-  return __spreadProps$52(__spreadValues$f({}, toRefs2(position)), {
+  return {
+    ...toRefs2(position),
     position,
     isDragging: computed(() => !!pressedDelta.value),
     style: computed(
       () => `left:${position.value.x}px;top:${position.value.y}px;`
     )
-  });
+  };
 }
-function useDropZone(target, onDrop) {
+function useDropZone(target, options = {}) {
   const isOverDropZone = ref(false);
+  const files = shallowRef(null);
   let counter = 0;
   if (isClient) {
+    const _options = typeof options === "function" ? { onDrop: options } : options;
+    const getFiles = (event) => {
+      var _a, _b;
+      const list = Array.from((_b = (_a = event.dataTransfer) == null ? void 0 : _a.files) != null ? _b : []);
+      return files.value = list.length === 0 ? null : list;
+    };
     useEventListener(target, "dragenter", (event) => {
+      var _a;
       event.preventDefault();
       counter += 1;
       isOverDropZone.value = true;
+      (_a = _options.onEnter) == null ? void 0 : _a.call(_options, getFiles(event), event);
     });
     useEventListener(target, "dragover", (event) => {
+      var _a;
       event.preventDefault();
+      (_a = _options.onOver) == null ? void 0 : _a.call(_options, getFiles(event), event);
     });
     useEventListener(target, "dragleave", (event) => {
+      var _a;
       event.preventDefault();
       counter -= 1;
       if (counter === 0)
         isOverDropZone.value = false;
+      (_a = _options.onLeave) == null ? void 0 : _a.call(_options, getFiles(event), event);
     });
     useEventListener(target, "drop", (event) => {
-      var _a, _b;
+      var _a;
       event.preventDefault();
       counter = 0;
       isOverDropZone.value = false;
-      const files = Array.from((_b = (_a = event.dataTransfer) == null ? void 0 : _a.files) != null ? _b : []);
-      onDrop == null ? void 0 : onDrop(files.length === 0 ? null : files);
+      (_a = _options.onDrop) == null ? void 0 : _a.call(_options, getFiles(event), event);
     });
   }
   return {
+    files,
     isOverDropZone
   };
 }
-var __getOwnPropSymbols$g = Object.getOwnPropertySymbols;
-var __hasOwnProp$g = Object.prototype.hasOwnProperty;
-var __propIsEnum$g = Object.prototype.propertyIsEnumerable;
-var __objRest$22 = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$g.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$g)
-    for (var prop of __getOwnPropSymbols$g(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$g.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 function useResizeObserver(target, callback, options = {}) {
-  const _a = options, { window: window2 = defaultWindow } = _a, observerOptions = __objRest$22(_a, ["window"]);
+  const { window: window2 = defaultWindow, ...observerOptions } = options;
   let observer;
   const isSupported = useSupported(() => window2 && "ResizeObserver" in window2);
   const cleanup = () => {
@@ -4285,31 +3897,31 @@ function useElementBounding(target, options = {}) {
     update
   };
 }
-var __defProp$e = Object.defineProperty;
-var __getOwnPropSymbols$f = Object.getOwnPropertySymbols;
-var __hasOwnProp$f = Object.prototype.hasOwnProperty;
-var __propIsEnum$f = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$e = (obj, key, value) => key in obj ? __defProp$e(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$e = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$f.call(b, prop))
-      __defNormalProp$e(a, prop, b[prop]);
-  if (__getOwnPropSymbols$f)
-    for (var prop of __getOwnPropSymbols$f(b)) {
-      if (__propIsEnum$f.call(b, prop))
-        __defNormalProp$e(a, prop, b[prop]);
-    }
-  return a;
-};
 function useElementByPoint(options) {
-  const element = ref(null);
-  const { x, y, document: document2 = defaultDocument } = options;
-  const controls = useRafFn(() => {
-    element.value = (document2 == null ? void 0 : document2.elementFromPoint(toValue(x), toValue(y))) || null;
+  const {
+    x,
+    y,
+    document: document2 = defaultDocument,
+    multiple,
+    interval = "requestAnimationFrame",
+    immediate = true
+  } = options;
+  const isSupported = useSupported(() => {
+    if (toValue(multiple))
+      return document2 && "elementsFromPoint" in document2;
+    return document2 && "elementFromPoint" in document2;
   });
-  return __spreadValues$e({
-    element
-  }, controls);
+  const element = ref(null);
+  const cb = () => {
+    var _a, _b;
+    element.value = toValue(multiple) ? (_a = document2 == null ? void 0 : document2.elementsFromPoint(toValue(x), toValue(y))) != null ? _a : [] : (_b = document2 == null ? void 0 : document2.elementFromPoint(toValue(x), toValue(y))) != null ? _b : null;
+  };
+  const controls = interval === "requestAnimationFrame" ? useRafFn(cb, { immediate }) : useIntervalFn(cb, interval, { immediate });
+  return {
+    isSupported,
+    element,
+    ...controls
+  };
 }
 function useElementHover(el, options = {}) {
   const {
@@ -4352,8 +3964,8 @@ function useElementSize(target, initialSize = { width: 0, height: 0 }, options =
         const $elem = unrefElement(target);
         if ($elem) {
           const styles = window2.getComputedStyle($elem);
-          width.value = parseFloat(styles.width);
-          height.value = parseFloat(styles.height);
+          width.value = Number.parseFloat(styles.width);
+          height.value = Number.parseFloat(styles.height);
         }
       } else {
         if (boxSize) {
@@ -4447,7 +4059,8 @@ function useElementVisibility(element, { window: window2 = defaultWindow, scroll
     },
     {
       root: scrollTarget,
-      window: window2
+      window: window2,
+      threshold: 0
     }
   );
   return elementIsVisible;
@@ -4570,31 +4183,12 @@ function useFavicon(newIcon = null, options = {}) {
   );
   return favicon;
 }
-var __defProp$d = Object.defineProperty;
-var __defProps$42 = Object.defineProperties;
-var __getOwnPropDescs$42 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$e = Object.getOwnPropertySymbols;
-var __hasOwnProp$e = Object.prototype.hasOwnProperty;
-var __propIsEnum$e = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$d = (obj, key, value) => key in obj ? __defProp$d(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$d = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$e.call(b, prop))
-      __defNormalProp$d(a, prop, b[prop]);
-  if (__getOwnPropSymbols$e)
-    for (var prop of __getOwnPropSymbols$e(b)) {
-      if (__propIsEnum$e.call(b, prop))
-        __defNormalProp$d(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$42 = (a, b) => __defProps$42(a, __getOwnPropDescs$42(b));
 var payloadMapping = {
   json: "application/json",
   text: "text/plain"
 };
 function isFetchOptions(obj) {
-  return obj && containsProp(obj, "immediate", "refetch", "initialData", "timeout", "beforeFetch", "afterFetch", "onFetchError", "fetch");
+  return obj && containsProp(obj, "immediate", "refetch", "initialData", "timeout", "beforeFetch", "afterFetch", "onFetchError", "fetch", "updateDataOnError");
 }
 function isAbsoluteURL(url) {
   return /^([a-z][a-z\d+\-.]*:)?\/\//i.test(url);
@@ -4608,16 +4202,16 @@ function combineCallbacks(combination, ...callbacks) {
   if (combination === "overwrite") {
     return async (ctx) => {
       const callback = callbacks[callbacks.length - 1];
-      if (callback !== void 0)
-        await callback(ctx);
+      if (callback)
+        return { ...ctx, ...await callback(ctx) };
       return ctx;
     };
   } else {
     return async (ctx) => {
-      await callbacks.reduce((prevCallback, callback) => prevCallback.then(async () => {
+      for (const callback of callbacks) {
         if (callback)
-          ctx = __spreadValues$d(__spreadValues$d({}, ctx), await callback(ctx));
-      }), Promise.resolve());
+          ctx = { ...ctx, ...await callback(ctx) };
+      }
       return ctx;
     };
   }
@@ -4636,23 +4230,32 @@ function createFetch(config = {}) {
     let fetchOptions = _fetchOptions;
     if (args.length > 0) {
       if (isFetchOptions(args[0])) {
-        options = __spreadProps$42(__spreadValues$d(__spreadValues$d({}, options), args[0]), {
+        options = {
+          ...options,
+          ...args[0],
           beforeFetch: combineCallbacks(_combination, _options.beforeFetch, args[0].beforeFetch),
           afterFetch: combineCallbacks(_combination, _options.afterFetch, args[0].afterFetch),
           onFetchError: combineCallbacks(_combination, _options.onFetchError, args[0].onFetchError)
-        });
+        };
       } else {
-        fetchOptions = __spreadProps$42(__spreadValues$d(__spreadValues$d({}, fetchOptions), args[0]), {
-          headers: __spreadValues$d(__spreadValues$d({}, headersToObject(fetchOptions.headers) || {}), headersToObject(args[0].headers) || {})
-        });
+        fetchOptions = {
+          ...fetchOptions,
+          ...args[0],
+          headers: {
+            ...headersToObject(fetchOptions.headers) || {},
+            ...headersToObject(args[0].headers) || {}
+          }
+        };
       }
     }
     if (args.length > 1 && isFetchOptions(args[1])) {
-      options = __spreadProps$42(__spreadValues$d(__spreadValues$d({}, options), args[1]), {
+      options = {
+        ...options,
+        ...args[1],
         beforeFetch: combineCallbacks(_combination, _options.beforeFetch, args[1].beforeFetch),
         afterFetch: combineCallbacks(_combination, _options.afterFetch, args[1].afterFetch),
         onFetchError: combineCallbacks(_combination, _options.onFetchError, args[1].onFetchError)
-      });
+      };
     }
     return useFetch(computedUrl, fetchOptions, options);
   }
@@ -4662,7 +4265,12 @@ function useFetch(url, ...args) {
   var _a;
   const supportsAbort = typeof AbortController === "function";
   let fetchOptions = {};
-  let options = { immediate: true, refetch: false, timeout: 0 };
+  let options = {
+    immediate: true,
+    refetch: false,
+    timeout: 0,
+    updateDataOnError: false
+  };
   const config = {
     method: "GET",
     type: "text",
@@ -4670,13 +4278,13 @@ function useFetch(url, ...args) {
   };
   if (args.length > 0) {
     if (isFetchOptions(args[0]))
-      options = __spreadValues$d(__spreadValues$d({}, options), args[0]);
+      options = { ...options, ...args[0] };
     else
       fetchOptions = args[0];
   }
   if (args.length > 1) {
     if (isFetchOptions(args[1]))
-      options = __spreadValues$d(__spreadValues$d({}, options), args[1]);
+      options = { ...options, ...args[1] };
   }
   const {
     fetch = (_a = defaultWindow) == null ? void 0 : _a.fetch,
@@ -4701,9 +4309,10 @@ function useFetch(url, ...args) {
       controller == null ? void 0 : controller.abort();
       controller = new AbortController();
       controller.signal.onabort = () => aborted.value = true;
-      fetchOptions = __spreadProps$42(__spreadValues$d({}, fetchOptions), {
+      fetchOptions = {
+        ...fetchOptions,
         signal: controller.signal
-      });
+      };
     }
   };
   const loading = (isLoading) => {
@@ -4725,15 +4334,20 @@ function useFetch(url, ...args) {
     };
     if (config.payload) {
       const headers = headersToObject(defaultFetchOptions.headers);
+      const payload = toValue(config.payload);
+      if (!config.payloadType && payload && Object.getPrototypeOf(payload) === Object.prototype && !(payload instanceof FormData))
+        config.payloadType = "json";
       if (config.payloadType)
         headers["Content-Type"] = (_a2 = payloadMapping[config.payloadType]) != null ? _a2 : config.payloadType;
-      const payload = toValue(config.payload);
       defaultFetchOptions.body = config.payloadType === "json" ? JSON.stringify(payload) : payload;
     }
     let isCanceled = false;
     const context = {
       url: toValue(url),
-      options: __spreadValues$d(__spreadValues$d({}, defaultFetchOptions), fetchOptions),
+      options: {
+        ...defaultFetchOptions,
+        ...fetchOptions
+      },
       cancel: () => {
         isCanceled = true;
       }
@@ -4751,9 +4365,14 @@ function useFetch(url, ...args) {
       var _a3;
       fetch(
         context.url,
-        __spreadProps$42(__spreadValues$d(__spreadValues$d({}, defaultFetchOptions), context.options), {
-          headers: __spreadValues$d(__spreadValues$d({}, headersToObject(defaultFetchOptions.headers)), headersToObject((_a3 = context.options) == null ? void 0 : _a3.headers))
-        })
+        {
+          ...defaultFetchOptions,
+          ...context.options,
+          headers: {
+            ...headersToObject(defaultFetchOptions.headers),
+            ...headersToObject((_a3 = context.options) == null ? void 0 : _a3.headers)
+          }
+        }
       ).then(async (fetchResponse) => {
         response.value = fetchResponse;
         statusCode.value = fetchResponse.status;
@@ -4762,16 +4381,27 @@ function useFetch(url, ...args) {
           data.value = initialData || null;
           throw new Error(fetchResponse.statusText);
         }
-        if (options.afterFetch)
-          ({ data: responseData } = await options.afterFetch({ data: responseData, response: fetchResponse }));
+        if (options.afterFetch) {
+          ({ data: responseData } = await options.afterFetch({
+            data: responseData,
+            response: fetchResponse
+          }));
+        }
         data.value = responseData;
         responseEvent.trigger(fetchResponse);
         return resolve(fetchResponse);
       }).catch(async (fetchError) => {
         let errorData = fetchError.message || fetchError.name;
-        if (options.onFetchError)
-          ({ error: errorData } = await options.onFetchError({ data: responseData, error: fetchError, response: response.value }));
+        if (options.onFetchError) {
+          ({ error: errorData, data: responseData } = await options.onFetchError({
+            data: responseData,
+            error: fetchError,
+            response: response.value
+          }));
+        }
         error.value = errorData;
+        if (options.updateDataOnError)
+          data.value = responseData;
         errorEvent.trigger(fetchError);
         if (throwOnFailed)
           return reject(fetchError);
@@ -4838,14 +4468,12 @@ function useFetch(url, ...args) {
             { deep: true }
           );
         }
-        const rawPayload = toValue(config.payload);
-        if (!payloadType && rawPayload && Object.getPrototypeOf(rawPayload) === Object.prototype && !(rawPayload instanceof FormData))
-          config.payloadType = "json";
-        return __spreadProps$42(__spreadValues$d({}, shell), {
+        return {
+          ...shell,
           then(onFulfilled, onRejected) {
             return waitUntilFinished().then(onFulfilled, onRejected);
           }
-        });
+        };
       }
       return void 0;
     };
@@ -4859,47 +4487,34 @@ function useFetch(url, ...args) {
     return () => {
       if (!isFetching.value) {
         config.type = type;
-        return __spreadProps$42(__spreadValues$d({}, shell), {
+        return {
+          ...shell,
           then(onFulfilled, onRejected) {
             return waitUntilFinished().then(onFulfilled, onRejected);
           }
-        });
+        };
       }
       return void 0;
     };
   }
   if (options.immediate)
     Promise.resolve().then(() => execute());
-  return __spreadProps$42(__spreadValues$d({}, shell), {
+  return {
+    ...shell,
     then(onFulfilled, onRejected) {
       return waitUntilFinished().then(onFulfilled, onRejected);
     }
-  });
+  };
 }
 function joinPaths(start, end) {
   if (!start.endsWith("/") && !end.startsWith("/"))
     return `${start}/${end}`;
   return `${start}${end}`;
 }
-var __defProp$c = Object.defineProperty;
-var __getOwnPropSymbols$d2 = Object.getOwnPropertySymbols;
-var __hasOwnProp$d2 = Object.prototype.hasOwnProperty;
-var __propIsEnum$d2 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$c = (obj, key, value) => key in obj ? __defProp$c(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$c = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$d2.call(b, prop))
-      __defNormalProp$c(a, prop, b[prop]);
-  if (__getOwnPropSymbols$d2)
-    for (var prop of __getOwnPropSymbols$d2(b)) {
-      if (__propIsEnum$d2.call(b, prop))
-        __defNormalProp$c(a, prop, b[prop]);
-    }
-  return a;
-};
 var DEFAULT_OPTIONS = {
   multiple: true,
-  accept: "*"
+  accept: "*",
+  reset: false
 };
 function useFileDialog(options = {}) {
   const {
@@ -4917,20 +4532,26 @@ function useFileDialog(options = {}) {
       trigger(files.value);
     };
   }
-  const open = (localOptions) => {
-    if (!input)
-      return;
-    const _options = __spreadValues$c(__spreadValues$c(__spreadValues$c({}, DEFAULT_OPTIONS), options), localOptions);
-    input.multiple = _options.multiple;
-    input.accept = _options.accept;
-    if (hasOwn(_options, "capture"))
-      input.capture = _options.capture;
-    input.click();
-  };
   const reset = () => {
     files.value = null;
     if (input)
       input.value = "";
+  };
+  const open = (localOptions) => {
+    if (!input)
+      return;
+    const _options = {
+      ...DEFAULT_OPTIONS,
+      ...options,
+      ...localOptions
+    };
+    input.multiple = _options.multiple;
+    input.accept = _options.accept;
+    if (hasOwn(_options, "capture"))
+      input.capture = _options.capture;
+    if (_options.reset)
+      reset();
+    input.click();
   };
   return {
     files: readonly(files),
@@ -4939,22 +4560,6 @@ function useFileDialog(options = {}) {
     onChange
   };
 }
-var __defProp$b2 = Object.defineProperty;
-var __getOwnPropSymbols$c2 = Object.getOwnPropertySymbols;
-var __hasOwnProp$c2 = Object.prototype.hasOwnProperty;
-var __propIsEnum$c2 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$b2 = (obj, key, value) => key in obj ? __defProp$b2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$b2 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$c2.call(b, prop))
-      __defNormalProp$b2(a, prop, b[prop]);
-  if (__getOwnPropSymbols$c2)
-    for (var prop of __getOwnPropSymbols$c2(b)) {
-      if (__propIsEnum$c2.call(b, prop))
-        __defNormalProp$b2(a, prop, b[prop]);
-    }
-  return a;
-};
 function useFileSystemAccess(options = {}) {
   const {
     window: _window = defaultWindow,
@@ -4984,7 +4589,7 @@ function useFileSystemAccess(options = {}) {
   async function open(_options = {}) {
     if (!isSupported.value)
       return;
-    const [handle] = await window2.showOpenFilePicker(__spreadValues$b2(__spreadValues$b2({}, toValue(options)), _options));
+    const [handle] = await window2.showOpenFilePicker({ ...toValue(options), ..._options });
     fileHandle.value = handle;
     await updateFile();
     await updateData();
@@ -4992,7 +4597,7 @@ function useFileSystemAccess(options = {}) {
   async function create(_options = {}) {
     if (!isSupported.value)
       return;
-    fileHandle.value = await window2.showSaveFilePicker(__spreadValues$b2(__spreadValues$b2({}, options), _options));
+    fileHandle.value = await window2.showSaveFilePicker({ ...options, ..._options });
     data.value = void 0;
     await updateFile();
     await updateData();
@@ -5012,7 +4617,7 @@ function useFileSystemAccess(options = {}) {
   async function saveAs(_options = {}) {
     if (!isSupported.value)
       return;
-    fileHandle.value = await window2.showSaveFilePicker(__spreadValues$b2(__spreadValues$b2({}, options), _options));
+    fileHandle.value = await window2.showSaveFilePicker({ ...options, ..._options });
     if (data.value) {
       const writableStream = await fileHandle.value.createWritable();
       await writableStream.write(data.value);
@@ -5051,10 +4656,14 @@ function useFileSystemAccess(options = {}) {
   };
 }
 function useFocus(target, options = {}) {
-  const { initialValue = false } = options;
+  const { initialValue = false, focusVisible = false } = options;
   const innerFocused = ref(false);
   const targetElement = computed(() => unrefElement(target));
-  useEventListener(targetElement, "focus", () => innerFocused.value = true);
+  useEventListener(targetElement, "focus", (event) => {
+    var _a, _b;
+    if (!focusVisible || ((_b = (_a = event.target).matches) == null ? void 0 : _b.call(_a, ":focus-visible")))
+      innerFocused.value = true;
+  });
   useEventListener(targetElement, "blur", () => innerFocused.value = false);
   const focused = computed({
     get: () => innerFocused.value,
@@ -5148,9 +4757,20 @@ function useFullscreen(target, options = {}) {
       "msFullscreenElement"
     ].find((m) => document2 && m in document2 || targetRef.value && m in targetRef.value);
   });
+  const fullscreenElementMethod = [
+    "fullscreenElement",
+    "webkitFullscreenElement",
+    "mozFullScreenElement",
+    "msFullscreenElement"
+  ].find((m) => document2 && m in document2);
   const isSupported = useSupported(
     () => targetRef.value && document2 && requestMethod.value !== void 0 && exitMethod.value !== void 0 && fullscreenEnabled.value !== void 0
   );
+  const isCurrentElementFullScreen = () => {
+    if (fullscreenElementMethod)
+      return (document2 == null ? void 0 : document2[fullscreenElementMethod]) === targetRef.value;
+    return false;
+  };
   const isElementFullScreen = () => {
     if (fullscreenEnabled.value) {
       if (document2 && document2[fullscreenEnabled.value] != null) {
@@ -5165,7 +4785,7 @@ function useFullscreen(target, options = {}) {
     return false;
   };
   async function exit() {
-    if (!isSupported.value)
+    if (!isSupported.value || !isFullscreen.value)
       return;
     if (exitMethod.value) {
       if ((document2 == null ? void 0 : document2[exitMethod.value]) != null) {
@@ -5179,7 +4799,7 @@ function useFullscreen(target, options = {}) {
     isFullscreen.value = false;
   }
   async function enter() {
-    if (!isSupported.value)
+    if (!isSupported.value || isFullscreen.value)
       return;
     if (isElementFullScreen())
       await exit();
@@ -5193,7 +4813,9 @@ function useFullscreen(target, options = {}) {
     await (isFullscreen.value ? exit() : enter());
   }
   const handlerCallback = () => {
-    isFullscreen.value = isElementFullScreen();
+    const isElementFullScreenValue = isElementFullScreen();
+    if (!isElementFullScreenValue || isElementFullScreenValue && isCurrentElementFullScreen())
+      isFullscreen.value = isElementFullScreenValue;
   };
   useEventListener(document2, eventHandlers, handlerCallback, false);
   useEventListener(() => unrefElement(targetRef), eventHandlers, handlerCallback, false);
@@ -5266,12 +4888,9 @@ function useGamepad(options = {}) {
     if (gamepad.hapticActuators)
       hapticActuators.push(...gamepad.hapticActuators);
     return {
+      ...gamepad,
       id: gamepad.id,
       hapticActuators,
-      index: gamepad.index,
-      mapping: gamepad.mapping,
-      connected: gamepad.connected,
-      timestamp: gamepad.timestamp,
       axes: gamepad.axes.map((axes) => axes),
       buttons: gamepad.buttons.map((button) => ({ pressed: button.pressed, touched: button.touched, value: button.value }))
     };
@@ -5335,8 +4954,8 @@ function useGeolocation(options = {}) {
   const error = shallowRef(null);
   const coords = ref({
     accuracy: 0,
-    latitude: Infinity,
-    longitude: Infinity,
+    latitude: Number.POSITIVE_INFINITY,
+    longitude: Number.POSITIVE_INFINITY,
     altitude: null,
     altitudeAccuracy: null,
     heading: null,
@@ -5422,31 +5041,23 @@ function useIdle(timeout = oneMinute, options = {}) {
     reset
   };
 }
-var __defProp$a2 = Object.defineProperty;
-var __getOwnPropSymbols$b2 = Object.getOwnPropertySymbols;
-var __hasOwnProp$b2 = Object.prototype.hasOwnProperty;
-var __propIsEnum$b2 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$a2 = (obj, key, value) => key in obj ? __defProp$a2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$a2 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$b2.call(b, prop))
-      __defNormalProp$a2(a, prop, b[prop]);
-  if (__getOwnPropSymbols$b2)
-    for (var prop of __getOwnPropSymbols$b2(b)) {
-      if (__propIsEnum$b2.call(b, prop))
-        __defNormalProp$a2(a, prop, b[prop]);
-    }
-  return a;
-};
 async function loadImage(options) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    const { src, srcset, sizes } = options;
+    const { src, srcset, sizes, class: clazz, loading, crossorigin, referrerPolicy } = options;
     img.src = src;
     if (srcset)
       img.srcset = srcset;
     if (sizes)
       img.sizes = sizes;
+    if (clazz)
+      img.className = clazz;
+    if (loading)
+      img.loading = loading;
+    if (crossorigin)
+      img.crossOrigin = crossorigin;
+    if (referrerPolicy)
+      img.referrerPolicy = referrerPolicy;
     img.onload = () => resolve(img);
     img.onerror = reject;
   });
@@ -5455,9 +5066,10 @@ function useImage(options, asyncStateOptions = {}) {
   const state = useAsyncState(
     () => loadImage(toValue(options)),
     void 0,
-    __spreadValues$a2({
-      resetOnExecute: true
-    }, asyncStateOptions)
+    {
+      resetOnExecute: true,
+      ...asyncStateOptions
+    }
   );
   watch(
     () => toValue(options),
@@ -5483,7 +5095,8 @@ function useScroll(element, options = {}) {
       capture: false,
       passive: true
     },
-    behavior = "auto"
+    behavior = "auto",
+    window: window2 = defaultWindow
   } = options;
   const internalX = ref(0);
   const internalY = ref(0);
@@ -5505,10 +5118,12 @@ function useScroll(element, options = {}) {
   });
   function scrollTo(_x, _y) {
     var _a, _b, _c;
+    if (!window2)
+      return;
     const _element = toValue(element);
     if (!_element)
       return;
-    (_c = _element instanceof Document ? document.body : _element) == null ? void 0 : _c.scrollTo({
+    (_c = _element instanceof Document ? window2.document.body : _element) == null ? void 0 : _c.scrollTo({
       top: (_a = toValue(_y)) != null ? _a : y.value,
       left: (_b = toValue(_x)) != null ? _b : x.value,
       behavior: toValue(behavior)
@@ -5538,14 +5153,17 @@ function useScroll(element, options = {}) {
     onStop(e);
   };
   const onScrollEndDebounced = useDebounceFn(onScrollEnd, throttle + idle);
-  const onScrollHandler = (e) => {
-    const eventTarget = e.target === document ? e.target.documentElement : e.target;
-    const { display, flexDirection } = getComputedStyle(eventTarget);
-    const scrollLeft = eventTarget.scrollLeft;
+  const setArrivedState = (target) => {
+    var _a;
+    if (!window2)
+      return;
+    const el = target.document ? target.document.documentElement : (_a = target.documentElement) != null ? _a : target;
+    const { display, flexDirection } = getComputedStyle(el);
+    const scrollLeft = el.scrollLeft;
     directions.left = scrollLeft < internalX.value;
     directions.right = scrollLeft > internalX.value;
     const left = Math.abs(scrollLeft) <= 0 + (offset.left || 0);
-    const right = Math.abs(scrollLeft) + eventTarget.clientWidth >= eventTarget.scrollWidth - (offset.right || 0) - ARRIVED_STATE_THRESHOLD_PIXELS;
+    const right = Math.abs(scrollLeft) + el.clientWidth >= el.scrollWidth - (offset.right || 0) - ARRIVED_STATE_THRESHOLD_PIXELS;
     if (display === "flex" && flexDirection === "row-reverse") {
       arrivedState.left = right;
       arrivedState.right = left;
@@ -5554,13 +5172,13 @@ function useScroll(element, options = {}) {
       arrivedState.right = right;
     }
     internalX.value = scrollLeft;
-    let scrollTop = eventTarget.scrollTop;
-    if (e.target === document && !scrollTop)
-      scrollTop = document.body.scrollTop;
+    let scrollTop = el.scrollTop;
+    if (target === window2.document && !scrollTop)
+      scrollTop = window2.document.body.scrollTop;
     directions.top = scrollTop < internalY.value;
     directions.bottom = scrollTop > internalY.value;
     const top = Math.abs(scrollTop) <= 0 + (offset.top || 0);
-    const bottom = Math.abs(scrollTop) + eventTarget.clientHeight >= eventTarget.scrollHeight - (offset.bottom || 0) - ARRIVED_STATE_THRESHOLD_PIXELS;
+    const bottom = Math.abs(scrollTop) + el.clientHeight >= el.scrollHeight - (offset.bottom || 0) - ARRIVED_STATE_THRESHOLD_PIXELS;
     if (display === "flex" && flexDirection === "column-reverse") {
       arrivedState.top = bottom;
       arrivedState.bottom = top;
@@ -5569,6 +5187,13 @@ function useScroll(element, options = {}) {
       arrivedState.bottom = bottom;
     }
     internalY.value = scrollTop;
+  };
+  const onScrollHandler = (e) => {
+    var _a;
+    if (!window2)
+      return;
+    const eventTarget = (_a = e.target.documentElement) != null ? _a : e.target;
+    setArrivedState(eventTarget);
     isScrolling.value = true;
     onScrollEndDebounced(e);
     onScroll(e);
@@ -5590,28 +5215,21 @@ function useScroll(element, options = {}) {
     y,
     isScrolling,
     arrivedState,
-    directions
+    directions,
+    measure() {
+      const _element = toValue(element);
+      if (window2 && _element)
+        setArrivedState(_element);
+    }
   };
 }
-var __defProp$92 = Object.defineProperty;
-var __defProps$32 = Object.defineProperties;
-var __getOwnPropDescs$32 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$a2 = Object.getOwnPropertySymbols;
-var __hasOwnProp$a2 = Object.prototype.hasOwnProperty;
-var __propIsEnum$a2 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$92 = (obj, key, value) => key in obj ? __defProp$92(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$92 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$a2.call(b, prop))
-      __defNormalProp$92(a, prop, b[prop]);
-  if (__getOwnPropSymbols$a2)
-    for (var prop of __getOwnPropSymbols$a2(b)) {
-      if (__propIsEnum$a2.call(b, prop))
-        __defNormalProp$92(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$32 = (a, b) => __defProps$32(a, __getOwnPropDescs$32(b));
+function resolveElement(el) {
+  if (typeof Window !== "undefined" && el instanceof Window)
+    return el.document.documentElement;
+  if (typeof Document !== "undefined" && el instanceof Document)
+    return el.documentElement;
+  return el;
+}
 function useInfiniteScroll(element, onLoadMore, options = {}) {
   var _a;
   const {
@@ -5620,19 +5238,26 @@ function useInfiniteScroll(element, onLoadMore, options = {}) {
   } = options;
   const state = reactive(useScroll(
     element,
-    __spreadProps$32(__spreadValues$92({}, options), {
-      offset: __spreadValues$92({
-        [direction]: (_a = options.distance) != null ? _a : 0
-      }, options.offset)
-    })
+    {
+      ...options,
+      offset: {
+        [direction]: (_a = options.distance) != null ? _a : 0,
+        ...options.offset
+      }
+    }
   ));
   const promise = ref();
   const isLoading = computed(() => !!promise.value);
+  const observedElement = computed(() => {
+    return resolveElement(toValue(element));
+  });
+  const isElementVisible = useElementVisibility(observedElement);
   function checkAndLoad() {
-    const el = toValue(element);
-    if (!el)
+    state.measure();
+    if (!observedElement.value || !isElementVisible.value)
       return;
-    const isNarrower = direction === "bottom" || direction === "top" ? el.scrollHeight <= el.clientHeight : el.scrollWidth <= el.clientWidth;
+    const { scrollHeight, clientHeight, scrollWidth, clientWidth } = observedElement.value;
+    const isNarrower = direction === "bottom" || direction === "top" ? scrollHeight <= clientHeight : scrollWidth <= clientWidth;
     if (state.arrivedState[direction] || isNarrower) {
       if (!promise.value) {
         promise.value = Promise.all([
@@ -5646,7 +5271,7 @@ function useInfiniteScroll(element, onLoadMore, options = {}) {
     }
   }
   watch(
-    () => [state.arrivedState[direction], toValue(element)],
+    () => [state.arrivedState[direction], isElementVisible.value],
     checkAndLoad,
     { immediate: true }
   );
@@ -5776,22 +5401,6 @@ function useMagicKeys(options = {}) {
   );
   return proxy;
 }
-var __defProp$82 = Object.defineProperty;
-var __getOwnPropSymbols$92 = Object.getOwnPropertySymbols;
-var __hasOwnProp$92 = Object.prototype.hasOwnProperty;
-var __propIsEnum$92 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$82 = (obj, key, value) => key in obj ? __defProp$82(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$82 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$92.call(b, prop))
-      __defNormalProp$82(a, prop, b[prop]);
-  if (__getOwnPropSymbols$92)
-    for (var prop of __getOwnPropSymbols$92(b)) {
-      if (__propIsEnum$92.call(b, prop))
-        __defNormalProp$82(a, prop, b[prop]);
-    }
-  return a;
-};
 function usingElRef(source, cb) {
   if (toValue(source))
     cb(toValue(source));
@@ -5810,7 +5419,10 @@ var defaultOptions = {
   tracks: []
 };
 function useMediaControls(target, options = {}) {
-  options = __spreadValues$82(__spreadValues$82({}, defaultOptions), options);
+  options = {
+    ...defaultOptions,
+    ...options
+  };
   const {
     document: document2 = defaultDocument
   } = options;
@@ -5899,23 +5511,23 @@ function useMediaControls(target, options = {}) {
       return;
     el.querySelectorAll("source").forEach((e) => e.removeEventListener("error", sourceErrorEvent.trigger));
   });
-  watch(volume, (vol) => {
+  watch([target, volume], () => {
     const el = toValue(target);
     if (!el)
       return;
-    el.volume = vol;
+    el.volume = volume.value;
   });
-  watch(muted, (mute) => {
+  watch([target, muted], () => {
     const el = toValue(target);
     if (!el)
       return;
-    el.muted = mute;
+    el.muted = muted.value;
   });
-  watch(rate, (rate2) => {
+  watch([target, rate], () => {
     const el = toValue(target);
     if (!el)
       return;
-    el.playbackRate = rate2;
+    el.playbackRate = rate.value;
   });
   watchEffect(() => {
     if (!document2)
@@ -5954,10 +5566,15 @@ function useMediaControls(target, options = {}) {
   useEventListener(target, "progress", () => buffered.value = timeRangeToArray(toValue(target).buffered));
   useEventListener(target, "seeking", () => seeking.value = true);
   useEventListener(target, "seeked", () => seeking.value = false);
-  useEventListener(target, "waiting", () => waiting.value = true);
+  useEventListener(target, ["waiting", "loadstart"], () => {
+    waiting.value = true;
+    ignorePlayingUpdates(() => playing.value = false);
+  });
+  useEventListener(target, "loadeddata", () => waiting.value = false);
   useEventListener(target, "playing", () => {
     waiting.value = false;
     ended.value = false;
+    ignorePlayingUpdates(() => playing.value = true);
   });
   useEventListener(target, "ratechange", () => rate.value = toValue(target).playbackRate);
   useEventListener(target, "stalled", () => stalled.value = true);
@@ -6069,6 +5686,12 @@ function useMemory(options = {}) {
   }
   return { isSupported, memory };
 }
+var UseMouseBuiltinExtractors = {
+  page: (event) => [event.pageX, event.pageY],
+  client: (event) => [event.clientX, event.clientY],
+  screen: (event) => [event.screenX, event.screenY],
+  movement: (event) => event instanceof Touch ? null : [event.movementX, event.movementY]
+};
 function useMouse(options = {}) {
   const {
     type = "page",
@@ -6076,62 +5699,58 @@ function useMouse(options = {}) {
     resetOnTouchEnds = false,
     initialValue = { x: 0, y: 0 },
     window: window2 = defaultWindow,
+    target = window2,
+    scroll = true,
     eventFilter
   } = options;
+  let _prevMouseEvent = null;
   const x = ref(initialValue.x);
   const y = ref(initialValue.y);
   const sourceType = ref(null);
+  const extractor = typeof type === "function" ? type : UseMouseBuiltinExtractors[type];
   const mouseHandler = (event) => {
-    if (type === "page") {
-      x.value = event.pageX;
-      y.value = event.pageY;
-    } else if (type === "client") {
-      x.value = event.clientX;
-      y.value = event.clientY;
-    } else if (type === "screen") {
-      x.value = event.screenX;
-      y.value = event.screenY;
-    } else if (type === "movement") {
-      x.value = event.movementX;
-      y.value = event.movementY;
+    const result = extractor(event);
+    _prevMouseEvent = event;
+    if (result) {
+      [x.value, y.value] = result;
+      sourceType.value = "mouse";
     }
-    sourceType.value = "mouse";
+  };
+  const touchHandler = (event) => {
+    if (event.touches.length > 0) {
+      const result = extractor(event.touches[0]);
+      if (result) {
+        [x.value, y.value] = result;
+        sourceType.value = "touch";
+      }
+    }
+  };
+  const scrollHandler = () => {
+    if (!_prevMouseEvent || !window2)
+      return;
+    const pos = extractor(_prevMouseEvent);
+    if (_prevMouseEvent instanceof MouseEvent && pos) {
+      x.value = pos[0] + window2.scrollX;
+      y.value = pos[1] + window2.scrollY;
+    }
   };
   const reset = () => {
     x.value = initialValue.x;
     y.value = initialValue.y;
   };
-  const touchHandler = (event) => {
-    if (event.touches.length > 0) {
-      const touch2 = event.touches[0];
-      if (type === "page") {
-        x.value = touch2.pageX;
-        y.value = touch2.pageY;
-      } else if (type === "client") {
-        x.value = touch2.clientX;
-        y.value = touch2.clientY;
-      } else if (type === "screen") {
-        x.value = touch2.screenX;
-        y.value = touch2.screenY;
-      }
-      sourceType.value = "touch";
-    }
-  };
-  const mouseHandlerWrapper = (event) => {
-    return eventFilter === void 0 ? mouseHandler(event) : eventFilter(() => mouseHandler(event), {});
-  };
-  const touchHandlerWrapper = (event) => {
-    return eventFilter === void 0 ? touchHandler(event) : eventFilter(() => touchHandler(event), {});
-  };
-  if (window2) {
-    useEventListener(window2, "mousemove", mouseHandlerWrapper, { passive: true });
-    useEventListener(window2, "dragover", mouseHandlerWrapper, { passive: true });
+  const mouseHandlerWrapper = eventFilter ? (event) => eventFilter(() => mouseHandler(event), {}) : (event) => mouseHandler(event);
+  const touchHandlerWrapper = eventFilter ? (event) => eventFilter(() => touchHandler(event), {}) : (event) => touchHandler(event);
+  const scrollHandlerWrapper = eventFilter ? () => eventFilter(() => scrollHandler(), {}) : () => scrollHandler();
+  if (target) {
+    const listenerOptions = { passive: true };
+    useEventListener(target, ["mousemove", "dragover"], mouseHandlerWrapper, listenerOptions);
     if (touch && type !== "movement") {
-      useEventListener(window2, "touchstart", touchHandlerWrapper, { passive: true });
-      useEventListener(window2, "touchmove", touchHandlerWrapper, { passive: true });
+      useEventListener(target, ["touchstart", "touchmove"], touchHandlerWrapper, listenerOptions);
       if (resetOnTouchEnds)
-        useEventListener(window2, "touchend", reset, { passive: true });
+        useEventListener(target, "touchend", reset, listenerOptions);
     }
+    if (scroll && type === "page")
+      useEventListener(window2, "scroll", scrollHandlerWrapper, { passive: true });
   }
   return {
     x,
@@ -6311,22 +5930,6 @@ function useNetwork(options = {}) {
     type
   };
 }
-var __defProp$72 = Object.defineProperty;
-var __getOwnPropSymbols$82 = Object.getOwnPropertySymbols;
-var __hasOwnProp$82 = Object.prototype.hasOwnProperty;
-var __propIsEnum$82 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$72 = (obj, key, value) => key in obj ? __defProp$72(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$72 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$82.call(b, prop))
-      __defNormalProp$72(a, prop, b[prop]);
-  if (__getOwnPropSymbols$82)
-    for (var prop of __getOwnPropSymbols$82(b)) {
-      if (__propIsEnum$82.call(b, prop))
-        __defNormalProp$72(a, prop, b[prop]);
-    }
-  return a;
-};
 function useNow(options = {}) {
   const {
     controls: exposeControls = false,
@@ -6336,9 +5939,10 @@ function useNow(options = {}) {
   const update = () => now2.value = /* @__PURE__ */ new Date();
   const controls = interval === "requestAnimationFrame" ? useRafFn(update, { immediate: true }) : useIntervalFn(update, interval, { immediate: true });
   if (exposeControls) {
-    return __spreadValues$72({
-      now: now2
-    }, controls);
+    return {
+      now: now2,
+      ...controls
+    };
   } else {
     return now2;
   }
@@ -6377,14 +5981,14 @@ function useClamp(value, min, max) {
 }
 function useOffsetPagination(options) {
   const {
-    total = Infinity,
+    total = Number.POSITIVE_INFINITY,
     pageSize = 10,
     page = 1,
     onPageChange = noop,
     onPageSizeChange = noop,
     onPageCountChange = noop
   } = options;
-  const currentPageSize = useClamp(pageSize, 1, Infinity);
+  const currentPageSize = useClamp(pageSize, 1, Number.POSITIVE_INFINITY);
   const pageCount = computed(() => Math.max(
     1,
     Math.ceil(toValue(total) / toValue(currentPageSize))
@@ -6494,29 +6098,12 @@ function useParentElement(element = useCurrentElement()) {
   watch(() => toValue(element), update);
   return parentElement;
 }
-var __getOwnPropSymbols$72 = Object.getOwnPropertySymbols;
-var __hasOwnProp$72 = Object.prototype.hasOwnProperty;
-var __propIsEnum$72 = Object.prototype.propertyIsEnumerable;
-var __objRest$12 = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$72.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$72)
-    for (var prop of __getOwnPropSymbols$72(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$72.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 function usePerformanceObserver(options, callback) {
-  const _a = options, {
+  const {
     window: window2 = defaultWindow,
-    immediate = true
-  } = _a, performanceOptions = __objRest$12(_a, [
-    "window",
-    "immediate"
-  ]);
+    immediate = true,
+    ...performanceOptions
+  } = options;
   const isSupported = useSupported(() => window2 && "PerformanceObserver" in window2);
   let observer;
   const stop = () => {
@@ -6538,25 +6125,6 @@ function usePerformanceObserver(options, callback) {
     stop
   };
 }
-var __defProp$62 = Object.defineProperty;
-var __defProps$22 = Object.defineProperties;
-var __getOwnPropDescs$22 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$62 = Object.getOwnPropertySymbols;
-var __hasOwnProp$62 = Object.prototype.hasOwnProperty;
-var __propIsEnum$62 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$62 = (obj, key, value) => key in obj ? __defProp$62(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$62 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$62.call(b, prop))
-      __defNormalProp$62(a, prop, b[prop]);
-  if (__getOwnPropSymbols$62)
-    for (var prop of __getOwnPropSymbols$62(b)) {
-      if (__propIsEnum$62.call(b, prop))
-        __defNormalProp$62(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$22 = (a, b) => __defProps$22(a, __getOwnPropDescs$22(b));
 var defaultState = {
   x: 0,
   y: 0,
@@ -6584,13 +6152,14 @@ function usePointer(options = {}) {
     state.value = objectPick(event, keys, false);
   };
   if (target) {
-    useEventListener(target, "pointerdown", handler, { passive: true });
-    useEventListener(target, "pointermove", handler, { passive: true });
-    useEventListener(target, "pointerleave", () => isInside.value = false, { passive: true });
+    const listenerOptions = { passive: true };
+    useEventListener(target, ["pointerdown", "pointermove", "pointerup"], handler, listenerOptions);
+    useEventListener(target, "pointerleave", () => isInside.value = false, listenerOptions);
   }
-  return __spreadProps$22(__spreadValues$62({}, toRefs2(state)), {
+  return {
+    ...toRefs2(state),
     isInside
-  });
+  };
 }
 function usePointerLock(target, options = {}) {
   const { document: document2 = defaultDocument, pointerLockOptions } = options;
@@ -6934,7 +6503,7 @@ function useScriptTag(src, onLoaded = noop, options = {}) {
 }
 function checkOverflowScroll(ele) {
   const style = window.getComputedStyle(ele);
-  if (style.overflowX === "scroll" || style.overflowY === "scroll" || style.overflowX === "auto" && ele.clientHeight < ele.scrollHeight || style.overflowY === "auto" && ele.clientWidth < ele.scrollWidth) {
+  if (style.overflowX === "scroll" || style.overflowY === "scroll" || style.overflowX === "auto" && ele.clientWidth < ele.scrollWidth || style.overflowY === "auto" && ele.clientHeight < ele.scrollHeight) {
     return true;
   } else {
     const parent = ele.parentNode;
@@ -6959,8 +6528,9 @@ function useScrollLock(element, initialState = false) {
   let stopTouchMoveListener = null;
   let initialOverflow;
   watch(toRef2(element), (el) => {
-    if (el) {
-      const ele = el;
+    const target = resolveElement(toValue(el));
+    if (target) {
+      const ele = target;
       initialOverflow = ele.style.overflow;
       if (isLocked.value)
         ele.style.overflow = "hidden";
@@ -6969,12 +6539,12 @@ function useScrollLock(element, initialState = false) {
     immediate: true
   });
   const lock = () => {
-    const ele = toValue(element);
-    if (!ele || isLocked.value)
+    const el = resolveElement(toValue(element));
+    if (!el || isLocked.value)
       return;
     if (isIOS) {
       stopTouchMoveListener = useEventListener(
-        ele,
+        el,
         "touchmove",
         (e) => {
           preventDefault(e);
@@ -6982,15 +6552,15 @@ function useScrollLock(element, initialState = false) {
         { passive: false }
       );
     }
-    ele.style.overflow = "hidden";
+    el.style.overflow = "hidden";
     isLocked.value = true;
   };
   const unlock = () => {
-    const ele = toValue(element);
-    if (!ele || !isLocked.value)
+    const el = resolveElement(toValue(element));
+    if (!el || !isLocked.value)
       return;
     isIOS && (stopTouchMoveListener == null ? void 0 : stopTouchMoveListener());
-    ele.style.overflow = initialOverflow;
+    el.style.overflow = initialOverflow;
     isLocked.value = false;
   };
   tryOnScopeDispose(unlock);
@@ -7010,29 +6580,16 @@ function useSessionStorage(key, initialValue, options = {}) {
   const { window: window2 = defaultWindow } = options;
   return useStorage(key, initialValue, window2 == null ? void 0 : window2.sessionStorage, options);
 }
-var __defProp$52 = Object.defineProperty;
-var __getOwnPropSymbols$52 = Object.getOwnPropertySymbols;
-var __hasOwnProp$52 = Object.prototype.hasOwnProperty;
-var __propIsEnum$52 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$52 = (obj, key, value) => key in obj ? __defProp$52(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$52 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$52.call(b, prop))
-      __defNormalProp$52(a, prop, b[prop]);
-  if (__getOwnPropSymbols$52)
-    for (var prop of __getOwnPropSymbols$52(b)) {
-      if (__propIsEnum$52.call(b, prop))
-        __defNormalProp$52(a, prop, b[prop]);
-    }
-  return a;
-};
 function useShare(shareOptions = {}, options = {}) {
   const { navigator = defaultNavigator } = options;
   const _navigator = navigator;
   const isSupported = useSupported(() => _navigator && "canShare" in _navigator);
   const share = async (overrideOptions = {}) => {
     if (isSupported.value) {
-      const data = __spreadValues$52(__spreadValues$52({}, toValue(shareOptions)), toValue(overrideOptions));
+      const data = {
+        ...toValue(shareOptions),
+        ...toValue(overrideOptions)
+      };
       let granted = true;
       if (data.files && _navigator.canShare)
         granted = _navigator.canShare({ files: data.files });
@@ -7170,8 +6727,8 @@ function useSpeechSynthesis(text, options = {}) {
   const bindEventsForUtterance = (utterance2) => {
     utterance2.lang = toValue(lang);
     utterance2.voice = toValue(options.voice) || null;
-    utterance2.pitch = pitch;
-    utterance2.rate = rate;
+    utterance2.pitch = toValue(pitch);
+    utterance2.rate = toValue(rate);
     utterance2.volume = volume;
     utterance2.onstart = () => {
       isPlaying.value = true;
@@ -7314,22 +6871,6 @@ function useStepper(steps, initialStep) {
     isAfter
   };
 }
-var __defProp$42 = Object.defineProperty;
-var __getOwnPropSymbols$42 = Object.getOwnPropertySymbols;
-var __hasOwnProp$42 = Object.prototype.hasOwnProperty;
-var __propIsEnum$42 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$42 = (obj, key, value) => key in obj ? __defProp$42(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$42 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$42.call(b, prop))
-      __defNormalProp$42(a, prop, b[prop]);
-  if (__getOwnPropSymbols$42)
-    for (var prop of __getOwnPropSymbols$42(b)) {
-      if (__propIsEnum$42.call(b, prop))
-        __defNormalProp$42(a, prop, b[prop]);
-    }
-  return a;
-};
 function useStorageAsync(key, initialValue, storage, options = {}) {
   var _a;
   const {
@@ -7373,7 +6914,7 @@ function useStorageAsync(key, initialValue, storage, options = {}) {
         if (typeof mergeDefaults === "function")
           data.value = mergeDefaults(value, rawInit);
         else if (type === "object" && !Array.isArray(value))
-          data.value = __spreadValues$42(__spreadValues$42({}, rawInit), value);
+          data.value = { ...rawInit, ...value };
         else
           data.value = value;
       } else {
@@ -7425,7 +6966,6 @@ function useStyleTag(css, options = {}) {
       return;
     const el = document2.getElementById(id) || document2.createElement("style");
     if (!el.isConnected) {
-      el.type = "text/css";
       el.id = id;
       if (options.media)
         el.media = options.media;
@@ -7508,6 +7048,8 @@ function useSwipe(target, options = {}) {
   };
   const stops = [
     useEventListener(target, "touchstart", (e) => {
+      if (e.touches.length !== 1)
+        return;
       if (listenerOptions.capture && !listenerOptions.passive)
         e.preventDefault();
       const [x, y] = getTouchEventCoords(e);
@@ -7516,6 +7058,8 @@ function useSwipe(target, options = {}) {
       onSwipeStart == null ? void 0 : onSwipeStart(e);
     }, listenerOptions),
     useEventListener(target, "touchmove", (e) => {
+      if (e.touches.length !== 1)
+        return;
       const [x, y] = getTouchEventCoords(e);
       updateCoordsEnd(x, y);
       if (!isSwiping.value && isThresholdExceeded.value)
@@ -7523,8 +7067,7 @@ function useSwipe(target, options = {}) {
       if (isSwiping.value)
         onSwipe == null ? void 0 : onSwipe(e);
     }, listenerOptions),
-    useEventListener(target, "touchend", onTouchEnd, listenerOptions),
-    useEventListener(target, "touchcancel", onTouchEnd, listenerOptions)
+    useEventListener(target, ["touchend", "touchcancel"], onTouchEnd, listenerOptions)
   ];
   const stop = () => stops.forEach((s) => s());
   return {
@@ -7602,12 +7145,7 @@ function useTextDirection(options = {}) {
 function getRangesFromSelection(selection) {
   var _a;
   const rangeCount = (_a = selection.rangeCount) != null ? _a : 0;
-  const ranges = new Array(rangeCount);
-  for (let i = 0; i < rangeCount; i++) {
-    const range = selection.getRangeAt(i);
-    ranges[i] = range;
-  }
-  return ranges;
+  return Array.from({ length: rangeCount }, (_, i) => selection.getRangeAt(i));
 }
 function useTextSelection(options = {}) {
   const {
@@ -7652,7 +7190,7 @@ function useTextareaAutosize(options) {
     textarea.value.style.height = height;
     (_b = options == null ? void 0 : options.onResize) == null ? void 0 : _b.call(options);
   }
-  watch([input, textarea], triggerResize, { immediate: true });
+  watch([input, textarea], () => nextTick(triggerResize), { immediate: true });
   useResizeObserver(textarea, () => triggerResize());
   if (options == null ? void 0 : options.watch)
     watch(options.watch, triggerResize, { immediate: true, deep: true });
@@ -7662,59 +7200,14 @@ function useTextareaAutosize(options) {
     triggerResize
   };
 }
-var __defProp$32 = Object.defineProperty;
-var __defProps$12 = Object.defineProperties;
-var __getOwnPropDescs$12 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols$32 = Object.getOwnPropertySymbols;
-var __hasOwnProp$32 = Object.prototype.hasOwnProperty;
-var __propIsEnum$32 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$32 = (obj, key, value) => key in obj ? __defProp$32(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$32 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$32.call(b, prop))
-      __defNormalProp$32(a, prop, b[prop]);
-  if (__getOwnPropSymbols$32)
-    for (var prop of __getOwnPropSymbols$32(b)) {
-      if (__propIsEnum$32.call(b, prop))
-        __defNormalProp$32(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps$12 = (a, b) => __defProps$12(a, __getOwnPropDescs$12(b));
 function useThrottledRefHistory(source, options = {}) {
   const { throttle = 200, trailing = true } = options;
   const filter = throttleFilter(throttle, trailing);
-  const history = useRefHistory(source, __spreadProps$12(__spreadValues$32({}, options), { eventFilter: filter }));
-  return __spreadValues$32({}, history);
+  const history = useRefHistory(source, { ...options, eventFilter: filter });
+  return {
+    ...history
+  };
 }
-var __defProp$22 = Object.defineProperty;
-var __getOwnPropSymbols$22 = Object.getOwnPropertySymbols;
-var __hasOwnProp$22 = Object.prototype.hasOwnProperty;
-var __propIsEnum$22 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$22 = (obj, key, value) => key in obj ? __defProp$22(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$22 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$22.call(b, prop))
-      __defNormalProp$22(a, prop, b[prop]);
-  if (__getOwnPropSymbols$22)
-    for (var prop of __getOwnPropSymbols$22(b)) {
-      if (__propIsEnum$22.call(b, prop))
-        __defNormalProp$22(a, prop, b[prop]);
-    }
-  return a;
-};
-var __objRest2 = (source, exclude) => {
-  var target = {};
-  for (var prop in source)
-    if (__hasOwnProp$22.call(source, prop) && exclude.indexOf(prop) < 0)
-      target[prop] = source[prop];
-  if (source != null && __getOwnPropSymbols$22)
-    for (var prop of __getOwnPropSymbols$22(source)) {
-      if (exclude.indexOf(prop) < 0 && __propIsEnum$22.call(source, prop))
-        target[prop] = source[prop];
-    }
-  return target;
-};
 var DEFAULT_UNITS = [
   { max: 6e4, value: 1e3, name: "second" },
   { max: 276e4, value: 6e4, name: "minute" },
@@ -7722,7 +7215,7 @@ var DEFAULT_UNITS = [
   { max: 5184e5, value: 864e5, name: "day" },
   { max: 24192e5, value: 6048e5, name: "week" },
   { max: 28512e6, value: 2592e6, name: "month" },
-  { max: Infinity, value: 31536e6, name: "year" }
+  { max: Number.POSITIVE_INFINITY, value: 31536e6, name: "year" }
 ];
 var DEFAULT_MESSAGES = {
   justNow: "just now",
@@ -7745,12 +7238,13 @@ function useTimeAgo(time, options = {}) {
     controls: exposeControls = false,
     updateInterval = 3e4
   } = options;
-  const _a = useNow({ interval: updateInterval, controls: true }), { now: now2 } = _a, controls = __objRest2(_a, ["now"]);
-  const timeAgo = computed(() => formatTimeAgo(new Date(toValue(time)), options, toValue(now2.value)));
+  const { now: now2, ...controls } = useNow({ interval: updateInterval, controls: true });
+  const timeAgo = computed(() => formatTimeAgo(new Date(toValue(time)), options, toValue(now2)));
   if (exposeControls) {
-    return __spreadValues$22({
-      timeAgo
-    }, controls);
+    return {
+      timeAgo,
+      ...controls
+    };
   } else {
     return timeAgo;
   }
@@ -7802,7 +7296,7 @@ function formatTimeAgo(from, options = {}, now2 = Date.now()) {
   return messages.invalid;
 }
 function useTimeoutPoll(fn, interval, timeoutPollOptions) {
-  const { start } = useTimeoutFn(loop, interval);
+  const { start } = useTimeoutFn(loop, interval, { immediate: false });
   const isActive = ref(false);
   async function loop() {
     if (!isActive.value)
@@ -7828,22 +7322,6 @@ function useTimeoutPoll(fn, interval, timeoutPollOptions) {
     resume
   };
 }
-var __defProp$12 = Object.defineProperty;
-var __getOwnPropSymbols$12 = Object.getOwnPropertySymbols;
-var __hasOwnProp$12 = Object.prototype.hasOwnProperty;
-var __propIsEnum$12 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp$12 = (obj, key, value) => key in obj ? __defProp$12(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues$12 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp$12.call(b, prop))
-      __defNormalProp$12(a, prop, b[prop]);
-  if (__getOwnPropSymbols$12)
-    for (var prop of __getOwnPropSymbols$12(b)) {
-      if (__propIsEnum$12.call(b, prop))
-        __defNormalProp$12(a, prop, b[prop]);
-    }
-  return a;
-};
 function useTimestamp(options = {}) {
   const {
     controls: exposeControls = false,
@@ -7860,9 +7338,10 @@ function useTimestamp(options = {}) {
   } : update;
   const controls = interval === "requestAnimationFrame" ? useRafFn(cb, { immediate }) : useIntervalFn(cb, interval, { immediate });
   if (exposeControls) {
-    return __spreadValues$12({
-      timestamp: ts
-    }, controls);
+    return {
+      timestamp: ts,
+      ...controls
+    };
   } else {
     return ts;
   }
@@ -7900,25 +7379,6 @@ function useTitle(newTitle = null, options = {}) {
   }
   return title;
 }
-var __defProp2 = Object.defineProperty;
-var __defProps2 = Object.defineProperties;
-var __getOwnPropDescs2 = Object.getOwnPropertyDescriptors;
-var __getOwnPropSymbols2 = Object.getOwnPropertySymbols;
-var __hasOwnProp2 = Object.prototype.hasOwnProperty;
-var __propIsEnum2 = Object.prototype.propertyIsEnumerable;
-var __defNormalProp2 = (obj, key, value) => key in obj ? __defProp2(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
-var __spreadValues2 = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp2.call(b, prop))
-      __defNormalProp2(a, prop, b[prop]);
-  if (__getOwnPropSymbols2)
-    for (var prop of __getOwnPropSymbols2(b)) {
-      if (__propIsEnum2.call(b, prop))
-        __defNormalProp2(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps2 = (a, b) => __defProps2(a, __getOwnPropDescs2(b));
 var _TransitionPresets = {
   easeInSine: [0.12, 0, 0.39, 0],
   easeOutSine: [0.61, 1, 0.88, 1],
@@ -7980,7 +7440,7 @@ function executeTransition(source, from, to, options = {}) {
   const duration = (_a = toValue(options.duration)) != null ? _a : 1e3;
   const startedAt = Date.now();
   const endAt = Date.now() + duration;
-  const trans = (_b = toValue(options.transition)) != null ? _b : identity;
+  const trans = typeof options.transition === "function" ? options.transition : (_b = toValue(options.transition)) != null ? _b : identity;
   const ease = typeof trans === "function" ? trans : createEasingFunction(trans);
   return new Promise((resolve) => {
     source.value = fromVal;
@@ -8028,12 +7488,13 @@ function useTransition(source, options = {}) {
       return;
     const toVal = Array.isArray(to) ? to.map(toValue) : toValue(to);
     (_a = options.onStarted) == null ? void 0 : _a.call(options);
-    await executeTransition(outputRef, outputRef.value, toVal, __spreadProps2(__spreadValues2({}, options), {
+    await executeTransition(outputRef, outputRef.value, toVal, {
+      ...options,
       abort: () => {
         var _a2;
         return id !== currentId || ((_a2 = options.abort) == null ? void 0 : _a2.call(options));
       }
-    }));
+    });
     (_b = options.onFinished) == null ? void 0 : _b.call(options);
   }, { deep: true });
   watch(() => toValue(options.disabled), (disabled) => {
@@ -8243,7 +7704,7 @@ function useVModel(props, key, emit, options = {}) {
       key = "modelValue";
     }
   }
-  event = eventName || event || `update:${key.toString()}`;
+  event = event || `update:${key.toString()}`;
   const cloneFn = (val) => !clone ? val : typeof clone === "function" ? clone(val) : cloneFnJSON(val);
   const getValue2 = () => isDef(props[key]) ? cloneFn(props[key]) : defaultValue;
   const triggerEmit = (value) => {
@@ -8257,14 +7718,21 @@ function useVModel(props, key, emit, options = {}) {
   if (passive) {
     const initialValue = getValue2();
     const proxy = ref(initialValue);
+    let isUpdating = false;
     watch(
       () => props[key],
-      (v) => proxy.value = cloneFn(v)
+      (v) => {
+        if (!isUpdating) {
+          isUpdating = true;
+          proxy.value = cloneFn(v);
+          nextTick(() => isUpdating = false);
+        }
+      }
     );
     watch(
       proxy,
       (v) => {
-        if (v !== props[key] || deep)
+        if (!isUpdating && (v !== props[key] || deep))
           triggerEmit(v);
       },
       { deep }
@@ -8533,28 +8001,34 @@ function useWakeLock(options = {}) {
     release
   };
 }
-function useWebNotification(defaultOptions2 = {}) {
+function useWebNotification(options = {}) {
   const {
-    window: window2 = defaultWindow
-  } = defaultOptions2;
+    window: window2 = defaultWindow,
+    requestPermissions: _requestForPermissions = true
+  } = options;
+  const defaultWebNotificationOptions = options;
   const isSupported = useSupported(() => !!window2 && "Notification" in window2);
+  const permissionGranted = ref(isSupported.value && "permission" in Notification && Notification.permission === "granted");
   const notification = ref(null);
-  const requestPermission = async () => {
+  const ensurePermissions = async () => {
     if (!isSupported.value)
       return;
-    if ("permission" in Notification && Notification.permission !== "denied")
-      await Notification.requestPermission();
+    if (!permissionGranted.value && Notification.permission !== "denied") {
+      const result = await Notification.requestPermission();
+      if (result === "granted")
+        permissionGranted.value = true;
+    }
+    return permissionGranted.value;
   };
   const { on: onClick, trigger: clickTrigger } = createEventHook();
   const { on: onShow, trigger: showTrigger } = createEventHook();
   const { on: onError, trigger: errorTrigger } = createEventHook();
   const { on: onClose, trigger: closeTrigger } = createEventHook();
   const show = async (overrides) => {
-    if (!isSupported.value)
+    if (!isSupported.value && !permissionGranted.value)
       return;
-    await requestPermission();
-    const options = Object.assign({}, defaultOptions2, overrides);
-    notification.value = new Notification(options.title || "", options);
+    const options2 = Object.assign({}, defaultWebNotificationOptions, overrides);
+    notification.value = new Notification(options2.title || "", options2);
     notification.value.onclick = clickTrigger;
     notification.value.onshow = showTrigger;
     notification.value.onerror = errorTrigger;
@@ -8566,10 +8040,8 @@ function useWebNotification(defaultOptions2 = {}) {
       notification.value.close();
     notification.value = null;
   };
-  tryOnMounted(async () => {
-    if (isSupported.value)
-      await requestPermission();
-  });
+  if (_requestForPermissions)
+    tryOnMounted(ensurePermissions);
   tryOnScopeDispose(close);
   if (isSupported.value && window2) {
     const document2 = window2.document;
@@ -8583,6 +8055,8 @@ function useWebNotification(defaultOptions2 = {}) {
   return {
     isSupported,
     notification,
+    ensurePermissions,
+    permissionGranted,
     show,
     close,
     onClick,
@@ -8617,13 +8091,6 @@ function useWebSocket(url, options = {}) {
   let retried = 0;
   let bufferedData = [];
   let pongTimeoutWait;
-  const close = (code = 1e3, reason) => {
-    if (!wsRef.value)
-      return;
-    explicitlyClosed = true;
-    heartbeatPause == null ? void 0 : heartbeatPause();
-    wsRef.value.close(code, reason);
-  };
   const _sendBuffer = () => {
     if (bufferedData.length && wsRef.value && status.value === "OPEN") {
       for (const buffer of bufferedData)
@@ -8634,6 +8101,14 @@ function useWebSocket(url, options = {}) {
   const resetHeartbeat = () => {
     clearTimeout(pongTimeoutWait);
     pongTimeoutWait = void 0;
+  };
+  const close = (code = 1e3, reason) => {
+    if (!wsRef.value)
+      return;
+    explicitlyClosed = true;
+    resetHeartbeat();
+    heartbeatPause == null ? void 0 : heartbeatPause();
+    wsRef.value.close(code, reason);
   };
   const send = (data2, useBuffer = true) => {
     if (!wsRef.value || status.value !== "OPEN") {
@@ -8705,6 +8180,7 @@ function useWebSocket(url, options = {}) {
           return;
         pongTimeoutWait = setTimeout(() => {
           close();
+          explicitlyClosed = false;
         }, pongTimeout);
       },
       interval,
@@ -8740,10 +8216,10 @@ function useWebWorker(arg0, workerOptions, options) {
   } = options != null ? options : {};
   const data = ref(null);
   const worker = shallowRef();
-  const post = function post2(val) {
+  const post = (...args) => {
     if (!worker.value)
       return;
-    worker.value.postMessage(val);
+    worker.value.postMessage(...args);
   };
   const terminate = function terminate2() {
     if (!worker.value)
@@ -8839,6 +8315,7 @@ function useWebWorkerFn(fn, options = {}) {
     newWorker.onerror = (e) => {
       const { reject = () => {
       } } = promise.value;
+      e.preventDefault();
       reject(e);
       workerTerminate("ERROR");
     };
@@ -8912,8 +8389,8 @@ function useWindowScroll({ window: window2 = defaultWindow } = {}) {
 function useWindowSize(options = {}) {
   const {
     window: window2 = defaultWindow,
-    initialWidth = Infinity,
-    initialHeight = Infinity,
+    initialWidth = Number.POSITIVE_INFINITY,
+    initialHeight = Number.POSITIVE_INFINITY,
     listenOrientation = true,
     includeScrollbar = true
   } = options;
@@ -8949,11 +8426,13 @@ export {
   breakpointsAntDesign,
   breakpointsBootstrapV5,
   breakpointsMasterCss,
+  breakpointsPrimeFlex,
   breakpointsQuasar,
   breakpointsSematic,
   breakpointsTailwind,
   breakpointsVuetify,
   bypassFilter,
+  camelize,
   clamp,
   cloneFnJSON,
   computedAsync,
@@ -8991,6 +8470,7 @@ export {
   get,
   getSSRHandler,
   hasOwn,
+  hyphenate,
   identity,
   watchIgnorable as ignorableWatch,
   increaseWithUnit,

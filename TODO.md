@@ -75,12 +75,30 @@
 61. `z-table`的`pagination`支持位置调整
 62. `z-form`的`OperationCard`组件`size`适配
 63. `z-table`数据项拖拽添加把手
+64. `z-filter-form`操作按钮逻辑内置
 
 ## LONG_TERM FEATURE
 
 1. 更换`vitepress`模板，目前的`vitepress`模板问题较多
 2. `z-crud`的`default-key`相关处理
 3. 样式文件包含过多不需要的`element-plus`的样式代码，需要精简
+4. 文档`mock`数据内容修改
+
+## FIX
+
+1. `Vue2`中日期组件`icon`会造成排序错乱问题
+2. `z-text`组件在`vitepress`文档中的折行不正确问题
+3. ~~`z-check-card`组件修复`inject`报错问题~~
+4. `z-crud`表单输入一个字符，刷新两次问题
+5. ~~`z-crud`表单底部和顶部高度不对称问题~~
+6. ~~`z-dialog`导入方式组件关闭销毁问题~~
+7. ~~修复`z-crud`全屏问题~~
+8. 修复`z-filter-form`的`placeholder`问题
+
+## Long Time
+
+1. 统一`slot`和`render`参数问题
+2. 引入路径问题，将`element`包中的所有东西都导出
 
 ## FEATURE（docs and dts）
 
@@ -99,21 +117,6 @@
 13. `crud`组件文档、`dts`文件
 14. `dialog`组件文档、`dts`文件
 15. `full-screen`组件文档
-
-## FIX
-
-1. `Vue2`中日期组件`icon`会造成排序错乱问题
-2. `z-text`组件在`vitepress`文档中的折行不正确问题
-3. ~~`z-check-card`组件修复`inject`报错问题~~
-4. `z-crud`表单输入一个字符，刷新两次问题
-5. ~~`z-crud`表单底部和顶部高度不对称问题~~
-6. ~~`z-dialog`导入方式组件关闭销毁问题~~
-7. ~~修复`z-crud`全屏问题~~
-
-## Long Time
-
-1. 统一`slot`和`render`参数问题
-2. 引入路径问题，将`element`包中的所有东西都导出
 
 ## design
 

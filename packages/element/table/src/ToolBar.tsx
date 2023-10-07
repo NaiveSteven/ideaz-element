@@ -243,7 +243,7 @@ export default defineComponent({
             </el-dropdown>
           </el-tooltip>
           <el-tooltip effect="dark" content={isFullScreen.value ? t('common.cancelFullScreen') : t('common.fullScreen')} placement="top" showAfter={300}>
-            <z-full-screen getElement={fullScreenElement || document.getElementsByClassName('z-table__container')[0]} teleported={true} onChange={(val: boolean) => isFullScreen.value = val}>
+            <z-full-screen el={fullScreenElement || document.getElementsByClassName('z-table__container')[0]} onChange={(val: boolean) => isFullScreen.value = val}>
               <el-button icon={FullScreen} text />
             </z-full-screen>
           </el-tooltip>

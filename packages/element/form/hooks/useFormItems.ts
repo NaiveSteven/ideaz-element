@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash-es'
-import { isFunction, uid } from '@ideaz/utils'
+import { isFunction, isString, uid } from '@ideaz/utils'
 import type { FormProps } from '../src/props'
 import type { FormColumn } from '~/types'
 
@@ -11,11 +11,12 @@ export const useFormItems = (props: FormProps) => {
   const setDefaultPlaceholder = (formItem: FormColumn) => {
     const label = formItem.label || formItem.formItemProps?.label || ''
     const type = isFunction(formItem.component) ? formItem.component() : formItem.component
+
     if (SELECT_TYPES.includes((type || '').toLowerCase()))
-      return label ? `${t('form.selectPlaceholder')}${label}` : `${t('form.selectPlaceholder')}`
+      return (isString(label) && !label.includes('Slot')) ? `${t('form.selectPlaceholder')}${label}` : `${t('form.selectPlaceholder')}`
 
     else
-      return label ? `${t('form.inputPlaceholder')}${label}` : `${t('form.inputPlaceholder')}`
+      return (isString(label) && !label.includes('Slot')) ? `${t('form.inputPlaceholder')}${label}` : `${t('form.inputPlaceholder')}`
   }
 
   const isHide = (item: FormColumn) => {
