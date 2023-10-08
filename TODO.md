@@ -75,7 +75,10 @@
 61. `z-table`的`pagination`支持位置调整
 62. `z-form`的`OperationCard`组件`size`适配
 63. `z-table`数据项拖拽添加把手
-64. `z-filter-form`操作按钮逻辑内置
+64. ~~`z-filter-form`操作按钮逻辑内置~~
+65. `z-filter-form`的查询和重置按钮支持属性配置
+
+## FEATURE
 
 ## LONG_TERM FEATURE
 
@@ -93,7 +96,9 @@
 5. ~~`z-crud`表单底部和顶部高度不对称问题~~
 6. ~~`z-dialog`导入方式组件关闭销毁问题~~
 7. ~~修复`z-crud`全屏问题~~
-8. 修复`z-filter-form`的`placeholder`问题
+8. ~~修复`z-filter-form`的`placeholder`问题~~
+9. ~~修复`z-filter-form`校验`message`错误问题~~
+10. 修复`z-filter-form`的`hide`导致布局错误问题
 
 ## Long Time
 

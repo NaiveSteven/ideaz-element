@@ -1,9 +1,10 @@
 import { useWindowReactiveSize } from '@ideaz/hooks'
-import type { FilterFormProps } from '../src/props'
+import { isFunction } from '@ideaz/utils'
+import type { FilterFormProps, ToggleButtonType } from '../src/props'
 import type { FormColumn } from '~/types'
 
 export const useFilterFormItem = (props: FilterFormProps) => {
-  const toggleButtonType = ref(props.collapsed ? 'up' : 'expand')
+  const toggleButtonType = ref<ToggleButtonType>(props.collapsed ? 'up' : 'expand')
 
   const ns = useNamespace('form-item')
   const { windowReactiveSize } = useWindowReactiveSize()
@@ -16,12 +17,18 @@ export const useFilterFormItem = (props: FilterFormProps) => {
     xl: 6,
   }
 
+  const isHide = (item: FormColumn) => {
+    return isFunction(item.hide) ? item.hide(props.modelValue) : item.hide
+  }
+
   const virtualColumns = computed<FormColumn[]>(() => {
-    return props.columns.map((cur: FormColumn, index: number) => ({
-      ...cur,
-      ...colLayout,
-      hideUseVShow: () => judgeIsHideFormItem(index),
-    }))
+    return props.columns
+      .filter((item: FormColumn) => !isHide(item))
+      .map((cur: FormColumn, index: number) => ({
+        ...cur,
+        ...colLayout,
+        hideUseVShow: () => judgeIsHideFormItem(index),
+      }))
   })
 
   const btnLayout = computed<FormColumn>(() => {

@@ -1,6 +1,7 @@
 import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { useFilterFormItem, useFormConfig, useFormMethods } from '../hooks'
+import type { ToggleButtonType } from './props'
 import { filterFormProps } from './props'
 import ToggleButton from './ToggleButton'
 
@@ -76,7 +77,7 @@ export default defineComponent({
                 ? (
                   <ToggleButton
                     modelValue={toggleButtonType.value}
-                    onUpdate:modelValue={(val: any) => (toggleButtonType.value = val)}
+                    onUpdate:modelValue={(val: ToggleButtonType) => (toggleButtonType.value = val)}
                   />
                   )
                 : null}

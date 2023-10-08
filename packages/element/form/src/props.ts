@@ -113,6 +113,7 @@ export const filterFormProps = {
   },
 }
 
+export type ToggleButtonType = 'up' | 'expand'
 export type FormProps = ExtractPropTypes<typeof formProps>
 export type FormItemProps = ExtractPropTypes<typeof formItemProps>
 export type FilterFormProps = ExtractPropTypes<typeof filterFormProps>
