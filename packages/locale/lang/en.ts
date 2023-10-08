@@ -59,5 +59,6 @@ export default {
     fullScreen: 'full screen',
     cancelFullScreen: 'cancel full screen',
     reset: 'reset',
+    search: 'search',
   },
 }

@@ -107,9 +107,27 @@ export const filterFormProps = {
     type: Boolean,
     default: true,
   },
-  searchLoading: {
+  searchButtonLoading: {
     type: Boolean,
     default: false,
+  },
+  searchButtonLabel: {
+    type: String,
+  },
+  resetButtonLabel: {
+    type: String,
+  },
+  resetButtonLoading: {
+    type: Boolean,
+    default: false,
+  },
+  searchButtonProps: {
+    type: Object,
+    default: () => ({}),
+  },
+  resetButtonProps: {
+    type: Object,
+    default: () => ({}),
   },
 }
 

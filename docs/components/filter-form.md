@@ -521,8 +521,8 @@ function delay(time: number) {
     label-width="80px"
     search-button-label="点击查询"
     reset-button-label="点击重置"
-    :search-button-loading="searchLoading"
-    :reset-button-loading="resetLoading"
+    :search-button-loading="searchButtonLoading"
+    :reset-button-loading="resetButtonLoading"
     @search="handleSearch"
     @reset="handleReset"
   />
@@ -716,7 +716,7 @@ const columns = [
 | size                           | 用于控制该表单内组件的尺寸                                   | `large` / `default` / `small`               | —      |
 | disabled                       | 是否禁用该表单内的所有组件。 如果设置为 `true`, 它将覆盖内部组件的 `disabled` 属性 | `boolean`            | false  |
 | scroll-to-error                | 当校验失败时，滚动到第一个错误表单项                         | `boolean`            | false  |
-| scroll-into-view-options 2.3.2 | 当校验有失败结果时，滚动到第一个失败的表单项目               | `object` / `boolean` | —      |
+| scroll-into-view-options | 当校验有失败结果时，滚动到第一个失败的表单项目               | `object` / `boolean` | —      |
 
 ## z-filter-form方法
 
