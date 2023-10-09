@@ -76,7 +76,12 @@
 62. `z-form`的`OperationCard`组件`size`适配
 63. `z-table`数据项拖拽添加把手
 64. ~~`z-filter-form`操作按钮逻辑内置~~
-65. `z-filter-form`的查询和重置按钮支持属性配置
+65. ~~`z-filter-form`的查询和重置按钮支持属性配置~~
+66. `z-filter-form`的操作按钮支持`render`函数自定义
+67. `z-form`的`colon`支持`column`中直接配置
+68. `z-form`的`type`为`group`时，支持在`column`中配置`content-position`和`border-style`等属性
+69. `z-form`的`type`为`group`时，支持`label`自定义`slot`和`render`函数配置
+70. `z-form`的`type`为`step`时，按钮支持自定义
 
 ## FEATURE
 
@@ -99,6 +104,7 @@
 8. ~~修复`z-filter-form`的`placeholder`问题~~
 9. ~~修复`z-filter-form`校验`message`错误问题~~
 10. ~~修复`z-filter-form`的`hide`导致布局错误问题~~
+11. 修复`z-form`的`type`为`collapse`时，点击跳转问题
 
 ## Long Time
 

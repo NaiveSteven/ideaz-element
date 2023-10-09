@@ -756,10 +756,6 @@ const columns = [
 | md                      | `≥992px` 响应式栅格数或者栅格属性对象                         | `number` / `object`             |  —      |
 | lg                      | `≥1200px` 响应式栅格数或者栅格属性对象                        | `number` / `object`            |  —      |
 | xl                      | `≥1920px` 响应式栅格数或者栅格属性对象                        | `number` / `object`            |  —      |
-| icon                      | 表单`step`模式生效，图标                                  | `boolean`             |  —      |
-| description                      | 表单`step`模式生效，描述                                  | `boolean`             |  —      |
-| status                      | 表单`step`模式生效，步骤条状态                                  | `boolean`             |  —      |
-| max                      | 表单`array`模式生效，最大个数                                  | `boolean`             |  —      |
 
 ## formItemProps属性
 
