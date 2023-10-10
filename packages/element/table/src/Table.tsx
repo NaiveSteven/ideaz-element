@@ -143,7 +143,7 @@ export default defineComponent({
       return <div
         class={ns.be('tool-bar', 'container')}
         style={{
-          marginBottom: (toolBar || isFunction(slots.top)) ? '16px' : 0,
+          marginBottom: (toolBar || isFunction(slots.top) || isFunction(slots.topRight) || isFunction(slots.topLeft)) ? '16px' : 0,
         }}
       >
         <div class={ns.bm('tool-bar', 'top')}>
@@ -182,7 +182,7 @@ export default defineComponent({
             />
           )}
         </div>
-        <div class={ns.bm('tool-bar', 'top-bottom')} style={{ marginTop: (props.toolBar || slots.topLeft || slots.topRight || slots.top) ? '16px' : 0 }} >
+        <div class={ns.bm('tool-bar', 'top-bottom')} >
           {slots.topBottom ? slots.topBottom() : null}
         </div>
       </div>
