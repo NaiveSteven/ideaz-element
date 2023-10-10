@@ -82,6 +82,7 @@
 68. `z-form`的`type`为`group`时，支持在`column`中配置`content-position`和`border-style`等属性
 69. `z-form`的`type`为`group`时，支持`label`自定义`slot`和`render`函数配置
 70. `z-form`的`type`为`step`时，按钮支持自定义
+71. `z-table`的`reference`支持`render`函数自定义`
 
 ## FEATURE
 
@@ -105,6 +106,8 @@
 9. ~~修复`z-filter-form`校验`message`错误问题~~
 10. ~~修复`z-filter-form`的`hide`导致布局错误问题~~
 11. 修复`z-form`的`type`为`collapse`时，点击跳转问题
+12. 修复`z-table`的`z-table-tool-bar--top-bottom`多余`margin-bottom`
+13. 优化`z-table`的操作按钮和`dropdown`同时出现时的布局问题
 
 ## Long Time
 

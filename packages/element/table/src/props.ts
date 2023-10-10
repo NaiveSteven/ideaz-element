@@ -147,7 +147,7 @@ export const tableColumnProps = {
   },
   size: {
     type: String as PropType<ComponentSize>,
-    default: 'small',
+    default: 'default',
   },
   tableProps: {
     type: Object as PropType<ITableProps>,
@@ -192,7 +192,7 @@ export const toolBarProps = {
   },
   size: {
     type: String,
-    default: 'small',
+    default: 'default',
   },
   toolBar: {
     type: [Boolean, Object],

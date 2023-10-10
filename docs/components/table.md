@@ -1,12 +1,602 @@
 # Table 表格
 
-常用的操作按钮。
+通过配置生成表格，内置更适合中后台业务的功能。
+
+:::tip
+某些属性在`z-table`内部被默认配置，例如：`align` 设置为 `center`
+:::
 
 ## 基础用法
 
+配置`column`生成表格项。`el-table`表格属性直接传入`z-table`，`el-table-column`属性在`column`中配置。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const tableData = ref([
+  {
+    name: 'Steven',
+    sex: 'male',
+    age: 22,
+    time: '2020-01-01'
+  },
+  {
+    name: 'Helen',
+    sex: 'male',
+    age: 12,
+    time: '2012-01-01'
+  },
+  {
+    name: 'Nancy',
+    sex: 'female',
+    age: 18,
+    time: '2018-01-01'
+  },
+  {
+    name: 'Jack',
+    sex: 'male',
+    age: 28,
+    time: '2028-01-01'
+  },
+])
+
+const columns = [
+  {
+    prop: 'name',
+    label: '姓名',
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+  },
+  {
+    prop: 'age',
+    label: '年龄'
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+]
+</script>
+
+<template>
+  <z-table
+    :data="tableData"
+    :loading="loading"
+    :columns="columns"
+  />
+</template>
+```
+
+:::
+
+## 分页
+
+配置`pagination`，支持双向绑定，实现分页效果。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const tableData = ref([])
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 0,
+  layout: 'total, sizes, prev, pager, next, jumper'
+})
+
+const columns = [
+  {
+    prop: 'name',
+    label: '姓名',
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+  },
+  {
+    prop: 'age',
+    label: '年龄'
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+]
+
+const mockApi = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const dataFirstPage = [
+        {
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+      ]
+      const dataSecondPage = [
+        {
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+      resolve({
+        result: {
+          page: 1,
+          page_size: 10,
+          total: 4,
+          list: pagination.value.page === 1 ? dataFirstPage : dataSecondPage,
+        }
+      })
+    }, 100)
+  })
+}
+
+const getTableData = async () => {
+  loading.value = true
+  try {
+    const res = await mockApi({ ...pagination.value })
+    tableData.value = res.result.list
+    pagination.value.total = res.result.total
+  }
+  catch (error) {
+    console.log(error)
+  }
+  loading.value = false
+}
+
+getTableData()
+</script>
+
+<template>
+  <z-table
+    v-model:pagination="pagination"
+    :data="tableData"
+    :loading="loading"
+    :columns="columns"
+    @refresh="getTableData"
+  />
+</template>
+```
+
+:::
+
+## 操作按钮
+
+`column`中配置操作项，`type`传入`button`，配置`buttons`数组。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const tableData = ref([
+  {
+    name: 'Steven',
+    sex: 'male',
+    age: 22,
+    time: '2020-01-01'
+  },
+  {
+    name: 'Helen',
+    sex: 'male',
+    age: 12,
+    time: '2012-01-01'
+  },
+  {
+    name: 'Nancy',
+    sex: 'female',
+    age: 18,
+    time: '2018-01-01'
+  },
+  {
+    name: 'Jack',
+    sex: 'male',
+    age: 28,
+    time: '2028-01-01'
+  }
+])
+
+const columns = [
+  {
+    prop: 'name',
+    label: '姓名',
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+  },
+  {
+    prop: 'age',
+    label: '年龄'
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  },
+  {
+    type: 'button',
+    label: '操作',
+    buttons: [
+      {
+        type: 'primary',
+        link: true,
+        label: '编辑',
+        onClick: (row) => {
+          console.log(row, 'edit')
+        }
+      },
+      {
+        type: 'danger',
+        link: true,
+        label: '删除',
+        onClick: (row) => {
+          console.log(row, 'delete')
+        }
+      }
+    ]
+  }
+]
+</script>
+
+<template>
+  <z-table
+    :data="tableData"
+    :loading="loading"
+    :columns="columns"
+  />
+</template>
+```
+
+:::
+
+## 操作项下拉
+
+如需下拉，可以在`buttons`数组中配置`type`为`dropdown`，`children`中配置下拉选项
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const tableData = ref([
+  {
+    name: 'Steven',
+    sex: 'male',
+    age: 22,
+    time: '2020-01-01'
+  },
+  {
+    name: 'Helen',
+    sex: 'male',
+    age: 12,
+    time: '2012-01-01'
+  },
+  {
+    name: 'Nancy',
+    sex: 'female',
+    age: 18,
+    time: '2018-01-01'
+  },
+  {
+    name: 'Jack',
+    sex: 'male',
+    age: 28,
+    time: '2028-01-01'
+  }
+])
+
+const columns = [
+  {
+    prop: 'name',
+    label: '姓名',
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+  },
+  {
+    prop: 'age',
+    label: '年龄'
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  },
+  {
+    type: 'button',
+    label: '操作',
+    width: '200px',
+    buttons: [
+      {
+        type: 'primary',
+        link: true,
+        label: '编辑',
+        onClick: (row) => {
+          console.log(row, 'edit')
+        }
+      },
+      {
+        type: 'danger',
+        link: true,
+        label: '删除',
+        onClick: (row) => {
+          console.log(row, 'delete')
+        }
+      },
+      {
+        type: 'dropdown',
+        reference: '删除',
+        children: [
+          {
+            type: 'primary',
+            link: true,
+            label: '复制',
+            onClick: (row) => {
+              console.log(row, 'copy')
+            }
+          },
+          {
+            type: 'danger',
+            link: true,
+            label: '操作',
+            onClick: (row) => {
+              console.log(row, 'operate')
+            }
+          },
+        ]
+      }
+    ]
+  }
+]
+</script>
+
+<template>
+  <z-table
+    :data="tableData"
+    :loading="loading"
+    :columns="columns"
+  />
+</template>
+```
+
+:::
+
+`reference`字段配置下拉关联文案（默认为`更多`），支持函数和字符串类型。
+
+支持配置`el-dropdown`和`el-dropdown-item`组件属性和方法。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const tableData = ref([
+  {
+    name: 'Steven',
+    sex: 'male',
+    age: 22,
+    time: '2020-01-01'
+  },
+  {
+    name: 'Helen',
+    sex: 'male',
+    age: 12,
+    time: '2012-01-01'
+  },
+  {
+    name: 'Nancy',
+    sex: 'female',
+    age: 18,
+    time: '2018-01-01'
+  },
+  {
+    name: 'Jack',
+    sex: 'male',
+    age: 28,
+    time: '2028-01-01'
+  }
+])
+
+const columns = [
+  {
+    prop: 'name',
+    label: '姓名',
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+  },
+  {
+    prop: 'age',
+    label: '年龄'
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  },
+  {
+    type: 'button',
+    label: '操作',
+    buttons: [
+      {
+        type: 'dropdown',
+        reference: '操作',
+        placement: 'top-start',
+        children: [
+          {
+            type: 'primary',
+            link: true,
+            label: '编辑',
+            onClick: (row) => {
+              console.log(row, 'edit')
+            }
+          },
+          {
+            type: 'danger',
+            link: true,
+            label: '删除',
+            onClick: (row) => {
+              console.log(row, 'delete')
+            }
+          },
+        ]
+      },
+      {
+        type: 'dropdown',
+        reference: '操作2',
+        placement: 'top',
+        onVisibleChange: (visible) => {
+          console.log(visible, 'visible')
+        },
+        children: [
+          {
+            type: 'primary',
+            link: true,
+            label: '复制',
+            onClick: (row) => {
+              console.log(row, 'copy')
+            }
+          },
+          {
+            type: 'danger',
+            link: true,
+            label: '操作',
+            divided: true,
+            onClick: (row) => {
+              console.log(row, 'operate')
+            }
+          },
+        ]
+      }
+    ]
+  }
+]
+</script>
+
+<template>
+  <z-table
+    :data="tableData"
+    :loading="loading"
+    :columns="columns"
+  />
+</template>
+```
+
+:::
+
+## 列显隐
+
+`column`中配置`hide`字段，支持函数或布尔值，函数返回布尔值，true表示隐藏，false表示显示。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const isHide = ref(false)
+const tableData = ref([
+  {
+    name: 'Steven',
+    sex: 'male',
+    age: 22,
+    time: '2020-01-01'
+  },
+  {
+    name: 'Helen',
+    sex: 'male',
+    age: 12,
+    time: '2012-01-01'
+  },
+  {
+    name: 'Nancy',
+    sex: 'female',
+    age: 18,
+    time: '2018-01-01'
+  },
+  {
+    name: 'Jack',
+    sex: 'male',
+    age: 28,
+    time: '2028-01-01'
+  }
+])
+
+const columns = [
+  {
+    prop: 'name',
+    label: '姓名',
+    hide: () => isHide.value,
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    hide: true,
+  },
+  {
+    prop: 'age',
+    label: '年龄'
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+]
+
+const changeVisible = () => {
+  isHide.value = !isHide.value
+}
+</script>
+
+<template>
+  <el-button @click="changeVisible">
+    点击修改列显隐
+  </el-button>
+  <z-table
+    :data="tableData"
+    :columns="columns"
+  />
+</template>
+```
+
+:::
+
+## 撒打发
+
 基础的按钮用法。
 
-:::demo 使用 `type`、`plain`、`round` 和 `circle` 属性来定义 Button 的样式。
+:::demo
 
 ```vue
 <script lang="ts" setup>

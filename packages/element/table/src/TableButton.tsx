@@ -1,5 +1,5 @@
 import { isBoolean, isFunction, isString } from '@ideaz/utils'
-import { reactiveOmit } from '@vueuse/core'
+import { omit } from 'lodash-unified'
 import type { BtnItem } from '~/types'
 
 interface DropdownProps {
@@ -94,7 +94,7 @@ export default defineComponent({
 
       if (isShowButton) {
         if (button.type === 'dropdown') {
-          const dropdownProps = reactiveOmit(button, FILTER_KEYS)
+          const dropdownProps = omit(button, FILTER_KEYS)
           return <el-dropdown
             type="primary"
             size={size.value}
@@ -109,7 +109,7 @@ export default defineComponent({
               dropdown: () => (
                 <el-dropdown-menu>
                   {button.children.map((dropdownItem: BtnItem) => {
-                    const dropdownProps = reactiveOmit(dropdownItem, FILTER_KEYS)
+                    const dropdownProps = omit(dropdownItem, FILTER_KEYS)
                     return (
                       <el-dropdown-item
                         {...dropdownProps}
