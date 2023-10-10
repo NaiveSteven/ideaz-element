@@ -474,7 +474,7 @@ const columns = [
       },
       {
         type: 'dropdown',
-        reference: '操作2',
+        reference: () => h('span', { style: { cursor: 'pointer' } }, '操作2'),
         placement: 'top',
         onVisibleChange: (visible) => {
           console.log(visible, 'visible')
