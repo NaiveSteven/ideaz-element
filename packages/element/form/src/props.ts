@@ -129,6 +129,9 @@ export const filterFormProps = {
     type: Object,
     default: () => ({}),
   },
+  renderOperation: {
+    type: Function as PropType<() => VNode>,
+  },
 }
 
 export type ToggleButtonType = 'up' | 'expand'

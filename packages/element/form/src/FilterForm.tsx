@@ -1,5 +1,6 @@
 import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
+import { isFunction } from '@ideaz/utils'
 import { useFilterFormButtons, useFilterFormItem, useFormConfig, useFormMethods } from '../hooks'
 import type { ToggleButtonType } from './props'
 import { filterFormProps } from './props'
@@ -45,6 +46,25 @@ export default defineComponent({
       emit('reset')
     }
 
+    const renderOperation = () => {
+      if (isFunction(slots.formOperation))
+        return slots.formOperation()
+
+      if (isFunction(props.renderOperation))
+        return props.renderOperation()
+
+      return (
+        <div class={ns.b('operation')}>
+          <el-button type="primary" size={size.value} onClick={handleSearch} {...searchButtonProps.value}>
+            {searchButtonProps.value.label}
+          </el-button>
+          <el-button type="default" size={size.value} onClick={handleReset} {...resetButtonProps.value}>
+            {resetButtonProps.value.label}
+          </el-button>
+        </div>
+      )
+    }
+
     return () => {
       const { modelValue, options } = props
       return <z-form
@@ -59,28 +79,13 @@ export default defineComponent({
           ...slots,
           button: () => (
             <>
-              {!slots.formOperation
-                ? (
-                  <div class={ns.b('operation')}>
-                    <el-button type="primary" size={size.value} onClick={handleSearch} {...searchButtonProps.value}>
-                      {searchButtonProps.value.label}
-                    </el-button>
-                    <el-button type="default" size={size.value} onClick={handleReset} {...resetButtonProps.value}>
-                      {resetButtonProps.value.label}
-                    </el-button>
-                  </div>
-                  )
-                : (
-                    slots.formOperation()
-                  )}
-              {isShowToggleButton.value
-                ? (
-                  <ToggleButton
-                    modelValue={toggleButtonType.value}
-                    onUpdate:modelValue={(val: ToggleButtonType) => (toggleButtonType.value = val)}
-                  />
-                  )
-                : null}
+              {renderOperation()}
+              {!!isShowToggleButton.value && (
+                <ToggleButton
+                  modelValue={toggleButtonType.value}
+                  onUpdate:modelValue={(val: ToggleButtonType) => (toggleButtonType.value = val)}
+                />
+              )}
             </>
           ),
         }}
