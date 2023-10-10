@@ -16,6 +16,7 @@ export interface FormColumn {
   tooltip?: string | (() => VNode)
   label?: string | (() => VNode)
   extra?: string | (() => VNode)
+  colon?: boolean
   field?: string
   formItemProps?: Partial<ElFormItemProps> & FormItemProps
   fieldProps?: IndexType

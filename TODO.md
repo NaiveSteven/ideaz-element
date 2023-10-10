@@ -78,7 +78,7 @@
 64. ~~`z-filter-form`操作按钮逻辑内置~~
 65. ~~`z-filter-form`的查询和重置按钮支持属性配置~~
 66. `z-filter-form`的操作按钮支持`render`函数自定义
-67. `z-form`的`colon`支持`column`中直接配置
+67. ~~`z-form`的`colon`支持`column`中直接配置~~
 68. `z-form`的`type`为`group`时，支持在`column`中配置`content-position`和`border-style`等属性
 69. `z-form`的`type`为`group`时，支持`label`自定义`slot`和`render`函数配置
 70. `z-form`的`type`为`step`时，按钮支持自定义

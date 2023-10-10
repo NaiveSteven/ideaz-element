@@ -282,8 +282,8 @@ const submit = () => {
 
 ## 提示
 
-`column`传入`tooltip`和`extra`，可以配置提示、额外信息和冒号。`tooltip`和`extra`支持字符串和`render`函数配置。
-表单传入`colon`，可以配置表单项冒号。
+`column`传入`tooltip`、`extra`和`colon`，可以配置提示、额外信息和冒号。`tooltip`和`extra`支持字符串和`render`函数配置。
+表单传入`colon`，可以统一配置所有表单项冒号。
 
 :::demo
 
@@ -318,6 +318,7 @@ const columns = [
     component: 'select',
     field: 'sex',
     label: '性别',
+    colon: false,
     tooltip: () => h('span', {}, '性别提示'),
     extra: () => h('span', {}, '性别额外信息'),
   },
