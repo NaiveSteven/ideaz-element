@@ -60,11 +60,14 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
       const componentName = getComponentName(column.type!)
 
       if (
-        !['index', 'selection', 'expand', 'radio', undefined].includes(column.type)
+        !['index', 'selection', 'radio', undefined].includes(column.type)
         || column.slot
         || column.render
       ) {
         scopedSlots.value.default = (scope: any) => {
+          if (column.type === 'expand' && isFunction(slots.expand))
+            return slots.expand({ ...scope, index: scope.$index })
+
           if (column.slot && slots[column.slot])
             return slots[column.slot]({ ...scope, index: scope.$index })
 

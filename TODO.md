@@ -83,12 +83,13 @@
 69. `z-form`的`type`为`group`时，支持`label`自定义`slot`和`render`函数配置
 70. `z-form`的`type`为`step`时，按钮支持自定义
 71. ~~`z-table`的`reference`支持`render`函数自定义`~~
-72. `z-table`的`column`的`type`为`expand`时，支持`render`函数和默认配置`expand`插槽
+72. ~~`z-table`的`column`的`type`为`expand`时，支持`render`函数和默认配置`expand`插槽~~
 73. `z-table`支持`renderHeader`自定义表格头
 74. `z-table`的`draggable`添加事件
 75. ~~`z-table`的`editable`支持布尔值~~
 76. `z-table`的`editable`删除时添加二次确认
 77. ~~`z-table`的`maxLength`放到`editable`中~~
+78. `z-table`的`hide`文档需要添加复杂的`slots`示例和`render`函数示例
 
 ## FEATURE
 

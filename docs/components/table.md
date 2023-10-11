@@ -892,7 +892,6 @@ const tableData = ref([
 const columns = [
   {
     type: 'expand',
-    slot: 'expand'
   },
   {
     type: 'index'
