@@ -88,7 +88,7 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
                 'on': column.on,
                 'rowData': scope.row,
                 size,
-                'options': column.options,
+                'options': props.tableProps.options,
                 ...column.attrs,
                 'disabled':
                   isBoolean(column.disabled)

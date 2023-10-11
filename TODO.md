@@ -83,6 +83,12 @@
 69. `z-form`的`type`为`group`时，支持`label`自定义`slot`和`render`函数配置
 70. `z-form`的`type`为`step`时，按钮支持自定义
 71. ~~`z-table`的`reference`支持`render`函数自定义`~~
+72. `z-table`的`column`的`type`为`expand`时，支持`render`函数和默认配置`expand`插槽
+73. `z-table`支持`renderHeader`自定义表格头
+74. `z-table`的`draggable`添加事件
+75. `z-table`的`editable`支持布尔值
+76. `z-table`的`editable`删除时添加二次确认
+77. `z-table`的`maxLength`放到`editable`中
 
 ## FEATURE
 
@@ -108,6 +114,9 @@
 11. 修复`z-form`的`type`为`collapse`时，点击跳转问题
 12. ~~修复`z-table`的`z-table-tool-bar--top-bottom`多余`margin-bottom`~~
 13. 优化`z-table`的操作按钮和`dropdown`同时出现时的布局问题
+14. 修复`z-table`的`editable`模式和`type`冲突问题
+15. 修复`z-table`的`selection-change`和`radio-change`持续调用问题
+16. 修复`z-table`的`editable`选择器无法编辑问题
 
 ## Long Time
 
