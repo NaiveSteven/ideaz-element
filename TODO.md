@@ -129,7 +129,7 @@
 2. ~~`checkbox`组件文档、`dts`文件~~
 3. ~~`col`、`row`组件文档、`dts`文件~~
 4. ~~`description`组件文档、`dts`文件~~
-5. `form`组件文档、`dts`文件
+5. ~~`form`组件文档、`dts`文件~~
 6. ~~`input`组件文档、`dts`文件~~
 7. ~~`radio`组件文档、`dts`文件~~
 8. ~~`select`组件文档、`dts`文件~~
@@ -138,8 +138,8 @@
 11. ~~`text`组件文档、`dts`文件~~
 12. ~~`watermark`组件文档、`dts`文件~~
 13. `crud`组件文档、`dts`文件
-14. `dialog`组件文档、`dts`文件
-15. `full-screen`组件文档
+14. ~~`dialog`组件文档、`dts`文件~~
+15. ~~`full-screen`组件文档~~
 
 ## design
 

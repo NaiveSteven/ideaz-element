@@ -9,6 +9,7 @@ import type { Pagination, TableCol } from '~/types'
 export interface TableEdit {
   type?: 'multiple' | 'single'
   position?: 'bottom' | 'top'
+  maxLength?: number
   onEdit?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
   onSave?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
   onDelete?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
@@ -126,10 +127,6 @@ export const tableProps = {
   options: {
     type: Object,
     default: () => {},
-  },
-  maxLength: {
-    type: Number,
-    default: undefined,
   },
   watermark: {
     type: [String, Object, Boolean] as PropType<boolean | string | WatermarkProps>,

@@ -234,8 +234,9 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { editable, maxLength } = props
+      const { editable } = props
       const position = isObject(editable) ? (editable.position || 'bottom') : 'bottom'
+      const maxLength = isObject(editable) ? (editable.maxLength || undefined) : undefined
       if (editable) {
         return (
           <>
