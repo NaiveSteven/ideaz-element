@@ -116,7 +116,7 @@
 12. ~~修复`z-table`的`z-table-tool-bar--top-bottom`多余`margin-bottom`~~
 13. 优化`z-table`的操作按钮和`dropdown`同时出现时的布局问题
 14. 修复`z-table`的`editable`模式和`type`冲突问题
-15. 修复`z-table`的`selection-change`和`radio-change`持续调用问题
+15. ~~修复`z-table`的`selection-change`和`radio-change`持续调用问题~~
 16. 修复`z-table`的`editable`选择器无法编辑问题
 
 ## Long Time

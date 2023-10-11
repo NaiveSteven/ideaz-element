@@ -1891,12 +1891,12 @@ const columns = [
 
 const handleRadioChange = (row) => {
   radioData.value = row
-  // console.log(row, 'radio data')
+  console.log(row, 'radio data')
 }
 
 const handleSelectionChange = (selection) => {
   selectionData.value = selection
-  // console.log(selection, 'selection data')
+  console.log(selection, 'selection data')
 }
 
 const handleClear = () => {
