@@ -1370,9 +1370,7 @@ const columns = [
 
 ## 可编辑表格
 
-`editable`设置为`true`，开启表格编辑模式，该字段支持布尔值或对象类型。
-
-配置`editable`的`maxLength`，可以设置最大新增数量。
+`editable`设置为`true`，开启表格编辑模式，该字段支持布尔值或对象类型，可编辑表格`type`默认为`single`。
 
 :::demo
 
@@ -1446,7 +1444,7 @@ const options = {
     :data="tableData"
     :columns="columns"
     :options="options"
-    :editable="{ type: 'single', maxLength: 5 }"
+    :editable="true"
   />
 </template>
 ```
@@ -1454,6 +1452,8 @@ const options = {
 :::
 
 `editable`设置为`type`为`multiple`，开启多行编辑模式。
+
+配置`editable`的`maxLength`，可以设置最大新增数量。
 
 :::demo
 

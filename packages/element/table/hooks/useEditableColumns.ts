@@ -40,7 +40,7 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
       link: true,
       hide: (row: any) => row.__isEdit || editableType.value === 'multiple',
       onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
-        if (isFunction(props.editable?.onEdit))
+        if (isObject(props.editable) && isFunction(props.editable?.onEdit))
           props.editable?.onEdit({ row, index, column, formRef: zTableFormRef.value })
 
         else
@@ -58,7 +58,7 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
       onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
         if (!zTableFormRef.value)
           return
-        if (isFunction(props.editable?.onSave)) {
+        if (isObject(props.editable) && isFunction(props.editable?.onSave)) {
           props.editable?.onSave({ row, index, column, formRef: zTableFormRef.value })
         }
         else {
@@ -82,7 +82,7 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
       link: true,
       hide: (row: any) => !row.__isEdit || editableType.value === 'multiple',
       onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
-        if (isFunction(props.editable?.onCancel)) {
+        if (isObject(props.editable) && isFunction(props.editable?.onCancel)) {
           props.editable?.onCancel({ row, index, column, formRef: zTableFormRef.value })
         }
         else {
@@ -99,7 +99,7 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
       type: 'primary',
       link: true,
       onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
-        if (isFunction(props.editable?.onDelete))
+        if (isObject(props.editable) && isFunction(props.editable?.onDelete))
           props.editable?.onDelete({ row, index, column, formRef: zTableFormRef.value })
 
         else

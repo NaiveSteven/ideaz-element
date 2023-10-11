@@ -86,9 +86,9 @@
 72. `z-table`的`column`的`type`为`expand`时，支持`render`函数和默认配置`expand`插槽
 73. `z-table`支持`renderHeader`自定义表格头
 74. `z-table`的`draggable`添加事件
-75. `z-table`的`editable`支持布尔值
+75. ~~`z-table`的`editable`支持布尔值~~
 76. `z-table`的`editable`删除时添加二次确认
-77. `z-table`的`maxLength`放到`editable`中
+77. ~~`z-table`的`maxLength`放到`editable`中~~
 
 ## FEATURE
 

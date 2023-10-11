@@ -122,7 +122,7 @@ export const tableProps = {
     default: false,
   },
   editable: {
-    type: [Object] as PropType<TableEdit>,
+    type: [Object, Boolean] as PropType<TableEdit | boolean>,
   },
   options: {
     type: Object,
