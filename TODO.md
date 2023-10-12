@@ -87,9 +87,10 @@
 73. `z-table`支持`renderHeader`自定义表格头
 74. `z-table`的`draggable`添加事件
 75. ~~`z-table`的`editable`支持布尔值~~
-76. `z-table`的`editable`删除时添加二次确认
+76. ~~`z-table`的`editable`删除时添加二次确认~~
 77. ~~`z-table`的`maxLength`放到`editable`中~~
 78. `z-table`的`hide`文档需要添加复杂的`slots`示例和`render`函数示例
+79. `z-dialog`的`import`导入`ts`提示优化
 
 ## FEATURE
 

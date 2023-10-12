@@ -10,6 +10,7 @@ export interface TableEdit {
   type?: 'multiple' | 'single'
   position?: 'bottom' | 'top'
   maxLength?: number
+  deleteConfirm?: boolean
   onEdit?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
   onSave?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
   onDelete?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void

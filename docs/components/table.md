@@ -1452,7 +1452,7 @@ const options = {
 
 `editable`设置为`type`为`multiple`，开启多行编辑模式。
 
-配置`editable`的`maxLength`，可以设置最大新增数量。
+配置`editable`的`maxLength`，可以设置最大新增数量。配置`editable`的`deleteConfirm`为`true`，可开启删除二次确认。
 
 :::demo
 
@@ -1526,7 +1526,7 @@ const options = {
     :data="tableData"
     :columns="columns"
     :options="options"
-    :editable="{ type: 'multiple', maxLength: 10 }"
+    :editable="{ type: 'multiple', maxLength: 10, deleteConfirm: true }"
   />
 </template>
 ```
@@ -2370,6 +2370,7 @@ getData()
 | :----------------------------- | :----------------------------------------------------------- | :------------------- | :----- |
 | type                      | 可编辑表格模式                                  | `single` / `multiple`             |  —      |
 | maxLength                      | 最大数量                                  | `number`             |  —      |
+| deleteConfirm                      | 删除二次确认                                  | `boolean`             |  `false`      |
 | onEdit                      | 编辑回调                                  | `({ row, index, column, formRef }) => void`             |  —      |
 | onCancel                      | 取消回调                                  | `({ row, index, column, formRef }) => void`             |  —      |
 | onSave                      | 保存回调                                  | `({ row, index, column, formRef }) => void`             |  —      |

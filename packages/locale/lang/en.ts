@@ -30,6 +30,7 @@ export default {
     density: 'density',
     columnSetting: 'column setting',
     columnDisplay: 'column display',
+    deleteTip: 'Are you sure you want to delete this data?',
   },
   dialog: {
     got: 'got it',

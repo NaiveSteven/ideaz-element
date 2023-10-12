@@ -1,6 +1,7 @@
 import { isFunction, isObject } from '@ideaz/utils'
 import type { Ref } from 'vue'
 import type { TableColumnCtx } from 'element-plus'
+import DialogTip from '../../dialog/src/dialog'
 import type { ITableProps } from '../src/props'
 
 function replacePropertyValues(obj: any, reverse = false) {
@@ -99,11 +100,26 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
       type: 'primary',
       link: true,
       onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
-        if (isObject(props.editable) && isFunction(props.editable?.onDelete))
-          props.editable?.onDelete({ row, index, column, formRef: zTableFormRef.value })
+        const delData = () => {
+          if (isObject(props.editable) && isFunction(props.editable?.onDelete))
+            props.editable?.onDelete({ row, index, column, formRef: zTableFormRef.value })
 
-        else
-          tableData.value.splice(index, 1)
+          else
+            tableData.value.splice(index, 1)
+        }
+        if (isObject(props.editable) && props.editable?.deleteConfirm) {
+          DialogTip.warning({
+            title: t('dialog.tip'),
+            message: t('table.deleteTip'),
+            onConfirm: ({ done }) => {
+              done()
+              delData()
+            },
+          })
+        }
+        else {
+          delData()
+        }
       },
     }
   }
