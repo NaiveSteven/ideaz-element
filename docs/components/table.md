@@ -2207,12 +2207,12 @@ getData()
 | 属性名                  | 说明                                                         | 类型                                                      | 可选值                                                       | 默认值                                                       |
 | :---------------------- | :----------------------------------------------------------- | :-------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | data                    | 显示的数据                                                   | array                                                     | —                                                            | —                                                            |
-| pagination                    | 分页配置，支持双向绑定                                                   | object                                                     | —                                                            | —                                                            |
+| modelValue:pagination                    | 分页配置，支持双向绑定                                                   | object                                                     | —                                                            | —                                                            |
 | columns                    | 表格配置项                                                   | array                                                     | —                                                            | —                                                            |
 | toolBar                    | 工具栏配置                                                   | object / boolean                                                    | —                                                            | —                                                            |
 | editable                    | 可编辑表格配置                                                   | object / boolean                                                     | —                                                            | —                                                            |
 | options                    | 表格内部选项数据源                                                   | object                                                     | —                                                            | —                                                            |
-| watermark                    | 水印配置                                                   | object                                                     | —                                                            | —                                                            |
+| watermark                    | 水印配置                                                   | object（具体配置可查看`z-watermark`文档）                                                     | —                                                            | —                                                            |
 | options                    | 表格内部选项数据源                                                   | object                                                     | —                                                            | —                                                            |
 | height                  | Table 的高度， 默认为自动高度。 如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。 | string / number                                           | —                                                            | —                                                            |
 | max-height              | Table 的最大高度。 合法的值为数字或者单位为 px 的高度。      | string / number                                           | —                                                            | —                                                            |
@@ -2256,6 +2256,8 @@ getData()
 
 | 事件名             | 说明                                                         | 回调参数                          |
 | :----------------- | :----------------------------------------------------------- | :-------------------------------- |
+| refresh             | 翻页时触发的事件                 | pagination                    |
+| radio-change             | 当用户手动勾选数据行的 Radio 时触发的事件                 | row                    |
 | select             | 当用户手动勾选数据行的 Checkbox 时触发的事件                 | selection, row                    |
 | select-all         | 当用户手动勾选全选 Checkbox 时触发的事件                     | selection                         |
 | selection-change   | 当选择项发生变化时会触发该事件                               | selection                         |
@@ -2299,6 +2301,10 @@ getData()
 | :----- | :----------------------------------------------------------- | :----------- |
 | append | 插入至表格最后一行之后的内容， 如果需要对表格的内容进行无限滚动操作，可能需要用到这个 slot。 若表格有合计行，该 slot 会位于合计行之上。 | —            |
 | empty  | 当数据为空时自定义的内容                                     | —            |
+| top  | 顶部插槽                                     | —            |
+| topRight  | 工具栏左侧右部插槽                                     | —            |
+| topBottom  | 工具栏底部插槽                                     | —            |
+| topLeft  | 工具栏左侧左部插槽                                     | —            |
 
 ## columns属性
 
@@ -2306,9 +2312,10 @@ getData()
 | :-------------------- | :----------------------------------------------------------- | :-------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
 | type                  | 对应列的类型。 | string                                  | selection / index / expand/ radio / button / input / select                                   | —                                                            |
 | index                 | 如果设置了 `type=index`，可以通过传递 `index` 属性来自定义索引 | number / function(index)                | —                                                            | —                                                            |
-| label                 | 显示的标题                                                   | string                                  | —                                                            | —                                                            |
+| label                 | 显示的标题（建议配置）                                                   | string                                  | —                                                            | —                                                            |
 | buttons                 | 按钮配置                                                   | array                                  | —                                                            | —                                                            |
-| options                 | 选项组件数据源                                                   | array                                  | —                                                            | —                                                            |
+| options                 | 选项组件数据源                                                   | array                                  | —                                                            |
+| tooltip                 | 列提示                                                   | `string` / `() => VNode`                                  | —                                                            | —                                                            |
 | column-key            | column 的 key， column 的 key， 如果需要使用 filter-change 事件，则需要此属性标识是哪个 column 的筛选条件 | string                                  | —                                                            | —                                                            |
 | prop                  | 字段名称 对应列内容的字段名， 也可以使用 `property`属性      | string                                  | —                                                            | —                                                            |
 | width                 | 对应列的宽度                                                 | string / number                         | —                                                            | —                                                            |
@@ -2321,7 +2328,7 @@ getData()
 | sort-orders           | 数据在排序时所使用排序策略的轮转顺序，仅当 sortable 为 true 时有效。 需传入一个数组，随着用户点击表头，该列依次按照数组中元素的顺序进行排序 | array                                   | 数组中的元素需为以下三者之一：`ascending` 表示升序，`descending` 表示降序，`null` 表示还原为原始顺序 | ['ascending', 'descending', null]                            |
 | resizable             | 对应列是否可以通过拖动改变宽度（需要在 el-table 上设置 border 属性为真） | boolean                                 | —                                                            | true                                                         |
 | formatter             | 用来格式化内容                                               | function(row, column, cellValue, index) | —                                                            | —                                                            |
-| show-overflow-tooltip | 当内容过长被隐藏时显示 tooltip                               | boolean \                               | [`object`](https://element-plus.org/zh-CN/component/table.html#table-attributes) 2.2.28 | 参考表格的 [tooltip-options](https://element-plus.org/zh-CN/component/table.html#table-attributes) |
+| show-overflow-tooltip | 当内容过长被隐藏时显示 tooltip                               | boolean \                               | [`object`](https://element-plus.org/zh-CN/component/table.html#table-attributes)  | 参考表格的 [tooltip-options](https://element-plus.org/zh-CN/component/table.html#table-attributes) |
 | align                 | 对齐方式                                                     | string                                  | left / center / right                                        | left                                                         |
 | header-align          | 表头对齐方式， 若不设置该项，则使用表格的对齐方式            | string                                  | left / center / right                                        | —                                                            |
 | class-name            | 列的 className                                               | string                                  | —                                                            | —                                                            |
@@ -2334,6 +2341,29 @@ getData()
 | filter-method         | 数据过滤使用的方法， 如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示。 | function(value, row, column)            | —                                                            | —                                                            |
 | filtered-value        | 选中的数据过滤项，如果需要自定义表头过滤的渲染方式，可能会需要此属性。 | array                                   | —                                                            | —                                                            |
 
+### pagination属性
+
+| 属性名                              | 说明                                                         | 类型                   | 默认值                               |
+| :---------------------------------- | :----------------------------------------------------------- | :--------------------- | :----------------------------------- |
+| type                               | 分页类型                                         | `front` / `backbone`              | `backbone`                                 |
+| page                               | 当前页                                         | `number`              | —                                |
+| pageSize                               | 每页显示条目个数                                         | `number`              | —                                |
+| small                               | 是否使用小型分页样式                                         | `boolean`              | true                                 |
+| background                          | 是否为分页按钮添加背景色                                     | `boolean`              | false                                |
+| total                               | 总条目数                                                     | `number`               | —                                    |
+| page-count                          | 总页数， `total` 和 `page-count` 设置任意一个就可以达到显示页码的功能；如果要支持 `page-sizes` 的更改，则需要使用 `total` 属性 | `number`               | —                                    |
+| pager-count                         | 设置最大页码按钮数。 页码按钮的数量，当总页数超过该值时会折叠 | `number`               | 7                                    |
+| layout                              | 组件布局，子组件名用逗号分隔                                 | `string`               | prev, pager, next, jumper, ->, total |
+| page-sizes                          | 每页显示个数选择器的选项设置                                 | `object`               | [10, 20, 30, 40, 50, 100]            |
+| popper-class                        | 每页显示个数选择器的下拉框类名                               | `string`               | ''                                   |
+| prev-text                           | 替代图标显示的上一页文字                                     | `string`               | ''                                   |
+| prev-icon                           | 上一页的图标， 比 `prev-text` 优先级更高                     | `string` / `Component` | ArrowLeft                            |
+| next-text                           | 替代图标显示的下一页文字                                     | `string`               | ''                                   |
+| next-icon                           | 下一页的图标， 比 `next-text` 优先级更低                     | `string` / `Component` | ArrowRight                           |
+| disabled                            | 是否禁用分页                                                 | `boolean`              | false                                |
+| teleported                          | 是否将下拉菜单teleport至 body                                | `boolean`              | true                                 |
+| hide-on-single-page                 | 只有一页时是否隐藏                                           | `boolean`              | false                                |
+
 ## editable属性
 
 | 属性名                         | 说明                                                         | 类型                 | 默认值 |
@@ -2344,3 +2374,69 @@ getData()
 | onCancel                      | 取消回调                                  | `({ row, index, column, formRef }) => void`             |  —      |
 | onSave                      | 保存回调                                  | `({ row, index, column, formRef }) => void`             |  —      |
 | onDelete                      | 删除回调                                  | `({ row, index, column, formRef }) => void`             |  —      |
+
+## column中buttons属性
+
+| 属性名            | 说明                                                        | 类型                   | 默认值  |
+| :---------------- | :---------------------------------------------------------- | :--------------------- | :------ |
+| type              | 类型                                                        | `type` / `primary`/ `success`'/ `warning`/ `danger`/ `info` / `dropdown`                | —       |
+| label             | 文案                                              | `string`              |  —  |
+| children             | `type`为`dropdown`生效，下拉项                                              | `array`              |  —  |
+| hide             | 按钮隐藏                                              | `boolean` / `() => boolean`              | —   |
+| onClick             | 点击事件                                              | `(row, index, column) => void`              | —  |
+| plain             | 是否为朴素按钮                                              | `boolean`              | false   |
+| disabled          | 按钮是否为禁用状态                                          | `boolean` / `(row, index, column) => boolean`              | false   |
+| size              | 尺寸                                                        | `default` / `large` / `small`                 | —       |
+| plain             | 是否为朴素按钮                                              | `boolean`              | false   |
+| text              | 是否为文字按钮                                              | `boolean`              | false   |
+| bg                | 是否显示文字按钮背景颜色                                    | `boolean`              | false   |
+| link              | 是否为链接按钮                                              | `boolean`              | false   |
+| round             | 是否为圆角按钮                                              | `boolean`              | false   |
+| circle            | 是否为圆形按钮                                              | `boolean`              | false   |
+| loading           | 是否为加载中状态                                            | `boolean`              | false   |
+| loading-icon      | 自定义加载中状态图标组件                                    | `string` / `Component` | Loading |
+| icon              | 图标组件                                                    | `string` / `Component` | —       |
+| autofocus         | 原生 `autofocus` 属性                                       | `boolean`              | false   |
+| native-type       | 原生 type 属性                                              | `button` / `submit` / `reset`                 | button  |
+| auto-insert-space | 自动在两个中文字符之间插入空格                              | `boolean`              | —       |
+| color             | 自定义按钮颜色, 并自动计算 `hover` 和 `active` 触发后的颜色 | `string`               | —       |
+| dark              | dark 模式, 意味着自动设置 `color` 为 dark 模式的颜色        | `boolean`              | false   |
+| tag               | 自定义元素标签                                              | `string` / `Component` | button  |
+
+## button类型为dropdown
+
+| 属性名         | 说明                                                         | 类型            | 可选值                                                  | 默认值                                                       |
+| :------------- | :----------------------------------------------------------- | :-------------- | :------------------------------------------------------ | :----------------------------------------------------------- |
+| reference     | 关联文案                                                 | `string` / `() => VNode` | —                                                       | `更多`                                                            |
+| onCommand     | 点击菜单项触发的事件回调                                                 | `(command) => void` | —                                                       | —                                                            |
+| type           | 菜单按钮类型，同 `Button` 组件一样，仅在 `split-button` 为 true 的情况下有效。 | string          | —                                                       | —                                                            |
+| size           | 菜单尺寸，在 split-button 为 true 的情况下也对触发按钮生效。 | string          | `large` / `default` / `small`                                 | default                                                      |
+| max-height     | 菜单最大高度                                                 | string / number | —                                                       | —                                                            |
+| split-button   | 下拉触发元素呈现为按钮组                                     | boolean         | —                                                       | false                                                        |
+| disabled       | 是否禁用                                                     | boolean         | —                                                       | false                                                        |
+| placement      | 菜单弹出位置                                                 | string          | `top`/`top-start`/`top-end`/`bottom`/`bottom-start`/`bottom-end`    | bottom                                                       |
+| trigger        | 触发下拉的行为                                               | string          | `hover` / `click` /`contextmenu`                                 | hover                                                        |
+| hide-on-click  | 是否在点击菜单项后隐藏菜单                                   | boolean         | —                                                       | true                                                         |
+| show-timeout   | 展开下拉菜单的延时，仅在 trigger 为 hover 时有效             | number          | —                                                       | 250                                                          |
+| hide-timeout   | 收起下拉菜单的延时（仅在 trigger 为 hover 时有效）           | number          | —                                                       | 150                                                          |
+| role           | 下拉菜单的 ARIA 属性。 根据具体场景，您可能想要将此更改为“navigation” | string          | —                                                       | 'menu'                                                       |
+| tabindex       | Dropdown 组件的 [tabindex](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex) | number          | —                                                       | 0                                                            |
+| popper-class   | 自定义浮层类名                                               | string          | —                                                       | —                                                            |
+| popper-options | [popper.js](https://popper.js.org/docs/v2/) 参数             | Object          | 请参考 [popper.js](https://popper.js.org/docs/v2/) 文档 | `{modifiers: [{name: 'computeStyles',options: {gpuAcceleration: false}}]}` |
+| teleported     | 是否将下拉列表插入至 body 元素                               | boolean         | —                                                       | true                                                         |
+
+## button类型为dropdown的children下拉项属性
+
+| 属性名   | 说明                              | 类型                 | 可选值 | 默认值 |
+| :------- | :-------------------------------- | :------------------- | :----- | :----- |
+| disabled | 是否禁用                          | `boolean / (row, index, column) => boolean`              | —      | false  |
+| onClick  | 下拉项点击                    | `(row, index, column) => void`              | —      | —  |
+| divided  | 是否显示分隔符                    | `boolean`              | —      | false  |
+| icon     | 自定义图标                        | `string` / `Component` | —      | —      |
+
+## toolBar属性
+
+| 属性名   | 说明                              | 类型                 | 可选值 | 默认值 |
+| :------- | :-------------------------------- | :------------------- | :----- | :----- |
+| exclude  | 不显示在工具栏的表格项 label 集合                    | `array`              | —      | —  |
+| unCheck  | 默认不选中的 label 集合                    | `array`              | —      | —  |

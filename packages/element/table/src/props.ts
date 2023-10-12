@@ -5,7 +5,7 @@ import type {
   TableProps,
 } from 'element-plus/es/components/table/src/table/defaults'
 import type { WatermarkProps } from '../../watermark/src/watermark'
-import type { Pagination, TableCol } from '~/types'
+import type { Pagination, TableCol, ToolBar } from '~/types'
 export interface TableEdit {
   type?: 'multiple' | 'single'
   position?: 'bottom' | 'top'
@@ -114,7 +114,7 @@ export const tableProps = {
     default: () => ({ page: 1, pageSize: 0, total: 0 }),
   },
   toolBar: {
-    type: [Boolean, Object],
+    type: [Boolean, Object] as PropType<ToolBar | boolean>,
     default: true,
   },
   draggable: {
