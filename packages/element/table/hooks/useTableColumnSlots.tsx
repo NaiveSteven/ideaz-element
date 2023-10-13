@@ -55,7 +55,7 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
   watch(
     () => props.column,
     () => {
-      const { column = {}, size } = props
+      const { column = {}, size, tableProps } = props
       const { getComponentName, getDynamicComponentName } = useTableColComponentName()
       const componentName = getComponentName(column.type!)
 
@@ -65,6 +65,27 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
         || column.render
       ) {
         scopedSlots.value.default = (scope: any) => {
+          const renderCustomComponent = () => {
+            return h(resolveComponent(componentName), {
+              'modelValue': scope.row[column.prop],
+              'onUpdate:modelValue': (val: any) => {
+                scope.row[column.prop] = val
+              },
+              'componentName': getDynamicComponentName(column.type!),
+              'on': column.on,
+              'rowData': scope.row,
+              size,
+              'options': tableProps.options[column.prop] || [],
+              ...column.attrs,
+              'disabled':
+                isBoolean(column.disabled)
+                  ? column.disabled
+                  : isFunction(column.disabled)
+                    ? column.disabled(scope.row, scope.$index, scope.column)
+                    : false,
+            })
+          }
+
           if (column.type === 'expand' && isFunction(slots.expand))
             return slots.expand({ ...scope, index: scope.$index })
 
@@ -80,28 +101,15 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
             })
           }
 
-          return scope.row.__isEdit === true
-            ? <el-form-item prop={`tableData.${scope.$index}.${column.prop}`} rules={getRules()} class={[ns.b('form-item'), ns.bm('form-item', size)]}>
-              {h(resolveComponent(componentName), {
-                'modelValue': scope.row[column.prop],
-                'onUpdate:modelValue': (val: any) => {
-                  scope.row[column.prop] = val
-                },
-                'componentName': getDynamicComponentName(column.type!),
-                'on': column.on,
-                'rowData': scope.row,
-                size,
-                'options': props.tableProps.options,
-                ...column.attrs,
-                'disabled':
-                  isBoolean(column.disabled)
-                    ? column.disabled
-                    : isFunction(column.disabled)
-                      ? column.disabled(scope.row, scope.$index, scope.column)
-                      : false,
-              })}
+          if (tableProps.editable) {
+            return scope.row.__isEdit === true
+              ? <el-form-item prop={`tableData.${scope.$index}.${column.prop}`} rules={getRules()} class={[ns.b('form-item'), ns.bm('form-item', size)]}>
+              {renderCustomComponent()}
             </el-form-item>
-            : <span>{getLabel(scope.row)}</span>
+              : <span>{getLabel(scope.row)}</span>
+          }
+
+          return renderCustomComponent()
         }
       }
 

@@ -922,10 +922,12 @@ const columns = [
   }
 ]
 
-const options = [
-  { label: '男', value: '1' },
-  { label: '女', value: '2' }
-]
+const options = {
+  sex: [
+    { label: '男', value: '1' },
+    { label: '女', value: '2' }
+  ]
+}
 </script>
 
 <template>

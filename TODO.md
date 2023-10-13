@@ -90,7 +90,8 @@
 76. ~~`z-table`的`editable`删除时添加二次确认~~
 77. ~~`z-table`的`maxLength`放到`editable`中~~
 78. `z-table`的`hide`文档需要添加复杂的`slots`示例和`render`函数示例
-79. `z-dialog`的`import`导入`ts`提示优化
+79. `z-table`的可编辑表格校验示例，表格配置
+80. `z-dialog`的`import`导入`ts`提示优化
 
 ## FEATURE
 
@@ -116,7 +117,7 @@
 11. 修复`z-form`的`type`为`collapse`时，点击跳转问题
 12. ~~修复`z-table`的`z-table-tool-bar--top-bottom`多余`margin-bottom`~~
 13. 优化`z-table`的操作按钮和`dropdown`同时出现时的布局问题
-14. 修复`z-table`的`editable`模式和`type`冲突问题
+14. ~~修复`z-table`的`editable`模式和`type`冲突问题~~
 15. ~~修复`z-table`的`selection-change`和`radio-change`持续调用问题~~
 16. 修复`z-table`的`editable`选择器无法编辑问题
 
