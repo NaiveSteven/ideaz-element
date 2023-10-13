@@ -1412,11 +1412,11 @@ const columns = [
     prop: 'name',
     label: '姓名',
   },
-  // {
-  //   type: 'select',
-  //   prop: 'sex',
-  //   label: '性别',
-  // },
+  {
+    type: 'select',
+    prop: 'sex',
+    label: '性别',
+  },
   {
     type: 'input',
     prop: 'age',
@@ -1495,11 +1495,11 @@ const columns = [
     prop: 'name',
     label: '姓名',
   },
-  // {
-  //   type: 'select',
-  //   prop: 'sex',
-  //   label: '性别',
-  // },
+  {
+    type: 'select',
+    prop: 'sex',
+    label: '性别',
+  },
   {
     type: 'input',
     prop: 'age',
@@ -1576,11 +1576,11 @@ const columns = [
     prop: 'name',
     label: '姓名',
   },
-  // {
-  //   type: 'select',
-  //   prop: 'sex',
-  //   label: '性别',
-  // },
+  {
+    type: 'select',
+    prop: 'sex',
+    label: '性别',
+  },
   {
     type: 'input',
     prop: 'age',
@@ -1675,11 +1675,11 @@ const columns = [
     prop: 'name',
     label: '姓名',
   },
-  // {
-  //   type: 'select',
-  //   prop: 'sex',
-  //   label: '性别',
-  // },
+  {
+    type: 'select',
+    prop: 'sex',
+    label: '性别',
+  },
   {
     type: 'input',
     prop: 'age',
@@ -1703,7 +1703,6 @@ const columns = [
           link: true,
           label: '复制',
           hide: row => row.__isEdit,
-          // hide: row => row.__isEdit,
           onClick: (row) => {
             tableData.value.push({ ...row })
           }

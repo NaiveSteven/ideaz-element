@@ -107,19 +107,19 @@
 1. `Vue2`中日期组件`icon`会造成排序错乱问题
 2. `z-text`组件在`vitepress`文档中的折行不正确问题
 3. ~~`z-check-card`组件修复`inject`报错问题~~
-4. `z-crud`表单输入一个字符，刷新两次问题
+4. ~~`z-crud`表单输入一个字符，刷新两次问题~~
 5. ~~`z-crud`表单底部和顶部高度不对称问题~~
 6. ~~`z-dialog`导入方式组件关闭销毁问题~~
 7. ~~修复`z-crud`全屏问题~~
 8. ~~修复`z-filter-form`的`placeholder`问题~~
 9. ~~修复`z-filter-form`校验`message`错误问题~~
 10. ~~修复`z-filter-form`的`hide`导致布局错误问题~~
-11. 修复`z-form`的`type`为`collapse`时，点击跳转问题
+11. 修复`z-form`的`type`为`collapse`时，点击跳转问题（等待`element-plus`修复）
 12. ~~修复`z-table`的`z-table-tool-bar--top-bottom`多余`margin-bottom`~~
 13. 优化`z-table`的操作按钮和`dropdown`同时出现时的布局问题
 14. ~~修复`z-table`的`editable`模式和`type`冲突问题~~
 15. ~~修复`z-table`的`selection-change`和`radio-change`持续调用问题~~
-16. 修复`z-table`的`editable`选择器无法编辑问题
+16. ~~修复`z-table`的`editable`选择器无法编辑问题~~
 
 ## Long Time
 
