@@ -13,8 +13,19 @@ export const useFormItemSlots = (props: FormItemProps, slots: Slots) => {
       return col.label()
   }
 
-  const vSlots = computed<Slots>(() => {
+  const getColon = () => {
     const { col, formConfig } = props
+    if (Object.prototype.hasOwnProperty.call(col.formItemProps || {}, 'colon'))
+      return col.formItemProps?.colon
+
+    if (Object.prototype.hasOwnProperty.call(col, 'colon'))
+      return col.colon
+
+    return formConfig.colon
+  }
+
+  const vSlots = computed<Slots>(() => {
+    const { col } = props
     const vSlots: Slots = {} as Slots
     if (col.formItemProps?.label || col.label) {
       vSlots.label = () => {
@@ -25,12 +36,7 @@ export const useFormItemSlots = (props: FormItemProps, slots: Slots) => {
               label: col.label,
               tooltip: col.tooltip,
               ...col.formItemProps,
-              colon: Object.prototype.hasOwnProperty.call(
-                col.formItemProps || {},
-                'colon',
-              )
-                ? col.formItemProps?.colon
-                : formConfig.colon,
+              colon: getColon(),
             }}
           />
           )

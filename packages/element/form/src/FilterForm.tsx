@@ -1,6 +1,8 @@
 import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
-import { useFilterFormItem, useFormConfig, useFormMethods } from '../hooks'
+import { isFunction } from '@ideaz/utils'
+import { useFilterFormButtons, useFilterFormItem, useFormConfig, useFormMethods } from '../hooks'
+import type { ToggleButtonType } from './props'
 import { filterFormProps } from './props'
 import ToggleButton from './ToggleButton'
 
@@ -12,10 +14,10 @@ export default defineComponent({
   setup(props, { attrs, slots, emit }) {
     const { isShowToggleButton, columns, toggleButtonType } = useFilterFormItem(props)
     const { formConfig } = useFormConfig(props)
+    const { searchButtonProps, resetButtonProps } = useFilterFormButtons(props)
     const size = useFormSize()
     const ns = useNamespace('form')
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-    const { t } = useLocale()
     const {
       resetFields,
       validate,
@@ -44,6 +46,25 @@ export default defineComponent({
       emit('reset')
     }
 
+    const renderOperation = () => {
+      if (isFunction(slots.formOperation))
+        return slots.formOperation()
+
+      if (isFunction(props.renderOperation))
+        return props.renderOperation()
+
+      return (
+        <div class={ns.b('operation')}>
+          <el-button type="primary" size={size.value} onClick={handleSearch} {...searchButtonProps.value}>
+            {searchButtonProps.value.label}
+          </el-button>
+          <el-button type="default" size={size.value} onClick={handleReset} {...resetButtonProps.value}>
+            {resetButtonProps.value.label}
+          </el-button>
+        </div>
+      )
+    }
+
     return () => {
       const { modelValue, options } = props
       return <z-form
@@ -58,28 +79,13 @@ export default defineComponent({
           ...slots,
           button: () => (
             <>
-              {!slots.formOperation
-                ? (
-                  <div class={ns.b('operation')}>
-                    <el-button type="primary" size={size.value} onClick={handleSearch} loading={props.searchLoading}>
-                      {t('form.search')}
-                    </el-button>
-                    <el-button type="default" size={size.value} onClick={handleReset}>
-                      {t('form.reset')}
-                    </el-button>
-                  </div>
-                  )
-                : (
-                    slots.formOperation()
-                  )}
-              {isShowToggleButton.value
-                ? (
-                  <ToggleButton
-                    modelValue={toggleButtonType.value}
-                    onUpdate:modelValue={(val: any) => (toggleButtonType.value = val)}
-                  />
-                  )
-                : null}
+              {renderOperation()}
+              {!!isShowToggleButton.value && (
+                <ToggleButton
+                  modelValue={toggleButtonType.value}
+                  onUpdate:modelValue={(val: ToggleButtonType) => (toggleButtonType.value = val)}
+                />
+              )}
             </>
           ),
         }}

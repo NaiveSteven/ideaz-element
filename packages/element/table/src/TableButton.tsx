@@ -1,15 +1,15 @@
 import { isBoolean, isFunction, isString } from '@ideaz/utils'
-import { reactiveOmit } from '@vueuse/core'
+import { omit } from 'lodash-unified'
 import type { BtnItem } from '~/types'
 
-interface DropdownProps {
-  disabled?: boolean | ((row: any, index: number, column: any) => boolean)
-  reference?: string | ((h: any, scope: any) => VNode)
-  size?: string
-  trigger?: string
-  type?: string
-  onCommand?: (command: string) => void
-}
+// interface DropdownProps {
+//   disabled?: boolean | ((row: any, index: number, column: any) => boolean)
+//   reference?: string | ((h: any, scope: any) => VNode)
+//   size?: string
+//   trigger?: string
+//   type?: string
+//   onCommand?: (command: string) => void
+// }
 
 export default defineComponent({
   name: 'ZTableButton',
@@ -63,7 +63,7 @@ export default defineComponent({
 
     const renderReference = (
       scope: any,
-      dropdownProps: DropdownProps,
+      dropdownProps: BtnItem,
     ) => {
       const reference = dropdownProps.reference
       if (isFunction(reference))
@@ -94,7 +94,7 @@ export default defineComponent({
 
       if (isShowButton) {
         if (button.type === 'dropdown') {
-          const dropdownProps = reactiveOmit(button, FILTER_KEYS)
+          const dropdownProps = omit(button, FILTER_KEYS)
           return <el-dropdown
             type="primary"
             size={size.value}
@@ -102,14 +102,14 @@ export default defineComponent({
             class={ns.e('dropdown')}
             {...dropdownProps}
             onCommand={(command: string) => {
-              const dropdownItem = button.children.find((item: BtnItem) => item.label === command)
+              const dropdownItem = button.children?.find((item: BtnItem) => item.label === command)
               if (dropdownItem && isFunction(dropdownItem.onClick)) dropdownItem.onClick(scope.row, scope.$index, scope.column)
             }}
             v-slots={{
               dropdown: () => (
                 <el-dropdown-menu>
-                  {button.children.map((dropdownItem: BtnItem) => {
-                    const dropdownProps = reactiveOmit(dropdownItem, FILTER_KEYS)
+                  {button.children?.map((dropdownItem: BtnItem) => {
+                    const dropdownProps = omit(dropdownItem, FILTER_KEYS)
                     return (
                       <el-dropdown-item
                         {...dropdownProps}

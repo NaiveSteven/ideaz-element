@@ -27,20 +27,25 @@ export const useTableSlots = (columns: Ref<TableCol[]>, slots: any) => {
               slots[item.dropdown.reference]({ ...scope, $index: scope.index })
           }
         }
+        if (item.type === 'expand' && slots.expand) {
+          scopedSlots.expand = (scope: any) =>
+            slots.expand({ ...scope, $index: scope.index })
+        }
+
         if (item.headerSlot && slots[item.headerSlot]) {
           scopedSlots[item.headerSlot] = (scope: any) =>
             slots[item.headerSlot]({ ...scope, $index: scope.index })
         }
       })
+
+      if (isFunction(slots.empty))
+        tableSlots.empty = () => slots.empty()
+
+      if (isFunction(slots.append))
+        tableSlots.append = () => slots.append()
     },
     { immediate: true, deep: true },
   )
-
-  if (isFunction(slots.empty))
-    tableSlots.empty = () => slots.empty()
-
-  if (isFunction(slots.append))
-    tableSlots.append = () => slots.append()
 
   return { scopedSlots, tableSlots }
 }

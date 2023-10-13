@@ -1,4 +1,5 @@
 import type { Slot } from 'vue'
+import type { PaginationProps } from 'element-plus'
 
 export interface IndexOptions { [propName: string]: OptionsItem[] }
 
@@ -23,12 +24,9 @@ export interface ValidateField {
 export type validateCallback = (isSuccess: boolean, field: ValidateField) => void
 export type validateFieldCallback = (errorMessage: string) => void
 
-export interface Pagination {
+export interface Pagination extends Partial<PaginationProps> {
   page?: number
   pageSize?: number
-  total?: number
-  layout?: string
-  pageSizes?: number[]
   type?: 'front' | 'backbone'
 }
 

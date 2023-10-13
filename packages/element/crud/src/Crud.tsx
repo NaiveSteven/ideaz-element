@@ -175,7 +175,7 @@ export default defineComponent({
         class: ns.be('filter-form', 'container'),
         children: <z-filter-form
           ref="formRef"
-          {...{ ...pick(props, formKeys), columns: searchFormColumns.value, ...attrs.value, searchLoading: tableProps.value.loading }}
+          {...{ ...pick(props, formKeys), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
           modelValue={middleFormData.value}
           onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
           onSearch={handleSearch}

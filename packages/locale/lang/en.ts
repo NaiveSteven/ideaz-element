@@ -30,6 +30,7 @@ export default {
     density: 'density',
     columnSetting: 'column setting',
     columnDisplay: 'column display',
+    deleteTip: 'Are you sure you want to delete this data?',
   },
   dialog: {
     got: 'got it',
@@ -59,5 +60,6 @@ export default {
     fullScreen: 'full screen',
     cancelFullScreen: 'cancel full screen',
     reset: 'reset',
+    search: 'search',
   },
 }

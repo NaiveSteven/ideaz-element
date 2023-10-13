@@ -44,7 +44,7 @@ export default defineComponent({
   emits: ['update:modelValue', 'change'],
   setup(props, { slots, emit }) {
     return () => {
-      const { columns, formProps, options, formConfig, modelValue } = props
+      const { columns, formProps, options, modelValue } = props
       return columns.map((col: FormColumn, colIndex: number) => {
         const { scopedSlots } = useFormSlots(col, slots, formProps)
         const { colKls, colStyle } = useCol(formProps, col)
@@ -53,7 +53,7 @@ export default defineComponent({
           ref={`formItem${colIndex}`}
           col={col}
           modelValue={modelValue}
-          formConfig={formConfig}
+          formConfig={formProps}
           options={options}
           class={colKls.value}
           style={colStyle.value}

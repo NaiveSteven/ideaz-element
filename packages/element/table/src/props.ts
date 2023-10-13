@@ -5,10 +5,12 @@ import type {
   TableProps,
 } from 'element-plus/es/components/table/src/table/defaults'
 import type { WatermarkProps } from '../../watermark/src/watermark'
-import type { Pagination, TableCol } from '~/types'
+import type { Pagination, TableCol, ToolBar } from '~/types'
 export interface TableEdit {
   type?: 'multiple' | 'single'
   position?: 'bottom' | 'top'
+  maxLength?: number
+  deleteConfirm?: boolean
   onEdit?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
   onSave?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
   onDelete?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
@@ -113,7 +115,7 @@ export const tableProps = {
     default: () => ({ page: 1, pageSize: 0, total: 0 }),
   },
   toolBar: {
-    type: [Boolean, Object],
+    type: [Boolean, Object] as PropType<ToolBar | boolean>,
     default: true,
   },
   draggable: {
@@ -121,15 +123,11 @@ export const tableProps = {
     default: false,
   },
   editable: {
-    type: [Object] as PropType<TableEdit>,
+    type: [Object, Boolean] as PropType<TableEdit | boolean>,
   },
   options: {
     type: Object,
     default: () => {},
-  },
-  maxLength: {
-    type: Number,
-    default: undefined,
   },
   watermark: {
     type: [String, Object, Boolean] as PropType<boolean | string | WatermarkProps>,
@@ -147,7 +145,7 @@ export const tableColumnProps = {
   },
   size: {
     type: String as PropType<ComponentSize>,
-    default: 'small',
+    default: 'default',
   },
   tableProps: {
     type: Object as PropType<ITableProps>,
@@ -192,7 +190,7 @@ export const toolBarProps = {
   },
   size: {
     type: String,
-    default: 'small',
+    default: 'default',
   },
   toolBar: {
     type: [Boolean, Object],

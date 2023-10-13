@@ -54,7 +54,7 @@ export default defineComponent({
           return <el-radio
             v-model={radioValue.value}
             label={getRowKey(row)}
-            onChange={handleRadioChange(row)}
+            onChange={() => handleRadioChange(row)}
           />
         },
       }} />

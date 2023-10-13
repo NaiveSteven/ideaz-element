@@ -1,19 +1,22 @@
+import type { ButtonProps, dropdownItemProps, dropdownProps } from 'element-plus'
+import type { ExtractPropTypes } from 'vue'
 import type { OptionsItem } from './common'
 import type { FormColumn } from './form'
 
-export interface BtnItem {
-  label?: string
-  type?: string
-  isDisabled?: (row: any, index: number, column: any) => boolean
+export type BtnItem = Omit<ButtonProps, 'type' | 'disabled'> & {
+  type: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'dropdown'
   disabled?: ((row: any, index: number) => boolean) | boolean
-  whenShowCb?: (row: any, index: number, column: any) => boolean
   hide?: ((row: any, index: number) => boolean) | boolean
   onClick?: (row: any, index: number, column: any) => void
-  trigger?: string
+  children?: BtnItem
   reference?: string | ((h: any, scope: any) => VNode)
-  size?: string
   onCommand: (command: string) => void
   [propName: string]: any
+} & Partial<ExtractPropTypes<typeof dropdownItemProps>> & Omit<Partial<ExtractPropTypes<typeof dropdownProps>>, 'type'>
+
+export interface ToolBar {
+  uncheck?: string[]
+  exclude?: string[]
 }
 
 export interface TableFormConfig {

@@ -30,6 +30,7 @@ export default {
     density: '密度',
     columnSetting: '列设置',
     columnDisplay: '列展示',
+    deleteTip: '您确定要删除这条数据吗？',
   },
   dialog: {
     got: '知道了',
@@ -59,5 +60,6 @@ export default {
     fullScreen: '全屏',
     cancelFullScreen: '取消全屏',
     reset: '重置',
+    search: '查询',
   },
 }

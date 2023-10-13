@@ -75,7 +75,24 @@
 61. `z-table`的`pagination`支持位置调整
 62. `z-form`的`OperationCard`组件`size`适配
 63. `z-table`数据项拖拽添加把手
-64. `z-filter-form`操作按钮逻辑内置
+64. ~~`z-filter-form`操作按钮逻辑内置~~
+65. ~~`z-filter-form`的查询和重置按钮支持属性配置~~
+66. ~~`z-filter-form`的操作按钮支持`render`函数自定义~~
+67. ~~`z-form`的`colon`支持`column`中直接配置~~
+68. `z-form`的`type`为`group`时，支持在`column`中配置`content-position`和`border-style`等属性
+69. `z-form`的`type`为`group`时，支持`label`自定义`slot`和`render`函数配置
+70. `z-form`的`type`为`step`时，按钮支持自定义
+71. ~~`z-table`的`reference`支持`render`函数自定义`~~
+72. ~~`z-table`的`column`的`type`为`expand`时，支持`render`函数和默认配置`expand`插槽~~
+73. `z-table`支持`renderHeader`自定义表格头
+74. `z-table`的`draggable`添加事件
+75. ~~`z-table`的`editable`支持布尔值~~
+76. ~~`z-table`的`editable`删除时添加二次确认~~
+77. ~~`z-table`的`maxLength`放到`editable`中~~
+78. `z-table`的`hide`文档需要添加复杂的`slots`示例和`render`函数示例
+79. `z-dialog`的`import`导入`ts`提示优化
+
+## FEATURE
 
 ## LONG_TERM FEATURE
 
@@ -93,7 +110,15 @@
 5. ~~`z-crud`表单底部和顶部高度不对称问题~~
 6. ~~`z-dialog`导入方式组件关闭销毁问题~~
 7. ~~修复`z-crud`全屏问题~~
-8. 修复`z-filter-form`的`placeholder`问题
+8. ~~修复`z-filter-form`的`placeholder`问题~~
+9. ~~修复`z-filter-form`校验`message`错误问题~~
+10. ~~修复`z-filter-form`的`hide`导致布局错误问题~~
+11. 修复`z-form`的`type`为`collapse`时，点击跳转问题
+12. ~~修复`z-table`的`z-table-tool-bar--top-bottom`多余`margin-bottom`~~
+13. 优化`z-table`的操作按钮和`dropdown`同时出现时的布局问题
+14. 修复`z-table`的`editable`模式和`type`冲突问题
+15. ~~修复`z-table`的`selection-change`和`radio-change`持续调用问题~~
+16. 修复`z-table`的`editable`选择器无法编辑问题
 
 ## Long Time
 
@@ -106,7 +131,7 @@
 2. ~~`checkbox`组件文档、`dts`文件~~
 3. ~~`col`、`row`组件文档、`dts`文件~~
 4. ~~`description`组件文档、`dts`文件~~
-5. `form`组件文档、`dts`文件
+5. ~~`form`组件文档、`dts`文件~~
 6. ~~`input`组件文档、`dts`文件~~
 7. ~~`radio`组件文档、`dts`文件~~
 8. ~~`select`组件文档、`dts`文件~~
@@ -115,8 +140,8 @@
 11. ~~`text`组件文档、`dts`文件~~
 12. ~~`watermark`组件文档、`dts`文件~~
 13. `crud`组件文档、`dts`文件
-14. `dialog`组件文档、`dts`文件
-15. `full-screen`组件文档
+14. ~~`dialog`组件文档、`dts`文件~~
+15. ~~`full-screen`组件文档~~
 
 ## design
 

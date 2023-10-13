@@ -16,6 +16,7 @@ export interface FormColumn {
   tooltip?: string | (() => VNode)
   label?: string | (() => VNode)
   extra?: string | (() => VNode)
+  colon?: boolean
   field?: string
   formItemProps?: Partial<ElFormItemProps> & FormItemProps
   fieldProps?: IndexType
@@ -32,6 +33,13 @@ export interface FormColumn {
   class?: string
   style?: string
   rules?: FormRules | FormItemRule
+  __key?: string // 组件库生成的key
+  key?: string // 用户传入的key
+  children?: FormColumn[]
+  disabled?: boolean
+  options?: OptionsItem[]
+  required?: boolean
+  // grid
   span?: number // col span
   offset?: number // col offset
   pull?: number // col pull
@@ -41,12 +49,6 @@ export interface FormColumn {
   md?: number | object // ≥768px
   lg?: number | object // ≥992px
   xl?: number | object // ≥1200px
-  __key?: string // 组件库生成的key
-  key?: string // 用户传入的key
-  children?: FormColumn[]
-  disabled?: boolean
-  options?: OptionsItem[]
-  required?: boolean
   // step
   icon?: string | (() => VNode)
   description?: string | (() => VNode)
