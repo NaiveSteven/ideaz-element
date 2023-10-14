@@ -136,7 +136,7 @@
 6. ~~`input`组件文档、`dts`文件~~
 7. ~~`radio`组件文档、`dts`文件~~
 8. ~~`select`组件文档、`dts`文件~~
-9. `table`组件文档、`dts`文件
+9. ~~`table`组件文档、`dts`文件~~
 10. ~~`tag-select`组件文档、`dts`文件~~
 11. ~~`text`组件文档、`dts`文件~~
 12. ~~`watermark`组件文档、`dts`文件~~

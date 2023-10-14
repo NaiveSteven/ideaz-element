@@ -61,6 +61,10 @@ export const formProps = {
     type: String as PropType<'left' | 'right' | 'center'>,
     default: 'center',
   },
+  borderStyle: {
+    type: String as PropType<'none' | 'solid' | 'hidden' | 'dashed' | ''>,
+    default: 'solid',
+  },
   accordion: {
     type: Boolean,
     default: false,
