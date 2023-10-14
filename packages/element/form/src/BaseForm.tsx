@@ -3,6 +3,7 @@ import { useExpose } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
 import { isFunction, isString } from '@ideaz/utils'
+import {getContentByRenderAndSlot} from '@ideaz/shared'
 import { getCurrentInstance } from 'vue-demi'
 import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
@@ -74,7 +75,9 @@ export default defineComponent({
         return formatFormItems.value.map((column) => {
           if (column.label && column.children && column.children.length) {
             return <>
-              <el-divider contentPosition={column.contentPosition || contentPosition} borderStyle={column.borderStyle || borderStyle}>{column.label}</el-divider>
+              <el-divider contentPosition={column.contentPosition || contentPosition} borderStyle={column.borderStyle || borderStyle}>
+                {getContentByRenderAndSlot(column.label, slots)}
+              </el-divider>
               {renderCommonColumn(column.children || [])}
             </>
           }

@@ -79,8 +79,8 @@
 65. ~~`z-filter-form`的查询和重置按钮支持属性配置~~
 66. ~~`z-filter-form`的操作按钮支持`render`函数自定义~~
 67. ~~`z-form`的`colon`支持`column`中直接配置~~
-68. `z-form`的`type`为`group`时，支持在`column`中配置`content-position`和`border-style`等属性
-69. `z-form`的`type`为`group`时，支持`label`自定义`slot`和`render`函数配置
+68. ~~`z-form`的`type`为`group`时，支持在`column`中配置`content-position`和`border-style`等属性~~
+69. ~~`z-form`的`type`为`group`时，支持`label`自定义`slot`和`render`函数配置~~
 70. `z-form`的`type`为`step`时，按钮支持自定义
 71. ~~`z-table`的`reference`支持`render`函数自定义`~~
 72. ~~`z-table`的`column`的`type`为`expand`时，支持`render`函数和默认配置`expand`插槽~~
@@ -92,6 +92,7 @@
 78. `z-table`的`hide`文档需要添加复杂的`slots`示例和`render`函数示例
 79. `z-table`的可编辑表格校验示例，表格配置
 80. `z-dialog`的`import`导入`ts`提示优化
+81. 所有组件的`label`、`tittle`等属性都通过方法支持`slot`和`render`函数
 
 ## FEATURE
 

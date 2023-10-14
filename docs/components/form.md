@@ -713,7 +713,7 @@ const submit = () => {
 
 ```vue
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 const formRef = ref()
 const formData = ref({
@@ -751,7 +751,7 @@ const columns = [
     ]
   },
   {
-    label: '文本2',
+    label: () => h('span', '文本2'),
     contentPosition: 'center',
     children: [
       {
