@@ -57,7 +57,7 @@ export default defineComponent({
           options={options}
           class={colKls.value}
           style={colStyle.value}
-          v-slots={scopedSlots}
+          v-slots={{ ...slots, ...scopedSlots }}
           v-show={isFunction(col.hideUseVShow) ? !col.hideUseVShow(modelValue) : true}
           onUpdate:modelValue={(val: any, field: string) => {
             emit('update:modelValue', set(cloneDeep(modelValue), field, val))

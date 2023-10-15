@@ -311,7 +311,7 @@ const columns = [
     field: 'name',
     label: '姓名',
     tooltip: '这是姓名',
-    extra: '这是额外信息',
+    extra: 'extraSlot',
     required: true
   },
   {
@@ -361,6 +361,9 @@ const submit = () => {
     :column="2"
     colon
   >
+    <template #extraSlot>
+      <span>提示</span>
+    </template>
     <template #button>
       <el-button class="w-full" type="primary" @click="submit">
         提交

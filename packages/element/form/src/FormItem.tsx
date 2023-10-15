@@ -1,5 +1,5 @@
 import { extractEvents, isFunction, isObject, isString } from '@ideaz/utils'
-import { resolveDynamicComponent } from '@ideaz/shared'
+import { getContentByRenderAndSlot, resolveDynamicComponent } from '@ideaz/shared'
 import { get } from 'lodash-unified'
 import { vueRef as ref } from '@ideaz/directives'
 import {
@@ -75,9 +75,7 @@ export default defineComponent({
             }))}
           {formItemProps.value.extra && (
             <div class={ns.e('extra')}>
-              {isFunction(formItemProps.value.extra)
-                ? formItemProps.value.extra()
-                : formItemProps.value.extra}
+              {getContentByRenderAndSlot(formItemProps.value.extra, slots)}
             </div>
           )}
         </el-form-item>

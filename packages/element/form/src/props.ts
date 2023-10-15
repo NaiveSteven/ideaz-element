@@ -144,3 +144,4 @@ export type FormItemProps = ExtractPropTypes<typeof formItemProps>
 export type FilterFormProps = ExtractPropTypes<typeof filterFormProps>
 export const formProvideKey = Symbol('formKey')
 export const formItemProvideKey = Symbol('formItemKey')
+export const FORM_ITEM_FILTER_KEYS = ['children', 'max', 'field', 'fieldProps']

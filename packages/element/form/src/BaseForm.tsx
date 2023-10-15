@@ -2,8 +2,7 @@
 import { useExpose } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
-import { isFunction, isString } from '@ideaz/utils'
-import {getContentByRenderAndSlot} from '@ideaz/shared'
+import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { getCurrentInstance } from 'vue-demi'
 import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
@@ -13,7 +12,7 @@ import {
   useFormMethods,
   useRow,
 } from '../hooks'
-import { formProps, formProvideKey } from './props'
+import { FORM_ITEM_FILTER_KEYS, formProps, formProvideKey } from './props'
 import FormColumns from './FormColumns'
 import OperationCard from './OperationCard'
 import type { FormColumn } from '~/types'
@@ -62,7 +61,7 @@ export default defineComponent({
         columns={contentColumns}
         formProps={props}
         v-slots={slots}
-        onUpdate: modelValue={(...args) => { emit('update:modelValue', ...args) }}
+        onUpdate:modelValue={(...args) => { emit('update:modelValue', ...args) }}
         onChange={(...args) => { emit('change', ...args) }}
       />
     }
@@ -89,13 +88,13 @@ export default defineComponent({
           modelValue={activeCollapse}
           accordion={accordion}
           class={ns.b('collapse')}
-          onUpdate: activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
+          onUpdate:activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
           onChange={(val: string[] | string) => { emit('collapse-change', val) }}
         >
           {formatFormItems.value.map((column, index) => {
             if (column.label && column.children && column.children.length) {
               return <el-collapse-item name={index} disabled={column.disabled} v-slots={{
-                title: (isFunction(column.label) && column.label) || (isString(column.label) && slots[column.label]) || (() => column.label),
+                title: () => getContentByRenderAndSlot(column.label, slots),
               }}>
                 {renderCommonColumn(column.children || [])}
               </el-collapse-item>
@@ -123,7 +122,7 @@ export default defineComponent({
                   options={options}
                   columns={formatFormItems.value}
                   v-slots={slots}
-                  onUpdate: modelValue={(val: any) => {
+                  onUpdate:modelValue={(val: any) => {
                     model.splice(index, 1, val)
                     emit('update:modelValue', model)
                   }}
@@ -143,7 +142,7 @@ export default defineComponent({
           if (column.label && column.children && column.children.length) {
             const field = column.field!
             const maxLength = column.max || max
-            return <el-form-item label={column.label} prop={column.field} class={ns.b('array-form-item')}>
+            return <el-form-item label={column.label} prop={column.field} class={ns.b('array-form-item')} {...omit(column, FORM_ITEM_FILTER_KEYS)}>
               <>
                 {modelValue[field].map((data: any, index: number) => {
                   const formProps = omit(column, ['children', 'field'])
@@ -166,7 +165,7 @@ export default defineComponent({
                         options={column.options || options}
                         columns={column.children}
                         v-slots={slots}
-                        onUpdate: modelValue={(val: any) => {
+                        onUpdate:modelValue={(val: any) => {
                           const item = cloneDeep(modelValue[field])
                           item.splice(index, 1, val)
                           emit('update:modelValue', { ...modelValue, [field]: item })
@@ -199,9 +198,9 @@ export default defineComponent({
           <el-steps active={activeStep.value} finishStatus={finishStatus} processStatus={processStatus} simple={simple} class={ns.b('steps')}>
             {formatFormItems.value.map((column) => {
               return <el-step status={column.status} v-slots={{
-                icon: (isFunction(column.icon) && column.icon) || (isString(column.icon) && slots[column.icon]) || (() => column.icon),
-                description: (isFunction(column.description) && column.description) || (isString(column.description) && slots[column.description]) || (() => column.description),
-                title: (isFunction(column.label) && column.label) || (isString(column.label) && slots[column.label]) || (() => column.label),
+                icon: () => getContentByRenderAndSlot(column.icon, slots),
+                description: () => getContentByRenderAndSlot(column.description, slots),
+                title: () => getContentByRenderAndSlot(column.label, slots),
               }} />
             })}
           </el-steps>

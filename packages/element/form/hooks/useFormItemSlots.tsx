@@ -38,6 +38,7 @@ export const useFormItemSlots = (props: FormItemProps, slots: Slots) => {
               ...col.formItemProps,
               colon: getColon(),
             }}
+            v-slots={slots}
           />
           )
       }
