@@ -28,8 +28,8 @@ export const descriptionsProps = {
   column: Number,
   direction: String as PropType<'vertical' | 'horizontal'>,
   size: String as PropType<ComponentSize>,
-  title: String,
-  extra: String,
+  title: [String, Function] as PropType<string | (() => VNode)>,
+  extra: [String, Function] as PropType<string | (() => VNode)>,
   align: String as PropType<'left' | 'center' | 'right'>,
   labelAlign: String as PropType<'left' | 'center' | 'right'>,
 }

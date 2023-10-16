@@ -145,6 +145,47 @@ const direction = ref('horizontal')
 
 :::
 
+## title和extra
+
+`title`和`extra`属性支持`string`和`render`函数，当你传入字符类型时，如果包含`Slot`，则会被渲染为`Slot`
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h } from 'vue'
+const columns = [
+  { label: 'Date', prop: 'date' },
+  { label: 'Name', prop: 'name' },
+  { label: 'Address', prop: 'address' },
+]
+const detail = {
+  date: '2016-05-03',
+  name: 'Tom',
+  address: 'No. 189, Grove St, Los Angeles',
+}
+const renderTitle = () => {
+  return h('span', '自定义标题')
+}
+</script>
+
+<template>
+  <z-descriptions
+    :columns="columns"
+    :detail="detail"
+    :title="renderTitle"
+    extra="extraSlot"
+    border
+  >
+    <template #extraSlot>
+      <span>自定义操作区</span>
+    </template>
+  </z-descriptions>
+</template>
+```
+
+:::
+
 ## 插槽
 
 在`columns`项目配置`render`或`renderLabel`，或者在模板中增加带` detail-[prop] `相关的插槽即可使用
@@ -203,8 +244,8 @@ const detail = {
 | column    | 一行 `Descriptions Item` 的数量 | `number`  | —                       | 3          |
 | direction | 排列的方向                      | `string`  | vertical / horizontal   | horizontal |
 | size      | 列表的尺寸                      | `string`  | large / default / small | default    |
-| title     | 标题文本，显示在左上方          | `string`  | —                       | —          |
-| extra     | 操作区文本，显示在右上方        | `string`  | —                       | —          |
+| title     | 标题文本，显示在左上方          | `string` / `() => VNode`  | —                       | —          |
+| extra     | 操作区文本，显示在右上方        | `string` / `() => VNode`  | —                       | —          |
 
 ## column 配置项
 

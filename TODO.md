@@ -93,7 +93,8 @@
 79. `z-table`的可编辑表格校验示例，表格配置
 80. `z-dialog`的`import`导入`ts`提示优化
 81. 所有组件的`label`、`tittle`等属性都通过方法支持`slot`和`render`函数
-82. `z-form`的`form`去除无用`attributes`
+82. ~~`z-form`的`form`去除无用`attributes`~~
+83. `z-table`支持`columns`动态导入
 
 ## FEATURE
 
