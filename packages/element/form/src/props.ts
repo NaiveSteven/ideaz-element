@@ -145,3 +145,10 @@ export type FilterFormProps = ExtractPropTypes<typeof filterFormProps>
 export const formProvideKey = Symbol('formKey')
 export const formItemProvideKey = Symbol('formItemKey')
 export const FORM_ITEM_FILTER_KEYS = ['children', 'max', 'field', 'fieldProps']
+export const FORM_FILTER_KEYS = [
+  'gutter', 'justify', 'align', 'options', 'modelValue', 'columns',
+  'children', 'colon', 'activeCollapse', 'type', 'contentPosition',
+  'borderStyle', 'accordion', 'processStatus', 'finishStatus',
+  'simple', 'max', 'collapsed', 'searchButtonLoading', 'searchButtonLabel', 'resetButtonLabel',
+  'resetButtonLoading', 'searchButtonProps', 'resetButtonProps', 'renderOperation',
+]

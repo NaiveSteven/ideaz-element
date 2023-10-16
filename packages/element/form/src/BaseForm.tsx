@@ -12,7 +12,7 @@ import {
   useFormMethods,
   useRow,
 } from '../hooks'
-import { FORM_ITEM_FILTER_KEYS, formProps, formProvideKey } from './props'
+import { FORM_FILTER_KEYS, FORM_ITEM_FILTER_KEYS, formProps, formProvideKey } from './props'
 import FormColumns from './FormColumns'
 import OperationCard from './OperationCard'
 import type { FormColumn } from '~/types'
@@ -107,7 +107,7 @@ export default defineComponent({
         const model = [...modelValue as any[]]
         return <>
           {modelValue.map((data: any, index: number) => {
-            const formProps = omit(props, ['columns', 'type', 'modelValue'])
+            const formProps = omit(props, FORM_FILTER_KEYS)
             return <OperationCard
               onAdd={() => { emit('update:modelValue', [...model, {}]) }}
               onDelete={() => {
@@ -145,7 +145,7 @@ export default defineComponent({
             return <el-form-item label={column.label} prop={column.field} class={ns.b('array-form-item')} {...omit(column, FORM_ITEM_FILTER_KEYS)}>
               <>
                 {modelValue[field].map((data: any, index: number) => {
-                  const formProps = omit(column, ['children', 'field'])
+                  const formProps = omit(column, FORM_FILTER_KEYS)
                   return <OperationCard
                     onAdd={() => {
                       const model = { ...modelValue }
