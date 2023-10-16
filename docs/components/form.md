@@ -311,7 +311,7 @@ const columns = [
     field: 'name',
     label: '姓名',
     tooltip: '这是姓名',
-    extra: '这是额外信息',
+    extra: 'extraSlot',
     required: true
   },
   {
@@ -361,6 +361,9 @@ const submit = () => {
     :column="2"
     colon
   >
+    <template #extraSlot>
+      <span>提示</span>
+    </template>
     <template #button>
       <el-button class="w-full" type="primary" @click="submit">
         提交
@@ -713,7 +716,7 @@ const submit = () => {
 
 ```vue
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 
 const formRef = ref()
 const formData = ref({
@@ -732,6 +735,7 @@ const options = {
 const columns = [
   {
     label: '文本1',
+    borderStyle: 'dashed',
     children: [
       {
         component: 'input',
@@ -750,7 +754,8 @@ const columns = [
     ]
   },
   {
-    label: '文本2',
+    label: () => h('span', '文本2'),
+    contentPosition: 'center',
     children: [
       {
         component: 'select',
@@ -810,6 +815,7 @@ const submit = () => {
     label-width="80px"
     size="small"
     type="group"
+    content-position="left"
   >
     <template #operate>
       <div class="flex w-full">
@@ -1355,6 +1361,15 @@ const submit = () => {
 | modelValue                          | 表单数据对象                                                 | `object`             | —      |
 | type                      | 表单类型                                  | `normal` / `group` / `collapse` / `array` / `step`             |  `normal`      |
 | rules                          | 表单验证规则                                                 | `object`             | —      |
+| columns                          | 表单项                                                 | `array`             | —      |
+| options                          | 表单选择项数据源                                                 | `object`             | —      |
+| column                          | 表单列数（便捷布局）                                                 | `number`             |`1`      |
+| colon                          | 表单项冒号                                                 | `boolean`             | false      |
+| max                          | 数组项最大数量（`type`为`array`生效）                                                 | `number`             | —      |
+| gutter                          | 栅格间隔                                                 | `number`             | 0      |
+| justify                          |  `flex`布局下的水平排列方式                                                 | 'start' | 'end' | `center` / `space-around` / `space-between` / `space-evenly`             | —      |
+| align                          |  `flex`布局下的垂直排列方式                                                 | `top` / `middle` /`bottom`            | —      |
+| v-model:activeCollapse                          | 展开的`collapse`项（`type`为`collapse`生效）                                                 | `array`             | —      |
 | label-position                 | 表单域标签的位置， 当设置为 `left` 或 `right` 时，则也需要设置 `label-width` 属性 | `enum`               | right  |
 | label-width                    | 标签的长度，例如 `'50px'`。 作为 Form 直接子元素的 form-item 会继承该值。 可以使用 `auto`。 | `string` / `number`  | ''     |
 | label-suffix                   | 表单域标签的后缀                                             | `string`             | ''     |
@@ -1388,7 +1403,7 @@ const submit = () => {
 | :----------------------------- | :----------------------------------------------------------- | :------------------- | :----- |
 | process-status                          | 设置当前步骤的状态                         | `wait` / `process` / `finish` / `error` / `success`             | `process`      |
 | finish-status                          | 设置结束步骤的状态                         | `wait` / `process` / `finish` / `error` / `success`             | `finish`      |
-| align-center                      | 居中对其                                  | `boolean`             |  `true`      |
+| align-center                      | 居中对齐                                  | `boolean`             |  `true`      |
 
 ## z-form方法
 

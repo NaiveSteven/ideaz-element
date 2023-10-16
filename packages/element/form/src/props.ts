@@ -61,6 +61,10 @@ export const formProps = {
     type: String as PropType<'left' | 'right' | 'center'>,
     default: 'center',
   },
+  borderStyle: {
+    type: String as PropType<'none' | 'solid' | 'hidden' | 'dashed' | ''>,
+    default: 'solid',
+  },
   accordion: {
     type: Boolean,
     default: false,
@@ -140,3 +144,11 @@ export type FormItemProps = ExtractPropTypes<typeof formItemProps>
 export type FilterFormProps = ExtractPropTypes<typeof filterFormProps>
 export const formProvideKey = Symbol('formKey')
 export const formItemProvideKey = Symbol('formItemKey')
+export const FORM_ITEM_FILTER_KEYS = ['children', 'max', 'field', 'fieldProps']
+export const FORM_FILTER_KEYS = [
+  'gutter', 'justify', 'align', 'options', 'modelValue', 'columns',
+  'children', 'colon', 'activeCollapse', 'type', 'contentPosition',
+  'borderStyle', 'accordion', 'processStatus', 'finishStatus',
+  'simple', 'max', 'collapsed', 'searchButtonLoading', 'searchButtonLabel', 'resetButtonLabel',
+  'resetButtonLoading', 'searchButtonProps', 'resetButtonProps', 'renderOperation',
+]

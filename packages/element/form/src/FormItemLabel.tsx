@@ -1,4 +1,4 @@
-import { isFunction, isObject, isString } from '@ideaz/utils'
+import { isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 
 export default defineComponent({
   name: 'FormItemLabel',
@@ -16,7 +16,7 @@ export default defineComponent({
       default: false,
     },
   },
-  setup(props) {
+  setup(props, { slots }) {
     const ns = useNamespace('form-item')
 
     return () => {
@@ -29,6 +29,9 @@ export default defineComponent({
 
       if (isFunction(tooltip))
         tooltipSlot.content = () => tooltip(h)
+
+      if (isSlot(tooltip))
+        tooltipSlot.content = () => slots[tooltip as string]?.()
 
       return (
         <span>

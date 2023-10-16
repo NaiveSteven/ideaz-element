@@ -145,16 +145,62 @@ const direction = ref('horizontal')
 
 :::
 
-## 插槽
+## title、extra和label
 
-在`columns`项目配置`render`或`renderLabel`，或者在模板中增加带` detail-[prop] `相关的插槽即可使用
+`title`、`extra`和`label`属性支持`string`和`render`函数，当你传入字符类型时，如果包含`Slot`，则会被渲染为`Slot`
 
 :::demo
 
 ```vue
 <script lang="ts" setup>
+import { h } from 'vue'
 const columns = [
-  { label: 'Date', prop: 'date' },
+  { label: () => h('span', 'Date'), prop: 'date' },
+  { label: 'Name', prop: 'name' },
+  { label: 'addressSlot', prop: 'address' },
+]
+const detail = {
+  date: '2016-05-03',
+  name: 'Tom',
+  address: 'No. 189, Grove St, Los Angeles',
+}
+const renderTitle = () => {
+  return h('span', '自定义标题')
+}
+</script>
+
+<template>
+  <z-descriptions
+    :columns="columns"
+    :detail="detail"
+    :title="renderTitle"
+    extra="extraSlot"
+    border
+  >
+    <template #extraSlot>
+      <span>自定义操作区</span>
+    </template>
+    <template #addressSlot>
+      <span>自定义Address</span>
+    </template>
+  </z-descriptions>
+</template>
+```
+
+:::
+
+## 插槽
+
+在`columns`项目配置`render`，或者在模板中增加带` detail-[prop] `相关的插槽即可使用
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h } from 'vue'
+
+const columns = [
+  { label: 'Date', prop: 'date', render: data => h('span', `自定义${data.date}`) },
   { label: 'Name', prop: 'name' },
   { label: 'Address', prop: 'address' },
 ]
@@ -171,21 +217,10 @@ const detail = {
     :detail="detail"
     border
   >
-    <template #title>
-      <span>title</span>
-    </template>
-    <template #extra="{ size }">
-      <el-button :size="size">
-        extra
-      </el-button>
-    </template>
     <template #detail-name="{ item, size }">
       <el-tag :size="size">
         {{ item.name }}
       </el-tag>
-    </template>
-    <template #detail-name-label="{ item }">
-      <span>{{ item.label }}:</span>
     </template>
   </z-descriptions>
 </template>
@@ -203,15 +238,15 @@ const detail = {
 | column    | 一行 `Descriptions Item` 的数量 | `number`  | —                       | 3          |
 | direction | 排列的方向                      | `string`  | vertical / horizontal   | horizontal |
 | size      | 列表的尺寸                      | `string`  | large / default / small | default    |
-| title     | 标题文本，显示在左上方          | `string`  | —                       | —          |
-| extra     | 操作区文本，显示在右上方        | `string`  | —                       | —          |
+| title     | 标题文本，显示在左上方          | `string` / `() => VNode`  | —                       | —          |
+| extra     | 操作区文本，显示在右上方        | `string` / `() => VNode`  | —                       | —          |
 
 ## column 配置项
 
 | 属性名           | 说明                                                         | 类型            | 可选值                | 默认值 |
 | :--------------- | :----------------------------------------------------------- | :-------------- | :-------------------- | :----- |
 | prop            | 对应`detail`的字段名                                                     | `string`          | —                     | —      |
-| label            | 标签文本                                                     | `string`          | —                     | —      |
+| label            | 标签文本                                                     | `string` / `(columnItem) => VNode`          | —                     | —      |
 | span             | 列的数量                                                     | `number`          | —                     | 1      |
 | width            | 列的宽度，不同行相同列的宽度按最大值设定（如无 `border` ，宽度包含标签与内容） | `string / number` | —                     | —      |
 | minWidth        | 列的最小宽度，与 `width` 的区别是 `width` 是固定的，`min-width` 会把剩余宽度按比例分配给设置了 `min-width` 的列（如无 `border`，宽度包含标签与内容） | `string / number` | —                     | —      |
@@ -220,4 +255,3 @@ const detail = {
 | className       | 列的内容自定义类名                                           | `string`          | —                     | —      |
 | labelClassName | column label custom class name                               | `string`          | —                     | —      |
 | render | `render`函数                              | `string`          | —                     | —      |
-| renderLabel | `label的render`函数                            | `string`          | —                     | —      |

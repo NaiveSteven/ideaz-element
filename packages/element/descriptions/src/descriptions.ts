@@ -3,7 +3,7 @@ import type { ComponentSize } from 'element-plus'
 
 export interface DescriptionsColumn<T = any> {
   prop: any
-  label?: string
+  label?: string | ((item: DescriptionsColumn<T>) => VNode)
   span?: number
   width?: string
   minWidth?: string
@@ -12,7 +12,6 @@ export interface DescriptionsColumn<T = any> {
   className?: string
   labelClassName?: string
   render?: (detail: T) => string | any
-  renderLabel?: (column: DescriptionsColumn<T>) => string | any
 }
 
 export type IDescriptionsColumns<T = any> = Array<
@@ -28,8 +27,8 @@ export const descriptionsProps = {
   column: Number,
   direction: String as PropType<'vertical' | 'horizontal'>,
   size: String as PropType<ComponentSize>,
-  title: String,
-  extra: String,
+  title: [String, Function] as PropType<string | (() => VNode)>,
+  extra: [String, Function] as PropType<string | (() => VNode)>,
   align: String as PropType<'left' | 'center' | 'right'>,
   labelAlign: String as PropType<'left' | 'center' | 'right'>,
 }

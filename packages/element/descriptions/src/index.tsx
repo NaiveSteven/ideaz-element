@@ -2,6 +2,7 @@ import type { Slot } from 'vue'
 import { mergeProps } from 'vue-demi'
 import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
+import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { get } from 'lodash-unified'
 import { isFunction } from '@ideaz/utils'
 import { descriptionsProps } from './descriptions'
@@ -14,29 +15,20 @@ export default defineComponent({
     const size = useFormSize()
     const config = reactiveOmit(
       props,
+      'title',
+      'extra',
       'columns',
       'detail',
       'align',
       'labelAlign',
     )
+    const ns = useNamespace('descriptions')
 
     function createDetail(item: DescriptionsColumn) {
       if (slots[`detail-${item.prop}`]) {
         return (slots[`detail-${item.prop}`] as Slot)({
           size: size.value,
           item: props.detail,
-        })
-      }
-      else if (slots[item.prop]) {
-        // NOTE: Remove `detail: props.detail` on next major release
-        // NOTE: Remove this on next major release
-        console.warn(
-          `[ProDescriptions] the [prop] slot will to remove, use 'detail-[prop]' replace ${item.prop}`,
-        )
-        return (slots[item.prop] as Slot)({
-          size: size.value,
-          item: props.detail,
-          detail: props.detail,
         })
       }
       else if (item.render) {
@@ -46,33 +38,6 @@ export default defineComponent({
       }
       else {
         return get(props.detail, item.prop, '')
-      }
-    }
-
-    function createLabel(item: DescriptionsColumn) {
-      if (slots[`detail-${item.prop}-label`]) {
-        return (slots[`detail-${item.prop}-label`] as Slot)({
-          size: size.value,
-          item,
-        })
-      }
-      else if (slots[`${item.prop}-label`]) {
-        // NOTE: Remove this on next major release
-        console.warn(
-          `[ProDescriptions] the [prop]-label slot will to remove, use 'detail-[prop]-label' replace ${item.prop}-label`,
-        )
-        return (slots[`${item.prop}-label`] as Slot)({
-          size: size.value,
-          item,
-        })
-      }
-      else if (item.renderLabel) {
-        return isFunction(item.renderLabel)
-          ? item.renderLabel(item)
-          : String(item.renderLabel)
-      }
-      else {
-        return null
       }
     }
 
@@ -87,19 +52,17 @@ export default defineComponent({
           },
           {
             default: () => createDetail(item),
-            label: () => createLabel(item),
+            label: () => getContentByRenderAndSlot(item.label, slots, item),
           },
         ),
       )
     }
 
     return () =>
-      h(ElDescriptions, mergeProps(config, { class: 'pro-descriptions' }), {
+      h(ElDescriptions, mergeProps(config, { class: ns.b() }), {
         default: () => [createDefault(), slots.default && slots.default()],
-        title: () =>
-          slots.title ? slots.title({ size: size.value }) : null,
-        extra: () =>
-          slots.extra ? slots.extra({ size: size.value }) : null,
+        title: () => getContentByRenderAndSlot(props.title, slots),
+        extra: () => getContentByRenderAndSlot(props.extra, slots),
       })
   },
 })

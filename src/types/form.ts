@@ -54,4 +54,7 @@ export interface FormColumn {
   description?: string | (() => VNode)
   status?: '' | 'wait' | 'process' | 'finish' | 'error' | 'success'
   max?: number
+  // group
+  contentPosition?: 'left' | 'right' | 'center'
+  borderStyle?: 'none' | 'solid' | 'hidden' | 'dashed' | ''
 }
