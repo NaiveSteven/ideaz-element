@@ -3,7 +3,7 @@ import type { ComponentSize } from 'element-plus'
 
 export interface DescriptionsColumn<T = any> {
   prop: any
-  label?: string
+  label?: string | ((item: DescriptionsColumn<T>) => VNode)
   span?: number
   width?: string
   minWidth?: string
