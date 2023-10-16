@@ -22,6 +22,7 @@ export default defineComponent({
       'align',
       'labelAlign',
     )
+    const ns = useNamespace('descriptions')
 
     function createDetail(item: DescriptionsColumn) {
       if (slots[`detail-${item.prop}`]) {
@@ -40,23 +41,6 @@ export default defineComponent({
       }
     }
 
-    function createLabel(item: DescriptionsColumn) {
-      if (slots[`detail-${item.prop}-label`]) {
-        return (slots[`detail-${item.prop}-label`] as Slot)({
-          size: size.value,
-          item,
-        })
-      }
-      else if (item.renderLabel) {
-        return isFunction(item.renderLabel)
-          ? item.renderLabel(item)
-          : String(item.renderLabel)
-      }
-      else {
-        return null
-      }
-    }
-
     function createDefault() {
       return props.columns?.map(item =>
         h(
@@ -68,14 +52,14 @@ export default defineComponent({
           },
           {
             default: () => createDetail(item),
-            label: () => createLabel(item),
+            label: () => getContentByRenderAndSlot(item.label, slots, item),
           },
         ),
       )
     }
 
     return () =>
-      h(ElDescriptions, mergeProps(config, { class: 'pro-descriptions' }), {
+      h(ElDescriptions, mergeProps(config, { class: ns.b() }), {
         default: () => [createDefault(), slots.default && slots.default()],
         title: () => getContentByRenderAndSlot(props.title, slots),
         extra: () => getContentByRenderAndSlot(props.extra, slots),

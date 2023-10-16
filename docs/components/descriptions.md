@@ -145,9 +145,9 @@ const direction = ref('horizontal')
 
 :::
 
-## title和extra
+## title、extra和label
 
-`title`和`extra`属性支持`string`和`render`函数，当你传入字符类型时，如果包含`Slot`，则会被渲染为`Slot`
+`title`、`extra`和`label`属性支持`string`和`render`函数，当你传入字符类型时，如果包含`Slot`，则会被渲染为`Slot`
 
 :::demo
 
@@ -155,9 +155,9 @@ const direction = ref('horizontal')
 <script lang="ts" setup>
 import { h } from 'vue'
 const columns = [
-  { label: 'Date', prop: 'date' },
+  { label: () => h('span', 'Date'), prop: 'date' },
   { label: 'Name', prop: 'name' },
-  { label: 'Address', prop: 'address' },
+  { label: 'addressSlot', prop: 'address' },
 ]
 const detail = {
   date: '2016-05-03',
@@ -179,6 +179,9 @@ const renderTitle = () => {
   >
     <template #extraSlot>
       <span>自定义操作区</span>
+    </template>
+    <template #addressSlot>
+      <span>自定义Address</span>
     </template>
   </z-descriptions>
 </template>
@@ -252,7 +255,7 @@ const detail = {
 | 属性名           | 说明                                                         | 类型            | 可选值                | 默认值 |
 | :--------------- | :----------------------------------------------------------- | :-------------- | :-------------------- | :----- |
 | prop            | 对应`detail`的字段名                                                     | `string`          | —                     | —      |
-| label            | 标签文本                                                     | `string`          | —                     | —      |
+| label            | 标签文本                                                     | `string` / `() => VNode`          | —                     | —      |
 | span             | 列的数量                                                     | `number`          | —                     | 1      |
 | width            | 列的宽度，不同行相同列的宽度按最大值设定（如无 `border` ，宽度包含标签与内容） | `string / number` | —                     | —      |
 | minWidth        | 列的最小宽度，与 `width` 的区别是 `width` 是固定的，`min-width` 会把剩余宽度按比例分配给设置了 `min-width` 的列（如无 `border`，宽度包含标签与内容） | `string / number` | —                     | —      |

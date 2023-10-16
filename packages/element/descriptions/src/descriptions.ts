@@ -12,7 +12,6 @@ export interface DescriptionsColumn<T = any> {
   className?: string
   labelClassName?: string
   render?: (detail: T) => string | any
-  renderLabel?: (column: DescriptionsColumn<T>) => string | any
 }
 
 export type IDescriptionsColumns<T = any> = Array<
