@@ -84,6 +84,10 @@ export const formProps = {
   max: {
     type: Number,
   },
+  activeStep: {
+    type: Number,
+    default: 0,
+  },
 }
 
 export const formItemProps = {

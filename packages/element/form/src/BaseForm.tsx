@@ -21,7 +21,7 @@ export default defineComponent({
   name: 'ZForm',
   components: { FormColumns, OperationCard },
   props: formProps,
-  emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change', 'next-step', 'previous-step'],
+  emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change', 'next-step', 'previous-step', 'update:activeStep'],
   setup(props, { emit, slots }) {
     const { formatFormItems } = useFormItems(props)
     const { rowStyle, rowKls } = useRow(props)
@@ -37,7 +37,14 @@ export default defineComponent({
     const { t } = useLocale()
 
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-    const activeStep = ref(0)
+    const activeStep = computed({
+      get() {
+        return props.activeStep
+      },
+      set(val) {
+        emit('update:activeStep', val)
+      },
+    })
 
     useExpose({
       resetFields,
