@@ -1,3 +1,5 @@
+import { ArrowDown } from '@element-plus/icons-vue'
+
 export default defineComponent({
   name: 'ToggleButton',
   props: {
@@ -36,7 +38,7 @@ export default defineComponent({
             size={size.value}
           >
             {text.value}
-            <el-icon class={iconClass.value}><i-arrow-down /></el-icon>
+            <el-icon class={iconClass.value}><ArrowDown /></el-icon>
           </el-button>
         </div>
       )

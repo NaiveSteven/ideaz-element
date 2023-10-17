@@ -1,3 +1,4 @@
+import { QuestionFilled } from '@element-plus/icons-vue'
 import { isBoolean, isEmptyObject, isFunction, isObject, isString } from '@ideaz/utils'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
@@ -138,7 +139,7 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
               >
                 {tooltip && (
                   <el-icon class={ns.be('label', 'icon')}>
-                    <i-question-filled />
+                    <QuestionFilled />
                   </el-icon>
                 )}
               </el-tooltip>

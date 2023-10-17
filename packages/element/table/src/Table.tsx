@@ -1,4 +1,5 @@
 import { cloneDeep } from 'lodash-es'
+import { Plus } from '@element-plus/icons-vue'
 import { useExpose } from '@ideaz/hooks'
 import { isFunction, isObject, isString } from '@ideaz/utils'
 import {
@@ -249,7 +250,7 @@ export default defineComponent({
             {position === 'bottom'
               && maxLength !== tableData.value.length
               && <el-button
-                icon='i-plus'
+                icon={Plus}
                 class='w-full mt-2'
                 onClick={() => addTableData()}
               >
