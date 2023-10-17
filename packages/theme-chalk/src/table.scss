@@ -112,6 +112,12 @@
     display: inline-block;
     vertical-align: middle;
   }
+
+  .z-table-column__dropdown + .z-table-column__dropdown,
+  .z-table-column__dropdown + .el-button,
+  .el-button + .z-table-column__dropdown {
+    margin-left: 12px;
+  }
 }
 
 .z-table-editable {
