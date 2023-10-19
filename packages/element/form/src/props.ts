@@ -1,4 +1,4 @@
-import type { ExtractPropTypes } from 'vue-demi'
+import type { ExtractPropTypes, PropType } from 'vue-demi'
 import { formProps as elFormProps } from 'element-plus'
 import type { FormColumn } from '~/types'
 
@@ -84,6 +84,13 @@ export const formProps = {
   max: {
     type: Number,
   },
+  activeStep: {
+    type: Number,
+    default: 0,
+  },
+  footer: {
+    type: [Boolean, Function] as PropType<boolean | ((activeStep: number) => VNode)>,
+  },
 }
 
 export const formItemProps = {
@@ -150,5 +157,5 @@ export const FORM_FILTER_KEYS = [
   'children', 'colon', 'activeCollapse', 'type', 'contentPosition',
   'borderStyle', 'accordion', 'processStatus', 'finishStatus',
   'simple', 'max', 'collapsed', 'searchButtonLoading', 'searchButtonLabel', 'resetButtonLabel',
-  'resetButtonLoading', 'searchButtonProps', 'resetButtonProps', 'renderOperation',
+  'resetButtonLoading', 'searchButtonProps', 'resetButtonProps', 'renderOperation', 'footer', 'activeStep',
 ]

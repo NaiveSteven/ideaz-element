@@ -1,4 +1,5 @@
-import { isBoolean, isFunction, isString } from '@ideaz/utils'
+import { isBoolean, isFunction, isSlot, isString } from '@ideaz/utils'
+import { ArrowDown } from '@element-plus/icons-vue'
 import { omit } from 'lodash-unified'
 import type { BtnItem } from '~/types'
 
@@ -69,15 +70,14 @@ export default defineComponent({
       if (isFunction(reference))
         return reference(h, { ...scope, index: scope.$index })
 
-      if (isString(reference)) {
-        if (reference.includes('slot') || reference.includes('Slot'))
-          return props.tableColumnSlots[reference]({ ...scope, index: scope.$index })
-      }
+      if (isString(reference) && isSlot(reference))
+        return props.tableColumnSlots[reference]({ ...scope, index: scope.$index })
+
       return (
         <el-button type="primary" link size={size.value}>
           {isString(dropdownProps.reference) ? dropdownProps.reference : t('table.more')}
           <el-icon class="el-icon--right">
-            <i-arrow-down />
+            <ArrowDown />
           </el-icon>
         </el-button>
       )

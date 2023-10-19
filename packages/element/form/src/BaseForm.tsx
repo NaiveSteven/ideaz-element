@@ -3,6 +3,7 @@ import { useExpose } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
+import { isFunction } from '@ideaz/utils'
 import { getCurrentInstance } from 'vue-demi'
 import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
@@ -21,7 +22,7 @@ export default defineComponent({
   name: 'ZForm',
   components: { FormColumns, OperationCard },
   props: formProps,
-  emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change', 'next-step', 'previous-step'],
+  emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change', 'next-step', 'previous-step', 'update:activeStep'],
   setup(props, { emit, slots }) {
     const { formatFormItems } = useFormItems(props)
     const { rowStyle, rowKls } = useRow(props)
@@ -37,7 +38,14 @@ export default defineComponent({
     const { t } = useLocale()
 
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-    const activeStep = ref(0)
+    const activeStep = computed({
+      get() {
+        return props.activeStep
+      },
+      set(val) {
+        emit('update:activeStep', val)
+      },
+    })
 
     useExpose({
       resetFields,
@@ -66,8 +74,39 @@ export default defineComponent({
       />
     }
 
+    const renderStepFooter = () => {
+      const { footer } = props
+      if (isFunction(footer)) return footer(activeStep.value)
+      if (slots.footer) return slots.footer(activeStep.value)
+      return <el-form-item>
+        <el-button
+          disabled={activeStep.value === 0}
+          onClick={() => {
+            emit('previous-step')
+            if (activeStep.value-- <= 0) activeStep.value = 0
+          }}
+        >
+          {t('form.previousStep')}
+        </el-button>
+        <el-button
+          disabled={activeStep.value === formatFormItems.value.length - 1}
+          onClick={() => {
+            (ctx?.$refs.formRef as typeof ElForm).validate((val: boolean) => {
+              if (val) {
+                emit('next-step')
+                if (activeStep.value++ >= formatFormItems.value.length - 1)
+                  activeStep.value = 0
+              }
+            })
+          }}
+        >
+          {t('form.nextStep')}
+        </el-button>
+      </el-form-item>
+    }
+
     const renderContent = () => {
-      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max } = props
+      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max, footer } = props
       const isChildren = formatFormItems.value.some(column => column.children)
 
       if (type === 'group') {
@@ -212,31 +251,7 @@ export default defineComponent({
             }
             return null
           })}
-          <el-form-item>
-            <el-button
-              disabled={activeStep.value === 0}
-              onClick={() => {
-                emit('previous-step')
-                if (activeStep.value-- <= 0) activeStep.value = 0
-              }}
-            >
-              {t('form.previousStep')}
-            </el-button>
-            <el-button
-              disabled={activeStep.value === formatFormItems.value.length - 1}
-              onClick={() => {
-                (ctx?.$refs.formRef as typeof ElForm).validate((val: boolean) => {
-                  if (val) {
-                    emit('next-step')
-                    if (activeStep.value++ >= formatFormItems.value.length - 1)
-                      activeStep.value = 0
-                  }
-                })
-              }}
-            >
-              {t('form.nextStep')}
-            </el-button>
-          </el-form-item>
+          {renderStepFooter()}
         </>
       }
       else {

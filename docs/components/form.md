@@ -1226,6 +1226,7 @@ const submit = () => {
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 
+const activeStep = ref(0)
 const formRef = ref()
 const formData = ref({
   name: '',
@@ -1331,24 +1332,17 @@ const submit = () => {
 </script>
 
 <template>
+  {{ activeStep }}
   <z-form
     ref="formRef"
     v-model="formData"
+    v-model:activeStep="activeStep"
     :options="options"
     :columns="columns"
     label-width="80px"
     size="default"
     type="step"
-  >
-    <template #operate>
-      <el-button type="primary" @click="submit">
-        提交
-      </el-button>
-      <el-button @click="reset">
-        重置
-      </el-button>
-    </template>
-  </z-form>
+  />
 </template>
 ```
 
