@@ -99,16 +99,30 @@
     margin-bottom: 0;
   }
 
-  .z-array-form-operation--add {
+  .z-array-form-operation--add--small {
     position: absolute;
     top: -12px;
     right: 20px;
   }
 
-  .z-array-form-operation--delete {
+  .z-array-form-operation--add--default,
+  .z-array-form-operation--add--large {
+    position: absolute;
+    top: -16px;
+    right: 24px;
+  }
+
+  .z-array-form-operation--delete--small {
     position: absolute;
     top: -12px;
     right: -12px;
+  }
+
+  .z-array-form-operation--delete--default,
+  .z-array-form-operation--delete--large {
+    position: absolute;
+    top: -16px;
+    right: -16px;
   }
 
   .el-form-item {

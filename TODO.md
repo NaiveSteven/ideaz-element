@@ -73,7 +73,7 @@
 59. `z-crud`纯前端分页和筛选
 60. `z-crud`前端分页未向上抛出数据，`v-model:data`此时会失效
 61. `z-table`的`pagination`支持位置调整
-62. `z-form`的`OperationCard`组件`size`适配
+62. ~~`z-form`的`OperationCard`组件`size`适配~~
 63. `z-table`数据项拖拽添加把手
 64. ~~`z-filter-form`操作按钮逻辑内置~~
 65. ~~`z-filter-form`的查询和重置按钮支持属性配置~~

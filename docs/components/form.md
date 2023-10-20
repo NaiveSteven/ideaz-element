@@ -1053,7 +1053,7 @@ const submit = () => {
     :columns="columns"
     :max="2"
     label-width="80px"
-    size="default"
+    size="small"
     type="array"
   />
   <div class="flex w-full mt-4">
