@@ -11,6 +11,7 @@ export default defineComponent({
   emits: ['add', 'delete'],
   setup(props, { slots, emit }) {
     const ns = useNamespace('array-form')
+    const size = useFormSize()
 
     return () => {
       return <el-card shadow='never' class={ns.b('item-card')}>
@@ -20,8 +21,8 @@ export default defineComponent({
           type="primary"
           icon={Plus}
           circle
-          class={ns.bm('operation', 'add')}
-          size='small'
+          class={ns.bm('operation', `add--${size.value}`)}
+          size={size.value === 'small' ? 'small' : 'default'}
           onClick={() => emit('add')}
         />
           : null}
@@ -29,8 +30,8 @@ export default defineComponent({
           type="danger"
           icon={Delete}
           circle
-          class={ns.bm('operation', 'delete')}
-          size='small'
+          class={ns.bm('operation', `delete--${size.value}`)}
+          size={size.value === 'small' ? 'small' : 'default'}
           onClick={() => emit('delete')}
         />
       </el-card>

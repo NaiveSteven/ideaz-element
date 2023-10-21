@@ -75,6 +75,7 @@
     "vite-plugin-dts": "latest",
     "vitepress": "1.0.0-alpha.65",
     "vitepress-theme-demoblock": "^2.0.2",
+    "unplugin-vue-macros": "^0.11.2",
     "vitest": "latest",
     "vue": "3.2.44",
     "vue-router": "latest",

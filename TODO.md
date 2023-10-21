@@ -15,7 +15,7 @@
 1. 表格数据源可以添加`status`字段，判断状态
 2. 表单支持拖拽
 3. 表单支持接口配置
-4. 表格数据和表格头支持拖拽
+4. ~~表格数据和表格头支持拖拽~~
 5. 表格项`column`中可以直接配置`编辑、新增`表单（可以参考`iview-crud` [https://icrud.iviewui.com/]）
 6. `z-form-filter`组件可以支持`colSize`，（可以参考`pro components` [https://procomponents.ant.design/components/query-filter]）
 7. ~~`z-tag-select`组件`title`优化~~
@@ -36,7 +36,7 @@
 22. ~~`z-form`支持`type`为`collapse`~~
 23. ~~`z-form`支持`type`为`array`~~
 24. `z-input`支持`copy`
-25. `z-table`支持`editable`
+25. ~~`z-table`支持`editable`~~
 26. ~~`z-table`表格头支持`tooltip`~~
 27. ~~`z-table`的`editable`支持保存时校验配置~~
 28. ~~`z-table`的`editable`支持新增~~
@@ -58,7 +58,7 @@
 44. `z-crud`事件梳理，例如：`editable`下的事件和`crud`的事件
 45. ~~添加`z-dialog`组件~~
 46. ~~`z-dialog`组件支持`info`、`danger`、`warning`等`type`~~
-47. `z-dialog`组件`loading`等`props`命名
+47. ~~`z-dialog`组件`loading`等`props`命名~~
 48. ~~`z-crud`组件`editable`事件内置~~
 49. `z-crud`、`z-table`等组件`size`统一规划
 50. ~~`z-crud`、`z-table`等组件按钮加上`icon`~~
@@ -73,7 +73,7 @@
 59. `z-crud`纯前端分页和筛选
 60. `z-crud`前端分页未向上抛出数据，`v-model:data`此时会失效
 61. `z-table`的`pagination`支持位置调整
-62. `z-form`的`OperationCard`组件`size`适配
+62. ~~`z-form`的`OperationCard`组件`size`适配~~
 63. `z-table`数据项拖拽添加把手
 64. ~~`z-filter-form`操作按钮逻辑内置~~
 65. ~~`z-filter-form`的查询和重置按钮支持属性配置~~
@@ -85,7 +85,7 @@
 71. ~~`z-table`的`reference`支持`render`函数自定义`~~
 72. ~~`z-table`的`column`的`type`为`expand`时，支持`render`函数和默认配置`expand`插槽~~
 73. `z-table`支持`renderHeader`自定义表格头
-74. `z-table`的`draggable`添加事件
+74. ~~`z-table`的`draggable`添加事件~~
 75. ~~`z-table`的`editable`支持布尔值~~
 76. ~~`z-table`的`editable`删除时添加二次确认~~
 77. ~~`z-table`的`maxLength`放到`editable`中~~
