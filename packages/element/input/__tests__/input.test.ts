@@ -39,10 +39,10 @@ describe('input', () => {
 
   test('prefixIcon suffixIcon component', async () => {
     const wrapper = mount({
-      template: '<z-input v-model="value" :prefixIcon="Search" :suffixIcon="Calendar"/>',
+      template: '<z-input v-model="value" :prefixIcon="search" :suffixIcon="calendar"/>',
       setup() {
         const value = ref('')
-        return { value, Search, Calendar }
+        return { value, search: markRaw(Search), calendar: markRaw(Calendar) }
       },
     })
 

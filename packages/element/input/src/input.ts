@@ -129,13 +129,13 @@ export const inputProps = {
    * @description suffix icon
    */
   suffixIcon: {
-    type: [String, Function],
+    type: [String, Function, Object],
   },
   /**
    * @description prefix icon
    */
   prefixIcon: {
-    type: [String, Function],
+    type: [String, Function, Object],
   },
   /**
    * @description input prepend content
