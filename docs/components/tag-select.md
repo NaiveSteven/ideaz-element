@@ -123,6 +123,20 @@ const options = [
   { label: '标签八', value: 8 },
   { label: '标签九', value: 9 },
   { label: '标签十', value: 10 },
+  { label: '标签十一', value: 11 },
+  { label: '标签十二', value: 12 },
+  { label: '标签十三', value: 13 },
+  { label: '标签十四', value: 14 },
+  { label: '标签十五', value: 15 },
+  { label: '标签十六', value: 16 },
+  { label: '标签十七', value: 17 },
+  { label: '标签十八', value: 17 },
+  { label: '标签十九', value: 19 },
+  { label: '标签二十', value: 20 },
+  { label: '标签二十一', value: 21 },
+  { label: '标签二十二', value: 22 },
+  { label: '标签二十三', value: 23 },
+  { label: '标签二十四', value: 24 },
 ]
 </script>
 
@@ -180,7 +194,7 @@ const handleChange = (val) => {
 
 ## 标签组
 
-传入`options`，即可生成标签组
+`options`项中配置`children`，即可生成标签组
 `modelValue`传入对象，`option`配置项中的`field`字段为对象的`key`
 
 :::demo
@@ -197,7 +211,7 @@ const options = ref([
   {
     title: '标签名：',
     field: 'aaa',
-    options: [
+    children: [
       { label: '标签一', value: 1 },
       { label: '标签二', value: 2 },
       { label: '标签三', value: 3, },
@@ -207,7 +221,7 @@ const options = ref([
   {
     title: '城市名：',
     field: 'bbb',
-    options: [
+    children: [
       { label: '标', value: 1 },
       { label: '苏州', value: 2 },
       { label: '无锡', value: 3 },
@@ -218,7 +232,7 @@ const options = ref([
 </script>
 
 <template>
-  <z-tag-select-group
+  <z-tag-select
     v-model="tagSelect"
     :options="options"
     :multiple="true"
@@ -254,7 +268,7 @@ const options = ref([
   {
     title: '标签名：',
     field: 'aaa.aaa',
-    options: [
+    children: [
       { title: '标签一', data: { key: 1 } },
       { title: '标签二', data: { key: 2 } },
       { title: '标签三', data: { key: 3 } },
@@ -264,7 +278,7 @@ const options = ref([
   {
     title: '城市名：',
     field: 'bbb',
-    options: [
+    children: [
       { title: '标', data: { key: 1 } },
       { title: '苏州', data: { key: 2 } },
       { title: '无锡', data: { key: 3 } },
@@ -275,7 +289,7 @@ const options = ref([
 </script>
 
 <template>
-  <z-tag-select-group
+  <z-tag-select
     v-model="tagSelect"
     :options="options"
     :multiple="true"
@@ -304,7 +318,7 @@ const options = ref([
   {
     title: '标签名标签名：',
     field: 'aaa',
-    options: [
+    children: [
       { label: '标签一', value: 1 },
       { label: '标签二', value: 2 },
       { label: '标签三', value: 3, },
@@ -314,7 +328,7 @@ const options = ref([
   {
     title: '城市名：',
     field: 'bbb',
-    options: [
+    children: [
       { label: '标', value: 1 },
       { label: '苏州', value: 2 },
       { label: '无锡', value: 3 },
@@ -325,7 +339,7 @@ const options = ref([
 </script>
 
 <template>
-  <z-tag-select-group
+  <z-tag-select
     v-model="tagSelect"
     :options="options"
     :multiple="true"
@@ -354,7 +368,7 @@ const options = ref([
   {
     title: '标签名：',
     field: 'aaa',
-    options: [
+    children: [
       { label: '标签一', value: 1, round: true },
       { label: '标签二', value: 2, type: 'success' },
       { label: '标签三', value: 3, effect: 'light' },
@@ -364,7 +378,7 @@ const options = ref([
   {
     title: '城市名：',
     field: 'bbb',
-    options: [
+    children: [
       { label: '标', value: 1, round: true },
       { label: '苏州', value: 2, type: 'success' },
       { label: '无锡', value: 3, effect: 'light' },
@@ -375,7 +389,7 @@ const options = ref([
 </script>
 
 <template>
-  <z-tag-select-group
+  <z-tag-select
     v-model="tagSelect"
     :options="options"
     :multiple="true"
@@ -385,7 +399,7 @@ const options = ref([
 
 :::
 
-## z-tag 属性
+## z-tag-select 属性
 
 | 属性名              | 说明             | 类型      | 默认  |
 | :------------------ | :--------------- | :-------- | :---- |
@@ -396,39 +410,26 @@ const options = ref([
 | all                 | 全部标签（多选模式下才生效）   | `boolean` | true |
 | titleWidth               | 标题宽度           | `string` / `number`  |  —    |
 | size                | Tag 的尺寸       | `enum`    |  —    |
-| title              | 标题      | `string`    | — |
 
-## z-tag 事件
+## z-tag-select 事件
 
 | 事件名         | 说明                                     | 回调参数                           |
 | :------------- | :--------------------------------------- | :--------------------------------- |
 | change         | 选中值发生变化时触发                     | val，目前的选中值                  |
 
-## z-tag-group 属性
-
-| 属性名              | 说明             | 类型      | 默认  |
-| :------------------ | :--------------- | :-------- | :---- |
-| modelValue            | 选中项绑定值       | `array` / `string` / `number` | — |
-| options            | 可配置项       | `array` | — |
-| alias              | 字段路径自定义      | `object`    | `{ label: 'label', value: 'value' }` |
-| multiple | 多选 | `boolean` | false |
-| all                 | 全部标签（多选模式下才生效）   | `boolean` | true |
-| titleWidth               | 标题宽度           | `string` / `number`  |  —    |
-| size                | Tag 的尺寸       | `enum`    |  —    |
-
-## z-tag-group Option 项可配置属性
+## z-tag-select Option 项可配置属性
 
 | 属性名              | 说明             | 类型      | 默认  |
 | :------------------ | :--------------- | :-------- | :---- |
 | title              | 标题      | `string`    | — |
 | field                | 绑定数据字段名       | `string`    | —    |
-| options            | 可配置项       | `array` | — |
+| children            | 可配置项       | `array` | — |
 | multiple | 多选 | `boolean` | false |
 | all                 | 全部标签（多选模式下才生效）   | `boolean` | true |
 | titleWidth               | 标题宽度           | `string` / `number`  |  —    |
 | size                | Tag 的尺寸       | `enum`    |  —    |
 
-## z-tag Option 项可配置属性
+## z-tag-select children 项可配置属性
 
 | 属性名              | 说明             | 类型      | 默认  |
 | :------------------ | :--------------- | :-------- | :---- |
