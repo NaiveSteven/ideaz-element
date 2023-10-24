@@ -38,7 +38,7 @@ const isShowDialog = ref(false)
 
 ## 信息、警告、错误弹窗
 
-`type`传入`info`、`warning`、`error`即可
+`type`传入`info`、`warning`、`danger`即可
 :::demo
 
 ```vue
@@ -114,7 +114,7 @@ const openInfoDialog = () => {
 }
 
 const openWarningDialog = () => {
-  window.ZDialogTip.warning('标题', '提示信息', {
+  window.ZDialogTip.warning('提示信息', '标题', {
     type: 'warning',
     onConfirm: ({ done, confirmBtnLoading }) => {
       confirmBtnLoading.value = true
@@ -464,8 +464,8 @@ function delay(time: number) {
   </z-dialog>
 </template>
 ```
-:::
 
+:::
 
 ## z-dialog属性
 
@@ -503,8 +503,6 @@ function delay(time: number) {
 | z-index                 | 和原生的 CSS 的 z-index 相同，改变 z 轴的顺序                | `number`               | —     |
 | header-aria-level a11y  | header 的 `aria-level` 属性                                  | `string`               | 2     |
 
-
-
 ## z-dialog插槽
 
 | 插槽名           | 说明                                                   |
@@ -512,8 +510,6 @@ function delay(time: number) {
 | —                | Dialog 的内容                                          |
 | header           | 对话框标题的内容；会替换标题部分，但不会移除关闭按钮。 |
 | footer           | Dialog 按钮操作区的内容                                |
-
-
 
 ## z-dialog事件
 

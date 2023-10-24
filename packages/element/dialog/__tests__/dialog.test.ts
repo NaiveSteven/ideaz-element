@@ -1,15 +1,14 @@
 import { config, mount } from '@vue/test-utils'
 import { afterAll, afterEach, describe, expect, test, vi } from 'vitest'
 import { ElButton, ElDialog } from 'element-plus'
+import Tip from '../src/dialog'
 import ZDialog from '../src/index'
+
+const DialogTip = Tip as any
 
 config.global.components = { ZDialog, ElDialog, ElButton }
 
 const AXIOM = 'placeholder'
-
-const dialogClose = '.pro-crud .pro-crud-dialog .el-dialog__headerbtn'
-const dialogBody = '.pro-crud .pro-crud-dialog .el-dialog__body'
-const detailClass = `${dialogBody} .pro-crud-detail`
 
 describe('dialog', () => {
   afterEach(() => {
@@ -30,6 +29,33 @@ describe('dialog', () => {
     expect(wrapper.find('.z-dialog__footer').exists()).toBe(true)
     expect(wrapper.find('.z-dialog__footer').text()).toBe('cancelconfirm')
     expect(wrapper.find('.el-dialog__header').text()).toBe('asdf')
+  })
+
+  test('title render', async () => {
+    const wrapper = mount({
+      template: '<z-dialog :title="renderTitle" :modelValue="true">{{AXIOM}}</z-dialog>',
+      setup() {
+        const renderTitle = () => 'titleRender'
+        return { AXIOM, renderTitle }
+      },
+    })
+
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.el-dialog__header').text()).toBe('titleRender')
+  })
+
+  test('title slot', async () => {
+    const wrapper = mount({
+      template: '<z-dialog :modelValue="true"><template #title><span>titleSlot</span></template>{{AXIOM}}</z-dialog>',
+      setup() {
+        return { AXIOM }
+      },
+    })
+
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.el-dialog__header').text()).toBe('titleSlot')
   })
 
   test('footer operation button', async () => {
@@ -119,106 +145,212 @@ describe('dialog', () => {
     expect(handleConfirm).toHaveBeenCalled()
   })
 
-  // test('dialog header should have slot props', async () => {
-  //   const wrapper = mount(
-  //     <Dialog
-  //       modelValue={true}
-  //       v-slots={{
-  //         header: ({
-  //           titleId,
-  //           titleClass,
-  //           close,
-  //         }: {
-  //           titleId: string
-  //           titleClass: string
-  //           close: () => void
-  //         }) => (
-  //           <button
-  //             data-title-id={titleId}
-  //             data-title-class={titleClass}
-  //             onClick={close}
-  //           />
-  //         ),
-  //       }}
-  //     >
-  //       {AXIOM}
-  //     </Dialog>
-  //   )
+  test('footer render', async () => {
+    const wrapper = mount({
+      template: '<z-dialog :modelValue="true"><template #footer><el-button>click</el-button></template>{{AXIOM}}</z-dialog>',
+      setup() {
+        return { AXIOM }
+      },
+    })
 
-  //   await nextTick()
-  //   const headerButton = wrapper.find('button')
-  //   expect(headerButton.attributes()['data-title-id']).toBeTruthy()
-  //   expect(headerButton.attributes()['data-title-class']).toBe(
-  //     'el-dialog__title'
-  //   )
-  //   expect(wrapper.emitted().close).toBeFalsy()
-  //   headerButton.trigger('click')
-  //   await nextTick()
-  //   expect(wrapper.emitted()).toHaveProperty('close')
-  // })
+    await nextTick()
+    await nextTick()
+    const buttons = wrapper.findAll('.el-button')
+    expect(buttons[0].text()).toBe('click')
+  })
 
-  // test('dialog should have a footer when footer has been given', async () => {
-  //   const wrapper = mount(
-  //     <Dialog modelValue={true} v-slots={{ footer: () => AXIOM }}>
-  //       {AXIOM}
-  //     </Dialog>
-  //   )
+  test('footer render', async () => {
+    const wrapper = mount({
+      template: '<z-dialog :modelValue="true" :renderFooter="renderFooter">{{AXIOM}}</z-dialog>',
+      setup() {
+        const renderFooter = () => h('div', { class: 'my-footer' }, 'click')
+        return { AXIOM, renderFooter }
+      },
+    })
 
-  //   await nextTick()
-  //   expect(wrapper.find('.el-dialog__footer').exists()).toBe(true)
-  //   expect(wrapper.find('.el-dialog__footer').text()).toBe(AXIOM)
-  // })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.my-footer').text()).toBe('click')
+  })
 
-  // test('should append dialog to body when appendToBody is true', async () => {
-  //   const wrapper = mount(
-  //     <Dialog modelValue={true} appendToBody={true}>
-  //       {AXIOM}
-  //     </Dialog>
-  //   )
+  test('import warning type', async () => {
+    const wrapper = mount({
+      template: '<el-button @click="handleClick">button</el-button>',
+      setup() {
+        const handleClick = () => {
+          DialogTip.warning('提示信息', '标题', {
+            type: 'warning',
+            onCancel: ({ cancelBtnLoading }: any) => {
+              cancelBtnLoading.value = true
+            },
+            onConfirm: ({ done }: any) => {
+              done
+            },
+          })
+        }
+        return { handleClick }
+      },
+    })
 
-  //   await nextTick()
-  //   expect(
-  //     document.body.firstElementChild!.classList.contains('el-overlay')
-  //   ).toBe(true)
-  //   wrapper.unmount()
-  // })
+    await wrapper.find('.el-button').trigger('click')
+    await nextTick()
+    await nextTick()
+    expect(document.querySelector('.el-dialog__header')?.textContent).toBe('标题')
+    expect(document.querySelector('.z-dialog__message')?.textContent).toBe('提示信息')
+    const buttons = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '.el-dialog .el-button',
+      ),
+    )
+    expect(buttons.length).toBe(2)
+    await buttons[0].click()
+    await nextTick()
+    expect(buttons[0].classList.contains('is-loading')).toBe(true)
+    expect(buttons[1].classList.contains('el-button--warning')).toBe(true)
+    await buttons[1].click()
+    await nextTick()
+    expect(document.querySelector('.el-dialog')).toBeNull
+  })
 
-  // test('should center dialog', async () => {
-  //   const wrapper = mount(
-  //     <Dialog modelValue={true} center={true}>
-  //       {AXIOM}
-  //     </Dialog>
-  //   )
+  test('import danger type', async () => {
+    const wrapper = mount({
+      template: '<el-button @click="handleClick">button</el-button>',
+      setup() {
+        const handleClick = () => {
+          DialogTip({
+            title: '标题',
+            message: '提示信息',
+            type: 'danger',
+            onCancel: ({ done }: any) => {
+              done
+            },
+            onConfirm: ({ confirmBtnLoading }: any) => {
+              confirmBtnLoading.value = true
+            },
+          })
+        }
+        return { handleClick }
+      },
+    })
 
-  //   await nextTick()
-  //   expect(wrapper.find('.el-dialog--center').exists()).toBe(true)
-  // })
+    await wrapper.find('.el-button').trigger('click')
+    await nextTick()
+    await nextTick()
+    expect(document.querySelector('.el-dialog__header')?.textContent).toBe('标题')
+    expect(document.querySelector('.z-dialog__message')?.textContent).toBe('提示信息')
+    const buttons = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '.el-dialog .el-button',
+      ),
+    )
+    expect(buttons.length).toBe(2)
+    expect(buttons[1].classList.contains('el-button--danger')).toBe(true)
+    await buttons[1].click()
+    await nextTick()
+    expect(buttons[1].classList.contains('is-loading')).toBe(true)
+    await buttons[0].click()
+    await nextTick()
+    expect(document.querySelector('.el-dialog')).toBeNull
+  })
 
-  // test('should show close button', async () => {
-  //   const wrapper = mount(<Dialog modelValue={true}>{AXIOM}</Dialog>)
+  test('import info type', async () => {
+    const handleConfirm = vi.fn()
+    const wrapper = mount({
+      template: '<el-button @click="handleClick">button</el-button>',
+      setup() {
+        const handleClick = () => {
+          DialogTip.info({
+            title: '标题',
+            message: '提示信息',
+            onConfirm: handleConfirm,
+          })
+        }
+        return { handleClick }
+      },
+    })
 
-  //   await nextTick()
-  //   expect(wrapper.find('.el-dialog__close').exists()).toBe(true)
-  // })
+    await wrapper.find('.el-button').trigger('click')
+    await nextTick()
+    await nextTick()
+    expect(document.querySelector('.el-dialog__header')?.textContent).toBe('标题')
+    expect(document.querySelector('.z-dialog__message')?.textContent).toBe('提示信息')
+    const buttons = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '.el-dialog .el-button',
+      ),
+    )
+    expect(buttons.length).toBe(1)
+    await buttons[0].click()
+    await nextTick()
+    expect(document.querySelector('.el-dialog')).toBeNull
+    expect(handleConfirm).toHaveBeenCalled()
+  })
 
-  // test('should hide close button when showClose = false', async () => {
-  //   const wrapper = mount(
-  //     <Dialog modelValue={true} showClose={false}>
-  //       {AXIOM}
-  //     </Dialog>
-  //   )
+  test('warning type', async () => {
+    const handleConfirm = vi.fn()
+    const handleCancel = vi.fn()
+    const wrapper = mount({
+      template: '<z-dialog title="title" :modelValue="true" type="warning" @confirm="handleConfirm" @cancel="handleCancel">content</z-dialog>',
+      setup() {
+        return { handleConfirm, handleCancel }
+      },
+    })
 
-  //   await nextTick()
-  //   expect(wrapper.find('.el-dialog__headerbtn').exists()).toBe(false)
-  // })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.el-dialog__header').text()).toBe('title')
+    expect(wrapper.find('.z-dialog__message').text()).toBe('content')
+    const buttons = wrapper.findAll('.el-dialog .el-button')
+    expect(buttons[1].classes()).toContain('el-button--warning')
+    expect(buttons.length).toBe(2)
+    await buttons[0].trigger('click')
+    expect(handleCancel).toHaveBeenCalled()
+    await buttons[1].trigger('click')
+    expect(handleConfirm).toHaveBeenCalled()
+  })
 
-  // test('should close dialog when click on close button', async () => {
-  //   const wrapper = mount(<Dialog modelValue={true}>{AXIOM}</Dialog>)
+  test('danger type', async () => {
+    const handleConfirm = vi.fn()
+    const handleCancel = vi.fn()
+    const wrapper = mount({
+      template: '<z-dialog title="title" :modelValue="true" type="danger" @confirm="handleConfirm" @cancel="handleCancel">content</z-dialog>',
+      setup() {
+        return { handleConfirm, handleCancel }
+      },
+    })
 
-  //   await nextTick()
-  //   await wrapper.find('.el-dialog__headerbtn').trigger('click')
-  //   expect(wrapper.vm.visible).toBe(false)
-  // })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.el-dialog__header').text()).toBe('title')
+    expect(wrapper.find('.z-dialog__message').text()).toBe('content')
+    const buttons = wrapper.findAll('.el-dialog .el-button')
+    expect(buttons[1].classes()).toContain('el-button--danger')
+    expect(buttons.length).toBe(2)
+    await buttons[0].trigger('click')
+    expect(handleCancel).toHaveBeenCalled()
+    await buttons[1].trigger('click')
+    expect(handleConfirm).toHaveBeenCalled()
+  })
+
+  test('info type', async () => {
+    const handleConfirm = vi.fn()
+    const wrapper = mount({
+      template: '<z-dialog title="title" :modelValue="true" type="info" @confirm="handleConfirm">content</z-dialog>',
+      setup() {
+        return { handleConfirm }
+      },
+    })
+
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.el-dialog__header').text()).toBe('title')
+    expect(wrapper.find('.z-dialog__message').text()).toBe('content')
+    const buttons = wrapper.findAll('.el-dialog .el-button')
+    expect(buttons[0].classes()).toContain('el-button--primary')
+    expect(buttons.length).toBe(1)
+    await buttons[0].trigger('click')
+    expect(handleConfirm).toHaveBeenCalled()
+  })
 })
 
 afterAll(() => {
