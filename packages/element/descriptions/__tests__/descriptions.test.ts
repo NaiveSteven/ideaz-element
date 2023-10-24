@@ -7,7 +7,6 @@ import type { IDescriptionsColumns } from '../src/descriptions'
 
 config.global.components = { ZDescriptions, ElDescriptionsItem, ElDescriptions }
 
-const headerClass = '.z-descriptions .el-descriptions__header'
 const itemClass
   = '.z-descriptions .el-descriptions__body .el-descriptions__table tbody tr td'
 const getList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -86,7 +85,7 @@ describe('descriptions', () => {
 
   test('alias', async () => {
     const wrapper = mount({
-      template: '<z-descriptions :columns="columns" :detail="detail" />',
+      template: '<z-descriptions extra="extra" :columns="columns" :detail="detail" />',
       setup() {
         const columns = [
           { label: 'A', prop: 'a' },
@@ -116,11 +115,13 @@ describe('descriptions', () => {
     expect(getPropList(wrapper)[2]).toBe('nested value d in b')
     expect(getLabelList(wrapper)[3]).toBe('D')
     expect(getPropList(wrapper)[3]).toBe('nested value in array')
+
+    expect(wrapper.find('.el-descriptions__extra').text()).toBe('extra')
   })
 
   test('slot and render', async () => {
     const wrapper = mount({
-      template: '<z-descriptions title="title" :columns="columns" :detail="detail"><template #detail-name="{item}">自定义{{item.name}}</template></z-descriptions>',
+      template: '<z-descriptions :extra="renderExtra" title="title" :columns="columns" :detail="detail"><template #detail-name="{item}">自定义{{item.name}}</template></z-descriptions>',
       setup() {
         const detail = {
           date: '2016-05-03',
@@ -131,8 +132,9 @@ describe('descriptions', () => {
           { label: 'Date', prop: 'date', render: (data: typeof detail) => h('span', `自定义${data.date}`) },
           { label: 'Name', prop: 'name' },
         ])
+        const renderExtra = () => h('span', '自定义extra')
 
-        return { columns, detail }
+        return { columns, detail, renderExtra }
       },
     })
 
@@ -140,13 +142,14 @@ describe('descriptions', () => {
     expect(getPropList(wrapper)).toContain('自定义2016-05-03')
     expect(getLabelList(wrapper)).toContain('Date')
     expect(getPropList(wrapper)).toContain('自定义Tom')
-    expect(wrapper.find(headerClass).text()).toBe('title')
+    expect(wrapper.find('.el-descriptions__title').text()).toBe('title')
+    expect(wrapper.find('.el-descriptions__extra').text()).toBe('自定义extra')
   })
 
   test('title, extra and label', async () => {
     const wrapper = mount({
-      template: `<z-descriptions :title="renderTitle" extra="extraSlot" :columns="columns" :detail="detail">
-        <template #extraSlot>extra</template>
+      template: `<z-descriptions :title="renderTitle" :columns="columns" :detail="detail">
+        <template #extra>extra</template>
         <template #nameSlot>name</template>
       </z-descriptions>`,
       setup() {
