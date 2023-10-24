@@ -17,7 +17,7 @@ export interface TagSelectOptionsItem extends OptionsItem {
 
 export interface TagSelectGroupOptionsItem {
   field: string
-  options?: TagSelectOptionsItem[]
+  children?: TagSelectOptionsItem[]
   multiple?: boolean
   all?: boolean
   titleWidth?: string | number
@@ -26,9 +26,9 @@ export interface TagSelectGroupOptionsItem {
   alias?: Alias
 }
 
-export const tagSelectGroupProps = {
+export const tagSelectProps = {
   options: {
-    type: Array as PropType<TagSelectGroupOptionsItem[]>,
+    type: Array as PropType<TagSelectGroupOptionsItem[] | TagSelectOptionsItem[]>,
     default: () => [],
   },
   multiple: {
@@ -36,7 +36,7 @@ export const tagSelectGroupProps = {
     default: false,
   },
   modelValue: {
-    type: Object,
+    type: [Object, String, Number, Array],
     default: () => ({}),
   },
   all: {
@@ -54,8 +54,8 @@ export const tagSelectGroupProps = {
   },
 }
 
-export const tagSelectProps = {
-  ...tagSelectGroupProps,
+export const tagSelectItemProps = {
+  ...tagSelectProps,
   title: {
     type: String,
     default: '',
@@ -70,5 +70,5 @@ export const tagSelectProps = {
   },
 }
 
+export type TagSelectItemProps = ExtractPropTypes<typeof tagSelectItemProps>
 export type TagSelectProps = ExtractPropTypes<typeof tagSelectProps>
-export type TagSelectGroupProps = ExtractPropTypes<typeof tagSelectGroupProps>

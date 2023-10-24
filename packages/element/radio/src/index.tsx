@@ -26,7 +26,7 @@ export default defineComponent({
         <el-radio-group
           {...{ props: attrsAll.value }}
           {...{ on: { ...onAll.value, ...listeners } }}
-          {...attrs}
+          {...{ ...attrs, ...props }}
           value={vModelVal.value}
           modelValue={vModelVal.value}
           size={size.value}

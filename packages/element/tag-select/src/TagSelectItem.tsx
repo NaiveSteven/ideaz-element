@@ -3,12 +3,12 @@ import { getPxValue, isFunction, isValid } from '@ideaz/utils'
 import { get, set } from 'lodash-unified'
 import { useShowMore } from './hooks'
 import type { TagSelectOptionsItem } from './props'
-import { tagSelectProps } from './props'
+import { tagSelectItemProps } from './props'
 
 export default defineComponent({
-  name: 'ZTagSelect',
+  name: 'ZTagSelectItem',
   components: { ArrowDown },
-  props: tagSelectProps,
+  props: tagSelectItemProps,
   emits: ['change', 'update:modelValue'],
   setup(props, { emit }) {
     const { isShowMore, zTag } = useShowMore()
@@ -171,7 +171,7 @@ export default defineComponent({
             {isExpand.value ? t('tagSelect.retract') : t('tagSelect.expand')}<el-icon class={iconClass.value}><ArrowDown /></el-icon>
           </span>}
         </div>
-      </div >
+      </div>
     }
   },
 })

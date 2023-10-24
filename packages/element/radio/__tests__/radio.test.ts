@@ -1,31 +1,31 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { config, mount } from '@vue/test-utils'
-import { ElCheckbox, ElCheckboxButton, ElCheckboxGroup } from 'element-plus'
+import { ElRadio, ElRadioButton, ElRadioGroup } from 'element-plus'
 import { afterAll, afterEach, describe, expect, test } from 'vitest'
-import ZCheckbox from '../src/index'
+import ZRadio from '../src/index'
 import type { OptionsItem } from '../../types'
 
-config.global.components = { ZCheckbox, ElCheckbox, ElCheckboxButton, ElCheckboxGroup }
+config.global.components = { ZRadio, ElRadio, ElRadioButton, ElRadioGroup }
 
 const options: OptionsItem[] = [{ label: 'Jack', value: 'Jack' }, { label: 'Rose', value: 'Rose' }, { label: 'Alice', value: 'Alice' }, { label: 'Bob', value: 'Bob', disabled: true }]
 
 const getList = (wrapper: VueWrapper<ComponentPublicInstance>, cls = '') => {
-  const className = `.el-checkbox${cls}`
+  const className = `.el-radio${cls}`
   return wrapper
     .findAll(className)
-    .map(item => (item ? item.find('.el-checkbox__label').text() : ''))
+    .map(item => (item ? item.find('.el-radio__label').text() : ''))
 }
 
-describe('checkbox', () => {
+describe('radio', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
 
   test('options', async () => {
     const wrapper = mount({
-      template: '<z-checkbox v-model="value" :options="options" />',
+      template: '<z-radio v-model="value" :options="options" />',
       setup() {
-        const value = ref(['Jack'])
+        const value = ref('Jack')
         return { value, options }
       },
     })
@@ -41,9 +41,9 @@ describe('checkbox', () => {
 
   test('options change', async () => {
     const wrapper = mount({
-      template: '<z-checkbox v-model="value" :options="opts" />',
+      template: '<z-radio v-model="value" :options="opts" />',
       setup() {
-        const value = ref(['Jack'])
+        const value = ref('Jack')
         const opts = ref(options)
         return { value, opts }
       },
@@ -56,9 +56,9 @@ describe('checkbox', () => {
 
   test('disabled all', async () => {
     const wrapper = mount({
-      template: '<z-checkbox v-model="value" :options="opts" size="default" :disabled="true"/>',
+      template: '<z-radio v-model="value" :options="opts" size="default" :disabled="true"/>',
       setup() {
-        const value = ref(['Jack'])
+        const value = ref('Jack')
         const opts = ref(options)
         return { value, opts }
       },
@@ -72,22 +72,22 @@ describe('checkbox', () => {
 
   test('type', async () => {
     const wrapper = mount({
-      template: '<z-checkbox v-model="value" :options="opts" size="default"/>',
+      template: '<z-radio v-model="value" :options="opts" size="default"/>',
       setup() {
-        const value = ref(['Jack'])
-        const opts = ref(options.concat([{ label: 'Steven', value: 'Steven', type: 'checkbox-button' }]))
+        const value = ref('Jack')
+        const opts = ref(options.concat([{ label: 'Steven', value: 'Steven', type: 'radio-button' }]))
         return { value, opts }
       },
     })
 
-    expect(wrapper.findAll('.el-checkbox-button--default').map(item => item ? item.find('.el-checkbox-button__inner').text() : '')).toContain('Steven')
+    expect(wrapper.findAll('.el-radio-button--default').map(item => item ? item.find('.el-radio-button__inner').text() : '')).toContain('Steven')
   })
 
   test('alias', async () => {
     const wrapper = mount({
-      template: '<z-checkbox v-model="value" :options="opts" :alias="alias"/>',
+      template: '<z-radio v-model="value" :options="opts" :alias="alias"/>',
       setup() {
-        const value = ref(['Jack'])
+        const value = ref('Jack')
         const opts = ref(options.map(item => ({ data: { title: item.label }, key: item.value })))
         const alias = {
           label: 'data.title',
@@ -100,11 +100,11 @@ describe('checkbox', () => {
     const list = getList(wrapper)
     ;['Jack', 'Rose', 'Alice', 'Bob'].forEach((item) => {
       expect(list).toContain(item)
-    })
+    });
 
-    await (wrapper.vm.value as string[]).push('Steven')
+    (wrapper.vm.value as string) = 'Steven'
+    await nextTick()
     expect(getList(wrapper, '.is-checked')).toContain('Steven')
-    expect(getList(wrapper, '.is-checked')).toContain('Jack')
   })
 })
 

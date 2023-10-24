@@ -1,5 +1,6 @@
 import { WarningFilled } from '@element-plus/icons-vue'
 import { isFunction, isString } from '@ideaz/utils'
+import { ElButton, ElDialog, ElIcon } from 'element-plus'
 import { useDialog } from '../hooks'
 import { dialogProps } from './props'
 
@@ -36,27 +37,27 @@ export default defineComponent({
 
       if (type === 'info') {
         return <div class={ns.e('footer')}>
-          <el-button
+          <ElButton
             type="primary"
             size="default"
             onClick={handleConfirm}
             {...confirmBtnProps.value}
-          >{t('dialog.got')}</el-button>
+          >{t('dialog.got')}</ElButton>
         </div>
       }
       return <div class={ns.e('footer')}>
-        <el-button
+        <ElButton
           type="default"
           size="default"
           onClick={handleCancel}
           {...cancelBtnProps.value}
-        >{cancelBtnProps.value.label}</el-button>
-        <el-button
+        >{cancelBtnProps.value.label}</ElButton>
+        <ElButton
           type={(type === 'warning' || type === 'danger') ? type : 'primary'}
           size="default"
           onClick={handleConfirm}
           {...confirmBtnProps.value}
-        >{confirmBtnProps.value.label}</el-button>
+        >{confirmBtnProps.value.label}</ElButton>
       </div>
     }
 
@@ -64,9 +65,9 @@ export default defineComponent({
       if (props.type !== 'normal') {
         return <div class={ns.e('content')}>
           <div class={ns.e('container')}>
-            <el-icon class={[ns.e('status'), ns.bm('icon', props.type)]}>
+            <ElIcon class={[ns.e('status'), ns.bm('icon', props.type)]}>
               <WarningFilled />
-            </el-icon>
+            </ElIcon>
             <div class={ns.e('message')}>
               <p>{slots.default?.() || props.message}</p>
             </div>
@@ -82,7 +83,7 @@ export default defineComponent({
     })
 
     return () => {
-      return <el-dialog
+      return <ElDialog
         class={[ns.b(''), props.type !== 'normal' && ns.b('tip')]}
         {...dialogConfig.value}
         modelValue={props.modelValue || isShowDialog.value}
@@ -94,7 +95,7 @@ export default defineComponent({
         }}
       >
         {renderContent()}
-      </el-dialog>
+      </ElDialog>
     }
   },
 })

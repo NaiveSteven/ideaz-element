@@ -4,7 +4,7 @@ import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { get } from 'lodash-unified'
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isString } from '@ideaz/utils'
 import { descriptionsProps } from './descriptions'
 import type { DescriptionsColumn } from './descriptions'
 
@@ -58,11 +58,18 @@ export default defineComponent({
       )
     }
 
+    function createExtra() {
+      if (isFunction(props.extra)) return props.extra()
+      if (isString(props.extra)) return props.extra
+      if (isFunction(slots.extra)) return slots.extra()
+      return null
+    }
+
     return () =>
       h(ElDescriptions, mergeProps(config, { class: ns.b() }), {
         default: () => [createDefault(), slots.default && slots.default()],
         title: () => getContentByRenderAndSlot(props.title, slots),
-        extra: () => getContentByRenderAndSlot(props.extra, slots),
+        extra: () => createExtra(),
       })
   },
 })

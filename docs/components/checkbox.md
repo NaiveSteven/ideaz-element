@@ -19,9 +19,16 @@ const options = ref([
 ])
 
 const checkboxVal = ref([1])
+
+const click = () => {
+  options.value.push({ label: '选项四', value: 4 })
+}
 </script>
 
 <template>
+  <el-button @click="click">
+    点击
+  </el-button>
   <z-checkbox v-model="checkboxVal" :options="options" />
 </template>
 ```

@@ -1,5 +1,5 @@
 import { withInstall } from '@ideaz/utils'
-import TagSelect from './src/TagSelect'
-import TagSelectGroup from './src/TagSelectGroup'
+import TagSelectItem from './src/TagSelectItem'
+import TagSelect from './src/index'
 
-export default { ZTagSelect: withInstall(TagSelect), ZTagSelectGroup: withInstall(TagSelectGroup) }
+export default { ZTagSelect: withInstall(TagSelect), ZTagSelectItem: withInstall(TagSelectItem) }

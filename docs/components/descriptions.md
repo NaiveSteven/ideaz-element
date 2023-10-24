@@ -145,9 +145,9 @@ const direction = ref('horizontal')
 
 :::
 
-## title、extra和label
+## title、label
 
-`title`、`extra`和`label`属性支持`string`和`render`函数，当你传入字符类型时，如果包含`Slot`，则会被渲染为`Slot`
+`title`和`label`属性支持`string`和`render`函数，当你传入字符类型时，如果包含`Slot`，则会被渲染为`Slot`
 
 :::demo
 
@@ -177,9 +177,6 @@ const renderTitle = () => {
     extra="extraSlot"
     border
   >
-    <template #extraSlot>
-      <span>自定义操作区</span>
-    </template>
     <template #addressSlot>
       <span>自定义Address</span>
     </template>
@@ -191,7 +188,8 @@ const renderTitle = () => {
 
 ## 插槽
 
-在`columns`项目配置`render`，或者在模板中增加带` detail-[prop] `相关的插槽即可使用
+在`columns`项目配置`render`，或者在模板中增加带` detail-[prop] `相关的插槽即可使用。
+`extra`配置可传入`字符串`、`render函数`和使用`extra插槽`
 
 :::demo
 
@@ -221,6 +219,9 @@ const detail = {
       <el-tag :size="size">
         {{ item.name }}
       </el-tag>
+    </template>
+    <template #extra>
+      <span>extra</span>
     </template>
   </z-descriptions>
 </template>
