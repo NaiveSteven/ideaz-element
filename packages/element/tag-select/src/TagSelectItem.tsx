@@ -1,13 +1,14 @@
 import { ArrowDown } from '@element-plus/icons-vue'
 import { getPxValue, isFunction, isValid } from '@ideaz/utils'
 import { get, set } from 'lodash-unified'
+import { ElTag } from 'element-plus'
 import { useShowMore } from './hooks'
 import type { TagSelectOptionsItem } from './props'
 import { tagSelectItemProps } from './props'
 
 export default defineComponent({
   name: 'ZTagSelectItem',
-  components: { ArrowDown },
+  components: { ArrowDown, ElTag },
   props: tagSelectItemProps,
   emits: ['change', 'update:modelValue'],
   setup(props, { emit }) {
@@ -154,7 +155,7 @@ export default defineComponent({
         {title && <span class={ns.e('title')} style={{ width: isValid(titleWidth) ? getPxValue(titleWidth) : 'auto' }}>{title}</span>}
         <div class={ns.e('content')}>
           {options.value.map((item: TagSelectOptionsItem, index: number) => {
-            return <el-tag
+            return <ElTag
               {...{
                 ...item,
                 onClick: () => handleClickTag(item),
@@ -165,7 +166,7 @@ export default defineComponent({
               size={size.value}
             >
               {get(item, props.alias?.label || 'label', '')}
-            </el-tag>
+            </ElTag>
           })}
           {isShowMore.value && <span onClick={handleChangeExpand} class={ns.m('expand')}>
             {isExpand.value ? t('tagSelect.retract') : t('tagSelect.expand')}<el-icon class={iconClass.value}><ArrowDown /></el-icon>
