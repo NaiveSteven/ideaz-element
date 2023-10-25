@@ -22,7 +22,7 @@ export interface TagSelectGroupOptionsItem {
   all?: boolean
   titleWidth?: string | number
   size?: ComponentSize
-  title?: string
+  title?: string | (() => VNode)
   alias?: Alias
 }
 
@@ -57,7 +57,7 @@ export const tagSelectProps = {
 export const tagSelectItemProps = {
   ...tagSelectProps,
   title: {
-    type: String,
+    type: [String, Function] as PropType<string | (() => VNode)>,
     default: '',
   },
   options: {

@@ -9,7 +9,7 @@ export default defineComponent({
   components: { TagSelectItem },
   props: tagSelectProps,
   emits: ['update:modelValue', 'change'],
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const size = useFormSize()
 
     return () => {
@@ -25,6 +25,7 @@ export default defineComponent({
             all={all}
             alias={alias}
             options={option.children}
+            v-slots={slots}
             {...omit(option, 'children')}
             onChange={val => emit('change', val)}
           />
@@ -39,6 +40,7 @@ export default defineComponent({
         all={all}
         alias={alias}
         options={options as TagSelectOptionsItem[]}
+        v-slots={slots}
         onChange={val => emit('change', val)}
       />
     }

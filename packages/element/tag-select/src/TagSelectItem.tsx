@@ -1,5 +1,6 @@
 import { ArrowDown } from '@element-plus/icons-vue'
 import { getPxValue, isFunction, isValid } from '@ideaz/utils'
+import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { get, set } from 'lodash-unified'
 import { ElTag } from 'element-plus'
 import { useShowMore } from './hooks'
@@ -11,7 +12,7 @@ export default defineComponent({
   components: { ArrowDown, ElTag },
   props: tagSelectItemProps,
   emits: ['change', 'update:modelValue'],
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const { isShowMore, zTag } = useShowMore()
     const ns = useNamespace('tag-select')
     const size = useFormSize()
@@ -152,7 +153,9 @@ export default defineComponent({
     return () => {
       const { titleWidth, title } = props
       return <div class={cls.value} ref={zTag}>
-        {title && <span class={ns.e('title')} style={{ width: isValid(titleWidth) ? getPxValue(titleWidth) : 'auto' }}>{title}</span>}
+        {title && <span class={ns.e('title')} style={{ width: isValid(titleWidth) ? getPxValue(titleWidth) : 'auto' }}>
+          {getContentByRenderAndSlot(title, slots)}
+        </span>}
         <div class={ns.e('content')}>
           {options.value.map((item: TagSelectOptionsItem, index: number) => {
             return <ElTag

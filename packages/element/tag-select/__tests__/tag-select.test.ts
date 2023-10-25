@@ -47,11 +47,12 @@ describe('tag-select', () => {
 
   test('options', async () => {
     const wrapper = mount({
-      template: '<z-tag-select v-model="tagSelect" :options="opts" />',
+      template: '<z-tag-select :title="renderTitle" v-model="tagSelect" :options="opts" />',
       setup() {
         const tagSelect = ref('Jack')
         const opts = ref([...options])
-        return { opts, tagSelect }
+        const renderTitle = () => h('span', 'titleRender')
+        return { opts, tagSelect, renderTitle }
       },
     })
 
@@ -61,6 +62,7 @@ describe('tag-select', () => {
     (wrapper.vm.opts as OptionsItem[]).push({ label: 'Tom', value: 'Tom' })
     await nextTick()
     expect(getListLabel(wrapper)).toEqual(['Jack', 'Rose', 'Alice', 'Steven', 'Tom'])
+    expect(wrapper.find('.z-tag-select__title').text()).toBe('titleRender')
   })
 
   test('title', async () => {
@@ -220,7 +222,11 @@ describe('tag-select', () => {
 
   test('alias', async () => {
     const wrapper = mount({
-      template: '<z-tag-select title="title" v-model="tagSelect" :options="options" :multiple="true"/>',
+      template: `<z-tag-select title="title" v-model="tagSelect" :options="options" :multiple="true">
+        <template #titleSlot>
+          <span>titleSlot</span>
+        </template>
+      </z-tag-select>`,
       setup() {
         const tagSelect = ref({
           aaa: [1],
@@ -228,7 +234,7 @@ describe('tag-select', () => {
         })
         const options = ref([
           {
-            title: '标签名：',
+            title: 'titleSlot',
             field: 'aaa',
             children: [
               { label: '标签一', value: 1, round: true },
@@ -257,6 +263,7 @@ describe('tag-select', () => {
     expect(getListLabel(wrapper, '.el-tag--dark')).toEqual(['苏州'])
     expect(list[1].classes()).toContain('is-round')
     expect(list[2].classes()).toContain('el-tag--success')
+    expect(wrapper.find('.z-tag-select__title').text()).toBe('titleSlot')
   })
 })
 
