@@ -1,16 +1,18 @@
 import { ArrowDown } from '@element-plus/icons-vue'
 import { getPxValue, isFunction, isValid } from '@ideaz/utils'
+import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { get, set } from 'lodash-unified'
+import { ElTag } from 'element-plus'
 import { useShowMore } from './hooks'
 import type { TagSelectOptionsItem } from './props'
 import { tagSelectItemProps } from './props'
 
 export default defineComponent({
   name: 'ZTagSelectItem',
-  components: { ArrowDown },
+  components: { ArrowDown, ElTag },
   props: tagSelectItemProps,
   emits: ['change', 'update:modelValue'],
-  setup(props, { emit }) {
+  setup(props, { emit, slots }) {
     const { isShowMore, zTag } = useShowMore()
     const ns = useNamespace('tag-select')
     const size = useFormSize()
@@ -151,10 +153,12 @@ export default defineComponent({
     return () => {
       const { titleWidth, title } = props
       return <div class={cls.value} ref={zTag}>
-        {title && <span class={ns.e('title')} style={{ width: isValid(titleWidth) ? getPxValue(titleWidth) : 'auto' }}>{title}</span>}
+        {title && <span class={ns.e('title')} style={{ width: isValid(titleWidth) ? getPxValue(titleWidth) : 'auto' }}>
+          {getContentByRenderAndSlot(title, slots)}
+        </span>}
         <div class={ns.e('content')}>
           {options.value.map((item: TagSelectOptionsItem, index: number) => {
-            return <el-tag
+            return <ElTag
               {...{
                 ...item,
                 onClick: () => handleClickTag(item),
@@ -165,7 +169,7 @@ export default defineComponent({
               size={size.value}
             >
               {get(item, props.alias?.label || 'label', '')}
-            </el-tag>
+            </ElTag>
           })}
           {isShowMore.value && <span onClick={handleChangeExpand} class={ns.m('expand')}>
             {isExpand.value ? t('tagSelect.retract') : t('tagSelect.expand')}<el-icon class={iconClass.value}><ArrowDown /></el-icon>

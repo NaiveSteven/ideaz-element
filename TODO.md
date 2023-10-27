@@ -95,6 +95,8 @@
 81. 所有组件的`label`、`tittle`等属性都通过方法支持`slot`和`render`函数
 82. ~~`z-form`的`form`去除无用`attributes`~~
 83. `z-table`支持`columns`动态导入
+84. ~~`z-tag-select`支持`title`自定义~~
+85. `z-tag-select`支持不展开
 
 ## FEATURE
 

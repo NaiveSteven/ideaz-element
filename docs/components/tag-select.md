@@ -33,7 +33,7 @@ const options = [
 
 ## 标题
 
-传入`title`可配置标题
+传入`title`可配置标题，支持字符串、带`Slot`的字符串插槽和`render函数`
 
 :::demo
 
@@ -201,7 +201,7 @@ const handleChange = (val) => {
 
 ```vue
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
 const tagSelect = ref({
   aaa: [1],
   bbb: [2]
@@ -209,7 +209,7 @@ const tagSelect = ref({
 
 const options = ref([
   {
-    title: '标签名：',
+    title: () => h('span', '标签名：'),
     field: 'aaa',
     children: [
       { label: '标签一', value: 1 },
@@ -219,7 +219,7 @@ const options = ref([
     ]
   },
   {
-    title: '城市名：',
+    title: 'titleSlot',
     field: 'bbb',
     children: [
       { label: '标', value: 1 },
@@ -236,7 +236,11 @@ const options = ref([
     v-model="tagSelect"
     :options="options"
     :multiple="true"
-  />
+  >
+    <template #titleSlot>
+      <span>城市名：</span>
+    </template>
+  </z-tag-select>
 </template>
 ```
 
