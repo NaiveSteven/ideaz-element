@@ -46,7 +46,7 @@ export const checkCardItemProps = {
   },
 }
 
-export type CheckCardItemProps = ExtractPropTypes<typeof checkCardItemProps>
+export type CheckCardItemProps = Partial<ExtractPropTypes<typeof checkCardItemProps>>
 
 export type CheckCardValueType = string | number | boolean
 

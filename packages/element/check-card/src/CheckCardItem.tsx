@@ -1,6 +1,7 @@
 import { h } from 'vue-demi'
 import { isFunction } from '@ideaz/utils'
 import { useNamespace } from '@ideaz/hooks'
+import { ElAvatar, ElSkeleton } from 'element-plus'
 import type { CheckCardItemProps } from './props'
 import { checkCardItemProps } from './props'
 import type CheckCardGroup from '.'
@@ -113,7 +114,7 @@ export default defineComponent({
       const { avatar, title, description, cover, extra, style } = props
 
       const metaDom = () => {
-        if (cardLoading) return <div class="py-3 px-4"><el-skeleton rows={2} animated /></div>
+        if (cardLoading) return <div class="py-3 px-4"><ElSkeleton rows={2} animated /></div>
 
         if (cover) return renderCover(cover)
 
@@ -122,7 +123,7 @@ export default defineComponent({
             <div class={ns.e('avatar')}>
               {typeof avatar === 'string'
                 ? (
-                  <el-avatar size={48} shape="square" src={avatar} />
+                  <ElAvatar size={48} shape="square" src={avatar} />
                   )
                 : (
                     avatar(h)

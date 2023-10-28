@@ -42,6 +42,7 @@ const options = [
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
     description: '这是一段关于该算法的说明',
     value: 'E',
+    bordered: false
   },
   {
     title: '关键点检测',
@@ -61,7 +62,7 @@ const val = ref('E')
 
 <template>
   <div :style="{ padding: 24, backgroundColor: '#f7f8fa' }">
-    <z-check-card v-model="val" :options="options" @change="handleChange" />
+    <z-check-card v-model="val" :options="options" :bordered="false" @change="handleChange" />
   </div>
 </template>
 ```
@@ -429,7 +430,7 @@ const options = [
     extra: () => h(
       'div',
       {},
-      h('a', { onClick: e => e.stopPropagation() }, '查看详情')
+      h('a', { onClick: e => console.log('查看详情') }, '查看详情')
     )
   }
 ]
