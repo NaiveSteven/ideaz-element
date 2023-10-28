@@ -1,7 +1,7 @@
 import type { ExtractPropTypes, PropType } from 'vue-demi'
 import type { Alias } from '../../types'
 
-export const cardProps = {
+export const checkCardItemProps = {
   defaultChecked: {
     type: Boolean,
   },
@@ -46,7 +46,7 @@ export const cardProps = {
   },
 }
 
-export type CheckCardProps = ExtractPropTypes<typeof cardProps>
+export type CheckCardItemProps = ExtractPropTypes<typeof checkCardItemProps>
 
 export type CheckCardValueType = string | number | boolean
 
@@ -56,7 +56,7 @@ export type CheckGroupValueType =
 
 export const checkCardGroupProps = {
   options: {
-    type: Array as PropType<(CheckCardProps | string)[]>,
+    type: Array as PropType<(CheckCardItemProps | string)[]>,
     default: () => [],
   },
   disabled: {

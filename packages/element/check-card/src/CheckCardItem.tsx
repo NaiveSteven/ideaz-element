@@ -1,17 +1,17 @@
 import { h } from 'vue-demi'
 import { isFunction } from '@ideaz/utils'
 import { useNamespace } from '@ideaz/hooks'
-import type { CheckCardProps } from './props'
-import type CheckCardGroup from './CheckBoxGroup'
-import { cardProps } from './props'
+import type { CheckCardItemProps } from './props'
+import { checkCardItemProps } from './props'
+import type CheckCardGroup from '.'
 
 export default defineComponent({
-  name: 'ZCheckCard',
-  props: cardProps,
+  name: 'ZCheckCardItem',
+  props: checkCardItemProps,
   emits: ['click', 'change'],
   setup(props, { emit }) {
     const stateChecked = ref(props.defaultChecked)
-    const checkCardProps = ref<CheckCardProps>({} as CheckCardProps)
+    const checkCardProps = ref<CheckCardItemProps>({} as CheckCardItemProps)
     const multiple = ref(false)
     const checkCardGroup = inject<typeof CheckCardGroup | null>('check-card-group', null)
     const ns = useNamespace('check-card')
