@@ -79,6 +79,7 @@ export const checkCardGroupProps = {
   },
   bordered: {
     type: Boolean,
+    default: true,
   },
   alias: {
     type: Object as PropType<Alias>,

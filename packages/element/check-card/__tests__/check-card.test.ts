@@ -42,6 +42,7 @@ describe('check-card', () => {
     await (wrapper.vm.opts as any).push({ title: 'Steven', value: 'Steven' })
     expect(getTitleList(wrapper)).toEqual(['Jack', 'Rose', 'Alice', 'Bob', 'Steven'])
     expect(list[3].classes()).toContain('z-check-card--disabled')
+    expect(wrapper.findAll('.z-check-card--bordered').length).toBe(5)
   })
 
   test('multiple', async () => {
@@ -230,7 +231,7 @@ describe('check-card', () => {
 
   test('cover', async () => {
     const wrapper = mount({
-      template: '<z-check-card v-model="value" :options="opts" />',
+      template: '<z-check-card v-model="value" :options="opts" :bordered="false"/>',
       setup() {
         const value = ref('Jack')
         const opts = [
@@ -247,6 +248,28 @@ describe('check-card', () => {
     })
 
     expect(wrapper.find('.z-check-card__cover').exists()).toBe(true)
+    expect(wrapper.findAll('.z-check-card--bordered').length).toBe(0)
+  })
+
+  test('cover', async () => {
+    const wrapper = mount({
+      template: '<z-check-card v-model="value" :options="opts" />',
+      setup() {
+        const value = ref('Jack')
+        const opts = [
+          {
+            title: 'a',
+            bordered: false,
+          },
+          {
+            title: 'b',
+          },
+        ]
+        return { value, opts }
+      },
+    })
+
+    expect(wrapper.findAll('.z-check-card--bordered').length).toBe(1)
   })
 })
 

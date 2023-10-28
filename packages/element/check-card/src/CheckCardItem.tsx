@@ -51,8 +51,7 @@ export default defineComponent({
           = props.disabled || checkCardGroup.value.disabled
         checkCardProps.value.loading
           = props.loading || checkCardGroup.value.loading
-        checkCardProps.value.bordered
-          = props.bordered || checkCardGroup.value.bordered
+        checkCardProps.value.bordered = props.bordered
 
         multiple.value = checkCardGroup.value.multiple
 

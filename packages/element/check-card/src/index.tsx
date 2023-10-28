@@ -1,6 +1,7 @@
 import { provide } from 'vue-demi'
 import { useNamespace } from '@ideaz/hooks'
 import { get } from 'lodash-unified'
+import { isValid } from '@ideaz/utils'
 import ZCheckCardItem from './CheckCardItem'
 import { checkCardGroupProps } from './props'
 import type { CheckCardItemProps, CheckCardValueType } from './props'
@@ -56,10 +57,10 @@ export default defineComponent({
       if (props.multiple) {
         let changeValue = []
         const stateValues = stateValue.value as CheckCardValueType[]
-        const hasOption = stateValues.includes(option.value)
+        const hasOption = stateValues.includes(option.value!)
         changeValue = [...(stateValues || [])]
         if (!hasOption)
-          changeValue.push(option.value)
+          changeValue.push(option.value!)
 
         if (hasOption) {
           changeValue = changeValue.filter(
@@ -97,6 +98,7 @@ export default defineComponent({
             disabled={get(option, props.alias?.disabled || 'disabled', false)}
             size={option.size || size.value}
             value={value}
+            bordered={isValid(option.bordered) ? option.bordered : props.bordered}
             checked={
               multiple
                 ? (optionValue as CheckCardValueType[])?.includes(value)
