@@ -1,17 +1,18 @@
 import { h } from 'vue-demi'
 import { isFunction } from '@ideaz/utils'
 import { useNamespace } from '@ideaz/hooks'
-import type { CheckCardProps } from './props'
-import type CheckCardGroup from './CheckBoxGroup'
-import { cardProps } from './props'
+import { ElAvatar, ElSkeleton } from 'element-plus'
+import type { CheckCardItemProps } from './props'
+import { checkCardItemProps } from './props'
+import type CheckCardGroup from '.'
 
 export default defineComponent({
-  name: 'ZCheckCard',
-  props: cardProps,
+  name: 'ZCheckCardItem',
+  props: checkCardItemProps,
   emits: ['click', 'change'],
   setup(props, { emit }) {
     const stateChecked = ref(props.defaultChecked)
-    const checkCardProps = ref<CheckCardProps>({} as CheckCardProps)
+    const checkCardProps = ref<CheckCardItemProps>({} as CheckCardItemProps)
     const multiple = ref(false)
     const checkCardGroup = inject<typeof CheckCardGroup | null>('check-card-group', null)
     const ns = useNamespace('check-card')
@@ -50,8 +51,7 @@ export default defineComponent({
           = props.disabled || checkCardGroup.value.disabled
         checkCardProps.value.loading
           = props.loading || checkCardGroup.value.loading
-        checkCardProps.value.bordered
-          = props.bordered || checkCardGroup.value.bordered
+        checkCardProps.value.bordered = props.bordered
 
         multiple.value = checkCardGroup.value.multiple
 
@@ -113,7 +113,7 @@ export default defineComponent({
       const { avatar, title, description, cover, extra, style } = props
 
       const metaDom = () => {
-        if (cardLoading) return <div class="py-3 px-4"><el-skeleton rows={2} animated /></div>
+        if (cardLoading) return <div class="py-3 px-4"><ElSkeleton rows={2} animated /></div>
 
         if (cover) return renderCover(cover)
 
@@ -122,7 +122,7 @@ export default defineComponent({
             <div class={ns.e('avatar')}>
               {typeof avatar === 'string'
                 ? (
-                  <el-avatar size={48} shape="square" src={avatar} />
+                  <ElAvatar size={48} shape="square" src={avatar} />
                   )
                 : (
                     avatar(h)

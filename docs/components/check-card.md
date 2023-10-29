@@ -2,40 +2,9 @@
 
 集合多种相关联说明信息，并且可被选择的卡片。
 
-## 基础用法
+## 常规使用
 
-最常用的选项卡示例，包括头像，标题，描述等部分，可被选择。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-const handleClick = () => {
-  console.log('clicked')
-}
-
-const handleChange = (val) => {
-  console.log(val, 'change')
-}
-</script>
-
-<template>
-  <z-check-card
-    avatar="https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg"
-    title="示例一"
-    description="选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念。"
-    default-checked
-    @click="handleClick"
-    @change="handleChange"
-  />
-</template>
-```
-
-:::
-
-## 单选模式
-
-在多个选项存在的情况下可通过 `CheckCardGroup` 分组，默认选项卡组件为单选模式。
+传入`options`，配置选项卡
 
 :::demo
 
@@ -43,7 +12,7 @@ const handleChange = (val) => {
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const dataSource = [
+const options = [
   {
     title: '图像分类',
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
@@ -92,7 +61,7 @@ const val = ref('E')
 
 <template>
   <div :style="{ padding: 24, backgroundColor: '#f7f8fa' }">
-    <z-check-card-group v-model="val" :options="dataSource" @change="handleChange" />
+    <z-check-card v-model="val" :options="options" @change="handleChange" />
   </div>
 </template>
 ```
@@ -109,7 +78,7 @@ const val = ref('E')
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const dataSource = [
+const options = [
   {
     title: '图像分类',
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
@@ -139,7 +108,7 @@ const val = ref(['A'])
 
 <template>
   <div :style="{ padding: 24, backgroundColor: '#f7f8fa' }">
-    <z-check-card-group v-model="val" :options="dataSource" :multiple="true" @change="handleChange" />
+    <z-check-card v-model="val" :options="options" :multiple="true" @change="handleChange" />
   </div>
 </template>
 ```
@@ -156,7 +125,7 @@ const val = ref(['A'])
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const dataSource = [
+const options = [
   {
     data: {
       label: '图像分类',
@@ -193,7 +162,7 @@ const val = ref(['A'])
 
 <template>
   <div :style="{ padding: 24, backgroundColor: '#f7f8fa' }">
-    <z-check-card-group v-model="val" :options="dataSource" :multiple="true" :alias="alias" />
+    <z-check-card v-model="val" :options="options" :multiple="true" :alias="alias" />
   </div>
 </template>
 ```
@@ -201,6 +170,8 @@ const val = ref(['A'])
 :::
 
 ## 尺寸
+
+通过配置组件的`size`的属性，统一配置尺寸。也可以配置`option`的`size`，单个定制。
 
 :::demo
 
@@ -215,16 +186,35 @@ const sizeOptions = ref([
   { label: 'default', value: 'default', type: 'radio-button' },
   { label: 'small', value: 'small', type: 'radio-button' }
 ])
+
+const options = [
+  {
+    title: '图像分类',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
+    description: '这是一段关于该算法的说明',
+    value: 'A',
+  },
+  {
+    title: '物体检测',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
+    description: '这是一段关于该算法的说明',
+    value: 'B',
+  },
+  {
+    title: 'OCR自定义',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
+    description: '这是一段关于该算法的说明',
+    value: 'C',
+  },
+]
+
+const val = ref('')
 </script>
 
 <template>
   <div class="flex flex-col">
     <z-radio v-model="size" :options="sizeOptions" class="mb-2" />
-    <z-check-card
-      title="Card title"
-      description="This is the description"
-      :size="size"
-    />
+    <z-check-card v-model="val" :options="options" :size="size" />
   </div>
 </template>
 ```
@@ -233,17 +223,39 @@ const sizeOptions = ref([
 
 ## 自定义尺寸
 
-当然也可以通过 `style` 或 `class` 自定义卡片大小。
+也可以通过 `style` 或 `class` 自定义卡片大小。
 
 :::demo
 
 ```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const options = [
+  {
+    title: '图像分类',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
+    description: '这是一段关于该算法的说明',
+    value: 'A',
+    style: {
+      width: '200px',
+      height: '200px'
+    }
+  },
+]
+
+const alias = {
+  title: 'data.label',
+  value: 'data.key',
+}
+
+const val = ref('A')
+</script>
+
 <template>
-  <z-check-card
-    title="Card title"
-    description="This is the description"
-    :style="{ width: '200px', height: '200px' }"
-  />
+  <div :style="{ padding: 24, backgroundColor: '#f7f8fa' }">
+    <z-check-card v-model="val" :options="options" />
+  </div>
 </template>
 ```
 
@@ -256,44 +268,44 @@ const sizeOptions = ref([
 :::demo
 
 ```vue
-<script>
+<script lang="ts" setup>
 import { defineComponent, ref } from 'vue'
 
-export default defineComponent({
-  name: 'RadioDemo',
-  setup() {
-    const handleChange = (val) => {
-      console.log(val, 'handleChange')
-    }
+const options = [
+  {
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg',
+    value: 'A',
+  },
+  {
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
+    description: '这是一段关于该算法的说明',
+    value: 'B',
+  },
+  {
+    title: 'OCR自定义',
+    description: '这是一段关于该算法的说明',
+    value: 'C',
+  },
+  {
+    title: 'OCR自定义',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
+    value: 'D',
+  },
+  {
+    title: 'OCR自定义',
+    value: 'E',
+  },
+  {
+    description: '这是一段关于该算法的说明',
+    value: 'F',
+  },
+]
 
-    return { handleChange }
-  }
-})
+const val = ref('')
 </script>
 
 <template>
-  <h4>只有图片时</h4>
-  <ZCheckCard avatar="https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg" />
-
-  <h4>只有图片和描述时</h4>
-  <ZCheckCard
-    avatar="https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg"
-    description="选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念。"
-  />
-  <h4>只有标题和描述时</h4>
-  <ZCheckCard
-    title="示例"
-    description="选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念。"
-  />
-  <h4>只有标题和图片</h4>
-  <ZCheckCard
-    title="示例"
-    avatar="https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg"
-  />
-  <h4>只有标题</h4>
-  <ZCheckCard title="示例" />
-  <h4>只有描述时</h4>
-  <ZCheckCard description="选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念。" />
+  <ZCheckCard v-model="val" :options="options" />
 </template>
 ```
 
@@ -301,24 +313,27 @@ export default defineComponent({
 
 ## 自定义头像
 
-通过 `avatar` 属性自定义头像区域。
+`avatar` 属性传入自定义`render函数`。
 
 :::demo
 
 ```vue
 <script lang="ts" setup>
-import { resolveComponent } from 'vue'
+import { h, ref, resolveComponent } from 'vue'
 
-const renderAvatar = (h) => {
-  return h(resolveComponent('el-avatar'), { icon: 'i-user-filled' })
-}
+const options = [
+  {
+    title: '标题',
+    avatar: () => h(resolveComponent('el-avatar'), { icon: 'i-user-filled' }),
+    value: 'A'
+  }
+]
+
+const val = ref('')
 </script>
 
 <template>
-  <z-check-card
-    title="示例标题"
-    :avatar="renderAvatar"
-  />
+  <z-check-card v-model="val" :options="options" />
 </template>
 ```
 
@@ -326,28 +341,32 @@ const renderAvatar = (h) => {
 
 ## 自定义标题
 
-通过 `title` 属性自定义头像区域。
+`title` 属性传入自定义`render函数`。
 
 :::demo
 
 ```vue
 <script lang="ts" setup>
-import { resolveComponent } from 'vue'
+import { h, ref, resolveComponent } from 'vue'
 
-const renderTitle = (h) => {
-  return h(resolveComponent('el-tag'), { }, () => 'Tag 1')
-}
+const options = [
+  {
+    title: () => h(resolveComponent('el-tag'), { }, () => 'Tag 1'),
+    description: '选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念',
+    value: 'A'
+  },
+  {
+    title: '标题内容过长会自动进行省略，标题内容过长会自动进行省略',
+    description: '选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念',
+    value: 'B'
+  }
+]
+
+const val = ref('')
 </script>
 
 <template>
-  <z-check-card
-    :title="renderTitle"
-    description="选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念"
-  />
-  <z-check-card
-    title="标题内容过长会自动进行省略，标题内容过长会自动进行省略"
-    description="选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念"
-  />
+  <z-check-card v-model="val" :options="options" />
 </template>
 ```
 
@@ -361,26 +380,31 @@ const renderTitle = (h) => {
 
 ```vue
 <script lang="ts" setup>
-const renderDescription = (h) => {
-  return h(
-    'div',
-    {},
-    h(
-      'span',
+import { h, ref } from 'vue'
+
+const options = [
+  {
+    title: '默认描述区域不会进行折行',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg',
+    value: 'A',
+    description: () => h(
+      'div',
       {},
-      '选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念。',
-      h('a', { onClick: e => e.stopPropagation() }, '查看详情')
+      h(
+        'span',
+        {},
+        '选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念。',
+        h('a', { onClick: e => e.stopPropagation() }, '查看详情')
+      )
     )
-  )
-}
+  }
+]
+
+const val = ref('')
 </script>
 
 <template>
-  <z-check-card
-    avatar="https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg"
-    title="默认描述区域不会进行折行"
-    :description="renderDescription"
-  />
+  <z-check-card v-model="val" :options="options" />
 </template>
 ```
 
@@ -394,22 +418,27 @@ const renderDescription = (h) => {
 
 ```vue
 <script lang="ts" setup>
-const renderExtra = (h) => {
-  return h(
-    'div',
-    {},
-    h('a', { onClick: e => e.stopPropagation() }, '查看详情')
-  )
-}
+import { h, ref } from 'vue'
+
+const options = [
+  {
+    title: '示例',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg',
+    description: '选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念。',
+    value: 'A',
+    extra: () => h(
+      'div',
+      {},
+      h('a', { onClick: e => console.log('查看详情') }, '查看详情')
+    )
+  }
+]
+
+const val = ref('')
 </script>
 
 <template>
-  <z-check-card
-    avatar="https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg"
-    title="示例一"
-    description="选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念。"
-    :extra="renderExtra"
-  />
+  <z-check-card v-model="val" :options="options" />
 </template>
 ```
 
@@ -435,16 +464,23 @@ const renderExtra = (h) => {
 
 ```vue
 <script lang="ts" setup>
-const renderCover = (h) => {
-  return h('img', {
-    alt: 'example',
-    src: 'https://gw.alipayobjects.com/mdn/rms_66ee3f/afts/img/A*FyH5TY53zSwAAAAAAAAAAABkARQnAQ',
-  })
-}
+import { h, ref } from 'vue'
+
+const options = [
+  {
+    value: '1',
+    cover: () => h('img', {
+      alt: 'example',
+      src: 'https://gw.alipayobjects.com/mdn/rms_66ee3f/afts/img/A*FyH5TY53zSwAAAAAAAAAAABkARQnAQ',
+    })
+  }
+]
+
+const val = ref('')
 </script>
 
 <template>
-  <z-check-card :cover="renderCover" />
+  <z-check-card v-model="val" :options="options" />
 </template>
 ```
 
@@ -472,34 +508,40 @@ const options = ref([
   }
 ])
 
+const dataSource = [
+  {
+    title: '图像分类',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
+    description: '这是一段关于该算法的说明',
+    disabled: true,
+    value: 'A',
+  },
+  {
+    title: '物体检测',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
+    description: '这是一段关于该算法的说明',
+    value: 'B',
+  },
+  {
+    title: 'OCR自定义',
+    avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
+    description: '这是一段关于该算法的说明',
+    value: 'C',
+  },
+]
+
 const selectedCard = ref('A')
+const val = ref('')
 </script>
 
 <template>
   <div>
     <h4>部分不可用</h4>
-    <z-check-card
-      title="Card title"
-      description="This is the description"
-      avatar="https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg"
-    />
-    <z-check-card
-      title="Card title"
-      description="This is the description"
-      disabled
-      avatar="https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg"
-    />
-    <z-check-card
-      title="Card title"
-      description="This is the description"
-      disabled
-      default-checked
-      avatar="https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg"
-    />
+    <z-check-card v-model="val" :options="dataSource" />
   </div>
   <div>
     <h4>整体不可用</h4>
-    <z-check-card-group v-model="selectedCard" :options="options" disabled />
+    <z-check-card v-model="selectedCard" :options="options" disabled />
   </div>
 </template>
 ```
@@ -507,29 +549,6 @@ const selectedCard = ref('A')
 :::
 
 ## z-check-card属性
-
-| 属性名           | 说明                                                         | 类型                 | 默认值    |
-| -------------- | ------------------------------------------------------------ | -------------------- | --------- |
-| checked        | 指定当前是否选中                                             | `boolean`              | false     |
-| bordered       | 是否显示边框                                                 | `boolean`              | true      |
-| value          | 选项值                                                       | `string`               | -         |
-| defaultChecked | 初始是否选中                                                 | `boolean`              | false     |
-| disabled       | 失效状态                                                     | `boolean`              | false     |
-| size           | 选择框大小，可选 `large` `small`                             | `string`               | `default` |
-| loading        | 当卡片内容还在加载中时，可以用 loading 展示一个占位          | `boolean`              | false     |
-| title          | 标题                                                         | `string / VNode`  | -         |
-| description    | 描述                                                         | `string / VNode`            | -         |
-| avatar         | 选项元素的图片地址                                           | `link / VNode`    | -         |
-| extra          | 卡片右上角操作区域                                                     | `string / VNode` | -         |
-| cover          | 卡片背景图片, 注意使用该选项后`title`，`description`和`avatar`失效 | `VNode`            | -         |
-
-## z-check-card事件
-
-| 事件名           | 说明                                                         | 回调参数                 |
-| -------------- | ------------------------------------------------------------ | -------------------- |
-| change        |     变化时回调函数                                         | checked              |
-
-## z-check-card-group属性
 
 | 属性名         | 说明                                                  | 类型                                                         | 默认值    |
 | ------------ | ----------------------------------------------------- | ------------------------------------------------------------ | --------- |
@@ -543,7 +562,7 @@ const selectedCard = ref('A')
 | size         | 选择框大小，可选 `large` `small` `default`                      | `string`                                                       | `default` |
 | onChange     | 变化时回调函数                                        | `Function(checkedValue)`                                       | -         |
 
-## z-check-card-group Options项可配置属性
+## z-check-card Options项可配置属性
 
 | 属性名           | 说明                                                         | 类型                 | 默认值    |
 | -------------- | ------------------------------------------------------------ | -------------------- | --------- |
@@ -557,8 +576,8 @@ const selectedCard = ref('A')
 | extra          | 卡片右上角操作区域                                                     | `string / VNode` | -         |
 | cover          | 卡片背景图片, 注意使用该选项后`title`，`description`和`avatar`失效 | `VNode`            | -         |
 
-## z-check-card-group事件
+## z-check-card事件
 
 | 事件名           | 说明                                                         | 回调参数                 |
 | -------------- | ------------------------------------------------------------ | -------------------- |
-| change        |     变化时回调函数                                         | 选中数据项`value`集合              |
+| change        |     变化时回调函数                                         | checked              |

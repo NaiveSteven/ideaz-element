@@ -1,5 +1,5 @@
 import { withInstall } from '@ideaz/utils'
-import CheckCard from './src/CheckCard'
-import CheckCardGroup from './src/CheckBoxGroup'
+import CheckCardItem from './src/CheckCardItem'
+import CheckCard from './src'
 
-export default { ZCheckCard: withInstall(CheckCard), ZCheckCardGroup: withInstall(CheckCardGroup) }
+export default { ZCheckCard: withInstall(CheckCard), ZCheckCardItem: withInstall(CheckCardItem) }
