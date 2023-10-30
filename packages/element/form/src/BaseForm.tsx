@@ -4,8 +4,7 @@ import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { isFunction } from '@ideaz/utils'
-import { getCurrentInstance } from 'vue-demi'
-import type { ElForm } from 'element-plus'
+import { ElButton, ElCollapse, ElCollapseItem, ElDivider, ElForm, ElFormItem, ElStep, ElSteps } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import {
   useFormConfig,
@@ -78,8 +77,8 @@ export default defineComponent({
       const { footer } = props
       if (isFunction(footer)) return footer(activeStep.value)
       if (slots.footer) return slots.footer(activeStep.value)
-      return <el-form-item>
-        <el-button
+      return <ElFormItem>
+        <ElButton
           disabled={activeStep.value === 0}
           onClick={() => {
             emit('previous-step')
@@ -87,8 +86,8 @@ export default defineComponent({
           }}
         >
           {t('form.previousStep')}
-        </el-button>
-        <el-button
+        </ElButton>
+        <ElButton
           disabled={activeStep.value === formatFormItems.value.length - 1}
           onClick={() => {
             (ctx?.$refs.formRef as typeof ElForm).validate((val: boolean) => {
@@ -101,8 +100,8 @@ export default defineComponent({
           }}
         >
           {t('form.nextStep')}
-        </el-button>
-      </el-form-item>
+        </ElButton>
+      </ElFormItem>
     }
 
     const renderContent = () => {
@@ -113,9 +112,9 @@ export default defineComponent({
         return formatFormItems.value.map((column) => {
           if (column.label && column.children && column.children.length) {
             return <>
-              <el-divider contentPosition={column.contentPosition || contentPosition} borderStyle={column.borderStyle || borderStyle}>
+              <ElDivider contentPosition={column.contentPosition || contentPosition} borderStyle={column.borderStyle || borderStyle}>
                 {getContentByRenderAndSlot(column.label, slots)}
-              </el-divider>
+              </ElDivider>
               {renderCommonColumn(column.children || [])}
             </>
           }
@@ -123,24 +122,24 @@ export default defineComponent({
         })
       }
       else if (type === 'collapse') {
-        return <el-collapse
+        return <ElCollapse
           modelValue={activeCollapse}
           accordion={accordion}
           class={ns.b('collapse')}
           onUpdate:activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
-          onChange={(val: string[] | string) => { emit('collapse-change', val) }}
+          onChange={(val: string[]) => { emit('collapse-change', val) }}
         >
           {formatFormItems.value.map((column, index) => {
             if (column.label && column.children && column.children.length) {
-              return <el-collapse-item name={index} disabled={column.disabled} v-slots={{
+              return <ElCollapseItem name={index} disabled={column.disabled} v-slots={{
                 title: () => getContentByRenderAndSlot(column.label, slots),
               }}>
                 {renderCommonColumn(column.children || [])}
-              </el-collapse-item>
+              </ElCollapseItem>
             }
             return renderCommonColumn([column])
           })}
-        </el-collapse>
+        </ElCollapse>
       }
       else if (type === 'array' && !isChildren) {
         const model = [...modelValue as any[]]
@@ -155,7 +154,7 @@ export default defineComponent({
               }}
               addVisible={modelValue.length !== max}
             >
-              <el-form {...{ labelWidth: formConfig.value.labelWidth, formProps }} model={data} ref={`arrayForm${index}`}>
+              <ElForm {...{ labelWidth: formConfig.value.labelWidth, formProps }} model={data} ref={`arrayForm${index}`}>
                 <FormColumns
                   modelValue={data}
                   options={options}
@@ -167,13 +166,13 @@ export default defineComponent({
                   }}
                   onChange={(...args) => { emit('change', ...args) }}
                 />
-              </el-form>
+              </ElForm>
             </OperationCard>
           })}
           {modelValue.length !== max
-            && <el-button class={ns.bm('array', 'add')} onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
+            && <ElButton class={ns.bm('array', 'add')} onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
               {t('form.add')}
-            </el-button>}
+            </ElButton>}
         </>
       }
       else if (type === 'array' && isChildren) {
@@ -181,7 +180,7 @@ export default defineComponent({
           if (column.label && column.children && column.children.length) {
             const field = column.field!
             const maxLength = column.max || max
-            return <el-form-item label={column.label} prop={column.field} class={ns.b('array-form-item')} {...omit(column, FORM_ITEM_FILTER_KEYS)}>
+            return <ElFormItem label={column.label} prop={column.field} class={ns.b('array-form-item')} {...omit(column, FORM_ITEM_FILTER_KEYS)}>
               <>
                 {modelValue[field].map((data: any, index: number) => {
                   const formProps = omit(column, FORM_FILTER_KEYS)
@@ -198,7 +197,7 @@ export default defineComponent({
                     }}
                     addVisible={modelValue[field].length !== maxLength}
                   >
-                    <el-form {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} model={data} ref={`arrayForm${index}${field}`}>
+                    <ElForm {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} model={data} ref={`arrayForm${index}${field}`}>
                       <FormColumns
                         modelValue={data}
                         options={column.options || options}
@@ -211,11 +210,11 @@ export default defineComponent({
                         }}
                         onChange={(...args) => { emit('change', ...args) }}
                       />
-                    </el-form>
+                    </ElForm>
                   </OperationCard>
                 })}
                 {modelValue[field].length !== maxLength
-                  && <el-button
+                  && <ElButton
                     class={ns.bm('array', 'add')}
                     onClick={() => {
                       const model = { ...modelValue }
@@ -225,24 +224,24 @@ export default defineComponent({
                     icon={Plus}
                   >
                     {t('form.add')}
-                  </el-button>}
+                  </ElButton>}
               </>
-            </el-form-item>
+            </ElFormItem>
           }
           return renderCommonColumn([column])
         })
       }
       else if (type === 'step') {
         return <>
-          <el-steps active={activeStep.value} finishStatus={finishStatus} processStatus={processStatus} simple={simple} class={ns.b('steps')}>
+          <ElSteps active={activeStep.value} finishStatus={finishStatus} processStatus={processStatus} simple={simple} class={ns.b('steps')}>
             {formatFormItems.value.map((column) => {
-              return <el-step status={column.status} v-slots={{
+              return <ElStep status={column.status} v-slots={{
                 icon: () => getContentByRenderAndSlot(column.icon, slots),
                 description: () => getContentByRenderAndSlot(column.description, slots),
                 title: () => getContentByRenderAndSlot(column.label, slots),
               }} />
             })}
-          </el-steps>
+          </ElSteps>
           {formatFormItems.value.map((column, index) => {
             if (index === activeStep.value) {
               if (column.label && column.children && column.children.length)
@@ -263,7 +262,7 @@ export default defineComponent({
       const { modelValue } = props
 
       return (
-        <el-form
+        <ElForm
           {...{ ...formConfig.value, model: modelValue }}
           ref="formRef"
           class={[rowKls.value, ns.b('')]}
@@ -271,7 +270,7 @@ export default defineComponent({
         // onSubmit={withModifiers(function () { }, ['prevent'])}
         >
           {renderContent()}
-        </el-form>
+        </ElForm>
       )
     }
   },

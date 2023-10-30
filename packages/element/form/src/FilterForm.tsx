@@ -1,14 +1,16 @@
 import type { ElForm } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { isFunction } from '@ideaz/utils'
+import { ElButton } from 'element-plus'
 import { useFilterFormButtons, useFilterFormItem, useFormConfig, useFormMethods } from '../hooks'
+import ZForm from './BaseForm'
 import type { ToggleButtonType } from './props'
 import { filterFormProps } from './props'
 import ToggleButton from './ToggleButton'
 
 export default defineComponent({
   name: 'ZFilterForm',
-  components: { ToggleButton },
+  components: { ToggleButton, ZForm },
   props: filterFormProps,
   emits: ['search', 'reset', 'update:modelValue'],
   setup(props, { attrs, slots, emit }) {
@@ -42,6 +44,7 @@ export default defineComponent({
     }
 
     const handleReset = () => {
+      console.log(ctx?.$refs.formRef.resetFields, 'asf');
       (ctx?.$refs.formRef as typeof ElForm).resetFields()
       emit('reset')
     }
@@ -55,19 +58,19 @@ export default defineComponent({
 
       return (
         <div class={ns.b('operation')}>
-          <el-button type="primary" size={size.value} onClick={handleSearch} {...searchButtonProps.value}>
+          <ElButton type="primary" size={size.value} onClick={handleSearch} {...searchButtonProps.value}>
             {searchButtonProps.value.label}
-          </el-button>
-          <el-button type="default" size={size.value} onClick={handleReset} {...resetButtonProps.value}>
+          </ElButton>
+          <ElButton type="default" size={size.value} onClick={handleReset} {...resetButtonProps.value}>
             {resetButtonProps.value.label}
-          </el-button>
+          </ElButton>
         </div>
       )
     }
 
     return () => {
       const { modelValue, options } = props
-      return <z-form
+      return <ZForm
         ref="formRef"
         columns={columns.value}
         options={options || {}}
