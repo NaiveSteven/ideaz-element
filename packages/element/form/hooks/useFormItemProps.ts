@@ -8,7 +8,7 @@ export const useFormItemProps = (props: FormItemProps) => {
     if (col.required === true || col.rules?.required || col.formItemProps?.required) {
       myProps.rules = {
         required: true,
-        message: col.fieldProps?.placeholder,
+        message: col.message || col.fieldProps?.placeholder,
         ...col.rules,
       }
     }

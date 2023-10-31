@@ -1,4 +1,5 @@
 import { Delete, Plus } from '@element-plus/icons-vue'
+import { ElButton, ElCard } from 'element-plus'
 
 export default defineComponent({
   name: 'ZOperationCard',
@@ -14,10 +15,10 @@ export default defineComponent({
     const size = useFormSize()
 
     return () => {
-      return <el-card shadow='never' class={ns.b('item-card')}>
+      return <ElCard shadow='never' class={ns.b('item-card')}>
         {slots.default?.()}
         {props.addVisible
-          ? <el-button
+          ? <ElButton
           type="primary"
           icon={Plus}
           circle
@@ -26,7 +27,7 @@ export default defineComponent({
           onClick={() => emit('add')}
         />
           : null}
-        <el-button
+        <ElButton
           type="danger"
           icon={Delete}
           circle
@@ -34,7 +35,7 @@ export default defineComponent({
           size={size.value === 'small' ? 'small' : 'default'}
           onClick={() => emit('delete')}
         />
-      </el-card>
+      </ElCard>
     }
   },
 })

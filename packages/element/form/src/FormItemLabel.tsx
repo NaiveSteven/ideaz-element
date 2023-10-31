@@ -1,5 +1,6 @@
 import { isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import { QuestionFilled } from '@element-plus/icons-vue'
+import { ElIcon, ElTooltip } from 'element-plus'
 
 export default defineComponent({
   name: 'FormItemLabel',
@@ -37,18 +38,18 @@ export default defineComponent({
       return (
         <span>
           {label}
-          <el-tooltip
+          <ElTooltip
             effect="dark"
             placement="top"
             {...tooltipProps}
             v-slots={tooltipSlot}
           >
             {tooltip && (
-              <el-icon class={ns.be('label', 'icon')}>
+              <ElIcon class={ns.be('label', 'icon')}>
                 <QuestionFilled />
-              </el-icon>
+              </ElIcon>
             )}
-          </el-tooltip>
+          </ElTooltip>
           {colon ? ':' : null}
         </span>
       )

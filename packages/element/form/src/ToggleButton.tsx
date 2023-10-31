@@ -1,4 +1,5 @@
 import { ArrowDown } from '@element-plus/icons-vue'
+import { ElButton, ElIcon } from 'element-plus'
 
 export default defineComponent({
   name: 'ToggleButton',
@@ -31,15 +32,15 @@ export default defineComponent({
     return () => {
       return (
         <div class={ns.b('toggle')} onClick={handleClick}>
-          <el-button
+          <ElButton
             class={ns.b('toggle-button')}
             link
             type="primary"
             size={size.value}
           >
             {text.value}
-            <el-icon class={iconClass.value}><ArrowDown /></el-icon>
-          </el-button>
+            <ElIcon class={iconClass.value}><ArrowDown /></ElIcon>
+          </ElButton>
         </div>
       )
     }

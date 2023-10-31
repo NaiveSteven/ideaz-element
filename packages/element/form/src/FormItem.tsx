@@ -2,6 +2,7 @@ import { extractEvents, isFunction, isObject, isString } from '@ideaz/utils'
 import { getContentByRenderAndSlot, resolveDynamicComponent } from '@ideaz/shared'
 import { get } from 'lodash-unified'
 import { vueRef as ref } from '@ideaz/directives'
+import { ElFormItem } from 'element-plus'
 import {
   useFormItemComponent,
   useFormItemProps,
@@ -43,7 +44,7 @@ export default defineComponent({
       const { col, options } = props
 
       return (
-        <el-form-item
+        <ElFormItem
           ref="formItem"
           prop={col.field}
           class={ns.b()}
@@ -78,7 +79,7 @@ export default defineComponent({
               {getContentByRenderAndSlot(formItemProps.value.extra, slots)}
             </div>
           )}
-        </el-form-item>
+        </ElFormItem>
       )
     }
   },
