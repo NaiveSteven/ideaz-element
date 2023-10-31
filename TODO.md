@@ -98,7 +98,7 @@
 84. ~~`z-tag-select`支持`title`自定义~~
 85. `z-tag-select`支持不展开
 86. `z-radio`支持取消选中
-87. `z-form`的`column`支持直接配置`class`和`style`
+87. ~~`z-form`的`column`支持直接配置`class`和`style`~~
 
 ## FEATURE
 

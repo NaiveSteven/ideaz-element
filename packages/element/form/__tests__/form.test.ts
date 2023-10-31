@@ -100,9 +100,7 @@ describe('form', () => {
           component: 'input',
           field: 'name',
           label: 'name',
-          fieldProps: {
-            class: 'my-input',
-          },
+          class: 'my-input',
           hide: () => value.value.sex === 'male',
         },
         {
