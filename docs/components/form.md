@@ -835,6 +835,10 @@ const submit = () => {
 
 ## 可折叠表单
 
+表单类型`type`传入`collapse`，`columns`中配置`children（表单项）`，可以实现可折叠表单。
+
+默认`columns`项的`label`字段为折叠项的`name`，如果`label`为函数，请额外传入`key`字段。
+
 :::demo
 
 ```vue
@@ -1233,20 +1237,6 @@ const formData = ref({
   name: '',
   sex: '',
   time: [],
-  a: [
-    {
-      name: '',
-      sex: '',
-      time: [],
-    }
-  ],
-  b: [
-    {
-      name: '',
-      sex: '',
-      time: [],
-    }
-  ]
 })
 
 const options = {
@@ -1260,7 +1250,6 @@ const columns = [
   {
     label: '第一步',
     description: '描述内容',
-    field: 'a',
     children: [
       {
         component: 'input',
@@ -1282,7 +1271,6 @@ const columns = [
   {
     label: () => h('span', {}, '第二部'),
     description: () => h('span', {}, '描述内容'),
-    field: 'b',
     children: [
       {
         component: 'select',
@@ -1409,6 +1397,17 @@ const submit = () => {
 | resetFields   | 重置该表单项，将其值重置为初始值，并移除校验结果             | `Function` |
 | scrollToField | 滚动到指定的字段                                             | `Function` |
 | clearValidate | 清理某个字段的表单验证信息。                                 | `Function` |
+
+### z-form 事件
+
+| 事件名 | 说明                                                        | 类型       |
+| :----- | :---------------------------------------------------------- | :--------- |
+| update:modelValue | 表单项数据 | `Function` |
+| update:activeCollapse | 折叠表单的展开项 | `Function` |
+| update:activeStep | 步骤表单的当前步骤 | `Function` |
+| collapse-change | 折叠表单折叠项改变时触发 | `Function` |
+| next-step | 步骤表单点击下一步触发 | `Function` |
+| previous-step | 步骤表单点击上一步触发 | `Function` |
 
 ## 通常表单column属性
 

@@ -99,8 +99,8 @@
 85. `z-tag-select`支持不展开
 86. `z-radio`支持取消选中
 87. ~~`z-form`的`column`支持直接配置`class`和`style`~~
-88. `z-form`可折叠支持配置默认展开
-89. `z-form`文档优化（事件、`step`等）
+88. ~~`z-form`可折叠支持配置默认展开~~
+89. ~~`z-form`文档优化（事件、`step`等）~~
 90. 优化`z-form`的`array`表单类型，操作按钮类名
 
 ## FEATURE
