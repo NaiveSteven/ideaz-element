@@ -3,7 +3,7 @@ import { useExpose } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isString } from '@ideaz/utils'
 import { ElButton, ElCollapse, ElCollapseItem, ElDivider, ElForm, ElFormItem, ElStep, ElSteps } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import {
@@ -129,9 +129,10 @@ export default defineComponent({
           onUpdate:activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
           onChange={(val: string[]) => { emit('collapse-change', val) }}
         >
-          {formatFormItems.value.map((column, index) => {
+          {formatFormItems.value.map((column) => {
             if (column.label && column.children && column.children.length) {
-              return <ElCollapseItem name={index} disabled={column.disabled} v-slots={{
+              const name = isString(column.label) ? column.label : column.key
+              return <ElCollapseItem name={name} disabled={column.disabled} v-slots={{
                 title: () => getContentByRenderAndSlot(column.label, slots),
               }}>
                 {renderCommonColumn(column.children || [])}

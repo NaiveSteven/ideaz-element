@@ -841,7 +841,7 @@ const submit = () => {
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 
-const activeCollapse = ref('文本1')
+const activeCollapse = ref('bbb')
 const formRef = ref()
 const formData = ref({
   name: '',
@@ -859,6 +859,7 @@ const options = {
 const columns = [
   {
     label: () => h('span', {}, '文本a'),
+    key: 'bbb',
     children: [
       {
         component: 'input',
