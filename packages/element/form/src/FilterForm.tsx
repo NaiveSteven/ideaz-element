@@ -44,7 +44,6 @@ export default defineComponent({
     }
 
     const handleReset = () => {
-      console.log(ctx?.$refs.formRef.resetFields, 'asf');
       (ctx?.$refs.formRef as typeof ElForm).resetFields()
       emit('reset')
     }
