@@ -54,6 +54,7 @@ const groupColumns = [
   {
     label: () => h('span', 'text2'),
     contentPosition: 'center',
+    key: 'text2',
     description: 'text2Description',
     children: [
       {
@@ -709,6 +710,91 @@ describe('form', () => {
       await (wrapper.vm.$refs.form as any).resetFields()
       expect((wrapper.vm.value as any).age).toBe('')
       expect(getInputValue(wrapper, 0)).toBe('')
+    })
+  })
+
+  describe('collapse', async () => {
+    test('collapse form', async () => {
+      const wrapper = mount({
+        template: '<z-form type="collapse" v-model:activeCollapse="activeCollapse" v-model="value" :columns="cols" :options="options" />',
+        setup() {
+          const activeCollapse = ref(['text1'])
+          const value = ref({ name: '', sex: '', date: [] })
+          const cols = ref([...groupColumns])
+          return { value, cols, options, activeCollapse }
+        },
+      })
+
+      const list = wrapper.findAll('.el-form-item')
+      expect(list.map(item => item.findAll('.el-form-item__label').map(cur => cur.text())).flat(1)).toEqual(['name', 'sex', 'date'])
+      expect(list.length).toBe(3)
+      expect(list[0].isVisible()).toBe(true)
+      expect(list[1].isVisible()).toBe(false)
+      expect(list[2].isVisible()).toBe(false)
+    })
+
+    test('label', async () => {
+      const wrapper = mount({
+        template: '<z-form type="collapse" v-model:activeCollapse="activeCollapse" v-model="value" :columns="cols" :options="options" />',
+        setup() {
+          const activeCollapse = ref(['text1'])
+          const value = ref({ name: '', sex: '', date: [] })
+          const cols = ref([...groupColumns])
+          return { value, cols, options, activeCollapse }
+        },
+      })
+
+      expect(wrapper.findAll('.el-collapse-item__header').map(item => item.text()).flat(1)).toEqual(['text1', 'text2'])
+    })
+
+    test('event', async () => {
+      const handleChange = vi.fn()
+      const wrapper = mount({
+        template: '<z-form type="collapse" v-model="value" :columns="cols" :options="options" v-model:activeCollapse="activeCollapse"/>',
+        setup() {
+          const activeCollapse = ref(['text1', 'age'])
+          const value = ref({ name: '', sex: '', date: [], age: '' })
+          const cols = ref([...groupColumns, { label: 'age', children: [{ component: 'select', field: 'age', label: 'age', class: 'my-select', onChange: handleChange }] }])
+          return { value, cols, options, activeCollapse }
+        },
+      })
+
+      const select = wrapper.find('.my-select')
+      expect(select.exists()).toBe(true)
+      await select.trigger('click')
+      const opts = getOptions()
+      expect((wrapper.vm.value as any).age).toBe('')
+      expect(getInputValue(wrapper, 3)).toBe('')
+      await opts[3].click()
+      expect(handleChange).toHaveBeenCalled()
+      expect((wrapper.vm.value as any).age).toBe('16')
+      expect(getInputValue(wrapper, 3)).toBe('16')
+    })
+
+    test('resetFields', async () => {
+      const wrapper = mount({
+        template: '<z-form ref="form" type="collapse" v-model="value" :columns="cols" :options="options" v-model:activeCollapse="activeCollapse" />',
+        setup() {
+          const form = ref()
+          const activeCollapse = ref(['text1', 'age'])
+          const value = ref({ name: '', sex: '', date: [], age: '' })
+          const cols = ref([...groupColumns, { label: 'age', children: [{ component: 'select', field: 'age', label: 'age', class: 'my-select' }] }])
+          return { value, cols, options, form, activeCollapse }
+        },
+      })
+
+      const select = wrapper.find('.my-select')
+      expect(select.exists()).toBe(true)
+      await select.trigger('click')
+      const opts = getOptions()
+      expect((wrapper.vm.value as any).age).toBe('')
+      expect(getInputValue(wrapper, 3)).toBe('')
+      await opts[3].click()
+      expect((wrapper.vm.value as any).age).toBe('16')
+      expect(getInputValue(wrapper, 3)).toBe('16')
+      await (wrapper.vm.$refs.form as any).resetFields()
+      expect((wrapper.vm.value as any).age).toBe('')
+      expect(getInputValue(wrapper, 3)).toBe('')
     })
   })
 })
