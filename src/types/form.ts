@@ -31,7 +31,7 @@ export interface FormColumn {
   // frontSlot?: string
   error?: string | (() => VNode)
   class?: string
-  style?: string
+  style?: CSSProperties
   rules?: FormRules | FormItemRule
   message?: string
   __key?: string // 组件库生成的key

@@ -64,6 +64,8 @@ export default defineComponent({
                   ? (options[col.field!] || (col.fieldProps && col.fieldProps.options))
                   : {},
                 'size': size.value,
+                'class': col.class,
+                'style': col.style,
                 ...col.fieldProps,
                 'directives': {
                   ref: isObject(col.fieldProps)
