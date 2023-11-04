@@ -38,6 +38,9 @@ export const radioProps = {
   border: {
     type: Boolean,
   },
+  isCancel: {
+    type: Boolean,
+  },
 }
 
 export type RadioProps = ExtractPropTypes<typeof radioProps>
