@@ -99,27 +99,27 @@
     margin-bottom: 0;
   }
 
-  .z-array-form-operation--add--small {
+  .z-array-form-operation__add--small {
     position: absolute;
     top: -12px;
     right: 20px;
   }
 
-  .z-array-form-operation--add--default,
-  .z-array-form-operation--add--large {
+  .z-array-form-operation__add--default,
+  .z-array-form-operation__add--large {
     position: absolute;
     top: -16px;
     right: 24px;
   }
 
-  .z-array-form-operation--delete--small {
+  .z-array-form-operation__delete--small {
     position: absolute;
     top: -12px;
     right: -12px;
   }
 
-  .z-array-form-operation--delete--default,
-  .z-array-form-operation--delete--large {
+  .z-array-form-operation__delete--default,
+  .z-array-form-operation__delete--large {
     position: absolute;
     top: -16px;
     right: -16px;
@@ -151,7 +151,7 @@
     width: 100%;
   }
 
-  .z-form-array--add {
+  .z-form-array__add {
     width: 100%;
   }
 }

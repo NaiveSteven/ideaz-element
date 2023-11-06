@@ -172,7 +172,7 @@ export default defineComponent({
             </OperationCard>
           })}
           {modelValue.length !== max
-            && <ElButton class={ns.bm('array', 'add')} onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
+            && <ElButton class={ns.be('array', 'add')} onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
               {t('form.add')}
             </ElButton>}
         </>
@@ -217,7 +217,7 @@ export default defineComponent({
                 })}
                 {modelValue[field].length !== maxLength
                   && <ElButton
-                    class={ns.bm('array', 'add')}
+                    class={ns.be('array', 'add')}
                     onClick={() => {
                       const model = { ...modelValue }
                       model[field].push({})

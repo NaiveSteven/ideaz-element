@@ -22,7 +22,7 @@ export default defineComponent({
           type="primary"
           icon={Plus}
           circle
-          class={ns.bm('operation', `add--${size.value}`)}
+          class={ns.be('operation', `add--${size.value}`)}
           size={size.value === 'small' ? 'small' : 'default'}
           onClick={() => emit('add')}
         />
@@ -31,7 +31,7 @@ export default defineComponent({
           type="danger"
           icon={Delete}
           circle
-          class={ns.bm('operation', `delete--${size.value}`)}
+          class={ns.be('operation', `delete--${size.value}`)}
           size={size.value === 'small' ? 'small' : 'default'}
           onClick={() => emit('delete')}
         />
