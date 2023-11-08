@@ -196,7 +196,7 @@ export default defineComponent({
         <el-table
           ref="zTableRef"
           v-loading={loading}
-          class={[ns.b(''), editable && ns.b('editable')]}
+          class={[editable && ns.b('editable')]}
           key={tableKey.value}
           v-slots={tableSlots}
           v-draggable={draggableOptions}
@@ -264,7 +264,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <div class={ns.e('container')}>
+        <div class={ns.b('')}>
           {renderToolBar()}
           {renderContent()}
           {renderPagination()}
