@@ -66,8 +66,6 @@ const columns = [
 
 <template>
   <z-table
-    :data="tableData"
-    :loading="loading"
     :columns="columns"
   />
 </template>
