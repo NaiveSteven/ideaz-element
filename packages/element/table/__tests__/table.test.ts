@@ -30,6 +30,29 @@ const columns: TableCol[] = [
   },
 ]
 
+export const tableData = [
+  {
+    date: '2016-05-03',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-02',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-04',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+  {
+    date: '2016-05-01',
+    name: 'Tom',
+    address: 'No. 189, Grove St, Los Angeles',
+  },
+]
+
 const headerClass
   = '.z-table .el-table__header-wrapper .el-table__header thead tr'
 const getHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>
@@ -42,7 +65,7 @@ const getHeaderClass = (
   wrapper: VueWrapper<ComponentPublicInstance>,
   index = 0,
 ) => getHeader(wrapper)[index].classes()
-const bodyClass = '.z-table .el-table__body-wrapper .el-table__body tbody tr'
+const bodyClass = '.el-table__row'
 const getBody = (wrapper: VueWrapper<ComponentPublicInstance>) =>
   wrapper.findAll(bodyClass)
 const getBodyItem = (wrapper: VueWrapper<ComponentPublicInstance>, index = 1) =>
@@ -96,6 +119,24 @@ describe('table', () => {
     // expect(getHeaderList(wrapper)).toHaveLength(3)
     // expect(getHeaderList(wrapper)).not.toContain('Date')
     // expect(getHeaderList(wrapper)).toContain('-Date')
+  })
+
+  test.concurrent('data', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="columns" :data="data" :toolBar="false"/>',
+      setup() {
+        return { columns, data: ref(tableData) }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    const vm = wrapper.vm as unknown as { data: any }
+
+    expect(getBody(wrapper)).toHaveLength(4)
+
+    await vm.data.push({ date: '0000', name: 'vue', address: '--' })
+    expect(getBody(wrapper)).toHaveLength(5)
+    expect(getBodyItem(wrapper, 5)).toContain('0000')
   })
 })
 
