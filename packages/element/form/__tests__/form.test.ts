@@ -505,7 +505,7 @@ describe('form', () => {
       const list = wrapper.findAll('.el-form-item')
       expect(list.map(item => item.findAll('.el-form-item__label').map(cur => cur.text())).flat(1)).toEqual(['name', 'sex', 'date'])
       expect(list.length).toBe(3)
-      await wrapper.find('.z-form-array--add').trigger('click')
+      await wrapper.find('.z-form-array__add').trigger('click')
       expect(wrapper.findAll('.el-form-item').length).toBe(6)
       expect(wrapper.findAll('.el-form-item').map(item => item.findAll('.el-form-item__label').map(cur => cur.text())).flat(1)).toEqual(['name', 'sex', 'date', 'name', 'sex', 'date'])
     })
@@ -520,15 +520,15 @@ describe('form', () => {
         },
       })
 
-      expect(wrapper.find('.z-array-form-operation--add--small').exists()).toBe(true)
+      expect(wrapper.find('.z-array-form-operation__add--small').exists()).toBe(true)
       const list = wrapper.findAll('.el-form-item')
       expect(list.map(item => item.findAll('.el-form-item__label').map(cur => cur.text())).flat(1)).toEqual(['name', 'sex', 'date'])
       expect(list.length).toBe(3)
-      await wrapper.find('.z-form-array--add').trigger('click')
+      await wrapper.find('.z-form-array__add').trigger('click')
       expect(wrapper.findAll('.el-form-item').length).toBe(6)
       expect(wrapper.findAll('.el-form-item').map(item => item.findAll('.el-form-item__label').map(cur => cur.text())).flat(1)).toEqual(['name', 'sex', 'date', 'name', 'sex', 'date'])
-      expect(wrapper.find('.z-form-array--add').exists()).toBe(false)
-      expect(wrapper.find('.z-array-form-operation--add--small').exists()).toBe(false)
+      expect(wrapper.find('.z-form-array__add').exists()).toBe(false)
+      expect(wrapper.find('.z-array-form-operation__add--small').exists()).toBe(false)
     })
 
     test('operation', async () => {
@@ -541,9 +541,9 @@ describe('form', () => {
         },
       })
 
-      await wrapper.find('.z-array-form-operation--add--small').trigger('click')
+      await wrapper.find('.z-array-form-operation__add--small').trigger('click')
       expect(wrapper.findAll('.el-form-item').length).toBe(6)
-      await wrapper.find('.z-array-form-operation--delete--small').trigger('click')
+      await wrapper.find('.z-array-form-operation__delete--small').trigger('click')
       expect(wrapper.findAll('.el-form-item').length).toBe(3)
     })
 

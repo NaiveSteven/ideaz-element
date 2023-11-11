@@ -107,6 +107,32 @@ const radioVal = ref(1)
 
 :::
 
+## 取消选中
+
+配置`isCancel`为`true`，可以取消选中
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+
+const options = ref([
+  { label: '选项一', value: 1 },
+  { label: '选项二', value: 2 },
+  { label: '选项三', value: 3 }
+])
+
+const radioVal = ref(1)
+</script>
+
+<template>
+  <z-radio v-model="radioVal" is-cancel :options="options" />
+</template>
+```
+
+:::
+
 ## 按钮样式
 
 给`option`某项设置`type`或者直接组件传入`type`
@@ -173,6 +199,7 @@ const radioVal = ref(1)
 | options | 可配置项                                   | `array` | —       |
 | type | Radio 形式                                   | `string` | radio       |
 | alias | 键值对配置                                   | `object` | `{ label: 'label', value: 'value', disabled: 'disabled' }`       |
+| isCancel | 是否取消选中                                   | `boolean` | false       |
 | border | 是否显示边框                                   | `boolean` | false       |
 | size                  | 单选框按钮或边框按钮的大小               | `string`                        | default |
 | disabled              | 是否禁用                                 | `boolean`                       | false   |

@@ -4,6 +4,7 @@ import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { isFunction, isString } from '@ideaz/utils'
+import type { CollapseModelValue } from 'element-plus'
 import { ElButton, ElCollapse, ElCollapseItem, ElDivider, ElForm, ElFormItem, ElStep, ElSteps } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import {
@@ -126,8 +127,8 @@ export default defineComponent({
           modelValue={activeCollapse}
           accordion={accordion}
           class={ns.b('collapse')}
-          onUpdate:activeCollapse={(val: string[]) => { emit('update:activeCollapse', val) }}
-          onChange={(val: string[]) => { emit('collapse-change', val) }}
+          onUpdate:modelValue={(val: CollapseModelValue) => { emit('update:activeCollapse', val) }}
+          onChange={(val: CollapseModelValue) => { emit('collapse-change', val) }}
         >
           {formatFormItems.value.map((column) => {
             if (column.label && column.children && column.children.length) {
@@ -171,7 +172,7 @@ export default defineComponent({
             </OperationCard>
           })}
           {modelValue.length !== max
-            && <ElButton class={ns.bm('array', 'add')} onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
+            && <ElButton class={ns.be('array', 'add')} onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
               {t('form.add')}
             </ElButton>}
         </>
@@ -216,7 +217,7 @@ export default defineComponent({
                 })}
                 {modelValue[field].length !== maxLength
                   && <ElButton
-                    class={ns.bm('array', 'add')}
+                    class={ns.be('array', 'add')}
                     onClick={() => {
                       const model = { ...modelValue }
                       model[field].push({})

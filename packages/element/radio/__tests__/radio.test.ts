@@ -106,6 +106,25 @@ describe('radio', () => {
     await nextTick()
     expect(getList(wrapper, '.is-checked')).toContain('Steven')
   })
+
+  test('isCancel', async () => {
+    const wrapper = mount({
+      template: '<z-radio is-cancel v-model="value" :options="opts" size="default"/>',
+      setup() {
+        const value = ref('Jack')
+        const opts = ref(options)
+        return { value, opts }
+      },
+    })
+
+    expect(getList(wrapper, '.is-checked')).toContain('Jack')
+    await wrapper.findAll('.el-radio')[0].trigger('click')
+    expect(getList(wrapper, '.is-checked')).not.toContain('Jack')
+    expect((wrapper.vm.value as string)).toBe('')
+    await wrapper.findAll('.el-radio')[0].trigger('click')
+    expect(getList(wrapper, '.is-checked')).toContain('Jack')
+    expect((wrapper.vm.value as string)).toBe('Jack')
+  })
 })
 
 afterAll(() => {
