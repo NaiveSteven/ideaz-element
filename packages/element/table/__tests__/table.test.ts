@@ -90,7 +90,7 @@ describe('table', () => {
     document.body.innerHTML = ''
   })
 
-  test.concurrent('columns', async () => {
+  test('columns', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :toolBar="false"/>',
       setup() {
@@ -121,7 +121,7 @@ describe('table', () => {
     // expect(getHeaderList(wrapper)).toContain('-Date')
   })
 
-  test.concurrent('data', async () => {
+  test('data', async () => {
     const wrapper = mount({
       template: '<z-table :columns="columns" :data="data" :toolBar="false"/>',
       setup() {
@@ -137,6 +137,66 @@ describe('table', () => {
     await vm.data.push({ date: '0000', name: 'vue', address: '--' })
     expect(getBody(wrapper)).toHaveLength(5)
     expect(getBodyItem(wrapper, 5)).toContain('0000')
+  })
+
+  test('pagination', async () => {
+    const wrapper = mount({
+      template: `
+        <z-table
+          v-model:pagination="pagination"
+          :columns="cols"
+          :toolBar="false"
+        />
+      `,
+      setup() {
+        const pagination = ref({
+          page: 1,
+          pageSize: 10,
+          total: 50,
+          layout: 'prev, pager, next, sizes',
+        })
+        return { pagination, cols: ref(columns) }
+      },
+    })
+    await nextTick()
+    await nextTick()
+
+    const vm = wrapper.vm as unknown as {
+      pagination: {
+        total: number
+        page: number
+        pageSize: number
+        layout: string
+      }
+    }
+
+    expect(wrapper.find('.el-pagination')).not.toBeNull()
+
+    await getPager(wrapper, ':nth-child(2)').trigger('click')
+    expect(vm.pagination.page).toBe(2)
+
+    await getPager(wrapper, ':nth-child(3)').trigger('click')
+    expect(vm.pagination.page).toBe(3)
+
+    await (vm.pagination.page = 1)
+    await expect(getPager(wrapper, '.is-active').text()).toBe('1')
+
+    await (vm.pagination.pageSize = 100)
+    await wrapper
+      .find('.el-pagination .el-pagination__sizes .select-trigger')
+      .trigger('click')
+    expect(getSizesItem('.selected')?.innerHTML).toMatch(/10/)
+
+    await (vm.pagination.layout = 'sizes, prev, pager, next')
+    expect(wrapper.find('.el-pagination .el-pagination__total').exists()).toBe(
+      false,
+    )
+    expect(wrapper.find('.el-pagination .el-pagination__jump').exists()).toBe(
+      false,
+    )
+
+    // await (vm.pagination.total = 0)
+    // expect(wrapper.find('.el-pagination').exists()).toBe(false)
   })
 })
 

@@ -62,10 +62,18 @@ const columns = [
     label: '出生日期'
   }
 ]
+const pagination = ref({
+  page: 1,
+  pageSize: 10,
+  total: 50,
+  layout: 'prev, pager, next, sizes',
+})
 </script>
 
 <template>
+  {{ pagination }}
   <z-table
+    v-model:pagination="pagination"
     :data="tableData"
     :loading="loading"
     :columns="columns"
