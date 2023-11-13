@@ -285,6 +285,30 @@ describe('table', () => {
 
     expect(wrapper.findAll('.el-checkbox').length).toBe(6)
   })
+
+  test('hide', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
+      setup() {
+        const isHide = ref(true)
+        const cols = ref([...columns].concat({ label: 'Age', prop: 'age', hide: () => isHide.value }))
+        return { cols, isHide, data: tableData }
+      },
+    })
+    const vm = wrapper.vm as unknown as { isHide: boolean }
+    await nextTick()
+    await nextTick()
+    expect(getHeaderList(wrapper)).toContain('Date')
+    expect(getHeaderList(wrapper)).toContain('Name')
+    expect(getHeaderList(wrapper)).toContain('Address')
+    expect(getHeaderList(wrapper)).not.toContain('Age')
+
+    vm.isHide = false
+    await nextTick()
+    await nextTick()
+    await nextTick()
+    expect(getHeaderList(wrapper)).toContain('Age')
+  })
 })
 
 afterAll(() => {
