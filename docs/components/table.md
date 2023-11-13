@@ -46,6 +46,9 @@ const tableData = ref([
 
 const columns = [
   {
+    type: 'expand'
+  },
+  {
     prop: 'name',
     label: '姓名',
   },
@@ -71,13 +74,16 @@ const pagination = ref({
 </script>
 
 <template>
-  {{ pagination }}
   <z-table
     v-model:pagination="pagination"
     :data="tableData"
     :loading="loading"
     :columns="columns"
-  />
+  >
+    <template #expand="row">
+      {{ row.$index }}
+    </template>
+  </z-table>
 </template>
 ```
 

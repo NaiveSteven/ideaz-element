@@ -198,6 +198,93 @@ describe('table', () => {
     // await (vm.pagination.total = 0)
     // expect(wrapper.find('.el-pagination').exists()).toBe(false)
   })
+
+  test('align', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      setup() {
+        return {
+          cols: columns.map((item) => {
+            item.align = 'right'
+            item.headerAlign = 'left'
+            return item
+          }),
+          data: tableData,
+        }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    const vm = wrapper.vm as unknown as { align: string }
+    await (vm.align = 'right')
+    expect(getHeaderClass(wrapper)).toContain('is-left')
+    expect(getBodyClass(wrapper)).toContain('is-right')
+  })
+
+  test('index', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :index="index" :toolBar="false" :data="data"/>',
+      setup() {
+        const index = ref({ label: '#' })
+        return { cols: columns.concat({ type: 'index' }).reverse(), index, data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    const rows = wrapper.findAll('.el-table__row')
+    rows.forEach((row, index) => {
+      const cell = row.find('td')
+      expect(cell.text()).toMatch(`${index + 1}`)
+    })
+  })
+
+  test('expand', async () => {
+    const wrapper = mount({
+      template: `
+        <z-table :data="data" :columns="cols" :toolBar="false">
+          <template #expand="props">
+            <span class="index">{{ props.$index }}</span>
+          </template>
+        </z-table>
+      `,
+      setup() {
+        return { cols: columns.concat([{ type: 'expand' }]).reverse(), data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+
+    const rows = wrapper.findAll('.el-table__row')
+    let index = 0
+    for (const row of rows) {
+      const expandCell = row.findAll('td')[0]
+      const triggerIcon = expandCell.find('.el-table__expand-icon')
+      triggerIcon.trigger('click')
+      await nextTick()
+      await nextTick()
+      const cell = wrapper.find('.el-table__expanded-cell')
+      expect(cell.text()).toMatch(`${index++}`)
+      triggerIcon.trigger('click')
+      await nextTick()
+      await nextTick()
+    }
+  })
+
+  test('selection', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
+      setup() {
+        return { cols: columns.concat({ type: 'selection' }), data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(getHeaderList(wrapper)).toHaveLength(4)
+    expect(getHeaderList(wrapper)).toContain('')
+    expect(getCheckBox(wrapper)).not.toBeNull()
+
+    expect(wrapper.findAll('.el-checkbox').length).toBe(6)
+  })
 })
 
 afterAll(() => {
