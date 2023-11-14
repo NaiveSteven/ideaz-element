@@ -110,6 +110,8 @@ export default defineComponent({
                 <el-dropdown-menu>
                   {button.children?.map((dropdownItem: BtnItem) => {
                     const dropdownProps = omit(dropdownItem, FILTER_KEYS)
+                    const isHide = isFunction(dropdownItem.hide) ? dropdownItem.hide() : dropdownItem.hide
+                    if (isHide) return null
                     return (
                       <el-dropdown-item
                         {...dropdownProps}

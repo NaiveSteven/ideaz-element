@@ -3,14 +3,14 @@ import type { ExtractPropTypes } from 'vue'
 import type { OptionsItem } from './common'
 import type { FormColumn } from './form'
 
-export type BtnItem = Omit<ButtonProps, 'type' | 'disabled'> & {
-  type: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'dropdown'
+export type BtnItem = Partial<Omit<ButtonProps, 'type' | 'disabled'>> & {
+  type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'dropdown'
   disabled?: ((row: any, index: number) => boolean) | boolean
-  hide?: ((row: any, index: number) => boolean) | boolean
+  hide?: ((row?: any, index?: number) => boolean) | boolean
   onClick?: (row: any, index: number, column: any) => void
   children?: BtnItem
   reference?: string | ((h: any, scope: any) => VNode)
-  onCommand: (command: string) => void
+  onCommand?: (command: string) => void
   [propName: string]: any
 } & Partial<ExtractPropTypes<typeof dropdownItemProps>> & Omit<Partial<ExtractPropTypes<typeof dropdownProps>>, 'type'>
 

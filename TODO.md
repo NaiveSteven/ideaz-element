@@ -102,6 +102,8 @@
 88. ~~`z-form`可折叠支持配置默认展开~~
 89. ~~`z-form`文档优化（事件、`step`等）~~
 90. ~~优化`z-form`的`array`表单类型，操作按钮类名~~
+91. `z-table`的`header`自定义处理
+92. `z-table`的`options`报错问题
 
 ## FEATURE
 

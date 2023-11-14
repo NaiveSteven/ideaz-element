@@ -1,6 +1,6 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { config, mount } from '@vue/test-utils'
-import { afterAll, afterEach, describe, expect, test } from 'vitest'
+import { afterAll, afterEach, describe, expect, test, vi } from 'vitest'
 import * as ElComponents from 'element-plus'
 import { ElLoadingDirective } from 'element-plus'
 import * as ZComponents from '../../index'
@@ -309,6 +309,215 @@ describe('table', () => {
     await nextTick()
     expect(getHeaderList(wrapper)).toContain('Age')
   })
+
+  test('slot', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false"><template #custom="{row}"><span class="my-custom">{{row.date}}</span></template></z-table>',
+      setup() {
+        const cols = ref([...columns].concat({ slot: 'custom' }))
+        return { cols, data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.findAll('.my-custom').map(item => item.text())).toContain('2016-05-03')
+  })
+
+  test('render', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      setup() {
+        const cols = ref([...columns].concat({ render: (h: any, { row }: any) => h('span', { class: 'my-custom' }, row.date) }))
+        return { cols, data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.findAll('.my-custom').map(item => item.text())).toContain('2016-05-03')
+  })
+
+  test('header slot', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false"><template #custom><span class="my-custom">customHeader</span></template></z-table>',
+      setup() {
+        const cols = ref([...columns].concat({ headerSlot: 'custom', prop: 'asdf' }))
+        return { cols, data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.my-custom').text()).toBe('customHeader')
+  })
+
+  test('tooltip', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false"></z-table>',
+      setup() {
+        const cols = ref([...columns].concat({ prop: 'asdf', tooltip: 'tooltipTest' }))
+        return { cols, data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.z-table-column-label__icon').exists()).toBe(true)
+  })
+
+  // test('header render', async () => {
+  //   const wrapper = mount({
+  //     template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+  //     setup() {
+  //       const cols = ref([...columns].concat({ header: () => h('span', { class: 'my-custom' }, 'customHeader'), prop: 'asf' }))
+  //       return { cols, data: tableData }
+  //     },
+  //   })
+  //   await nextTick()
+  //   await nextTick()
+  //   expect(wrapper.find('.my-custom').text()).toBe('customHeader')
+  // })
+
+  test('buttons', async () => {
+    const handleClick = vi.fn()
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      setup() {
+        const cols = ref(columns.concat({
+          type: 'button',
+          buttons: [{ label: 'add', link: true, class: 'add-button', onClick: handleClick }, { label: 'edit', link: true, class: 'edit-button' }],
+        }))
+        return { cols, data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.add-button').text()).toBe('add')
+    expect(wrapper.find('.edit-button').text()).toBe('edit')
+    await wrapper.find('.add-button').trigger('click')
+    expect(handleClick).toBeCalled()
+  })
+
+  test('buttons dropdown', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      setup() {
+        const cols = ref(columns.concat({
+          type: 'button',
+          buttons: [{ type: 'dropdown', class: 'my-dropdown', reference: 'delete', children: [{ label: 'add', class: 'my-custom', link: true }] }],
+        }))
+        return { cols, data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.my-dropdown').text()).toBe('delete')
+    wrapper.find('.my-dropdown').trigger('click')
+    await nextTick()
+    await nextTick()
+    const list = Array.from(document.querySelectorAll('.el-dropdown-menu__item'))
+    list.forEach((item) => {
+      expect(item.innerHTML).toContain('add')
+    })
+  })
+
+  test('buttons hide', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      setup() {
+        const isHide = ref(true)
+        const cols = ref(columns.concat({
+          type: 'button',
+          buttons: [{ label: 'add', link: true, class: 'add-button', hide: () => isHide.value }, { label: 'edit', link: true, class: 'edit-button' }],
+        }))
+        return { cols, data: tableData, isHide }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.add-button').exists()).toBe(false)
+    expect(wrapper.find('.edit-button').exists()).toBe(true);
+
+    (wrapper.vm as any).isHide = false
+    await nextTick()
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.add-button').exists()).toBe(true)
+    expect(wrapper.find('.edit-button').exists()).toBe(true)
+  })
+
+  test('buttons dropdown hide', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      setup() {
+        const isHide = ref(true)
+        const cols = ref(columns.concat({
+          type: 'button',
+          buttons: [{ type: 'dropdown', class: 'my-dropdown', children: [{ label: 'add', class: 'my-custom', link: true, hide: () => isHide.value }] }],
+        }))
+        return { cols, data: tableData, isHide }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.find('.my-dropdown').text()).toBe('more')
+    wrapper.find('.my-dropdown').trigger('click')
+    await nextTick()
+    await nextTick()
+    const list = Array.from(document.querySelectorAll('.my-custom'))
+    expect(list.length).toBe(0);
+    (wrapper.vm as any).isHide = false
+    await nextTick()
+    await nextTick()
+    wrapper.find('.my-dropdown').trigger('click')
+    await nextTick()
+    await nextTick()
+    const items = Array.from(document.querySelectorAll('.my-custom'))
+    expect(items.length).toBe(5)
+  })
+
+  // test('input type', async () => {
+  //   const wrapper = mount({
+  //     template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
+  //     setup() {
+  //       return {
+  //         cols: [
+  //           {
+  //             type: 'input',
+  //             label: 'Date',
+  //             prop: 'date',
+  //           },
+  //           {
+  //             label: 'Name',
+  //             prop: 'name',
+  //           },
+  //           {
+  //             label: 'Address',
+  //             prop: 'address',
+  //           }],
+  //         data: tableData,
+  //       }
+  //     },
+  //   })
+  //   await nextTick()
+  //   await nextTick()
+  //   const input = wrapper.find('.my-input')
+  //   const nativeInput = input.element
+  //   // expect(nativeInput.placeholder).toMatchInlineSnapshot('"placeholder"')
+  //   // const simulateEvent = (text: string, event: string) => {
+  //   //   nativeInput.value = text
+  //   //   nativeInput.dispatchEvent(new Event(event))
+  //   // }
+  //   // await input.trigger('focus')
+  //   // simulateEvent('2', 'input')
+  //   // await nextTick()
+  //   // expect(vm.tableData[0].name).toEqual('2')
+  //   // expect(isInput).toBe(true)
+  //   // expect(curInputRowData).toStrictEqual({
+  //   //   id: 1,
+  //   //   name: '2',
+  //   //   release: '1995-11-22',
+  //   //   director: 'John Lasseter',
+  //   //   runtime: 80,
+  //   // })
+  // })
 })
 
 afterAll(() => {
