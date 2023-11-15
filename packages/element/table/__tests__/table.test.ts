@@ -32,26 +32,38 @@ const columns: TableCol[] = [
 
 export const tableData = [
   {
+    id: 1,
     date: '2016-05-03',
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
   },
   {
+    id: 2,
     date: '2016-05-02',
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
   },
   {
+    id: 3,
     date: '2016-05-04',
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
   },
   {
+    id: 4,
     date: '2016-05-01',
     name: 'Tom',
     address: 'No. 189, Grove St, Los Angeles',
   },
 ]
+
+function getOptions(): HTMLElement[] {
+  return Array.from(
+    document.querySelectorAll<HTMLElement>(
+      '.el-select-dropdown__item',
+    ),
+  )
+}
 
 const headerClass
   = '.z-table .el-table__header-wrapper .el-table__header thead tr'
@@ -473,50 +485,163 @@ describe('table', () => {
     expect(items.length).toBe(5)
   })
 
-  // test('input type', async () => {
+  test('input type', async () => {
+    const handleInput = vi.fn()
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
+      setup() {
+        return {
+          cols: [
+            {
+              type: 'input',
+              label: 'Date',
+              prop: 'date',
+              attrs: {
+                class: 'my-input',
+                placeholder: 'asdf',
+                onInput: handleInput,
+              },
+            },
+            {
+              label: 'Name',
+              prop: 'name',
+            },
+            {
+              label: 'Address',
+              prop: 'address',
+            }],
+          data: [
+            {
+              date: '2016-05-03',
+              name: 'Tom',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+            {
+              date: '2016-05-02',
+              name: 'Tom',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+            {
+              date: '2016-05-04',
+              name: 'Tom',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+            {
+              date: '2016-05-01',
+              name: 'Tom',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+          ],
+        }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    const input = wrapper.findAll('input')[0]
+    const nativeInput = input.element
+    expect(nativeInput.value).toBe('2016-05-03')
+
+    nativeInput.value = '1'
+    await input.trigger('compositionupdate')
+    await input.trigger('input')
+    await input.trigger('compositionend')
+    expect(handleInput).toBeCalledTimes(1)
+  })
+
+  test('select type', async () => {
+    const handleChange = vi.fn()
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :options="options" :data="data" :toolBar="false"/>',
+      setup() {
+        return {
+          cols: [
+            {
+              label: 'Date',
+              prop: 'date',
+            },
+            {
+              type: 'select',
+              label: 'Name',
+              prop: 'name',
+              attrs: {
+                onChange: handleChange,
+              },
+            },
+            {
+              label: 'Address',
+              prop: 'address',
+            }],
+          options: { name: [{ label: 'Tom', value: 'Tom' }, { label: 'Jack', value: 'Jack' }] },
+          data: [
+            {
+              date: '2016-05-03',
+              name: 'Tom',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+            {
+              date: '2016-05-02',
+              name: 'Jack',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+            {
+              date: '2016-05-04',
+              name: 'Helen',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+            {
+              date: '2016-05-01',
+              name: 'Nancy',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+          ],
+        }
+      },
+    })
+    const findInnerInput = () =>
+      wrapper.find('.el-input__inner').element as HTMLInputElement
+    await nextTick()
+    await nextTick()
+    await wrapper.findAll('.select-trigger')[0].trigger('click')
+    await nextTick()
+    await nextTick()
+    const options = getOptions()
+    expect(findInnerInput().value).toBe('Tom')
+    options[1].click()
+    await nextTick()
+    expect(findInnerInput().value).toBe('Jack')
+    expect(handleChange).toBeCalled()
+  })
+
+  // test('radio type', async () => {
+  //   let rowData: any = {}
+  //   const handleChange = vi.fn()
   //   const wrapper = mount({
-  //     template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
+  //     template: '<z-table ref="zTable" :columns="cols" :data="data" :toolBar="false" @radio-change="handleChange"/>',
   //     setup() {
+  //       const zTable = ref()
+  //       const handleRadioChange = (data: any) => {
+  //         rowData = data
+  //       }
   //       return {
-  //         cols: [
-  //           {
-  //             type: 'input',
-  //             label: 'Date',
-  //             prop: 'date',
-  //           },
-  //           {
-  //             label: 'Name',
-  //             prop: 'name',
-  //           },
-  //           {
-  //             label: 'Address',
-  //             prop: 'address',
-  //           }],
+  //         cols: ref([...columns].concat({ type: 'radio' }).reverse()),
   //         data: tableData,
+  //         zTable,
+  //         handleRadioChange,
+  //         handleChange,
   //       }
   //     },
   //   })
+
   //   await nextTick()
   //   await nextTick()
-  //   const input = wrapper.find('.my-input')
-  //   const nativeInput = input.element
-  //   // expect(nativeInput.placeholder).toMatchInlineSnapshot('"placeholder"')
-  //   // const simulateEvent = (text: string, event: string) => {
-  //   //   nativeInput.value = text
-  //   //   nativeInput.dispatchEvent(new Event(event))
-  //   // }
-  //   // await input.trigger('focus')
-  //   // simulateEvent('2', 'input')
-  //   // await nextTick()
-  //   // expect(vm.tableData[0].name).toEqual('2')
-  //   // expect(isInput).toBe(true)
-  //   // expect(curInputRowData).toStrictEqual({
-  //   //   id: 1,
-  //   //   name: '2',
-  //   //   release: '1995-11-22',
-  //   //   director: 'John Lasseter',
-  //   //   runtime: 80,
-  //   // })
+  //   expect(rowData).toStrictEqual({ })
+  //   wrapper.findAll('.my-radio')[1].trigger('click')
+  //   // expect(wrapper.findAll('.is-checked').length).toBe(1)
+  //   await nextTick()
+  //   await nextTick()
+  //   expect(wrapper.findAll('.my-radio')[1].classes()).toContain('a')
+  //   expect(handleChange).toBeCalled()
+  //   expect(rowData).toStrictEqual({ a: 1 })
   // })
 })
 
