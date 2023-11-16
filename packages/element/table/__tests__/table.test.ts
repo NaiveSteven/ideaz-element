@@ -360,15 +360,16 @@ describe('table', () => {
 
   test('header slot', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false"><template #custom><span class="my-custom">customHeader</span></template></z-table>',
+      template: '<z-table :columns="cols" :data="data" :toolBar="false"><template #customSlot><span class="my-custom">customHeader</span></template></z-table>',
       setup() {
-        const cols = ref([...columns].concat({ headerSlot: 'custom', prop: 'asdf' }))
+        const cols = ref([...columns].concat({ label: 'customSlot', prop: 'asdf' }).concat({ label: () => h('span', { class: 'my-title' }, 'customH'), prop: 'sf' }))
         return { cols, data: tableData }
       },
     })
     await nextTick()
     await nextTick()
     expect(wrapper.find('.my-custom').text()).toBe('customHeader')
+    expect(wrapper.find('.my-title').text()).toBe('customH')
   })
 
   test('tooltip', async () => {

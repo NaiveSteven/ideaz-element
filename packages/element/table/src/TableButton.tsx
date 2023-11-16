@@ -68,10 +68,10 @@ export default defineComponent({
     ) => {
       const reference = dropdownProps.reference
       if (isFunction(reference))
-        return reference(h, { ...scope, index: scope.$index })
+        return reference(h, scope)
 
       if (isString(reference) && isSlot(reference))
-        return props.tableColumnSlots[reference]({ ...scope, index: scope.$index })
+        return props.tableColumnSlots[reference](scope)
 
       return (
         <el-button type="primary" link size={size.value}>

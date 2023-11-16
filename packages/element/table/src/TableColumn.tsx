@@ -1,4 +1,6 @@
 import { useExpose } from '@ideaz/hooks'
+import { isFunction } from '@ideaz/utils'
+import { omit } from 'lodash-unified'
 import {
   useRadioColumnMethods,
   useTableColumnSlots,
@@ -21,6 +23,9 @@ export default defineComponent({
     })
 
     const attrsAll = computed(() => {
+      if (isFunction(props.column.label))
+        return { align: 'center', ...omit(props.column, ['label']) }
+
       return { align: 'center', ...props.column }
     })
 

@@ -961,7 +961,7 @@ const options = {
 
 ## 表格头自定义
 
-`column`中配置`slot`或`render`实现自定义列内容。
+`column`中将`label`配置为带`slot`或`Slot`的字符串或配置为`render`函数实现自定义列表头。
 
 :::demo
 
@@ -999,13 +999,11 @@ const tableData = ref([
 const columns = [
   {
     prop: 'name',
-    label: '姓名',
-    header: () => h('span', '自定义表头')
+    label: () => h('span', '自定义表头'),
   },
   {
     prop: 'sex',
-    label: '性别',
-    headerSlot: 'sexHeaderSlot'
+    label: 'sexHeaderSlot',
   },
   {
     prop: 'age',
@@ -1023,8 +1021,8 @@ const columns = [
     :data="tableData"
     :columns="columns"
   >
-    <template #sexHeaderSlot>
-      <span>性别自定义表头</span>
+    <template #sexHeaderSlot="scope">
+      <span>性别自定义表头{{ scope.$index }}</span>
     </template>
   </z-table>
 </template>
