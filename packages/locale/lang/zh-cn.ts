@@ -61,5 +61,6 @@ export default {
     cancelFullScreen: '取消全屏',
     reset: '重置',
     search: '查询',
+    submit: '提交',
   },
 }

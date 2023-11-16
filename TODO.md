@@ -81,10 +81,10 @@
 67. ~~`z-form`的`colon`支持`column`中直接配置~~
 68. ~~`z-form`的`type`为`group`时，支持在`column`中配置`content-position`和`border-style`等属性~~
 69. ~~`z-form`的`type`为`group`时，支持`label`自定义`slot`和`render`函数配置~~
-70. `z-form`的`type`为`step`时，按钮支持自定义
+70. ~~`z-form`的`type`为`step`时，按钮支持自定义~~
 71. ~~`z-table`的`reference`支持`render`函数自定义`~~
 72. ~~`z-table`的`column`的`type`为`expand`时，支持`render`函数和默认配置`expand`插槽~~
-73. `z-table`支持`renderHeader`自定义表格头
+73. ~~`z-table`支持`renderHeader`自定义表格头~~
 74. ~~`z-table`的`draggable`添加事件~~
 75. ~~`z-table`的`editable`支持布尔值~~
 76. ~~`z-table`的`editable`删除时添加二次确认~~
@@ -102,8 +102,9 @@
 88. ~~`z-form`可折叠支持配置默认展开~~
 89. ~~`z-form`文档优化（事件、`step`等）~~
 90. ~~优化`z-form`的`array`表单类型，操作按钮类名~~
-91. `z-table`的`header`自定义处理
+91. ~~`z-table`的`header`自定义处理~~
 92. ~~`z-table`的`options`报错问题~~
+93. `z-form`的`error`和`message`冲突问题
 
 ## FEATURE
 

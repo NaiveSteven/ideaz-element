@@ -61,5 +61,6 @@ export default {
     cancelFullScreen: 'cancel full screen',
     reset: 'reset',
     search: 'search',
+    submit: 'submit',
   },
 }

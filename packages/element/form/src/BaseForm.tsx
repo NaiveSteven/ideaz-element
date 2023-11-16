@@ -22,7 +22,7 @@ export default defineComponent({
   name: 'ZForm',
   components: { FormColumns, OperationCard },
   props: formProps,
-  emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change', 'next-step', 'previous-step', 'update:activeStep'],
+  emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change', 'next-step', 'previous-step', 'update:activeStep', 'submit'],
   setup(props, { emit, slots }) {
     const { formatFormItems } = useFormItems(props)
     const { rowStyle, rowKls } = useRow(props)
@@ -69,15 +69,15 @@ export default defineComponent({
         columns={contentColumns}
         formProps={props}
         v-slots={slots}
-        onUpdate:modelValue={(...args) => { emit('update:modelValue', ...args) }}
+        onUpdate: modelValue={(...args) => { emit('update:modelValue', ...args) }}
         onChange={(...args) => { emit('change', ...args) }}
       />
     }
 
     const renderStepFooter = () => {
       const { footer } = props
-      if (isFunction(footer)) return footer(activeStep.value)
-      if (slots.footer) return slots.footer(activeStep.value)
+      if (isFunction(footer)) return footer()
+      if (slots.footer) return slots.footer()
       return <ElFormItem>
         <ElButton
           disabled={activeStep.value === 0}
@@ -88,8 +88,8 @@ export default defineComponent({
         >
           {t('form.previousStep')}
         </ElButton>
-        <ElButton
-          disabled={activeStep.value === formatFormItems.value.length - 1}
+        {activeStep.value !== formatFormItems.value.length - 1 && <ElButton
+          type='primary'
           onClick={() => {
             (ctx?.$refs.formRef as typeof ElForm).validate((val: boolean) => {
               if (val) {
@@ -101,7 +101,13 @@ export default defineComponent({
           }}
         >
           {t('form.nextStep')}
-        </ElButton>
+        </ElButton>}
+        {activeStep.value === formatFormItems.value.length - 1 && <ElButton type="primary" onClick={() => {
+          (ctx?.$refs.formRef as typeof ElForm).validate((val: boolean) => {
+            if (val)
+              emit('submit')
+          })
+        }}>{t('common.submit')}</ElButton>}
       </ElFormItem>
     }
 
@@ -127,7 +133,7 @@ export default defineComponent({
           modelValue={activeCollapse}
           accordion={accordion}
           class={ns.b('collapse')}
-          onUpdate:modelValue={(val: CollapseModelValue) => { emit('update:activeCollapse', val) }}
+          onUpdate: modelValue={(val: CollapseModelValue) => { emit('update:activeCollapse', val) }}
           onChange={(val: CollapseModelValue) => { emit('collapse-change', val) }}
         >
           {formatFormItems.value.map((column) => {
@@ -162,7 +168,7 @@ export default defineComponent({
                   options={options}
                   columns={formatFormItems.value}
                   v-slots={slots}
-                  onUpdate:modelValue={(val: any) => {
+                  onUpdate: modelValue={(val: any) => {
                     model.splice(index, 1, val)
                     emit('update:modelValue', model)
                   }}
@@ -205,7 +211,7 @@ export default defineComponent({
                         options={column.options || options}
                         columns={column.children}
                         v-slots={slots}
-                        onUpdate:modelValue={(val: any) => {
+                        onUpdate: modelValue={(val: any) => {
                           const item = cloneDeep(modelValue[field])
                           item.splice(index, 1, val)
                           emit('update:modelValue', { ...modelValue, [field]: item })
