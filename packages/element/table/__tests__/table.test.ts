@@ -324,7 +324,13 @@ describe('table', () => {
 
   test('slot', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false"><template #custom="{row}"><span class="my-custom">{{row.date}}</span></template></z-table>',
+      template: `<z-table :columns="cols" :data="data" :toolBar="false">
+        <template #custom="{row}"><span class="my-custom">{{row.date}}</span></template>
+        <template #top><span class="top">top</span></template>
+        <template #topRight><span class="top-right">topRight</span></template>
+        <template #topLeft><span class="top-left">topLeft</span></template>
+        <template #topBottom><span class="top-bottom">topBottom</span></template>
+      </z-table>`,
       setup() {
         const cols = ref([...columns].concat({ slot: 'custom' }))
         return { cols, data: tableData }
@@ -333,6 +339,10 @@ describe('table', () => {
     await nextTick()
     await nextTick()
     expect(wrapper.findAll('.my-custom').map(item => item.text())).toContain('2016-05-03')
+    expect(wrapper.find('.top').text()).toBe('top')
+    expect(wrapper.find('.top-right').text()).toBe('topRight')
+    expect(wrapper.find('.top-left').text()).toBe('topLeft')
+    expect(wrapper.find('.top-bottom').text()).toBe('topBottom')
   })
 
   test('render', async () => {
@@ -610,6 +620,67 @@ describe('table', () => {
     await nextTick()
     expect(findInnerInput().value).toBe('Jack')
     expect(handleChange).toBeCalled()
+  })
+
+  test('multiple editable', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false" :editable="editable"/>',
+      setup() {
+        return {
+          editable: { type: 'multiple' },
+          cols: [
+            {
+              type: 'input',
+              label: 'name',
+              prop: 'name',
+            }],
+          data: ref([
+            {
+              date: '2016-05-03',
+              name: 'Tom',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+          ]),
+        }
+      },
+    })
+    await nextTick()
+    await nextTick()
+
+    expect(wrapper.findAll('.el-input').length).toBe(1)
+    expect(wrapper.find('input').element.value).toBe('Tom')
+  })
+
+  test('multiple single', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false" :editable="true"/>',
+      setup() {
+        return {
+          cols: [
+            {
+              type: 'input',
+              label: 'name',
+              prop: 'name',
+            }],
+          data: ref([
+            {
+              date: '2016-05-03',
+              name: 'Tom',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+          ]),
+        }
+      },
+    })
+    await nextTick()
+    await nextTick()
+
+    expect(wrapper.findAll('.el-input').length).toBe(0)
+    expect(wrapper.find('.el-button').text()).toBe('edit')
+    wrapper.find('.el-button').trigger('click')
+    await nextTick()
+    await nextTick()
+    expect(wrapper.findAll('.el-input').length).toBe(1)
   })
 
   // test('radio type', async () => {
