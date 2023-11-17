@@ -1370,7 +1370,7 @@ const columns = [
           console.log(val, 'change event')
         },
         required: true,
-        message: '姓名必填'
+        error: '姓名必填'
       }
     ]
   },

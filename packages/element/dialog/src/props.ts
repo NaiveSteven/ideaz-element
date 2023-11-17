@@ -1,3 +1,4 @@
+import type { ButtonProps } from 'element-plus'
 import { dialogProps as elDialogProps } from 'element-plus'
 import type { ExtractPropTypes } from 'vue-demi'
 
@@ -12,21 +13,21 @@ export const dialogProps = {
     default: true,
   },
   confirmButtonProps: {
-    type: Object as PropType<any>,
+    type: Object as PropType<Partial<ButtonProps>>,
     default: () => ({}),
   },
   cancelButtonProps: {
-    type: Object as PropType<any>,
+    type: Object as PropType<Partial<ButtonProps>>,
     default: () => ({}),
   },
   onCancel: {
-    type: Function,
+    type: Function as PropType<({ done, cancelBtnLoading }: { done: () => void; cancelBtnLoading: boolean }) => void>,
   },
   onConfirm: {
-    type: Function,
+    type: Function as PropType<({ done, confirmBtnLoading }: { done: () => void; confirmBtnLoading: boolean }) => void>,
   },
   title: {
-    type: [Function, String] as PropType<() => VNode | string>,
+    type: [Function, String] as PropType<(() => VNode) | string>,
   },
   type: {
     type: String as PropType<'normal' | 'warning' | 'danger' | 'info'>,

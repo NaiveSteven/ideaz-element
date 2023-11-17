@@ -3,27 +3,40 @@ import { hasOwn } from '@vue/shared'
 import { isClient } from '@vueuse/core'
 import { isElement, isFunction, isObject, isString, isUndefined } from '@ideaz/utils'
 import type { AppContext, ComponentPublicInstance } from 'vue'
+import type { DialogProps } from './props'
 import DialogConstructor from './index'
+
+export type IDialogTipMethod = (
+  message: string | VNode,
+  title: string,
+  options?: Partial<DialogProps>,
+  appContext?: AppContext | null
+) => any
 
 export interface IDialogTip {
   _context: AppContext | null
+
   (
-    options: any,
+    options: Partial<DialogProps>,
     appContext?: AppContext | null
-  ): any
-  normal: any
-  warning: any
-  info: any
-  danger: any
+  ): void
+
+  normal: IDialogTipMethod
+
+  warning: IDialogTipMethod
+
+  danger: IDialogTipMethod
+
+  info: IDialogTipMethod
+
+  close(): void
 }
 
 const dialogInstance = new Map<
-  ComponentPublicInstance<{ done: () => void }>, // marking doClose as function
+  ComponentPublicInstance<{ done: () => void; exposed: any }>, // marking doClose as function
   {
     options: any
     callback: any | undefined
-    resolve: (res: any) => void
-    reject: (reason?: any) => void
   }
 >()
 
@@ -106,7 +119,7 @@ const showMessage = (options: any, appContext?: AppContext | null) => {
 
   // change visibility after everything is settled
   instance.exposed!.isShowDialog.value = true
-  return instance
+  return vm
 }
 
 function DialogTip(
@@ -128,7 +141,7 @@ function DialogTip(
 
   const vm = showMessage(
     options,
-    appContext ?? (DialogTip as IDialogTip)._context,
+    appContext ?? (DialogTip as any)._context,
   )
   // collect this vm in order to handle upcoming events.
   dialogInstance.set(vm, {
@@ -175,9 +188,9 @@ function messageBoxFactory(type: typeof Dialog_VARIANTS[number]) {
 const Dialog_VARIANTS = ['normal', 'danger', 'warning', 'info'] as const
 
 Dialog_VARIANTS.forEach((type) => {
-  (DialogTip as any)[type] = messageBoxFactory(
+  (DialogTip as IDialogTip)[type] = messageBoxFactory(
     type,
-  )
+  ) as IDialogTipMethod
 })
 
 DialogTip.close = () => {
@@ -189,4 +202,4 @@ DialogTip.close = () => {
 }
 ;(DialogTip as any)._context = null
 
-export default DialogTip
+export default DialogTip as IDialogTip

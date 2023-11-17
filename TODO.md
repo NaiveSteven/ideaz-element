@@ -91,7 +91,7 @@
 77. ~~`z-table`的`maxLength`放到`editable`中~~
 78. `z-table`的`hide`文档需要添加复杂的`slots`示例和`render`函数示例
 79. `z-table`的可编辑表格校验示例，表格配置
-80. `z-dialog`的`import`导入`ts`提示优化
+80. ~~`z-dialog`的`import`导入`ts`提示优化~~
 81. 所有组件的`label`、`tittle`等属性都通过方法支持`slot`和`render`函数
 82. ~~`z-form`的`form`去除无用`attributes`~~
 83. `z-table`支持`columns`动态导入
@@ -104,7 +104,7 @@
 90. ~~优化`z-form`的`array`表单类型，操作按钮类名~~
 91. ~~`z-table`的`header`自定义处理~~
 92. ~~`z-table`的`options`报错问题~~
-93. `z-form`的`error`和`message`冲突问题
+93. `z-dialog`的`footer`优化
 
 ## FEATURE
 
