@@ -1,4 +1,4 @@
-import { isFunction, isObject, isString } from '@ideaz/utils'
+import { isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import type { Ref } from 'vue-demi'
 import type { TableCol } from '~/types'
 
@@ -12,7 +12,7 @@ export const useTableSlots = (columns: Ref<TableCol[]>, slots: any) => {
       columns.value.forEach((item: TableCol) => {
         if (item.slot && slots[item.slot]) {
           scopedSlots[item.slot] = (scope: any) =>
-            slots[item.slot]({ ...scope, $index: scope.index })
+            slots[item.slot](scope)
         }
         if (
           item.type === 'button'
@@ -24,17 +24,17 @@ export const useTableSlots = (columns: Ref<TableCol[]>, slots: any) => {
             || item.dropdown.reference.includes('Slot')
           ) {
             scopedSlots[item.dropdown.reference] = (scope: any) =>
-              slots[item.dropdown.reference]({ ...scope, $index: scope.index })
+              slots[item.dropdown.reference](scope)
           }
         }
         if (item.type === 'expand' && slots.expand) {
           scopedSlots.expand = (scope: any) =>
-            slots.expand({ ...scope, $index: scope.index })
+            slots.expand(scope)
         }
 
-        if (item.headerSlot && slots[item.headerSlot]) {
-          scopedSlots[item.headerSlot] = (scope: any) =>
-            slots[item.headerSlot]({ ...scope, $index: scope.index })
+        if (isSlot(item.label) && slots[item.label]) {
+          scopedSlots[item.label] = (scope: any) =>
+            slots[item.label](scope)
         }
       })
 

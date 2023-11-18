@@ -1,5 +1,5 @@
 import { QuestionFilled } from '@element-plus/icons-vue'
-import { isBoolean, isEmptyObject, isFunction, isObject, isString } from '@ideaz/utils'
+import { isBoolean, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
 import { SELECT_TYPES } from '../../form/hooks'
@@ -76,7 +76,7 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
               'on': column.on,
               'rowData': scope.row,
               size,
-              'options': tableProps.options[column.prop] || [],
+              'options': tableProps.options?.[column.prop] || [],
               ...column.attrs,
               'disabled':
                 isBoolean(column.disabled)
@@ -88,13 +88,13 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
           }
 
           if (column.type === 'expand' && isFunction(slots.expand))
-            return slots.expand({ ...scope, index: scope.$index })
+            return slots.expand(scope)
 
           if (column.slot && slots[column.slot])
-            return slots[column.slot]({ ...scope, index: scope.$index })
+            return slots[column.slot](scope)
 
           if (isFunction(column.render))
-            return column.render(h, { ...scope, index: scope.$index })
+            return column.render(h, scope)
 
           if (column.type === 'button') {
             return column.buttons?.map((button) => {
@@ -114,11 +114,14 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
         }
       }
 
-      if (column.headerSlot && slots[column.headerSlot]) {
+      if (isSlot(column.label) && slots[column.label]) {
         scopedSlots.value.header = (scope: any) =>
-          slots[column.headerSlot]({ ...scope, index: scope.$index })
+          slots[column.label](scope)
       }
-      if (!column.headerSlot && column.tooltip) {
+      if (isFunction(column.label))
+        scopedSlots.value.header = (scope: any) => column.label(scope)
+
+      if (!isSlot(column.label) && !isFunction(column.label) && column.tooltip) {
         const tooltip = column.tooltip
         const tooltipProps = isObject(tooltip)
           ? tooltip

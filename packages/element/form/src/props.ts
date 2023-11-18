@@ -89,7 +89,7 @@ export const formProps = {
     default: 0,
   },
   footer: {
-    type: [Boolean, Function] as PropType<boolean | ((activeStep: number) => VNode)>,
+    type: [Boolean, Function] as PropType<boolean | (() => VNode)>,
   },
 }
 
