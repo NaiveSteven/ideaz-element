@@ -339,7 +339,7 @@ const renderTitle = () => {
 
 ## 底部按钮自定义
 
-传入`footer`插槽或者`renderFooter`函数自定义底部按钮
+传入`footer`插槽或者`render`函数自定义底部按钮，`footer`传入`false`可关闭底部按钮。
 :::demo
 
 ```vue
@@ -348,6 +348,7 @@ import { h, ref } from 'vue'
 
 const isShowDialog = ref(false)
 const isShowRenderDialog = ref(false)
+const isShowFooterDialog = ref(false)
 
 const renderFooter = () => {
   return h('div', 'render底部')
@@ -360,6 +361,9 @@ const renderFooter = () => {
   </ElButton>
   <ElButton link type="primary" @click="isShowRenderDialog = true">
     点击打开render Dialog
+  </ElButton>
+  <ElButton link type="primary" @click="isShowFooterDialog = true">
+    点击打开footer Dialog
   </ElButton>
   <z-dialog
     v-model="isShowDialog"
@@ -375,7 +379,14 @@ const renderFooter = () => {
   <z-dialog
     v-model="isShowRenderDialog"
     title="标题"
-    :render-footer="renderFooter"
+    :footer="renderFooter"
+  >
+    <span>这是一段信息</span>
+  </z-dialog>
+  <z-dialog
+    v-model="isShowFooterDialog"
+    title="标题"
+    :footer="false"
   >
     <span>这是一段信息</span>
   </z-dialog>
@@ -474,7 +485,7 @@ function delay(time: number) {
 | model-value / v-model   | 是否显示 Dialog                                              | `boolean`              | —     |
 | title                   | Dialog 对话框 Dialog 的标题 | `string` / `() => VNode`               | ''    |
 | type                   | Dialog 的类型 | `normal` / `info` / `warning` / `danger`               | 'normal'    |
-| renderFooter                   | 自定义 Dialog 底部 | `() => VNode`               | ''    |
+| footer                   | 自定义 Dialog 底部 | `() => VNode`               | ''    |
 | confirmButtonLabel              | 确认按钮文案                                             | `string`              | '确认' |
 | confirmButtonLoading              | 确认按钮加载状态                                            | `boolean`              | false |
 | confirmButtonProps              | 确认按钮属性                                            | `object`              | —  |

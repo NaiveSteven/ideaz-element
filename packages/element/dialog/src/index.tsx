@@ -15,7 +15,7 @@ export default defineComponent({
 
     const getHeader = () => {
       if (isFunction(props.title))
-        return () => props.title?.()
+        return () => (props.title as () => VNode)()
 
       if (isString(props.title))
         return () => props.title
@@ -29,11 +29,14 @@ export default defineComponent({
 
     const renderDialogFooter = () => {
       const { type } = props
+      if (props.footer === false)
+        return null
+
       if (isFunction(slots.footer))
         return slots.footer()
 
-      if (isFunction(props.renderFooter))
-        return props.renderFooter()
+      if (isFunction(props.footer))
+        return props.footer()
 
       if (type === 'info') {
         return <div class={ns.e('footer')}>
@@ -84,7 +87,7 @@ export default defineComponent({
 
     return () => {
       return <ElDialog
-        class={[ns.b(''), props.type !== 'normal' && ns.b('tip')]}
+        class={[ns.b(''), props.type !== 'normal' && ns.b('tip'), props.footer === false && ns.b('no-footer')]}
         {...dialogConfig.value}
         modelValue={props.modelValue || isShowDialog.value}
         onUpdate:modelValue={(val: boolean) => { isShowDialog.value = val; emit('update:modelValue', val) }}
