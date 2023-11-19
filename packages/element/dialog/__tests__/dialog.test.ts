@@ -159,9 +159,23 @@ describe('dialog', () => {
     expect(buttons[0].text()).toBe('click')
   })
 
+  test('no footer', async () => {
+    const wrapper = mount({
+      template: '<z-dialog :modelValue="true" :footer="false"></z-dialog>',
+      setup() {
+        return { AXIOM }
+      },
+    })
+
+    await nextTick()
+    await nextTick()
+    const buttons = wrapper.findAll('.el-button')
+    expect(buttons.length).toBe(0)
+  })
+
   test('footer render', async () => {
     const wrapper = mount({
-      template: '<z-dialog :modelValue="true" :renderFooter="renderFooter">{{AXIOM}}</z-dialog>',
+      template: '<z-dialog :modelValue="true" :footer="renderFooter">{{AXIOM}}</z-dialog>',
       setup() {
         const renderFooter = () => h('div', { class: 'my-footer' }, 'click')
         return { AXIOM, renderFooter }

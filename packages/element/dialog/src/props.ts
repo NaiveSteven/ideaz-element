@@ -57,6 +57,7 @@ export const dialogProps = {
   },
   footer: {
     type: [Function, Boolean] as PropType<(() => VNode) | boolean>,
+    default: true,
   },
 }
 
