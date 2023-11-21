@@ -1,7 +1,8 @@
-.z-dialog {
-
+.z-dialog-no-footer {
+  .el-dialog__footer {
+    display: none;
+  }
 }
-
 
 .z-dialog-tip {
   .el-dialog__body {

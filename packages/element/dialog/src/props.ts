@@ -55,8 +55,9 @@ export const dialogProps = {
   cancelButtonLabel: {
     type: String,
   },
-  renderFooter: {
-    type: Function as PropType<() => VNode>,
+  footer: {
+    type: [Function, Boolean] as PropType<(() => VNode) | boolean>,
+    default: true,
   },
 }
 
