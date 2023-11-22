@@ -44,7 +44,7 @@ const tableData = ref([
   },
 ])
 
-const columns = [
+const columns = ref([
   {
     type: 'expand'
   },
@@ -64,7 +64,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 const pagination = ref({
   page: 1,
   pageSize: 10,
@@ -127,7 +127,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -166,7 +166,7 @@ const columns = [
       }
     ]
   }
-]
+])
 </script>
 
 <template>
@@ -218,7 +218,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -280,7 +280,7 @@ const columns = [
       }
     ]
   }
-]
+])
 </script>
 
 <template>
@@ -332,7 +332,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -405,7 +405,7 @@ const columns = [
       }
     ]
   }
-]
+])
 </script>
 
 <template>
@@ -438,7 +438,7 @@ const pagination = ref({
   layout: 'total, sizes, prev, pager, next, jumper'
 })
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -455,7 +455,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 
 const mockApi = () => {
   return new Promise((resolve) => {
@@ -549,7 +549,7 @@ const pagination = ref({
   layout: 'total, sizes, prev, pager, next, jumper'
 })
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -566,7 +566,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 
 const mockApi = () => {
   return new Promise((resolve) => {
@@ -677,7 +677,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -696,7 +696,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 
 const changeVisible = () => {
   isHide.value = !isHide.value
@@ -753,7 +753,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -772,7 +772,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 </script>
 
 <template>
@@ -826,7 +826,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -845,7 +845,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 </script>
 
 <template>
@@ -903,7 +903,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     type: 'expand',
   },
@@ -934,7 +934,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 
 const options = {
   sex: [
@@ -996,7 +996,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: () => h('span', '自定义表头'),
@@ -1013,7 +1013,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 </script>
 
 <template>
@@ -1067,7 +1067,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -1084,7 +1084,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 </script>
 
 <template>
@@ -1152,7 +1152,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -1169,7 +1169,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 </script>
 
 <template>
@@ -1217,7 +1217,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -1234,7 +1234,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 </script>
 
 <template>
@@ -1282,7 +1282,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -1299,7 +1299,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 </script>
 
 <template>
@@ -1350,7 +1350,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -1367,7 +1367,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 </script>
 
 <template>
@@ -1418,7 +1418,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     type: 'input',
     prop: 'name',
@@ -1442,7 +1442,7 @@ const columns = [
       valueFormat: 'YYYY-MM-DD'
     }
   }
-]
+])
 
 const options = {
   sex: [
@@ -1501,7 +1501,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     type: 'input',
     prop: 'name',
@@ -1525,7 +1525,7 @@ const columns = [
       valueFormat: 'YYYY-MM-DD'
     }
   }
-]
+])
 
 const options = {
   sex: [
@@ -1582,7 +1582,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     type: 'input',
     prop: 'name',
@@ -1606,7 +1606,7 @@ const columns = [
       valueFormat: 'YYYY-MM-DD'
     }
   }
-]
+])
 
 const options = {
   sex: [
@@ -1681,7 +1681,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     type: 'input',
     prop: 'name',
@@ -1723,7 +1723,7 @@ const columns = [
       ]
     }
   }
-]
+])
 
 const options = {
   sex: [
@@ -1787,7 +1787,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     type: 'input',
     prop: 'name',
@@ -1811,7 +1811,7 @@ const columns = [
       valueFormat: 'YYYY-MM-DD'
     }
   }
-]
+])
 
 const options = {
   sex: [
@@ -1877,7 +1877,7 @@ const tableData = ref([
   }
 ])
 
-const columns = [
+const columns = ref([
   {
     type: 'radio'
   },
@@ -1900,7 +1900,7 @@ const columns = [
     prop: 'time',
     label: '出生日期'
   }
-]
+])
 
 const handleRadioChange = (row) => {
   radioData.value = row
@@ -1961,7 +1961,7 @@ const changeNameVisible = () => {
   isShowName.value = !isShowName.value
 }
 
-const columns = [
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -2095,7 +2095,7 @@ const columns = [
   //   label: '操作',
   //   slot: 'buttons'
   // },
-]
+])
 
 const options = {
   address: [
