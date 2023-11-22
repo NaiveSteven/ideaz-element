@@ -104,7 +104,8 @@
 90. ~~优化`z-form`的`array`表单类型，操作按钮类名~~
 91. ~~`z-table`的`header`自定义处理~~
 92. ~~`z-table`的`options`报错问题~~
-93. `z-dialog`的`footer`优化
+93. ~~`z-dialog`的`footer`优化~~
+94. `z-table`数据翻页处理，如：`editable`
 
 ## FEATURE
 
