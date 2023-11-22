@@ -94,7 +94,7 @@
 80. ~~`z-dialog`的`import`导入`ts`提示优化~~
 81. 所有组件的`label`、`tittle`等属性都通过方法支持`slot`和`render`函数
 82. ~~`z-form`的`form`去除无用`attributes`~~
-83. `z-table`支持`columns`动态导入
+83. ~~`z-table`支持`columns`动态导入~~
 84. ~~`z-tag-select`支持`title`自定义~~
 85. `z-tag-select`支持不展开
 86. ~~`z-radio`支持取消选中~~
@@ -105,6 +105,7 @@
 91. ~~`z-table`的`header`自定义处理~~
 92. ~~`z-table`的`options`报错问题~~
 93. `z-dialog`的`footer`优化
+94. 修复`z-table`动态导入，`checkbox`没有选中的问题
 
 ## FEATURE
 

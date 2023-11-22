@@ -54,5 +54,6 @@ export interface TableCol {
   detail?: boolean | any
   search?: boolean | FormColumn
   form?: FormColumn
+  __uid?: string
   [propName: string]: any
 }
