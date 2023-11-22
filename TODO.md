@@ -104,8 +104,9 @@
 90. ~~优化`z-form`的`array`表单类型，操作按钮类名~~
 91. ~~`z-table`的`header`自定义处理~~
 92. ~~`z-table`的`options`报错问题~~
-93. `z-dialog`的`footer`优化
-94. 修复`z-table`动态导入，`checkbox`没有选中的问题
+93. ~~`z-dialog`的`footer`优化~~
+94. `z-table`数据翻页处理，如：`editable`
+95. 修复`z-table`动态导入，`checkbox`没有选中的问题
 
 ## FEATURE
 
