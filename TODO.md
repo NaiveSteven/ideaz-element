@@ -66,7 +66,7 @@
 52. ~~`z-table`全屏提示切换~~
 53. ~~`z-crud`支持`alert`配置~~
 54. ~~`z-crud`的`pagination`优化~~
-55. `z-crud`的`tableData`优化
+55. ~~`z-crud`的`tableData`优化~~
 56. ~~`z-crud`支持外部让表格`loading`~~
 57. `z-form`支持逻辑联动，例如：被`hide`隐藏起来的元素，接口提交时不提交
 58. ~~`z-form`的`hide`等内置功能，支持`formData`传入~~
@@ -107,6 +107,8 @@
 93. ~~`z-dialog`的`footer`优化~~
 94. `z-table`数据翻页处理，如：`editable`
 95. ~~修复`z-table`动态导入，`checkbox`没有选中的问题~~
+96. `z-table`在`editable`模式下，输入会频繁刷新问题
+97. `z-table`行拖拽添加条件
 
 ## FEATURE
 

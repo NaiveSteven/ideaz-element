@@ -5,7 +5,7 @@ import TableButton from '../src/TableButton'
 import { SELECT_TYPES } from '../../form/hooks'
 import { useTableColComponentName } from './useTableColComponentName'
 
-export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
+export const useTableColumnSlots = (props: TableColumnProps, slots: any, emit) => {
   const scopedSlots = shallowRef<any>({})
   const ns = useNamespace('table-column')
   const { t } = useLocale()
@@ -70,7 +70,10 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
             return h(resolveComponent(componentName), {
               'modelValue': scope.row[column.prop],
               'onUpdate:modelValue': (val: any) => {
-                scope.row[column.prop] = val
+                const rowData = { ...scope.row, [column.prop]: val }
+                const list = [...props.tableProps.data]
+                list.splice(scope.$index, 1, rowData)
+                emit('update:data', list)
               },
               'componentName': getDynamicComponentName(column.type!),
               'on': column.on,

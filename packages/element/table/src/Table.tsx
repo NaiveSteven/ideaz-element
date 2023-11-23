@@ -191,7 +191,6 @@ export default defineComponent({
 
     const renderTable = () => {
       const { loading, editable } = props
-
       return (
         <el-table
           ref="zTableRef"
@@ -210,6 +209,7 @@ export default defineComponent({
                 size={size.value}
                 tableProps={tableAttributes.value}
                 onRadio-change={(row: any) => emit('radio-change', row)}
+                onUpdate:data={(data: any) => emit('update:data', data)}
                 columnIndex={index}
                 columnsLength={formatTableCols.value.length}
                 v-slots={scopedSlots}

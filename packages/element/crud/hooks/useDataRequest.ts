@@ -74,12 +74,13 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   const tableProps = computed<any>(() => {
     return {
       ...pick(props, tableKeys),
-      columns: tableColumns.value,
+      'columns': tableColumns.value,
       ...attrs,
-      fullScreenElement: document.getElementsByClassName('z-crud')[0],
-      pagination: middlePagination.value,
-      data: tableData.value,
-      loading: isLoading.value,
+      'fullScreenElement': document.getElementsByClassName('z-crud')[0],
+      'pagination': middlePagination.value,
+      'data': tableData.value,
+      'loading': isLoading.value,
+      'onUpdate:data': (data: any) => tableData.value = data,
     }
   })
 

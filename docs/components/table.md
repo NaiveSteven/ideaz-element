@@ -946,7 +946,7 @@ const options = {
 
 <template>
   <z-table
-    :data="tableData"
+    v-model:data="tableData"
     :columns="columns"
     :options="options"
   >

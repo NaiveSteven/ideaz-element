@@ -12,10 +12,10 @@ export default defineComponent({
   name: 'ZTableColumn',
   components: { RadioColumn },
   props: tableColumnProps,
-  emits: ['radio-change'],
+  emits: ['radio-change', 'update:data'],
   setup(props, { emit, slots }) {
     const { clearSelection, toggleRadioSelection } = useRadioColumnMethods()
-    const { scopedSlots } = useTableColumnSlots(props, slots)
+    const { scopedSlots } = useTableColumnSlots(props, slots, emit)
 
     useExpose({
       clearSelection,
