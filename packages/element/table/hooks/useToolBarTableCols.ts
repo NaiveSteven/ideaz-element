@@ -4,11 +4,10 @@ import type { TableCol } from '~/types'
 export const useToolBarTableCols = (props: any, emit: any) => {
   const checkedTableCols = ref(getOriginCheckedTableCols(props.sortTableCols))
 
-  // todo
   watch(
     () => props.formatTableCols,
     () => {
-      const uids = props.formatTableCols.map((item: TableCol) => item.__uid && !item.fixed)
+      const uids = props.formatTableCols.filter((item: TableCol) => item.__uid && !item.fixed).map((item: TableCol) => item.__uid)
       uids.forEach((uid: string) => {
         if (!checkedTableCols.value.includes(uid))
           checkedTableCols.value.push(uid)
