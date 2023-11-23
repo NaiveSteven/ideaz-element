@@ -11,12 +11,12 @@ export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<an
   const tableKey = ref(new Date().valueOf())
   const { columns, zTableFormRef } = useEditableColumns(props, emit, tableData)
 
-  watch(props.columns, () => {
+  watch(() => props.columns, () => {
     middleTableCols.value = getCheckData(props.toolBar, columns.value)
     sortTableCols.value = columns.value.filter((item: TableCol) => {
       return getIsReturnToolBar(item, props.toolBar)
     })
-  }, { immediate: true })
+  }, { immediate: true, deep: true })
 
   const formatTableCols = computed(() => {
     tableKey.value = new Date().valueOf()
