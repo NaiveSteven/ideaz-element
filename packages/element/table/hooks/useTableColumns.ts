@@ -26,11 +26,10 @@ export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<an
   })
 
   const originFormatTableCols = computed(() => {
-    tableKey.value = new Date().valueOf()
+    // tableKey.value = new Date().valueOf()
     // sortTableCols.value = columns.filter((item: TableCol) => {
     //   return getIsReturnToolBar(item, props.toolBar)
     // })
-
     return columns.value.map((item: TableCol) => item)
   })
 

@@ -196,8 +196,8 @@ export default defineComponent({
           ref="zTableRef"
           v-loading={loading}
           class={[editable && ns.b('editable')]}
-          key={tableKey.value}
           v-slots={tableSlots}
+          key={tableKey.value}
           v-draggable={draggableOptions}
           {...{ ...tableAttributes.value, data: tableData.value, size: size.value }}
         >
@@ -207,6 +207,7 @@ export default defineComponent({
                 ref={`zTableColumn${index}`}
                 column={item}
                 size={size.value}
+                key={item.__uid}
                 tableProps={tableAttributes.value}
                 onRadio-change={(row: any) => emit('radio-change', row)}
                 onUpdate:data={(data: any) => emit('update:data', data)}
