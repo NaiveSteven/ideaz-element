@@ -3,6 +3,7 @@ import { Plus } from '@element-plus/icons-vue'
 import { useExpose } from '@ideaz/hooks'
 import { isFunction, isObject, isString } from '@ideaz/utils'
 import {
+  useDraggable,
   usePagination,
   useTableColumns,
   useTableMethods,
@@ -63,56 +64,10 @@ export default defineComponent({
       zTableFormRef,
     } = useTableColumns(props, emit, tableData)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
+    const { draggableOptions, dragging } = useDraggable(emit, tableData)
     const ns = useNamespace('table')
     const { t } = useLocale()
     const size = ref(props.size)
-    const dragging = ref(false)
-
-    const draggableOptions = [
-      {
-        selector: 'tbody',
-        options: {
-          animation: 200,
-          handle: '.z-table-column-draggable__handle',
-          ghostClass: 'ghost',
-          dragClass: 'drag-class',
-          onStart: () => {
-            dragging.value = true
-          },
-          onEnd: (evt: any) => {
-            dragging.value = false
-            const { newIndex, oldIndex } = evt
-            const arr = [...tableData.value]
-            const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
-            arr.splice(newIndex as number, 0, moveRowData)
-
-            tableData.value = []
-            nextTick(() => {
-              tableData.value = [...arr]
-              emit('drag-sort-end', tableData.value)
-            })
-          },
-        },
-      },
-      // {
-      //   selector: '.el-table__header-wrapper tr',
-      //   options: {
-      //     animation: 150,
-      //     delay: 0,
-      //     ghostClass: 'table-col__ghost',
-      //     onEnd: (evt: any) => {
-      //       const { newIndex, oldIndex } = evt
-      //       const arr = [...middleTableCols.value]
-      //       const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
-      //       arr.splice(newIndex as number, 0, moveRowData)
-      //       middleTableCols.value = []
-      //       nextTick(() => {
-      //         middleTableCols.value = [...arr]
-      //       })
-      //     },
-      //   },
-      // },
-    ]
 
     provide(tableProvideKey, {
       props,
