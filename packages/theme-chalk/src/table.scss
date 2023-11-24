@@ -136,6 +136,12 @@
   }
 }
 
+.z-table-dragging {
+  .el-table__cell {
+    background-color: #fff !important;
+  }
+}
+
 
 .z-table-editable {
   .el-table__row {

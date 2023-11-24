@@ -66,6 +66,7 @@ export default defineComponent({
     const ns = useNamespace('table')
     const { t } = useLocale()
     const size = ref(props.size)
+    const dragging = ref(false)
 
     const draggableOptions = [
       {
@@ -74,7 +75,12 @@ export default defineComponent({
           animation: 200,
           handle: '.z-table-column-draggable__handle',
           ghostClass: 'ghost',
+          dragClass: 'drag-class',
+          onStart: () => {
+            dragging.value = true
+          },
           onEnd: (evt: any) => {
+            dragging.value = false
             const { newIndex, oldIndex } = evt
             const arr = [...tableData.value]
             const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
@@ -187,7 +193,7 @@ export default defineComponent({
         <el-table
           ref="zTableRef"
           v-loading={loading}
-          class={[editable && ns.b('editable')]}
+          class={[editable && ns.b('editable'), dragging.value && 'z-table-dragging']}
           v-slots={tableSlots}
           key={tableKey.value}
           v-draggable={draggableOptions}
