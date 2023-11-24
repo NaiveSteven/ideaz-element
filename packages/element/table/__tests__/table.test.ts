@@ -562,7 +562,7 @@ describe('table', () => {
   test('select type', async () => {
     const handleChange = vi.fn()
     const wrapper = mount({
-      template: '<z-table :columns="cols" :options="options" :data="data" :toolBar="false"/>',
+      template: '<z-table :columns="cols" :options="options" v-model:data="data" :toolBar="false"/>',
       setup() {
         return {
           cols: [
@@ -583,7 +583,7 @@ describe('table', () => {
               prop: 'address',
             }],
           options: { name: [{ label: 'Tom', value: 'Tom' }, { label: 'Jack', value: 'Jack' }] },
-          data: [
+          data: ref([
             {
               date: '2016-05-03',
               name: 'Tom',
@@ -604,7 +604,7 @@ describe('table', () => {
               name: 'Nancy',
               address: 'No. 189, Grove St, Los Angeles',
             },
-          ],
+          ]),
         }
       },
     })
