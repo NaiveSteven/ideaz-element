@@ -76,13 +76,6 @@ export default defineComponent({
           onEnd: (evt: any) => {
             const { newIndex, oldIndex } = evt
             const arr = [...tableData.value]
-
-            // 拖动元素与新位置原元素互换位置
-            // ES6 解构写法
-            // [arr[newIndex as number],arr[oldIndex as number]] = [arr[oldIndex as number],arr[newIndex as number]]
-            // ES5 普通写法
-            // arr.splice(newIndex as number,1, ...arr.splice(oldIndex as number,1,arr[newIndex as number]))
-            // 拖动元素至新位置后其余依次下移
             const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
             arr.splice(newIndex as number, 0, moveRowData)
 
@@ -101,8 +94,6 @@ export default defineComponent({
           delay: 0,
           ghostClass: 'table-col__ghost',
           onEnd: (evt: any) => {
-            // emit('on-update-table-column', dropCol[evt.oldIndex], evt.newIndex, evt.oldIndex);
-
             const { newIndex, oldIndex } = evt
             const arr = [...middleTableCols.value]
             const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
@@ -190,7 +181,7 @@ export default defineComponent({
     }
 
     const renderTable = () => {
-      const { loading, editable } = props
+      const { loading, editable, draggable } = props
       return (
         <el-table
           ref="zTableRef"
@@ -198,7 +189,7 @@ export default defineComponent({
           class={[editable && ns.b('editable')]}
           v-slots={tableSlots}
           key={tableKey.value}
-          v-draggable={draggableOptions}
+          v-draggable={draggable ? draggableOptions : []}
           {...{ ...tableAttributes.value, data: tableData.value, size: size.value }}
         >
           {formatTableCols.value.map((item, index) => {

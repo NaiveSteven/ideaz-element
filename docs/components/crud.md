@@ -372,6 +372,7 @@ onMounted(() => {
     name="name"
     :columns="columns"
     :request="reqConfig"
+    :draggable="true"
     :options="options"
     :form="{ rules: { address: [{ required: true }] } }"
     :table-decorator="{ name: 'el-card', onClick: handleDivClick }"
