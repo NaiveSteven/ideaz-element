@@ -1,5 +1,6 @@
-import { QuestionFilled } from '@element-plus/icons-vue'
+import { Operation, QuestionFilled } from '@element-plus/icons-vue'
 import { isBoolean, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
+import { ElIcon } from 'element-plus'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
 import { SELECT_TYPES } from '../../form/hooks'
@@ -104,6 +105,9 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any, emit) =
               return <TableButton button={button} scope={scope} size={size} />
             })
           }
+
+          if (column.type === 'sort')
+            return <div class={ns.b('draggable')}><ElIcon class={ns.be('draggable', 'handle')} size={24}><Operation /></ElIcon></div>
 
           if (tableProps.editable) {
             return scope.row.__isEdit === true

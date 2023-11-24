@@ -65,13 +65,13 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
         }
         else {
           zTableFormRef.value.validateField
-          && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
-            if (!validated)
-              return
+            && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
+              if (!validated)
+                return
 
-            replacePropertyValues(row)
-            row.__isEdit = false
-          })
+              replacePropertyValues(row)
+              row.__isEdit = false
+            })
         }
       },
     }
@@ -127,7 +127,10 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
   }
 
   watchEffect(() => {
-    const cols = props.columns.map(item => ({ ...item, __uid: uid() } as TableCol))
+    const cols = props.columns.map((item) => {
+      if (item.type === 'sort') return { width: 48, ...item, __uid: uid() }
+      return { ...item, __uid: uid() }
+    }) as TableCol[]
     if (props.editable && cols.length > 0 && cols[cols.length - 1]?.type !== 'button') {
       columns.value = cols.concat({
         type: 'button',

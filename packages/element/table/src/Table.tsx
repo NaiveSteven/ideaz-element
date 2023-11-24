@@ -71,7 +71,8 @@ export default defineComponent({
       {
         selector: 'tbody',
         options: {
-          animation: 150,
+          animation: 200,
+          handle: '.z-table-column-draggable__handle',
           ghostClass: 'ghost',
           onEnd: (evt: any) => {
             const { newIndex, oldIndex } = evt
@@ -87,24 +88,24 @@ export default defineComponent({
           },
         },
       },
-      {
-        selector: '.el-table__header-wrapper tr',
-        options: {
-          animation: 150,
-          delay: 0,
-          ghostClass: 'table-col__ghost',
-          onEnd: (evt: any) => {
-            const { newIndex, oldIndex } = evt
-            const arr = [...middleTableCols.value]
-            const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
-            arr.splice(newIndex as number, 0, moveRowData)
-            middleTableCols.value = []
-            nextTick(() => {
-              middleTableCols.value = [...arr]
-            })
-          },
-        },
-      },
+      // {
+      //   selector: '.el-table__header-wrapper tr',
+      //   options: {
+      //     animation: 150,
+      //     delay: 0,
+      //     ghostClass: 'table-col__ghost',
+      //     onEnd: (evt: any) => {
+      //       const { newIndex, oldIndex } = evt
+      //       const arr = [...middleTableCols.value]
+      //       const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
+      //       arr.splice(newIndex as number, 0, moveRowData)
+      //       middleTableCols.value = []
+      //       nextTick(() => {
+      //         middleTableCols.value = [...arr]
+      //       })
+      //     },
+      //   },
+      // },
     ]
 
     provide(tableProvideKey, {
@@ -181,7 +182,7 @@ export default defineComponent({
     }
 
     const renderTable = () => {
-      const { loading, editable, draggable } = props
+      const { loading, editable } = props
       return (
         <el-table
           ref="zTableRef"
@@ -189,7 +190,7 @@ export default defineComponent({
           class={[editable && ns.b('editable')]}
           v-slots={tableSlots}
           key={tableKey.value}
-          v-draggable={draggable ? draggableOptions : []}
+          v-draggable={draggableOptions}
           {...{ ...tableAttributes.value, data: tableData.value, size: size.value }}
         >
           {formatTableCols.value.map((item, index) => {

@@ -88,6 +88,10 @@ const changeNameVisible = () => {
 
 const columns = [
   {
+    type: 'sort',
+    label: '排序'
+  },
+  {
     type: 'selection'
   },
   {

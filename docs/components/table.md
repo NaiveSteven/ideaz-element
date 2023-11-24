@@ -1352,6 +1352,10 @@ const tableData = ref([
 
 const columns = ref([
   {
+    type: 'sort',
+    label: '排序'
+  },
+  {
     prop: 'name',
     label: '姓名',
   },
@@ -1368,13 +1372,24 @@ const columns = ref([
     label: '出生日期'
   }
 ])
+const handleClick = () => {
+  console.log(tableData.value, 'handleClick')
+}
+
+const handleSortEnd = (data) => {
+  console.log(data, 'data')
+}
 </script>
 
 <template>
+  <el-button @click="handleClick">
+    click
+  </el-button>
   <z-table
     :data="tableData"
     :columns="columns"
     :draggable="true"
+    @drag-sort-end="handleSortEnd"
   />
 </template>
 ```
