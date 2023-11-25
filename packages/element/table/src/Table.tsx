@@ -166,7 +166,7 @@ export default defineComponent({
                 onUpdate:data={(data: any) => emit('update:data', data)}
                 columnIndex={index}
                 columnsLength={formatTableCols.value.length}
-                v-slots={scopedSlots}
+                v-slots={{ ...slots, ...scopedSlots }}
               />
             )
           })}

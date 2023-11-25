@@ -8,7 +8,7 @@ export const useDraggable = (emit: any, tableData: Ref<any>) => {
       selector: 'tbody',
       options: {
         animation: 200,
-        handle: '.z-table-column-draggable__handle',
+        handle: '.z-table-column-draggable',
         ghostClass: 'ghost',
         dragClass: 'drag-class',
         onStart: () => {

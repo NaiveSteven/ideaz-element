@@ -97,6 +97,12 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any, emit) =
           if (column.slot && slots[column.slot])
             return slots[column.slot](scope)
 
+          if (column.type === 'sort' && isFunction(slots.sort))
+            return <div class={ns.b('draggable')}>{slots.sort(scope)}</div>
+
+          if (column.type === 'sort' && isFunction(column.render))
+            return <div class={ns.b('draggable')}>{column.render(h, scope)}</div>
+
           if (isFunction(column.render))
             return column.render(h, scope)
 

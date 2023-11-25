@@ -74,7 +74,7 @@
 60. `z-crud`前端分页未向上抛出数据，`v-model:data`此时会失效
 61. `z-table`的`pagination`支持位置调整
 62. ~~`z-form`的`OperationCard`组件`size`适配~~
-63. `z-table`数据项拖拽添加把手
+63. ~~`z-table`数据项拖拽添加把手~~
 64. ~~`z-filter-form`操作按钮逻辑内置~~
 65. ~~`z-filter-form`的查询和重置按钮支持属性配置~~
 66. ~~`z-filter-form`的操作按钮支持`render`函数自定义~~
@@ -108,7 +108,7 @@
 94. `z-table`数据翻页处理，如：`editable`
 95. ~~修复`z-table`动态导入，`checkbox`没有选中的问题~~
 96. ~~`z-table`在`editable`模式下，输入会频繁刷新问题~~
-97. `z-table`行拖拽添加条件
+97. ~~`z-table`行拖拽添加条件~~
 
 ## FEATURE
 
