@@ -39,10 +39,11 @@ export const usePagination = (props: ITableProps, emit: any) => {
           tableData.value = tableAttributes.value.data.map((item: any) => {
             const obj: { [propName: string]: string } = {}
             columnProps.forEach((prop) => {
-              if (Object.hasOwnProperty.call(item, prop))
+              // only add prop if it is not already in the object
+              if (Object.hasOwnProperty.call(item, prop) && !Object.hasOwnProperty.call(item, `${prop}Prop`))
                 obj[`${prop}Prop`] = item[prop]
             })
-            return { ...item, __isEdit: editableType !== 'single', ...obj }
+            return { __isEdit: editableType !== 'single', ...item, ...obj }
           })
         }
         else {

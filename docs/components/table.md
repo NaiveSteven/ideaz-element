@@ -1546,11 +1546,18 @@ const options = {
     { label: '女', value: '2' }
   ]
 }
+
+const handleClick = () => {
+  console.log(tableData.value, 'handleClick')
+}
 </script>
 
 <template>
+  <el-button @click="handleClick">
+    click
+  </el-button>
   <z-table
-    :data="tableData"
+    v-model:data="tableData"
     :columns="columns"
     :options="options"
     :editable="true"
@@ -1633,7 +1640,7 @@ const options = {
 
 <template>
   <z-table
-    :data="tableData"
+    v-model:data="tableData"
     :columns="columns"
     :options="options"
     :editable="{ type: 'multiple', maxLength: 10, deleteConfirm: true }"
@@ -1732,7 +1739,7 @@ const editable = {
 
 <template>
   <z-table
-    :data="tableData"
+    v-model:data="tableData"
     :columns="columns"
     :options="options"
     :editable="editable"
