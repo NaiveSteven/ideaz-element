@@ -4,6 +4,108 @@
 
 ## 基础用法
 
+配置`column`生成表格项。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const formData = ref({
+  name: '',
+  sex: '',
+  age: ''
+})
+const tableData = ref([
+  {
+    name: 'Steven',
+    sex: 'male',
+    age: 22,
+    time: '2020-01-01'
+  },
+  {
+    name: 'Helen',
+    sex: 'male',
+    age: 12,
+    time: '2012-01-01'
+  },
+  {
+    name: 'Nancy',
+    sex: 'female',
+    age: 18,
+    time: '2018-01-01'
+  },
+  {
+    name: 'Jack',
+    sex: 'male',
+    age: 28,
+    time: '2028-01-01'
+  },
+])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    form: {
+      component: 'input',
+      label: '姓名',
+      field: 'name'
+    }
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    form: {
+      component: 'select',
+      label: '性别',
+      field: 'sex'
+    }
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+    form: {
+      component: 'input',
+      label: '年龄',
+      field: 'age'
+    }
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+
+const options = {
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'felmale' }]
+}
+const pagination = ref({
+  page: 1,
+  pageSize: 10,
+  total: 50,
+  layout: 'prev, pager, next, sizes',
+})
+</script>
+
+<template>
+  <z-crud
+    v-model:pagination="pagination"
+    v-model:data="tableData"
+    v-model:formData="formData"
+    :options="options"
+    :loading="loading"
+    :columns="columns"
+  />
+</template>
+```
+
+:::
+
+## 其他
+
 基础的按钮用法。
 
 :::demo
