@@ -10,7 +10,8 @@ export const usePagination = (props: ITableProps, emit: any) => {
 
   const pagination = computed<Pagination>({
     get() {
-      return isObject(props.pagination) ? props.pagination : {}
+      // editable is not compatible with pagination
+      return (isObject(props.pagination) && !props.editable) ? props.pagination : {}
     },
     set(val) {
       emit('update:pagination', val)
