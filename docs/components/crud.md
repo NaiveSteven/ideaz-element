@@ -18,32 +18,7 @@ const formData = ref({
   sex: '',
   age: ''
 })
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  },
-])
+const tableData = ref([])
 
 const columns = ref([
   {
@@ -84,10 +59,65 @@ const options = {
 }
 const pagination = ref({
   page: 1,
-  pageSize: 10,
-  total: 50,
+  pageSize: 2,
+  total: 4,
   layout: 'prev, pager, next, sizes',
 })
+
+const mockApi = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        result: {
+          page: 1,
+          pageSize: 10,
+          total: 4,
+          list: data,
+        }
+      })
+    }, 100)
+  })
+}
+
+const getTableData = async () => {
+  loading.value = true
+  try {
+    const res = await mockApi({ ...pagination.value })
+    tableData.value = res.result.list
+    pagination.value.total = res.result.total
+  }
+  catch (error) {
+    console.log(error)
+  }
+  loading.value = false
+}
 
 const handleDelete = () => {
   window.ZDialogTip({
@@ -99,6 +129,13 @@ const handleDelete = () => {
     },
   })
 }
+
+const handleSearch = () => {
+  pagination.value.page = 1
+  getTableData()
+}
+
+getTableData()
 </script>
 
 <template>
@@ -110,6 +147,9 @@ const handleDelete = () => {
     :loading="loading"
     :columns="columns"
     @delete="handleDelete"
+    @refresh="getTableData"
+    @search="handleSearch"
+    @reset="handleSearch"
   />
 </template>
 ```

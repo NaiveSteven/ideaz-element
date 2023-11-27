@@ -9,6 +9,7 @@ import {
 } from '../../table/hooks'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
 import { crudProps, crudProvideKey, formKeys } from './props'
+import type { Pagination } from '~/types'
 
 export default defineComponent({
   name: 'ZCrud',
@@ -59,6 +60,11 @@ export default defineComponent({
     const ns = useNamespace('crud')
     const { t } = useLocale()
     const size = useFormSize()
+
+    provide(crudProvideKey, {
+      props,
+      size: tableProps.value.size,
+    })
 
     provide(crudProvideKey, {
       props,
@@ -156,6 +162,7 @@ export default defineComponent({
               return slots.topBottom?.()
             },
           }}
+          onUpdate:pagination={(pagination: Pagination) => emit('update:pagination', pagination)}
           onRefresh={handlePaginationChange}
           onSort-change={handleSortChange}
           onSelection-change={handleCheckboxChange}
