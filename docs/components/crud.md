@@ -195,7 +195,7 @@ function getReqData() {
       resolve({
         data: {
           page: 1,
-          page_size: 2,
+          pageSize: 2,
           total: 200,
           list: [
             {

@@ -107,7 +107,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
 
       tableData.value = isFunction(req.data) ? req.data(getAliasData(res, req).list) : getAliasData(res, req).list
 
-      if (props.pagination === false)
+      if (props.pagination !== false)
         setPaginationData({ total: Number(getAliasData(res, req).total) })
 
       isLoading.value = false
@@ -125,9 +125,9 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       ...payload,
       ...sortableData.value,
     }
-    if (props.pagination === false) {
-      params.page = setPaginationData({})?.page
-      params.pageSize = setPaginationData({})?.pageSize
+    if (props.pagination !== false) {
+      params.page = middlePagination.value.page
+      params.pageSize = middlePagination.value.pageSize
     }
     if (isObject(req) && isObject(req.params)) return req.params
     if (isObject(req) && isFunction(req.params)) return req.params(params)

@@ -51,9 +51,10 @@ const request = ref({
 const tableData = ref([])
 const pagination = ref({
   page: 1,
-  pageSize: 0,
+  pageSize: 2,
   total: 0
 })
+const loading = ref(false)
 
 const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
@@ -94,7 +95,7 @@ function getTableData() {
           page: 1,
           pageSize: 2,
           total: 4,
-          list: data,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize)
         }
       })
     }, 100)
@@ -103,9 +104,11 @@ function getTableData() {
 </script>
 
 <template>
+  {{ pagination }}
   <z-crud
     v-model:data="tableData"
     v-model:pagination="pagination"
+    v-model:loading="loading"
     :options="options"
     :columns="columns"
     :request="request"

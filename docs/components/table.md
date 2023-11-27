@@ -491,7 +491,7 @@ const mockApi = () => {
       resolve({
         result: {
           page: 1,
-          page_size: 10,
+          pageSize: 10,
           total: 4,
           list: pagination.value.page === 1 ? dataFirstPage : dataSecondPage,
         }
@@ -601,7 +601,7 @@ const mockApi = () => {
       resolve({
         result: {
           page: 1,
-          page_size: 10,
+          pageSize: 10,
           total: 4,
           list: data,
         }

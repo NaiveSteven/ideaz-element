@@ -23,13 +23,29 @@ export const usePagination = (props: ITableProps, emit: any) => {
     return { ...attrs, ...omitProps }
   })
 
+  const paginationAttrs = computed(() => {
+    return {
+      ...pagination.value,
+      layout: pagination.value.layout || 'total, prev, pager, next',
+      pageSizes: pagination.value.pageSizes || [100, 200, 300, 400, 500],
+    }
+  })
+
+  const isPaginationByFront = computed(() => {
+    if (
+      tableAttributes.value.data
+      && tableAttributes.value.data.length === pagination.value.total
+      && paginationAttrs.value.type === 'front'
+    )
+      return true
+    return false
+  })
+
   watch(
     () => tableAttributes.value,
     () => {
       if (
-        tableAttributes.value.data
-        && pagination.value.total
-        && tableAttributes.value.data.length === pagination.value.total
+        pagination.value.total && paginationAttrs.value.type === 'front'
       ) {
         getTableData(pagination.value)
       }
@@ -54,24 +70,6 @@ export const usePagination = (props: ITableProps, emit: any) => {
     },
     { immediate: true },
   )
-
-  const paginationAttrs = computed(() => {
-    return {
-      ...pagination.value,
-      layout: pagination.value.layout || 'total, prev, pager, next',
-      pageSizes: pagination.value.pageSizes || [100, 200, 300, 400, 500],
-    }
-  })
-
-  const isPaginationByFront = computed(() => {
-    if (
-      tableAttributes.value.data
-      && tableAttributes.value.data.length === pagination.value.total
-      && paginationAttrs.value.type === 'front'
-    )
-      return true
-    return false
-  })
 
   const addTableData = () => {
     const rowData = { __isEdit: true }
