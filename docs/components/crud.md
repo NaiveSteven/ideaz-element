@@ -69,7 +69,7 @@ const columns = ref([
     label: '年龄',
     form: {
       component: 'input',
-      label: '年龄',
+      label: '年龄啊手动阀手动阀',
       field: 'age'
     }
   },
@@ -88,6 +88,17 @@ const pagination = ref({
   total: 50,
   layout: 'prev, pager, next, sizes',
 })
+
+const handleDelete = () => {
+  window.ZDialogTip({
+    type: 'warning',
+    message: '确定删除该条数据吗？',
+    title: '警告',
+    onConfirm: ({ done, confirmBtnLoading }) => {
+      done()
+    },
+  })
+}
 </script>
 
 <template>
@@ -98,6 +109,7 @@ const pagination = ref({
     :options="options"
     :loading="loading"
     :columns="columns"
+    @delete="handleDelete"
   />
 </template>
 ```

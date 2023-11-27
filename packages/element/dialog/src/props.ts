@@ -1,5 +1,6 @@
 import type { ButtonProps } from 'element-plus'
 import { dialogProps as elDialogProps } from 'element-plus'
+import type { Ref } from 'vue'
 import type { ExtractPropTypes } from 'vue-demi'
 
 export const dialogProps = {
@@ -21,10 +22,10 @@ export const dialogProps = {
     default: () => ({}),
   },
   onCancel: {
-    type: Function as PropType<({ done, cancelBtnLoading }: { done: () => void; cancelBtnLoading: boolean }) => void>,
+    type: Function as PropType<({ done, cancelBtnLoading }: { done: () => void; cancelBtnLoading: Ref<boolean> }) => void>,
   },
   onConfirm: {
-    type: Function as PropType<({ done, confirmBtnLoading }: { done: () => void; confirmBtnLoading: boolean }) => void>,
+    type: Function as PropType<({ done, confirmBtnLoading }: { done: () => void; confirmBtnLoading: Ref<boolean> }) => void>,
   },
   title: {
     type: [Function, String] as PropType<(() => VNode) | string>,
