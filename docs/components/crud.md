@@ -44,7 +44,7 @@ const columns = ref([
     label: '年龄',
     form: {
       component: 'input',
-      label: '年龄啊手动阀手动阀',
+      label: '年龄',
       field: 'age'
     }
   },

@@ -1,5 +1,5 @@
 import { useAttrs } from 'element-plus'
-import { omit, pick } from 'lodash-unified'
+import { omit } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { isFunction } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
@@ -8,7 +8,7 @@ import {
   useTableMethods,
 } from '../../table/hooks'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
-import { crudProps, crudProvideKey, formKeys } from './props'
+import { crudProps, crudProvideKey } from './props'
 import type { Pagination } from '~/types'
 
 export default defineComponent({
@@ -182,7 +182,8 @@ export default defineComponent({
         class: ns.be('filter-form', 'container'),
         children: <z-filter-form
           ref="formRef"
-          {...{ ...pick(props, formKeys), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
+          {...{ labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
+          options={props.options}
           modelValue={middleFormData.value}
           onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
           onSearch={handleSearch}
@@ -198,9 +199,10 @@ export default defineComponent({
       const formData = currentMode.value === 'add' ? props.addFormData : currentMode.value === 'edit' ? props.editFormData : rowData.value
       const formProps = omit(props.form || {}, ['columns'])
       return <z-form
-        {...formProps}
+        {...{ labelWidth: '60px', ...formProps }}
         ref={dialogForm}
         columns={columns}
+        options={props.options}
         modelValue={dialogFormData.value}
         onUpdate:modelValue={(val: any) => { dialogFormData.value = val }}
       >

@@ -46,7 +46,7 @@ export interface AlertConfig {
 
 export const crudProps = {
   ..._tableProps,
-  ..._formProps,
+  // ..._formProps,
   size: {
     type: String as PropType<ComponentSize>,
     default: 'small',
