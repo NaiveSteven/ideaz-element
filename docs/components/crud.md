@@ -55,13 +55,12 @@ const columns = ref([
 ])
 
 const options = {
-  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'felmale' }]
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
 }
 const pagination = ref({
   page: 1,
   pageSize: 2,
   total: 4,
-  layout: 'prev, pager, next, sizes',
 })
 
 const mockApi = () => {
@@ -109,7 +108,10 @@ const mockApi = () => {
 const getTableData = async () => {
   loading.value = true
   try {
-    const res = await mockApi({ ...pagination.value })
+    const params = {
+      ...pagination.value, ...formData.value
+    }
+    const res = await mockApi(params)
     tableData.value = res.result.list
     pagination.value.total = res.result.total
   }
