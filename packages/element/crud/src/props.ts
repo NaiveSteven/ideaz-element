@@ -18,6 +18,8 @@ export interface RequestConfig {
   deleteApi?: any
   submitApi?: any
   searchApi?: any
+  addApi?: any
+  editApi?: any
   alias?: {
     list: string | ((res: any) => any)
     total: string | ((res: any) => any)

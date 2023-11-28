@@ -47,6 +47,8 @@ const columns = ref([
 ])
 const request = ref({
   searchApi: getTableData,
+  deleteApi: commonApi,
+  submitApi: commonApi
 })
 const tableData = ref([])
 const pagination = ref({
@@ -55,34 +57,40 @@ const pagination = ref({
   total: 0
 })
 const loading = ref(false)
+const formData = ref({})
 
 const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
 }
 
-function getTableData() {
+function getTableData(params) {
+  console.log(params, 'getTableData params')
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
         {
+          id: 1,
           name: 'Steven',
           sex: 'male',
           age: 22,
           time: '2020-01-01'
         },
         {
+          id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
           time: '2012-01-01'
         },
         {
+          id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
           time: '2018-01-01'
         },
         {
+          id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
@@ -101,17 +109,38 @@ function getTableData() {
     }, 100)
   })
 }
+
+function commonApi(params) {
+  console.log(params, 'commonApi params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        msg: 'success',
+        code: 200
+      })
+    }, 100)
+  })
+}
+
+const dialog = ref({
+  confirmButtonLoading: false
+})
+
+const handleSubmit = () => {
+  dialog.value.confirmButtonLoading = true
+}
 </script>
 
 <template>
-  {{ pagination }}
   <z-crud
+    v-model:formData="formData"
     v-model:data="tableData"
     v-model:pagination="pagination"
     v-model:loading="loading"
     :options="options"
     :columns="columns"
     :request="request"
+    :dialog="dialog"
   />
 </template>
 ```

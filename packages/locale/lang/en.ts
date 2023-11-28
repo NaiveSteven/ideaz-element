@@ -55,6 +55,7 @@ export default {
     confirm: 'confirm',
     view: 'view',
     success: 'success',
+    operationSuccess: 'operation success',
     default: 'default',
     refresh: 'refresh',
     fullScreen: 'full screen',
