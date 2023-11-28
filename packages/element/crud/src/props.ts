@@ -29,8 +29,8 @@ export interface RequestConfig {
   viewApi?: any
   beforeData?: any
   afterData?: any
-  func?: any
-  data?: any
+  searchFunc?: any
+  tableData?: any
 }
 
 export interface AlertConfig {

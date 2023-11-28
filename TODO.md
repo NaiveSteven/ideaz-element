@@ -111,6 +111,7 @@
 97. ~~`z-table`行拖拽添加条件~~
 98. `z-dialog`的`message`和`title`支持`render`函数
 99. `z-dialog`的`onConfirm`等方法的`confirmBtnLoading`等参数名优化
+100. `z-crud`的表单校验规则配置
 
 ## FEATURE
 

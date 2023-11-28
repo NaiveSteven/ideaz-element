@@ -87,13 +87,8 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   async function getTableData(payload?: { column: any; prop: string; order: string }) {
     const req = props.request || {}
     const params = getParams(payload)
-    if (isObject(req) && isFunction(req.func)) {
-      req.func({
-        params,
-        data: tableData,
-        loading: isLoading,
-        pagination: middlePagination,
-      })
+    if (isObject(req) && isFunction(req.searchFunc)) {
+      req.searchFunc({ params })
       return
     }
     isLoading.value = true
@@ -105,7 +100,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       if (isObject(req) && isFunction(req.searchApi))
         res = await req.searchApi(params)
 
-      tableData.value = isFunction(req.data) ? req.data(getAliasData(res, req).list) : getAliasData(res, req).list
+      tableData.value = isFunction(req.tableData) ? req.tableData(getAliasData(res, req).list) : getAliasData(res, req).list
 
       if (props.pagination !== false)
         setPaginationData({ total: Number(getAliasData(res, req).total) })
