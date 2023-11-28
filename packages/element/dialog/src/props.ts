@@ -22,10 +22,10 @@ export const dialogProps = {
     default: () => ({}),
   },
   onCancel: {
-    type: Function as PropType<({ done, cancelBtnLoading }: { done: () => void; cancelBtnLoading: Ref<boolean> }) => void>,
+    type: Function as PropType<({ done, cancelButtonLoading }: { done: () => void; cancelButtonLoading: Ref<boolean> }) => void>,
   },
   onConfirm: {
-    type: Function as PropType<({ done, confirmBtnLoading }: { done: () => void; confirmBtnLoading: Ref<boolean> }) => void>,
+    type: Function as PropType<({ done, confirmButtonLoading }: { done: () => void; confirmButtonLoading: Ref<boolean> }) => void>,
   },
   title: {
     type: [Function, String] as PropType<(() => VNode) | string>,

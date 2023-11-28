@@ -126,7 +126,7 @@ const handleDelete = () => {
     type: 'warning',
     message: '确定删除该条数据吗？',
     title: '警告',
-    onConfirm: ({ done, confirmBtnLoading }) => {
+    onConfirm: ({ done, confirmButtonLoading }) => {
       done()
     },
   })

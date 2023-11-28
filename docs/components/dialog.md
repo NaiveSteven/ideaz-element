@@ -103,11 +103,11 @@ const openInfoDialog = () => {
   window.ZDialogTip({
     type: 'info',
     message: '提示信息',
-    onConfirm: ({ done, confirmBtnLoading }) => {
-      confirmBtnLoading.value = true
+    onConfirm: ({ done, confirmButtonLoading }) => {
+      confirmButtonLoading.value = true
       done()
     },
-    onCancel: ({ done, cancelBtnLoading }) => {
+    onCancel: ({ done, cancelButtonLoading }) => {
       done()
     }
   })
@@ -116,10 +116,10 @@ const openInfoDialog = () => {
 const openWarningDialog = () => {
   window.ZDialogTip.warning('提示信息', '标题', {
     type: 'warning',
-    onConfirm: ({ done, confirmBtnLoading }) => {
-      confirmBtnLoading.value = true
+    onConfirm: ({ done, confirmButtonLoading }) => {
+      confirmButtonLoading.value = true
     },
-    onCancel: ({ done, cancelBtnLoading }) => {
+    onCancel: ({ done, cancelButtonLoading }) => {
       done()
     }
   })
@@ -130,10 +130,10 @@ const openDangerDialog = () => {
     type: 'danger',
     message: () => h('span', {}, 'custom message'),
     title: () => h('span', {}, 'custom title'),
-    onConfirm: ({ done, confirmBtnLoading }) => {
-      confirmBtnLoading.value = true
+    onConfirm: ({ done, confirmButtonLoading }) => {
+      confirmButtonLoading.value = true
     },
-    onCancel: ({ done, cancelBtnLoading }) => {
+    onCancel: ({ done, cancelButtonLoading }) => {
       done()
     }
   })
@@ -188,16 +188,16 @@ const openWarningDialog = () => {
   window.ZDialogTip({
     type: 'warning',
     message: '警告信息',
-    onConfirm: async ({ done, confirmBtnLoading }) => {
-      confirmBtnLoading.value = true
+    onConfirm: async ({ done, confirmButtonLoading }) => {
+      confirmButtonLoading.value = true
       await delay(200)
-      confirmBtnLoading.value = false
+      confirmButtonLoading.value = false
       done()
     },
-    onCancel: async ({ done, cancelBtnLoading }) => {
-      cancelBtnLoading.value = true
+    onCancel: async ({ done, cancelButtonLoading }) => {
+      cancelButtonLoading.value = true
       await delay(200)
-      cancelBtnLoading.value = false
+      cancelButtonLoading.value = false
       done()
     }
   })
@@ -307,6 +307,20 @@ const isShowRenderDialog = ref(false)
 const renderTitle = () => {
   return h('span', 'render标题')
 }
+
+const handleClick = () => {
+  window.ZDialogTip({
+    type: 'danger',
+    message: () => h('span', {}, 'custom message'),
+    title: () => h('span', {}, 'custom title'),
+    onConfirm: ({ done, confirmButtonLoading }) => {
+      confirmButtonLoading.value = true
+    },
+    onCancel: ({ done, cancelButtonLoading }) => {
+      done()
+    }
+  })
+}
 </script>
 
 <template>
@@ -314,6 +328,9 @@ const renderTitle = () => {
     点击打开slot Dialog
   </el-button>
   <el-button link type="primary" @click="isShowRenderDialog = true">
+    点击打开render Dialog
+  </el-button>
+  <el-button link type="primary" @click="handleClick">
     点击打开render Dialog
   </el-button>
   <z-dialog
@@ -434,10 +451,10 @@ const openDialog = () => {
       console.log('before close extend')
       done()
     },
-    onConfirm: ({ done, confirmBtnLoading }) => {
-      confirmBtnLoading.value = true
+    onConfirm: ({ done, confirmButtonLoading }) => {
+      confirmButtonLoading.value = true
     },
-    onCancel: ({ done, cancelBtnLoading }) => {
+    onCancel: ({ done, cancelButtonLoading }) => {
       done()
     }
   })

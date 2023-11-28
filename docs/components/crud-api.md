@@ -1289,10 +1289,10 @@ const handleDelete = () => {
     type: 'warning',
     message: '确定删除该条数据吗？',
     title: '警告',
-    onConfirm: ({ done, confirmBtnLoading }) => {
-      confirmBtnLoading.value = true
+    onConfirm: ({ done, confirmButtonLoading }) => {
+      confirmButtonLoading.value = true
       done()
-      confirmBtnLoading.value = false
+      confirmButtonLoading.value = false
     },
   })
 }
