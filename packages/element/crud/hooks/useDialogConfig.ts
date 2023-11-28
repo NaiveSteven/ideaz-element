@@ -42,7 +42,7 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
       const addApi = props.request?.addApi
       const editApi = props.request?.editApi
       if (!submitApi && !addApi && !editApi) {
-        emit('submit', { done, isValid, invalidFields, form: dialogForm.value, formData: dialogFormData.value, type: currentMode.value })
+        emit('submit', { done, isValid, invalidFields, form: dialogForm.value, formData: dialogFormData.value, type: currentMode.value, rowData: currentMode.value === 'edit' ? rowData.value : {} })
       }
       else {
         if (isValid) {
