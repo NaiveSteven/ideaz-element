@@ -20,13 +20,13 @@ export interface RequestConfig {
   searchApi?: any
   addApi?: any
   editApi?: any
+  detailApi?: any
   alias?: {
     list: string | ((res: any) => any)
     total: string | ((res: any) => any)
     detail: string | ((res: any) => any)
   }
   params?: any
-  viewApi?: any
   beforeData?: any
   afterData?: any
   searchFunc?: any

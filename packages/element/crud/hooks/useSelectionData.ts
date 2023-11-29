@@ -42,9 +42,7 @@ export const useSelectionData = (props: CrudProps, emit: any, tableProps: Ref<IT
             ElMessage.success(t('common.success'))
             getTableData()
           }
-          catch (error) {
-            console.log(error, 'delete error')
-          }
+          catch (error) {}
           confirmButtonLoading.value = false
         },
       })

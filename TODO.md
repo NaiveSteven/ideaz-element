@@ -109,8 +109,10 @@
 95. ~~修复`z-table`动态导入，`checkbox`没有选中的问题~~
 96. ~~`z-table`在`editable`模式下，输入会频繁刷新问题~~
 97. ~~`z-table`行拖拽添加条件~~
-98. `z-dialog`的`onConfirm`等方法的`confirmBtnLoading`等参数名优化
+98. ~~`z-dialog`的`onConfirm`等方法的`confirmBtnLoading`等参数名优化~~
 99. `z-crud`的表单校验规则配置
+100. `z-crud`操作按钮权限
+101. `z-crud`接口支持参数自定义
 
 ## FEATURE
 

@@ -185,6 +185,7 @@ const request = ref({
   searchApi: getTableData,
   deleteApi: commonApi,
   submitApi: commonApi,
+  detailApi,
   alias: {
     list: 'result.data',
     total: 'result.all'
@@ -257,6 +258,23 @@ function commonApi(params) {
       resolve({
         msg: 'success',
         code: 200
+      })
+    }, 100)
+  })
+}
+
+function detailApi(params) {
+  console.log(params, 'detailApi params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          id: 3,
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
       })
     }, 100)
   })
@@ -1352,6 +1370,7 @@ getTableData()
 | submitApi   | 新增编辑接口                                              | `Function`              | —     |
 | addApi   | 新增接口                                              | `Function`              | —     |
 | editApi   | 编辑接口                                              | `Function`              | —     |
+| detailApi   | 详情接口                                              | `Function`              | —     |
 | params   | 表格数据接口参数自定义                                              | `(params) => object`              | —     |
 | beforeData   | 表格数据接口调用前的回调                                              | `Function`              | —     |
 | afterData   | 表格数据接口调用后的回调                                              | `(res) => void`              | —     |
