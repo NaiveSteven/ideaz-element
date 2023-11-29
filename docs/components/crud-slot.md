@@ -14,8 +14,8 @@ import { h, ref } from 'vue'
 
 const columns = ref([
   {
-    prop: 'name',
     label: '姓名',
+    slot: 'name',
     form: {
       component: 'input',
       label: '姓名',
@@ -23,7 +23,7 @@ const columns = ref([
     }
   },
   {
-    prop: 'sex',
+    slot: 'sex',
     label: '性别',
     form: {
       component: 'select',
@@ -32,7 +32,7 @@ const columns = ref([
     }
   },
   {
-    prop: 'age',
+    render: (h, { row }) => h('span', row.age),
     label: '年龄',
     form: {
       component: 'input',
@@ -132,7 +132,14 @@ function commonApi(params) {
     :options="options"
     :columns="columns"
     :request="request"
-  />
+  >
+    <template #name>
+      sdf
+    </template>
+    <!-- <template #sex>
+      asdf
+    </template> -->
+  </z-crud>
 </template>
 ```
 

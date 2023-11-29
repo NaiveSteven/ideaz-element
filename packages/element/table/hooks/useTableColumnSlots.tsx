@@ -6,7 +6,7 @@ import TableButton from '../src/TableButton'
 import { SELECT_TYPES } from '../../form/hooks'
 import { useTableColComponentName } from './useTableColComponentName'
 
-export const useTableColumnSlots = (props: TableColumnProps, slots: any, emit) => {
+export const useTableColumnSlots = (props: TableColumnProps, slots: any, emit: any) => {
   const scopedSlots = shallowRef<any>({})
   const ns = useNamespace('table-column')
   const { t } = useLocale()
@@ -122,6 +122,10 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any, emit) =
             </el-form-item>
               : <span>{getLabel(scope.row)}</span>
           }
+
+          // warning
+          if ((column.slot && !slots[column.slot]) || (column.type === 'expand' && !isFunction(slots.expand)))
+            return null
 
           return renderCustomComponent()
         }
