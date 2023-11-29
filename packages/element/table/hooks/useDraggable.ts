@@ -16,16 +16,15 @@ export const useDraggable = (emit: any, tableData: Ref<any>) => {
         },
         onEnd: (evt: any) => {
           dragging.value = false
-          const { newIndex, oldIndex } = evt
-          const arr = [...tableData.value]
-          const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
-          arr.splice(newIndex as number, 0, moveRowData)
-
-          tableData.value = []
-          nextTick(() => {
-            tableData.value = [...arr]
-            emit('drag-sort-end', tableData.value)
-          })
+          const { oldIndex, newIndex } = evt
+          const newArr = [...tableData.value]
+          const objToMove = newArr[oldIndex]
+          newArr.splice(oldIndex, 1)
+          newArr.splice(newIndex, 0, objToMove)
+          tableData.value = newArr
+          emit('drag-sort-end', tableData.value)
+          // emit('update:data', tableData.value)
+          // tableKey.value = new Date().valueOf()
         },
       },
     },

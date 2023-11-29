@@ -533,6 +533,8 @@ getTableData()
 
 配置`pagination`的`type`为`front`，开启前端分页功能。
 
+`pageSize`为`0`、`pagination`为`false`或`pagination`不传，分页不展示。
+
 :::demo
 
 ```vue
@@ -789,75 +791,6 @@ const columns = ref([
 
 :::
 
-## 列提示
-
-`column`中配置`tooltip`实现表头提示功能，支持函数和字符串。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    prop: 'name',
-    label: '姓名',
-    tooltip: () => h('span', '姓名提示'),
-  },
-  {
-    prop: 'sex',
-    label: '性别',
-    tooltip: '性别提示'
-  },
-  {
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    prop: 'time',
-    label: '出生日期'
-  }
-])
-</script>
-
-<template>
-  <z-table
-    :data="tableData"
-    :columns="columns"
-  />
-</template>
-```
-
-:::
-
 ## 列类型
 
 `column`中配置`type`实现表格列类型，支持`expand`、`radio`、`selection`、`input`、`select`。
@@ -1109,6 +1042,75 @@ const columns = ref([
       </el-button>
     </template>
   </z-table>
+</template>
+```
+
+:::
+
+## 列提示
+
+`column`中配置`tooltip`实现表头提示功能，支持函数和字符串。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const tableData = ref([
+  {
+    name: 'Steven',
+    sex: 'male',
+    age: 22,
+    time: '2020-01-01'
+  },
+  {
+    name: 'Helen',
+    sex: 'male',
+    age: 12,
+    time: '2012-01-01'
+  },
+  {
+    name: 'Nancy',
+    sex: 'female',
+    age: 18,
+    time: '2018-01-01'
+  },
+  {
+    name: 'Jack',
+    sex: 'male',
+    age: 28,
+    time: '2028-01-01'
+  }
+])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    tooltip: () => h('span', '姓名提示'),
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    tooltip: '性别提示'
+  },
+  {
+    prop: 'age',
+    label: '年龄'
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+</script>
+
+<template>
+  <z-table
+    :data="tableData"
+    :columns="columns"
+  />
 </template>
 ```
 
@@ -1386,7 +1388,7 @@ const handleSortEnd = (data) => {
     click
   </el-button>
   <z-table
-    :data="tableData"
+    v-model:data="tableData"
     :columns="columns"
     :draggable="true"
     @drag-sort-end="handleSortEnd"
