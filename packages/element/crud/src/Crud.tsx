@@ -131,7 +131,7 @@ export default defineComponent({
             topLeft: () => {
               return <>
                 {slots.topLeft && slots.topLeft()}
-                <el-button
+                {props.action && <el-button
                   size={size.value}
                   type='primary'
                   icon={Plus}
@@ -141,7 +141,7 @@ export default defineComponent({
                   }}
                 >
                   {t('crud.add')}
-                </el-button>
+                </el-button>}
                 {!!props.export && <el-button size={size.value} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
                 {!!isSelection.value
                   && <el-button
@@ -181,16 +181,16 @@ export default defineComponent({
         },
         class: ns.be('filter-form', 'container'),
         children: <z-filter-form
-            ref="formRef"
-            {...{ labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
-            options={props.options}
-            modelValue={middleFormData.value}
-            onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
-            onSearch={handleSearch}
-            onReset={handleReset}
-            onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
-          >
-          </z-filter-form>,
+          ref="formRef"
+          {...{ labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
+          options={props.options}
+          modelValue={middleFormData.value}
+          onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
+          onSearch={handleSearch}
+          onReset={handleReset}
+          onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
+        >
+        </z-filter-form>,
       })
     }
 

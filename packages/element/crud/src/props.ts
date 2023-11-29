@@ -134,6 +134,10 @@ export const crudProps = {
     type: Object as PropType<AlertConfig>,
     default: () => ({}),
   },
+  action: {
+    type: Boolean,
+    default: true,
+  },
 }
 
 export type CrudProps = ExtractPropTypes<typeof crudProps>

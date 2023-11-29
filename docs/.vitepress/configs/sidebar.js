@@ -101,8 +101,8 @@ function getComponentsSidebar() {
                   link: '/components/crud-api',
                 },
                 {
-                  text: '自定义',
-                  link: '/components/crud-slot',
+                  text: '表格配置',
+                  link: '/components/crud-table',
                 },
               ],
             },
