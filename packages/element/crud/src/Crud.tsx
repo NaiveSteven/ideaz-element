@@ -173,7 +173,7 @@ export default defineComponent({
     }
 
     const renderSearchForm = () => {
-      return renderDecorator({
+      return searchFormColumns.value.length > 1 && renderDecorator({
         ...props.formDecorator,
         style: {
           marginBottom: '16px',
@@ -181,16 +181,16 @@ export default defineComponent({
         },
         class: ns.be('filter-form', 'container'),
         children: <z-filter-form
-          ref="formRef"
-          {...{ labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
-          options={props.options}
-          modelValue={middleFormData.value}
-          onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
-          onSearch={handleSearch}
-          onReset={handleReset}
-          onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
-        >
-        </z-filter-form>,
+            ref="formRef"
+            {...{ labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
+            options={props.options}
+            modelValue={middleFormData.value}
+            onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
+            onSearch={handleSearch}
+            onReset={handleReset}
+            onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
+          >
+          </z-filter-form>,
       })
     }
 

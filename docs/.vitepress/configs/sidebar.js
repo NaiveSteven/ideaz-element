@@ -100,6 +100,10 @@ function getComponentsSidebar() {
                   text: 'Api配置',
                   link: '/components/crud-api',
                 },
+                {
+                  text: '自定义',
+                  link: '/components/crud-slot',
+                },
               ],
             },
           ],
