@@ -1319,9 +1319,9 @@ const columns = ref([
 
 设置`draggable`为`true`，开启数据拖拽。
 
-```warning
+:::warning
 必须配置`row-key`，否则会出现更新问题。
-```
+:::
 
 :::demo
 

@@ -143,20 +143,19 @@ export default defineComponent({
                   {t('crud.add')}
                 </el-button>}
                 {!!props.export && <el-button size={size.value} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
-                {!!isSelection.value
-                  && <el-button
-                    plain
-                    size={size.value}
-                    type='danger'
-                    class={ns.e('multiple-delete')}
-                    icon={Delete}
-                    onClick={handleMultipleDelete}>
-                    {t('crud.multipleDelete')}
-                  </el-button>}
+                {!!isSelection.value && props.action && <el-button
+                  plain
+                  size={size.value}
+                  type='danger'
+                  class={ns.e('multiple-delete')}
+                  icon={Delete}
+                  onClick={handleMultipleDelete}>
+                  {t('crud.multipleDelete')}
+                </el-button>}
               </>
             },
             topBottom: () => {
-              if (isSelection.value)
+              if (isSelection.value && props.action)
                 return renderAlert()
 
               return slots.topBottom?.()
