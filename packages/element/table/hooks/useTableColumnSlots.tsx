@@ -107,9 +107,11 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any, emit: a
             return column.render(h, scope)
 
           if (column.type === 'button') {
-            return column.buttons?.map((button) => {
-              return <TableButton button={button} scope={scope} size={size} />
-            })
+            return <div class={ns.e('operation')}>
+              {column.buttons?.map((button) => {
+                return <TableButton button={button} scope={scope} size={size} />
+              })}
+            </div>
           }
 
           if (column.type === 'sort')

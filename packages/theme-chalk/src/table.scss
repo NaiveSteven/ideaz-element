@@ -128,6 +128,13 @@
       vertical-align: middle;
     }
 
+    .z-table-column__operation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
     .z-table-column__dropdown + .z-table-column__dropdown,
     .z-table-column__dropdown + .el-button,
     .el-button + .z-table-column__dropdown {
