@@ -173,7 +173,7 @@ export default defineComponent({
     }
 
     const renderSearchForm = () => {
-      return searchFormColumns.value.length > 1 && renderDecorator({
+      return searchFormColumns.value.length > 0 && renderDecorator({
         ...props.formDecorator,
         style: {
           marginBottom: '16px',

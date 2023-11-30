@@ -114,6 +114,7 @@
 100. `z-crud`操作按钮权限
 101. `z-crud`接口支持参数自定义
 102. `z-table`前端分页优化
+103. `z-table`的`row-key`处理
 
 ## FEATURE
 
