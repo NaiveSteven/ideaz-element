@@ -15,6 +15,10 @@ import { h, ref } from 'vue'
 
 const columns = ref([
   {
+    type: 'selection',
+    reserveSelection: true
+  },
+  {
     label: '姓名',
     prop: 'name',
   },
@@ -97,7 +101,8 @@ function getTableData(params) {
     v-model:loading="loading"
     :columns="columns"
     :request="request"
-    :action="false"
+    :action="true"
+    row-key="id"
     stripe
   />
 </template>
@@ -883,7 +888,7 @@ const columns = ref([
 `column`中配置`type`实现表格列类型，支持`expand`、`radio`、`selection`、`input`、`select`。
 
 :::tip
-`type`为`radio`或者需要跨页选中`checkbox`时，需要配合`rowKey`使用（默认`id`）。
+`type`为`sort`、`type`为`radio`或者需要跨页选中`checkbox`时，需要配合`rowKey`使用（默认`id`）。
 :::
 
 :::demo
@@ -937,7 +942,8 @@ const columns = ref([
     type: 'radio'
   },
   {
-    type: 'selection'
+    type: 'selection',
+    reserveSelection: true
   },
   {
     type: 'input',
@@ -972,7 +978,8 @@ const options = {
     v-model:data="tableData"
     :columns="columns"
     :options="options"
-    :action="false"
+    :action="true"
+    row-key="id"
   >
     <template #expand>
       <span>展开内容</span>

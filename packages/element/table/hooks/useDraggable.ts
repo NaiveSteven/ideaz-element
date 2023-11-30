@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 
-export const useDraggable = (emit: any, tableData: Ref<any>, tableKey: Ref<number>) => {
+export const useDraggable = (emit: any, tableData: Ref<any>) => {
   const dragging = ref(false)
 
   const draggableOptions = [
@@ -23,7 +23,6 @@ export const useDraggable = (emit: any, tableData: Ref<any>, tableKey: Ref<numbe
           newArr.splice(newIndex, 0, objToMove)
           emit('update:data', newArr)
           emit('drag-sort-end', tableData.value)
-          tableKey.value = new Date().valueOf()
         },
       },
     },

@@ -1319,6 +1319,10 @@ const columns = ref([
 
 设置`draggable`为`true`，开启数据拖拽。
 
+```warning
+必须配置`row-key`，否则会出现更新问题。
+```
+
 :::demo
 
 ```vue
@@ -1327,24 +1331,28 @@ import { h, ref } from 'vue'
 
 const tableData = ref([
   {
+    id: 1,
     name: 'Steven',
     sex: 'male',
     age: 22,
     time: '2020-01-01'
   },
   {
+    id: 2,
     name: 'Helen',
     sex: 'male',
     age: 12,
     time: '2012-01-01'
   },
   {
+    id: 3,
     name: 'Nancy',
     sex: 'female',
     age: 18,
     time: '2018-01-01'
   },
   {
+    id: 4,
     name: 'Jack',
     sex: 'male',
     age: 28,
@@ -1391,6 +1399,7 @@ const handleSortEnd = (data) => {
     v-model:data="tableData"
     :columns="columns"
     :draggable="true"
+    row-key="id"
     @drag-sort-end="handleSortEnd"
   />
 </template>
