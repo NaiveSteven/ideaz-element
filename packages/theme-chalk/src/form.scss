@@ -37,7 +37,7 @@
 .z-form-item-button__col {
   display: flex;
   justify-content: flex-end;
-  align-items: flex-start;
+  align-items: center;
 
   .el-form-item__content {
     flex-wrap: nowrap;
@@ -50,8 +50,10 @@
 }
 
 .z-form-toggle {
-  cursor: pointer;
+  display: flex;
+  align-items: center;
   font-size: 14px;
+  cursor: pointer;
 
   .z-toggle__icon {
     color: var(--el-color-primary);
