@@ -109,6 +109,7 @@ export default defineComponent({
         type="success"
         close-text={t('crud.unselect')}
         onClose={handleCloseAlert}
+        class={ns.b('alert')}
         {...omit(props.alert, 'title')}
         v-slots={{
           title: isFunction(alert.title)
