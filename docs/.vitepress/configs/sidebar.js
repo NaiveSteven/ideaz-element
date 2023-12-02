@@ -104,6 +104,10 @@ function getComponentsSidebar() {
                   text: '表格配置',
                   link: '/components/crud-table',
                 },
+                {
+                  text: '查询表单配置',
+                  link: '/components/crud-form',
+                },
               ],
             },
           ],

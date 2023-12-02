@@ -189,6 +189,7 @@ export default defineComponent({
           onSearch={handleSearch}
           onReset={handleReset}
           onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
+          v-slots={slots}
         >
         </z-filter-form>,
       })
@@ -205,6 +206,7 @@ export default defineComponent({
         options={props.options}
         modelValue={dialogFormData.value}
         onUpdate:modelValue={(val: any) => { dialogFormData.value = val }}
+        v-slots={slots}
       >
 
       </z-form>
