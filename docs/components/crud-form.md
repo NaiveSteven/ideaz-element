@@ -551,3 +551,544 @@ function mockApi() {
 ```
 
 :::
+
+## label、error自定义
+
+`label`和`error`支持传入字符串、`render`函数或`拼接Slot的字符串`
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const formData = ref({
+  name: '',
+  sex: '',
+  time: [],
+})
+const tableData = ref([])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    form: {
+      component: 'input',
+      field: 'name',
+      label: () => h('span', {}, '姓名'),
+      required: true,
+      error: 'error message',
+    },
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    form: {
+      component: 'select',
+      field: 'sex',
+      label: 'labelSlot',
+      required: true,
+      error: h('span', {}, 'errorSlot')
+    },
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+    form: {
+      component: 'datepicker',
+      field: 'time',
+      label: '出生日期',
+      required: true,
+      error: 'errorSlot',
+      fieldProps: {
+        type: 'daterange',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期',
+      },
+    }
+  }
+])
+
+const options = {
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
+}
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 4,
+})
+const request = ref({
+  searchApi: mockApi
+})
+
+function mockApi() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 10,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
+        }
+      })
+    }, 100)
+  })
+}
+</script>
+
+<template>
+  <z-crud
+    v-model:pagination="pagination"
+    v-model:data="tableData"
+    v-model:formData="formData"
+    v-model:loading="loading"
+    :options="options"
+    :columns="columns"
+    :action="false"
+    :search="{ labelWidth: '80px' }"
+    :request="request"
+  >
+    <template #labelSlot>
+      <span>性别</span>
+    </template>
+    <template #errorSlot>
+      <span>出生日期必填</span>
+    </template>
+  </z-crud>
+</template>
+```
+
+:::
+
+## 联动
+
+使用`hide`配置表单项显隐
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const formData = ref({
+  name: '',
+  sex: '',
+  time: [],
+})
+const tableData = ref([])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    form: {
+      component: 'input',
+      field: 'name',
+      label: '姓名',
+    },
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    form: {
+      component: 'select',
+      field: 'sex',
+      label: '性别',
+    },
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+    form: {
+      component: 'datepicker',
+      field: 'time',
+      label: '出生日期',
+      hide: () => !formData.value.sex,
+      fieldProps: {
+        type: 'daterange',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期',
+      },
+    }
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+
+const options = {
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
+}
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 4,
+})
+const request = ref({
+  searchApi: mockApi
+})
+
+function mockApi() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 10,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
+        }
+      })
+    }, 100)
+  })
+}
+</script>
+
+<template>
+  <z-crud
+    v-model:pagination="pagination"
+    v-model:data="tableData"
+    v-model:formData="formData"
+    v-model:loading="loading"
+    :options="options"
+    :columns="columns"
+    :search="{ labelWidth: '80px' }"
+    :action="false"
+    :request="request"
+  />
+</template>
+```
+
+:::
+
+## 操作按钮
+
+按钮操作会有`search`和`reset`事件，已经内置重置操作和校验操作。支持自定义。
+
+详情请查看`z-filter-form`组件文档。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const formData = ref({
+  name: '',
+  sex: '',
+  time: [],
+})
+const tableData = ref([])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    form: {
+      component: 'input',
+      field: 'name',
+      label: '姓名',
+      required: true,
+    },
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    form: {
+      component: 'select',
+      field: 'sex',
+      label: '性别',
+      required: true
+    },
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+    form: {
+      component: 'datepicker',
+      field: 'time',
+      label: '出生日期',
+      required: true,
+      fieldProps: {
+        type: 'daterange',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期',
+      },
+    },
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+
+const options = {
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
+}
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 4,
+})
+const request = ref({
+  searchApi: mockApi
+})
+
+function mockApi() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 10,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
+        }
+      })
+    }, 100)
+  })
+}
+
+const handleSearch = () => {
+  console.log(formData.value, 'formData')
+}
+
+const handleReset = () => {
+  console.log(formData.value, 'formData')
+}
+</script>
+
+<template>
+  <z-crud
+    v-model:pagination="pagination"
+    v-model:data="tableData"
+    v-model:formData="formData"
+    v-model:loading="loading"
+    :options="options"
+    :columns="columns"
+    :search="{ labelWidth: '80px' }"
+    :action="false"
+    :request="request"
+    @search="handleSearch"
+    @reset="handleReset"
+  />
+</template>
+```
+
+:::
+
+## 默认收起
+
+配置`search`的`collapsed`为`false`，表单会默认收起。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const formData = ref({
+  name: '',
+  sex: '',
+  time: [],
+})
+const tableData = ref([])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    form: {
+      component: 'input',
+      field: 'name',
+      label: '姓名',
+    },
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    form: {
+      component: 'select',
+      field: 'sex',
+      label: '性别',
+    },
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+    form: {
+      component: 'datepicker',
+      field: 'time',
+      label: '出生日期',
+      fieldProps: {
+        type: 'daterange',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期',
+      },
+    }
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+
+const options = {
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
+}
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 4,
+})
+const request = ref({
+  searchApi: mockApi
+})
+
+function mockApi() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 10,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
+        }
+      })
+    }, 100)
+  })
+}
+</script>
+
+<template>
+  <z-crud
+    v-model:pagination="pagination"
+    v-model:data="tableData"
+    v-model:formData="formData"
+    v-model:loading="loading"
+    :options="options"
+    :columns="columns"
+    :search="{ labelWidth: '80px', collapsed: false }"
+    :action="false"
+    :request="request"
+  />
+</template>
+```
+
+:::
