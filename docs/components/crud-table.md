@@ -1,14 +1,11 @@
-# Table 表格
+# Crud 增删改查
 
-通过配置生成表格，内置更适合中后台业务的功能。
+> `z-crud`组件表格部分功能介绍
 
-:::tip
-某些属性在`z-table`内部被默认配置，例如：`align` 设置为 `center`
-:::
+## 表格使用
 
-## 基础用法
-
-配置`column`生成表格项。`el-table`表格属性直接传入`z-table`，`el-table-column`属性在`column`中配置。
+在`z-table`上封装，表格属性直接传递即可。
+配置`action`为`false`，可以关闭组件内部封装的操作。
 
 :::demo
 
@@ -16,41 +13,14 @@
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 
-const loading = ref(false)
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  },
-])
-
 const columns = ref([
   {
-    type: 'expand'
+    type: 'selection',
+    reserveSelection: true
   },
   {
-    prop: 'name',
     label: '姓名',
+    prop: 'name',
   },
   {
     prop: 'sex',
@@ -58,40 +28,92 @@ const columns = ref([
   },
   {
     prop: 'age',
-    label: '年龄'
+    label: '年龄',
   },
   {
     prop: 'time',
     label: '出生日期'
   }
 ])
+const request = ref({
+  searchApi: getTableData,
+})
+const tableData = ref([])
 const pagination = ref({
   page: 1,
-  pageSize: 10,
-  total: 50,
-  layout: 'prev, pager, next, sizes',
+  pageSize: 2,
+  total: 0
 })
+const loading = ref(false)
+
+function getTableData(params) {
+  console.log(params, 'getTableData params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          id: 1,
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          id: 2,
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          id: 3,
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          id: 4,
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 2,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize)
+        }
+      })
+    }, 100)
+  })
+}
 </script>
 
 <template>
-  <z-table
+  <z-crud
+    v-model:data="tableData"
     v-model:pagination="pagination"
-    :data="tableData"
-    :loading="loading"
+    v-model:loading="loading"
     :columns="columns"
-  >
-    <template #expand="row">
-      {{ row.$index }}
-    </template>
-  </z-table>
+    :request="request"
+    :action="true"
+    row-key="id"
+    stripe
+  />
 </template>
 ```
 
 :::
 
-## 操作按钮
+## 操作项
 
-`column`中配置操作项，`type`传入`button`，配置`buttons`数组。
+操作项默认会拼接在`columns`末尾，表格头为`操作`，有`查看`、`编辑`、`删除`三个操作。
+当然也可以配置`action`为`false`关闭默认的操作项，自定义表格操作。
 
 :::demo
 
@@ -99,38 +121,10 @@ const pagination = ref({
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 
-const loading = ref(false)
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
 const columns = ref([
   {
-    prop: 'name',
     label: '姓名',
+    prop: 'name',
   },
   {
     prop: 'sex',
@@ -138,7 +132,7 @@ const columns = ref([
   },
   {
     prop: 'age',
-    label: '年龄'
+    label: '年龄',
   },
   {
     prop: 'time',
@@ -148,32 +142,78 @@ const columns = ref([
     type: 'button',
     label: '操作',
     buttons: [
-      {
-        type: 'primary',
-        link: true,
-        label: '编辑',
-        onClick: (row) => {
-          console.log(row, 'edit')
-        }
-      },
-      {
-        type: 'danger',
-        link: true,
-        label: '删除',
-        onClick: (row) => {
-          console.log(row, 'delete')
-        }
-      }
+      { label: '查看', link: true, type: 'primary', onClick: row => console.log(row, 'row') },
+      { label: '删除', link: true, type: 'danger', onClick: row => console.log(row, 'row') }
     ]
   }
 ])
+const request = ref({
+  searchApi: getTableData,
+})
+const tableData = ref([])
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 0
+})
+const loading = ref(false)
+
+function getTableData(params) {
+  console.log(params, 'getTableData params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          id: 1,
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          id: 2,
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          id: 3,
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          id: 4,
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 2,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize)
+        }
+      })
+    }, 100)
+  })
+}
 </script>
 
 <template>
-  <z-table
-    :data="tableData"
-    :loading="loading"
+  <z-crud
+    v-model:data="tableData"
+    v-model:pagination="pagination"
+    v-model:loading="loading"
     :columns="columns"
+    :request="request"
+    :action="false"
   />
 </template>
 ```
@@ -182,7 +222,9 @@ const columns = ref([
 
 ## 操作项下拉
 
-如需下拉，可以在`buttons`数组中配置`type`为`dropdown`，`children`中配置下拉选项
+> 其他具体配置可参考`z-table`组件
+
+在`buttons`数组中配置`type`为`dropdown`，`children`中配置下拉选项
 
 :::demo
 
@@ -190,38 +232,10 @@ const columns = ref([
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 
-const loading = ref(false)
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
 const columns = ref([
   {
-    prop: 'name',
     label: '姓名',
+    prop: 'name',
   },
   {
     prop: 'sex',
@@ -229,7 +243,7 @@ const columns = ref([
   },
   {
     prop: 'age',
-    label: '年龄'
+    label: '年龄',
   },
   {
     prop: 'time',
@@ -258,7 +272,7 @@ const columns = ref([
       },
       {
         type: 'dropdown',
-        reference: '删除',
+        reference: '其他',
         children: [
           {
             type: 'primary',
@@ -281,138 +295,73 @@ const columns = ref([
     ]
   }
 ])
-</script>
-
-<template>
-  <z-table
-    :data="tableData"
-    :loading="loading"
-    :columns="columns"
-  />
-</template>
-```
-
-:::
-
-`reference`字段配置下拉关联文案（默认为`更多`），支持函数和字符串类型。
-
-支持配置`el-dropdown`和`el-dropdown-item`组件属性和方法。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
+const request = ref({
+  searchApi: getTableData,
+})
+const tableData = ref([])
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 0
+})
 const loading = ref(false)
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
 
-const columns = ref([
-  {
-    prop: 'name',
-    label: '姓名',
-  },
-  {
-    prop: 'sex',
-    label: '性别',
-  },
-  {
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    prop: 'time',
-    label: '出生日期'
-  },
-  {
-    type: 'button',
-    label: '操作',
-    buttons: [
-      {
-        type: 'dropdown',
-        reference: '操作',
-        placement: 'top-start',
-        children: [
-          {
-            type: 'primary',
-            link: true,
-            label: '编辑',
-            onClick: (row) => {
-              console.log(row, 'edit')
-            }
-          },
-          {
-            type: 'danger',
-            link: true,
-            label: '删除',
-            onClick: (row) => {
-              console.log(row, 'delete')
-            }
-          },
-        ]
-      },
-      {
-        type: 'dropdown',
-        reference: () => h('span', { style: { cursor: 'pointer' } }, '操作2'),
-        placement: 'top',
-        onVisibleChange: (visible) => {
-          console.log(visible, 'visible')
+function getTableData(params) {
+  console.log(params, 'getTableData params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          id: 1,
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
         },
-        children: [
-          {
-            type: 'primary',
-            link: true,
-            label: '复制',
-            onClick: (row) => {
-              console.log(row, 'copy')
-            }
-          },
-          {
-            type: 'danger',
-            link: true,
-            label: '操作',
-            divided: true,
-            onClick: (row) => {
-              console.log(row, 'operate')
-            }
-          },
-        ]
-      }
-    ]
-  }
-])
+        {
+          id: 2,
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          id: 3,
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          id: 4,
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 2,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize)
+        }
+      })
+    }, 100)
+  })
+}
 </script>
 
 <template>
-  <z-table
-    :data="tableData"
-    :loading="loading"
+  <z-crud
+    v-model:data="tableData"
+    v-model:pagination="pagination"
+    v-model:loading="loading"
     :columns="columns"
+    :request="request"
+    :action="false"
   />
 </template>
 ```
@@ -422,6 +371,8 @@ const columns = ref([
 ## 分页
 
 配置`pagination`，支持双向绑定，实现分页效果。
+
+`pageSize`为`0`、`pagination`为`false`或`pagination`不传，分页不展示。
 
 :::demo
 
@@ -517,11 +468,12 @@ getTableData()
 </script>
 
 <template>
-  <z-table
+  <z-crud
     v-model:pagination="pagination"
-    :data="tableData"
-    :loading="loading"
+    v-model:data="tableData"
+    v-model:loading="loading"
     :columns="columns"
+    :action="false"
     @refresh="getTableData"
   />
 </template>
@@ -532,8 +484,6 @@ getTableData()
 ## 前端分页
 
 配置`pagination`的`type`为`front`，开启前端分页功能。
-
-`pageSize`为`0`、`pagination`为`false`或`pagination`不传，分页不展示。
 
 :::demo
 
@@ -629,11 +579,12 @@ getTableData()
 </script>
 
 <template>
-  <z-table
+  <z-crud
     v-model:pagination="pagination"
-    :data="tableData"
-    :loading="loading"
+    v-model:data="tableData"
+    v-model:loading="loading"
     :columns="columns"
+    :action="false"
     @refresh="getTableData"
   />
 </template>
@@ -643,7 +594,7 @@ getTableData()
 
 ## 列显隐
 
-`column`中配置`hide`字段，支持函数或布尔值，函数返回布尔值，true表示隐藏，false表示显示。
+`column`中配置`hide`字段，支持函数或布尔值。
 
 :::demo
 
@@ -709,95 +660,19 @@ const changeVisible = () => {
   <el-button @click="changeVisible">
     点击修改列显隐
   </el-button>
-  <z-table
-    :data="tableData"
+  <z-crud
+    v-model:data="tableData"
     :columns="columns"
+    :action="false"
   />
 </template>
 ```
 
 :::
 
-## 列自定义
+## 自定义列
 
-`column`中配置`slot`或`render`实现自定义列内容。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    prop: 'name',
-    label: '姓名',
-    render: (h, { row }) => h('span', row.name),
-  },
-  {
-    prop: 'sex',
-    label: '性别',
-    slot: 'sex'
-  },
-  {
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    prop: 'time',
-    label: '出生日期'
-  }
-])
-</script>
-
-<template>
-  <z-table
-    :data="tableData"
-    :columns="columns"
-  >
-    <template #sex="{ row }">
-      <el-input :model-value="row.sex" />
-    </template>
-  </z-table>
-</template>
-```
-
-:::
-
-## 列类型
-
-`column`中配置`type`实现表格列类型，支持`expand`、`radio`、`selection`、`input`、`select`。
-
-:::tip
-`type`为`radio`或者需要跨页选中`checkbox`时，需要配合`rowKey`使用（默认`id`）。
-:::
+配置`column`项的`slot`或`render`，可以自定义列内容。
 
 :::demo
 
@@ -805,243 +680,134 @@ const columns = ref([
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 
-const tableData = ref([
-  {
-    id: 1,
-    name: 'Steven',
-    sex: '1',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    id: 2,
-    name: 'Helen',
-    sex: '1',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    id: 3,
-    name: 'Nancy',
-    sex: '2',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    id: 4,
-    name: 'Jack',
-    sex: '1',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
 const columns = ref([
   {
-    type: 'expand',
-  },
-  {
-    type: 'index'
-  },
-  {
-    type: 'radio'
-  },
-  {
-    type: 'selection'
-  },
-  {
-    type: 'input',
-    prop: 'name',
     label: '姓名',
+    slot: 'name',
+    form: {
+      component: 'input',
+      label: '姓名',
+      field: 'name'
+    }
   },
   {
-    type: 'select',
-    prop: 'sex',
+    slot: 'sex',
     label: '性别',
+    form: {
+      component: 'select',
+      label: '性别',
+      field: 'sex'
+    }
   },
   {
-    prop: 'age',
-    label: '年龄'
+    render: (h, { row }) => h('span', row.age),
+    label: '年龄',
+    form: {
+      component: 'input',
+      label: '年龄',
+      field: 'age'
+    }
   },
   {
     prop: 'time',
     label: '出生日期'
   }
 ])
+const request = ref({
+  searchApi: getTableData,
+  deleteApi: commonApi,
+  submitApi: commonApi
+})
+const tableData = ref([])
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 0
+})
+const loading = ref(false)
+const formData = ref({})
 
 const options = {
-  sex: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' }
-  ]
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
+}
+
+function getTableData(params) {
+  console.log(params, 'getTableData params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          id: 1,
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          id: 2,
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          id: 3,
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          id: 4,
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 2,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize)
+        }
+      })
+    }, 100)
+  })
+}
+
+function commonApi(params) {
+  console.log(params, 'commonApi params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        msg: 'success',
+        code: 200
+      })
+    }, 100)
+  })
 }
 </script>
 
 <template>
-  <z-table
+  <z-crud
+    v-model:formData="formData"
     v-model:data="tableData"
-    :columns="columns"
+    v-model:pagination="pagination"
+    v-model:loading="loading"
     :options="options"
-  >
-    <template #expand>
-      <span>展开内容</span>
-    </template>
-  </z-table>
-</template>
-```
-
-:::
-
-## 表格头自定义
-
-`column`中将`label`配置为带`slot`或`Slot`的字符串或配置为`render`函数实现自定义列表头。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    prop: 'name',
-    label: () => h('span', '自定义表头'),
-  },
-  {
-    prop: 'sex',
-    label: 'sexHeaderSlot',
-  },
-  {
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    prop: 'time',
-    label: '出生日期'
-  }
-])
-</script>
-
-<template>
-  <z-table
-    :data="tableData"
     :columns="columns"
+    :request="request"
   >
-    <template #sexHeaderSlot="scope">
-      <span>性别自定义表头{{ scope.$index }}</span>
+    <template #name>
+      sdf
     </template>
-  </z-table>
-</template>
-```
-
-:::
-
-## 表格顶部自定义
-
-配置`top`、`topRight`、`topLeft`和`topBottom`插槽实现顶部自定义。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    prop: 'name',
-    label: '姓名',
-  },
-  {
-    prop: 'sex',
-    label: '性别',
-  },
-  {
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    prop: 'time',
-    label: '出生日期'
-  }
-])
-</script>
-
-<template>
-  <z-table
-    :data="tableData"
-    :columns="columns"
-  >
-    <template #top>
-      <span>顶部</span>
+    <template #sex>
+      asdf
     </template>
-    <template #topRight>
-      <el-button type="primary">
-        右边
-      </el-button>
-    </template>
-    <template #topBottom>
-      <span>底部</span>
-    </template>
-    <template #topLeft>
-      <el-button type="primary">
-        左边
-      </el-button>
-    </template>
-  </z-table>
+  </z-crud>
 </template>
 ```
 
@@ -1107,220 +873,22 @@ const columns = ref([
 </script>
 
 <template>
-  <z-table
-    :data="tableData"
+  <z-crud
+    v-model:data="tableData"
     :columns="columns"
+    :action="false"
   />
 </template>
 ```
 
 :::
 
-## 工具栏
+## 列类型
 
-> `toolBar` 配置项，用于配置表格的工具栏。
+`column`中配置`type`实现表格列类型，支持`expand`、`radio`、`selection`、`input`、`select`。
 
-`toolBar`值为`false`，不展示工具栏。
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    prop: 'name',
-    label: '姓名',
-  },
-  {
-    prop: 'sex',
-    label: '性别',
-  },
-  {
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    prop: 'time',
-    label: '出生日期'
-  }
-])
-</script>
-
-<template>
-  <z-table
-    :data="tableData"
-    :columns="columns"
-    :tool-bar="false"
-  />
-</template>
-```
-
-:::
-
-`toolBar`支持配置默认不选中，配置`uncheck`字段，值为`column`项的`label`。
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    prop: 'name',
-    label: '姓名',
-  },
-  {
-    prop: 'sex',
-    label: '性别',
-  },
-  {
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    prop: 'time',
-    label: '出生日期'
-  }
-])
-</script>
-
-<template>
-  <z-table
-    :data="tableData"
-    :columns="columns"
-    :tool-bar="{ uncheck: ['性别'] }"
-  />
-</template>
-```
-
-:::
-
-`toolBar`支持排除某些表格项，配置`exclude`字段，值为`column`项的`label`。
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: 'male',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: 'male',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: 'female',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: 'male',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    prop: 'name',
-    label: '姓名',
-  },
-  {
-    prop: 'sex',
-    label: '性别',
-  },
-  {
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    prop: 'time',
-    label: '出生日期'
-  }
-])
-</script>
-
-<template>
-  <z-table
-    :data="tableData"
-    :columns="columns"
-    :tool-bar="{ exclude: ['性别'] }"
-  />
-</template>
-```
-
-:::
-
-## 数据拖拽
-
-设置`draggable`为`true`，开启数据拖拽。
-
-:::warning
-必须配置`row-key`，否则会出现更新问题。
+:::tip
+`type`为`sort`、`type`为`radio`或者需要跨页选中`checkbox`时，需要配合`rowKey`使用（默认`id`）。
 :::
 
 :::demo
@@ -1333,28 +901,28 @@ const tableData = ref([
   {
     id: 1,
     name: 'Steven',
-    sex: 'male',
+    sex: '1',
     age: 22,
     time: '2020-01-01'
   },
   {
     id: 2,
     name: 'Helen',
-    sex: 'male',
+    sex: '1',
     age: 12,
     time: '2012-01-01'
   },
   {
     id: 3,
     name: 'Nancy',
-    sex: 'female',
+    sex: '2',
     age: 18,
     time: '2018-01-01'
   },
   {
     id: 4,
     name: 'Jack',
-    sex: 'male',
+    sex: '1',
     age: 28,
     time: '2028-01-01'
   }
@@ -1363,13 +931,27 @@ const tableData = ref([
 const columns = ref([
   {
     type: 'sort',
-    label: '排序'
   },
   {
+    type: 'expand',
+  },
+  {
+    type: 'index'
+  },
+  {
+    type: 'radio'
+  },
+  {
+    type: 'selection',
+    reserveSelection: true
+  },
+  {
+    type: 'input',
     prop: 'name',
     label: '姓名',
   },
   {
+    type: 'select',
     prop: 'sex',
     label: '性别',
   },
@@ -1382,32 +964,35 @@ const columns = ref([
     label: '出生日期'
   }
 ])
-const handleClick = () => {
-  console.log(tableData.value, 'handleClick')
-}
 
-const handleSortEnd = (data) => {
-  console.log(data, 'data')
+const options = {
+  sex: [
+    { label: '男', value: '1' },
+    { label: '女', value: '2' }
+  ]
 }
 </script>
 
 <template>
-  <el-button @click="handleClick">
-    click
-  </el-button>
-  <z-table
+  <z-crud
     v-model:data="tableData"
     :columns="columns"
-    :draggable="true"
+    :options="options"
+    :action="true"
     row-key="id"
-    @drag-sort-end="handleSortEnd"
-  />
+  >
+    <template #expand>
+      <span>展开内容</span>
+    </template>
+  </z-crud>
 </template>
 ```
 
 :::
 
-支持设置`slot`或`render`自定义拖拽图标。
+## 表格头自定义
+
+`column`中将`label`配置为带`slot`或`Slot`的字符串或配置为`render`函数实现自定义列表头。
 
 :::demo
 
@@ -1444,9 +1029,77 @@ const tableData = ref([
 
 const columns = ref([
   {
-    type: 'sort',
-    label: '排序',
+    prop: 'name',
+    label: () => h('span', '自定义表头'),
   },
+  {
+    prop: 'sex',
+    label: 'sexHeaderSlot',
+  },
+  {
+    prop: 'age',
+    label: '年龄'
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+</script>
+
+<template>
+  <z-crud
+    v-model:data="tableData"
+    :columns="columns"
+    :action="false"
+  >
+    <template #sexHeaderSlot="scope">
+      <span>性别自定义表头{{ scope.$index }}</span>
+    </template>
+  </z-crud>
+</template>
+```
+
+:::
+
+## 表格顶部自定义
+
+配置`top`、`topRight`、`topLeft`和`topBottom`插槽实现顶部自定义。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const tableData = ref([
+  {
+    name: 'Steven',
+    sex: 'male',
+    age: 22,
+    time: '2020-01-01'
+  },
+  {
+    name: 'Helen',
+    sex: 'male',
+    age: 12,
+    time: '2012-01-01'
+  },
+  {
+    name: 'Nancy',
+    sex: 'female',
+    age: 18,
+    time: '2018-01-01'
+  },
+  {
+    name: 'Jack',
+    sex: 'male',
+    age: 28,
+    time: '2028-01-01'
+  }
+])
+
+const columns = ref([
   {
     prop: 'name',
     label: '姓名',
@@ -1464,31 +1117,39 @@ const columns = ref([
     label: '出生日期'
   }
 ])
-
-const handleSortEnd = (data) => {
-  console.log(data, 'data')
-}
 </script>
 
 <template>
-  <z-table
-    :data="tableData"
+  <z-crud
+    v-model:data="tableData"
     :columns="columns"
-    :draggable="true"
-    @drag-sort-end="handleSortEnd"
+    :action="false"
   >
-    <template #sort>
-      <el-icon size="16" class="cursor-pointer">
-        <i-setting />
-      </el-icon>
+    <template #top>
+      <span>顶部</span>
     </template>
-  </z-table>
+    <template #topRight>
+      <el-button type="primary">
+        右边
+      </el-button>
+    </template>
+    <template #topBottom>
+      <span>底部</span>
+    </template>
+    <template #topLeft>
+      <el-button type="primary">
+        左边
+      </el-button>
+    </template>
+  </z-crud>
 </template>
 ```
 
 :::
 
 ## 可编辑表格
+
+> 详细文档请查看`z-table`可编辑表格内容。
 
 `editable`设置为`true`，开启表格编辑模式，该字段支持布尔值或对象类型，可编辑表格`type`默认为`single`。
 
@@ -1567,297 +1228,12 @@ const handleClick = () => {
   <el-button @click="handleClick">
     click
   </el-button>
-  <z-table
+  <z-crud
     v-model:data="tableData"
     :columns="columns"
     :options="options"
     :editable="true"
-  />
-</template>
-```
-
-:::
-
-`editable`设置为`type`为`multiple`，开启多行编辑模式。
-
-配置`editable`的`maxLength`，可以设置最大新增数量。配置`editable`的`deleteConfirm`为`true`，可开启删除二次确认。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: '1',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: '1',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: '2',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: '1',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    type: 'input',
-    prop: 'name',
-    label: '姓名',
-  },
-  {
-    type: 'select',
-    prop: 'sex',
-    label: '性别',
-  },
-  {
-    type: 'input',
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    type: 'datepicker',
-    prop: 'time',
-    label: '出生日期',
-    attrs: {
-      valueFormat: 'YYYY-MM-DD'
-    }
-  }
-])
-
-const options = {
-  sex: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' }
-  ]
-}
-</script>
-
-<template>
-  <z-table
-    v-model:data="tableData"
-    :columns="columns"
-    :options="options"
-    :editable="{ type: 'multiple', maxLength: 10, deleteConfirm: true }"
-  />
-</template>
-```
-
-:::
-
-配置`editable`的`onSave`、`onDelete`、`onEdit`、`onCancel`。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: '1',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: '1',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: '2',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: '1',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    type: 'input',
-    prop: 'name',
-    label: '姓名',
-  },
-  {
-    type: 'select',
-    prop: 'sex',
-    label: '性别',
-  },
-  {
-    type: 'input',
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    type: 'datepicker',
-    prop: 'time',
-    label: '出生日期',
-    attrs: {
-      valueFormat: 'YYYY-MM-DD'
-    }
-  }
-])
-
-const options = {
-  sex: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' }
-  ]
-}
-
-const editable = {
-  type: 'single',
-  maxLength: 5,
-  onCancel: ({ row, index, column, formRef }) => {
-    console.log(row, 'row onCancel')
-  },
-  onSave: ({ row, index, column, formRef }) => {
-    console.log(row, 'row onSave')
-  },
-  onDelete: ({ row, index, column, formRef }) => {
-    console.log(row, 'row onDelete')
-  },
-  onEdit: ({ row, index, column, formRef }) => {
-    row.__isEdit = true
-    console.log(row, 'row onEdit')
-  },
-}
-</script>
-
-<template>
-  <z-table
-    v-model:data="tableData"
-    :columns="columns"
-    :options="options"
-    :editable="editable"
-  />
-</template>
-```
-
-:::
-
-支持自定义操作按钮。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const tableData = ref([
-  {
-    name: 'Steven',
-    sex: '1',
-    age: 22,
-    time: '2020-01-01'
-  },
-  {
-    name: 'Helen',
-    sex: '1',
-    age: 12,
-    time: '2012-01-01'
-  },
-  {
-    name: 'Nancy',
-    sex: '2',
-    age: 18,
-    time: '2018-01-01'
-  },
-  {
-    name: 'Jack',
-    sex: '1',
-    age: 28,
-    time: '2028-01-01'
-  }
-])
-
-const columns = ref([
-  {
-    type: 'input',
-    prop: 'name',
-    label: '姓名',
-  },
-  {
-    type: 'select',
-    prop: 'sex',
-    label: '性别',
-  },
-  {
-    type: 'input',
-    prop: 'age',
-    label: '年龄'
-  },
-  {
-    type: 'datepicker',
-    prop: 'time',
-    label: '出生日期',
-    attrs: {
-      valueFormat: 'YYYY-MM-DD'
-    }
-  },
-  {
-    type: 'button',
-    label: '操作',
-    buttons: ({ renderEdit, renderCancel, renderDelete, renderSave }, tableData) => {
-      return [
-        {
-          type: 'primary',
-          link: true,
-          label: '复制',
-          hide: row => row.__isEdit,
-          onClick: (row) => {
-            tableData.value.push({ ...row })
-          }
-        },
-        renderEdit, renderCancel, renderDelete, renderSave
-      ]
-    }
-  }
-])
-
-const options = {
-  sex: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' }
-  ]
-}
-
-const editable = {
-  type: 'single',
-  maxLength: 5,
-}
-</script>
-
-<template>
-  <z-table
-    :data="tableData"
-    :columns="columns"
-    :options="options"
-    :editable="editable"
+    :action="false"
   />
 </template>
 ```
@@ -1900,30 +1276,28 @@ const tableData = ref([
     time: '2028-01-01'
   }
 ])
+const formData = ref({})
 
 const columns = ref([
   {
-    type: 'input',
     prop: 'name',
     label: '姓名',
+    form: {
+      component: 'input',
+      field: 'name'
+    }
   },
   {
-    type: 'select',
     prop: 'sex',
     label: '性别',
   },
   {
-    type: 'input',
     prop: 'age',
     label: '年龄'
   },
   {
-    type: 'datepicker',
     prop: 'time',
     label: '出生日期',
-    attrs: {
-      valueFormat: 'YYYY-MM-DD'
-    }
   }
 ])
 
@@ -1936,11 +1310,13 @@ const options = {
 </script>
 
 <template>
-  <z-table
-    :data="tableData"
+  <z-crud
+    v-model:data="tableData"
+    v-model:formData="formData"
     :columns="columns"
     :options="options"
-    watermark="表格水印"
+    :action="false"
+    watermark="watermark"
   />
 </template>
 ```
@@ -1949,7 +1325,7 @@ const options = {
 
 ## 表格方法
 
-`z-table`的表格方法按照`el-table`使用即可。
+`z-crud`的表格方法按照`el-table`使用即可。
 
 :::demo
 
@@ -2035,10 +1411,11 @@ const handleClear = () => {
   <el-button @click="handleClear">
     清空选中
   </el-button>
-  <z-table
+  <z-crud
     ref="zTableRef"
     :data="tableData"
     :columns="columns"
+    :action="false"
     @radio-change="handleRadioChange"
     @selection-change="handleSelectionChange"
   />
@@ -2047,287 +1424,6 @@ const handleClear = () => {
 
 :::
 
-## 撒打发
-
-基础的按钮用法。
-
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-interface RowData {
-  date: string
-  name: string
-  address: string
-  select: string
-  username: string
-}
-
-const pagination = ref({ pageSize: 20, page: 1, total: 40, type: 'front' })
-const loading = ref(false)
-const tableData = ref<RowData[]>([])
-const cTableRef = ref()
-const isShowName = ref(false)
-
-const changeNameVisible = () => {
-  isShowName.value = !isShowName.value
-}
-
-const columns = ref([
-  {
-    prop: 'name',
-    label: '姓名',
-    tooltip: '姓名Tooltip',
-    labelClassName: 'labelClassName',
-    sortable: true,
-    hide: () => !isShowName.value,
-    showOverflowTooltip: true
-  },
-  {
-    type: 'select',
-    labelClassName: 'labelClassName',
-    attrs: {
-      options: [
-        { label: '选项1', value: '1' },
-        { label: '选项2', value: '2' },
-        { label: '选项3', value: '3' },
-        { label: '选项4', value: '4' },
-      ]
-    },
-    prop: 'address',
-    label: '地址',
-  },
-  {
-    tooltip: (scoped) => {
-      return h('span', {}, scoped.$index)
-    },
-    prop: 'date',
-    label: '日期234',
-  },
-  {
-    prop: 'daate2',
-    fixed: 'left',
-    label: '日期34',
-  },
-  {
-    prop: 'daateq',
-    fixed: 'right',
-    label: '日期345',
-  },
-  {
-    prop: 'daatew',
-    label: '日期1',
-  },
-  {
-    prop: 'daatee',
-    label: '日期2',
-  },
-  {
-    prop: 'daates',
-    label: '日期3',
-  },
-  {
-    prop: 'daated',
-    label: '日期4',
-  },
-  {
-    prop: 'daatex',
-    label: '日期5',
-  },
-  {
-    prop: 'daatextre',
-    label: '日期5ert',
-  },
-  {
-    type: 'el-input',
-    prop: 'name',
-    label: '测试',
-    required: true,
-    // rules: {
-    //   message: '请输入用户名',
-    //   trigger: 'blur',
-    //   required: true
-    // },
-    showOverflowTooltip: true
-  },
-  {
-    type: 'el-switch',
-    prop: 'switch',
-    label: '开关',
-  },
-  {
-    type: 'button',
-    label: '操作',
-    buttons: ({ renderEdit, renderCancel, renderDelete, renderSave }, tableData) => {
-      return [
-        {
-          type: 'primary',
-          link: true,
-          label: '复制',
-          // hide: row => row.__isEdit,
-          onClick: (row) => {
-            tableData.value.push({ ...row })
-          }
-        },
-        renderEdit, renderCancel, renderDelete, renderSave
-      ]
-    }
-  }
-  // {
-  //   type: 'button',
-  //   label: '操作',
-  //   width: 300,
-  //   buttons: [
-  //     {
-  //       type: 'primary',
-  //       link: true,
-  //       size: 'small',
-  //       label: '更多',
-  //       disabled: row => row.name === '王小虎',
-  //       onClick: (row) => { console.log(row, '更多') }
-  //     },
-  //     {
-  //       type: 'dropdown',
-  //       children: [
-  //         {
-  //           divided: true,
-  //           disabled: true,
-  //           label: 'dropdown按钮1',
-  //           onClick: (row) => { console.log(row, 'dropdown按钮1') }
-  //         },
-  //         {
-  //           label: 'dropdown按钮2',
-  //           onClick: (row) => { console.log(row, 'dropdown按钮2') }
-  //         }
-  //       ]
-  //     }
-  //   ]
-  // }
-  // {
-  //   label: '操作',
-  //   slot: 'buttons'
-  // },
-])
-
-const options = {
-  address: [
-    { label: '选项1', value: '1' },
-    { label: '选项2', value: '2' },
-    { label: '选项3', value: '3' },
-    { label: '选项4', value: '4' },
-  ]
-}
-
-const click = (row) => {
-  row.__isEdit = true
-}
-
-const save = (row) => {
-  row.__isEdit = false
-}
-
-const cancel = (row) => {
-  row.__isEdit = false
-}
-
-const getData = () => {
-  loading.value = true
-  setTimeout(() => {
-    tableData.value = [
-      {
-        date: `2016-05-02${pagination.value.page}`,
-        name: '王小虎',
-        address: '1',
-        select: '1',
-        username: 'username1',
-        switch: true
-      },
-      {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '3',
-        select: '2',
-        username: 'username2',
-        switch: false
-      },
-      {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '4',
-        select: '3',
-        username: 'username3',
-        switch: true
-      },
-      {
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '2',
-        select: '4',
-        username: 'username4',
-        switch: false
-      },
-    ]
-    loading.value = false
-  }, 1000)
-}
-const handlePaginationChange = (val: { page: number; pageSize: number }) => {
-  // pagination.value.page = val.page
-  // pagination.value.pageSize = val.pageSize
-  getData()
-}
-
-const handleClick = () => {
-  console.log(pagination.value, 'pagination')
-  // console.log(tableData.value, 'tableData')
-}
-
-const handleModel = (aa) => {
-  // console.log(aa, pagination.value, 'paginationbefore')
-  pagination.value = aa
-  console.log(aa, pagination.value, 'pagination')
-}
-
-getData()
-</script>
-
-<template>
-  <el-button @click="handleClick">
-    获取数据
-  </el-button>
-  <el-button @click="changeNameVisible">
-    姓名列显隐
-  </el-button>
-  <z-table
-    ref="cTableRef"
-    v-model:pagination="pagination"
-    :data="tableData"
-    :loading="loading"
-    :columns="columns"
-    :options="options"
-    :editable="{ type: 'multiple' }"
-    :tool-bar="{ uncheck: ['地址'], exclude: ['测试'] }"
-    size="small"
-    :max-length="5"
-    @refresh="handlePaginationChange"
-  >
-    <template #buttons="{ row }">
-      <el-button @click="click(row)">
-        编辑
-      </el-button>
-      <el-button @click="save(row)">
-        保存
-      </el-button>
-      <el-button @click="cancel(row)">
-        取消
-      </el-button>
-    </template>
-  </z-table>
-</template>
-```
-
-:::
 
 ## z-table属性
 

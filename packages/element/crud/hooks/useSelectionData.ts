@@ -33,19 +33,17 @@ export const useSelectionData = (props: CrudProps, emit: any, tableProps: Ref<IT
       DialogTip({
         type: 'danger',
         message: '确定删除选中数据吗？',
-        onConfirm: async ({ done, confirmBtnLoading }: { done: () => void; confirmBtnLoading: Ref<boolean> }) => {
-          confirmBtnLoading.value = true
+        onConfirm: async ({ done, confirmButtonLoading }: { done: () => void; confirmButtonLoading: Ref<boolean> }) => {
+          confirmButtonLoading.value = true
           try {
             await deleteApi({ [props.dataKey]: selectionData.value.map((item: any) => item[props.dataKey]) })
-            confirmBtnLoading.value = false
+            confirmButtonLoading.value = false
             done()
             ElMessage.success(t('common.success'))
             getTableData()
           }
-          catch (error) {
-            console.log(error, 'delete error')
-          }
-          confirmBtnLoading.value = false
+          catch (error) {}
+          confirmButtonLoading.value = false
         },
       })
     }

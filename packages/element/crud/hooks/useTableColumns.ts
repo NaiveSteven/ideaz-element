@@ -36,12 +36,12 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
           DialogTip({
             type: 'danger',
             message: '确定删除该条数据吗',
-            onConfirm: async ({ done, confirmBtnLoading }: { done: () => void; confirmBtnLoading: Ref<boolean> }) => {
+            onConfirm: async ({ done, confirmButtonLoading }: { done: () => void; confirmButtonLoading: Ref<boolean> }) => {
               const dataKey = props.dataKey
-              confirmBtnLoading.value = true
+              confirmButtonLoading.value = true
               try {
                 await props.request?.deleteApi({ [dataKey]: row[dataKey] })
-                confirmBtnLoading.value = false
+                confirmButtonLoading.value = false
                 done()
                 ElMessage.success(t('common.success'))
                 getTableData()
@@ -49,7 +49,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
               catch (error) {
                 console.log(error, 'delete error')
               }
-              confirmBtnLoading.value = false
+              confirmButtonLoading.value = false
             },
           })
         }
@@ -72,17 +72,20 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
   }
 
   const tableColumns = computed(() => {
-    return props.columns.concat([
-      {
-        type: 'button',
-        label: t('table.action'),
-        buttons: [
-          renderView(),
-          renderEdit(),
-          renderDelete(),
-        ],
-      },
-    ])
+    if (props.action) {
+      return props.columns.concat([
+        {
+          type: 'button',
+          label: t('table.action'),
+          buttons: [
+            renderView(),
+            renderEdit(),
+            renderDelete(),
+          ],
+        },
+      ])
+    }
+    return props.columns
   })
 
   return { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer }

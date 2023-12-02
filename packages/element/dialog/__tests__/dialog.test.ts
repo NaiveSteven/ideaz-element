@@ -194,8 +194,8 @@ describe('dialog', () => {
         const handleClick = () => {
           DialogTip.warning('提示信息', '标题', {
             type: 'warning',
-            onCancel: ({ cancelBtnLoading }: any) => {
-              cancelBtnLoading.value = true
+            onCancel: ({ cancelButtonLoading }: any) => {
+              cancelButtonLoading.value = true
             },
             onConfirm: ({ done }: any) => {
               done
@@ -238,8 +238,8 @@ describe('dialog', () => {
             onCancel: ({ done }: any) => {
               done
             },
-            onConfirm: ({ confirmBtnLoading }: any) => {
-              confirmBtnLoading.value = true
+            onConfirm: ({ confirmButtonLoading }: any) => {
+              confirmButtonLoading.value = true
             },
           })
         }

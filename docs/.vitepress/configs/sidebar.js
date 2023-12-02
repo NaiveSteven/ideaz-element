@@ -91,7 +91,20 @@ function getComponentsSidebar() {
             },
             {
               text: 'Crud 增删改查',
-              link: '/components/crud',
+              items: [
+                {
+                  text: '常规使用',
+                  link: '/components/crud',
+                },
+                {
+                  text: 'Api配置',
+                  link: '/components/crud-api',
+                },
+                {
+                  text: '表格配置',
+                  link: '/components/crud-table',
+                },
+              ],
             },
           ],
         },

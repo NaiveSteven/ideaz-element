@@ -17,16 +17,14 @@ export const useDrawerConfig = (props: CrudProps) => {
   })
 
   const handleDrawerOpen = async (row: any) => {
-    if (props.request?.viewApi) {
+    if (props.request?.detailApi) {
       isDescLoading.value = true
       try {
         const detail = props.request?.alias?.detail
-        const res = await props.request?.viewApi({ [props.dataKey]: row[props.dataKey] })
+        const res = await props.request?.detailApi({ [props.dataKey]: row[props.dataKey] })
         viewData.value = isFunction(detail) ? detail(res) : isString(detail) ? get(res, detail) : res?.data
       }
-      catch (error) {
-        console.log(error, 'detail error')
-      }
+      catch (error) {}
       isDescLoading.value = false
     }
     else {

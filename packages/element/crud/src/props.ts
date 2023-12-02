@@ -18,17 +18,19 @@ export interface RequestConfig {
   deleteApi?: any
   submitApi?: any
   searchApi?: any
+  addApi?: any
+  editApi?: any
+  detailApi?: any
   alias?: {
     list: string | ((res: any) => any)
     total: string | ((res: any) => any)
     detail: string | ((res: any) => any)
   }
   params?: any
-  viewApi?: any
   beforeData?: any
   afterData?: any
-  func?: any
-  data?: any
+  searchFunc?: any
+  tableData?: any
 }
 
 export interface AlertConfig {
@@ -46,7 +48,7 @@ export interface AlertConfig {
 
 export const crudProps = {
   ..._tableProps,
-  ..._formProps,
+  // ..._formProps,
   size: {
     type: String as PropType<ComponentSize>,
     default: 'small',
@@ -131,6 +133,10 @@ export const crudProps = {
   alert: {
     type: Object as PropType<AlertConfig>,
     default: () => ({}),
+  },
+  action: {
+    type: Boolean,
+    default: true,
   },
 }
 

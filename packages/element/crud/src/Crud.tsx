@@ -1,5 +1,5 @@
 import { useAttrs } from 'element-plus'
-import { omit, pick } from 'lodash-unified'
+import { omit } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { isFunction } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
@@ -8,13 +8,14 @@ import {
   useTableMethods,
 } from '../../table/hooks'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
-import { crudProps, crudProvideKey, formKeys } from './props'
+import { crudProps, crudProvideKey } from './props'
+import type { Pagination } from '~/types'
 
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
   emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'submit', 'delete',
-    'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change'],
+    'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change', 'radio-change'],
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
     const {
@@ -65,6 +66,11 @@ export default defineComponent({
       size: tableProps.value.size,
     })
 
+    provide(crudProvideKey, {
+      props,
+      size: tableProps.value.size,
+    })
+
     useExpose({
       resetFields,
       validate,
@@ -103,6 +109,7 @@ export default defineComponent({
         type="success"
         close-text={t('crud.unselect')}
         onClose={handleCloseAlert}
+        class={ns.b('alert')}
         {...omit(props.alert, 'title')}
         v-slots={{
           title: isFunction(alert.title)
@@ -125,7 +132,7 @@ export default defineComponent({
             topLeft: () => {
               return <>
                 {slots.topLeft && slots.topLeft()}
-                <el-button
+                {props.action && <el-button
                   size={size.value}
                   type='primary'
                   icon={Plus}
@@ -135,27 +142,27 @@ export default defineComponent({
                   }}
                 >
                   {t('crud.add')}
-                </el-button>
+                </el-button>}
                 {!!props.export && <el-button size={size.value} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
-                {!!isSelection.value
-                  && <el-button
-                    plain
-                    size={size.value}
-                    type='danger'
-                    class={ns.e('multiple-delete')}
-                    icon={Delete}
-                    onClick={handleMultipleDelete}>
-                    {t('crud.multipleDelete')}
-                  </el-button>}
+                {!!isSelection.value && props.action && <el-button
+                  plain
+                  size={size.value}
+                  type='danger'
+                  class={ns.e('multiple-delete')}
+                  icon={Delete}
+                  onClick={handleMultipleDelete}>
+                  {t('crud.multipleDelete')}
+                </el-button>}
               </>
             },
             topBottom: () => {
-              if (isSelection.value)
+              if (isSelection.value && props.action)
                 return renderAlert()
 
               return slots.topBottom?.()
             },
           }}
+          onUpdate:pagination={(pagination: Pagination) => emit('update:pagination', pagination)}
           onRefresh={handlePaginationChange}
           onSort-change={handleSortChange}
           onSelection-change={handleCheckboxChange}
@@ -166,7 +173,7 @@ export default defineComponent({
     }
 
     const renderSearchForm = () => {
-      return renderDecorator({
+      return searchFormColumns.value.length > 0 && renderDecorator({
         ...props.formDecorator,
         style: {
           marginBottom: '16px',
@@ -175,7 +182,8 @@ export default defineComponent({
         class: ns.be('filter-form', 'container'),
         children: <z-filter-form
           ref="formRef"
-          {...{ ...pick(props, formKeys), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
+          {...{ labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
+          options={props.options}
           modelValue={middleFormData.value}
           onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
           onSearch={handleSearch}
@@ -191,9 +199,10 @@ export default defineComponent({
       const formData = currentMode.value === 'add' ? props.addFormData : currentMode.value === 'edit' ? props.editFormData : rowData.value
       const formProps = omit(props.form || {}, ['columns'])
       return <z-form
-        {...formProps}
+        {...{ labelWidth: '60px', ...formProps }}
         ref={dialogForm}
         columns={columns}
+        options={props.options}
         modelValue={dialogFormData.value}
         onUpdate:modelValue={(val: any) => { dialogFormData.value = val }}
       >

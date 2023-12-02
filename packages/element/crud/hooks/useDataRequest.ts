@@ -74,25 +74,21 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   const tableProps = computed<any>(() => {
     return {
       ...pick(props, tableKeys),
-      columns: tableColumns.value,
+      'columns': tableColumns.value,
       ...attrs,
-      fullScreenElement: document.getElementsByClassName('z-crud')[0],
-      pagination: middlePagination.value,
-      data: tableData.value,
-      loading: isLoading.value,
+      'fullScreenElement': document.getElementsByClassName('z-crud')[0],
+      'pagination': middlePagination.value,
+      'data': tableData.value,
+      'loading': isLoading.value,
+      'onUpdate:data': (data: any) => tableData.value = data,
     }
   })
 
   async function getTableData(payload?: { column: any; prop: string; order: string }) {
     const req = props.request || {}
     const params = getParams(payload)
-    if (isObject(req) && isFunction(req.func)) {
-      req.func({
-        params,
-        data: tableData,
-        loading: isLoading,
-        pagination: middlePagination,
-      })
+    if (isObject(req) && isFunction(req.searchFunc)) {
+      req.searchFunc({ params })
       return
     }
     isLoading.value = true
@@ -104,9 +100,9 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       if (isObject(req) && isFunction(req.searchApi))
         res = await req.searchApi(params)
 
-      tableData.value = isFunction(req.data) ? req.data(getAliasData(res, req).list) : getAliasData(res, req).list
+      tableData.value = isFunction(req.tableData) ? req.tableData(getAliasData(res, req).list) : getAliasData(res, req).list
 
-      if (props.pagination === false)
+      if (props.pagination !== false)
         setPaginationData({ total: Number(getAliasData(res, req).total) })
 
       isLoading.value = false
@@ -124,9 +120,9 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       ...payload,
       ...sortableData.value,
     }
-    if (props.pagination === false) {
-      params.page = setPaginationData({})?.page
-      params.pageSize = setPaginationData({})?.pageSize
+    if (props.pagination !== false) {
+      params.page = middlePagination.value.page
+      params.pageSize = middlePagination.value.pageSize
     }
     if (isObject(req) && isObject(req.params)) return req.params
     if (isObject(req) && isFunction(req.params)) return req.params(params)

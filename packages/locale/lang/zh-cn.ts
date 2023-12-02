@@ -55,6 +55,7 @@ export default {
     confirm: '确认',
     view: '查看',
     success: '成功',
+    operationSuccess: '操作成功',
     default: '默认',
     refresh: '刷新',
     fullScreen: '全屏',

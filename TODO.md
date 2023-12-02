@@ -66,7 +66,7 @@
 52. ~~`z-table`全屏提示切换~~
 53. ~~`z-crud`支持`alert`配置~~
 54. ~~`z-crud`的`pagination`优化~~
-55. `z-crud`的`tableData`优化
+55. ~~`z-crud`的`tableData`优化~~
 56. ~~`z-crud`支持外部让表格`loading`~~
 57. `z-form`支持逻辑联动，例如：被`hide`隐藏起来的元素，接口提交时不提交
 58. ~~`z-form`的`hide`等内置功能，支持`formData`传入~~
@@ -74,7 +74,7 @@
 60. `z-crud`前端分页未向上抛出数据，`v-model:data`此时会失效
 61. `z-table`的`pagination`支持位置调整
 62. ~~`z-form`的`OperationCard`组件`size`适配~~
-63. `z-table`数据项拖拽添加把手
+63. ~~`z-table`数据项拖拽添加把手~~
 64. ~~`z-filter-form`操作按钮逻辑内置~~
 65. ~~`z-filter-form`的查询和重置按钮支持属性配置~~
 66. ~~`z-filter-form`的操作按钮支持`render`函数自定义~~
@@ -94,7 +94,7 @@
 80. ~~`z-dialog`的`import`导入`ts`提示优化~~
 81. 所有组件的`label`、`tittle`等属性都通过方法支持`slot`和`render`函数
 82. ~~`z-form`的`form`去除无用`attributes`~~
-83. `z-table`支持`columns`动态导入
+83. ~~`z-table`支持`columns`动态导入~~
 84. ~~`z-tag-select`支持`title`自定义~~
 85. `z-tag-select`支持不展开
 86. ~~`z-radio`支持取消选中~~
@@ -104,7 +104,17 @@
 90. ~~优化`z-form`的`array`表单类型，操作按钮类名~~
 91. ~~`z-table`的`header`自定义处理~~
 92. ~~`z-table`的`options`报错问题~~
-93. `z-dialog`的`footer`优化
+93. ~~`z-dialog`的`footer`优化~~
+94. ~~`z-table`数据翻页处理，如：`editable`~
+95. ~~修复`z-table`动态导入，`checkbox`没有选中的问题~~
+96. ~~`z-table`在`editable`模式下，输入会频繁刷新问题~~
+97. ~~`z-table`行拖拽添加条件~~
+98. ~~`z-dialog`的`onConfirm`等方法的`confirmBtnLoading`等参数名优化~~
+99. `z-crud`的表单校验规则配置
+100. `z-crud`操作按钮权限
+101. `z-crud`接口支持参数自定义
+102. `z-table`前端分页优化
+103. `z-table`的`row-key`处理
 
 ## FEATURE
 

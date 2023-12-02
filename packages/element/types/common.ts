@@ -15,7 +15,7 @@ export type validateFieldCallback = (errorMessage: string) => void
 
 export interface Pagination {
   page: number
-  page_size: number
+  pageSize: number
   total: number
   [propName: string]: any
 }

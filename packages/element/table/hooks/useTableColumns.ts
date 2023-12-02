@@ -1,4 +1,4 @@
-import { isFunction, uid } from '@ideaz/utils'
+import { isFunction } from '@ideaz/utils'
 import type { Ref } from 'vue'
 import { getCheckData, getIsReturnToolBar } from '../utils'
 import type { ITableProps } from '../src/props'
@@ -11,13 +11,12 @@ export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<an
   const tableKey = ref(new Date().valueOf())
   const { columns, zTableFormRef } = useEditableColumns(props, emit, tableData)
 
-  if (props.columns && props.columns.length) {
-    props.columns.forEach((item: TableCol) => {
-      item.__uid = uid()
+  watch(() => props.columns, () => {
+    middleTableCols.value = getCheckData(props.toolBar, columns.value)
+    sortTableCols.value = columns.value.filter((item: TableCol) => {
+      return getIsReturnToolBar(item, props.toolBar)
     })
-  }
-
-  middleTableCols.value = getCheckData(props.toolBar, columns)
+  }, { immediate: true, deep: true })
 
   const formatTableCols = computed(() => {
     tableKey.value = new Date().valueOf()
@@ -26,17 +25,12 @@ export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<an
     })
   })
 
-  sortTableCols.value = columns.filter((item: TableCol) => {
-    return getIsReturnToolBar(item, props.toolBar)
-  })
-
   const originFormatTableCols = computed(() => {
-    tableKey.value = new Date().valueOf()
+    // tableKey.value = new Date().valueOf()
     // sortTableCols.value = columns.filter((item: TableCol) => {
     //   return getIsReturnToolBar(item, props.toolBar)
     // })
-
-    return columns.map((item: TableCol) => item)
+    return columns.value.map((item: TableCol) => item)
   })
 
   return {

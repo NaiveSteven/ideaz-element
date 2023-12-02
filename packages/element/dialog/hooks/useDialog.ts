@@ -24,7 +24,7 @@ export const useDialog = (props: DialogProps, emit: any) => {
       return
     }
     if (isFunction(props.onCancel)) {
-      emit('cancel', { done, cancelBtnLoading: isCancelBtnLoading })
+      emit('cancel', { done, cancelButtonLoading: isCancelBtnLoading })
       return
     }
     if (props.extend) {
@@ -38,7 +38,7 @@ export const useDialog = (props: DialogProps, emit: any) => {
     if (props.type === 'info' && !props.onConfirm)
       done()
 
-    emit('confirm', { done, confirmBtnLoading: isConfirmBtnLoading })
+    emit('confirm', { done, confirmButtonLoading: isConfirmBtnLoading })
   }
 
   const handleClosed = () => {

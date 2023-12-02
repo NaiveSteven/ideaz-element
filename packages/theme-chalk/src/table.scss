@@ -1,6 +1,22 @@
 .z-table {
   background-color: #fff;
 
+  .z-table-column-draggable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .z-table-column-draggable__handle {
+      padding: 4px;
+      cursor: grab;
+      border-radius: 6px;
+
+      // &:hover {
+      //   color: rgba(42, 46, 54, 0.88);
+      //   background-color: #d3e7ff;
+      // }
+    }
+  }
 
   .z-table__pagination {
     justify-content: flex-end;
@@ -112,11 +128,24 @@
       vertical-align: middle;
     }
 
+    .z-table-column__operation {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
     .z-table-column__dropdown + .z-table-column__dropdown,
     .z-table-column__dropdown + .el-button,
     .el-button + .z-table-column__dropdown {
       margin-left: 12px;
     }
+  }
+}
+
+.z-table-dragging {
+  .el-table__cell {
+    background-color: #fff !important;
   }
 }
 

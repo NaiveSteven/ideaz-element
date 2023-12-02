@@ -11,6 +11,7 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
   const ctx = instance.proxy
   const dialogForm = ref()
   const dialogFormData = ref({})
+  const confirmButtonLoading = ref(false)
 
   const { t } = useLocale()
 
@@ -19,6 +20,7 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
     return {
       title: dialog.title ? dialog.title : currentMode.value === 'add' ? t('crud.add') : currentMode.value === 'edit' ? t('common.edit') : t('common.view'),
       width: '680px',
+      confirmButtonLoading: confirmButtonLoading.value,
       ...dialog,
     }
   })
@@ -37,19 +39,40 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
   const handleConfirm = () => {
     dialogForm.value.validate(async (isValid: boolean, invalidFields: ValidateField) => {
       const submitApi = props.request?.submitApi
-      if (!submitApi) {
-        emit('submit', { done, isValid, invalidFields, form: dialogForm.value, formData: dialogFormData.value, type: currentMode.value })
+      const addApi = props.request?.addApi
+      const editApi = props.request?.editApi
+      if (!submitApi && !addApi && !editApi) {
+        emit('submit', { done, isValid, invalidFields, form: dialogForm.value, formData: dialogFormData.value, type: currentMode.value, rowData: currentMode.value === 'edit' ? rowData.value : {} })
       }
       else {
         if (isValid) {
-          let params = { ...dialogFormData.value }
-          if (currentMode.value === 'edit')
-            params = { ...dialogFormData.value, id: rowData.value.id }
+          confirmButtonLoading.value = true
+          try {
+            let params = { ...dialogFormData.value }
 
-          await submitApi(params)
-          ElMessage.success(t('common.success'))
-          done();
-          (ctx?.$refs?.zTableRef as typeof ZTable).getTableData()
+            if (currentMode.value === 'edit') {
+              params = { ...dialogFormData.value, id: rowData.value.id }
+              if (isFunction(submitApi))
+                await submitApi(params)
+
+              if (isFunction(editApi))
+                await editApi(params)
+            }
+            if (currentMode.value === 'add') {
+              if (isFunction(submitApi))
+                await submitApi(params)
+
+              if (isFunction(addApi))
+                await addApi(params)
+            }
+            ElMessage.success(t('common.success'))
+            done();
+            (ctx?.$refs?.zTableRef as typeof ZTable).getTableData()
+          }
+          catch (error) {
+
+          }
+          confirmButtonLoading.value = false
         }
       }
     })

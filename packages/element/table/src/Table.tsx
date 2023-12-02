@@ -3,6 +3,7 @@ import { Plus } from '@element-plus/icons-vue'
 import { useExpose } from '@ideaz/hooks'
 import { isFunction, isObject, isString } from '@ideaz/utils'
 import {
+  useDraggable,
   usePagination,
   useTableColumns,
   useTableMethods,
@@ -63,58 +64,10 @@ export default defineComponent({
       zTableFormRef,
     } = useTableColumns(props, emit, tableData)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
+    const { draggableOptions, dragging } = useDraggable(emit, tableData)
     const ns = useNamespace('table')
     const { t } = useLocale()
     const size = ref(props.size)
-
-    const draggableOptions = [
-      {
-        selector: 'tbody',
-        options: {
-          animation: 150,
-          ghostClass: 'ghost',
-          onEnd: (evt: any) => {
-            const { newIndex, oldIndex } = evt
-            const arr = [...tableData.value]
-
-            // 拖动元素与新位置原元素互换位置
-            // ES6 解构写法
-            // [arr[newIndex as number],arr[oldIndex as number]] = [arr[oldIndex as number],arr[newIndex as number]]
-            // ES5 普通写法
-            // arr.splice(newIndex as number,1, ...arr.splice(oldIndex as number,1,arr[newIndex as number]))
-            // 拖动元素至新位置后其余依次下移
-            const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
-            arr.splice(newIndex as number, 0, moveRowData)
-
-            tableData.value = []
-            nextTick(() => {
-              tableData.value = [...arr]
-              emit('drag-sort-end', tableData.value)
-            })
-          },
-        },
-      },
-      {
-        selector: '.el-table__header-wrapper tr',
-        options: {
-          animation: 150,
-          delay: 0,
-          ghostClass: 'table-col__ghost',
-          onEnd: (evt: any) => {
-            // emit('on-update-table-column', dropCol[evt.oldIndex], evt.newIndex, evt.oldIndex);
-
-            const { newIndex, oldIndex } = evt
-            const arr = [...middleTableCols.value]
-            const [moveRowData] = [...arr.splice(oldIndex as number, 1)]
-            arr.splice(newIndex as number, 0, moveRowData)
-            middleTableCols.value = []
-            nextTick(() => {
-              middleTableCols.value = [...arr]
-            })
-          },
-        },
-      },
-    ]
 
     provide(tableProvideKey, {
       props,
@@ -191,14 +144,13 @@ export default defineComponent({
 
     const renderTable = () => {
       const { loading, editable } = props
-
       return (
         <el-table
           ref="zTableRef"
           v-loading={loading}
-          class={[editable && ns.b('editable')]}
-          key={tableKey.value}
+          class={[editable && ns.b('editable'), dragging.value && 'z-table-dragging']}
           v-slots={tableSlots}
+          key={tableKey.value}
           v-draggable={draggableOptions}
           {...{ ...tableAttributes.value, data: tableData.value, size: size.value }}
         >
@@ -208,11 +160,13 @@ export default defineComponent({
                 ref={`zTableColumn${index}`}
                 column={item}
                 size={size.value}
+                key={item.__uid}
                 tableProps={tableAttributes.value}
                 onRadio-change={(row: any) => emit('radio-change', row)}
+                onUpdate:data={(data: any) => emit('update:data', data)}
                 columnIndex={index}
                 columnsLength={formatTableCols.value.length}
-                v-slots={scopedSlots}
+                v-slots={{ ...slots, ...scopedSlots }}
               />
             )
           })}

@@ -1,8 +1,9 @@
-import { isFunction, isObject } from '@ideaz/utils'
+import { isFunction, isObject, uid } from '@ideaz/utils'
 import type { Ref } from 'vue'
 import type { TableColumnCtx } from 'element-plus'
 import DialogTip from '../../dialog/src/dialog'
 import type { ITableProps } from '../src/props'
+import type { TableCol } from '~/types'
 
 function replacePropertyValues(obj: any, reverse = false) {
   for (const key in obj) {
@@ -24,7 +25,7 @@ function replacePropertyValues(obj: any, reverse = false) {
 export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref<any>) => {
   const editableType = ref<'single' | 'multiple'>(isObject(props.editable) ? (props.editable.type || 'single') : 'single')
   const zTableFormRef = ref()
-  let columns: any[] = []
+  const columns = ref<TableCol[]>([])
   const { t } = useLocale()
 
   const generateValidateFields = (index: number) => {
@@ -64,13 +65,13 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
         }
         else {
           zTableFormRef.value.validateField
-          && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
-            if (!validated)
-              return
+            && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
+              if (!validated)
+                return
 
-            replacePropertyValues(row)
-            row.__isEdit = false
-          })
+              replacePropertyValues(row)
+              row.__isEdit = false
+            })
         }
       },
     }
@@ -108,7 +109,8 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
             tableData.value.splice(index, 1)
         }
         if (isObject(props.editable) && props.editable?.deleteConfirm) {
-          DialogTip.warning({
+          DialogTip({
+            type: 'warning',
             title: t('dialog.tip'),
             message: t('table.deleteTip'),
             onConfirm: ({ done }) => {
@@ -124,30 +126,37 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
     }
   }
 
-  if (props.editable && props.columns.length > 0 && props.columns[props.columns.length - 1]?.type !== 'button') {
-    columns = props.columns.concat([{
-      type: 'button',
-      label: t('table.action'),
-      buttons: [
-        renderEdit(),
-        renderSave(),
-        renderCancel(),
-        renderDelete(),
-      ],
-    }])
-  }
-  else if (props.editable && props.columns.length > 0 && props.columns[props.columns.length - 1]?.type === 'button') {
-    columns = props.columns.map((item: any) => {
-      if (item.type === 'button') {
-        if (isFunction(item.buttons))
-          item.buttons = item.buttons({ renderEdit: renderEdit(), renderSave: renderSave(), renderCancel: renderCancel(), renderDelete: renderDelete() }, tableData)
-      }
-      return item
-    })
-  }
-  else {
-    columns = props.columns
-  }
+  watchEffect(() => {
+    const cols = props.columns.map((item) => {
+      if (item.type === 'sort') return { width: 48, ...item, __uid: uid() }
+      return { ...item, __uid: uid() }
+    }) as TableCol[]
+    if (props.editable && cols.length > 0 && cols[cols.length - 1]?.type !== 'button') {
+      columns.value = cols.concat({
+        type: 'button',
+        __uid: uid(),
+        label: t('table.action'),
+        buttons: [
+          renderEdit(),
+          renderSave(),
+          renderCancel(),
+          renderDelete(),
+        ],
+      } as TableCol)
+    }
+    else if (props.editable && cols.length > 0 && cols[cols.length - 1]?.type === 'button') {
+      columns.value = cols.map((item: any) => {
+        if (item.type === 'button') {
+          if (isFunction(item.buttons))
+            item.buttons = item.buttons({ renderEdit: renderEdit(), renderSave: renderSave(), renderCancel: renderCancel(), renderDelete: renderDelete() }, tableData)
+        }
+        return item
+      })
+    }
+    else {
+      columns.value = cols
+    }
+  })
 
   return { columns, zTableFormRef }
 }

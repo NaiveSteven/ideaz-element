@@ -5,8 +5,16 @@ import type { TableCol } from '~/types'
 
 export const useDescriptions = (props: CrudProps) => {
   const descriptionColumns = computed(() => {
+    if (isObject(props.form) && isArray(props.form.columns) && !props.detail) {
+      return props.form.columns.map((column) => {
+        return {
+          prop: column.field,
+          ...column,
+        }
+      })
+    }
     if (isObject(props.detail) && isArray(props.detail?.columns)) return props.detail.columns
-    return props.columns.filter((column: TableCol) => column.detail).map((column: TableCol) => {
+    return props.columns.filter((column: TableCol) => column.detail || (column.form && column.detail !== false)).map((column: TableCol) => {
       return {
         label: column.label,
         prop: column.prop,

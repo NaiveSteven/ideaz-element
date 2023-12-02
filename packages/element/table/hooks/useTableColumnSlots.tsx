@@ -1,11 +1,12 @@
-import { QuestionFilled } from '@element-plus/icons-vue'
+import { Operation, QuestionFilled } from '@element-plus/icons-vue'
 import { isBoolean, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
+import { ElIcon } from 'element-plus'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
 import { SELECT_TYPES } from '../../form/hooks'
 import { useTableColComponentName } from './useTableColComponentName'
 
-export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
+export const useTableColumnSlots = (props: TableColumnProps, slots: any, emit: any) => {
   const scopedSlots = shallowRef<any>({})
   const ns = useNamespace('table-column')
   const { t } = useLocale()
@@ -70,7 +71,10 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
             return h(resolveComponent(componentName), {
               'modelValue': scope.row[column.prop],
               'onUpdate:modelValue': (val: any) => {
-                scope.row[column.prop] = val
+                const rowData = { ...scope.row, [column.prop]: val }
+                const list = [...props.tableProps.data]
+                list.splice(scope.$index, 1, rowData)
+                emit('update:data', list)
               },
               'componentName': getDynamicComponentName(column.type!),
               'on': column.on,
@@ -93,14 +97,25 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
           if (column.slot && slots[column.slot])
             return slots[column.slot](scope)
 
+          if (column.type === 'sort' && isFunction(slots.sort))
+            return <div class={ns.b('draggable')}>{slots.sort(scope)}</div>
+
+          if (column.type === 'sort' && isFunction(column.render))
+            return <div class={ns.b('draggable')}>{column.render(h, scope)}</div>
+
           if (isFunction(column.render))
             return column.render(h, scope)
 
           if (column.type === 'button') {
-            return column.buttons?.map((button) => {
-              return <TableButton button={button} scope={scope} size={size} />
-            })
+            return <div class={ns.e('operation')}>
+              {column.buttons?.map((button) => {
+                return <TableButton button={button} scope={scope} size={size} />
+              })}
+            </div>
           }
+
+          if (column.type === 'sort')
+            return <div class={ns.b('draggable')}><ElIcon class={ns.be('draggable', 'handle')} size={24}><Operation /></ElIcon></div>
 
           if (tableProps.editable) {
             return scope.row.__isEdit === true
@@ -109,6 +124,10 @@ export const useTableColumnSlots = (props: TableColumnProps, slots: any) => {
             </el-form-item>
               : <span>{getLabel(scope.row)}</span>
           }
+
+          // warning
+          if ((column.slot && !slots[column.slot]) || (column.type === 'expand' && !isFunction(slots.expand)))
+            return null
 
           return renderCustomComponent()
         }

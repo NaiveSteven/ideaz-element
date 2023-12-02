@@ -10,7 +10,8 @@ export const usePagination = (props: ITableProps, emit: any) => {
 
   const pagination = computed<Pagination>({
     get() {
-      return isObject(props.pagination) ? props.pagination : {}
+      // editable is not compatible with pagination
+      return (isObject(props.pagination) && !props.editable) ? props.pagination : {}
     },
     set(val) {
       emit('update:pagination', val)
@@ -21,37 +22,6 @@ export const usePagination = (props: ITableProps, emit: any) => {
     const omitProps = reactiveOmit(props, ['pagination', 'columns', 'draggable', 'toolBar', 'loading'])
     return { ...attrs, ...omitProps }
   })
-
-  watch(
-    () => tableAttributes.value,
-    () => {
-      if (
-        tableAttributes.value.data
-        && pagination.value.total
-        && tableAttributes.value.data.length === pagination.value.total
-      ) {
-        getTableData(pagination.value)
-      }
-      else {
-        if (props.editable) {
-          const editableType = isObject(props.editable) ? (props.editable.type || 'single') : 'single'
-          const columnProps = props.columns.map(column => column.prop).filter(prop => prop)
-          tableData.value = tableAttributes.value.data.map((item: any) => {
-            const obj: { [propName: string]: string } = {}
-            columnProps.forEach((prop) => {
-              if (Object.hasOwnProperty.call(item, prop))
-                obj[`${prop}Prop`] = item[prop]
-            })
-            return { ...item, __isEdit: editableType !== 'single', ...obj }
-          })
-        }
-        else {
-          tableData.value = tableAttributes.value.data
-        }
-      }
-    },
-    { immediate: true },
-  )
 
   const paginationAttrs = computed(() => {
     return {
@@ -70,6 +40,36 @@ export const usePagination = (props: ITableProps, emit: any) => {
       return true
     return false
   })
+
+  watch(
+    () => tableAttributes.value,
+    () => {
+      if (
+        pagination.value.total && paginationAttrs.value.type === 'front'
+      ) {
+        getTableData(pagination.value)
+      }
+      else {
+        if (props.editable) {
+          const editableType = isObject(props.editable) ? (props.editable.type || 'single') : 'single'
+          const columnProps = props.columns.map(column => column.prop).filter(prop => prop)
+          tableData.value = tableAttributes.value.data.map((item: any) => {
+            const obj: { [propName: string]: string } = {}
+            columnProps.forEach((prop) => {
+              // only add prop if it is not already in the object
+              if (Object.hasOwnProperty.call(item, prop) && !Object.hasOwnProperty.call(item, `${prop}Prop`))
+                obj[`${prop}Prop`] = item[prop]
+            })
+            return { __isEdit: editableType !== 'single', ...item, ...obj }
+          })
+        }
+        else {
+          tableData.value = tableAttributes.value.data
+        }
+      }
+    },
+    { immediate: true },
+  )
 
   const addTableData = () => {
     const rowData = { __isEdit: true }
