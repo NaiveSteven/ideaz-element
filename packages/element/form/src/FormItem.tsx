@@ -48,7 +48,7 @@ export default defineComponent({
           ref="formItem"
           prop={col.field}
           class={ns.b()}
-          {...formItemProps.value}
+          {...{ size: size.value, ...formItemProps.value }}
           v-slots={vSlots.value}
         >
           {(isFunction(col.render) || col.slot)

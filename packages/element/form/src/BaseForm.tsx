@@ -69,7 +69,7 @@ export default defineComponent({
         columns={contentColumns}
         formProps={props}
         v-slots={slots}
-        onUpdate: modelValue={(...args) => { emit('update:modelValue', ...args) }}
+        onUpdate:modelValue={(...args) => { emit('update:modelValue', ...args) }}
         onChange={(...args) => { emit('change', ...args) }}
       />
     }
@@ -133,7 +133,7 @@ export default defineComponent({
           modelValue={activeCollapse}
           accordion={accordion}
           class={ns.b('collapse')}
-          onUpdate: modelValue={(val: CollapseModelValue) => { emit('update:activeCollapse', val) }}
+          onUpdate:modelValue={(val: CollapseModelValue) => { emit('update:activeCollapse', val) }}
           onChange={(val: CollapseModelValue) => { emit('collapse-change', val) }}
         >
           {formatFormItems.value.map((column) => {
@@ -168,7 +168,7 @@ export default defineComponent({
                   options={options}
                   columns={formatFormItems.value}
                   v-slots={slots}
-                  onUpdate: modelValue={(val: any) => {
+                  onUpdate:modelValue={(val: any) => {
                     model.splice(index, 1, val)
                     emit('update:modelValue', model)
                   }}
@@ -211,7 +211,7 @@ export default defineComponent({
                         options={column.options || options}
                         columns={column.children}
                         v-slots={slots}
-                        onUpdate: modelValue={(val: any) => {
+                        onUpdate:modelValue={(val: any) => {
                           const item = cloneDeep(modelValue[field])
                           item.splice(index, 1, val)
                           emit('update:modelValue', { ...modelValue, [field]: item })

@@ -216,8 +216,11 @@ const pagination = ref({
   pageSize: 2,
   total: 4,
 })
+const request = ref({
+  searchApi: mockApi
+})
 
-const mockApi = () => {
+function mockApi() {
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -248,7 +251,7 @@ const mockApi = () => {
       ]
 
       resolve({
-        result: {
+        data: {
           page: 1,
           pageSize: 10,
           total: 4,
@@ -258,29 +261,6 @@ const mockApi = () => {
     }, 100)
   })
 }
-
-const getTableData = async () => {
-  loading.value = true
-  try {
-    const params = {
-      ...pagination.value, ...formData.value
-    }
-    const res = await mockApi(params)
-    tableData.value = res.result.list
-    pagination.value.total = res.result.total
-  }
-  catch (error) {
-    console.log(error)
-  }
-  loading.value = false
-}
-
-const handleSearch = () => {
-  pagination.value.page = 1
-  getTableData()
-}
-
-getTableData()
 </script>
 
 <template>
@@ -288,14 +268,12 @@ getTableData()
     v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:formData="formData"
+    v-model:loading="loading"
     :options="options"
-    :loading="loading"
     :columns="columns"
     :search="searchFormConfig"
     :action="false"
-    @refresh="getTableData"
-    @search="handleSearch"
-    @reset="handleSearch"
+    :request="request"
   />
 </template>
 ```
@@ -384,8 +362,11 @@ const pagination = ref({
   pageSize: 2,
   total: 4,
 })
+const request = ref({
+  searchApi: mockApi
+})
 
-const mockApi = () => {
+function mockApi() {
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -416,7 +397,7 @@ const mockApi = () => {
       ]
 
       resolve({
-        result: {
+        data: {
           page: 1,
           pageSize: 10,
           total: 4,
@@ -426,29 +407,6 @@ const mockApi = () => {
     }, 100)
   })
 }
-
-const getTableData = async () => {
-  loading.value = true
-  try {
-    const params = {
-      ...pagination.value, ...formData.value
-    }
-    const res = await mockApi(params)
-    tableData.value = res.result.list
-    pagination.value.total = res.result.total
-  }
-  catch (error) {
-    console.log(error)
-  }
-  loading.value = false
-}
-
-const handleSearch = () => {
-  pagination.value.page = 1
-  getTableData()
-}
-
-getTableData()
 </script>
 
 <template>
@@ -456,14 +414,12 @@ getTableData()
     v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:formData="formData"
+    v-model:loading="loading"
     :options="options"
-    :loading="loading"
     :columns="columns"
     :action="false"
     :search="searchFormConfig"
-    @refresh="getTableData"
-    @search="handleSearch"
-    @reset="handleSearch"
+    :request="request"
   />
 </template>
 ```
@@ -528,8 +484,11 @@ const pagination = ref({
   pageSize: 2,
   total: 4,
 })
+const request = ref({
+  searchApi: mockApi
+})
 
-const mockApi = () => {
+function mockApi() {
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -560,7 +519,7 @@ const mockApi = () => {
       ]
 
       resolve({
-        result: {
+        data: {
           page: 1,
           pageSize: 10,
           total: 4,
@@ -570,29 +529,6 @@ const mockApi = () => {
     }, 100)
   })
 }
-
-const getTableData = async () => {
-  loading.value = true
-  try {
-    const params = {
-      ...pagination.value, ...formData.value
-    }
-    const res = await mockApi(params)
-    tableData.value = res.result.list
-    pagination.value.total = res.result.total
-  }
-  catch (error) {
-    console.log(error)
-  }
-  loading.value = false
-}
-
-const handleSearch = () => {
-  pagination.value.page = 1
-  getTableData()
-}
-
-getTableData()
 </script>
 
 <template>
@@ -600,13 +536,12 @@ getTableData()
     v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:formData="formData"
+    v-model:loading="loading"
     :options="options"
-    :loading="loading"
     :columns="columns"
+    :search="{ size: 'default' }"
     :action="false"
-    @refresh="getTableData"
-    @search="handleSearch"
-    @reset="handleSearch"
+    :request="request"
   >
     <template #ageSlot>
       <el-input v-model="formData.age" placeholder="请输入年龄" clearable />
