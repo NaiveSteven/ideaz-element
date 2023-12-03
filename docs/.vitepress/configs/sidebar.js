@@ -108,6 +108,10 @@ function getComponentsSidebar() {
                   text: '查询表单配置',
                   link: '/components/crud-form',
                 },
+                {
+                  text: '新增编辑配置',
+                  link: '/components/crud-cu',
+                },
               ],
             },
           ],
