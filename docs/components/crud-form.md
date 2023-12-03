@@ -4,11 +4,11 @@
 
 ## 基础用法
 
-配置`column`项的`form`生成表单项。
+配置`column`项的`search`生成表单项。
 
 + `label`和`field`可以不传，默认取`prop`和`label`
 + 组件默认配置`clearable`、`placeholder`和`filterable`
-+ `form`属性的具体配置可参考`z-form`的`column`项
++ `search`属性的具体配置可参考`z-form`的`column`项
 + 表单布局固定为`{ xs: 24, sm: 12, md: 8, lg: 8, xl: 6 }`
 
 :::demo
@@ -29,7 +29,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    form: {
+    search: {
       component: 'input',
       label: '姓名',
       field: 'name'
@@ -38,7 +38,7 @@ const columns = ref([
   {
     prop: 'sex',
     label: '性别',
-    form: {
+    search: {
       component: 'select',
       label: '性别',
       field: 'sex'
@@ -47,7 +47,7 @@ const columns = ref([
   {
     prop: 'age',
     label: '年龄',
-    form: {
+    search: {
       component: 'input',
       label: '年龄',
       field: 'age'
@@ -280,6 +280,154 @@ function mockApi() {
 
 :::
 
+配置`column`的`search`也能生成查询表单项，但同时也会生成新增和编辑表单项，如不需要，可配置`add`和`edit`字段为`false`。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const formData = ref({
+  name: '',
+  sex: '',
+  age: ''
+})
+const tableData = ref([])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    add: false,
+    edit: false,
+    form: {
+      component: 'input',
+      label: '姓名',
+      field: 'name'
+    }
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    add: false,
+    edit: false,
+    form: {
+      component: 'select',
+      label: '性别',
+      field: 'sex'
+    }
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+    add: false,
+    edit: false,
+    form: {
+      component: 'input',
+      label: '年龄',
+      field: 'age'
+    }
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+
+const options = {
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
+}
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 4,
+})
+
+const mockApi = () => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        result: {
+          page: 1,
+          pageSize: 10,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
+        }
+      })
+    }, 100)
+  })
+}
+
+const getTableData = async () => {
+  loading.value = true
+  try {
+    const params = {
+      ...pagination.value, ...formData.value
+    }
+    const res = await mockApi(params)
+    tableData.value = res.result.list
+    pagination.value.total = res.result.total
+  }
+  catch (error) {
+    console.log(error)
+  }
+  loading.value = false
+}
+
+const handleSearch = () => {
+  pagination.value.page = 1
+  getTableData()
+}
+
+getTableData()
+</script>
+
+<template>
+  <z-crud
+    v-model:pagination="pagination"
+    v-model:data="tableData"
+    v-model:formData="formData"
+    :options="options"
+    :loading="loading"
+    :columns="columns"
+    @refresh="getTableData"
+    @search="handleSearch"
+    @reset="handleSearch"
+  />
+</template>
+```
+
+:::
+
 ## 校验
 
 + `form`字段中添加`required`字段，或者`formItemProps`中设置`required`字段，即可设置必填，校验信息会根据`label`自动生成也可自定义。
@@ -310,7 +458,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    form: {
+    search: {
       component: 'input',
       field: 'name',
       label: '姓名',
@@ -321,7 +469,7 @@ const columns = ref([
   {
     prop: 'sex',
     label: '性别',
-    form: {
+    search: {
       component: 'select',
       field: 'sex',
       formItemProps: {
@@ -333,7 +481,7 @@ const columns = ref([
   {
     prop: 'age',
     label: '年龄',
-    form: {
+    search: {
       component: 'datepicker',
       field: 'time',
       label: '出生日期',
@@ -448,7 +596,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    form: {
+    search: {
       component: 'input',
       field: 'name',
       label: '姓名',
@@ -457,7 +605,7 @@ const columns = ref([
   {
     prop: 'sex',
     label: '性别',
-    form: {
+    search: {
       slot: 'ageSlot',
       label: '年龄'
     },
@@ -465,7 +613,7 @@ const columns = ref([
   {
     prop: 'age',
     label: '年龄',
-    form: {
+    search: {
       render: () => h('span', {}, formData.value.height),
       label: '身高'
     },
@@ -574,7 +722,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    form: {
+    search: {
       component: 'input',
       field: 'name',
       label: () => h('span', {}, '姓名'),
@@ -585,7 +733,7 @@ const columns = ref([
   {
     prop: 'sex',
     label: '性别',
-    form: {
+    search: {
       component: 'select',
       field: 'sex',
       label: 'labelSlot',
@@ -596,7 +744,7 @@ const columns = ref([
   {
     prop: 'age',
     label: '年龄',
-    form: {
+    search: {
       component: 'datepicker',
       field: 'time',
       label: '出生日期',
@@ -712,7 +860,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    form: {
+    search: {
       component: 'input',
       field: 'name',
       label: '姓名',
@@ -721,7 +869,7 @@ const columns = ref([
   {
     prop: 'sex',
     label: '性别',
-    form: {
+    search: {
       component: 'select',
       field: 'sex',
       label: '性别',
@@ -730,7 +878,7 @@ const columns = ref([
   {
     prop: 'age',
     label: '年龄',
-    form: {
+    search: {
       component: 'datepicker',
       field: 'time',
       label: '出生日期',
@@ -844,7 +992,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    form: {
+    search: {
       component: 'input',
       field: 'name',
       label: '姓名',
@@ -854,7 +1002,7 @@ const columns = ref([
   {
     prop: 'sex',
     label: '性别',
-    form: {
+    search: {
       component: 'select',
       field: 'sex',
       label: '性别',
@@ -864,7 +1012,7 @@ const columns = ref([
   {
     prop: 'age',
     label: '年龄',
-    form: {
+    search: {
       component: 'datepicker',
       field: 'time',
       label: '出生日期',
@@ -986,7 +1134,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    form: {
+    search: {
       component: 'input',
       field: 'name',
       label: '姓名',
@@ -995,7 +1143,7 @@ const columns = ref([
   {
     prop: 'sex',
     label: '性别',
-    form: {
+    search: {
       component: 'select',
       field: 'sex',
       label: '性别',
@@ -1004,7 +1152,7 @@ const columns = ref([
   {
     prop: 'age',
     label: '年龄',
-    form: {
+    search: {
       component: 'datepicker',
       field: 'time',
       label: '出生日期',
