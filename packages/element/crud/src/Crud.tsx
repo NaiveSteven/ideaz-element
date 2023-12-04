@@ -227,6 +227,7 @@ export default defineComponent({
     }
 
     const renderDrawer = () => {
+      console.log(descriptionColumns.value, 'asdf')
       return <el-drawer
         modelValue={isShowDrawer.value}
         onUpdate:modelValue={(val: boolean) => isShowDrawer.value = val}
