@@ -126,7 +126,7 @@ export default defineComponent({
         class: ns.be('table', 'container'),
         children: <z-table
           ref="zTableRef"
-          {...tableProps.value}
+          {...{ size: size.value, ...tableProps.value }}
           v-slots={{
             ...slots,
             topLeft: () => {
@@ -182,13 +182,14 @@ export default defineComponent({
         class: ns.be('filter-form', 'container'),
         children: <z-filter-form
           ref="formRef"
-          {...{ labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
+          {...{ size: size.value, labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
           options={props.options}
           modelValue={middleFormData.value}
           onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
           onSearch={handleSearch}
           onReset={handleReset}
           onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
+          v-slots={slots}
         >
         </z-filter-form>,
       })
@@ -198,13 +199,15 @@ export default defineComponent({
       const columns = currentMode.value === 'add' ? addFormColumns.value : currentMode.value === 'edit' ? editFormColumns.value : detailColumns.value
       const formData = currentMode.value === 'add' ? props.addFormData : currentMode.value === 'edit' ? props.editFormData : rowData.value
       const formProps = omit(props.form || {}, ['columns'])
+      const operateFormProps = currentMode.value === 'add' ? omit(props.add || {}, ['columns']) : omit(props.edit || {}, ['columns'])
       return <z-form
-        {...{ labelWidth: '60px', ...formProps }}
+        {...{ size: size.value, labelWidth: '60px', ...formProps, ...operateFormProps }}
         ref={dialogForm}
         columns={columns}
         options={props.options}
         modelValue={dialogFormData.value}
         onUpdate:modelValue={(val: any) => { dialogFormData.value = val }}
+        v-slots={slots}
       >
 
       </z-form>
@@ -230,7 +233,7 @@ export default defineComponent({
         {...drawerProps.value}
         onOpen={() => handleDrawerOpen(rowData.value)}
       >
-        <z-descriptions v-loading={isDescLoading.value} columns={descriptionColumns.value} detail={viewData.value} {...descriptionProps.value} />
+        <z-descriptions v-loading={isDescLoading.value} columns={descriptionColumns.value} detail={viewData.value} {...{ size: size.value, ...descriptionProps.value }} />
       </el-drawer>
     }
 

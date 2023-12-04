@@ -1424,19 +1424,18 @@ const handleClear = () => {
 
 :::
 
-
-## z-table属性
+## z-crud表格属性
 
 | 属性名                  | 说明                                                         | 类型                                                      | 可选值                                                       | 默认值                                                       |
 | :---------------------- | :----------------------------------------------------------- | :-------------------------------------------------------- | :----------------------------------------------------------- | :----------------------------------------------------------- |
-| data                    | 显示的数据                                                   | array                                                     | —                                                            | —                                                            |
+| modelValue:data                    | 显示的数据，支持双向绑定                                                   | array                                                     | —                                                            | —                                                            |
 | modelValue:pagination                    | 分页配置，支持双向绑定                                                   | object                                                     | —                                                            | —                                                            |
+| modelValue:loading                    | 表格加载，支持双向绑定                                                   | boolean                                                     | —                                                            | —                                                            |
 | columns                    | 表格配置项                                                   | array                                                     | —                                                            | —                                                            |
 | toolBar                    | 工具栏配置                                                   | object / boolean                                                    | —                                                            | —                                                            |
 | editable                    | 可编辑表格配置                                                   | object / boolean                                                     | —                                                            | —                                                            |
 | options                    | 表格内部选项数据源                                                   | object                                                     | —                                                            | —                                                            |
 | watermark                    | 水印配置                                                   | object（具体配置可查看`z-watermark`文档）                                                     | —                                                            | —                                                            |
-| options                    | 表格内部选项数据源                                                   | object                                                     | —                                                            | —                                                            |
 | height                  | Table 的高度， 默认为自动高度。 如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。 | string / number                                           | —                                                            | —                                                            |
 | max-height              | Table 的最大高度。 合法的值为数字或者单位为 px 的高度。      | string / number                                           | —                                                            | —                                                            |
 | stripe                  | 是否为斑马纹 table                                           | boolean                                                   | —                                                            | false                                                        |
@@ -1475,7 +1474,7 @@ const handleClear = () => {
 | show-overflow-tooltip   | 是否隐藏额外内容并在单元格悬停时使用 Tooltip 显示它们。这将影响全部列的展示。 | boolean \                                                 | [`object`](https://element-plus.org/zh-CN/component/table.html#table-attributes) | 参考 [tooltip-options](https://element-plus.org/zh-CN/component/table.html#table-attributes) |
 | flexible                | 确保主轴的最小尺寸，以便不超过内容                           | boolean                                                   | —                                                            | false                                                        |
 
-## z-table事件
+## z-crud表格事件
 
 | 事件名             | 说明                                                         | 回调参数                          |
 | :----------------- | :----------------------------------------------------------- | :-------------------------------- |
@@ -1500,11 +1499,11 @@ const handleClear = () => {
 | header-dragend     | 当拖动表头改变了列的宽度的时候会触发该事件                   | newWidth, oldWidth, column, event |
 | expand-change      | 当用户对某一行展开或者关闭的时候会触发该事件（展开行时，回调的第二个参数为 expandedRows；树形表格时第二参数为 expanded） | row, (expandedRows \| expanded)   |
 
-## z-table方法
+## z-crud表格方法
 
 | 方法名             | 说明                                                         | 参数                                                  |
 | :----------------- | :----------------------------------------------------------- | :---------------------------------------------------- |
-| clearSelection     | 用于多选表格，清空用户的选择                                 | —                                                     |
+| clearSelection     | 用于多选表格或单选表格，清空用户的选择                                 | —                                                     |
 | getSelectionRows   | 返回当前选中的行                                             |                                                       |
 | toggleRowSelection | 用于多选表格，切换某一行的选中状态， 如果使用了第二个参数，则可直接设置这一行选中与否 | row, selected                                         |
 | toggleAllSelection | 用于多选表格，切换全选和全不选                               | —                                                     |
@@ -1518,7 +1517,7 @@ const handleClear = () => {
 | setScrollTop       | 设置垂直滚动位置                                             | top                                                   |
 | setScrollLeft      | 设置水平滚动位置                                             | left                                                  |
 
-## z-table插槽
+## z-crud插槽
 
 | 插槽名 | 说明                                                         | 子标签       |
 | :----- | :----------------------------------------------------------- | :----------- |
@@ -1536,6 +1535,7 @@ const handleClear = () => {
 | type                  | 对应列的类型。 | string                                  | selection / index / expand/ radio / button / input / select                                   | —                                                            |
 | index                 | 如果设置了 `type=index`，可以通过传递 `index` 属性来自定义索引 | number / function(index)                | —                                                            | —                                                            |
 | label                 | 显示的标题（建议配置）                                                   | string                                  | —                                                            | —                                                            |
+| form                 | 表单配置                                                   | object                                  | —                                                            | —                                                            |
 | buttons                 | 按钮配置                                                   | array                                  | —                                                            | —                                                            |
 | options                 | 选项组件数据源                                                   | array                                  | —                                                            |
 | tooltip                 | 列提示                                                   | `string` / `() => VNode`                                  | —                                                            | —                                                            |
