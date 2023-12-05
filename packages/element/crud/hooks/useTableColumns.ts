@@ -73,7 +73,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
 
   const tableColumns = computed(() => {
     if (props.action) {
-      return props.columns.concat([
+      return props.columns?.concat([
         {
           type: 'button',
           label: t('table.action'),
