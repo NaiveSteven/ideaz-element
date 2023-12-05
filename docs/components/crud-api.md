@@ -436,7 +436,7 @@ function commonApi(params) {
 
 ## 表格数据接口参数
 
-支持通过`request.params`自定义表格数据接口参数。
+支持通过`request.searchParams`自定义表格数据接口参数。
 
 :::demo
 
@@ -481,7 +481,7 @@ const request = ref({
   searchApi: getTableData,
   deleteApi: commonApi,
   submitApi: commonApi,
-  params: (data) => {
+  searchParams: (data) => {
     return {
       ...data,
       mock: 'true'
@@ -1371,7 +1371,7 @@ getTableData()
 | addApi   | 新增接口                                              | `Function`              | —     |
 | editApi   | 编辑接口                                              | `Function`              | —     |
 | detailApi   | 详情接口                                              | `Function`              | —     |
-| params   | 表格数据接口参数自定义                                              | `(params) => object`              | —     |
+| searchParams   | 表格数据接口参数自定义                                              | `(params) => object`              | —     |
 | beforeData   | 表格数据接口调用前的回调                                              | `Function`              | —     |
 | afterData   | 表格数据接口调用后的回调                                              | `(res) => void`              | —     |
 | searchFunc   | 自定义表格数据方法                                              | `({params}) => void`              | —     |

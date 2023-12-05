@@ -26,7 +26,10 @@ export interface RequestConfig {
     total: string | ((res: any) => any)
     detail: string | ((res: any) => any)
   }
-  params?: any
+  searchParams?: any
+  detailParams?: any
+  addParams?: any
+  editParams?: any
   beforeData?: any
   afterData?: any
   searchFunc?: any
