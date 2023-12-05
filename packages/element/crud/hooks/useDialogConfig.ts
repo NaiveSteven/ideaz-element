@@ -1,7 +1,7 @@
 import type { Ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue-demi'
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isObject } from '@ideaz/utils'
 import type ZTable from '../../table/src/Table'
 import type { CrudProps } from '../src/props'
 import type { ValidateField } from '~/types'
@@ -16,12 +16,15 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
   const { t } = useLocale()
 
   const dialogProps = computed(() => {
-    const { dialog } = props
+    const { add, edit, dialog } = props
+    const dialogProps = (isObject(add) && isObject(add.dialog) && currentMode.value === 'add')
+      ? add?.dialog
+      : (isObject(edit) && isObject(edit.dialog) && currentMode.value === 'edit') ? edit?.dialog : dialog
     return {
       title: dialog.title ? dialog.title : currentMode.value === 'add' ? t('crud.add') : currentMode.value === 'edit' ? t('common.edit') : t('common.view'),
       width: '680px',
       confirmButtonLoading: confirmButtonLoading.value,
-      ...dialog,
+      ...dialogProps,
     }
   })
 

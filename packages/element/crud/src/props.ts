@@ -142,3 +142,4 @@ export const crudProps = {
 
 export type CrudProps = ExtractPropTypes<typeof crudProps>
 export const crudProvideKey = Symbol('crudKey')
+export const EXCLUDE_FORM_PROPS_KEYS = ['columns', 'dialog']

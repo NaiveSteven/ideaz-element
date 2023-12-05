@@ -1192,7 +1192,7 @@ function commonApi(params) {
 
 ## 弹窗属性
 
-使用`dialog`对象配置表单属性。
+可以使用`dialog`对象统一配置新增和编辑弹窗属性，也可以使用`add.dialog`和`edit.dialog`分别配置弹窗属性。
 
 :::demo
 
@@ -1292,12 +1292,18 @@ const searchFormConfig = ref({
 
 const addFormConfig = ref({
   labelWidth: '120px',
-  labelPosition: 'top'
+  labelPosition: 'top',
+  dialog: {
+    title: '新增弹窗'
+  }
 })
 
 const editFormConfig = ref({
   labelWidth: '80px',
-  labelPosition: 'left'
+  labelPosition: 'left',
+  dialog: {
+    title: '编辑弹窗'
+  }
 })
 
 const options = {

@@ -8,7 +8,7 @@ import {
   useTableMethods,
 } from '../../table/hooks'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
-import { crudProps, crudProvideKey } from './props'
+import { EXCLUDE_FORM_PROPS_KEYS, crudProps, crudProvideKey } from './props'
 import type { Pagination } from '~/types'
 
 export default defineComponent({
@@ -182,7 +182,14 @@ export default defineComponent({
         class: ns.be('filter-form', 'container'),
         children: <z-filter-form
           ref="formRef"
-          {...{ size: size.value, labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
+          {...{
+            size: size.value,
+            labelWidth: '60px',
+            ...omit(props.search || {}, EXCLUDE_FORM_PROPS_KEYS),
+            columns: searchFormColumns.value,
+            ...attrs.value,
+            searchButtonLoading: tableProps.value.loading,
+          }}
           options={props.options}
           modelValue={middleFormData.value}
           onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
@@ -198,8 +205,8 @@ export default defineComponent({
     const renderOperateForm = () => {
       const columns = currentMode.value === 'add' ? addFormColumns.value : currentMode.value === 'edit' ? editFormColumns.value : detailColumns.value
       const formData = currentMode.value === 'add' ? props.addFormData : currentMode.value === 'edit' ? props.editFormData : rowData.value
-      const formProps = omit(props.form || {}, ['columns'])
-      const operateFormProps = currentMode.value === 'add' ? omit(props.add || {}, ['columns']) : omit(props.edit || {}, ['columns'])
+      const formProps = omit(props.form || {}, EXCLUDE_FORM_PROPS_KEYS)
+      const operateFormProps = currentMode.value === 'add' ? omit(props.add || {}, EXCLUDE_FORM_PROPS_KEYS) : omit(props.edit || {}, EXCLUDE_FORM_PROPS_KEYS)
       return <z-form
         {...{ size: size.value, labelWidth: '60px', ...formProps, ...operateFormProps }}
         ref={dialogForm}
