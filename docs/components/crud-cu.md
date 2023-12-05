@@ -989,6 +989,322 @@ function commonApi(params) {
 
 :::
 
+## 自定义参数
+
+配置`request`的`addParams`和`editParams`可以自定义新增和编辑接口的参数。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const formData = ref({
+  name: '',
+  sex: '',
+  age: ''
+})
+const tableData = ref([])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    form: {
+      component: 'input',
+      field: 'name',
+      label: '姓名',
+      required: true,
+    },
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    form: {
+      component: 'select',
+      field: 'sex',
+      label: '性别',
+    },
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+    form: {
+      component: 'datepicker',
+      field: 'time',
+      label: '出生日期',
+      fieldProps: {
+        type: 'daterange',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期',
+      },
+    },
+    search: false
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+
+const options = {
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
+}
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 4,
+})
+const request = ref({
+  searchApi: mockApi,
+  addApi: commonApi,
+  editApi: commonApi,
+  addParams: ({ formData }) => {
+    return {
+      ...formData,
+      field: 'test'
+    }
+  },
+  editParams: ({ formData, rowData }) => {
+    return {
+      ...formData,
+      id: rowData.id
+    }
+  }
+})
+
+function mockApi() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          id: 1,
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          id: 2,
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          id: 3,
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          id: 4,
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 10,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
+        }
+      })
+    }, 100)
+  })
+}
+
+function commonApi(params) {
+  console.log(params, 'commonApi params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        msg: 'success',
+        code: 200
+      })
+    }, 100)
+  })
+}
+</script>
+
+<template>
+  <z-crud
+    v-model:pagination="pagination"
+    v-model:data="tableData"
+    v-model:formData="formData"
+    v-model:loading="loading"
+    :options="options"
+    :columns="columns"
+    :request="request"
+  />
+</template>
+```
+
+:::
+
+提供`request.submitParams`统一配置新增和编辑接口参数。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const formData = ref({
+  name: '',
+  sex: '',
+  age: ''
+})
+const tableData = ref([])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    form: {
+      component: 'input',
+      field: 'name',
+      label: '姓名',
+      required: true,
+    },
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    form: {
+      component: 'select',
+      field: 'sex',
+      label: '性别',
+    },
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+    form: {
+      component: 'datepicker',
+      field: 'time',
+      label: '出生日期',
+      fieldProps: {
+        type: 'daterange',
+        startPlaceholder: '开始日期',
+        endPlaceholder: '结束日期',
+      },
+    },
+    search: false
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+
+const options = {
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
+}
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 4,
+})
+const request = ref({
+  searchApi: mockApi,
+  addApi: commonApi,
+  editApi: commonApi,
+  submitParams: ({ formData, type, rowData }) => {
+    if (type === 'add') {
+      return {
+        ...formData,
+        field: 'test'
+      }
+    }
+    return {
+      ...formData,
+      id: rowData.id
+    }
+  },
+})
+
+function mockApi() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          id: 1,
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          id: 2,
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          id: 3,
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          id: 4,
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 10,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
+        }
+      })
+    }, 100)
+  })
+}
+
+function commonApi(params) {
+  console.log(params, 'commonApi params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        msg: 'success',
+        code: 200
+      })
+    }, 100)
+  })
+}
+</script>
+
+<template>
+  <z-crud
+    v-model:pagination="pagination"
+    v-model:data="tableData"
+    v-model:formData="formData"
+    v-model:loading="loading"
+    :options="options"
+    :columns="columns"
+    :request="request"
+  />
+</template>
+```
+
+:::
+
 ## 表单属性
 
 使用`add`和`edit`对象配置表单属性。

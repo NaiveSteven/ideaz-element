@@ -44,6 +44,7 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
       const submitApi = props.request?.submitApi
       const addApi = props.request?.addApi
       const editApi = props.request?.editApi
+
       if (!submitApi && !addApi && !editApi) {
         emit('submit', { done, isValid, invalidFields, form: dialogForm.value, formData: dialogFormData.value, type: currentMode.value, rowData: currentMode.value === 'edit' ? rowData.value : {} })
       }
@@ -51,10 +52,8 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
         if (isValid) {
           confirmButtonLoading.value = true
           try {
-            let params = { ...dialogFormData.value }
-
+            const params = getParams()
             if (currentMode.value === 'edit') {
-              params = { ...dialogFormData.value, id: rowData.value.id }
               if (isFunction(submitApi))
                 await submitApi(params)
 
@@ -79,6 +78,26 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
         }
       }
     })
+  }
+
+  function getParams() {
+    let params = { ...dialogFormData.value }
+    const addParams = props.request?.addParams
+    const editParams = props.request?.editParams
+    const submitParams = props.request?.submitParams
+    if (currentMode.value === 'edit') {
+      params = isFunction(editParams) ? editParams({ formData: dialogFormData.value, rowData: rowData.value }) : { ...dialogFormData.value, id: rowData.value.id }
+      if (isFunction(submitParams))
+        return submitParams({ formData: dialogFormData.value, rowData: rowData.value, type: currentMode.value })
+      return params
+    }
+    if (currentMode.value === 'add') {
+      params = isFunction(addParams) ? addParams({ formData: dialogFormData.value }) : { ...dialogFormData.value }
+      if (isFunction(submitParams))
+        return submitParams({ formData: dialogFormData.value, type: currentMode.value })
+      return params
+    }
+    return params
   }
 
   const handleDialogClosed = () => {
