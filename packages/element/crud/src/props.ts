@@ -21,6 +21,7 @@ export interface RequestConfig {
   addApi?: any
   editApi?: any
   detailApi?: any
+  editDetailApi?: any
   alias?: {
     list: string | ((res: any) => any)
     total: string | ((res: any) => any)
@@ -35,6 +36,7 @@ export interface RequestConfig {
   afterData?: any
   searchFunc?: any
   tableData?: any
+  transformEditDetail?: (res: any) => any
 }
 
 export interface AlertConfig {

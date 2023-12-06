@@ -12,6 +12,7 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
   const dialogForm = ref()
   const dialogFormData = ref({})
   const confirmButtonLoading = ref(false)
+  const isOperateFormLoading = ref(false)
 
   const { t } = useLocale()
 
@@ -36,7 +37,7 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
     if (!props.onCancel)
       done()
 
-    emit('cancel', { done, form: dialogForm.value, formData: dialogFormData.value, type: currentMode.value })
+    emit('cancel', { done, form: dialogForm.value, formData: dialogFormData.value, type: currentMode.value, confirmButtonLoading })
   }
 
   const handleConfirm = () => {
@@ -46,7 +47,16 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
       const editApi = props.request?.editApi
 
       if (!submitApi && !addApi && !editApi) {
-        emit('submit', { done, isValid, invalidFields, form: dialogForm.value, formData: dialogFormData.value, type: currentMode.value, rowData: currentMode.value === 'edit' ? rowData.value : {} })
+        emit('operate-submit', {
+          done,
+          isValid,
+          invalidFields,
+          form: dialogForm.value,
+          formData: dialogFormData.value,
+          type: currentMode.value,
+          rowData: currentMode.value === 'edit' ? rowData.value : {},
+          confirmButtonLoading,
+        })
       }
       else {
         if (isValid) {
@@ -106,5 +116,24 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
       props.dialog.onClosed()
   }
 
-  return { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed }
+  const handleDialogOpen = async () => {
+    const editDetailApi = props.request?.editDetailApi
+    const transformEditDetail = props.request?.transformEditDetail
+    if (editDetailApi) {
+      isOperateFormLoading.value = true
+      try {
+        const res = await editDetailApi({ [props.dataKey]: rowData.value[props.dataKey] })
+        dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail(res.data) : res.data
+      }
+      catch (error) {}
+      isOperateFormLoading.value = false
+    }
+    else {
+      dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail({ ...rowData.value }) : { ...rowData.value }
+    }
+    if (isFunction(props.dialog?.onOpen))
+      props.dialog.onOpen()
+  }
+
+  return { dialogProps, dialogFormData, dialogForm, isOperateFormLoading, handleCancel, handleConfirm, handleDialogClosed, handleDialogOpen }
 }
