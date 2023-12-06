@@ -746,6 +746,166 @@ function detailApi() {
 
 :::
 
+## 自定义参数
+
+设置 `request.detailParams` 属性，可以自定义参数。
+
+:::demo
+
+```vue
+<script lang="ts" setup>
+import { h, ref } from 'vue'
+
+const loading = ref(false)
+const formData = ref({
+  name: '',
+  sex: '',
+  age: ''
+})
+const tableData = ref([])
+
+const columns = ref([
+  {
+    prop: 'name',
+    label: '姓名',
+    search: {
+      component: 'input',
+      label: '姓名',
+      field: 'name'
+    },
+    detail: {
+      field: 'name',
+      label: '姓名',
+    },
+  },
+  {
+    prop: 'sex',
+    label: '性别',
+    search: {
+      component: 'select',
+      label: '性别',
+      field: 'sex'
+    },
+    detail: {
+      field: 'sex',
+      label: '性别',
+    },
+  },
+  {
+    prop: 'age',
+    label: '年龄',
+    detail: {
+      field: 'time',
+      label: '出生日期',
+    },
+    search: {
+      component: 'input',
+      label: '年龄',
+      field: 'age'
+    },
+  },
+  {
+    prop: 'time',
+    label: '出生日期'
+  }
+])
+
+const options = {
+  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }]
+}
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 4,
+})
+const request = ref({
+  searchApi: mockApi,
+  detailApi,
+  detailParams: ({ rowData }) => {
+    return {
+      id: rowData.id
+    }
+  }
+})
+
+function mockApi() {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const data = [
+        {
+          id: 1,
+          name: 'Steven',
+          sex: 'male',
+          age: 22,
+          time: '2020-01-01'
+        },
+        {
+          id: 2,
+          name: 'Helen',
+          sex: 'male',
+          age: 12,
+          time: '2012-01-01'
+        },
+        {
+          id: 3,
+          name: 'Nancy',
+          sex: 'female',
+          age: 18,
+          time: '2018-01-01'
+        },
+        {
+          id: 4,
+          name: 'Jack',
+          sex: 'male',
+          age: 28,
+          time: '2028-01-01'
+        },
+      ]
+
+      resolve({
+        data: {
+          page: 1,
+          pageSize: 10,
+          total: 4,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
+        }
+      })
+    }, 100)
+  })
+}
+
+function detailApi(params) {
+  console.log(params, 'params')
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        data: {
+          id: 3,
+          time: '2023-01-12',
+          sex: 'male',
+          name: 'David'
+        }
+      })
+    }, 100)
+  })
+}
+</script>
+
+<template>
+  <z-crud
+    v-model:pagination="pagination"
+    v-model:data="tableData"
+    v-model:formData="formData"
+    v-model:loading="loading"
+    :options="options"
+    :columns="columns"
+    :request="request"
+  />
+</template>
+```
+
+:::
+
 ## Drawer配置
 
 `el-drawer`组件属性直接通过`drawer`传递。
