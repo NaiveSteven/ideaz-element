@@ -76,7 +76,7 @@ const columns = ref([
     },
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -125,28 +125,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -221,7 +225,7 @@ const columns = ref([
     label: '年龄',
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -310,28 +314,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -408,7 +416,7 @@ const columns = ref([
     label: '年龄',
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -483,28 +491,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -603,7 +615,7 @@ const columns = ref([
     search: false
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -631,28 +643,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -752,7 +768,7 @@ const columns = ref([
     search: false
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -780,28 +796,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -897,7 +917,7 @@ const columns = ref([
     search: false
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -924,28 +944,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -1043,7 +1067,7 @@ const columns = ref([
     search: false
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -1072,28 +1096,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -1208,7 +1236,7 @@ const columns = ref([
     search: false
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -1243,28 +1271,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -1379,7 +1411,7 @@ const columns = ref([
     search: false
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -1419,28 +1451,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -1536,7 +1572,7 @@ const columns = ref([
     search: false
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -1576,28 +1612,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -1695,7 +1735,7 @@ const columns = ref([
     search: false
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -1721,28 +1761,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -1856,7 +1900,7 @@ const columns = ref([
     },
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -1915,28 +1959,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -2057,7 +2105,7 @@ const columns = ref([
     },
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -2122,28 +2170,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
