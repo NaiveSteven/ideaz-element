@@ -16,8 +16,9 @@ export const useDescriptions = (props: CrudProps) => {
     if (isObject(props.detail) && isArray(props.detail?.columns)) return props.detail.columns
     return props.columns.filter((column: TableCol) => column.detail || (column.form && column.detail !== false)).map((column: TableCol) => {
       return {
-        label: column.label,
+        label: column.detail?.label || column.form?.label || column.label,
         prop: column.detail?.prop || column.detail?.field || column.form?.field,
+        ...column.form,
         ...column.detail,
       }
     })
