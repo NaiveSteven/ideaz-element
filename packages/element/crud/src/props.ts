@@ -95,23 +95,27 @@ export const crudProps = {
   },
   add: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
   },
   edit: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
   },
   search: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
   },
   form: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
   },
   detail: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
+  },
+  delete: {
+    type: [Object, Boolean] as PropType<boolean>,
+    default: true,
   },
   dialog: {
     type: Object as PropType<any>,
