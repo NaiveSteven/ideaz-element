@@ -1,10 +1,9 @@
 import type { Slot } from 'vue'
 import { mergeProps } from 'vue-demi'
-import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
-import { get } from 'lodash-unified'
-import { isFunction, isString } from '@ideaz/utils'
+import { get, omit } from 'lodash-unified'
+import { isArray, isFunction, isString } from '@ideaz/utils'
 import { descriptionsProps } from './descriptions'
 import type { DescriptionsColumn } from './descriptions'
 
@@ -13,15 +12,6 @@ export default defineComponent({
   props: descriptionsProps,
   setup(props, { slots }) {
     const size = useFormSize()
-    const config = reactiveOmit(
-      props,
-      'title',
-      'extra',
-      'columns',
-      'detail',
-      'align',
-      'labelAlign',
-    )
     const ns = useNamespace('descriptions')
 
     function createDetail(item: DescriptionsColumn) {
@@ -37,7 +27,8 @@ export default defineComponent({
           : String(item.render)
       }
       else {
-        return get(props.detail, item.prop, '')
+        const val = get(props.detail, item.prop, '')
+        return isArray(val) ? val.join(', ') : val
       }
     }
 
@@ -66,7 +57,15 @@ export default defineComponent({
     }
 
     return () =>
-      h(ElDescriptions, mergeProps(config, { class: ns.b() }), {
+      h(ElDescriptions, mergeProps(omit(
+        props,
+        'title',
+        'extra',
+        'columns',
+        'detail',
+        'align',
+        'labelAlign',
+      ), { class: ns.b() }), {
         default: () => [createDefault(), slots.default && slots.default()],
         title: () => getContentByRenderAndSlot(props.title, slots),
         extra: () => createExtra(),
