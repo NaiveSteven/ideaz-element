@@ -4,7 +4,7 @@ import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { get } from 'lodash-unified'
-import { isFunction, isString } from '@ideaz/utils'
+import { isArray, isFunction, isString } from '@ideaz/utils'
 import { descriptionsProps } from './descriptions'
 import type { DescriptionsColumn } from './descriptions'
 
@@ -37,7 +37,8 @@ export default defineComponent({
           : String(item.render)
       }
       else {
-        return get(props.detail, item.prop, '')
+        const val = get(props.detail, item.prop, '')
+        return isArray(val) ? val.join(', ') : val
       }
     }
 

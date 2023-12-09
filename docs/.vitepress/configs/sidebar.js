@@ -112,6 +112,10 @@ function getComponentsSidebar() {
                   text: '新增编辑配置',
                   link: '/components/crud-cu',
                 },
+                {
+                  text: '查看配置',
+                  link: '/components/crud-view',
+                },
               ],
             },
           ],

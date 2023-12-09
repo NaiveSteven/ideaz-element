@@ -21,7 +21,8 @@ export const useDrawerConfig = (props: CrudProps) => {
       isDescLoading.value = true
       try {
         const detail = props.request?.alias?.detail
-        const res = await props.request?.detailApi({ [props.dataKey]: row[props.dataKey] })
+        const detailParams = props.request?.detailParams
+        const res = await props.request?.detailApi(isFunction(detailParams) ? detailParams({ rowData: row }) : { [props.dataKey]: row[props.dataKey] })
         viewData.value = isFunction(detail) ? detail(res) : isString(detail) ? get(res, detail) : res?.data
       }
       catch (error) {}

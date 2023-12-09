@@ -124,8 +124,8 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       params.page = middlePagination.value.page
       params.pageSize = middlePagination.value.pageSize
     }
-    if (isObject(req) && isObject(req.params)) return req.params
-    if (isObject(req) && isFunction(req.params)) return req.params(params)
+    if (isObject(req) && isObject(req.searchParams)) return req.searchParams
+    if (isObject(req) && isFunction(req.searchParams)) return req.searchParams(params)
     return params
   }
 

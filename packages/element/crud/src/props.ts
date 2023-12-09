@@ -21,16 +21,22 @@ export interface RequestConfig {
   addApi?: any
   editApi?: any
   detailApi?: any
+  editDetailApi?: any
   alias?: {
     list: string | ((res: any) => any)
     total: string | ((res: any) => any)
     detail: string | ((res: any) => any)
   }
-  params?: any
+  searchParams?: any
+  detailParams?: any
+  submitParams?: any
+  addParams?: any
+  editParams?: any
   beforeData?: any
   afterData?: any
   searchFunc?: any
   tableData?: any
+  transformEditDetail?: (res: any) => any
 }
 
 export interface AlertConfig {
@@ -89,23 +95,27 @@ export const crudProps = {
   },
   add: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
   },
   edit: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
   },
   search: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
   },
   form: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
   },
   detail: {
     type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
-    default: false,
+    default: true,
+  },
+  delete: {
+    type: [Object, Boolean] as PropType<boolean>,
+    default: true,
   },
   dialog: {
     type: Object as PropType<any>,
@@ -142,3 +152,4 @@ export const crudProps = {
 
 export type CrudProps = ExtractPropTypes<typeof crudProps>
 export const crudProvideKey = Symbol('crudKey')
+export const EXCLUDE_FORM_PROPS_KEYS = ['columns', 'dialog']

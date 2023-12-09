@@ -8,13 +8,13 @@ import {
   useTableMethods,
 } from '../../table/hooks'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
-import { crudProps, crudProvideKey } from './props'
+import { EXCLUDE_FORM_PROPS_KEYS, crudProps, crudProvideKey } from './props'
 import type { Pagination } from '~/types'
 
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'submit', 'delete',
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'operate-submit', 'delete',
     'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change', 'radio-change'],
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
@@ -54,7 +54,10 @@ export default defineComponent({
     } = useDataRequest(props, emit)
     const { selectionData, isSelection, handleCheckboxChange, handleCloseAlert, handleMultipleDelete } = useSelectionData(props, emit, tableProps, getTableData)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
-    const { dialogProps, dialogFormData, dialogForm, handleCancel, handleConfirm, handleDialogClosed } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
+    const {
+      dialogProps, dialogFormData, dialogForm, isOperateFormLoading,
+      handleCancel, handleConfirm, handleDialogClosed, handleDialogOpen,
+    } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
     const { drawerProps, isDescLoading, viewData, handleDrawerOpen } = useDrawerConfig(props)
     const { descriptionColumns, descriptionProps } = useDescriptions(props)
     const ns = useNamespace('crud')
@@ -182,7 +185,14 @@ export default defineComponent({
         class: ns.be('filter-form', 'container'),
         children: <z-filter-form
           ref="formRef"
-          {...{ size: size.value, labelWidth: '60px', ...omit(props.search || {}, ['columns']), columns: searchFormColumns.value, ...attrs.value, searchButtonLoading: tableProps.value.loading }}
+          {...{
+            size: size.value,
+            labelWidth: '60px',
+            ...omit(props.search || {}, EXCLUDE_FORM_PROPS_KEYS),
+            columns: searchFormColumns.value,
+            ...attrs.value,
+            searchButtonLoading: tableProps.value.loading,
+          }}
           options={props.options}
           modelValue={middleFormData.value}
           onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
@@ -198,8 +208,8 @@ export default defineComponent({
     const renderOperateForm = () => {
       const columns = currentMode.value === 'add' ? addFormColumns.value : currentMode.value === 'edit' ? editFormColumns.value : detailColumns.value
       const formData = currentMode.value === 'add' ? props.addFormData : currentMode.value === 'edit' ? props.editFormData : rowData.value
-      const formProps = omit(props.form || {}, ['columns'])
-      const operateFormProps = currentMode.value === 'add' ? omit(props.add || {}, ['columns']) : omit(props.edit || {}, ['columns'])
+      const formProps = omit(props.form || {}, EXCLUDE_FORM_PROPS_KEYS)
+      const operateFormProps = currentMode.value === 'add' ? omit(props.add || {}, EXCLUDE_FORM_PROPS_KEYS) : omit(props.edit || {}, EXCLUDE_FORM_PROPS_KEYS)
       return <z-form
         {...{ size: size.value, labelWidth: '60px', ...formProps, ...operateFormProps }}
         ref={dialogForm}
@@ -207,6 +217,7 @@ export default defineComponent({
         options={props.options}
         modelValue={dialogFormData.value}
         onUpdate:modelValue={(val: any) => { dialogFormData.value = val }}
+        v-loading={isOperateFormLoading.value}
         v-slots={slots}
       >
 
@@ -218,6 +229,7 @@ export default defineComponent({
         modelValue={isShowDialog.value}
         onUpdate:modelValue={(val: boolean) => isShowDialog.value = val}
         {...dialogProps.value}
+        onOpen={handleDialogOpen}
         onClosed={handleDialogClosed}
         onConfirm={handleConfirm}
         onCancel={handleCancel}
