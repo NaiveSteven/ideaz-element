@@ -1,3 +1,4 @@
+import { isFunction } from '@ideaz/utils'
 import { ElMessage } from 'element-plus'
 import { Delete, EditPen, View } from '@element-plus/icons-vue'
 import DialogTip from '../../dialog/src/dialog'
@@ -38,17 +39,16 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
             message: '确定删除该条数据吗',
             onConfirm: async ({ done, confirmButtonLoading }: { done: () => void; confirmButtonLoading: Ref<boolean> }) => {
               const dataKey = props.dataKey
+              const deleteParams = props.request?.deleteParams
               confirmButtonLoading.value = true
               try {
-                await props.request?.deleteApi({ [dataKey]: row[dataKey] })
+                await props.request?.deleteApi(isFunction(deleteParams) ? deleteParams(row) : { [dataKey]: row[dataKey] })
                 confirmButtonLoading.value = false
                 done()
                 ElMessage.success(t('common.success'))
                 getTableData()
               }
-              catch (error) {
-                console.log(error, 'delete error')
-              }
+              catch (error) {}
               confirmButtonLoading.value = false
             },
           })

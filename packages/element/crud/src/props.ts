@@ -30,6 +30,7 @@ export interface RequestConfig {
   searchParams?: any
   detailParams?: any
   submitParams?: any
+  deleteParams?: any
   addParams?: any
   editParams?: any
   beforeData?: any
