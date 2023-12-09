@@ -135,7 +135,7 @@ export default defineComponent({
             topLeft: () => {
               return <>
                 {slots.topLeft && slots.topLeft()}
-                {props.action && <el-button
+                {props.action && props.add && <el-button
                   size={size.value}
                   type='primary'
                   icon={Plus}
@@ -147,7 +147,7 @@ export default defineComponent({
                   {t('crud.add')}
                 </el-button>}
                 {!!props.export && <el-button size={size.value} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
-                {!!isSelection.value && props.action && <el-button
+                {!!isSelection.value && props.delete && props.action && <el-button
                   plain
                   size={size.value}
                   type='danger'
