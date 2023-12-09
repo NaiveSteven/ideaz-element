@@ -1,6 +1,7 @@
 import type { ElTable } from 'element-plus'
 import type { ComponentInternalInstance, Ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { isFunction } from '@ideaz/utils'
 import DialogTip from '../../dialog/src/dialog'
 import type { CrudProps } from '../src/props'
 import type { ITableProps } from '../../table/src/props'
@@ -32,11 +33,12 @@ export const useSelectionData = (props: CrudProps, emit: any, tableProps: Ref<IT
     if (deleteApi) {
       DialogTip({
         type: 'danger',
-        message: '确定删除选中数据吗？',
+        message: t('crud.multipleDeleteTip'),
         onConfirm: async ({ done, confirmButtonLoading }: { done: () => void; confirmButtonLoading: Ref<boolean> }) => {
           confirmButtonLoading.value = true
           try {
-            await deleteApi({ [props.dataKey]: selectionData.value.map((item: any) => item[props.dataKey]) })
+            const deleteParams = props.request?.deleteParams
+            await deleteApi(isFunction(deleteParams) ? deleteParams(selectionData.value) : { [props.dataKey]: selectionData.value.map((item: any) => item[props.dataKey]) })
             confirmButtonLoading.value = false
             done()
             ElMessage.success(t('common.success'))
@@ -47,7 +49,7 @@ export const useSelectionData = (props: CrudProps, emit: any, tableProps: Ref<IT
         },
       })
     }
-    emit('delete', selectionData.value)
+    emit('operate-delete', selectionData.value)
   }
 
   return {

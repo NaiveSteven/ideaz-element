@@ -44,6 +44,7 @@ export default {
     term: '项',
     multipleDelete: '批量删除',
     deleteTip: '您确定要删除这条数据吗？',
+    multipleDeleteTip: '您确定要删除选中的数据吗？',
   },
   watermark: {
     tip: '当前环境不支持Canvas',
