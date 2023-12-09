@@ -105,8 +105,8 @@ export default defineComponent({
 
     const renderAlert = () => {
       const { alert } = props
-      if (isFunction(alert.render))
-        return alert.render(selectionData.value)
+      if (isFunction(alert))
+        return alert(selectionData.value)
 
       return <el-alert
         type="success"
@@ -118,7 +118,7 @@ export default defineComponent({
           title: isFunction(alert.title)
             ? () => (alert.title as Function)(selectionData.value, ctx!.$refs.zTableRef)
             : () => (alert.title || t('crud.selected') + selectionData.value.length + t('crud.term')),
-          default: isFunction(alert.content) ? () => (alert.content as Function)(selectionData.value, ctx!.$refs.zTableRef) : () => (alert.content || ''),
+          default: isFunction(alert.description) ? () => (alert.description as Function)(selectionData.value, ctx!.$refs.zTableRef) : () => (alert.description || ''),
         }}
       />
     }
@@ -159,7 +159,7 @@ export default defineComponent({
               </>
             },
             topBottom: () => {
-              if (isSelection.value && props.action)
+              if (isSelection.value && props.action && props.alert)
                 return renderAlert()
 
               return slots.topBottom?.()
