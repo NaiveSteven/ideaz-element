@@ -43,6 +43,7 @@ export default {
     selected: 'selected',
     term: 'term',
     multipleDelete: 'multiple delete',
+    deleteTip: 'Are you sure you want to delete this data?',
   },
   watermark: {
     tip: 'The current environment does not support Canvas',

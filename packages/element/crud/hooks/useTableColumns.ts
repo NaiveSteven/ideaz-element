@@ -36,7 +36,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
         if (props.request?.deleteApi) {
           DialogTip({
             type: 'danger',
-            message: '确定删除该条数据吗',
+            message: t('crud.deleteTip'),
             onConfirm: async ({ done, confirmButtonLoading }: { done: () => void; confirmButtonLoading: Ref<boolean> }) => {
               const dataKey = props.dataKey
               const deleteParams = props.request?.deleteParams
@@ -53,7 +53,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
             },
           })
         }
-        emit('delete', row)
+        emit('operate-delete', row)
       },
     }
   }
