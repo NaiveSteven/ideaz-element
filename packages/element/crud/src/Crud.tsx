@@ -107,13 +107,15 @@ export default defineComponent({
       const { alert } = props
       if (isFunction(alert))
         return alert(selectionData.value)
+      if (isFunction(slots.alert))
+        return slots.alert({ selectionData: selectionData.value })
 
       return <el-alert
         type="success"
         close-text={t('crud.unselect')}
         onClose={handleCloseAlert}
         class={ns.b('alert')}
-        {...omit(props.alert, 'title')}
+        {...omit(props.alert, ['title', 'description'])}
         v-slots={{
           title: isFunction(alert.title)
             ? () => (alert.title as Function)(selectionData.value, ctx!.$refs.zTableRef)
