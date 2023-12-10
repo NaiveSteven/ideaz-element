@@ -30,6 +30,7 @@ export interface RequestConfig {
   searchParams?: any
   detailParams?: any
   submitParams?: any
+  deleteParams?: any
   addParams?: any
   editParams?: any
   beforeData?: any
@@ -43,13 +44,12 @@ export interface AlertConfig {
   render?: (selectionData: any) => VNode
   title?: string | ((selectionData: any, tableRef: typeof ElTable) => VNode)
   type?: 'success' | 'warning' | 'info' | 'error'
-  description?: string
+  description?: string | ((selectionData: any, tableRef: typeof ElTable) => VNode)
   closeable?: boolean
   center?: boolean
   closeText?: string
   showIcon?: boolean
   effect?: 'light' | 'dark'
-  content: string | ((selectionData: any, tableRef: typeof ElTable) => VNode)
 }
 
 export const crudProps = {
@@ -141,7 +141,7 @@ export const crudProps = {
     default: 'id',
   },
   alert: {
-    type: Object as PropType<AlertConfig>,
+    type: [Object, Function, Boolean] as PropType<AlertConfig | ((selectionData: any) => VNode | Boolean)>,
     default: () => ({}),
   },
   action: {

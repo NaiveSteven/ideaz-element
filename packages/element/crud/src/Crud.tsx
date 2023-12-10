@@ -14,7 +14,7 @@ import type { Pagination } from '~/types'
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'operate-submit', 'delete',
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'operate-submit', 'operate-delete',
     'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change', 'radio-change'],
   setup(props, { emit, slots }) {
     const attrs = useAttrs()
@@ -105,20 +105,22 @@ export default defineComponent({
 
     const renderAlert = () => {
       const { alert } = props
-      if (isFunction(alert.render))
-        return alert.render(selectionData.value)
+      if (isFunction(alert))
+        return alert(selectionData.value)
+      if (isFunction(slots.alert))
+        return slots.alert({ selectionData: selectionData.value })
 
       return <el-alert
         type="success"
         close-text={t('crud.unselect')}
         onClose={handleCloseAlert}
         class={ns.b('alert')}
-        {...omit(props.alert, 'title')}
+        {...omit(props.alert, ['title', 'description'])}
         v-slots={{
           title: isFunction(alert.title)
             ? () => (alert.title as Function)(selectionData.value, ctx!.$refs.zTableRef)
             : () => (alert.title || t('crud.selected') + selectionData.value.length + t('crud.term')),
-          default: isFunction(alert.content) ? () => (alert.content as Function)(selectionData.value, ctx!.$refs.zTableRef) : () => (alert.content || ''),
+          default: isFunction(alert.description) ? () => (alert.description as Function)(selectionData.value, ctx!.$refs.zTableRef) : () => (alert.description || ''),
         }}
       />
     }
@@ -135,7 +137,7 @@ export default defineComponent({
             topLeft: () => {
               return <>
                 {slots.topLeft && slots.topLeft()}
-                {props.action && <el-button
+                {props.action && props.add && <el-button
                   size={size.value}
                   type='primary'
                   icon={Plus}
@@ -147,7 +149,7 @@ export default defineComponent({
                   {t('crud.add')}
                 </el-button>}
                 {!!props.export && <el-button size={size.value} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
-                {!!isSelection.value && props.action && <el-button
+                {!!isSelection.value && props.delete && props.action && <el-button
                   plain
                   size={size.value}
                   type='danger'
@@ -159,7 +161,7 @@ export default defineComponent({
               </>
             },
             topBottom: () => {
-              if (isSelection.value && props.action)
+              if (isSelection.value && props.action && props.alert)
                 return renderAlert()
 
               return slots.topBottom?.()

@@ -116,6 +116,10 @@ function getComponentsSidebar() {
                   text: '查看配置',
                   link: '/components/crud-view',
                 },
+                {
+                  text: '删除配置',
+                  link: '/components/crud-delete',
+                },
               ],
             },
           ],
