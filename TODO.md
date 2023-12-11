@@ -145,7 +145,7 @@
 14. ~~修复`z-table`的`editable`模式和`type`冲突问题~~
 15. ~~修复`z-table`的`selection-change`和`radio-change`持续调用问题~~
 16. ~~修复`z-table`的`editable`选择器无法编辑问题~~
-17. `z-crud`刷新未重置`checkbox`等选中状态
+17. ~~`z-crud`刷新未重置`checkbox`等选中状态~~
 
 ## Long Time
 

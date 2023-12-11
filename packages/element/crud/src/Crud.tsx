@@ -51,8 +51,9 @@ export default defineComponent({
       rowData,
       currentMode,
       isShowDrawer,
+      refreshAfterRequest,
     } = useDataRequest(props, emit)
-    const { selectionData, isSelection, handleCheckboxChange, handleCloseAlert, handleMultipleDelete } = useSelectionData(props, emit, tableProps, getTableData)
+    const { selectionData, isSelection, handleCheckboxChange, handleCloseAlert, handleMultipleDelete } = useSelectionData(props, emit, tableProps, refreshAfterRequest)
     const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
     const {
       dialogProps, dialogFormData, dialogForm, isOperateFormLoading,

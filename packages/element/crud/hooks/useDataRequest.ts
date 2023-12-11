@@ -42,7 +42,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     isUseFormDataStorage,
     middlePagination,
   } = useCrudConfig(props, emit)
-  const { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer } = useTableColumns(props, emit, getTableData)
+  const { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer, refreshAfterRequest } = useTableColumns(props, emit, getTableData)
   const attrs = useAttrs()
 
   const isRequest = () => {
@@ -129,7 +129,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     return params
   }
 
-  const handleReset = () => {
+  function handleReset() {
     resetByCustom()
     if (isRequest()) {
       const tableRef = ctx!.$refs.zTableRef as typeof ElTable
@@ -243,5 +243,6 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     rowData,
     currentMode,
     isShowDrawer,
+    refreshAfterRequest,
   }
 }
