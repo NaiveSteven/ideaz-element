@@ -773,7 +773,7 @@ function deleteMockApi(params) {
 
 ## 自定义Alert
 
-如果需要自定义提示内容，`alert`可以直接传入`render`函数。如果不需要提示，可以传入`false`。
+如果需要自定义提示内容，`alert`可以直接传入`render`函数。如果**不需要提示**，可以传入`false`。
 
 :::demo
 
@@ -1236,3 +1236,59 @@ function deleteMockApi(params) {
 ```
 
 :::
+
+## z-crud删除相关属性
+
+| 属性名                         | 说明                                                         | 类型                 | 默认值 |
+| :----------------------------- | :----------------------------------------------------------- | :------------------- | :----- |
+| delete                      | 查询表单属性配置                                  | `boolean`             |   `true`       |
+| action                      | 操作项是否展示（内置的删除、编辑等按钮）                                  | `boolean`             |   `true`       |
+| alert                      | 固定的选中数据提示                                  | `object` / `boolean`             |  `true`       |
+| request                      | 接口配置                                  | `object`             |   —       |
+
+## request属性
+
+| 属性名                         | 说明                                                         | 类型                 | 默认值 |
+| :----------------------------- | :----------------------------------------------------------- | :------------------- | :----- |
+| searchApi                      | 查询接口                                  | `() => promise`             |   —       |
+| submitApi                      | 编辑新增确认                                  | `() => promise`             |   —       |
+| deleteApi                      | 删除接口                                  | `() => promise`             |   —       |
+| addApi                      | 新增接口                                  | `() => promise`             |   —       |
+| editApi                      | 编辑接口                                  | `() => promise`             |   —       |
+| detailApi                      | 详情接口                                  | `() => promise`             |   —       |
+| editDetailApi                      | 编辑详情接口（编辑弹窗打开时调用）                                 | `() => promise`             |   —       |
+| alias                      | 数据路径自定义                                  | `object`             |   —       |
+| searchParams                      | 自定义查询接口参数                                  | `() => object`             |   —       |
+| detailParams                      | 自定义详情接口参数                                  | `() => object`             |   —       |
+| submitParams                      | 自定义确认接口参数                                  | `() => object`             |   —       |
+| deleteParams                      | 自定义删除接口参数                                  | `() => object`             |   —       |
+| addParams                      | 自定义新增接口参数                                  | `() => object`             |   —       |
+| editParams                      | 自定义编辑接口参数                                  | `() => object`             |   —       |
+| searchFunc                      | 查询方法重写                                  | `({ params }) => any`             |   —       |
+| tableData                      | 表格数据自定义返回                                  | `(res) => any`             |   —       |
+| transformEditDetail                      | 编辑详情数据自定义返回                                  | `() => object`             |   —       |
+
+## alert属性
+
+| 名称        | 说明               | 类型      | 默认值    | 必填 |
+| :---------- | :----------------- | :-------- | :-------- | :--- |
+| title       | Alert 标题。       | `string` / `() => VNode`  | —         | 否   |
+| type        | Alert 类型。       | `success` / `warning` / `info` / `error`    | `info`    | 否   |
+| description | 描述性文本         | `string` / `() => VNode`  | —         | 否   |
+| closable    | 是否可以关闭       | `boolean` | `true`    | 否   |
+| center      | 文字是否居中       | `boolean` | `false`   | 否   |
+| close-text  | 自定义关闭按钮文本 | `string`  | —         | 否   |
+| effect      | 主题样式           | `light` / `dark`    | `'light'` | 否   |
+| onClose      | 关闭 Alert 事件           | `Function`    | — | 否   |
+
+### z-crud删除相关事件
+
+| 事件名 | 说明                                                        | 类型       |
+| :----- | :---------------------------------------------------------- | :--------- |
+| operate-delete | 删除表格数据 | `Function` |
+
+## z-crud删除相关插槽
+
+| 插槽名           | 说明                                                   |
+| :--------------- | :----------------------------------------------------- |
+| alert           | 选中数据时表格顶部固定提示内容 |
