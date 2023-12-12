@@ -1243,6 +1243,9 @@ function deleteMockApi(params) {
 | :----------------------------- | :----------------------------------------------------------- | :------------------- | :----- |
 | delete                      | 查询表单属性配置                                  | `boolean`             |   `true`       |
 | action                      | 操作项是否展示（内置的删除、编辑等按钮）                                  | `boolean`             |   `true`       |
+| edit                      | 编辑配置                                  | `boolean` / `object`             |   `true`       |
+| add                      | 新增配置                                  | `boolean` / `object`             |   `true`       |
+| detail                      | 详情配置                                  | `boolean` / `object`             |   `true`       |
 | alert                      | 固定的选中数据提示                                  | `object` / `boolean`             |  `true`       |
 | request                      | 接口配置                                  | `object`             |   —       |
 
