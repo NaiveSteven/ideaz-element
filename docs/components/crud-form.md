@@ -280,7 +280,7 @@ function mockApi() {
 
 :::
 
-配置`column`的`search`也能生成查询表单项，但同时也会生成新增和编辑表单项，如不需要，可配置`add`和`edit`字段为`false`。
+配置`column`的`form`也能生成查询表单项，但同时也会生成新增、编辑和查询表单项，如不需要，可配置`add`和`edit`字段为`false`。
 
 :::demo
 
@@ -1296,6 +1296,10 @@ function mockApi() {
 | component                      | 表单项组件                                  | `string` / `() => VNode`             |  —      |
 | field                      | 字段名                                  | `string`             |  —      |
 | fieldProps                      | `component`组件属性                                  | `object`             |  —      |
+| detail                      | 详情项                                  | `object` / `boolean`             |  —      |
+| add                      | 新增项                                  | `object` / `boolean`             |  —      |
+| search                      |    查询项                               | `object` / `boolean`             |  —      |
+| edit                      | 编辑项                                  | `object` / `boolean`             |  —      |
 | formItemProps                      | `formItem`组件属性                                  | `object`             |  —      |
 | label                      | 表单标签名                                  | `string` / `() => VNode`             |  —      |
 | hide                      | 显隐                                  | `boolean` / `() => boolean`             |  —      |

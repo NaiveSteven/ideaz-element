@@ -61,7 +61,7 @@ const columns = ref([
     },
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -87,28 +87,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -133,6 +137,9 @@ function mockApi() {
     v-model:loading="loading"
     :options="options"
     :columns="columns"
+    :add="false"
+    :edit="false"
+    :delete="false"
     :request="request"
   />
 </template>
@@ -185,7 +192,7 @@ const detailConfig = ref({
     label: '性别',
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }]
 })
@@ -232,28 +239,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -280,6 +291,9 @@ function mockApi() {
     :columns="columns"
     :detail="detailConfig"
     :search="searchFormConfig"
+    :add="false"
+    :edit="false"
+    :delete="false"
     :request="request"
   />
 </template>
@@ -317,7 +331,7 @@ const columns = ref([
     label: '年龄',
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -390,28 +404,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -438,6 +456,7 @@ function mockApi() {
     :columns="columns"
     :search="searchFormConfig"
     :form="formConfig"
+    :delete="false"
     :request="request"
   />
 </template>
@@ -499,7 +518,7 @@ const columns = ref([
     edit: false,
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -527,28 +546,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -585,6 +608,7 @@ function commonApi(params) {
     v-model:loading="loading"
     :options="options"
     :columns="columns"
+    :delete="false"
     :request="request"
   />
 </template>
@@ -651,7 +675,7 @@ const columns = ref([
     },
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -678,28 +702,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -739,6 +767,9 @@ function detailApi() {
     v-model:loading="loading"
     :options="options"
     :columns="columns"
+    :delete="false"
+    :add="false"
+    :edit="false"
     :request="request"
   />
 </template>
@@ -805,7 +836,7 @@ const columns = ref([
     },
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -837,28 +868,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -899,6 +934,9 @@ function detailApi(params) {
     v-model:loading="loading"
     :options="options"
     :columns="columns"
+    :delete="false"
+    :add="false"
+    :edit="false"
     :request="request"
   />
 </template>
@@ -965,7 +1003,7 @@ const columns = ref([
     },
   },
   {
-    prop: 'time',
+    prop: 'date',
     label: '出生日期'
   }
 ])
@@ -996,28 +1034,32 @@ function mockApi() {
           name: 'Steven',
           sex: 'male',
           age: 22,
-          time: '2020-01-01'
+          date: '2020-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 2,
           name: 'Helen',
           sex: 'male',
           age: 12,
-          time: '2012-01-01'
+          date: '2012-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 3,
           name: 'Nancy',
           sex: 'female',
           age: 18,
-          time: '2018-01-01'
+          date: '2018-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
         {
           id: 4,
           name: 'Jack',
           sex: 'male',
           age: 28,
-          time: '2028-01-01'
+          date: '2028-01-01',
+          time: ['2020-01-01', '2020-01-02']
         },
       ]
 
@@ -1043,6 +1085,9 @@ function mockApi() {
     :options="options"
     :columns="columns"
     :request="request"
+    :delete="false"
+    :add="false"
+    :edit="false"
     :drawer="drawer"
   />
 </template>
