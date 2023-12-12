@@ -1246,6 +1246,7 @@ function deleteMockApi(params) {
 | edit                      | 编辑配置                                  | `boolean` / `object`             |   `true`       |
 | add                      | 新增配置                                  | `boolean` / `object`             |   `true`       |
 | detail                      | 详情配置                                  | `boolean` / `object`             |   `true`       |
+| search                      | 查询配置                                  | `boolean` / `object`             |
 | alert                      | 固定的选中数据提示                                  | `object` / `boolean`             |  `true`       |
 | request                      | 接口配置                                  | `object`             |   —       |
 
@@ -1284,7 +1285,7 @@ function deleteMockApi(params) {
 | effect      | 主题样式           | `light` / `dark`    | `'light'` | 否   |
 | onClose      | 关闭 Alert 事件           | `Function`    | — | 否   |
 
-### z-crud删除相关事件
+## z-crud删除相关事件
 
 | 事件名 | 说明                                                        | 类型       |
 | :----- | :---------------------------------------------------------- | :--------- |

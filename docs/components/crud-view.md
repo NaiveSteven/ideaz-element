@@ -1060,6 +1060,7 @@ function mockApi() {
 | edit                      | 编辑配置                                  | `boolean` / `object`             |   `true`       |
 | add                      | 新增配置                                  | `boolean` / `object`             |   `true`       |
 | delete                      | 删除配置                                  | `boolean` / `object`             |   `true`       |
+| search                      | 查询配置                                  | `boolean` / `object`             |
 | drawer                      |     抽屉配置                              | `object`             |    —      |
 | request                      | 接口配置                                  | `object`             |   —       |
 
