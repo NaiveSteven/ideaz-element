@@ -11,7 +11,7 @@ export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<an
   const tableKey = ref(new Date().valueOf())
   const { columns, zTableFormRef } = useEditableColumns(props, emit, tableData)
 
-  watch(() => props.columns, () => {
+  watch(() => columns.value, () => {
     middleTableCols.value = getCheckData(props.toolBar, columns.value)
     sortTableCols.value = columns.value.filter((item: TableCol) => {
       return getIsReturnToolBar(item, props.toolBar)

@@ -97,27 +97,47 @@ const getSizesItem = (classes = '') =>
 const appendClass
   = '.z-table .el-table__body-wrapper .el-table__append-wrapper .append'
 
-describe('crud table', () => {
+describe('crud-table', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
 
   test('columns', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :toolBar="false"/>',
+      template: '<z-crud :columns="cols" :toolBar="false" :action="false" />',
       setup() {
-        const cols = ref([...columns])
+        const cols = ref(columns.map(item => ({ ...item })))
         return { cols }
       },
     })
 
     await nextTick()
     await nextTick()
-    const vm = wrapper.vm as unknown as { columns: TableCol }
+    const vm = wrapper.vm as unknown as { cols: TableCol }
 
     expect(getHeaderList(wrapper)).toContain('Date')
     expect(getHeaderList(wrapper)).toContain('Name')
     expect(getHeaderList(wrapper)).toContain('Address')
+    expect(getHeaderList(wrapper)).toHaveLength(3)
+
+    await vm.cols.push({ label: 'Vue', prop: 'vue' })
+    await nextTick()
+    await nextTick()
+    expect(getHeaderList(wrapper)).toHaveLength(4)
+    expect(getHeaderList(wrapper)).toContain('Vue')
+
+    await vm.cols.splice(1, 1)
+    await nextTick()
+    await nextTick()
+    expect(getHeaderList(wrapper)).toHaveLength(3)
+    expect(getHeaderList(wrapper)).not.toContain('Name')
+
+    await (vm.cols[0].label = '-Date')
+    await nextTick()
+    await nextTick()
+    expect(getHeaderList(wrapper)).toHaveLength(3)
+    expect(getHeaderList(wrapper)).not.toContain('Date')
+    expect(getHeaderList(wrapper)).toContain('-Date')
   })
 })
 
