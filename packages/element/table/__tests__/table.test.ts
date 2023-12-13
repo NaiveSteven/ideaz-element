@@ -106,31 +106,38 @@ describe('table', () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :toolBar="false"/>',
       setup() {
-        const cols = ref([...columns])
+        const cols = ref(columns.map(item => ({ ...item })))
         return { cols }
       },
     })
 
     await nextTick()
     await nextTick()
-    const vm = wrapper.vm as unknown as { columns: TableCol }
+    const vm = wrapper.vm as unknown as { cols: TableCol }
 
     expect(getHeaderList(wrapper)).toContain('Date')
     expect(getHeaderList(wrapper)).toContain('Name')
     expect(getHeaderList(wrapper)).toContain('Address')
+    expect(getHeaderList(wrapper)).toHaveLength(3)
 
-    // await vm.columns.push({ label: 'Vue', prop: 'vue' })
-    // expect(getHeaderList(wrapper)).toHaveLength(4)
-    // expect(getHeaderList(wrapper)).toContain('Vue')
+    await vm.cols.push({ label: 'Vue', prop: 'vue' })
+    await nextTick()
+    await nextTick()
+    expect(getHeaderList(wrapper)).toHaveLength(4)
+    expect(getHeaderList(wrapper)).toContain('Vue')
 
-    // await vm.columns.splice(1, 1)
-    // expect(getHeaderList(wrapper)).toHaveLength(3)
-    // expect(getHeaderList(wrapper)).not.toContain('Name')
+    await vm.cols.splice(1, 1)
+    await nextTick()
+    await nextTick()
+    expect(getHeaderList(wrapper)).toHaveLength(3)
+    expect(getHeaderList(wrapper)).not.toContain('Name')
 
-    // await (vm.columns[0].label = '-Date')
-    // expect(getHeaderList(wrapper)).toHaveLength(3)
-    // expect(getHeaderList(wrapper)).not.toContain('Date')
-    // expect(getHeaderList(wrapper)).toContain('-Date')
+    await (vm.cols[0].label = '-Date')
+    await nextTick()
+    await nextTick()
+    expect(getHeaderList(wrapper)).toHaveLength(3)
+    expect(getHeaderList(wrapper)).not.toContain('Date')
+    expect(getHeaderList(wrapper)).toContain('-Date')
   })
 
   test('data', async () => {
