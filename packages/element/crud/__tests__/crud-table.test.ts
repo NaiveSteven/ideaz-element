@@ -97,14 +97,14 @@ const getSizesItem = (classes = '') =>
 const appendClass
   = '.z-table .el-table__body-wrapper .el-table__append-wrapper .append'
 
-describe('table', () => {
+describe('crud-table', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
 
   test('columns', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :toolBar="false"/>',
+      template: '<z-crud :columns="cols" :toolBar="false" :action="false" />',
       setup() {
         const cols = ref(columns.map(item => ({ ...item })))
         return { cols }
@@ -142,7 +142,7 @@ describe('table', () => {
 
   test('data', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="columns" :data="data" :toolBar="false"/>',
+      template: '<z-crud :columns="columns" :data="data" :toolBar="false" :action="false" />',
       setup() {
         return { columns, data: ref(tableData) }
       },
@@ -161,7 +161,7 @@ describe('table', () => {
   test('pagination', async () => {
     const wrapper = mount({
       template: `
-        <z-table
+        <z-crud
           v-model:pagination="pagination"
           :columns="cols"
           :toolBar="false"
@@ -213,14 +213,11 @@ describe('table', () => {
     expect(wrapper.find('.el-pagination .el-pagination__jump').exists()).toBe(
       false,
     )
-
-    // await (vm.pagination.total = 0)
-    // expect(wrapper.find('.el-pagination').exists()).toBe(false)
   })
 
   test('align', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" :action="false" />',
       setup() {
         return {
           cols: columns.map((item) => {
@@ -242,7 +239,7 @@ describe('table', () => {
 
   test('index', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :index="index" :toolBar="false" :data="data"/>',
+      template: '<z-crud :columns="cols" :index="index" :toolBar="false" :data="data" :action="false" />',
       setup() {
         const index = ref({ label: '#' })
         return { cols: columns.concat({ type: 'index' }).reverse(), index, data: tableData }
@@ -251,6 +248,7 @@ describe('table', () => {
     await nextTick()
     await nextTick()
     const rows = wrapper.findAll('.el-table__row')
+    expect(rows.length).not.toBe(0)
     rows.forEach((row, index) => {
       const cell = row.find('td')
       expect(cell.text()).toMatch(`${index + 1}`)
@@ -260,11 +258,11 @@ describe('table', () => {
   test('expand', async () => {
     const wrapper = mount({
       template: `
-        <z-table :data="data" :columns="cols" :toolBar="false">
+        <z-crud :data="data" :columns="cols" :toolBar="false" :action="false">
           <template #expand="props">
             <span class="index">{{ props.$index }}</span>
           </template>
-        </z-table>
+        </z-crud>
       `,
       setup() {
         return { cols: columns.concat([{ type: 'expand' }]).reverse(), data: tableData }
@@ -274,6 +272,7 @@ describe('table', () => {
     await nextTick()
 
     const rows = wrapper.findAll('.el-table__row')
+    expect(rows.length).not.toBe(0)
     let index = 0
     for (const row of rows) {
       const expandCell = row.findAll('td')[0]
@@ -291,7 +290,7 @@ describe('table', () => {
 
   test('selection', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" :action="false" />',
       setup() {
         return { cols: columns.concat({ type: 'selection' }), data: tableData }
       },
@@ -307,7 +306,7 @@ describe('table', () => {
 
   test('hide', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" :action="false" />',
       setup() {
         const isHide = ref(true)
         const cols = ref([...columns].concat({ label: 'Age', prop: 'age', hide: () => isHide.value }))
@@ -331,13 +330,13 @@ describe('table', () => {
 
   test('slot', async () => {
     const wrapper = mount({
-      template: `<z-table :columns="cols" :data="data" :toolBar="false">
+      template: `<z-crud :columns="cols" :data="data" :toolBar="false">
         <template #custom="{row}"><span class="my-custom">{{row.date}}</span></template>
         <template #top><span class="top">top</span></template>
         <template #topRight><span class="top-right">topRight</span></template>
         <template #topLeft><span class="top-left">topLeft</span></template>
         <template #topBottom><span class="top-bottom">topBottom</span></template>
-      </z-table>`,
+      </z-crud>`,
       setup() {
         const cols = ref([...columns].concat({ slot: 'custom' }))
         return { cols, data: tableData }
@@ -354,7 +353,7 @@ describe('table', () => {
 
   test('render', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" />',
       setup() {
         const cols = ref([...columns].concat({ render: (h: any, { row }: any) => h('span', { class: 'my-custom' }, row.date) }))
         return { cols, data: tableData }
@@ -367,7 +366,7 @@ describe('table', () => {
 
   test('header slot', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false"><template #customSlot><span class="my-custom">customHeader</span></template></z-table>',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false"><template #customSlot><span class="my-custom">customHeader</span></template></z-crud>',
       setup() {
         const cols = ref([...columns].concat({ label: 'customSlot', prop: 'asdf' }).concat({ label: () => h('span', { class: 'my-title' }, 'customH'), prop: 'sf' }))
         return { cols, data: tableData }
@@ -381,7 +380,7 @@ describe('table', () => {
 
   test('tooltip', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false"></z-table>',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false"></z-crud>',
       setup() {
         const cols = ref([...columns].concat({ prop: 'asdf', tooltip: 'tooltipTest' }))
         return { cols, data: tableData }
@@ -392,23 +391,10 @@ describe('table', () => {
     expect(wrapper.find('.z-table-column-label__icon').exists()).toBe(true)
   })
 
-  // test('header render', async () => {
-  //   const wrapper = mount({
-  //     template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
-  //     setup() {
-  //       const cols = ref([...columns].concat({ header: () => h('span', { class: 'my-custom' }, 'customHeader'), prop: 'asf' }))
-  //       return { cols, data: tableData }
-  //     },
-  //   })
-  //   await nextTick()
-  //   await nextTick()
-  //   expect(wrapper.find('.my-custom').text()).toBe('customHeader')
-  // })
-
   test('buttons', async () => {
     const handleClick = vi.fn()
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" />',
       setup() {
         const cols = ref(columns.concat({
           type: 'button',
@@ -427,7 +413,7 @@ describe('table', () => {
 
   test('buttons dropdown', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" />',
       setup() {
         const cols = ref(columns.concat({
           type: 'button',
@@ -450,7 +436,7 @@ describe('table', () => {
 
   test('buttons hide', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" />',
       setup() {
         const isHide = ref(true)
         const cols = ref(columns.concat({
@@ -475,7 +461,7 @@ describe('table', () => {
 
   test('buttons dropdown hide', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" />',
       setup() {
         const isHide = ref(true)
         const cols = ref(columns.concat({
@@ -506,7 +492,7 @@ describe('table', () => {
   test('input type', async () => {
     const handleInput = vi.fn()
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false"/>',
       setup() {
         return {
           cols: [
@@ -569,7 +555,7 @@ describe('table', () => {
   test('select type', async () => {
     const handleChange = vi.fn()
     const wrapper = mount({
-      template: '<z-table :columns="cols" :options="options" v-model:data="data" :toolBar="false"/>',
+      template: '<z-crud :columns="cols" :options="options" v-model:data="data" :toolBar="false"/>',
       setup() {
         return {
           cols: [
@@ -632,7 +618,7 @@ describe('table', () => {
 
   test('multiple editable', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false" :editable="editable"/>',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" :editable="editable"/>',
       setup() {
         return {
           editable: { type: 'multiple' },
@@ -659,9 +645,9 @@ describe('table', () => {
     expect(wrapper.find('input').element.value).toBe('Tom')
   })
 
-  test('multiple single', async () => {
+  test('single editable', async () => {
     const wrapper = mount({
-      template: '<z-table :columns="cols" :data="data" :toolBar="false" :editable="true"/>',
+      template: '<z-crud :columns="cols" :data="data" :toolBar="false" :editable="true" :action="false"/>',
       setup() {
         return {
           cols: [
@@ -690,38 +676,6 @@ describe('table', () => {
     await nextTick()
     expect(wrapper.findAll('.el-input').length).toBe(1)
   })
-
-  // test('radio type', async () => {
-  //   let rowData: any = {}
-  //   const handleChange = vi.fn()
-  //   const wrapper = mount({
-  //     template: '<z-table ref="zTable" :columns="cols" :data="data" :toolBar="false" @radio-change="handleChange"/>',
-  //     setup() {
-  //       const zTable = ref()
-  //       const handleRadioChange = (data: any) => {
-  //         rowData = data
-  //       }
-  //       return {
-  //         cols: ref([...columns].concat({ type: 'radio' }).reverse()),
-  //         data: tableData,
-  //         zTable,
-  //         handleRadioChange,
-  //         handleChange,
-  //       }
-  //     },
-  //   })
-
-  //   await nextTick()
-  //   await nextTick()
-  //   expect(rowData).toStrictEqual({ })
-  //   wrapper.findAll('.my-radio')[1].trigger('click')
-  //   // expect(wrapper.findAll('.is-checked').length).toBe(1)
-  //   await nextTick()
-  //   await nextTick()
-  //   expect(wrapper.findAll('.my-radio')[1].classes()).toContain('a')
-  //   expect(handleChange).toBeCalled()
-  //   expect(rowData).toStrictEqual({ a: 1 })
-  // })
 })
 
 afterAll(() => {

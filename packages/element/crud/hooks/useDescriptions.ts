@@ -5,7 +5,8 @@ import type { TableCol } from '~/types'
 
 export const useDescriptions = (props: CrudProps) => {
   const descriptionColumns = computed(() => {
-    if (isObject(props.form) && isArray(props.form.columns) && !props.detail) {
+    if (isObject(props.detail) && isArray(props.detail?.columns)) return props.detail.columns
+    if (isObject(props.form) && isArray(props.form.columns) && props.detail !== false) {
       return props.form.columns.map((column) => {
         return {
           prop: column.field,
@@ -13,7 +14,6 @@ export const useDescriptions = (props: CrudProps) => {
         }
       })
     }
-    if (isObject(props.detail) && isArray(props.detail?.columns)) return props.detail.columns
     return props.columns.filter((column: TableCol) => column.detail || (column.form && column.detail !== false)).map((column: TableCol) => {
       return {
         label: column.detail?.label || column.form?.label || column.label,

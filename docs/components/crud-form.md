@@ -280,7 +280,7 @@ function mockApi() {
 
 :::
 
-配置`column`的`search`也能生成查询表单项，但同时也会生成新增和编辑表单项，如不需要，可配置`add`和`edit`字段为`false`。
+配置`column`的`form`也能生成查询表单项，但同时也会生成新增、编辑和查询表单项，如不需要，可配置`add`和`edit`字段为`false`。
 
 :::demo
 
@@ -1246,7 +1246,13 @@ function mockApi() {
 | 属性名                         | 说明                                                         | 类型                 | 默认值 |
 | :----------------------------- | :----------------------------------------------------------- | :------------------- | :----- |
 | modelValue:formData                      | 查询表单数据                                  | `object`             |   —       |
-| search                      | 查询表单属性配置                                  | `object`             |   —       |
+| detail                      | 查询表单属性配置                                  | `boolean` / `object`             |   `true`       |
+| form                      | 查询、新增、编辑和查看表单属性配置                                  |  `object`             |   —       |
+| action                      | 操作项是否展示（内置的删除、编辑等按钮）                                  | `boolean`             |   `true`       |
+| edit                      | 编辑配置                                  | `boolean` / `object`             |   `true`       |
+| add                      | 新增配置                                  | `boolean` / `object`             |   `true`       |
+| delete                      | 删除配置                                  | `boolean` / `object`             |
+| search                      | 查询配置                                  | `boolean` / `object`             |  `true`       |
 | request                      | 接口配置                                  | `object`             |   —       |
 
 ## search属性
@@ -1290,6 +1296,10 @@ function mockApi() {
 | component                      | 表单项组件                                  | `string` / `() => VNode`             |  —      |
 | field                      | 字段名                                  | `string`             |  —      |
 | fieldProps                      | `component`组件属性                                  | `object`             |  —      |
+| detail                      | 详情项                                  | `object` / `boolean`             |  —      |
+| add                      | 新增项                                  | `object` / `boolean`             |  —      |
+| search                      |    查询项                               | `object` / `boolean`             |  —      |
+| edit                      | 编辑项                                  | `object` / `boolean`             |  —      |
 | formItemProps                      | `formItem`组件属性                                  | `object`             |  —      |
 | label                      | 表单标签名                                  | `string` / `() => VNode`             |  —      |
 | hide                      | 显隐                                  | `boolean` / `() => boolean`             |  —      |
@@ -1301,16 +1311,6 @@ function mockApi() {
 | error                      | 错误信息                                  | `string` / `() => VNode`             |  —      |
 | tooltip                      | 提示信息                                  | `string` / `() => VNode`             |  —      |
 | extra                      | 额外信息                                  | `string` / `() => VNode`             |  —      |
-| children                      | 表单折叠模式下生效，column数组                                  | `array`             |  —      |
-| span                      | 占据的单元格                                  | `number`             |  —      |
-| offset                      | 左侧的间隔格数                                  | `number`             |  —      |
-| pull                      | 向左移动格数                                  | `number`             |  —      |
-| push                      | 向右移动格数                                  | `boolean`             |  —      |
-| xs                      | `<768px` 响应式栅格数或者栅格属性对象                | `number` / `object`             |  —      |
-| sm                      | `≥768px` 响应式栅格数或者栅格属性对象                       | `number` / `object`             |  —      |
-| md                      | `≥992px` 响应式栅格数或者栅格属性对象                         | `number` / `object`             |  —      |
-| lg                      | `≥1200px` 响应式栅格数或者栅格属性对象                        | `number` / `object`            |  —      |
-| xl                      | `≥1920px` 响应式栅格数或者栅格属性对象                        | `number` / `object`            |  —      |
 
 ## formItemProps属性
 

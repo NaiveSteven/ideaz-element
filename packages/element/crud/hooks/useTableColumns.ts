@@ -1,6 +1,8 @@
 import { isFunction } from '@ideaz/utils'
+import type { ElTable } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { Delete, EditPen, View } from '@element-plus/icons-vue'
+import type { ComponentInternalInstance } from 'vue'
 import DialogTip from '../../dialog/src/dialog'
 import type { CrudProps } from '../src/props'
 
@@ -9,7 +11,16 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
   const rowData = ref({})
   const isShowDialog = ref(false)
   const isShowDrawer = ref(false)
+  const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const currentMode = ref<'add' | 'view' | 'edit'>('add')
+
+  const refreshAfterRequest = () => {
+    const tableRef = ctx!.$refs.zTableRef as typeof ElTable
+    tableRef.clearSelection()
+    tableRef.clearSort()
+    tableRef.clearFilter()
+    getTableData()
+  }
 
   const renderEdit = () => {
     return {
@@ -46,7 +57,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
                 confirmButtonLoading.value = false
                 done()
                 ElMessage.success(t('common.success'))
-                getTableData()
+                refreshAfterRequest()
               }
               catch (error) {}
               confirmButtonLoading.value = false
@@ -60,7 +71,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
 
   const renderView = () => {
     return {
-      label: '查看',
+      label: t('common.view'),
       type: 'primary',
       link: true,
       icon: markRaw(View),
@@ -88,5 +99,5 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
     return props.columns
   })
 
-  return { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer }
+  return { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer, refreshAfterRequest }
 }

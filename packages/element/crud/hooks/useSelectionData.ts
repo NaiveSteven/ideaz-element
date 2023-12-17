@@ -7,7 +7,7 @@ import type { CrudProps } from '../src/props'
 import type { ITableProps } from '../../table/src/props'
 import type { TableCol } from '~/types'
 
-export const useSelectionData = (props: CrudProps, emit: any, tableProps: Ref<ITableProps>, getTableData: () => void) => {
+export const useSelectionData = (props: CrudProps, emit: any, tableProps: Ref<ITableProps>, refreshAfterRequest: () => void) => {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const selectionData = ref(props.selectionData || [])
 
@@ -42,7 +42,7 @@ export const useSelectionData = (props: CrudProps, emit: any, tableProps: Ref<IT
             confirmButtonLoading.value = false
             done()
             ElMessage.success(t('common.success'))
-            getTableData()
+            refreshAfterRequest()
           }
           catch (error) {}
           confirmButtonLoading.value = false
