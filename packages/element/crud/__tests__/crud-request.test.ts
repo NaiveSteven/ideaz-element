@@ -749,9 +749,9 @@ describe('crud-request', () => {
           searchApi: mockApi,
           editApi: commonApi,
           editDetailApi,
-          transformEditDetail: (data: any) => {
+          transformEditDetail: (res: any) => {
             obj = {
-              ...data,
+              ...res.data,
               name: 'transformName',
             }
             return obj

@@ -123,7 +123,7 @@ export const useDialogConfig = (props: CrudProps, emit: any, currentMode: Ref<'e
       isOperateFormLoading.value = true
       try {
         const res = await editDetailApi({ [props.dataKey]: rowData.value[props.dataKey] })
-        dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail(res.data) : res.data
+        dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail(res) : res.data
       }
       catch (error) {}
       isOperateFormLoading.value = false
