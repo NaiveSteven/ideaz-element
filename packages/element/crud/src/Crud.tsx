@@ -1,4 +1,4 @@
-import { useAttrs } from 'element-plus'
+import { ElAlert, ElButton, ElDrawer, useAttrs } from 'element-plus'
 import { omit } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { isFunction } from '@ideaz/utils'
@@ -7,6 +7,11 @@ import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
 } from '../../table/hooks'
+import ZFilterForm from '../../form/src/FilterForm'
+import ZDescription from '../../descriptions/src/index'
+import ZDialog from '../../dialog/src/index'
+import ZForm from '../../form/src/BaseForm'
+import ZTable from '../../table/src/Table'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
 import { EXCLUDE_FORM_PROPS_KEYS, crudProps, crudProvideKey } from './props'
 import type { Pagination } from '~/types'
@@ -111,7 +116,7 @@ export default defineComponent({
       if (isFunction(slots.alert))
         return slots.alert({ selectionData: selectionData.value })
 
-      return <el-alert
+      return <ElAlert
         type="success"
         close-text={t('crud.unselect')}
         onClose={handleCloseAlert}
@@ -130,7 +135,7 @@ export default defineComponent({
       return renderDecorator({
         ...props.tableDecorator,
         class: ns.be('table', 'container'),
-        children: <z-table
+        children: <ZTable
           ref="zTableRef"
           {...{ size: size.value, ...tableProps.value }}
           v-slots={{
@@ -138,7 +143,7 @@ export default defineComponent({
             topLeft: () => {
               return <>
                 {slots.topLeft && slots.topLeft()}
-                {props.action && props.add && <el-button
+                {props.action && props.add && <ElButton
                   size={size.value}
                   type='primary'
                   icon={Plus}
@@ -148,9 +153,9 @@ export default defineComponent({
                   }}
                 >
                   {t('crud.add')}
-                </el-button>}
-                {!!props.export && <el-button size={size.value} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</el-button>}
-                {!!isSelection.value && props.delete && props.action && <el-button
+                </ElButton>}
+                {!!props.export && <ElButton size={size.value} type='primary' icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</ElButton>}
+                {!!isSelection.value && props.delete && props.action && <ElButton
                   plain
                   size={size.value}
                   type='danger'
@@ -158,7 +163,7 @@ export default defineComponent({
                   icon={Delete}
                   onClick={handleMultipleDelete}>
                   {t('crud.multipleDelete')}
-                </el-button>}
+                </ElButton>}
               </>
             },
             topBottom: () => {
@@ -174,7 +179,7 @@ export default defineComponent({
           onSelection-change={handleCheckboxChange}
           onRadio-change={handleRadioChange}
         >
-        </z-table>,
+        </ZTable>,
       })
     }
 
@@ -186,7 +191,7 @@ export default defineComponent({
           ...props.formDecorator?.style,
         },
         class: ns.be('filter-form', 'container'),
-        children: <z-filter-form
+        children: <ZFilterForm
           ref="formRef"
           {...{
             size: size.value,
@@ -204,7 +209,7 @@ export default defineComponent({
           onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
           v-slots={slots}
         >
-        </z-filter-form>,
+        </ZFilterForm>,
       })
     }
 
@@ -213,7 +218,7 @@ export default defineComponent({
       const formData = currentMode.value === 'add' ? props.addFormData : currentMode.value === 'edit' ? props.editFormData : rowData.value
       const formProps = omit(props.form || {}, EXCLUDE_FORM_PROPS_KEYS)
       const operateFormProps = currentMode.value === 'add' ? omit(props.add || {}, EXCLUDE_FORM_PROPS_KEYS) : omit(props.edit || {}, EXCLUDE_FORM_PROPS_KEYS)
-      return <z-form
+      return <ZForm
         {...{ size: size.value, labelWidth: '60px', ...formProps, ...operateFormProps }}
         ref={dialogForm}
         columns={columns}
@@ -224,11 +229,11 @@ export default defineComponent({
         v-slots={slots}
       >
 
-      </z-form>
+      </ZForm>
     }
 
     const renderDialog = () => {
-      return <z-dialog
+      return <ZDialog
         modelValue={isShowDialog.value}
         onUpdate:modelValue={(val: boolean) => isShowDialog.value = val}
         {...dialogProps.value}
@@ -238,18 +243,18 @@ export default defineComponent({
         onCancel={handleCancel}
       >
         {renderOperateForm()}
-      </z-dialog>
+      </ZDialog>
     }
 
     const renderDrawer = () => {
-      return <el-drawer
+      return <ElDrawer
         modelValue={isShowDrawer.value}
         onUpdate:modelValue={(val: boolean) => isShowDrawer.value = val}
         {...drawerProps.value}
         onOpen={() => handleDrawerOpen(rowData.value)}
       >
-        <z-descriptions v-loading={isDescLoading.value} columns={descriptionColumns.value} detail={viewData.value} {...{ size: size.value, ...descriptionProps.value }} />
-      </el-drawer>
+        <ZDescription v-loading={isDescLoading.value} columns={descriptionColumns.value} detail={viewData.value} {...{ size: size.value, ...descriptionProps.value }} />
+      </ElDrawer>
     }
 
     return () => {
