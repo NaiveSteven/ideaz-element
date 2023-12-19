@@ -15,28 +15,28 @@ export const tableKeys = Object.keys(_tableProps) as TableKeys
 export const formKeys = Object.keys(formProps) as FormKeys
 
 export interface RequestConfig {
-  deleteApi?: any
-  submitApi?: any
-  searchApi?: any
-  addApi?: any
-  editApi?: any
-  detailApi?: any
-  editDetailApi?: any
+  deleteApi?: (params?: any) => Promise<any>
+  submitApi?: (params?: any) => Promise<any>
+  searchApi?: (params?: any) => Promise<any>
+  addApi?: (params?: any) => Promise<any>
+  editApi?: (params?: any) => Promise<any>
+  detailApi?: (params?: any) => Promise<any>
+  editDetailApi?: (params?: any) => Promise<any>
   alias?: {
     list: string | ((res: any) => any)
     total: string | ((res: any) => any)
     detail: string | ((res: any) => any)
   }
-  searchParams?: any
-  detailParams?: any
-  submitParams?: any
-  deleteParams?: any
-  addParams?: any
-  editParams?: any
-  beforeData?: any
-  afterData?: any
-  searchFunc?: any
-  tableData?: any
+  searchParams?: (params: any) => any
+  detailParams?: ({ rowData }: any) => any
+  submitParams?: ({ formData, rowData, type }: any) => any
+  deleteParams?: (rowData: any) => any
+  addParams?: ({ formData }: any) => any
+  editParams?: ({ formData, rowData }: any) => any
+  beforeData?: () => Promise<any>
+  afterData?: (res: any) => Promise<any>
+  searchFunc?: ({ params }: any) => void
+  tableData?: (res: any) => any
   transformEditDetail?: (res: any) => any
 }
 
