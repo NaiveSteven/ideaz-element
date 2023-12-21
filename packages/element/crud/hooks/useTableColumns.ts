@@ -53,7 +53,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
               const deleteParams = props.request?.deleteParams
               confirmButtonLoading.value = true
               try {
-                await props.request?.deleteApi(isFunction(deleteParams) ? deleteParams(row) : { [dataKey]: row[dataKey] })
+                await props.request?.deleteApi?.(isFunction(deleteParams) ? deleteParams(row) : { [dataKey]: row[dataKey] })
                 confirmButtonLoading.value = false
                 done()
                 ElMessage.success(t('common.success'))
