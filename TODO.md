@@ -118,9 +118,10 @@
 104. `z-crud`表单数据处理，`addFormData`和`editFormData`
 105. ~~`z-crud`编辑查看处理~~
 106. `z-crud`水印问题
-107. `z-crud`操作项`action`和`add`等属性问题
+107. `z-crud`操作项`action`和`add`等属性逻辑关联处理问题
 108. `z-crud`的`editDetail`支持自定义参数
 109. `z-crud`的`transformEditDetail`优化
+110. `z-crud`的`add`、`edit`等属性为`false`时，关闭操作列
 
 ## FEATURE
 
