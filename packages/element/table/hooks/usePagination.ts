@@ -32,44 +32,41 @@ export const usePagination = (props: ITableProps, emit: any) => {
   })
 
   const isPaginationByFront = computed(() => {
-    if (
-      tableAttributes.value.data
-      && tableAttributes.value.data.length === pagination.value.total
-      && paginationAttrs.value.type === 'front'
-    )
+    if (tableAttributes.value.data && paginationAttrs.value.type === 'front')
       return true
+
     return false
   })
 
   watch(
-    () => tableAttributes.value,
+    () => tableAttributes.value.data,
     () => {
-      if (
-        pagination.value.total && paginationAttrs.value.type === 'front'
-      ) {
-        getTableData(pagination.value)
+      if (props.editable) {
+        const editableType = isObject(props.editable) ? (props.editable.type || 'single') : 'single'
+        const columnProps = props.columns.map(column => column.prop).filter(prop => prop)
+        tableData.value = tableAttributes.value.data.map((item: any) => {
+          const obj: { [propName: string]: string } = {}
+          columnProps.forEach((prop) => {
+            // only add prop if it is not already in the object
+            if (Object.hasOwnProperty.call(item, prop) && !Object.hasOwnProperty.call(item, `${prop}Prop`))
+              obj[`${prop}Prop`] = item[prop]
+          })
+          return { __isEdit: editableType !== 'single', ...item, ...obj }
+        })
       }
       else {
-        if (props.editable) {
-          const editableType = isObject(props.editable) ? (props.editable.type || 'single') : 'single'
-          const columnProps = props.columns.map(column => column.prop).filter(prop => prop)
-          tableData.value = tableAttributes.value.data.map((item: any) => {
-            const obj: { [propName: string]: string } = {}
-            columnProps.forEach((prop) => {
-              // only add prop if it is not already in the object
-              if (Object.hasOwnProperty.call(item, prop) && !Object.hasOwnProperty.call(item, `${prop}Prop`))
-                obj[`${prop}Prop`] = item[prop]
-            })
-            return { __isEdit: editableType !== 'single', ...item, ...obj }
-          })
-        }
-        else {
-          tableData.value = tableAttributes.value.data
-        }
+        tableData.value = tableAttributes.value.data
       }
     },
     { immediate: true },
   )
+
+  watch(() => tableAttributes.value.totalData, () => {
+    if (
+      pagination.value.total && paginationAttrs.value.type === 'front'
+    )
+      getTableData(pagination.value)
+  })
 
   const addTableData = () => {
     const rowData = { __isEdit: true }
@@ -82,13 +79,14 @@ export const usePagination = (props: ITableProps, emit: any) => {
   function getTableData(pagination: Pagination) {
     const page = pagination.page!
     const pageSize = pagination.pageSize!
-    const list = tableAttributes.value.data
-    const length = tableAttributes.value.data.length
+    const list = tableAttributes.value.totalData
+    const length = tableAttributes.value.totalData.length
     let start = (page - 1) * pageSize
     let end = page * pageSize
     if (start >= length) start = 0
     if (end >= length) end = length
     tableData.value = list.slice(start, end)
+    emit('update:data', tableData.value)
   }
 
   const handleCurrentChange = (val: number) => {
