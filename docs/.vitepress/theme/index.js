@@ -8,8 +8,10 @@ import ElementPlus from 'element-plus'
 import zhCn from '@ideaz/locale/lang/zh-cn'
 import ideazui, { ZDialogTip } from '@ideaz/element'
 import * as ElIconModules from '@element-plus/icons-vue'
+import { ElementPlusContainer } from '@vitepress-demo-preview/component'
 import Button from '../../../src/components/Button.vue'
 import { useComponents } from './useComponents'
+import '@vitepress-demo-preview/component/dist/style.css'
 import 'uno.css'
 
 function transElIconName(iconName) {
@@ -29,5 +31,6 @@ export default {
       const cur = item
       ctx.app.component(transElIconName(item), ElIconModules[cur])
     })
+    ctx.app.component('DemoPreview', ElementPlusContainer)
   },
 }

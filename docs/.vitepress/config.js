@@ -1,7 +1,8 @@
-import { defineConfig } from 'vitepress';
-import { demoBlockPlugin } from 'vitepress-theme-demoblock';
-import nav from './configs/nav';
-import sidebar from './configs/sidebar';
+import { defineConfig } from 'vitepress'
+import { demoBlockPlugin } from 'vitepress-theme-demoblock'
+import { componentPreview, containerPreview } from '@vitepress-demo-preview/plugin'
+import nav from './configs/nav'
+import sidebar from './configs/sidebar'
 
 export default defineConfig({
   // lang: 'en-US',
@@ -31,7 +32,9 @@ export default defineConfig({
     config: (md) => {
       md.use(demoBlockPlugin, {
         cssPreprocessor: 'scss',
-      });
+      })
+      md.use(containerPreview)
+      md.use(componentPreview)
     },
   },
 
@@ -67,4 +70,4 @@ export default defineConfig({
       copyright: 'Copyright © 2022-present 君惜',
     },
   },
-});
+})
