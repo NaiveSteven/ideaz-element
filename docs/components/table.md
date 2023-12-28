@@ -531,7 +531,7 @@ getTableData()
 
 ## 前端分页
 
-配置`pagination`的`type`为`front`，开启前端分页功能。
+配置`pagination`的`type`为`front`，开启前端分页功能，`totalData`字段传入所有数据。
 
 `pageSize`为`0`、`pagination`为`false`或`pagination`不传，分页不展示。
 
@@ -543,6 +543,7 @@ import { h, ref } from 'vue'
 
 const loading = ref(false)
 const tableData = ref([])
+const totalData = ref([])
 const pagination = ref({
   type: 'front',
   page: 1,
@@ -616,7 +617,7 @@ const getTableData = async () => {
   loading.value = true
   try {
     const res = await mockApi({ ...pagination.value })
-    tableData.value = res.result.list
+    totalData.value = res.result.list
     pagination.value.total = res.result.total
   }
   catch (error) {
@@ -629,11 +630,13 @@ getTableData()
 </script>
 
 <template>
+  {{ tableData }}
   <z-table
     v-model:pagination="pagination"
-    :data="tableData"
+    v-model:data="tableData"
     :loading="loading"
     :columns="columns"
+    :total-data="totalData"
     @refresh="getTableData"
   />
 </template>
@@ -2342,6 +2345,7 @@ getData()
 | options                    | 表格内部选项数据源                                                   | object                                                     | —                                                            | —                                                            |
 | watermark                    | 水印配置                                                   | object（具体配置可查看`z-watermark`文档）                                                     | —                                                            | —                                                            |
 | options                    | 表格内部选项数据源                                                   | object                                                     | —                                                            | —                                                            |
+| totalData                    | 表格所有数据（前端分页生效）                                                   | array                                                     | —                                                            | —                                                            |
 | height                  | Table 的高度， 默认为自动高度。 如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。 | string / number                                           | —                                                            | —                                                            |
 | max-height              | Table 的最大高度。 合法的值为数字或者单位为 px 的高度。      | string / number                                           | —                                                            | —                                                            |
 | stripe                  | 是否为斑马纹 table                                           | boolean                                                   | —                                                            | false                                                        |

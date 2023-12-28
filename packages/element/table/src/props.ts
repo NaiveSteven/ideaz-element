@@ -136,6 +136,10 @@ export const tableProps = {
   fullScreenElement: {
     type: [Function, HTMLElement] as PropType<() => HTMLElement | HTMLElement>,
   },
+  totalData: {
+    type: Array,
+    default: () => [],
+  },
 }
 
 export const tableColumnProps = {

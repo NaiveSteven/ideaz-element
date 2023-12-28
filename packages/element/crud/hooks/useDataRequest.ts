@@ -222,7 +222,8 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
   if (!isUseFormDataStorage.value && isRequest())
     initTableData()
 
-  onMounted(() => {
+  onMounted(async () => {
+    await nextTick()
     if (isUseFormDataStorage.value && isRequest())
       initTableData()
   })
