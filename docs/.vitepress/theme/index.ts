@@ -6,11 +6,10 @@ import 'element-plus/dist/index.css'
 import '@ideaz/theme-chalk/src/index.scss'
 import ElementPlus from 'element-plus'
 import zhCn from '@ideaz/locale/lang/zh-cn'
-import ideazui, { ZDialogTip } from '@ideaz/element'
+import ideazui from '@ideaz/element'
 import * as ElIconModules from '@element-plus/icons-vue'
 import { ElementPlusContainer } from '@vitepress-demo-preview/component'
 import Button from '../../../src/components/Button.vue'
-import { useComponents } from './useComponents'
 import '@vitepress-demo-preview/component/dist/style.css'
 import 'uno.css'
 
@@ -18,13 +17,10 @@ function transElIconName(iconName) {
   return `i${iconName.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`)}`
 }
 
-window.ZDialogTip = ZDialogTip
-
 export default {
   ...DefaultTheme,
   enhanceApp(ctx) {
     DefaultTheme.enhanceApp(ctx)
-    useComponents(ctx.app)
     ctx.app.component(Button.name, Button)
     ctx.app.use(ElementPlus).use(ideazui, { locale: zhCn, size: 'default' })
     Object.keys(ElIconModules).forEach((item) => {

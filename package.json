@@ -3,10 +3,9 @@
   "private": true,
   "packageManager": "pnpm@7.30.0",
   "scripts": {
-    "docs:dev": "pnpm run register:components && vitepress dev docs",
-    "docs:build": "pnpm run register:components && cross-env BASE=/vitepress-demo/ vitepress build docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "cross-env BASE=/vitepress-demo/ vitepress build docs",
     "docs:serve": "vitepress serve docs",
-    "register:components": "vitepress-rc",
     "dev3": "cl switchVue 3 && vite --config ./demo/vue3/vite.config.ts --open",
     "dev2.7": "cl switchVue 2.7 && vite --config ./demo/vue2.7/vite.config.ts --open",
     "dev2.6": "cl switchVue 2.6 && vite --config ./demo/vue2.6/vite.config.ts --open",
