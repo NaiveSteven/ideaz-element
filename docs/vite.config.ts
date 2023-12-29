@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import Unocss from 'unocss/vite'
 import transformerDirective from '@unocss/transformer-directives'
 import transformerVariantGroup from '@unocss/transformer-variant-group'
+import { SearchPlugin } from 'vitepress-plugin-search'
 
 export default defineConfig({
   resolve: {
@@ -17,6 +18,7 @@ export default defineConfig({
   },
   plugins: [
     vueJsx(),
+    SearchPlugin(),
     AutoImport({
       imports: ['vue', 'vue-router', 'vue/macros'],
       dts: '../auto-imports.d.ts',

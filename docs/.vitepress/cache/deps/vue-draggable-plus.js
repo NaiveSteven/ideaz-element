@@ -1,5 +1,5 @@
 import {
-  computed,
+  computed$1,
   defineComponent,
   getCurrentInstance,
   h,
@@ -12,7 +12,7 @@ import {
   unref,
   useAttrs,
   watch
-} from "./chunk-OH3DV4HH.js";
+} from "./chunk-EZR2OR7S.js";
 import "./chunk-5WWUZCGV.js";
 
 // node_modules/.pnpm/registry.npmmirror.com+vue-draggable-plus@0.2.4_@types+sortablejs@1.15.4/node_modules/vue-draggable-plus/dist/vue-draggable-plus.js
@@ -1562,13 +1562,13 @@ var Qn = defineComponent({
     const r = useAttrs(), i = ut.reduce((d, c) => {
       const m = `on${c.replace(/^\S/, (y) => y.toUpperCase())}`;
       return d[m] = (y) => n(c, y), d;
-    }, {}), a = computed(() => {
+    }, {}), a = computed$1(() => {
       const y = toRefs(t), { modelValue: d } = y, c = Ve(y, ["modelValue"]), m = Object.entries(c).reduce((v, [w, T]) => {
         const R = unref(T);
         return R !== void 0 && (v[w] = R), v;
       }, {});
       return le(le({}, i), fn(le(le({}, r), m)));
-    }), l = computed({
+    }), l = computed$1({
       get: () => t.modelValue,
       set: (d) => n("update:modelValue", d)
     }), s = ref(), u = reactive(

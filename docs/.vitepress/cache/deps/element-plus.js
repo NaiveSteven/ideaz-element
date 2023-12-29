@@ -62,7 +62,7 @@ import {
   warning_filled_default,
   zoom_in_default,
   zoom_out_default
-} from "./chunk-GL4XFREI.js";
+} from "./chunk-NVFUFUO5.js";
 import "./chunk-45UHIB37.js";
 import {
   castArray_default,
@@ -96,7 +96,7 @@ import {
   Transition,
   TransitionGroup,
   cloneVNode,
-  computed,
+  computed$1,
   createApp,
   createBaseVNode,
   createBlock,
@@ -154,14 +154,14 @@ import {
   vModelRadio,
   vModelText,
   vShow,
-  warn,
+  warn$1,
   watch,
   watchEffect,
   withCtx,
   withDirectives,
   withKeys,
   withModifiers
-} from "./chunk-OH3DV4HH.js";
+} from "./chunk-EZR2OR7S.js";
 import {
   __commonJS,
   __toESM
@@ -879,8 +879,8 @@ var FOCUSABLE_ELEMENT_SELECTORS = `a[href],button:not([disabled]),button:not([hi
 var isVisible = (element) => {
   if (false)
     return true;
-  const computed3 = getComputedStyle(element);
-  return computed3.position === "fixed" ? false : element.offsetParent !== null;
+  const computed2 = getComputedStyle(element);
+  return computed2.position === "fixed" ? false : element.offsetParent !== null;
 };
 var obtainAllFocusableElements = (element) => {
   return Array.from(element.querySelectorAll(FOCUSABLE_ELEMENT_SELECTORS)).filter((item) => isFocusable(item) && isVisible(item));
@@ -1275,7 +1275,7 @@ _global[globalKey] = _global[globalKey] || {};
 var handlers = _global[globalKey];
 function useCssVar(prop, target2, { window: window2 = defaultWindow, initialValue = "" } = {}) {
   const variable = ref(initialValue);
-  const elRef = computed(() => {
+  const elRef = computed$1(() => {
     var _a2;
     return unrefElement(target2) || ((_a2 = window2 == null ? void 0 : window2.document) == null ? void 0 : _a2.documentElement);
   });
@@ -1549,7 +1549,7 @@ function useVModel(props, key, emit, options = {}) {
     }, { deep });
     return proxy;
   } else {
-    return computed({
+    return computed$1({
       get() {
         return getValue2();
       },
@@ -1738,8 +1738,8 @@ var getStyle = (element, styleName) => {
     const style = element.style[key];
     if (style)
       return style;
-    const computed3 = (_a2 = document.defaultView) == null ? void 0 : _a2.getComputedStyle(element, "");
-    return computed3 ? computed3[key] : "";
+    const computed2 = (_a2 = document.defaultView) == null ? void 0 : _a2.getComputedStyle(element, "");
+    return computed2 ? computed2[key] : "";
   } catch (e) {
     return element.style[key];
   }
@@ -1867,7 +1867,7 @@ var buildProp = (prop, key) => {
       valid || (valid = validator(val));
     if (!valid && allowedValues.length > 0) {
       const allowValuesText = [...new Set(allowedValues)].map((value) => JSON.stringify(value)).join(", ");
-      warn(`Invalid prop: validation failed${key ? ` for prop "${key}"` : ""}. Expected one of [${allowValuesText}], got value ${JSON.stringify(val)}.`);
+      warn$1(`Invalid prop: validation failed${key ? ` for prop "${key}"` : ""}. Expected one of [${allowValuesText}], got value ${JSON.stringify(val)}.`);
     }
     return valid;
   } : void 0;
@@ -2126,15 +2126,15 @@ var DEFAULT_EXCLUDE_KEYS = ["class", "style"];
 var LISTENER_PREFIX = /^on[A-Z]/;
 var useAttrs2 = (params = {}) => {
   const { excludeListeners = false, excludeKeys } = params;
-  const allExcludeKeys = computed(() => {
+  const allExcludeKeys = computed$1(() => {
     return ((excludeKeys == null ? void 0 : excludeKeys.value) || []).concat(DEFAULT_EXCLUDE_KEYS);
   });
   const instance = getCurrentInstance();
   if (!instance) {
     debugWarn("use-attrs", "getCurrentInstance() returned null. useAttrs() must be called at the top of a setup function");
-    return computed(() => ({}));
+    return computed$1(() => ({}));
   }
-  return computed(() => {
+  return computed$1(() => {
     var _a2;
     return fromPairs_default(Object.entries((_a2 = instance.proxy) == null ? void 0 : _a2.$attrs).filter(([key]) => !allExcludeKeys.value.includes(key) && !(excludeListeners && LISTENER_PREFIX.test(key))));
   });
@@ -2395,7 +2395,7 @@ var translate = (path, option, locale) => get_default(locale, path, path).replac
   return `${(_a2 = option == null ? void 0 : option[key]) != null ? _a2 : `{${key}}`}`;
 });
 var buildLocaleContext = (locale) => {
-  const lang = computed(() => unref(locale).name);
+  const lang = computed$1(() => unref(locale).name);
   const localeRef = isRef(locale) ? locale : ref(locale);
   return {
     lang,
@@ -2406,11 +2406,11 @@ var buildLocaleContext = (locale) => {
 var localeContextKey = Symbol("localeContextKey");
 var useLocale = (localeOverrides) => {
   const locale = localeOverrides || inject(localeContextKey, ref());
-  return buildLocaleContext(computed(() => locale.value || English));
+  return buildLocaleContext(computed$1(() => locale.value || English));
 };
 
 // node_modules/.pnpm/registry.npmmirror.com+@vue+reactivity@3.3.6/node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js
-function warn2(msg, ...args) {
+function warn(msg, ...args) {
   console.warn(`[Vue warn] ${msg}`, ...args);
 }
 var activeEffectScope;
@@ -2807,7 +2807,7 @@ var ReadonlyReactiveHandler = class extends BaseReactiveHandler {
   }
   set(target2, key) {
     if (true) {
-      warn2(
+      warn(
         `Set operation on key "${String(key)}" failed: target is readonly.`,
         target2
       );
@@ -2816,7 +2816,7 @@ var ReadonlyReactiveHandler = class extends BaseReactiveHandler {
   }
   deleteProperty(target2, key) {
     if (true) {
-      warn2(
+      warn(
         `Delete operation on key "${String(key)}" failed: target is readonly.`,
         target2
       );
@@ -3258,7 +3258,7 @@ var ComputedRefImpl = class {
     this._setter(newValue);
   }
 };
-function computed2(getterOrOptions, debugOptions, isSSR = false) {
+function computed(getterOrOptions, debugOptions, isSSR = false) {
   let getter;
   let setter;
   const onlyGetter = isFunction(getterOrOptions);
@@ -3299,7 +3299,7 @@ var _bem = (namespace, block, blockSuffix, element, modifier) => {
 var namespaceContextKey = Symbol("namespaceContextKey");
 var useGetDerivedNamespace = (namespaceOverrides) => {
   const derivedNamespace = namespaceOverrides || (getCurrentInstance() ? inject(namespaceContextKey, ref(defaultNamespace)) : ref(defaultNamespace));
-  const namespace = computed(() => {
+  const namespace = computed$1(() => {
     return unref(derivedNamespace) || defaultNamespace;
   });
   return namespace;
@@ -3360,7 +3360,7 @@ var useLockscreen = (trigger2, options = {}) => {
     throwError("[useLockscreen]", "You need to pass a ref param to this function");
   }
   const ns = options.ns || useNamespace("popup");
-  const hiddenCls = computed2(() => ns.bm("parent", "hidden"));
+  const hiddenCls = computed(() => ns.bm("parent", "hidden"));
   if (!isClient || hasClass(document.body, hiddenCls.value)) {
     return;
   }
@@ -3445,8 +3445,8 @@ var createModelToggleComposable = (name) => {
     const instance = getCurrentInstance();
     const { emit } = instance;
     const props = instance.props;
-    const hasUpdateHandler = computed(() => isFunction(props[updateEventKeyRaw2]));
-    const isModelBindingAbsent = computed(() => props[name] === null);
+    const hasUpdateHandler = computed$1(() => isFunction(props[updateEventKeyRaw2]));
+    const isModelBindingAbsent = computed$1(() => props[name] === null);
     const doShow = (event) => {
       if (indicator.value === true) {
         return;
@@ -3562,7 +3562,7 @@ var usePreventGlobal = (indicator, evt, cb) => {
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/hooks/use-prop/index.mjs
 var useProp = (name) => {
   const vm = getCurrentInstance();
-  return computed(() => {
+  return computed$1(() => {
     var _a2, _b;
     return (_b = (_a2 = vm == null ? void 0 : vm.proxy) == null ? void 0 : _a2.$props) == null ? void 0 : _b[name];
   });
@@ -4160,7 +4160,7 @@ var usePopper = (referenceElementRef, popperElementRef, opts = {}) => {
     },
     requires: ["computeStyles"]
   };
-  const options = computed(() => {
+  const options = computed$1(() => {
     const { onFirstUpdate, placement, strategy, modifiers } = unref(opts);
     return {
       onFirstUpdate,
@@ -4211,12 +4211,12 @@ var usePopper = (referenceElementRef, popperElementRef, opts = {}) => {
     destroy();
   });
   return {
-    state: computed(() => {
+    state: computed$1(() => {
       var _a2;
       return { ...((_a2 = unref(instanceRef)) == null ? void 0 : _a2.state) || {} };
     }),
-    styles: computed(() => unref(states).styles),
-    attributes: computed(() => unref(states).attributes),
+    styles: computed$1(() => unref(states).styles),
+    attributes: computed$1(() => unref(states).attributes),
     update: () => {
       var _a2;
       return (_a2 = unref(instanceRef)) == null ? void 0 : _a2.update();
@@ -4225,7 +4225,7 @@ var usePopper = (referenceElementRef, popperElementRef, opts = {}) => {
       var _a2;
       return (_a2 = unref(instanceRef)) == null ? void 0 : _a2.forceUpdate();
     },
-    instanceRef: computed(() => unref(instanceRef))
+    instanceRef: computed$1(() => unref(instanceRef))
   };
 };
 function deriveState(state) {
@@ -4417,7 +4417,7 @@ usage: app.provide(ID_INJECTION_KEY, {
 })`);
   }
   const namespace = useGetDerivedNamespace();
-  const idRef = computed(() => unref(deterministicId) || `${namespace.value}-id-${idInjection.prefix}-${idInjection.current++}`);
+  const idRef = computed$1(() => unref(deterministicId) || `${namespace.value}-id-${idInjection.prefix}-${idInjection.current++}`);
   return idRef;
 };
 
@@ -4451,10 +4451,10 @@ var cachedContainer;
 var usePopperContainerId = () => {
   const namespace = useGetDerivedNamespace();
   const idInjection = useIdInjection();
-  const id = computed(() => {
+  const id = computed$1(() => {
     return `${namespace.value}-popper-container-${idInjection.prefix}`;
   });
-  const selector = computed(() => `#${id.value}`);
+  const selector = computed$1(() => `#${id.value}`);
   return {
     id,
     selector
@@ -4601,11 +4601,11 @@ var defaultInitialZIndex = 2e3;
 var zIndexContextKey = Symbol("zIndexContextKey");
 var useZIndex = (zIndexOverrides) => {
   const zIndexInjection = zIndexOverrides || (getCurrentInstance() ? inject(zIndexContextKey, void 0) : void 0);
-  const initialZIndex = computed(() => {
+  const initialZIndex = computed$1(() => {
     const zIndexFromInjection = unref(zIndexInjection);
     return isNumber2(zIndexFromInjection) ? zIndexFromInjection : defaultInitialZIndex;
   });
-  const currentZIndex = computed(() => initialZIndex.value + zIndex.value);
+  const currentZIndex = computed$1(() => initialZIndex.value + zIndex.value);
   const nextZIndex = () => {
     zIndex.value++;
     return currentZIndex.value;
@@ -5621,7 +5621,7 @@ var useSizeProps = {
 var SIZE_INJECTION_KEY = Symbol("size");
 var useGlobalSize = () => {
   const injectedSize = inject(SIZE_INJECTION_KEY, {});
-  return computed(() => {
+  return computed$1(() => {
     return unref(injectedSize.size) || "";
   });
 };
@@ -5674,7 +5674,7 @@ var globalConfig = ref();
 function useGlobalConfig(key, defaultValue = void 0) {
   const config = getCurrentInstance() ? inject(configProviderContextKey, globalConfig) : globalConfig;
   if (key) {
-    return computed(() => {
+    return computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = config.value) == null ? void 0 : _a2[key]) != null ? _b : defaultValue;
     });
@@ -5684,23 +5684,23 @@ function useGlobalConfig(key, defaultValue = void 0) {
 }
 function useGlobalComponentSettings(block, sizeFallback) {
   const config = useGlobalConfig();
-  const ns = useNamespace(block, computed(() => {
+  const ns = useNamespace(block, computed$1(() => {
     var _a2;
     return ((_a2 = config.value) == null ? void 0 : _a2.namespace) || defaultNamespace;
   }));
-  const locale = useLocale(computed(() => {
+  const locale = useLocale(computed$1(() => {
     var _a2;
     return (_a2 = config.value) == null ? void 0 : _a2.locale;
   }));
-  const zIndex2 = useZIndex(computed(() => {
+  const zIndex2 = useZIndex(computed$1(() => {
     var _a2;
     return ((_a2 = config.value) == null ? void 0 : _a2.zIndex) || defaultInitialZIndex;
   }));
-  const size3 = computed(() => {
+  const size3 = computed$1(() => {
     var _a2;
     return unref(sizeFallback) || ((_a2 = config.value) == null ? void 0 : _a2.size) || "";
   });
-  provideGlobalConfig(computed(() => unref(config) || {}));
+  provideGlobalConfig(computed$1(() => unref(config) || {}));
   return {
     ns,
     locale,
@@ -5717,18 +5717,18 @@ var provideGlobalConfig = (config, app, global2 = false) => {
     debugWarn("provideGlobalConfig", "provideGlobalConfig() can only be used inside setup().");
     return;
   }
-  const context = computed(() => {
+  const context = computed$1(() => {
     const cfg = unref(config);
     if (!(oldConfig == null ? void 0 : oldConfig.value))
       return cfg;
     return mergeConfig(oldConfig.value, cfg);
   });
   provideFn(configProviderContextKey, context);
-  provideFn(localeContextKey, computed(() => context.value.locale));
-  provideFn(namespaceContextKey, computed(() => context.value.namespace));
-  provideFn(zIndexContextKey, computed(() => context.value.zIndex));
+  provideFn(localeContextKey, computed$1(() => context.value.locale));
+  provideFn(namespaceContextKey, computed$1(() => context.value.namespace));
+  provideFn(zIndexContextKey, computed$1(() => context.value.zIndex));
   provideFn(SIZE_INJECTION_KEY, {
-    size: computed(() => context.value.size || "")
+    size: computed$1(() => context.value.size || "")
   });
   if (global2 || !globalConfig.value) {
     globalConfig.value = context.value;
@@ -5872,13 +5872,13 @@ var _sfc_main = defineComponent({
     const fixed = ref(false);
     const scrollTop = ref(0);
     const transform = ref(0);
-    const rootStyle = computed(() => {
+    const rootStyle = computed$1(() => {
       return {
         height: fixed.value ? `${rootHeight.value}px` : "",
         width: fixed.value ? `${rootWidth.value}px` : ""
       };
     });
-    const affixStyle = computed(() => {
+    const affixStyle = computed$1(() => {
       if (!fixed.value)
         return {};
       const offset2 = props.offset ? addUnit(props.offset) : 0;
@@ -5980,7 +5980,7 @@ var _sfc_main2 = defineComponent({
   setup(__props) {
     const props = __props;
     const ns = useNamespace("icon");
-    const style = computed(() => {
+    const style = computed$1(() => {
       const { size: size3, color } = props;
       if (!size3 && !color)
         return {};
@@ -6054,12 +6054,12 @@ var _sfc_main3 = defineComponent({
     const slots = useSlots();
     const ns = useNamespace("alert");
     const visible = ref(true);
-    const iconComponent = computed(() => TypeComponentsMap[props.type]);
-    const iconClass = computed(() => [
+    const iconComponent = computed$1(() => TypeComponentsMap[props.type]);
+    const iconClass = computed$1(() => [
       ns.e("icon"),
       { [ns.is("big")]: !!props.description || !!slots.default }
     ]);
-    const isBoldTitle = computed(() => {
+    const isBoldTitle = computed$1(() => {
       return { [ns.is("bold")]: props.description || slots.default };
     });
     const close2 = (evt) => {
@@ -6146,12 +6146,12 @@ var useFormSize = (fallback, ignore = {}) => {
   const globalConfig2 = ignore.global ? emptyRef : useGlobalSize();
   const form = ignore.form ? { size: void 0 } : inject(formContextKey, void 0);
   const formItem = ignore.formItem ? { size: void 0 } : inject(formItemContextKey, void 0);
-  return computed(() => size3.value || unref(fallback) || (formItem == null ? void 0 : formItem.size) || (form == null ? void 0 : form.size) || globalConfig2.value || "");
+  return computed$1(() => size3.value || unref(fallback) || (formItem == null ? void 0 : formItem.size) || (form == null ? void 0 : form.size) || globalConfig2.value || "");
 };
 var useFormDisabled = (fallback) => {
   const disabled = useProp("disabled");
   const form = inject(formContextKey, void 0);
-  return computed(() => disabled.value || unref(fallback) || (form == null ? void 0 : form.disabled) || false);
+  return computed$1(() => disabled.value || unref(fallback) || (form == null ? void 0 : form.disabled) || false);
 };
 var useSize = useFormSize;
 var useDisabled = useFormDisabled;
@@ -6178,7 +6178,7 @@ var useFormItemInputId = (props, {
   }
   const inputId = ref();
   let idUnwatch = void 0;
-  const isLabeledByFormItem = computed(() => {
+  const isLabeledByFormItem = computed$1(() => {
     var _a2;
     return !!(!props.label && formItemContext && formItemContext.inputIds && ((_a2 = formItemContext.inputIds) == null ? void 0 : _a2.length) <= 1);
   });
@@ -6265,7 +6265,7 @@ var formEmits = {
 var SCOPE3 = "ElForm";
 function useFormLabelWidth() {
   const potentialLabelWidthArr = ref([]);
-  const autoLabelWidth = computed(() => {
+  const autoLabelWidth = computed$1(() => {
     if (!potentialLabelWidthArr.value.length)
       return "0";
     const max3 = Math.max(...potentialLabelWidthArr.value);
@@ -6317,7 +6317,7 @@ var _sfc_main4 = defineComponent({
     const fields = [];
     const formSize = useFormSize();
     const ns = useNamespace("form");
-    const formClasses = computed(() => {
+    const formClasses = computed$1(() => {
       const { labelPosition, inline: inline2 } = props;
       return [
         ns.b(),
@@ -6346,7 +6346,7 @@ var _sfc_main4 = defineComponent({
     const clearValidate = (props2 = []) => {
       filterFields(fields, props2).forEach((field) => field.clearValidate());
     };
-    const isValidatable = computed(() => {
+    const isValidatable = computed$1(() => {
       const hasModel = !!props.model;
       if (!hasModel) {
         debugWarn(COMPONENT_NAME2, "model is required for validate to work.");
@@ -7593,7 +7593,7 @@ var FormLabelWrap = defineComponent({
         formContext == null ? void 0 : formContext.registerLabelWidth(val, oldVal);
       }
     });
-    useResizeObserver(computed(() => {
+    useResizeObserver(computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = el.value) == null ? void 0 : _a2.firstElementChild) != null ? _b : null;
     }), updateLabelWidthFn);
@@ -7652,7 +7652,7 @@ var _sfc_main5 = defineComponent({
     const formItemRef = ref();
     let initialValue = void 0;
     let isResettingField = false;
-    const labelStyle = computed(() => {
+    const labelStyle = computed$1(() => {
       if ((formContext == null ? void 0 : formContext.labelPosition) === "top") {
         return {};
       }
@@ -7661,7 +7661,7 @@ var _sfc_main5 = defineComponent({
         return { width: labelWidth };
       return {};
     });
-    const contentStyle = computed(() => {
+    const contentStyle = computed$1(() => {
       if ((formContext == null ? void 0 : formContext.labelPosition) === "top" || (formContext == null ? void 0 : formContext.inline)) {
         return {};
       }
@@ -7674,7 +7674,7 @@ var _sfc_main5 = defineComponent({
       }
       return {};
     });
-    const formItemClasses = computed(() => [
+    const formItemClasses = computed$1(() => [
       ns.b(),
       ns.m(_size.value),
       ns.is("error", validateState.value === "error"),
@@ -7685,34 +7685,34 @@ var _sfc_main5 = defineComponent({
       (formContext == null ? void 0 : formContext.requireAsteriskPosition) === "right" ? "asterisk-right" : "asterisk-left",
       { [ns.m("feedback")]: formContext == null ? void 0 : formContext.statusIcon }
     ]);
-    const _inlineMessage = computed(() => isBoolean(props.inlineMessage) ? props.inlineMessage : (formContext == null ? void 0 : formContext.inlineMessage) || false);
-    const validateClasses = computed(() => [
+    const _inlineMessage = computed$1(() => isBoolean(props.inlineMessage) ? props.inlineMessage : (formContext == null ? void 0 : formContext.inlineMessage) || false);
+    const validateClasses = computed$1(() => [
       ns.e("error"),
       { [ns.em("error", "inline")]: _inlineMessage.value }
     ]);
-    const propString = computed(() => {
+    const propString = computed$1(() => {
       if (!props.prop)
         return "";
       return isString(props.prop) ? props.prop : props.prop.join(".");
     });
-    const hasLabel = computed(() => {
+    const hasLabel = computed$1(() => {
       return !!(props.label || slots.label);
     });
-    const labelFor = computed(() => {
+    const labelFor = computed$1(() => {
       return props.for || (inputIds.value.length === 1 ? inputIds.value[0] : void 0);
     });
-    const isGroup = computed(() => {
+    const isGroup = computed$1(() => {
       return !labelFor.value && hasLabel.value;
     });
     const isNested = !!parentFormItemContext;
-    const fieldValue = computed(() => {
+    const fieldValue = computed$1(() => {
       const model = formContext == null ? void 0 : formContext.model;
       if (!model || !props.prop) {
         return;
       }
       return getProp(model, props.prop).value;
     });
-    const normalizedRules = computed(() => {
+    const normalizedRules = computed$1(() => {
       const { required: required4 } = props;
       const rules2 = [];
       if (props.rules) {
@@ -7739,7 +7739,7 @@ var _sfc_main5 = defineComponent({
       }
       return rules2;
     });
-    const validateEnabled = computed(() => normalizedRules.value.length > 0);
+    const validateEnabled = computed$1(() => normalizedRules.value.length > 0);
     const getFilteredRule = (trigger2) => {
       const rules2 = normalizedRules.value;
       return rules2.filter((rule) => {
@@ -7752,12 +7752,12 @@ var _sfc_main5 = defineComponent({
         }
       }).map(({ trigger: trigger22, ...rule }) => rule);
     };
-    const isRequired = computed(() => normalizedRules.value.some((rule) => rule.required));
-    const shouldShowError = computed(() => {
+    const isRequired = computed$1(() => normalizedRules.value.some((rule) => rule.required));
+    const shouldShowError = computed$1(() => {
       var _a2;
       return validateStateDebounced.value === "error" && props.showMessage && ((_a2 = formContext == null ? void 0 : formContext.showMessage) != null ? _a2 : true);
     });
-    const currentLabel = computed(() => `${props.label || ""}${(formContext == null ? void 0 : formContext.labelSuffix) || ""}`);
+    const currentLabel = computed$1(() => `${props.label || ""}${(formContext == null ? void 0 : formContext.labelSuffix) || ""}`);
     const setValidationState = (state) => {
       validateState.value = state;
     };
@@ -8135,7 +8135,7 @@ var _sfc_main6 = defineComponent({
     const props = __props;
     const rawAttrs = useAttrs();
     const slots = useSlots();
-    const containerAttrs = computed(() => {
+    const containerAttrs = computed$1(() => {
       const comboBoxAttrs = {};
       if (props.containerRole === "combobox") {
         comboBoxAttrs["aria-haspopup"] = rawAttrs["aria-haspopup"];
@@ -8144,7 +8144,7 @@ var _sfc_main6 = defineComponent({
       }
       return comboBoxAttrs;
     });
-    const containerKls = computed(() => [
+    const containerKls = computed$1(() => [
       props.type === "textarea" ? nsTextarea.b() : nsInput.b(),
       nsInput.m(inputSize.value),
       nsInput.is("disabled", inputDisabled.value),
@@ -8159,12 +8159,12 @@ var _sfc_main6 = defineComponent({
       },
       rawAttrs.class
     ]);
-    const wrapperKls = computed(() => [
+    const wrapperKls = computed$1(() => [
       nsInput.e("wrapper"),
       nsInput.is("focus", isFocused.value)
     ]);
     const attrs = useAttrs2({
-      excludeKeys: computed(() => {
+      excludeKeys: computed$1(() => {
         return Object.keys(containerAttrs.value);
       })
     });
@@ -8183,7 +8183,7 @@ var _sfc_main6 = defineComponent({
     const passwordVisible = ref(false);
     const countStyle = ref();
     const textareaCalcStyle = shallowRef(props.inputStyle);
-    const _ref = computed(() => input.value || textarea.value);
+    const _ref = computed$1(() => input.value || textarea.value);
     const { wrapperRef, isFocused, handleFocus, handleBlur } = useFocusController(_ref, {
       afterBlur() {
         var _a2;
@@ -8192,29 +8192,29 @@ var _sfc_main6 = defineComponent({
         }
       }
     });
-    const needStatusIcon = computed(() => {
+    const needStatusIcon = computed$1(() => {
       var _a2;
       return (_a2 = form == null ? void 0 : form.statusIcon) != null ? _a2 : false;
     });
-    const validateState = computed(() => (formItem == null ? void 0 : formItem.validateState) || "");
-    const validateIcon = computed(() => validateState.value && ValidateComponentsMap[validateState.value]);
-    const passwordIcon = computed(() => passwordVisible.value ? view_default : hide_default);
-    const containerStyle = computed(() => [
+    const validateState = computed$1(() => (formItem == null ? void 0 : formItem.validateState) || "");
+    const validateIcon = computed$1(() => validateState.value && ValidateComponentsMap[validateState.value]);
+    const passwordIcon = computed$1(() => passwordVisible.value ? view_default : hide_default);
+    const containerStyle = computed$1(() => [
       rawAttrs.style,
       props.inputStyle
     ]);
-    const textareaStyle = computed(() => [
+    const textareaStyle = computed$1(() => [
       props.inputStyle,
       textareaCalcStyle.value,
       { resize: props.resize }
     ]);
-    const nativeInputValue = computed(() => isNil_default(props.modelValue) ? "" : String(props.modelValue));
-    const showClear = computed(() => props.clearable && !inputDisabled.value && !props.readonly && !!nativeInputValue.value && (isFocused.value || hovering.value));
-    const showPwdVisible = computed(() => props.showPassword && !inputDisabled.value && !props.readonly && !!nativeInputValue.value && (!!nativeInputValue.value || isFocused.value));
-    const isWordLimitVisible = computed(() => props.showWordLimit && !!attrs.value.maxlength && (props.type === "text" || props.type === "textarea") && !inputDisabled.value && !props.readonly && !props.showPassword);
-    const textLength = computed(() => nativeInputValue.value.length);
-    const inputExceed = computed(() => !!isWordLimitVisible.value && textLength.value > Number(attrs.value.maxlength));
-    const suffixVisible = computed(() => !!slots.suffix || !!props.suffixIcon || showClear.value || props.showPassword || isWordLimitVisible.value || !!validateState.value && needStatusIcon.value);
+    const nativeInputValue = computed$1(() => isNil_default(props.modelValue) ? "" : String(props.modelValue));
+    const showClear = computed$1(() => props.clearable && !inputDisabled.value && !props.readonly && !!nativeInputValue.value && (isFocused.value || hovering.value));
+    const showPwdVisible = computed$1(() => props.showPassword && !inputDisabled.value && !props.readonly && !!nativeInputValue.value && (!!nativeInputValue.value || isFocused.value));
+    const isWordLimitVisible = computed$1(() => props.showWordLimit && !!attrs.value.maxlength && (props.type === "text" || props.type === "textarea") && !inputDisabled.value && !props.readonly && !props.showPassword);
+    const textLength = computed$1(() => nativeInputValue.value.length);
+    const inputExceed = computed$1(() => !!isWordLimitVisible.value && textLength.value > Number(attrs.value.maxlength));
+    const suffixVisible = computed$1(() => !!slots.suffix || !!props.suffixIcon || showClear.value || props.showPassword || isWordLimitVisible.value || !!validateState.value && needStatusIcon.value);
     const [recordCursor, setCursor] = useCursor(input);
     useResizeObserver(textarea, (entries) => {
       onceInitSizeTextarea();
@@ -8624,13 +8624,13 @@ var _sfc_main7 = defineComponent({
     let cursorDown = false;
     let cursorLeave = false;
     let originalOnSelectStart = isClient ? document.onselectstart : null;
-    const bar = computed(() => BAR_MAP[props.vertical ? "vertical" : "horizontal"]);
-    const thumbStyle = computed(() => renderThumbStyle({
+    const bar = computed$1(() => BAR_MAP[props.vertical ? "vertical" : "horizontal"]);
+    const thumbStyle = computed$1(() => renderThumbStyle({
       size: props.size,
       move: props.move,
       bar: bar.value
     }));
-    const offsetRatio = computed(() => instance.value[bar.value.offset] ** 2 / scrollbar.wrapElement[bar.value.scrollSize] / props.ratio / thumb.value[bar.value.offset]);
+    const offsetRatio = computed$1(() => instance.value[bar.value.offset] ** 2 / scrollbar.wrapElement[bar.value.scrollSize] / props.ratio / thumb.value[bar.value.offset]);
     const clickThumbHandler = (e) => {
       var _a2;
       e.stopPropagation();
@@ -8864,7 +8864,7 @@ var _sfc_main9 = defineComponent({
     const barRef = ref();
     const ratioY = ref(1);
     const ratioX = ref(1);
-    const wrapStyle = computed(() => {
+    const wrapStyle = computed$1(() => {
       const style = {};
       if (props.height)
         style.height = addUnit(props.height);
@@ -8872,14 +8872,14 @@ var _sfc_main9 = defineComponent({
         style.maxHeight = addUnit(props.maxHeight);
       return [props.wrapStyle, style];
     });
-    const wrapKls = computed(() => {
+    const wrapKls = computed$1(() => {
       return [
         props.wrapClass,
         ns.e("wrap"),
         { [ns.em("wrap", "hidden-default")]: !props.native }
       ];
     });
-    const resizeKls = computed(() => {
+    const resizeKls = computed$1(() => {
       return [ns.e("view"), props.viewClass];
     });
     const handleScroll2 = () => {
@@ -9056,7 +9056,7 @@ var _sfc_main10 = defineComponent({
     const popperInstanceRef = ref();
     const contentRef = ref();
     const referenceRef = ref();
-    const role = computed(() => props.role);
+    const role = computed$1(() => props.role);
     const popperProvides = {
       triggerRef: triggerRef2,
       popperInstanceRef,
@@ -9218,22 +9218,22 @@ var _sfc_main12 = defineComponent({
     const props = __props;
     const { role, triggerRef: triggerRef2 } = inject(POPPER_INJECTION_KEY, void 0);
     useForwardRef(triggerRef2);
-    const ariaControls = computed(() => {
+    const ariaControls = computed$1(() => {
       return ariaHaspopup.value ? props.id : void 0;
     });
-    const ariaDescribedby = computed(() => {
+    const ariaDescribedby = computed$1(() => {
       if (role && role.value === "tooltip") {
         return props.open && props.id ? props.id : void 0;
       }
       return void 0;
     });
-    const ariaHaspopup = computed(() => {
+    const ariaHaspopup = computed$1(() => {
       if (role && role.value !== "tooltip") {
         return role.value;
       }
       return void 0;
     });
-    const ariaExpanded = computed(() => {
+    const ariaExpanded = computed$1(() => {
       return ariaHaspopup.value ? `${props.open}` : void 0;
     });
     let virtualTriggerAriaStopWatch = void 0;
@@ -9869,13 +9869,13 @@ var usePopperContent = (props) => {
   const { popperInstanceRef, contentRef, triggerRef: triggerRef2, role } = inject(POPPER_INJECTION_KEY, void 0);
   const arrowRef = ref();
   const arrowOffset = ref();
-  const eventListenerModifier = computed(() => {
+  const eventListenerModifier = computed$1(() => {
     return {
       name: "eventListeners",
       enabled: !!props.visible
     };
   });
-  const arrowModifier = computed(() => {
+  const arrowModifier = computed$1(() => {
     var _a2;
     const arrowEl = unref(arrowRef);
     const offset2 = (_a2 = unref(arrowOffset)) != null ? _a2 : DEFAULT_ARROW_OFFSET;
@@ -9888,7 +9888,7 @@ var usePopperContent = (props) => {
       }
     };
   });
-  const options = computed(() => {
+  const options = computed$1(() => {
     return {
       onFirstUpdate: () => {
         update();
@@ -9899,7 +9899,7 @@ var usePopperContent = (props) => {
       ])
     };
   });
-  const computedReference = computed(() => unwrapMeasurableEl(props.referenceEl) || unref(triggerRef2));
+  const computedReference = computed$1(() => unwrapMeasurableEl(props.referenceEl) || unref(triggerRef2));
   const { attributes: attributes2, state, styles, update, forceUpdate, instanceRef } = usePopper(computedReference, contentRef, options);
   watch(instanceRef, (instance) => popperInstanceRef.value = instance);
   onMounted(() => {
@@ -9931,23 +9931,23 @@ var usePopperContentDOM = (props, {
 }) => {
   const { nextZIndex } = useZIndex();
   const ns = useNamespace("popper");
-  const contentAttrs = computed(() => unref(attributes2).popper);
+  const contentAttrs = computed$1(() => unref(attributes2).popper);
   const contentZIndex = ref(isNumber2(props.zIndex) ? props.zIndex : nextZIndex());
-  const contentClass = computed(() => [
+  const contentClass = computed$1(() => [
     ns.b(),
     ns.is("pure", props.pure),
     ns.is(props.effect),
     props.popperClass
   ]);
-  const contentStyle = computed(() => {
+  const contentStyle = computed$1(() => {
     return [
       { zIndex: unref(contentZIndex) },
       unref(styles).popper,
       props.popperStyle || {}
     ];
   });
-  const ariaModal = computed(() => role.value === "dialog" ? "false" : void 0);
-  const arrowStyle = computed(() => unref(styles).arrow || {});
+  const ariaModal = computed$1(() => role.value === "dialog" ? "false" : void 0);
+  const arrowStyle = computed$1(() => unref(styles).arrow || {});
   const updateZIndex = () => {
     contentZIndex.value = isNumber2(props.zIndex) ? props.zIndex : nextZIndex();
   };
@@ -10313,10 +10313,10 @@ var _sfc_main16 = defineComponent({
       onBeforeShow,
       onBeforeHide
     } = inject(TOOLTIP_INJECTION_KEY, void 0);
-    const transitionClass = computed(() => {
+    const transitionClass = computed$1(() => {
       return props.transition || `${ns.namespace.value}-fade-in-linear`;
     });
-    const persistentRef = computed(() => {
+    const persistentRef = computed$1(() => {
       if (false) {
         return true;
       }
@@ -10325,20 +10325,20 @@ var _sfc_main16 = defineComponent({
     onBeforeUnmount(() => {
       destroyed.value = true;
     });
-    const shouldRender = computed(() => {
+    const shouldRender = computed$1(() => {
       return unref(persistentRef) ? true : unref(open);
     });
-    const shouldShow = computed(() => {
+    const shouldShow = computed$1(() => {
       return props.disabled ? false : unref(open);
     });
-    const appendTo = computed(() => {
+    const appendTo = computed$1(() => {
       return props.appendTo || selector.value;
     });
-    const contentStyle = computed(() => {
+    const contentStyle = computed$1(() => {
       var _a2;
       return (_a2 = props.style) != null ? _a2 : {};
     });
-    const ariaHidden = computed(() => !unref(open));
+    const ariaHidden = computed$1(() => !unref(open));
     const onTransitionLeave = () => {
       onHide();
     };
@@ -10366,7 +10366,7 @@ var _sfc_main16 = defineComponent({
     };
     const onAfterShow = () => {
       onShow();
-      stopHandle = onClickOutside(computed(() => {
+      stopHandle = onClickOutside(computed$1(() => {
         var _a2;
         return (_a2 = contentRef.value) == null ? void 0 : _a2.popperContentRef;
       }), () => {
@@ -10492,7 +10492,7 @@ var _sfc_main17 = defineComponent({
       open: show,
       close: hide2
     });
-    const controlled = computed(() => isBoolean(props.visible) && !hasUpdateHandler.value);
+    const controlled = computed$1(() => isBoolean(props.visible) && !hasUpdateHandler.value);
     provide(TOOLTIP_INJECTION_KEY, {
       controlled,
       id,
@@ -10729,14 +10729,14 @@ var _sfc_main18 = defineComponent({
     const activated = ref(false);
     const suggestionDisabled = ref(false);
     const loading = ref(false);
-    const listboxId = computed(() => ns.b(String(generateId())));
-    const styles = computed(() => rawAttrs.style);
-    const suggestionVisible = computed(() => {
+    const listboxId = computed$1(() => ns.b(String(generateId())));
+    const styles = computed$1(() => rawAttrs.style);
+    const suggestionVisible = computed$1(() => {
       const isValidData = suggestions.value.length > 0;
       return (isValidData || loading.value) && activated.value;
     });
-    const suggestionLoading = computed(() => !props.hideLoading && loading.value);
-    const refInput = computed(() => {
+    const suggestionLoading = computed$1(() => !props.hideLoading && loading.value);
+    const refInput = computed$1(() => {
       if (inputRef.value) {
         return Array.from(inputRef.value.$el.querySelectorAll("input"));
       }
@@ -11089,7 +11089,7 @@ var _sfc_main19 = defineComponent({
     const props = __props;
     const ns = useNamespace("avatar");
     const hasLoadError = ref(false);
-    const avatarClass = computed(() => {
+    const avatarClass = computed$1(() => {
       const { size: size3, icon, shape } = props;
       const classList = [ns.b()];
       if (isString(size3))
@@ -11100,13 +11100,13 @@ var _sfc_main19 = defineComponent({
         classList.push(ns.m(shape));
       return classList;
     });
-    const sizeStyle = computed(() => {
+    const sizeStyle = computed$1(() => {
       const { size: size3 } = props;
       return isNumber2(size3) ? ns.cssVarBlock({
         size: addUnit(size3) || ""
       }) : void 0;
     });
-    const fitStyle = computed(() => ({
+    const fitStyle = computed$1(() => ({
       objectFit: props.fit
     }));
     watch(() => props.src, () => hasLoadError.value = false);
@@ -11212,7 +11212,7 @@ var _sfc_main20 = defineComponent({
     const props = __props;
     const ns = useNamespace("backtop");
     const { handleClick, visible } = useBackTop(props, emit, COMPONENT_NAME7);
-    const backTopStyle = computed(() => ({
+    const backTopStyle = computed$1(() => ({
       right: `${props.right}px`,
       bottom: `${props.bottom}px`
     }));
@@ -11279,7 +11279,7 @@ var _sfc_main21 = defineComponent({
   setup(__props, { expose }) {
     const props = __props;
     const ns = useNamespace("badge");
-    const content = computed(() => {
+    const content = computed$1(() => {
       if (props.isDot)
         return "";
       if (isNumber2(props.value) && isNumber2(props.max)) {
@@ -11451,20 +11451,20 @@ var useButton = (props, emit) => {
     version: "3.0.0",
     scope: "props",
     ref: "https://element-plus.org/en-US/component/button.html#button-attributes"
-  }, computed(() => props.type === "text"));
+  }, computed$1(() => props.type === "text"));
   const buttonGroupContext = inject(buttonGroupContextKey, void 0);
   const globalConfig2 = useGlobalConfig("button");
   const { form } = useFormItem();
-  const _size = useFormSize(computed(() => buttonGroupContext == null ? void 0 : buttonGroupContext.size));
+  const _size = useFormSize(computed$1(() => buttonGroupContext == null ? void 0 : buttonGroupContext.size));
   const _disabled = useFormDisabled();
   const _ref = ref();
   const slots = useSlots();
-  const _type = computed(() => props.type || (buttonGroupContext == null ? void 0 : buttonGroupContext.type) || "");
-  const autoInsertSpace = computed(() => {
+  const _type = computed$1(() => props.type || (buttonGroupContext == null ? void 0 : buttonGroupContext.type) || "");
+  const autoInsertSpace = computed$1(() => {
     var _a2, _b, _c;
     return (_c = (_b = props.autoInsertSpace) != null ? _b : (_a2 = globalConfig2.value) == null ? void 0 : _a2.autoInsertSpace) != null ? _c : false;
   });
-  const _props = computed(() => {
+  const _props = computed$1(() => {
     if (props.tag === "button") {
       return {
         ariaDisabled: _disabled.value || props.loading,
@@ -11475,7 +11475,7 @@ var useButton = (props, emit) => {
     }
     return {};
   });
-  const shouldAddSpace = computed(() => {
+  const shouldAddSpace = computed$1(() => {
     var _a2;
     const defaultSlot = (_a2 = slots.default) == null ? void 0 : _a2.call(slots);
     if (autoInsertSpace.value && (defaultSlot == null ? void 0 : defaultSlot.length) === 1) {
@@ -12463,7 +12463,7 @@ function darken(color, amount = 20) {
 function useButtonCustomStyle(props) {
   const _disabled = useFormDisabled();
   const ns = useNamespace("button");
-  return computed(() => {
+  return computed$1(() => {
     let styles = {};
     const buttonColor = props.color;
     if (buttonColor) {
@@ -12865,7 +12865,7 @@ var _sfc_main26 = defineComponent({
     const valueOnOpen = ref(null);
     let hasJustTabExitedInput = false;
     let ignoreFocusEvent = false;
-    const rangeInputKls = computed(() => [
+    const rangeInputKls = computed$1(() => [
       nsDate.b("editor"),
       nsDate.bm("editor", props.type),
       nsInput.e("wrapper"),
@@ -12875,7 +12875,7 @@ var _sfc_main26 = defineComponent({
       pickerSize ? nsRange.bm("editor", pickerSize.value) : "",
       attrs.class
     ]);
-    const clearIconKls = computed(() => [
+    const clearIconKls = computed$1(() => [
       nsInput.e("icon"),
       nsRange.e("close-icon"),
       !showClose.value ? nsRange.e("close-icon--hidden") : ""
@@ -12914,7 +12914,7 @@ var _sfc_main26 = defineComponent({
     const emitKeydown = (e) => {
       emit("keydown", e);
     };
-    const refInput = computed(() => {
+    const refInput = computed$1(() => {
       if (inputRef.value) {
         const _r = isRangeInput.value ? inputRef.value : inputRef.value.$el;
         return Array.from(_r.querySelectorAll("input"));
@@ -13015,10 +13015,10 @@ var _sfc_main26 = defineComponent({
       currentHandleBlurDeferCallback = handleBlurDefer;
       handleBlurDefer();
     };
-    const pickerDisabled = computed(() => {
+    const pickerDisabled = computed$1(() => {
       return props.disabled || (form == null ? void 0 : form.disabled);
     });
-    const parsedValue2 = computed(() => {
+    const parsedValue2 = computed$1(() => {
       let dayOrDays;
       if (valueIsEmpty.value) {
         if (pickerOptions.value.getDefaultValue) {
@@ -13043,7 +13043,7 @@ var _sfc_main26 = defineComponent({
       }
       return dayOrDays;
     });
-    const displayValue = computed(() => {
+    const displayValue = computed$1(() => {
       if (!pickerOptions.value.panelReady)
         return "";
       const formattedValue = formatDayjsToString(parsedValue2.value);
@@ -13064,10 +13064,10 @@ var _sfc_main26 = defineComponent({
       }
       return "";
     });
-    const isTimeLikePicker = computed(() => props.type.includes("time"));
-    const isTimePicker = computed(() => props.type.startsWith("time"));
-    const isDatesPicker = computed(() => props.type === "dates");
-    const triggerIcon = computed(() => props.prefixIcon || (isTimeLikePicker.value ? clock_default : calendar_default));
+    const isTimeLikePicker = computed$1(() => props.type.includes("time"));
+    const isTimePicker = computed$1(() => props.type.startsWith("time"));
+    const isDatesPicker = computed$1(() => props.type === "dates");
+    const triggerIcon = computed$1(() => props.prefixIcon || (isTimeLikePicker.value ? clock_default : calendar_default));
     const showClose = ref(false);
     const onClearIconClick = (event) => {
       if (props.readonly || pickerDisabled.value)
@@ -13082,7 +13082,7 @@ var _sfc_main26 = defineComponent({
         pickerOptions.value.handleClear && pickerOptions.value.handleClear();
       }
     };
-    const valueIsEmpty = computed(() => {
+    const valueIsEmpty = computed$1(() => {
       const { modelValue } = props;
       return !modelValue || isArray(modelValue) && !modelValue.filter(Boolean).length;
     });
@@ -13112,15 +13112,15 @@ var _sfc_main26 = defineComponent({
         pickerVisible.value = true;
       }
     };
-    const isRangeInput = computed(() => {
+    const isRangeInput = computed$1(() => {
       return props.type.includes("range");
     });
     const pickerSize = useFormSize();
-    const popperEl = computed(() => {
+    const popperEl = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = unref(refPopper)) == null ? void 0 : _a2.popperRef) == null ? void 0 : _b.contentRef;
     });
-    const actualInputRef = computed(() => {
+    const actualInputRef = computed$1(() => {
       var _a2;
       if (unref(isRangeInput)) {
         return unref(inputRef);
@@ -13896,17 +13896,17 @@ var _sfc_main27 = defineComponent({
       minutes: listMinutesRef,
       seconds: listSecondsRef
     };
-    const spinnerItems = computed(() => {
+    const spinnerItems = computed$1(() => {
       return props.showSeconds ? timeUnits : timeUnits.slice(0, 2);
     });
-    const timePartials = computed(() => {
+    const timePartials = computed$1(() => {
       const { spinnerDate } = props;
       const hours = spinnerDate.hour();
       const minutes = spinnerDate.minute();
       const seconds = spinnerDate.second();
       return { hours, minutes, seconds };
     });
-    const timeList = computed(() => {
+    const timeList = computed$1(() => {
       const { hours, minutes } = unref(timePartials);
       return {
         hours: getHoursList(props.role),
@@ -13914,7 +13914,7 @@ var _sfc_main27 = defineComponent({
         seconds: getSecondsList(hours, minutes, props.role)
       };
     });
-    const arrowControlTimeList = computed(() => {
+    const arrowControlTimeList = computed$1(() => {
       const { hours, minutes, seconds } = unref(timePartials);
       return {
         hours: buildTimeList(hours, 23),
@@ -14186,13 +14186,13 @@ var _sfc_main28 = defineComponent({
     const { t, lang } = useLocale();
     const selectionRange = ref([0, 2]);
     const oldValue = useOldValue(props);
-    const transitionName = computed(() => {
+    const transitionName = computed$1(() => {
       return isUndefined(props.actualVisible) ? `${ns.namespace.value}-zoom-in-top` : "";
     });
-    const showSeconds = computed(() => {
+    const showSeconds = computed$1(() => {
       return props.format.includes("ss");
     });
-    const amPmMode = computed(() => {
+    const amPmMode = computed$1(() => {
       if (props.format.includes("A"))
         return "A";
       if (props.format.includes("a"))
@@ -14358,28 +14358,28 @@ var _sfc_main29 = defineComponent({
       disabledSeconds,
       defaultValue
     } = pickerBase.props;
-    const startContainerKls = computed(() => [
+    const startContainerKls = computed$1(() => [
       nsTime.be("range-picker", "body"),
       nsTime.be("panel", "content"),
       nsTime.is("arrow", arrowControl),
       showSeconds.value ? "has-seconds" : ""
     ]);
-    const endContainerKls = computed(() => [
+    const endContainerKls = computed$1(() => [
       nsTime.be("range-picker", "body"),
       nsTime.be("panel", "content"),
       nsTime.is("arrow", arrowControl),
       showSeconds.value ? "has-seconds" : ""
     ]);
-    const startTime = computed(() => props.parsedValue[0]);
-    const endTime = computed(() => props.parsedValue[1]);
+    const startTime = computed$1(() => props.parsedValue[0]);
+    const endTime = computed$1(() => props.parsedValue[1]);
     const oldValue = useOldValue(props);
     const handleCancel = () => {
       emit("pick", oldValue.value, false);
     };
-    const showSeconds = computed(() => {
+    const showSeconds = computed$1(() => {
       return props.format.includes("ss");
     });
-    const amPmMode = computed(() => {
+    const amPmMode = computed$1(() => {
       if (props.format.includes("A"))
         return "A";
       if (props.format.includes("a"))
@@ -14403,7 +14403,7 @@ var _sfc_main29 = defineComponent({
     const handleChange = (start, end2) => {
       emit("pick", [start, end2], true);
     };
-    const btnConfirmDisabled = computed(() => {
+    const btnConfirmDisabled = computed$1(() => {
       return startTime.value > endTime.value;
     });
     const selectionRange = ref([0, 2]);
@@ -14411,7 +14411,7 @@ var _sfc_main29 = defineComponent({
       emit("select-range", start, end2, "min");
       selectionRange.value = [start, end2];
     };
-    const offset2 = computed(() => showSeconds.value ? 11 : 8);
+    const offset2 = computed$1(() => showSeconds.value ? 11 : 8);
     const setMaxSelectionRange = (start, end2) => {
       emit("select-range", start, end2, "max");
       const _offset = unref(offset2);
@@ -14702,8 +14702,8 @@ var useDateTable = (props, emit) => {
   const firstDayOfWeek = import_dayjs5.default.localeData().firstDayOfWeek();
   const { t, lang } = useLocale();
   const now = (0, import_dayjs5.default)().locale(lang.value);
-  const isInRange = computed(() => !!props.range && !!props.range.length);
-  const rows = computed(() => {
+  const isInRange = computed$1(() => !!props.range && !!props.range.length);
+  const rows = computed$1(() => {
     let days = [];
     if (isInRange.value) {
       const [start, end2] = props.range;
@@ -14738,7 +14738,7 @@ var useDateTable = (props, emit) => {
     }
     return toNestedArr(days);
   });
-  const weekDays = computed(() => {
+  const weekDays = computed$1(() => {
     const start = firstDayOfWeek;
     if (start === 0) {
       return WEEK_DAYS.map((_2) => t(`el.datepicker.weeks.${_2}`));
@@ -14895,7 +14895,7 @@ var useCalendar = (props, emit, componentName2) => {
   const { lang } = useLocale();
   const selectedDay = ref();
   const now = (0, import_dayjs6.default)().locale(lang.value);
-  const realSelectedDay = computed({
+  const realSelectedDay = computed$1({
     get() {
       if (!props.modelValue)
         return selectedDay.value;
@@ -14910,7 +14910,7 @@ var useCalendar = (props, emit, componentName2) => {
       emit(UPDATE_MODEL_EVENT, result);
     }
   });
-  const validatedRange = computed(() => {
+  const validatedRange = computed$1(() => {
     if (!props.range)
       return [];
     const rangeArrDayjs = props.range.map((_2) => (0, import_dayjs6.default)(_2).locale(lang.value));
@@ -14929,17 +14929,17 @@ var useCalendar = (props, emit, componentName2) => {
       return calculateValidatedDateRange(startDayjs, endDayjs);
     }
   });
-  const date5 = computed(() => {
+  const date5 = computed$1(() => {
     if (!props.modelValue) {
       return realSelectedDay.value || (validatedRange.value.length ? validatedRange.value[0][0] : now);
     } else {
       return (0, import_dayjs6.default)(props.modelValue).locale(lang.value);
     }
   });
-  const prevMonthDayjs = computed(() => date5.value.subtract(1, "month").date(1));
-  const nextMonthDayjs = computed(() => date5.value.add(1, "month").date(1));
-  const prevYearDayjs = computed(() => date5.value.subtract(1, "year").date(1));
-  const nextYearDayjs = computed(() => date5.value.add(1, "year").date(1));
+  const prevMonthDayjs = computed$1(() => date5.value.subtract(1, "month").date(1));
+  const nextMonthDayjs = computed$1(() => date5.value.add(1, "month").date(1));
+  const prevYearDayjs = computed$1(() => date5.value.subtract(1, "year").date(1));
+  const nextYearDayjs = computed$1(() => date5.value.add(1, "year").date(1));
   const calculateValidatedDateRange = (startDayjs, endDayjs) => {
     const firstDay = startDayjs.startOf("week");
     const lastDay = endDayjs.endOf("week");
@@ -14979,7 +14979,7 @@ var useCalendar = (props, emit, componentName2) => {
     version: "2.3.0",
     ref: "https://element-plus.org/en-US/component/calendar.html#slots",
     type: "Slot"
-  }, computed(() => !!slots.dateCell));
+  }, computed$1(() => !!slots.dateCell));
   return {
     calculateValidatedDateRange,
     date: date5,
@@ -15027,7 +15027,7 @@ var _sfc_main31 = defineComponent({
       validatedRange
     } = useCalendar(props, emit, COMPONENT_NAME8);
     const { t } = useLocale();
-    const i18nDate = computed(() => {
+    const i18nDate = computed$1(() => {
       const pickedMonth = `el.datepicker.month${date5.value.format("M")}`;
       return `${date5.value.year()} ${t("el.datepicker.year")} ${t(pickedMonth)}`;
     });
@@ -15262,13 +15262,13 @@ var useCarousel = (props, emit, componentName2) => {
   const root = ref();
   const containerHeight = ref(0);
   const isItemsTwoLength = ref(true);
-  const arrowDisplay = computed(() => props.arrow !== "never" && !unref(isVertical));
-  const hasLabel = computed(() => {
+  const arrowDisplay = computed$1(() => props.arrow !== "never" && !unref(isVertical));
+  const hasLabel = computed$1(() => {
     return items.value.some((item) => item.props.label.toString().length > 0);
   });
-  const isCardType = computed(() => props.type === "card");
-  const isVertical = computed(() => props.direction === "vertical");
-  const containerStyle = computed(() => {
+  const isCardType = computed$1(() => props.type === "card");
+  const isVertical = computed$1(() => props.direction === "vertical");
+  const containerStyle = computed$1(() => {
     if (props.height !== "auto") {
       return {
         height: props.height
@@ -15537,14 +15537,14 @@ var _sfc_main33 = defineComponent({
       throttledIndicatorHover
     } = useCarousel(props, emit, COMPONENT_NAME9);
     const ns = useNamespace("carousel");
-    const carouselClasses = computed(() => {
+    const carouselClasses = computed$1(() => {
       const classes = [ns.b(), ns.m(props.direction)];
       if (unref(isCardType)) {
         classes.push(ns.m("card"));
       }
       return classes;
     });
-    const indicatorsClasses = computed(() => {
+    const indicatorsClasses = computed$1(() => {
       const classes = [ns.e("indicators"), ns.em("indicators", props.direction)];
       if (unref(hasLabel)) {
         classes.push(ns.em("indicators", "labels"));
@@ -15816,7 +15816,7 @@ var _sfc_main34 = defineComponent({
       ready,
       handleItemClick
     } = useCarouselItem(props, COMPONENT_NAME10);
-    const itemStyle = computed(() => {
+    const itemStyle = computed$1(() => {
       const translateType = `translate${unref(isVertical) ? "Y" : "X"}`;
       const _translate = `${translateType}(${unref(translate2)}px)`;
       const _scale = `scale(${unref(scale)})`;
@@ -15919,13 +15919,13 @@ var useCheckboxDisabled = ({
   isChecked
 }) => {
   const checkboxGroup = inject(checkboxGroupContextKey, void 0);
-  const isLimitDisabled = computed(() => {
+  const isLimitDisabled = computed$1(() => {
     var _a2, _b;
     const max3 = (_a2 = checkboxGroup == null ? void 0 : checkboxGroup.max) == null ? void 0 : _a2.value;
     const min3 = (_b = checkboxGroup == null ? void 0 : checkboxGroup.min) == null ? void 0 : _b.value;
     return !isUndefined(max3) && model.value.length >= max3 && !isChecked.value || !isUndefined(min3) && model.value.length <= min3 && isChecked.value;
   });
-  const isDisabled = useFormDisabled(computed(() => (checkboxGroup == null ? void 0 : checkboxGroup.disabled.value) || isLimitDisabled.value));
+  const isDisabled = useFormDisabled(computed$1(() => (checkboxGroup == null ? void 0 : checkboxGroup.disabled.value) || isLimitDisabled.value));
   return {
     isDisabled,
     isLimitDisabled
@@ -15969,7 +15969,7 @@ var useCheckboxEvent = (props, {
       }
     }
   }
-  const validateEvent = computed(() => (checkboxGroup == null ? void 0 : checkboxGroup.validateEvent) || props.validateEvent);
+  const validateEvent = computed$1(() => (checkboxGroup == null ? void 0 : checkboxGroup.validateEvent) || props.validateEvent);
   watch(() => props.modelValue, () => {
     if (validateEvent.value) {
       formItem == null ? void 0 : formItem.validate("change").catch((err) => debugWarn(err));
@@ -15986,9 +15986,9 @@ var useCheckboxModel = (props) => {
   const selfModel = ref(false);
   const { emit } = getCurrentInstance();
   const checkboxGroup = inject(checkboxGroupContextKey, void 0);
-  const isGroup = computed(() => isUndefined(checkboxGroup) === false);
+  const isGroup = computed$1(() => isUndefined(checkboxGroup) === false);
   const isLimitExceeded = ref(false);
-  const model = computed({
+  const model = computed$1({
     get() {
       var _a2, _b;
       return isGroup.value ? (_a2 = checkboxGroup == null ? void 0 : checkboxGroup.modelValue) == null ? void 0 : _a2.value : (_b = props.modelValue) != null ? _b : selfModel.value;
@@ -16015,7 +16015,7 @@ var useCheckboxModel = (props) => {
 var useCheckboxStatus = (props, slots, { model }) => {
   const checkboxGroup = inject(checkboxGroupContextKey, void 0);
   const isFocused = ref(false);
-  const isChecked = computed(() => {
+  const isChecked = computed$1(() => {
     const value = model.value;
     if (isBoolean(value)) {
       return value;
@@ -16031,17 +16031,17 @@ var useCheckboxStatus = (props, slots, { model }) => {
       return !!value;
     }
   });
-  const checkboxButtonSize = useFormSize(computed(() => {
+  const checkboxButtonSize = useFormSize(computed$1(() => {
     var _a2;
     return (_a2 = checkboxGroup == null ? void 0 : checkboxGroup.size) == null ? void 0 : _a2.value;
   }), {
     prop: true
   });
-  const checkboxSize = useFormSize(computed(() => {
+  const checkboxSize = useFormSize(computed$1(() => {
     var _a2;
     return (_a2 = checkboxGroup == null ? void 0 : checkboxGroup.size) == null ? void 0 : _a2.value;
   }));
-  const hasOwnLabel = computed(() => {
+  const hasOwnLabel = computed$1(() => {
     return !!slots.default || !isNil_default(props.label);
   });
   return {
@@ -16129,7 +16129,7 @@ var _sfc_main35 = defineComponent({
       onClickRoot
     } = useCheckbox(props, slots);
     const ns = useNamespace("checkbox");
-    const compKls = computed(() => {
+    const compKls = computed$1(() => {
       return [
         ns.b(),
         ns.m(checkboxSize.value),
@@ -16138,7 +16138,7 @@ var _sfc_main35 = defineComponent({
         ns.is("checked", isChecked.value)
       ];
     });
-    const spanKls = computed(() => {
+    const spanKls = computed$1(() => {
       return [
         ns.e("input"),
         ns.is("disabled", isDisabled.value),
@@ -16239,7 +16239,7 @@ var _sfc_main36 = defineComponent({
     } = useCheckbox(props, slots);
     const checkboxGroup = inject(checkboxGroupContextKey, void 0);
     const ns = useNamespace("checkbox");
-    const activeStyle = computed(() => {
+    const activeStyle = computed$1(() => {
       var _a2, _b, _c, _d;
       const fillValue = (_b = (_a2 = checkboxGroup == null ? void 0 : checkboxGroup.fill) == null ? void 0 : _a2.value) != null ? _b : "";
       return {
@@ -16249,7 +16249,7 @@ var _sfc_main36 = defineComponent({
         boxShadow: fillValue ? `-1px 0 0 0 ${fillValue}` : void 0
       };
     });
-    const labelKls = computed(() => {
+    const labelKls = computed$1(() => {
       return [
         ns.b("button"),
         ns.bm("button", checkboxButtonSize.value),
@@ -16358,7 +16358,7 @@ var _sfc_main37 = defineComponent({
       await nextTick();
       emit("change", value);
     };
-    const modelValue = computed({
+    const modelValue = computed$1({
       get() {
         return props.modelValue;
       },
@@ -16444,8 +16444,8 @@ var radioGroupKey = Symbol("radioGroupKey");
 var useRadio = (props, emit) => {
   const radioRef = ref();
   const radioGroup = inject(radioGroupKey, void 0);
-  const isGroup = computed(() => !!radioGroup);
-  const modelValue = computed({
+  const isGroup = computed$1(() => !!radioGroup);
+  const modelValue = computed$1({
     get() {
       return isGroup.value ? radioGroup.modelValue : props.modelValue;
     },
@@ -16458,10 +16458,10 @@ var useRadio = (props, emit) => {
       radioRef.value.checked = props.modelValue === props.label;
     }
   });
-  const size3 = useFormSize(computed(() => radioGroup == null ? void 0 : radioGroup.size));
-  const disabled = useFormDisabled(computed(() => radioGroup == null ? void 0 : radioGroup.disabled));
+  const size3 = useFormSize(computed$1(() => radioGroup == null ? void 0 : radioGroup.size));
+  const disabled = useFormDisabled(computed$1(() => radioGroup == null ? void 0 : radioGroup.disabled));
   const focus = ref(false);
-  const tabIndex = computed(() => {
+  const tabIndex = computed$1(() => {
     return disabled.value || isGroup.value && modelValue.value !== props.label ? -1 : 0;
   });
   return {
@@ -16568,7 +16568,7 @@ var _sfc_main39 = defineComponent({
     const props = __props;
     const ns = useNamespace("radio");
     const { radioRef, focus, size: size3, disabled, modelValue, radioGroup } = useRadio(props);
-    const activeStyle = computed(() => {
+    const activeStyle = computed$1(() => {
       return {
         backgroundColor: (radioGroup == null ? void 0 : radioGroup.fill) || "",
         borderColor: (radioGroup == null ? void 0 : radioGroup.fill) || "",
@@ -16683,7 +16683,7 @@ var _sfc_main40 = defineComponent({
         firstLabel.tabIndex = 0;
       }
     });
-    const name = computed(() => {
+    const name = computed$1(() => {
       return props.name || radioId.value;
     });
     provide(radioGroupKey, reactive({
@@ -16765,18 +16765,18 @@ var _sfc_main41 = defineComponent({
   setup(props, { emit }) {
     const panel = inject(CASCADER_PANEL_INJECTION_KEY);
     const ns = useNamespace("cascader-node");
-    const isHoverMenu = computed(() => panel.isHoverMenu);
-    const multiple = computed(() => panel.config.multiple);
-    const checkStrictly = computed(() => panel.config.checkStrictly);
-    const checkedNodeId = computed(() => {
+    const isHoverMenu = computed$1(() => panel.isHoverMenu);
+    const multiple = computed$1(() => panel.config.multiple);
+    const checkStrictly = computed$1(() => panel.config.checkStrictly);
+    const checkedNodeId = computed$1(() => {
       var _a2;
       return (_a2 = panel.checkedNodes[0]) == null ? void 0 : _a2.uid;
     });
-    const isDisabled = computed(() => props.node.isDisabled);
-    const isLeaf2 = computed(() => props.node.isLeaf);
-    const expandable = computed(() => checkStrictly.value && !isLeaf2.value || !isDisabled.value);
-    const inExpandingPath = computed(() => isInPath(panel.expandingNode));
-    const inCheckedPath = computed(() => checkStrictly.value && panel.checkedNodes.some(isInPath));
+    const isDisabled = computed$1(() => props.node.isDisabled);
+    const isLeaf2 = computed$1(() => props.node.isLeaf);
+    const expandable = computed$1(() => checkStrictly.value && !isLeaf2.value || !isDisabled.value);
+    const inExpandingPath = computed$1(() => isInPath(panel.expandingNode));
+    const inCheckedPath = computed$1(() => checkStrictly.value && panel.checkedNodes.some(isInPath));
     const isInPath = (node) => {
       var _a2;
       const { level, uid: uid2 } = props.node;
@@ -16973,9 +16973,9 @@ var _sfc_main42 = defineComponent({
     let hoverTimer = null;
     const panel = inject(CASCADER_PANEL_INJECTION_KEY);
     const hoverZone = ref(null);
-    const isEmpty2 = computed(() => !props.nodes.length);
-    const isLoading = computed(() => !panel.initialLoaded);
-    const menuId = computed(() => `cascader-menu-${id}-${props.index}`);
+    const isEmpty2 = computed$1(() => !props.nodes.length);
+    const isLoading = computed$1(() => !panel.initialLoaded);
+    const menuId = computed$1(() => `cascader-menu-${id}-${props.index}`);
     const handleExpand = (e) => {
       activeNode = e.target;
     };
@@ -17274,7 +17274,7 @@ var DefaultProps = {
   hoverThreshold: 500
 };
 var useCascaderConfig = (props) => {
-  return computed(() => ({
+  return computed$1(() => ({
     ...DefaultProps,
     ...props.props
   }));
@@ -17339,8 +17339,8 @@ var _sfc_main43 = defineComponent({
     const menus = ref([]);
     const expandingNode = ref(null);
     const checkedNodes = ref([]);
-    const isHoverMenu = computed(() => config.value.expandTrigger === "hover");
-    const renderLabelFn = computed(() => props.renderLabel || slots.default);
+    const isHoverMenu = computed$1(() => config.value.expandTrigger === "hover");
+    const renderLabelFn = computed$1(() => props.renderLabel || slots.default);
     const initStore = () => {
       const { options } = props;
       const cfg = config.value;
@@ -17632,7 +17632,7 @@ var _sfc_main44 = defineComponent({
     const props = __props;
     const tagSize = useFormSize();
     const ns = useNamespace("tag");
-    const containerKls = computed(() => {
+    const containerKls = computed$1(() => {
       const { type: type4, hit, effect, closable, round: round2 } = props;
       return [
         ns.b(),
@@ -17820,32 +17820,32 @@ var _sfc_main45 = defineComponent({
     const allPresentTags = ref([]);
     const suggestions = ref([]);
     const isOnComposition = ref(false);
-    const cascaderStyle = computed(() => {
+    const cascaderStyle = computed$1(() => {
       return attrs.style;
     });
-    const isDisabled = computed(() => props.disabled || (form == null ? void 0 : form.disabled));
-    const inputPlaceholder = computed(() => props.placeholder || t("el.cascader.placeholder"));
-    const currentPlaceholder = computed(() => searchInputValue.value || presentTags.value.length > 0 || isOnComposition.value ? "" : inputPlaceholder.value);
+    const isDisabled = computed$1(() => props.disabled || (form == null ? void 0 : form.disabled));
+    const inputPlaceholder = computed$1(() => props.placeholder || t("el.cascader.placeholder"));
+    const currentPlaceholder = computed$1(() => searchInputValue.value || presentTags.value.length > 0 || isOnComposition.value ? "" : inputPlaceholder.value);
     const realSize = useFormSize();
-    const tagSize = computed(() => ["small"].includes(realSize.value) ? "small" : "default");
-    const multiple = computed(() => !!props.props.multiple);
-    const readonly3 = computed(() => !props.filterable || multiple.value);
-    const searchKeyword = computed(() => multiple.value ? searchInputValue.value : inputValue.value);
-    const checkedNodes = computed(() => {
+    const tagSize = computed$1(() => ["small"].includes(realSize.value) ? "small" : "default");
+    const multiple = computed$1(() => !!props.props.multiple);
+    const readonly3 = computed$1(() => !props.filterable || multiple.value);
+    const searchKeyword = computed$1(() => multiple.value ? searchInputValue.value : inputValue.value);
+    const checkedNodes = computed$1(() => {
       var _a2;
       return ((_a2 = cascaderPanelRef.value) == null ? void 0 : _a2.checkedNodes) || [];
     });
-    const clearBtnVisible = computed(() => {
+    const clearBtnVisible = computed$1(() => {
       if (!props.clearable || isDisabled.value || filtering.value || !inputHover.value)
         return false;
       return !!checkedNodes.value.length;
     });
-    const presentText = computed(() => {
+    const presentText = computed$1(() => {
       const { showAllLevels, separator } = props;
       const nodes = checkedNodes.value;
       return nodes.length ? multiple.value ? "" : nodes[0].calcText(showAllLevels, separator) : "";
     });
-    const checkedValue = computed({
+    const checkedValue = computed$1({
       get() {
         return cloneDeep_default(props.modelValue);
       },
@@ -17857,7 +17857,7 @@ var _sfc_main45 = defineComponent({
         }
       }
     });
-    const cascaderKls = computed(() => {
+    const cascaderKls = computed$1(() => {
       return [
         nsCascader.b(),
         nsCascader.m(realSize.value),
@@ -17865,17 +17865,17 @@ var _sfc_main45 = defineComponent({
         attrs.class
       ];
     });
-    const cascaderIconKls = computed(() => {
+    const cascaderIconKls = computed$1(() => {
       return [
         nsInput.e("icon"),
         "icon-arrow-down",
         nsCascader.is("reverse", popperVisible.value)
       ];
     });
-    const inputClass = computed(() => {
+    const inputClass = computed$1(() => {
       return nsCascader.is("focus", popperVisible.value || filterFocus.value);
     });
-    const contentRef = computed(() => {
+    const contentRef = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = tooltipRef.value) == null ? void 0 : _a2.popperRef) == null ? void 0 : _b.contentRef;
     });
@@ -18402,7 +18402,7 @@ var _sfc_main46 = defineComponent({
   setup(__props, { emit }) {
     const props = __props;
     const ns = useNamespace("check-tag");
-    const containerKls = computed(() => [ns.b(), ns.is("checked", props.checked)]);
+    const containerKls = computed$1(() => [ns.b(), ns.is("checked", props.checked)]);
     const handleChange = () => {
       const checked = !props.checked;
       emit(CHANGE_EVENT, checked);
@@ -18466,11 +18466,11 @@ var _sfc_main47 = defineComponent({
   setup(__props) {
     const props = __props;
     const ns = useNamespace("row");
-    const gutter = computed(() => props.gutter);
+    const gutter = computed$1(() => props.gutter);
     provide(rowContextKey, {
       gutter
     });
-    const style = computed(() => {
+    const style = computed$1(() => {
       const styles = {};
       if (!props.gutter) {
         return styles;
@@ -18478,7 +18478,7 @@ var _sfc_main47 = defineComponent({
       styles.marginRight = styles.marginLeft = `-${props.gutter / 2}px`;
       return styles;
     });
-    const rowKls = computed(() => [
+    const rowKls = computed$1(() => [
       ns.b(),
       ns.is(`justify-${props.justify}`, props.justify !== "start"),
       ns.is(`align-${props.align}`, !!props.align)
@@ -18554,16 +18554,16 @@ var _sfc_main48 = defineComponent({
   props: colProps,
   setup(__props) {
     const props = __props;
-    const { gutter } = inject(rowContextKey, { gutter: computed(() => 0) });
+    const { gutter } = inject(rowContextKey, { gutter: computed$1(() => 0) });
     const ns = useNamespace("col");
-    const style = computed(() => {
+    const style = computed$1(() => {
       const styles = {};
       if (gutter.value) {
         styles.paddingLeft = styles.paddingRight = `${gutter.value / 2}px`;
       }
       return styles;
     });
-    const colKls = computed(() => {
+    const colKls = computed$1(() => {
       const classes = [];
       const pos = ["span", "offset", "pull", "push"];
       pos.forEach((prop) => {
@@ -18660,7 +18660,7 @@ var useCollapse = (props, emit) => {
 };
 var useCollapseDOM = () => {
   const ns = useNamespace("collapse");
-  const rootKls = computed(() => ns.b());
+  const rootKls = computed$1(() => ns.b());
   return {
     rootKls
   };
@@ -18798,7 +18798,7 @@ var useCollapseItem = (props) => {
   const focusing = ref(false);
   const isClick = ref(false);
   const id = ref(generateId());
-  const isActive = computed(() => collapse == null ? void 0 : collapse.activeNames.value.includes(props.name));
+  const isActive = computed$1(() => collapse == null ? void 0 : collapse.activeNames.value.includes(props.name));
   const handleFocus = () => {
     setTimeout(() => {
       if (!isClick.value) {
@@ -18829,24 +18829,24 @@ var useCollapseItem = (props) => {
 };
 var useCollapseItemDOM = (props, { focusing, isActive, id }) => {
   const ns = useNamespace("collapse");
-  const rootKls = computed(() => [
+  const rootKls = computed$1(() => [
     ns.b("item"),
     ns.is("active", unref(isActive)),
     ns.is("disabled", props.disabled)
   ]);
-  const headKls = computed(() => [
+  const headKls = computed$1(() => [
     ns.be("item", "header"),
     ns.is("active", unref(isActive)),
     { focusing: unref(focusing) && !props.disabled }
   ]);
-  const arrowKls = computed(() => [
+  const arrowKls = computed$1(() => [
     ns.be("item", "arrow"),
     ns.is("active", unref(isActive))
   ]);
-  const itemWrapperKls = computed(() => ns.be("item", "wrap"));
-  const itemContentKls = computed(() => ns.be("item", "content"));
-  const scopedContentId = computed(() => ns.b(`content-${unref(id)}`));
-  const scopedHeadId = computed(() => ns.b(`head-${unref(id)}`));
+  const itemWrapperKls = computed$1(() => ns.be("item", "wrap"));
+  const itemContentKls = computed$1(() => ns.be("item", "content"));
+  const scopedContentId = computed$1(() => ns.b(`content-${unref(id)}`));
+  const scopedHeadId = computed$1(() => ns.b(`head-${unref(id)}`));
   return {
     arrowKls,
     headKls,
@@ -19097,11 +19097,11 @@ var useAlphaSliderDOM = (props, {
   });
   watch(() => props.color.get("alpha"), () => update());
   watch(() => props.color.value, () => update());
-  const rootKls = computed(() => [ns.b(), ns.is("vertical", props.vertical)]);
-  const barKls = computed(() => ns.e("bar"));
-  const thumbKls = computed(() => ns.e("thumb"));
-  const barStyle = computed(() => ({ background: background.value }));
-  const thumbStyle = computed(() => ({
+  const rootKls = computed$1(() => [ns.b(), ns.is("vertical", props.vertical)]);
+  const barKls = computed$1(() => ns.e("bar"));
+  const thumbKls = computed$1(() => ns.e("thumb"));
+  const barStyle = computed$1(() => ({ background: background.value }));
+  const thumbStyle = computed$1(() => ({
     left: addUnit(thumbLeft.value),
     top: addUnit(thumbTop.value)
   }));
@@ -19169,7 +19169,7 @@ var _sfc_main53 = defineComponent({
     const bar = ref();
     const thumbLeft = ref(0);
     const thumbTop = ref(0);
-    const hueValue = computed(() => {
+    const hueValue = computed$1(() => {
       return props.color.get("hue");
     });
     watch(() => hueValue.value, () => {
@@ -19687,7 +19687,7 @@ var _sfc_main55 = defineComponent({
     const cursorTop = ref(0);
     const cursorLeft = ref(0);
     const background = ref("hsl(0, 100%, 50%)");
-    const colorValue = computed(() => {
+    const colorValue = computed$1(() => {
       const hue = props.color.get("hue");
       const value = props.color.get("value");
       return { hue, value };
@@ -19825,22 +19825,22 @@ var _sfc_main56 = defineComponent({
     const showPicker = ref(false);
     const showPanelColor = ref(false);
     const customInput = ref("");
-    const displayedColor = computed(() => {
+    const displayedColor = computed$1(() => {
       if (!props.modelValue && !showPanelColor.value) {
         return "transparent";
       }
       return displayedRgb(color, props.showAlpha);
     });
-    const currentColor = computed(() => {
+    const currentColor = computed$1(() => {
       return !props.modelValue && !showPanelColor.value ? "" : color.value;
     });
-    const buttonAriaLabel = computed(() => {
+    const buttonAriaLabel = computed$1(() => {
       return !isLabeledByFormItem.value ? props.label || t("el.colorpicker.defaultLabel") : void 0;
     });
-    const buttonAriaLabelledby = computed(() => {
+    const buttonAriaLabelledby = computed$1(() => {
       return isLabeledByFormItem.value ? formItem == null ? void 0 : formItem.labelId : void 0;
     });
-    const btnKls = computed(() => {
+    const btnKls = computed$1(() => {
       return [
         ns.b("picker"),
         ns.is("disabled", colorDisabled.value),
@@ -20168,7 +20168,7 @@ var _sfc_main57 = defineComponent({
     const props = __props;
     const slots = useSlots();
     const ns = useNamespace("container");
-    const isVertical = computed(() => {
+    const isVertical = computed$1(() => {
       if (props.direction === "vertical") {
         return true;
       } else if (props.direction === "horizontal") {
@@ -20210,7 +20210,7 @@ var _sfc_main58 = defineComponent({
   setup(__props) {
     const props = __props;
     const ns = useNamespace("aside");
-    const style = computed(() => props.width ? ns.cssVarBlock({ width: props.width }) : {});
+    const style = computed$1(() => props.width ? ns.cssVarBlock({ width: props.width }) : {});
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("aside", {
         class: normalizeClass(unref(ns).b()),
@@ -20238,7 +20238,7 @@ var _sfc_main59 = defineComponent({
   setup(__props) {
     const props = __props;
     const ns = useNamespace("footer");
-    const style = computed(() => props.height ? ns.cssVarBlock({ height: props.height }) : {});
+    const style = computed$1(() => props.height ? ns.cssVarBlock({ height: props.height }) : {});
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("footer", {
         class: normalizeClass(unref(ns).b()),
@@ -20266,7 +20266,7 @@ var _sfc_main60 = defineComponent({
   setup(__props) {
     const props = __props;
     const ns = useNamespace("header");
-    const style = computed(() => {
+    const style = computed$1(() => {
       return props.height ? ns.cssVarBlock({
         height: props.height
       }) : {};
@@ -20506,22 +20506,22 @@ var useBasicDateTable = (props, emit) => {
   let focusWithClick = false;
   const firstDayOfWeek = props.date.$locale().weekStart || 7;
   const WEEKS_CONSTANT = props.date.locale("en").localeData().weekdaysShort().map((_2) => _2.toLowerCase());
-  const offsetDay = computed(() => {
+  const offsetDay = computed$1(() => {
     return firstDayOfWeek > 3 ? 7 - firstDayOfWeek : -firstDayOfWeek;
   });
-  const startDate = computed(() => {
+  const startDate = computed$1(() => {
     const startDayOfMonth = props.date.startOf("month");
     return startDayOfMonth.subtract(startDayOfMonth.day() || 7, "day");
   });
-  const WEEKS = computed(() => {
+  const WEEKS = computed$1(() => {
     return WEEKS_CONSTANT.concat(WEEKS_CONSTANT).slice(firstDayOfWeek, firstDayOfWeek + 7);
   });
-  const hasCurrent = computed(() => {
+  const hasCurrent = computed$1(() => {
     return flatten_default(unref(rows)).some((row) => {
       return row.isCurrent;
     });
   });
-  const days = computed(() => {
+  const days = computed$1(() => {
     const startOfMonth = props.date.startOf("month");
     const startOfMonthDay = startOfMonth.day() || 7;
     const dateCountOfMonth = startOfMonth.daysInMonth();
@@ -20532,7 +20532,7 @@ var useBasicDateTable = (props, emit) => {
       dateCountOfLastMonth
     };
   });
-  const selectedDate = computed(() => {
+  const selectedDate = computed$1(() => {
     return props.selectionMode === "dates" ? castArray(props.parsedValue) : [];
   });
   const setDateText = (cell, { count, rowIndex, columnIndex }) => {
@@ -20580,7 +20580,7 @@ var useBasicDateTable = (props, emit) => {
       row[end2].end = isActive;
     }
   };
-  const rows = computed(() => {
+  const rows = computed$1(() => {
     const { minDate, maxDate, rangeState, showWeekNumber } = props;
     const offset2 = unref(offsetDay);
     const rows_ = unref(tableRows);
@@ -20780,12 +20780,12 @@ var useBasicDateTableDOM = (props, {
 }) => {
   const ns = useNamespace("date-table");
   const { t } = useLocale();
-  const tableKls = computed(() => [
+  const tableKls = computed$1(() => [
     ns.b(),
     { "is-week-mode": props.selectionMode === "week" }
   ]);
-  const tableLabel = computed(() => t("el.datepicker.dateTablePrompt"));
-  const weekLabel = computed(() => t("el.datepicker.week"));
+  const tableLabel = computed$1(() => t("el.datepicker.dateTablePrompt"));
+  const weekLabel = computed$1(() => t("el.datepicker.week"));
   const getCellClasses = (cell) => {
     const classes = [];
     if (isNormalDay(cell.type) && !cell.disabled) {
@@ -20996,7 +20996,7 @@ var _sfc_main63 = defineComponent({
     ]);
     const lastRow = ref();
     const lastColumn = ref();
-    const rows = computed(() => {
+    const rows = computed$1(() => {
       var _a2, _b;
       const rows2 = tableRows.value;
       const now = (0, import_dayjs9.default)().locale(lang.value).startOf("month");
@@ -21200,7 +21200,7 @@ var _sfc_main64 = defineComponent({
     const { t, lang } = useLocale();
     const tbodyRef = ref();
     const currentCellRef = ref();
-    const startYear = computed(() => {
+    const startYear = computed$1(() => {
       return Math.floor(props.date.year() / 10) * 10;
     });
     const focus = () => {
@@ -21306,13 +21306,13 @@ var _sfc_main65 = defineComponent({
     const innerDate = ref((0, import_dayjs11.default)().locale(lang.value));
     const isChangeToNow = ref(false);
     let isShortcut = false;
-    const defaultTimeD = computed(() => {
+    const defaultTimeD = computed$1(() => {
       return (0, import_dayjs11.default)(defaultTime).locale(lang.value);
     });
-    const month = computed(() => {
+    const month = computed$1(() => {
       return innerDate.value.month();
     });
-    const year = computed(() => {
+    const year = computed$1(() => {
       return innerDate.value.year();
     });
     const selectableRange = ref([]);
@@ -21370,7 +21370,7 @@ var _sfc_main65 = defineComponent({
       handlePanelChange("year");
     };
     const currentView = ref("date");
-    const yearLabel = computed(() => {
+    const yearLabel = computed$1(() => {
       const yearTranslation = t("el.datepicker.year");
       if (currentView.value === "year") {
         const startYear = Math.floor(year.value / 10) * 10;
@@ -21396,16 +21396,16 @@ var _sfc_main65 = defineComponent({
         });
       }
     };
-    const selectionMode = computed(() => {
+    const selectionMode = computed$1(() => {
       const { type: type4 } = props;
       if (["week", "month", "year", "dates"].includes(type4))
         return type4;
       return "date";
     });
-    const keyboardMode = computed(() => {
+    const keyboardMode = computed$1(() => {
       return selectionMode.value === "date" ? currentView.value : selectionMode.value;
     });
-    const hasShortcuts = computed(() => !!shortcuts.length);
+    const hasShortcuts = computed$1(() => !!shortcuts.length);
     const handleMonthPick = async (month2) => {
       innerDate.value = innerDate.value.startOf("month").month(month2);
       if (selectionMode.value === "month") {
@@ -21440,11 +21440,11 @@ var _sfc_main65 = defineComponent({
       await nextTick();
       handleFocusPicker();
     };
-    const showTime = computed(() => props.type === "datetime" || props.type === "datetimerange");
-    const footerVisible = computed(() => {
+    const showTime = computed$1(() => props.type === "datetime" || props.type === "datetimerange");
+    const footerVisible = computed$1(() => {
       return showTime.value || selectionMode.value === "dates";
     });
-    const disabledConfirm = computed(() => {
+    const disabledConfirm = computed$1(() => {
       if (!disabledDate2)
         return false;
       if (!props.parsedValue)
@@ -21468,7 +21468,7 @@ var _sfc_main65 = defineComponent({
         emit(result);
       }
     };
-    const disabledNow = computed(() => {
+    const disabledNow = computed$1(() => {
       if (!disabledDate2)
         return false;
       return disabledDate2((0, import_dayjs11.default)().locale(lang.value).toDate());
@@ -21482,20 +21482,20 @@ var _sfc_main65 = defineComponent({
         emit(innerDate.value);
       }
     };
-    const timeFormat = computed(() => {
+    const timeFormat = computed$1(() => {
       return props.timeFormat || extractTimeFormat(props.format);
     });
-    const dateFormat = computed(() => {
+    const dateFormat = computed$1(() => {
       return props.dateFormat || extractDateFormat(props.format);
     });
-    const visibleTime = computed(() => {
+    const visibleTime = computed$1(() => {
       if (userInputTime.value)
         return userInputTime.value;
       if (!props.parsedValue && !defaultValue.value)
         return;
       return (props.parsedValue || innerDate.value).format(timeFormat.value);
     });
-    const visibleDate = computed(() => {
+    const visibleDate = computed$1(() => {
       if (userInputDate.value)
         return userInputDate.value;
       if (!props.parsedValue && !defaultValue.value)
@@ -22092,57 +22092,57 @@ var _sfc_main66 = defineComponent({
       min: null,
       max: null
     });
-    const leftLabel = computed(() => {
+    const leftLabel = computed$1(() => {
       return `${leftDate.value.year()} ${t("el.datepicker.year")} ${t(`el.datepicker.month${leftDate.value.month() + 1}`)}`;
     });
-    const rightLabel = computed(() => {
+    const rightLabel = computed$1(() => {
       return `${rightDate.value.year()} ${t("el.datepicker.year")} ${t(`el.datepicker.month${rightDate.value.month() + 1}`)}`;
     });
-    const leftYear = computed(() => {
+    const leftYear = computed$1(() => {
       return leftDate.value.year();
     });
-    const leftMonth = computed(() => {
+    const leftMonth = computed$1(() => {
       return leftDate.value.month();
     });
-    const rightYear = computed(() => {
+    const rightYear = computed$1(() => {
       return rightDate.value.year();
     });
-    const rightMonth = computed(() => {
+    const rightMonth = computed$1(() => {
       return rightDate.value.month();
     });
-    const hasShortcuts = computed(() => !!shortcuts.value.length);
-    const minVisibleDate = computed(() => {
+    const hasShortcuts = computed$1(() => !!shortcuts.value.length);
+    const minVisibleDate = computed$1(() => {
       if (dateUserInput.value.min !== null)
         return dateUserInput.value.min;
       if (minDate.value)
         return minDate.value.format(dateFormat.value);
       return "";
     });
-    const maxVisibleDate = computed(() => {
+    const maxVisibleDate = computed$1(() => {
       if (dateUserInput.value.max !== null)
         return dateUserInput.value.max;
       if (maxDate.value || minDate.value)
         return (maxDate.value || minDate.value).format(dateFormat.value);
       return "";
     });
-    const minVisibleTime = computed(() => {
+    const minVisibleTime = computed$1(() => {
       if (timeUserInput.value.min !== null)
         return timeUserInput.value.min;
       if (minDate.value)
         return minDate.value.format(timeFormat.value);
       return "";
     });
-    const maxVisibleTime = computed(() => {
+    const maxVisibleTime = computed$1(() => {
       if (timeUserInput.value.max !== null)
         return timeUserInput.value.max;
       if (maxDate.value || minDate.value)
         return (maxDate.value || minDate.value).format(timeFormat.value);
       return "";
     });
-    const timeFormat = computed(() => {
+    const timeFormat = computed$1(() => {
       return props.timeFormat || extractTimeFormat(format2);
     });
-    const dateFormat = computed(() => {
+    const dateFormat = computed$1(() => {
       return props.dateFormat || extractDateFormat(format2);
     });
     const isValidValue3 = (date5) => {
@@ -22199,18 +22199,18 @@ var _sfc_main66 = defineComponent({
     const handlePanelChange = (mode) => {
       emit("panel-change", [leftDate.value.toDate(), rightDate.value.toDate()], mode);
     };
-    const enableMonthArrow = computed(() => {
+    const enableMonthArrow = computed$1(() => {
       const nextMonth = (leftMonth.value + 1) % 12;
       const yearOffset = leftMonth.value + 1 >= 12 ? 1 : 0;
       return props.unlinkPanels && new Date(leftYear.value + yearOffset, nextMonth) < new Date(rightYear.value, rightMonth.value);
     });
-    const enableYearArrow = computed(() => {
+    const enableYearArrow = computed$1(() => {
       return props.unlinkPanels && rightYear.value * 12 + rightMonth.value - (leftYear.value * 12 + leftMonth.value + 1) >= 12;
     });
-    const btnDisabled = computed(() => {
+    const btnDisabled = computed$1(() => {
       return !(minDate.value && maxDate.value && !rangeState.value.selecting && isValidRange2([minDate.value, maxDate.value]));
     });
-    const showTime = computed(() => props.type === "datetime" || props.type === "datetimerange");
+    const showTime = computed$1(() => props.type === "datetime" || props.type === "datetimerange");
     const formatEmit = (emitDayjs, index) => {
       if (!emitDayjs)
         return;
@@ -22729,16 +22729,16 @@ var useMonthRangeHeader = ({
   const rightPrevYear = () => {
     rightDate.value = rightDate.value.subtract(1, "year");
   };
-  const leftLabel = computed(() => {
+  const leftLabel = computed$1(() => {
     return `${leftDate.value.year()} ${t("el.datepicker.year")}`;
   });
-  const rightLabel = computed(() => {
+  const rightLabel = computed$1(() => {
     return `${rightDate.value.year()} ${t("el.datepicker.year")}`;
   });
-  const leftYear = computed(() => {
+  const leftYear = computed$1(() => {
     return leftDate.value.year();
   });
-  const rightYear = computed(() => {
+  const rightYear = computed$1(() => {
     return rightDate.value.year() === leftDate.value.year() ? leftDate.value.year() + 1 : rightDate.value.year();
   });
   return {
@@ -22790,7 +22790,7 @@ var _sfc_main67 = defineComponent({
       unit: unit2,
       onParsedValueChanged
     });
-    const hasShortcuts = computed(() => !!shortcuts.length);
+    const hasShortcuts = computed$1(() => !!shortcuts.length);
     const {
       leftPrevYear,
       rightNextYear,
@@ -22805,7 +22805,7 @@ var _sfc_main67 = defineComponent({
       leftDate,
       rightDate
     });
-    const enableYearArrow = computed(() => {
+    const enableYearArrow = computed$1(() => {
       return props.unlinkPanels && rightYear.value > leftYear.value + 1;
     });
     const handleRangePick = (val, close2 = true) => {
@@ -23251,7 +23251,7 @@ var _sfc_main69 = defineComponent({
     const descriptionsSize = useFormSize();
     const slots = useSlots();
     provide(descriptionsKey, props);
-    const descriptionKls = computed(() => [ns.b(), ns.m(descriptionsSize.value)]);
+    const descriptionKls = computed$1(() => [ns.b(), ns.m(descriptionsSize.value)]);
     const filledNode = (node, span, count, isLast = false) => {
       if (!node.props) {
         node.props = {};
@@ -23500,7 +23500,7 @@ var _sfc_main70 = defineComponent({
     const { Close } = CloseComponents;
     const { dialogRef, headerRef, bodyId, ns, style } = inject(dialogInjectionKey);
     const { focusTrapRef } = inject(FOCUS_TRAP_INJECTION_KEY);
-    const dialogKls = computed(() => [
+    const dialogKls = computed$1(() => [
       ns.b(),
       ns.is("fullscreen", props.fullscreen),
       ns.is("draggable", props.draggable),
@@ -23509,7 +23509,7 @@ var _sfc_main70 = defineComponent({
       props.customClass
     ]);
     const composedDialogRef = composeRefs(focusTrapRef, dialogRef);
-    const draggable2 = computed(() => props.draggable);
+    const draggable2 = computed$1(() => props.draggable);
     useDraggable(dialogRef, headerRef, draggable2);
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("div", {
@@ -23642,7 +23642,7 @@ var useDialog = (props, targetRef) => {
   let openTimer = void 0;
   let closeTimer = void 0;
   const namespace = useGlobalConfig("namespace", defaultNamespace);
-  const style = computed(() => {
+  const style = computed$1(() => {
     const style2 = {};
     const varPrefix = `--${namespace.value}-dialog`;
     if (!props.fullscreen) {
@@ -23655,7 +23655,7 @@ var useDialog = (props, targetRef) => {
     }
     return style2;
   });
-  const overlayDialogStyle = computed(() => {
+  const overlayDialogStyle = computed$1(() => {
     if (props.alignCenter) {
       return { display: "flex" };
     }
@@ -23817,7 +23817,7 @@ var _sfc_main71 = defineComponent({
       replacement: "the header slot",
       version: "3.0.0",
       ref: "https://element-plus.org/en-US/component/dialog.html#slots"
-    }, computed(() => !!slots.title));
+    }, computed$1(() => !!slots.title));
     useDeprecated({
       scope: "el-dialog",
       from: "custom-class",
@@ -23825,7 +23825,7 @@ var _sfc_main71 = defineComponent({
       version: "2.3.0",
       ref: "https://element-plus.org/en-US/component/dialog.html#attributes",
       type: "Attribute"
-    }, computed(() => !!props.customClass));
+    }, computed$1(() => !!props.customClass));
     const ns = useNamespace("dialog");
     const dialogRef = ref();
     const headerRef = ref();
@@ -23857,7 +23857,7 @@ var _sfc_main71 = defineComponent({
       style
     });
     const overlayEvent = useSameTarget(onModalClick);
-    const draggable2 = computed(() => props.draggable && !props.fullscreen);
+    const draggable2 = computed$1(() => props.draggable && !props.fullscreen);
     expose({
       visible,
       dialogContentRef
@@ -23989,7 +23989,7 @@ var _sfc_main72 = defineComponent({
   setup(__props) {
     const props = __props;
     const ns = useNamespace("divider");
-    const dividerStyle = computed(() => {
+    const dividerStyle = computed$1(() => {
       return ns.cssVar({
         "border-style": props.borderStyle
       });
@@ -24061,7 +24061,7 @@ var _sfc_main73 = defineComponent({
       replacement: "the header slot",
       version: "3.0.0",
       ref: "https://element-plus.org/en-US/component/drawer.html#slots"
-    }, computed(() => !!slots.title));
+    }, computed$1(() => !!slots.title));
     useDeprecated({
       scope: "el-drawer",
       from: "custom-class",
@@ -24069,13 +24069,13 @@ var _sfc_main73 = defineComponent({
       version: "2.3.0",
       ref: "https://element-plus.org/en-US/component/drawer.html#attributes",
       type: "Attribute"
-    }, computed(() => !!props.customClass));
+    }, computed$1(() => !!props.customClass));
     const drawerRef = ref();
     const focusStartRef = ref();
     const ns = useNamespace("drawer");
     const { t } = useLocale();
-    const isHorizontal2 = computed(() => props.direction === "rtl" || props.direction === "ltr");
-    const drawerSize = computed(() => addUnit(props.size));
+    const isHorizontal2 = computed$1(() => props.direction === "rtl" || props.direction === "ltr");
+    const drawerSize = computed$1(() => addUnit(props.size));
     return {
       ...useDialog(props, drawerRef),
       drawerRef,
@@ -24381,7 +24381,7 @@ var _sfc_main76 = defineComponent({
     const isClickFocus = ref(false);
     const rovingFocusGroupRef = ref(null);
     const { getItems } = inject(COLLECTION_INJECTION_KEY, void 0);
-    const rovingFocusGroupRootStyle = computed(() => {
+    const rovingFocusGroupRootStyle = computed$1(() => {
       return [
         {
           outline: "none"
@@ -24433,7 +24433,7 @@ var _sfc_main76 = defineComponent({
     provide(ROVING_FOCUS_GROUP_INJECTION_KEY, {
       currentTabbedId: readonly(currentTabbedId),
       loop: toRef(props, "loop"),
-      tabIndex: computed(() => {
+      tabIndex: computed$1(() => {
         return unref(isBackingOut) ? -1 : 0;
       }),
       rovingFocusGroupRef,
@@ -24555,10 +24555,10 @@ var _sfc_main78 = defineComponent({
         });
       }
     });
-    const isCurrentTab = computed(() => currentTabbedId.value === unref(id));
+    const isCurrentTab = computed$1(() => currentTabbedId.value === unref(id));
     provide(ROVING_FOCUS_GROUP_ITEM_INJECTION_KEY, {
       rovingFocusGroupItemRef,
-      tabIndex: computed(() => unref(isCurrentTab) ? 0 : -1),
+      tabIndex: computed$1(() => unref(isCurrentTab) ? 0 : -1),
       handleMousedown,
       handleFocus,
       handleKeydown
@@ -24712,13 +24712,13 @@ var _sfc_main79 = defineComponent({
     const currentTabId = ref(null);
     const isUsingKeyboard = ref(false);
     const triggerKeys = [EVENT_CODE.enter, EVENT_CODE.space, EVENT_CODE.down];
-    const wrapStyle = computed(() => ({
+    const wrapStyle = computed$1(() => ({
       maxHeight: addUnit(props.maxHeight)
     }));
-    const dropdownTriggerKls = computed(() => [ns.m(dropdownSize.value)]);
-    const trigger2 = computed(() => castArray_default(props.trigger));
+    const dropdownTriggerKls = computed$1(() => [ns.m(dropdownSize.value)]);
+    const trigger2 = computed$1(() => castArray_default(props.trigger));
     const defaultTriggerId = useId().value;
-    const triggerId = computed(() => {
+    const triggerId = computed$1(() => {
       return props.id || defaultTriggerId;
     });
     watch([triggeringElementRef, trigger2], ([triggeringElement, trigger22], [prevTriggeringElement]) => {
@@ -24787,7 +24787,7 @@ var _sfc_main79 = defineComponent({
     }
     provide(DROPDOWN_INJECTION_KEY, {
       contentRef,
-      role: computed(() => props.role),
+      role: computed$1(() => props.role),
       triggerId,
       isUsingKeyboard,
       onItemEnter,
@@ -24993,7 +24993,7 @@ var _sfc_main80 = defineComponent({
       handleMousedown
     } = inject(ROVING_FOCUS_GROUP_ITEM_INJECTION_KEY, void 0);
     const itemRef = composeRefs(dropdownCollectionItemRef, rovingFocusCollectionItemRef, rovingFocusGroupItemRef);
-    const role = computed(() => {
+    const role = computed$1(() => {
       if (menuRole.value === "menu") {
         return "menuitem";
       } else if (menuRole.value === "navigation") {
@@ -25060,7 +25060,7 @@ var ElDropdownItemImpl = _export_sfc(_sfc_main80, [["render", _sfc_render15], ["
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/dropdown/src/useDropdown.mjs
 var useDropdown = () => {
   const elDropdown = inject("elDropdown", {});
-  const _elDropdownSize = computed(() => elDropdown == null ? void 0 : elDropdown.dropdownSize);
+  const _elDropdownSize = computed$1(() => elDropdown == null ? void 0 : elDropdown.dropdownSize);
   return {
     elDropdown,
     _elDropdownSize
@@ -25082,7 +25082,7 @@ var _sfc_main81 = defineComponent({
     const { elDropdown } = useDropdown();
     const _instance = getCurrentInstance();
     const itemRef = ref(null);
-    const textContent = computed(() => {
+    const textContent = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = unref(itemRef)) == null ? void 0 : _a2.textContent) != null ? _b : "";
     });
@@ -25127,7 +25127,7 @@ var _sfc_main81 = defineComponent({
       }
       (_c = elDropdown.commandHandler) == null ? void 0 : _c.call(elDropdown, props.command, _instance, e);
     });
-    const propsAndAttrs = computed(() => {
+    const propsAndAttrs = computed$1(() => {
       return { ...props, ...attrs };
     });
     return {
@@ -25192,7 +25192,7 @@ var _sfc_main82 = defineComponent({
       onMousedown
     } = inject(ROVING_FOCUS_GROUP_INJECTION_KEY, void 0);
     const { collectionRef: rovingFocusGroupCollectionRef } = inject(COLLECTION_INJECTION_KEY, void 0);
-    const dropdownKls = computed(() => {
+    const dropdownKls = computed$1(() => {
       return [ns.b("menu"), ns.bm("menu", size3 == null ? void 0 : size3.value)];
     });
     const dropdownListWrapperRef = composeRefs(contentRef, dropdownCollectionRef, focusTrapRef, rovingFocusGroupRef, rovingFocusGroupCollectionRef);
@@ -25469,8 +25469,8 @@ var _sfc_main84 = defineComponent({
     const props = __props;
     const { t } = useLocale();
     const ns = useNamespace("empty");
-    const emptyDescription = computed(() => props.description || t("el.table.emptyText"));
-    const imageStyle = computed(() => ({
+    const emptyDescription = computed$1(() => props.description || t("el.table.emptyText"));
+    const imageStyle = computed$1(() => ({
       width: addUnit(props.imageSize)
     }));
     return (_ctx, _cache) => {
@@ -25588,30 +25588,30 @@ var _sfc_main85 = defineComponent({
       offsetY: 0,
       enableTransition: false
     });
-    const isSingle = computed(() => {
+    const isSingle = computed$1(() => {
       const { urlList } = props;
       return urlList.length <= 1;
     });
-    const isFirst = computed(() => {
+    const isFirst = computed$1(() => {
       return activeIndex.value === 0;
     });
-    const isLast = computed(() => {
+    const isLast = computed$1(() => {
       return activeIndex.value === props.urlList.length - 1;
     });
-    const currentImg = computed(() => {
+    const currentImg = computed$1(() => {
       return props.urlList[activeIndex.value];
     });
-    const arrowPrevKls = computed(() => [
+    const arrowPrevKls = computed$1(() => [
       ns.e("btn"),
       ns.e("prev"),
       ns.is("disabled", !props.infinite && isFirst.value)
     ]);
-    const arrowNextKls = computed(() => [
+    const arrowNextKls = computed$1(() => [
       ns.e("btn"),
       ns.e("next"),
       ns.is("disabled", !props.infinite && isLast.value)
     ]);
-    const imgStyle = computed(() => {
+    const imgStyle = computed$1(() => {
       const { scale, deg, offsetX, offsetY, enableTransition } = transform.value;
       let translateX = offsetX / scale;
       let translateY = offsetY / scale;
@@ -25641,7 +25641,7 @@ var _sfc_main85 = defineComponent({
       }
       return style;
     });
-    const computedZIndex = computed(() => {
+    const computedZIndex = computed$1(() => {
       return isNumber2(props.zIndex) ? props.zIndex : nextZIndex();
     });
     function hide2() {
@@ -26032,24 +26032,24 @@ var _sfc_main86 = defineComponent({
     const supportLoading = isClient && "loading" in HTMLImageElement.prototype;
     let stopScrollListener;
     let stopWheelListener;
-    const imageKls = computed(() => [
+    const imageKls = computed$1(() => [
       ns.e("inner"),
       preview.value && ns.e("preview"),
       isLoading.value && ns.is("loading")
     ]);
-    const containerStyle = computed(() => rawAttrs.style);
-    const imageStyle = computed(() => {
+    const containerStyle = computed$1(() => rawAttrs.style);
+    const imageStyle = computed$1(() => {
       const { fit } = props;
       if (isClient && fit) {
         return { objectFit: fit };
       }
       return {};
     });
-    const preview = computed(() => {
+    const preview = computed$1(() => {
       const { previewSrcList } = props;
       return Array.isArray(previewSrcList) && previewSrcList.length > 0;
     });
-    const imageIndex = computed(() => {
+    const imageIndex = computed$1(() => {
       const { previewSrcList, initialIndex } = props;
       let previewIndex = initialIndex;
       if (initialIndex > previewSrcList.length - 1) {
@@ -26057,7 +26057,7 @@ var _sfc_main86 = defineComponent({
       }
       return previewIndex;
     });
-    const isManual = computed(() => {
+    const isManual = computed$1(() => {
       if (props.loading === "eager")
         return false;
       return !supportLoading && props.loading === "lazy" || props.lazy;
@@ -26300,9 +26300,9 @@ var _sfc_main87 = defineComponent({
       userInput: null
     });
     const { formItem } = useFormItem();
-    const minDisabled = computed(() => isNumber2(props.modelValue) && props.modelValue <= props.min);
-    const maxDisabled = computed(() => isNumber2(props.modelValue) && props.modelValue >= props.max);
-    const numPrecision = computed(() => {
+    const minDisabled = computed$1(() => isNumber2(props.modelValue) && props.modelValue <= props.min);
+    const maxDisabled = computed$1(() => isNumber2(props.modelValue) && props.modelValue >= props.max);
+    const numPrecision = computed$1(() => {
       const stepPrecision = getPrecision(props.step);
       if (!isUndefined(props.precision)) {
         if (stepPrecision > props.precision) {
@@ -26313,12 +26313,12 @@ var _sfc_main87 = defineComponent({
         return Math.max(getPrecision(props.modelValue), stepPrecision);
       }
     });
-    const controlsAtRight = computed(() => {
+    const controlsAtRight = computed$1(() => {
       return props.controls && props.controlsPosition === "right";
     });
     const inputNumberSize = useFormSize();
     const inputNumberDisabled = useFormDisabled();
-    const displayValue = computed(() => {
+    const displayValue = computed$1(() => {
       if (data.userInput !== null) {
         return data.userInput;
       }
@@ -26616,7 +26616,7 @@ var _sfc_main88 = defineComponent({
   setup(__props, { emit }) {
     const props = __props;
     const ns = useNamespace("link");
-    const linkKls = computed(() => [
+    const linkKls = computed$1(() => [
       ns.b(),
       ns.m(props.type),
       ns.is("disabled", props.disabled),
@@ -26837,7 +26837,7 @@ var ElMenuCollapseTransition = _export_sfc(_sfc_main89, [["render", _sfc_render1
 
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/menu/src/use-menu.mjs
 function useMenu(instance, currentIndex) {
-  const indexPath = computed(() => {
+  const indexPath = computed$1(() => {
     let parent = instance.parent;
     const path = [currentIndex.value];
     while (parent.type.name !== "ElMenu") {
@@ -26848,7 +26848,7 @@ function useMenu(instance, currentIndex) {
     }
     return path;
   });
-  const parentMenu = computed(() => {
+  const parentMenu = computed$1(() => {
     let parent = instance.parent;
     while (parent && !["ElMenu", "ElSubMenu"].includes(parent.type.name)) {
       parent = parent.parent;
@@ -26863,7 +26863,7 @@ function useMenu(instance, currentIndex) {
 
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/menu/src/use-menu-color.mjs
 function useMenuColor(props) {
-  const menuBarColor = computed(() => {
+  const menuBarColor = computed$1(() => {
     const color = props.backgroundColor;
     if (!color) {
       return "";
@@ -26877,7 +26877,7 @@ function useMenuColor(props) {
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/menu/src/use-menu-css-var.mjs
 var useMenuCssVar = (props, level) => {
   const ns = useNamespace("menu");
-  return computed(() => {
+  return computed$1(() => {
     return ns.cssVarBlock({
       "text-color": props.textColor || "",
       "hover-text-color": props.textColor || "",
@@ -26941,9 +26941,9 @@ var SubMenu2 = defineComponent({
       scope: COMPONENT_NAME13,
       version: "2.3.0",
       ref: "https://element-plus.org/en-US/component/menu.html#submenu-attributes"
-    }, computed(() => props.popperAppendToBody !== void 0));
+    }, computed$1(() => props.popperAppendToBody !== void 0));
     const instance = getCurrentInstance();
-    const { indexPath, parentMenu } = useMenu(instance, computed(() => props.index));
+    const { indexPath, parentMenu } = useMenu(instance, computed$1(() => props.index));
     const nsMenu = useNamespace("menu");
     const nsSubMenu = useNamespace("sub-menu");
     const rootMenu = inject("rootMenu");
@@ -26958,20 +26958,20 @@ var SubMenu2 = defineComponent({
     const mouseInChild = ref(false);
     const verticalTitleRef = ref();
     const vPopper = ref(null);
-    const currentPlacement = computed(() => mode.value === "horizontal" && isFirstLevel.value ? "bottom-start" : "right-start");
-    const subMenuTitleIcon = computed(() => {
+    const currentPlacement = computed$1(() => mode.value === "horizontal" && isFirstLevel.value ? "bottom-start" : "right-start");
+    const subMenuTitleIcon = computed$1(() => {
       return mode.value === "horizontal" && isFirstLevel.value || mode.value === "vertical" && !rootMenu.props.collapse ? props.expandCloseIcon && props.expandOpenIcon ? opened.value ? props.expandOpenIcon : props.expandCloseIcon : arrow_down_default : props.collapseCloseIcon && props.collapseOpenIcon ? opened.value ? props.collapseOpenIcon : props.collapseCloseIcon : arrow_right_default;
     });
-    const isFirstLevel = computed(() => {
+    const isFirstLevel = computed$1(() => {
       return subMenu.level === 0;
     });
-    const appendToBody = computed(() => {
+    const appendToBody = computed$1(() => {
       var _a2;
       const value = (_a2 = props.teleported) != null ? _a2 : props.popperAppendToBody;
       return value === void 0 ? isFirstLevel.value : value;
     });
-    const menuTransitionName = computed(() => rootMenu.props.collapse ? `${nsMenu.namespace.value}-zoom-in-left` : `${nsMenu.namespace.value}-zoom-in-top`);
-    const fallbackPlacements = computed(() => mode.value === "horizontal" && isFirstLevel.value ? [
+    const menuTransitionName = computed$1(() => rootMenu.props.collapse ? `${nsMenu.namespace.value}-zoom-in-left` : `${nsMenu.namespace.value}-zoom-in-top`);
+    const fallbackPlacements = computed$1(() => mode.value === "horizontal" && isFirstLevel.value ? [
       "bottom-start",
       "bottom-end",
       "top-start",
@@ -26988,8 +26988,8 @@ var SubMenu2 = defineComponent({
       "top-start",
       "top-end"
     ]);
-    const opened = computed(() => rootMenu.openedMenus.includes(props.index));
-    const active = computed(() => {
+    const opened = computed$1(() => rootMenu.openedMenus.includes(props.index));
+    const active = computed$1(() => {
       let isActive = false;
       Object.values(items.value).forEach((item2) => {
         if (item2.active) {
@@ -27003,7 +27003,7 @@ var SubMenu2 = defineComponent({
       });
       return isActive;
     });
-    const mode = computed(() => rootMenu.props.mode);
+    const mode = computed$1(() => rootMenu.props.mode);
     const item = reactive({
       index: props.index,
       indexPath,
@@ -27236,7 +27236,7 @@ var Menu2 = defineComponent({
     const activeIndex = ref(props.defaultActive);
     const items = ref({});
     const subMenus = ref({});
-    const isMenuPopup = computed(() => {
+    const isMenuPopup = computed$1(() => {
       return props.mode === "horizontal" || props.mode === "vertical" && props.collapse;
     });
     const initMenu = () => {
@@ -27493,7 +27493,7 @@ var _sfc_main90 = defineComponent({
     const subMenu = inject(`subMenu:${parentMenu.value.uid}`);
     if (!subMenu)
       throwError(COMPONENT_NAME14, "can not inject sub menu");
-    const active = computed(() => props.index === rootMenu.activeIndex);
+    const active = computed$1(() => props.index === rootMenu.activeIndex);
     const item = reactive({
       index: props.index,
       indexPath,
@@ -27639,7 +27639,7 @@ var _sfc_main92 = defineComponent({
     const slots = useSlots();
     const { t } = useLocale();
     const ns = useNamespace("page-header");
-    const kls = computed(() => {
+    const kls = computed$1(() => {
       return [
         ns.b(),
         {
@@ -27761,7 +27761,7 @@ var _sfc_main93 = defineComponent({
   setup(__props) {
     const props = __props;
     const { t } = useLocale();
-    const internalDisabled = computed(() => props.disabled || props.currentPage <= 1);
+    const internalDisabled = computed$1(() => props.disabled || props.currentPage <= 1);
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("button", {
         type: "button",
@@ -27815,7 +27815,7 @@ var _sfc_main94 = defineComponent({
   setup(__props) {
     const props = __props;
     const { t } = useLocale();
-    const internalDisabled = computed(() => props.disabled || props.currentPage === props.pageCount || props.pageCount === 0);
+    const internalDisabled = computed$1(() => props.disabled || props.currentPage === props.pageCount || props.pageCount === 0);
     return (_ctx, _cache) => {
       return openBlock(), createElementBlock("button", {
         type: "button",
@@ -27845,15 +27845,15 @@ var selectKey = Symbol("ElSelect");
 function useOption(props, states) {
   const select = inject(selectKey);
   const selectGroup = inject(selectGroupKey, { disabled: false });
-  const isObject$1 = computed(() => isObject(props.value));
-  const itemSelected = computed(() => {
+  const isObject$1 = computed$1(() => isObject(props.value));
+  const itemSelected = computed$1(() => {
     if (!select.props.multiple) {
       return isEqual2(props.value, select.props.modelValue);
     } else {
       return contains(select.props.modelValue, props.value);
     }
   });
-  const limitReached = computed(() => {
+  const limitReached = computed$1(() => {
     if (select.props.multiple) {
       const modelValue = select.props.modelValue || [];
       return !itemSelected.value && modelValue.length >= select.props.multipleLimit && select.props.multipleLimit > 0;
@@ -27861,13 +27861,13 @@ function useOption(props, states) {
       return false;
     }
   });
-  const currentLabel = computed(() => {
+  const currentLabel = computed$1(() => {
     return props.label || (isObject$1.value ? "" : props.value);
   });
-  const currentValue = computed(() => {
+  const currentValue = computed$1(() => {
     return props.value || props.label || "";
   });
-  const isDisabled = computed(() => {
+  const isDisabled = computed$1(() => {
     return props.disabled || states.groupDisabled || limitReached.value;
   });
   const instance = getCurrentInstance();
@@ -27949,7 +27949,7 @@ var _sfc_main95 = defineComponent({
   setup(props) {
     const ns = useNamespace("select");
     const id = useId();
-    const containerKls = computed(() => [
+    const containerKls = computed$1(() => [
       ns.be("dropdown", "item"),
       ns.is("disabled", unref(isDisabled)),
       {
@@ -28030,9 +28030,9 @@ var _sfc_main96 = defineComponent({
   setup() {
     const select = inject(selectKey);
     const ns = useNamespace("select");
-    const popperClass = computed(() => select.props.popperClass);
-    const isMultiple = computed(() => select.props.multiple);
-    const isFitInputWidth = computed(() => select.props.fitInputWidth);
+    const popperClass = computed$1(() => select.props.popperClass);
+    const isMultiple = computed$1(() => select.props.multiple);
+    const isFitInputWidth = computed$1(() => select.props.fitInputWidth);
     const minWidth = ref("");
     function updateMinWidth() {
       var _a2;
@@ -28099,7 +28099,7 @@ var useSelect = (props, states, ctx) => {
     version: "2.3.0",
     scope: "props",
     ref: "https://element-plus.org/en-US/component/select.html#select-attributes"
-  }, computed(() => props.suffixTransition === false));
+  }, computed$1(() => props.suffixTransition === false));
   const reference = ref(null);
   const input = ref(null);
   const iOSInput = ref(null);
@@ -28114,18 +28114,18 @@ var useSelect = (props, states, ctx) => {
   const optionList = ref([]);
   let originClientHeight = 0;
   const { form, formItem } = useFormItem();
-  const readonly3 = computed(() => !props.filterable || props.multiple || !states.visible);
-  const selectDisabled = computed(() => props.disabled || (form == null ? void 0 : form.disabled));
-  const showClose = computed(() => {
+  const readonly3 = computed$1(() => !props.filterable || props.multiple || !states.visible);
+  const selectDisabled = computed$1(() => props.disabled || (form == null ? void 0 : form.disabled));
+  const showClose = computed$1(() => {
     const hasValue = props.multiple ? Array.isArray(props.modelValue) && props.modelValue.length > 0 : props.modelValue !== void 0 && props.modelValue !== null && props.modelValue !== "";
     const criteria = props.clearable && !selectDisabled.value && states.inputHovering && hasValue;
     return criteria;
   });
-  const iconComponent = computed(() => props.remote && props.filterable && !props.remoteShowSuffix ? "" : props.suffixIcon);
-  const iconReverse = computed(() => ns.is("reverse", iconComponent.value && states.visible && props.suffixTransition));
-  const showStatusIconAndState = computed(() => (form == null ? void 0 : form.statusIcon) && (formItem == null ? void 0 : formItem.validateState) && ValidateComponentsMap[formItem == null ? void 0 : formItem.validateState]);
-  const debounce$1 = computed(() => props.remote ? 300 : 0);
-  const emptyText = computed(() => {
+  const iconComponent = computed$1(() => props.remote && props.filterable && !props.remoteShowSuffix ? "" : props.suffixIcon);
+  const iconReverse = computed$1(() => ns.is("reverse", iconComponent.value && states.visible && props.suffixTransition));
+  const showStatusIconAndState = computed$1(() => (form == null ? void 0 : form.statusIcon) && (formItem == null ? void 0 : formItem.validateState) && ValidateComponentsMap[formItem == null ? void 0 : formItem.validateState]);
+  const debounce$1 = computed$1(() => props.remote ? 300 : 0);
+  const emptyText = computed$1(() => {
     if (props.loading) {
       return props.loadingText || t("el.select.loading");
     } else {
@@ -28140,7 +28140,7 @@ var useSelect = (props, states, ctx) => {
     }
     return null;
   });
-  const optionsArray = computed(() => {
+  const optionsArray = computed$1(() => {
     const list = Array.from(states.options.values());
     const newList = [];
     optionList.value.forEach((item) => {
@@ -28151,8 +28151,8 @@ var useSelect = (props, states, ctx) => {
     });
     return newList.length >= list.length ? newList : list;
   });
-  const cachedOptionsArray = computed(() => Array.from(states.cachedOptions.values()));
-  const showNewOption = computed(() => {
+  const cachedOptionsArray = computed$1(() => Array.from(states.cachedOptions.values()));
+  const showNewOption = computed$1(() => {
     const hasExistingOption = optionsArray.value.filter((option) => {
       return !option.created;
     }).some((option) => {
@@ -28161,8 +28161,8 @@ var useSelect = (props, states, ctx) => {
     return props.filterable && props.allowCreate && states.query !== "" && !hasExistingOption;
   });
   const selectSize = useFormSize();
-  const collapseTagSize = computed(() => ["small"].includes(selectSize.value) ? "small" : "default");
-  const dropMenuVisible = computed({
+  const collapseTagSize = computed$1(() => ["small"].includes(selectSize.value) ? "small" : "default");
+  const dropMenuVisible = computed$1({
     get() {
       return states.visible && emptyText.value !== false;
     },
@@ -28707,9 +28707,9 @@ var useSelect = (props, states, ctx) => {
   const getValueKey = (item) => {
     return isObject(item.value) ? get_default(item.value, props.valueKey) : item.value;
   };
-  const optionsAllDisabled = computed(() => optionsArray.value.filter((option) => option.visible).every((option) => option.disabled));
-  const showTagList = computed(() => props.multiple ? states.selected.slice(0, props.maxCollapseTags) : []);
-  const collapseTagList = computed(() => props.multiple ? states.selected.slice(props.maxCollapseTags) : []);
+  const optionsAllDisabled = computed$1(() => optionsArray.value.filter((option) => option.visible).every((option) => option.disabled));
+  const showTagList = computed$1(() => props.multiple ? states.selected.slice(0, props.maxCollapseTags) : []);
+  const collapseTagList = computed$1(() => props.multiple ? states.selected.slice(props.maxCollapseTags) : []);
   const navigateOptions = (direction2) => {
     if (!states.visible) {
       states.visible = true;
@@ -28749,7 +28749,7 @@ var useSelect = (props, states, ctx) => {
     deleteTag(event, tag);
     (_b = (_a2 = tagTooltipRef.value) == null ? void 0 : _a2.updatePopper) == null ? void 0 : _b.call(_a2);
   };
-  const selectTagsStyle = computed(() => ({
+  const selectTagsStyle = computed$1(() => ({
     maxWidth: `${unref(states.inputWidth) - 32 - (showStatusIconAndState.value ? 22 : 0)}px`,
     width: "100%"
   }));
@@ -29065,7 +29065,7 @@ var _sfc_main97 = defineComponent({
       optionsCount,
       prefixWidth
     } = toRefs(states);
-    const wrapperKls = computed(() => {
+    const wrapperKls = computed$1(() => {
       const classList = [nsSelect.b()];
       const _selectSize = unref(selectSize);
       if (_selectSize) {
@@ -29076,32 +29076,32 @@ var _sfc_main97 = defineComponent({
       }
       return classList;
     });
-    const tagsKls = computed(() => [
+    const tagsKls = computed$1(() => [
       nsSelect.e("tags"),
       nsSelect.is("disabled", unref(selectDisabled))
     ]);
-    const tagWrapperKls = computed(() => [
+    const tagWrapperKls = computed$1(() => [
       nsSelect.b("tags-wrapper"),
       { "has-prefix": unref(prefixWidth) && unref(selected).length }
     ]);
-    const inputKls = computed(() => [
+    const inputKls = computed$1(() => [
       nsSelect.e("input"),
       nsSelect.is(unref(selectSize)),
       nsSelect.is("disabled", unref(selectDisabled))
     ]);
-    const iOSInputKls = computed(() => [
+    const iOSInputKls = computed$1(() => [
       nsSelect.e("input"),
       nsSelect.is(unref(selectSize)),
       nsSelect.em("input", "iOS")
     ]);
-    const scrollbarKls = computed(() => [
+    const scrollbarKls = computed$1(() => [
       nsSelect.is("empty", !props.allowCreate && Boolean(unref(query)) && unref(filteredOptionsCount) === 0)
     ]);
-    const tagTextStyle = computed(() => {
+    const tagTextStyle = computed$1(() => {
       const maxWidth = unref(inputWidth) > 123 ? unref(inputWidth) - 123 : unref(inputWidth) - 75;
       return { maxWidth: `${maxWidth}px` };
     });
-    const inputStyle = computed(() => ({
+    const inputStyle = computed$1(() => ({
       marginLeft: `${unref(prefixWidth)}px`,
       flexGrow: 1,
       width: `${unref(inputLength) / (unref(inputWidth) - 32)}%`,
@@ -29151,7 +29151,7 @@ var _sfc_main97 = defineComponent({
     if (!props.multiple && Array.isArray(props.modelValue)) {
       ctx.emit(UPDATE_MODEL_EVENT, "");
     }
-    const popperPaneRef = computed(() => {
+    const popperPaneRef = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = tooltipRef.value) == null ? void 0 : _a2.popperRef) == null ? void 0 : _b.contentRef;
     });
@@ -29703,7 +29703,7 @@ var _sfc_main99 = defineComponent({
     watch(() => props.pageSize, (newVal) => {
       innerPageSize.value = newVal;
     });
-    const innerPageSizes = computed(() => props.pageSizes);
+    const innerPageSizes = computed$1(() => props.pageSizes);
     function handleChange(val) {
       var _a2;
       if (val !== innerPageSize.value) {
@@ -29762,7 +29762,7 @@ var _sfc_main100 = defineComponent({
     const ns = useNamespace("pagination");
     const { pageCount, disabled, currentPage, changeEvent } = usePagination();
     const userInput = ref();
-    const innerValue = computed(() => {
+    const innerValue = computed$1(() => {
       var _a2;
       return (_a2 = userInput.value) != null ? _a2 : currentPage == null ? void 0 : currentPage.value;
     });
@@ -29878,7 +29878,7 @@ var _sfc_main102 = defineComponent({
     const quickNextHover = ref(false);
     const quickPrevFocus = ref(false);
     const quickNextFocus = ref(false);
-    const pagers = computed(() => {
+    const pagers = computed$1(() => {
       const pagerCount = props.pagerCount;
       const halfPagerCount = (pagerCount - 1) / 2;
       const currentPage = Number(props.currentPage);
@@ -29915,19 +29915,19 @@ var _sfc_main102 = defineComponent({
       }
       return array4;
     });
-    const prevMoreKls = computed(() => [
+    const prevMoreKls = computed$1(() => [
       "more",
       "btn-quickprev",
       nsIcon.b(),
       nsPager.is("disabled", props.disabled)
     ]);
-    const nextMoreKls = computed(() => [
+    const nextMoreKls = computed$1(() => [
       "more",
       "btn-quicknext",
       nsIcon.b(),
       nsPager.is("disabled", props.disabled)
     ]);
-    const tabindex = computed(() => props.disabled ? -1 : 0);
+    const tabindex = computed$1(() => props.disabled ? -1 : 0);
     watchEffect(() => {
       const halfPagerCount = (props.pagerCount - 1) / 2;
       showPrevMore.value = false;
@@ -30136,7 +30136,7 @@ var Pagination = defineComponent({
     const vnodeProps = getCurrentInstance().vnode.props || {};
     const hasCurrentPageListener = "onUpdate:currentPage" in vnodeProps || "onUpdate:current-page" in vnodeProps || "onCurrentChange" in vnodeProps;
     const hasPageSizeListener = "onUpdate:pageSize" in vnodeProps || "onUpdate:page-size" in vnodeProps || "onSizeChange" in vnodeProps;
-    const assertValidUsage = computed(() => {
+    const assertValidUsage = computed$1(() => {
       if (isAbsent(props.total) && isAbsent(props.pageCount))
         return false;
       if (!isAbsent(props.currentPage) && !hasCurrentPageListener)
@@ -30158,7 +30158,7 @@ var Pagination = defineComponent({
     });
     const innerPageSize = ref(isAbsent(props.defaultPageSize) ? 10 : props.defaultPageSize);
     const innerCurrentPage = ref(isAbsent(props.defaultCurrentPage) ? 1 : props.defaultCurrentPage);
-    const pageSizeBridge = computed({
+    const pageSizeBridge = computed$1({
       get() {
         return isAbsent(props.pageSize) ? innerPageSize.value : props.pageSize;
       },
@@ -30172,7 +30172,7 @@ var Pagination = defineComponent({
         }
       }
     });
-    const pageCountBridge = computed(() => {
+    const pageCountBridge = computed$1(() => {
       let pageCount = 0;
       if (!isAbsent(props.pageCount)) {
         pageCount = props.pageCount;
@@ -30181,7 +30181,7 @@ var Pagination = defineComponent({
       }
       return pageCount;
     });
-    const currentPageBridge = computed({
+    const currentPageBridge = computed$1({
       get() {
         return isAbsent(props.currentPage) ? innerCurrentPage.value : props.currentPage;
       },
@@ -30237,7 +30237,7 @@ var Pagination = defineComponent({
     }
     provide(elPaginationKey, {
       pageCount: pageCountBridge,
-      disabled: computed(() => props.disabled),
+      disabled: computed$1(() => props.disabled),
       currentPage: currentPageBridge,
       changeEvent: handleCurrentChange2,
       handleSizeChange
@@ -30388,7 +30388,7 @@ var _sfc_main103 = defineComponent({
       var _a2, _b;
       (_b = (_a2 = tooltipRef.value) == null ? void 0 : _a2.onClose) == null ? void 0 : _b.call(_a2);
     };
-    const style = computed(() => {
+    const style = computed$1(() => {
       return {
         width: addUnit(props.width)
       };
@@ -30401,8 +30401,8 @@ var _sfc_main103 = defineComponent({
       emit("cancel", e);
       hidePopper();
     };
-    const finalConfirmButtonText = computed(() => props.confirmButtonText || t("el.popconfirm.confirmButtonText"));
-    const finalCancelButtonText = computed(() => props.cancelButtonText || t("el.popconfirm.cancelButtonText"));
+    const finalConfirmButtonText = computed$1(() => props.confirmButtonText || t("el.popconfirm.confirmButtonText"));
+    const finalCancelButtonText = computed$1(() => props.cancelButtonText || t("el.popconfirm.cancelButtonText"));
     return (_ctx, _cache) => {
       return openBlock(), createBlock(unref(ElTooltip), mergeProps({
         ref_key: "tooltipRef",
@@ -30550,16 +30550,16 @@ var _sfc_main104 = defineComponent({
   emits: popoverEmits,
   setup(__props, { expose, emit }) {
     const props = __props;
-    const onUpdateVisible = computed(() => {
+    const onUpdateVisible = computed$1(() => {
       return props[updateEventKeyRaw];
     });
     const ns = useNamespace("popover");
     const tooltipRef = ref();
-    const popperRef = computed(() => {
+    const popperRef = computed$1(() => {
       var _a2;
       return (_a2 = unref(tooltipRef)) == null ? void 0 : _a2.popperRef;
     });
-    const style = computed(() => {
+    const style = computed$1(() => {
       return [
         {
           width: addUnit(props.width)
@@ -30567,10 +30567,10 @@ var _sfc_main104 = defineComponent({
         props.popperStyle
       ];
     });
-    const kls = computed(() => {
+    const kls = computed$1(() => {
       return [ns.b(), props.popperClass, { [ns.m("plain")]: !!props.content }];
     });
-    const gpuAcceleration = computed(() => {
+    const gpuAcceleration = computed$1(() => {
       return props.transition === `${ns.namespace.value}-fade-in-linear`;
     });
     const hide2 = () => {
@@ -30752,19 +30752,19 @@ var _sfc_main105 = defineComponent({
       default: "#20a0ff"
     };
     const ns = useNamespace("progress");
-    const barStyle = computed(() => ({
+    const barStyle = computed$1(() => ({
       width: `${props.percentage}%`,
       animationDuration: `${props.duration}s`,
       backgroundColor: getCurrentColor(props.percentage)
     }));
-    const relativeStrokeWidth = computed(() => (props.strokeWidth / props.width * 100).toFixed(1));
-    const radius = computed(() => {
+    const relativeStrokeWidth = computed$1(() => (props.strokeWidth / props.width * 100).toFixed(1));
+    const radius = computed$1(() => {
       if (["circle", "dashboard"].includes(props.type)) {
         return Number.parseInt(`${50 - Number.parseFloat(relativeStrokeWidth.value) / 2}`, 10);
       }
       return 0;
     });
-    const trackPath = computed(() => {
+    const trackPath = computed$1(() => {
       const r = radius.value;
       const isDashboard = props.type === "dashboard";
       return `
@@ -30774,22 +30774,22 @@ var _sfc_main105 = defineComponent({
           a ${r} ${r} 0 1 1 0 ${isDashboard ? "" : "-"}${r * 2}
           `;
     });
-    const perimeter = computed(() => 2 * Math.PI * radius.value);
-    const rate = computed(() => props.type === "dashboard" ? 0.75 : 1);
-    const strokeDashoffset = computed(() => {
+    const perimeter = computed$1(() => 2 * Math.PI * radius.value);
+    const rate = computed$1(() => props.type === "dashboard" ? 0.75 : 1);
+    const strokeDashoffset = computed$1(() => {
       const offset2 = -1 * perimeter.value * (1 - rate.value) / 2;
       return `${offset2}px`;
     });
-    const trailPathStyle = computed(() => ({
+    const trailPathStyle = computed$1(() => ({
       strokeDasharray: `${perimeter.value * rate.value}px, ${perimeter.value}px`,
       strokeDashoffset: strokeDashoffset.value
     }));
-    const circlePathStyle = computed(() => ({
+    const circlePathStyle = computed$1(() => ({
       strokeDasharray: `${perimeter.value * rate.value * (props.percentage / 100)}px, ${perimeter.value}px`,
       strokeDashoffset: strokeDashoffset.value,
       transition: "stroke-dasharray 0.6s ease 0s, stroke 0.6s ease, opacity ease 0.6s"
     }));
-    const stroke = computed(() => {
+    const stroke = computed$1(() => {
       let ret;
       if (props.color) {
         ret = getCurrentColor(props.percentage);
@@ -30798,7 +30798,7 @@ var _sfc_main105 = defineComponent({
       }
       return ret;
     });
-    const statusIcon = computed(() => {
+    const statusIcon = computed$1(() => {
       if (props.status === "warning") {
         return warning_filled_default;
       }
@@ -30808,10 +30808,10 @@ var _sfc_main105 = defineComponent({
         return props.status === "success" ? check_default : close_default;
       }
     });
-    const progressTextSize = computed(() => {
+    const progressTextSize = computed$1(() => {
       return props.type === "line" ? 12 + props.strokeWidth * 0.4 : props.width * 0.111111 + 2;
     });
-    const content = computed(() => props.format(props.percentage));
+    const content = computed$1(() => props.format(props.percentage));
     function getColors(color) {
       const span = 100 / color.length;
       const seriesColors = color.map((seriesColor, index) => {
@@ -31049,16 +31049,16 @@ var _sfc_main106 = defineComponent({
     const currentValue = ref(props.modelValue);
     const hoverIndex = ref(-1);
     const pointerAtLeftHalf = ref(true);
-    const rateClasses = computed(() => [ns.b(), ns.m(rateSize.value)]);
-    const rateDisabled = computed(() => props.disabled || (formContext == null ? void 0 : formContext.disabled));
-    const rateStyles = computed(() => {
+    const rateClasses = computed$1(() => [ns.b(), ns.m(rateSize.value)]);
+    const rateDisabled = computed$1(() => props.disabled || (formContext == null ? void 0 : formContext.disabled));
+    const rateStyles = computed$1(() => {
       return ns.cssVarBlock({
         "void-color": props.voidColor,
         "disabled-void-color": props.disabledVoidColor,
         "fill-color": activeColor.value
       });
     });
-    const text = computed(() => {
+    const text = computed$1(() => {
       let result = "";
       if (props.showScore) {
         result = props.scoreTemplate.replace(/\{\s*value\s*\}/, rateDisabled.value ? `${props.modelValue}` : `${currentValue.value}`);
@@ -31067,17 +31067,17 @@ var _sfc_main106 = defineComponent({
       }
       return result;
     });
-    const valueDecimal = computed(() => props.modelValue * 100 - Math.floor(props.modelValue) * 100);
-    const colorMap = computed(() => isArray(props.colors) ? {
+    const valueDecimal = computed$1(() => props.modelValue * 100 - Math.floor(props.modelValue) * 100);
+    const colorMap = computed$1(() => isArray(props.colors) ? {
       [props.lowThreshold]: props.colors[0],
       [props.highThreshold]: { value: props.colors[1], excluded: true },
       [props.max]: props.colors[2]
     } : props.colors);
-    const activeColor = computed(() => {
+    const activeColor = computed$1(() => {
       const color = getValueFromMap(currentValue.value, colorMap.value);
       return isObject(color) ? "" : color;
     });
-    const decimalStyle = computed(() => {
+    const decimalStyle = computed$1(() => {
       let width = "";
       if (rateDisabled.value) {
         width = `${valueDecimal.value}%`;
@@ -31089,7 +31089,7 @@ var _sfc_main106 = defineComponent({
         width
       };
     });
-    const componentMap = computed(() => {
+    const componentMap = computed$1(() => {
       let icons = isArray(props.icons) ? [...props.icons] : { ...props.icons };
       icons = markRaw(icons);
       return isArray(icons) ? {
@@ -31101,9 +31101,9 @@ var _sfc_main106 = defineComponent({
         [props.max]: icons[2]
       } : icons;
     });
-    const decimalIconComponent = computed(() => getValueFromMap(props.modelValue, componentMap.value));
-    const voidComponent = computed(() => rateDisabled.value ? isString(props.disabledVoidIcon) ? props.disabledVoidIcon : markRaw(props.disabledVoidIcon) : isString(props.voidIcon) ? props.voidIcon : markRaw(props.voidIcon));
-    const activeComponent = computed(() => getValueFromMap(currentValue.value, componentMap.value));
+    const decimalIconComponent = computed$1(() => getValueFromMap(props.modelValue, componentMap.value));
+    const voidComponent = computed$1(() => rateDisabled.value ? isString(props.disabledVoidIcon) ? props.disabledVoidIcon : markRaw(props.disabledVoidIcon) : isString(props.voidIcon) ? props.voidIcon : markRaw(props.voidIcon));
+    const activeComponent = computed$1(() => getValueFromMap(currentValue.value, componentMap.value));
     function showDecimalIcon(item) {
       const showWhenDisabled = rateDisabled.value && valueDecimal.value > 0 && item - 1 < props.modelValue && item > props.modelValue;
       const showWhenAllowHalf = props.allowHalf && pointerAtLeftHalf.value && item - 0.5 <= currentValue.value && item > currentValue.value;
@@ -31305,7 +31305,7 @@ var _sfc_main107 = defineComponent({
   setup(__props) {
     const props = __props;
     const ns = useNamespace("result");
-    const resultIcon = computed(() => {
+    const resultIcon = computed$1(() => {
       const icon = props.icon;
       const iconClass = icon && IconMap[icon] ? IconMap[icon] : "icon-info";
       const iconComponent = IconComponentMap[iconClass] || IconComponentMap["icon-info"];
@@ -31414,7 +31414,7 @@ function memoizeOne(resultFn, isEqual2) {
 var useCache = () => {
   const vm = getCurrentInstance();
   const props = vm.proxy.$props;
-  return computed(() => {
+  return computed$1(() => {
     const _getItemStyleCache = (_2, __, ___) => ({});
     return props.perfMode ? memoize_default(_getItemStyleCache) : memoizeOne(_getItemStyleCache);
   });
@@ -31674,7 +31674,7 @@ var ScrollBar = defineComponent({
   props: virtualizedScrollbarProps,
   emits: ["scroll", "start-move", "stop-move"],
   setup(props, { emit }) {
-    const GAP2 = computed(() => props.startGap + props.endGap);
+    const GAP2 = computed$1(() => props.startGap + props.endGap);
     const nsVirtualScrollbar = useNamespace("virtual-scrollbar");
     const nsScrollbar = useNamespace("scrollbar");
     const trackRef = ref();
@@ -31685,9 +31685,9 @@ var ScrollBar = defineComponent({
       isDragging: false,
       traveled: 0
     });
-    const bar = computed(() => BAR_MAP[props.layout]);
-    const trackSize = computed(() => props.clientSize - unref(GAP2));
-    const trackStyle = computed(() => ({
+    const bar = computed$1(() => BAR_MAP[props.layout]);
+    const trackSize = computed$1(() => props.clientSize - unref(GAP2));
+    const trackStyle = computed$1(() => ({
       position: "absolute",
       width: `${HORIZONTAL === props.layout ? trackSize.value : props.scrollbarSize}px`,
       height: `${HORIZONTAL === props.layout ? props.scrollbarSize : trackSize.value}px`,
@@ -31696,7 +31696,7 @@ var ScrollBar = defineComponent({
       bottom: "2px",
       borderRadius: "4px"
     }));
-    const thumbSize = computed(() => {
+    const thumbSize = computed$1(() => {
       const ratio = props.ratio;
       const clientSize = props.clientSize;
       if (ratio >= 100) {
@@ -31708,7 +31708,7 @@ var ScrollBar = defineComponent({
       const SCROLLBAR_MAX_SIZE = clientSize / 3;
       return Math.floor(Math.min(Math.max(ratio * clientSize, SCROLLBAR_MIN_SIZE), SCROLLBAR_MAX_SIZE));
     });
-    const thumbStyle = computed(() => {
+    const thumbStyle = computed$1(() => {
       if (!Number.isFinite(thumbSize.value)) {
         return {
           display: "none"
@@ -31722,7 +31722,7 @@ var ScrollBar = defineComponent({
       }, props.layout);
       return style;
     });
-    const totalSteps = computed(() => Math.floor(props.clientSize - thumbSize.value - unref(GAP2)));
+    const totalSteps = computed$1(() => Math.floor(props.clientSize - thumbSize.value - unref(GAP2)));
     const attachEvents2 = () => {
       window.addEventListener("mousemove", onMouseMove);
       window.addEventListener("mouseup", onMouseUp);
@@ -31850,7 +31850,7 @@ var createList = ({
         isScrollbarDragging: false,
         scrollbarAlwaysOn: props.scrollbarAlwaysOn
       });
-      const itemsToRender = computed(() => {
+      const itemsToRender = computed$1(() => {
         const { total: total2, cache: cache2 } = props;
         const { isScrolling, scrollDir, scrollOffset } = unref(states);
         if (total2 === 0) {
@@ -31867,9 +31867,9 @@ var createList = ({
           stopIndex
         ];
       });
-      const estimatedTotalSize = computed(() => getEstimatedTotalSize2(props, unref(dynamicSizeCache)));
-      const _isHorizontal = computed(() => isHorizontal(props.layout));
-      const windowStyle = computed(() => [
+      const estimatedTotalSize = computed$1(() => getEstimatedTotalSize2(props, unref(dynamicSizeCache)));
+      const _isHorizontal = computed$1(() => isHorizontal(props.layout));
+      const windowStyle = computed$1(() => [
         {
           position: "relative",
           [`overflow-${_isHorizontal.value ? "x" : "y"}`]: "scroll",
@@ -31883,7 +31883,7 @@ var createList = ({
         },
         props.style
       ]);
-      const innerStyle = computed(() => {
+      const innerStyle = computed$1(() => {
         const size3 = unref(estimatedTotalSize);
         const horizontal = unref(_isHorizontal);
         return {
@@ -31892,11 +31892,11 @@ var createList = ({
           width: horizontal ? `${size3}px` : "100%"
         };
       });
-      const clientSize = computed(() => _isHorizontal.value ? props.width : props.height);
+      const clientSize = computed$1(() => _isHorizontal.value ? props.width : props.height);
       const { onWheel } = useWheel({
-        atStartEdge: computed(() => states.value.scrollOffset <= 0),
-        atEndEdge: computed(() => states.value.scrollOffset >= estimatedTotalSize.value),
-        layout: computed(() => props.layout)
+        atStartEdge: computed$1(() => states.value.scrollOffset <= 0),
+        atEndEdge: computed$1(() => states.value.scrollOffset >= estimatedTotalSize.value),
+        layout: computed$1(() => props.layout)
       }, (offset2) => {
         var _a2, _b;
         ;
@@ -32464,9 +32464,9 @@ var createGrid = ({
         yAxisScrollDir: FORWARD
       });
       const getItemStyleCache = useCache();
-      const parsedHeight = computed(() => Number.parseInt(`${props.height}`, 10));
-      const parsedWidth = computed(() => Number.parseInt(`${props.width}`, 10));
-      const columnsToRender = computed(() => {
+      const parsedHeight = computed$1(() => Number.parseInt(`${props.height}`, 10));
+      const parsedWidth = computed$1(() => Number.parseInt(`${props.width}`, 10));
+      const columnsToRender = computed$1(() => {
         const { totalColumn, totalRow, columnCache } = props;
         const { isScrolling, xAxisScrollDir, scrollLeft } = unref(states);
         if (totalColumn === 0 || totalRow === 0) {
@@ -32483,7 +32483,7 @@ var createGrid = ({
           stopIndex
         ];
       });
-      const rowsToRender = computed(() => {
+      const rowsToRender = computed$1(() => {
         const { totalColumn, totalRow, rowCache } = props;
         const { isScrolling, yAxisScrollDir, scrollTop } = unref(states);
         if (totalColumn === 0 || totalRow === 0) {
@@ -32500,9 +32500,9 @@ var createGrid = ({
           stopIndex
         ];
       });
-      const estimatedTotalHeight = computed(() => getEstimatedTotalHeight2(props, unref(cache2)));
-      const estimatedTotalWidth = computed(() => getEstimatedTotalWidth2(props, unref(cache2)));
-      const windowStyle = computed(() => {
+      const estimatedTotalHeight = computed$1(() => getEstimatedTotalHeight2(props, unref(cache2)));
+      const estimatedTotalWidth = computed$1(() => getEstimatedTotalWidth2(props, unref(cache2)));
+      const windowStyle = computed$1(() => {
         var _a2;
         return [
           {
@@ -32519,7 +32519,7 @@ var createGrid = ({
           (_a2 = props.style) != null ? _a2 : {}
         ];
       });
-      const innerStyle = computed(() => {
+      const innerStyle = computed$1(() => {
         const width = `${unref(estimatedTotalWidth)}px`;
         const height = `${unref(estimatedTotalHeight)}px`;
         return {
@@ -32616,10 +32616,10 @@ var createGrid = ({
         });
       };
       const { onWheel } = useGridWheel({
-        atXStartEdge: computed(() => states.value.scrollLeft <= 0),
-        atXEndEdge: computed(() => states.value.scrollLeft >= estimatedTotalWidth.value - unref(parsedWidth)),
-        atYStartEdge: computed(() => states.value.scrollTop <= 0),
-        atYEndEdge: computed(() => states.value.scrollTop >= estimatedTotalHeight.value - unref(parsedHeight))
+        atXStartEdge: computed$1(() => states.value.scrollLeft <= 0),
+        atXEndEdge: computed$1(() => states.value.scrollLeft >= estimatedTotalWidth.value - unref(parsedWidth)),
+        atYStartEdge: computed$1(() => states.value.scrollTop <= 0),
+        atYEndEdge: computed$1(() => states.value.scrollTop >= estimatedTotalHeight.value - unref(parsedHeight))
       }, (x2, y) => {
         var _a2, _b, _c, _d;
         (_b = (_a2 = hScrollbar.value) == null ? void 0 : _a2.onMouseUp) == null ? void 0 : _b.call(_a2);
@@ -33448,13 +33448,13 @@ var ElSelectMenu2 = defineComponent({
     const ns = useNamespace("select");
     const cachedHeights = ref([]);
     const listRef = ref();
-    const size3 = computed(() => props.data.length);
+    const size3 = computed$1(() => props.data.length);
     watch(() => size3.value, () => {
       var _a2, _b;
       (_b = (_a2 = select.popper.value).updatePopper) == null ? void 0 : _b.call(_a2);
     });
-    const isSized = computed(() => isUndefined(select.props.estimatedOptionHeight));
-    const listProps = computed(() => {
+    const isSized = computed$1(() => isUndefined(select.props.estimatedOptionHeight));
+    const listProps = computed$1(() => {
       if (isSized.value) {
         return {
           itemSize: select.props.itemHeight
@@ -33659,7 +33659,7 @@ var ElSelectMenu2 = defineComponent({
 function useAllowCreate(props, states) {
   const createOptionCount = ref(0);
   const cachedSelectedOption = ref(null);
-  const enableAllowCreateMode = computed(() => {
+  const enableAllowCreateMode = computed$1(() => {
     return props.allowCreate && props.filterable;
   });
   function hasExistingOption(query) {
@@ -33824,25 +33824,25 @@ var useSelect2 = (props, emit) => {
   const selectionRef = ref(null);
   const calculatorRef = ref(null);
   const expanded = ref(false);
-  const selectDisabled = computed(() => props.disabled || (elForm == null ? void 0 : elForm.disabled));
-  const popupHeight = computed(() => {
+  const selectDisabled = computed$1(() => props.disabled || (elForm == null ? void 0 : elForm.disabled));
+  const popupHeight = computed$1(() => {
     const totalHeight = filteredOptions.value.length * 34;
     return totalHeight > props.height ? props.height : totalHeight;
   });
-  const hasModelValue = computed(() => {
+  const hasModelValue = computed$1(() => {
     return !isNil_default(props.modelValue);
   });
-  const showClearBtn = computed(() => {
+  const showClearBtn = computed$1(() => {
     const hasValue = props.multiple ? Array.isArray(props.modelValue) && props.modelValue.length > 0 : hasModelValue.value;
     const criteria = props.clearable && !selectDisabled.value && states.comboBoxHovering && hasValue;
     return criteria;
   });
-  const iconComponent = computed(() => props.remote && props.filterable ? "" : arrow_up_default);
-  const iconReverse = computed(() => iconComponent.value && nsSelectV2.is("reverse", expanded.value));
-  const validateState = computed(() => (elFormItem == null ? void 0 : elFormItem.validateState) || "");
-  const validateIcon = computed(() => ValidateComponentsMap[validateState.value]);
-  const debounce$1 = computed(() => props.remote ? 300 : 0);
-  const emptyText = computed(() => {
+  const iconComponent = computed$1(() => props.remote && props.filterable ? "" : arrow_up_default);
+  const iconReverse = computed$1(() => iconComponent.value && nsSelectV2.is("reverse", expanded.value));
+  const validateState = computed$1(() => (elFormItem == null ? void 0 : elFormItem.validateState) || "");
+  const validateIcon = computed$1(() => ValidateComponentsMap[validateState.value]);
+  const debounce$1 = computed$1(() => props.remote ? 300 : 0);
+  const emptyText = computed$1(() => {
     const options = filteredOptions.value;
     if (props.loading) {
       return props.loadingText || t("el.select.loading");
@@ -33858,7 +33858,7 @@ var useSelect2 = (props, emit) => {
     }
     return null;
   });
-  const filteredOptions = computed(() => {
+  const filteredOptions = computed$1(() => {
     const isValidOption = (o2) => {
       const query = states.inputValue;
       const regexp4 = new RegExp(escapeStringRegexp(query), "i");
@@ -33885,17 +33885,17 @@ var useSelect2 = (props, emit) => {
       return null;
     }).filter((v2) => v2 !== null));
   });
-  const filteredOptionsValueMap = computed(() => {
+  const filteredOptionsValueMap = computed$1(() => {
     const valueMap = /* @__PURE__ */ new Map();
     filteredOptions.value.forEach((option, index) => {
       valueMap.set(getValueKey(option.value), { option, index });
     });
     return valueMap;
   });
-  const optionsAllDisabled = computed(() => filteredOptions.value.every((option) => option.disabled));
+  const optionsAllDisabled = computed$1(() => filteredOptions.value.every((option) => option.disabled));
   const selectSize = useFormSize();
-  const collapseTagSize = computed(() => selectSize.value === "small" ? "small" : "default");
-  const tagMaxWidth = computed(() => {
+  const collapseTagSize = computed$1(() => selectSize.value === "small" ? "small" : "default");
+  const tagMaxWidth = computed$1(() => {
     const select = selectionRef.value;
     const size3 = collapseTagSize.value || "default";
     const paddingLeft = select ? Number.parseInt(getComputedStyle(select).paddingLeft) : 0;
@@ -33906,26 +33906,26 @@ var useSelect2 = (props, emit) => {
     var _a2;
     popperSize.value = ((_a2 = selectRef.value) == null ? void 0 : _a2.offsetWidth) || 200;
   };
-  const inputWrapperStyle = computed(() => {
+  const inputWrapperStyle = computed$1(() => {
     return {
       width: `${states.calculatedWidth === 0 ? MINIMUM_INPUT_WIDTH : Math.ceil(states.calculatedWidth) + MINIMUM_INPUT_WIDTH}px`
     };
   });
-  const shouldShowPlaceholder = computed(() => {
+  const shouldShowPlaceholder = computed$1(() => {
     if (isArray(props.modelValue)) {
       return props.modelValue.length === 0 && !states.displayInputValue;
     }
     return props.filterable ? states.displayInputValue.length === 0 : true;
   });
-  const currentPlaceholder = computed(() => {
+  const currentPlaceholder = computed$1(() => {
     const _placeholder = props.placeholder || t("el.select.placeholder");
     return props.multiple || isNil_default(props.modelValue) ? _placeholder : states.selectedLabel;
   });
-  const popperRef = computed(() => {
+  const popperRef = computed$1(() => {
     var _a2, _b;
     return (_b = (_a2 = popper.value) == null ? void 0 : _a2.popperRef) == null ? void 0 : _b.contentRef;
   });
-  const indexRef = computed(() => {
+  const indexRef = computed$1(() => {
     if (props.multiple) {
       const len = props.modelValue.length;
       if (props.modelValue.length > 0 && filteredOptionsValueMap.value.has(props.modelValue[len - 1])) {
@@ -33940,7 +33940,7 @@ var useSelect2 = (props, emit) => {
     }
     return -1;
   });
-  const dropdownMenuVisible = computed({
+  const dropdownMenuVisible = computed$1({
     get() {
       return expanded.value && emptyText.value !== false;
     },
@@ -33948,8 +33948,8 @@ var useSelect2 = (props, emit) => {
       expanded.value = val;
     }
   });
-  const showTagList = computed(() => states.cachedOptions.slice(0, props.maxCollapseTags));
-  const collapseTagList = computed(() => states.cachedOptions.slice(props.maxCollapseTags));
+  const showTagList = computed$1(() => states.cachedOptions.slice(0, props.maxCollapseTags));
+  const collapseTagList = computed$1(() => states.cachedOptions.slice(props.maxCollapseTags));
   const {
     createNewOption,
     removeNewOption,
@@ -34436,7 +34436,7 @@ var _sfc_main110 = defineComponent({
     "blur"
   ],
   setup(props, { emit }) {
-    const modelValue = computed(() => {
+    const modelValue = computed$1(() => {
       const { modelValue: rawModelValue, multiple } = props;
       const fallback = multiple ? [] : void 0;
       if (isArray(rawModelValue)) {
@@ -35057,7 +35057,7 @@ var useLifecycle = (props, initData, resetSize) => {
 
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/slider/src/composables/use-marks.mjs
 var useMarks = (props) => {
-  return computed(() => {
+  return computed$1(() => {
     if (!props.marks) {
       return [];
     }
@@ -35080,25 +35080,25 @@ var useSlide = (props, initData, emit) => {
     firstButton,
     secondButton
   };
-  const sliderDisabled = computed(() => {
+  const sliderDisabled = computed$1(() => {
     return props.disabled || (elForm == null ? void 0 : elForm.disabled) || false;
   });
-  const minValue = computed(() => {
+  const minValue = computed$1(() => {
     return Math.min(initData.firstValue, initData.secondValue);
   });
-  const maxValue = computed(() => {
+  const maxValue = computed$1(() => {
     return Math.max(initData.firstValue, initData.secondValue);
   });
-  const barSize = computed(() => {
+  const barSize = computed$1(() => {
     return props.range ? `${100 * (maxValue.value - minValue.value) / (props.max - props.min)}%` : `${100 * (initData.firstValue - props.min) / (props.max - props.min)}%`;
   });
-  const barStart = computed(() => {
+  const barStart = computed$1(() => {
     return props.range ? `${100 * (minValue.value - props.min) / (props.max - props.min)}%` : "0%";
   });
-  const runwayStyle = computed(() => {
+  const runwayStyle = computed$1(() => {
     return props.vertical ? { height: props.height } : {};
   });
-  const barStyle = computed(() => {
+  const barStyle = computed$1(() => {
     return props.vertical ? {
       height: barSize.value,
       bottom: barStart.value
@@ -35212,10 +35212,10 @@ var { left, down, right, up, home, end, pageUp, pageDown } = EVENT_CODE;
 var useTooltip = (props, formatTooltip, showTooltip) => {
   const tooltip = ref();
   const tooltipVisible = ref(false);
-  const enableFormat = computed(() => {
+  const enableFormat = computed$1(() => {
     return formatTooltip.value instanceof Function;
   });
-  const formatValue = computed(() => {
+  const formatValue = computed$1(() => {
     return enableFormat.value && formatTooltip.value(props.modelValue) || props.modelValue;
   });
   const displayTooltip = debounce_default(() => {
@@ -35248,10 +35248,10 @@ var useSliderButton = (props, initData, emit) => {
   } = inject(sliderContextKey);
   const { tooltip, tooltipVisible, formatValue, displayTooltip, hideTooltip } = useTooltip(props, formatTooltip, showTooltip);
   const button = ref();
-  const currentPosition = computed(() => {
+  const currentPosition = computed$1(() => {
     return `${(props.modelValue - min3.value) / (max3.value - min3.value) * 100}%`;
   });
-  const wrapperStyle = computed(() => {
+  const wrapperStyle = computed$1(() => {
     return props.vertical ? { bottom: currentPosition.value } : { left: currentPosition.value };
   });
   const handleMouseEnter = () => {
@@ -35433,7 +35433,7 @@ var useSliderButton = (props, initData, emit) => {
 
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/slider/src/composables/use-stops.mjs
 var useStops = (props, initData, minValue, maxValue) => {
-  const stops = computed(() => {
+  const stops = computed$1(() => {
     if (!props.showStops || props.min > props.max)
       return [];
     if (props.step === 0) {
@@ -35651,10 +35651,10 @@ var SliderMarker = defineComponent({
   props: sliderMarkerProps,
   setup(props) {
     const ns = useNamespace("slider");
-    const label = computed(() => {
+    const label = computed$1(() => {
       return isString(props.mark) ? props.mark : props.mark.label;
     });
-    const style = computed(() => isString(props.mark) ? void 0 : props.mark.style);
+    const style = computed$1(() => isString(props.mark) ? void 0 : props.mark.style);
     return () => h("div", {
       class: ns.e("marks-text"),
       style: style.value
@@ -35706,30 +35706,30 @@ var _sfc_main114 = defineComponent({
       formItemContext: elFormItem
     });
     const sliderWrapperSize = useFormSize();
-    const sliderInputSize = computed(() => props.inputSize || sliderWrapperSize.value);
-    const groupLabel = computed(() => {
+    const sliderInputSize = computed$1(() => props.inputSize || sliderWrapperSize.value);
+    const groupLabel = computed$1(() => {
       return props.label || t("el.slider.defaultLabel", {
         min: props.min,
         max: props.max
       });
     });
-    const firstButtonLabel = computed(() => {
+    const firstButtonLabel = computed$1(() => {
       if (props.range) {
         return props.rangeStartLabel || t("el.slider.defaultRangeStartLabel");
       } else {
         return groupLabel.value;
       }
     });
-    const firstValueText = computed(() => {
+    const firstValueText = computed$1(() => {
       return props.formatValueText ? props.formatValueText(firstValue.value) : `${firstValue.value}`;
     });
-    const secondButtonLabel = computed(() => {
+    const secondButtonLabel = computed$1(() => {
       return props.rangeEndLabel || t("el.slider.defaultRangeEndLabel");
     });
-    const secondValueText = computed(() => {
+    const secondValueText = computed$1(() => {
       return props.formatValueText ? props.formatValueText(secondValue.value) : `${secondValue.value}`;
     });
-    const sliderKls = computed(() => [
+    const sliderKls = computed$1(() => [
       ns.b(),
       ns.m(sliderWrapperSize.value),
       ns.is("vertical", props.vertical),
@@ -35737,7 +35737,7 @@ var _sfc_main114 = defineComponent({
     ]);
     const markList = useMarks(props);
     useWatch(props, initData, minValue, maxValue, emit, elFormItem);
-    const precision = computed(() => {
+    const precision = computed$1(() => {
       const precisions = [props.min, props.max, props.step].map((item) => {
         const decimal = `${item}`.split(".")[1];
         return decimal ? decimal.length : 0;
@@ -35894,7 +35894,7 @@ var SpaceItem = defineComponent({
   props: spaceItemProps,
   setup(props, { slots }) {
     const ns = useNamespace("space");
-    const classes = computed(() => `${props.prefixCls || ns.b()}__item`);
+    const classes = computed$1(() => `${props.prefixCls || ns.b()}__item`);
     return () => h("div", { class: classes.value }, renderSlot(slots, "default"));
   }
 });
@@ -35907,17 +35907,17 @@ var SIZE_MAP = {
 };
 function useSpace(props) {
   const ns = useNamespace("space");
-  const classes = computed(() => [ns.b(), ns.m(props.direction), props.class]);
+  const classes = computed$1(() => [ns.b(), ns.m(props.direction), props.class]);
   const horizontalSize = ref(0);
   const verticalSize = ref(0);
-  const containerStyle = computed(() => {
+  const containerStyle = computed$1(() => {
     const wrapKls = props.wrap || props.fill ? { flexWrap: "wrap", marginBottom: `-${verticalSize.value}px` } : {};
     const alignment = {
       alignItems: props.alignment
     };
     return [wrapKls, alignment, props.style];
   });
-  const itemStyle = computed(() => {
+  const itemStyle = computed$1(() => {
     const itemBaseStyle = {
       paddingBottom: `${verticalSize.value}px`,
       marginRight: `${horizontalSize.value}px`
@@ -36115,7 +36115,7 @@ var _sfc_main115 = defineComponent({
   setup(__props, { expose }) {
     const props = __props;
     const ns = useNamespace("statistic");
-    const displayValue = computed(() => {
+    const displayValue = computed$1(() => {
       const { value, formatter: formatter2, precision, decimalSeparator, groupSeparator } = props;
       if (isFunction(formatter2))
         return formatter2(value);
@@ -36236,7 +36236,7 @@ var _sfc_main116 = defineComponent({
     const props = __props;
     let timer;
     const rawValue = ref(getTime(props.value) - Date.now());
-    const displayValue = computed(() => formatTime(rawValue.value, props.format));
+    const displayValue = computed$1(() => formatTime(rawValue.value, props.format));
     const formatter2 = (val) => formatTime(val, props.format);
     const stopTimer = () => {
       if (timer) {
@@ -36417,33 +36417,33 @@ var _sfc_main118 = defineComponent({
     onBeforeUnmount(() => {
       parent.removeStep(stepItemState.uid);
     });
-    const currentStatus = computed(() => {
+    const currentStatus = computed$1(() => {
       return props.status || internalStatus.value;
     });
-    const prevStatus = computed(() => {
+    const prevStatus = computed$1(() => {
       const prevStep = parent.steps.value[index.value - 1];
       return prevStep ? prevStep.currentStatus : "wait";
     });
-    const isCenter = computed(() => {
+    const isCenter = computed$1(() => {
       return parent.props.alignCenter;
     });
-    const isVertical = computed(() => {
+    const isVertical = computed$1(() => {
       return parent.props.direction === "vertical";
     });
-    const isSimple = computed(() => {
+    const isSimple = computed$1(() => {
       return parent.props.simple;
     });
-    const stepsCount = computed(() => {
+    const stepsCount = computed$1(() => {
       return parent.steps.value.length;
     });
-    const isLast = computed(() => {
+    const isLast = computed$1(() => {
       var _a2;
       return ((_a2 = parent.steps.value[stepsCount.value - 1]) == null ? void 0 : _a2.uid) === (currentInstance == null ? void 0 : currentInstance.uid);
     });
-    const space = computed(() => {
+    const space = computed$1(() => {
       return isSimple.value ? "" : parent.props.space;
     });
-    const containerKls = computed(() => {
+    const containerKls = computed$1(() => {
       return [
         ns.b(),
         ns.is(isSimple.value ? "simple" : parent.props.direction),
@@ -36451,7 +36451,7 @@ var _sfc_main118 = defineComponent({
         ns.is("center", isCenter.value && !isVertical.value && !isSimple.value)
       ];
     });
-    const style = computed(() => {
+    const style = computed$1(() => {
       const style2 = {
         flexBasis: isNumber2(space.value) ? `${space.value}px` : space.value ? space.value : `${100 / (stepsCount.value - (isCenter.value ? 0 : 1))}%`
       };
@@ -36707,7 +36707,7 @@ var _sfc_main119 = defineComponent({
           version: "2.3.0",
           ref: "https://element-plus.org/en-US/component/switch.html#attributes",
           type: "Attribute"
-        }, computed(() => {
+        }, computed$1(() => {
           var _a2;
           return !!((_a2 = vm.vnode.props) == null ? void 0 : _a2[param[2]]);
         }));
@@ -36722,27 +36722,27 @@ var _sfc_main119 = defineComponent({
     const { inputId } = useFormItemInputId(props, {
       formItemContext: formItem
     });
-    const switchDisabled = useFormDisabled(computed(() => props.loading));
+    const switchDisabled = useFormDisabled(computed$1(() => props.loading));
     const isControlled = ref(props.modelValue !== false);
     const input = ref();
     const core = ref();
-    const switchKls = computed(() => [
+    const switchKls = computed$1(() => [
       ns.b(),
       ns.m(switchSize.value),
       ns.is("disabled", switchDisabled.value),
       ns.is("checked", checked.value)
     ]);
-    const labelLeftKls = computed(() => [
+    const labelLeftKls = computed$1(() => [
       ns.e("label"),
       ns.em("label", "left"),
       ns.is("active", !checked.value)
     ]);
-    const labelRightKls = computed(() => [
+    const labelRightKls = computed$1(() => [
       ns.e("label"),
       ns.em("label", "right"),
       ns.is("active", checked.value)
     ]);
-    const coreStyle = computed(() => ({
+    const coreStyle = computed$1(() => ({
       width: addUnit(props.width)
     }));
     watch(() => props.modelValue, () => {
@@ -36751,10 +36751,10 @@ var _sfc_main119 = defineComponent({
     watch(() => props.value, () => {
       isControlled.value = false;
     });
-    const actualValue = computed(() => {
+    const actualValue = computed$1(() => {
       return isControlled.value ? props.modelValue : props.value;
     });
-    const checked = computed(() => actualValue.value === props.activeValue);
+    const checked = computed$1(() => actualValue.value === props.activeValue);
     if (![props.activeValue, props.inactiveValue].includes(actualValue.value)) {
       emit(UPDATE_MODEL_EVENT, props.inactiveValue);
       emit(CHANGE_EVENT, props.inactiveValue);
@@ -36804,7 +36804,7 @@ var _sfc_main119 = defineComponent({
         handleChange();
       }
     };
-    const styles = computed(() => {
+    const styles = computed$1(() => {
       return ns.cssVarBlock({
         ...props.activeColor ? { "on-color": props.activeColor } : null,
         ...props.inactiveColor ? { "off-color": props.inactiveColor } : null,
@@ -37480,13 +37480,13 @@ function useTree(watcherData) {
   const lazyColumnIdentifier = ref("hasChildren");
   const childrenColumnName = ref("children");
   const instance = getCurrentInstance();
-  const normalizedData = computed(() => {
+  const normalizedData = computed$1(() => {
     if (!watcherData.rowKey.value)
       return {};
     const data = watcherData.data.value || [];
     return normalize(data);
   });
-  const normalizedLazyNode = computed(() => {
+  const normalizedLazyNode = computed$1(() => {
     const rowKey2 = watcherData.rowKey.value;
     const keys2 = Object.keys(lazyTreeNodeMap.value);
     const res = {};
@@ -38568,10 +38568,10 @@ var _sfc_main120 = defineComponent({
     }
     const tooltipVisible = ref(false);
     const tooltip = ref(null);
-    const filters = computed(() => {
+    const filters = computed$1(() => {
       return props.column && props.column.filters;
     });
-    const filterValue = computed({
+    const filterValue = computed$1({
       get: () => {
         var _a2;
         return (((_a2 = props.column) == null ? void 0 : _a2.filteredValue) || [])[0];
@@ -38586,7 +38586,7 @@ var _sfc_main120 = defineComponent({
         }
       }
     });
-    const filteredValue = computed({
+    const filteredValue = computed$1({
       get() {
         if (props.column) {
           return props.column.filteredValue || [];
@@ -38599,7 +38599,7 @@ var _sfc_main120 = defineComponent({
         }
       }
     });
-    const multiple = computed(() => {
+    const multiple = computed$1(() => {
       if (props.column) {
         return props.column.filterMultiple;
       }
@@ -38650,7 +38650,7 @@ var _sfc_main120 = defineComponent({
     }, {
       immediate: true
     });
-    const popperPaneRef = computed(() => {
+    const popperPaneRef = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = tooltip.value) == null ? void 0 : _a2.popperRef) == null ? void 0 : _b.contentRef;
     });
@@ -38808,7 +38808,7 @@ function useLayoutObserver(root) {
   onUnmounted(() => {
     tableLayout.value.removeObserver(instance);
   });
-  const tableLayout = computed(() => {
+  const tableLayout = computed$1(() => {
     const layout2 = root.layout;
     if (!layout2) {
       throw new Error("Can not find table layout.");
@@ -39155,10 +39155,10 @@ var convertToRows = (originColumns) => {
 };
 function useUtils(props) {
   const parent = inject(TABLE_INJECTION_KEY);
-  const columnRows = computed(() => {
+  const columnRows = computed$1(() => {
     return convertToRows(props.store.states.originColumns.value);
   });
-  const isGroup = computed(() => {
+  const isGroup = computed$1(() => {
     const result = columnRows.value.length > 1;
     if (result && parent) {
       parent.state.isGroup.value = true;
@@ -39573,7 +39573,7 @@ function useRender(props) {
     getSpan,
     getColspanRealWidth
   } = useStyles(props);
-  const firstDefaultColumnIndex = computed(() => {
+  const firstDefaultColumnIndex = computed$1(() => {
     return props.store.states.columns.value.findIndex(({ type: type4 }) => type4 === "default");
   });
   const getKeyOfRow = (row, index) => {
@@ -39836,19 +39836,19 @@ var TableBody = defineComponent({
 function useMapState() {
   const table = inject(TABLE_INJECTION_KEY);
   const store = table == null ? void 0 : table.store;
-  const leftFixedLeafCount = computed(() => {
+  const leftFixedLeafCount = computed$1(() => {
     return store.states.fixedLeafColumnsLength.value;
   });
-  const rightFixedLeafCount = computed(() => {
+  const rightFixedLeafCount = computed$1(() => {
     return store.states.rightFixedColumns.value.length;
   });
-  const columnsCount = computed(() => {
+  const columnsCount = computed$1(() => {
     return store.states.columns.value.length;
   });
-  const leftFixedCount = computed(() => {
+  const leftFixedCount = computed$1(() => {
     return store.states.fixedColumns.value.length;
   });
-  const rightFixedCount = computed(() => {
+  const rightFixedCount = computed$1(() => {
     return store.states.rightFixedColumns.value.length;
   });
   return {
@@ -40090,10 +40090,10 @@ function useStyle3(props, layout2, store, table) {
       table.refs.bodyWrapper.scrollLeft += data.pixelX / 5;
     }
   };
-  const shouldUpdateHeight = computed(() => {
+  const shouldUpdateHeight = computed$1(() => {
     return props.height || props.maxHeight || store.states.fixedColumns.value.length > 0 || store.states.rightFixedColumns.value.length > 0;
   });
-  const tableBodyStyles = computed(() => {
+  const tableBodyStyles = computed$1(() => {
     return {
       width: layout2.bodyWidth.value ? `${layout2.bodyWidth.value}px` : ""
     };
@@ -40231,16 +40231,16 @@ function useStyle3(props, layout2, store, table) {
     }
   };
   const tableSize = useFormSize();
-  const bodyWidth = computed(() => {
+  const bodyWidth = computed$1(() => {
     const { bodyWidth: bodyWidth_, scrollY, gutterWidth } = layout2;
     return bodyWidth_.value ? `${bodyWidth_.value - (scrollY.value ? gutterWidth : 0)}px` : "";
   });
-  const tableLayout = computed(() => {
+  const tableLayout = computed$1(() => {
     if (props.maxHeight)
       return "fixed";
     return props.tableLayout;
   });
-  const emptyBlockStyle = computed(() => {
+  const emptyBlockStyle = computed$1(() => {
     if (props.data && props.data.length)
       return null;
     let height = "100%";
@@ -40253,7 +40253,7 @@ function useStyle3(props, layout2, store, table) {
       height
     };
   });
-  const tableInnerStyle = computed(() => {
+  const tableInnerStyle = computed$1(() => {
     if (props.height) {
       return {
         height: !Number.isNaN(Number(props.height)) ? `${props.height}px` : props.height
@@ -40266,7 +40266,7 @@ function useStyle3(props, layout2, store, table) {
     }
     return {};
   });
-  const scrollbarStyle = computed(() => {
+  const scrollbarStyle = computed$1(() => {
     if (props.height) {
       return {
         height: "100%"
@@ -40526,7 +40526,7 @@ var _sfc_main121 = defineComponent({
       showHeader: props.showHeader
     });
     table.layout = layout2;
-    const isEmpty2 = computed(() => (store.states.data.value || []).length === 0);
+    const isEmpty2 = computed$1(() => (store.states.data.value || []).length === 0);
     const {
       setCurrentRow,
       getSelectionRows,
@@ -40568,8 +40568,8 @@ var _sfc_main121 = defineComponent({
       doLayout,
       debouncedUpdateLayout
     };
-    const computedSumText = computed(() => props.sumText || t("el.table.sumText"));
-    const computedEmptyText = computed(() => {
+    const computedSumText = computed$1(() => props.sumText || t("el.table.sumText"));
+    const computedEmptyText = computed$1(() => {
       return props.emptyText || t("el.table.emptyText");
     });
     useKeyRender(table);
@@ -41092,14 +41092,14 @@ function useRender2(props, slots, owner) {
     realHeaderAlign.value = props.headerAlign ? `is-${props.headerAlign}` : realAlign.value;
     realHeaderAlign.value;
   });
-  const columnOrTableParent = computed(() => {
+  const columnOrTableParent = computed$1(() => {
     let parent = instance.vnode.vParent || instance.parent;
     while (parent && !parent.tableId && !parent.columnId) {
       parent = parent.vnode.vParent || parent.parent;
     }
     return parent;
   });
-  const hasTreeColumn = computed(() => {
+  const hasTreeColumn = computed$1(() => {
     const { store } = instance.parent;
     if (!store)
       return false;
@@ -41304,7 +41304,7 @@ var ElTableColumn = defineComponent({
   setup(props, { slots }) {
     const instance = getCurrentInstance();
     const columnConfig = ref({});
-    const owner = computed(() => {
+    const owner = computed$1(() => {
       let parent2 = instance.parent;
       while (parent2 && !parent2.tableId) {
         parent2 = parent2.parent;
@@ -41493,13 +41493,13 @@ var calcColumnStyle = (column2, fixedColumn, fixed) => {
 
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/table-v2/src/composables/use-columns.mjs
 function useColumns(props, columns2, fixed) {
-  const visibleColumns = computed(() => {
+  const visibleColumns = computed$1(() => {
     return unref(columns2).filter((column2) => !column2.hidden);
   });
-  const fixedColumnsOnLeft = computed(() => unref(visibleColumns).filter((column2) => column2.fixed === "left" || column2.fixed === true));
-  const fixedColumnsOnRight = computed(() => unref(visibleColumns).filter((column2) => column2.fixed === "right"));
-  const normalColumns = computed(() => unref(visibleColumns).filter((column2) => !column2.fixed));
-  const mainColumns = computed(() => {
+  const fixedColumnsOnLeft = computed$1(() => unref(visibleColumns).filter((column2) => column2.fixed === "left" || column2.fixed === true));
+  const fixedColumnsOnRight = computed$1(() => unref(visibleColumns).filter((column2) => column2.fixed === "right"));
+  const normalColumns = computed$1(() => unref(visibleColumns).filter((column2) => !column2.fixed));
+  const mainColumns = computed$1(() => {
     const ret = [];
     unref(fixedColumnsOnLeft).forEach((column2) => {
       ret.push({
@@ -41518,17 +41518,17 @@ function useColumns(props, columns2, fixed) {
     });
     return ret;
   });
-  const hasFixedColumns = computed(() => {
+  const hasFixedColumns = computed$1(() => {
     return unref(fixedColumnsOnLeft).length || unref(fixedColumnsOnRight).length;
   });
-  const columnsStyles = computed(() => {
+  const columnsStyles = computed$1(() => {
     const _columns = unref(columns2);
     return _columns.reduce((style, column2) => {
       style[column2.key] = calcColumnStyle(column2, unref(fixed), props.fixed);
       return style;
     }, {});
   });
-  const columnsTotalWidth = computed(() => {
+  const columnsTotalWidth = computed$1(() => {
     return unref(visibleColumns).reduce((width, column2) => width + column2.width, 0);
   });
   const getColumn = (key) => {
@@ -41642,7 +41642,7 @@ var useRow = (props, { mainTableRef, leftTableRef, rightTableRef }) => {
   const leftTableHeights = shallowRef({});
   const mainTableHeights = shallowRef({});
   const rightTableHeights = shallowRef({});
-  const isDynamic = computed(() => isNumber2(props.estimatedRowHeight));
+  const isDynamic = computed$1(() => isNumber2(props.estimatedRowHeight));
   function onRowsRendered(params) {
     var _a2;
     (_a2 = props.onRowsRendered) == null ? void 0 : _a2.call(props, params);
@@ -41746,7 +41746,7 @@ var useRow = (props, { mainTableRef, leftTableRef, rightTableRef }) => {
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/table-v2/src/composables/use-data.mjs
 var useData = (props, { expandedRowKeys, lastRenderedRowIndex, resetAfterIndex }) => {
   const depthMap = ref({});
-  const flattenedData = computed(() => {
+  const flattenedData = computed$1(() => {
     const depths = {};
     const { data: data2, rowKey: rowKey2 } = props;
     const _expandedRowKeys = unref(expandedRowKeys);
@@ -41768,7 +41768,7 @@ var useData = (props, { expandedRowKeys, lastRenderedRowIndex, resetAfterIndex }
     depthMap.value = depths;
     return array4;
   });
-  const data = computed(() => {
+  const data = computed$1(() => {
     const { data: data2, expandColumnKey: expandColumnKey2 } = props;
     return expandColumnKey2 ? unref(flattenedData) : data2;
   });
@@ -41808,13 +41808,13 @@ var useStyles2 = (props, {
   fixedColumnsOnLeft,
   fixedColumnsOnRight
 }) => {
-  const bodyWidth = computed(() => {
+  const bodyWidth = computed$1(() => {
     const { fixed, width, vScrollbarSize } = props;
     const ret = width - vScrollbarSize;
     return fixed ? Math.max(Math.round(unref(columnsTotalWidth)), ret) : ret;
   });
-  const headerWidth = computed(() => unref(bodyWidth) + (props.fixed ? props.vScrollbarSize : 0));
-  const mainTableHeight = computed(() => {
+  const headerWidth = computed$1(() => unref(bodyWidth) + (props.fixed ? props.vScrollbarSize : 0));
+  const mainTableHeight = computed$1(() => {
     const { height = 0, maxHeight = 0, footerHeight: footerHeight2, hScrollbarSize } = props;
     if (maxHeight > 0) {
       const _fixedRowsHeight = unref(fixedRowsHeight);
@@ -41825,7 +41825,7 @@ var useStyles2 = (props, {
     }
     return height - footerHeight2;
   });
-  const rowsHeight = computed(() => {
+  const rowsHeight = computed$1(() => {
     const { rowHeight, estimatedRowHeight } = props;
     const _data = unref(data);
     if (isNumber2(estimatedRowHeight)) {
@@ -41833,7 +41833,7 @@ var useStyles2 = (props, {
     }
     return _data.length * rowHeight;
   });
-  const fixedTableHeight = computed(() => {
+  const fixedTableHeight = computed$1(() => {
     const { maxHeight } = props;
     const tableHeight = unref(mainTableHeight);
     if (isNumber2(maxHeight) && maxHeight > 0)
@@ -41842,17 +41842,17 @@ var useStyles2 = (props, {
     return Math.min(tableHeight, totalHeight);
   });
   const mapColumn = (column2) => column2.width;
-  const leftTableWidth = computed(() => sum(unref(fixedColumnsOnLeft).map(mapColumn)));
-  const rightTableWidth = computed(() => sum(unref(fixedColumnsOnRight).map(mapColumn)));
-  const headerHeight = computed(() => sum(props.headerHeight));
-  const fixedRowsHeight = computed(() => {
+  const leftTableWidth = computed$1(() => sum(unref(fixedColumnsOnLeft).map(mapColumn)));
+  const rightTableWidth = computed$1(() => sum(unref(fixedColumnsOnRight).map(mapColumn)));
+  const headerHeight = computed$1(() => sum(props.headerHeight));
+  const fixedRowsHeight = computed$1(() => {
     var _a2;
     return (((_a2 = props.fixedData) == null ? void 0 : _a2.length) || 0) * props.rowHeight;
   });
-  const windowHeight = computed(() => {
+  const windowHeight = computed$1(() => {
     return unref(mainTableHeight) - unref(headerHeight) - unref(fixedRowsHeight);
   });
-  const rootStyle = computed(() => {
+  const rootStyle = computed$1(() => {
     const { style = {}, height, width } = props;
     return enforceUnit({
       ...style,
@@ -41860,8 +41860,8 @@ var useStyles2 = (props, {
       width
     });
   });
-  const footerHeight = computed(() => enforceUnit({ height: props.footerHeight }));
-  const emptyStyle = computed(() => ({
+  const footerHeight = computed$1(() => enforceUnit({ height: props.footerHeight }));
+  const emptyStyle = computed$1(() => ({
     top: addUnit(unref(headerHeight)),
     bottom: addUnit(props.footerHeight),
     width: addUnit(props.width)
@@ -41989,7 +41989,7 @@ function useTable(props) {
   });
   const isScrolling = shallowRef(false);
   const containerRef = ref();
-  const showEmpty = computed(() => {
+  const showEmpty = computed$1(() => {
     const noData = unref(data).length === 0;
     return isArray(props.fixedData) ? props.fixedData.length === 0 && noData : noData;
   });
@@ -42391,15 +42391,15 @@ var TableV2Header = defineComponent({
   }) {
     const ns = useNamespace("table-v2");
     const headerRef = ref();
-    const headerStyle = computed(() => enforceUnit({
+    const headerStyle = computed$1(() => enforceUnit({
       width: props.width,
       height: props.height
     }));
-    const rowStyle = computed(() => enforceUnit({
+    const rowStyle = computed$1(() => enforceUnit({
       width: props.rowWidth,
       height: props.height
     }));
-    const headerHeights = computed(() => castArray_default(unref(props.headerHeight)));
+    const headerHeights = computed$1(() => castArray_default(unref(props.headerHeight)));
     const scrollToLeft = (left2) => {
       const headerEl = unref(headerRef);
       nextTick(() => {
@@ -42475,7 +42475,7 @@ var useTableRow = (props) => {
   } = inject(TableV2InjectionKey);
   const measured = ref(false);
   const rowRef = ref();
-  const measurable = computed(() => {
+  const measurable = computed$1(() => {
     return isNumber2(props.estimatedRowHeight) && props.rowIndex >= 0;
   });
   const doMeasure = (isInit = false) => {
@@ -42505,7 +42505,7 @@ var useTableRow = (props) => {
       }
     });
   };
-  const eventHandlers = computed(() => {
+  const eventHandlers = computed$1(() => {
     const {
       rowData,
       rowIndex,
@@ -42707,7 +42707,7 @@ var COMPONENT_NAME20 = "ElTableV2Grid";
 var useTableGrid = (props) => {
   const headerRef = ref();
   const bodyRef = ref();
-  const totalHeight = computed(() => {
+  const totalHeight = computed$1(() => {
     const {
       data,
       rowHeight,
@@ -42718,21 +42718,21 @@ var useTableGrid = (props) => {
     }
     return data.length * rowHeight;
   });
-  const fixedRowHeight = computed(() => {
+  const fixedRowHeight = computed$1(() => {
     const {
       fixedData,
       rowHeight
     } = props;
     return ((fixedData == null ? void 0 : fixedData.length) || 0) * rowHeight;
   });
-  const headerHeight = computed(() => sum(props.headerHeight));
-  const gridHeight = computed(() => {
+  const headerHeight = computed$1(() => sum(props.headerHeight));
+  const gridHeight = computed$1(() => {
     const {
       height
     } = props;
     return Math.max(0, height - unref(headerHeight) - unref(fixedRowHeight));
   });
-  const hasHeader = computed(() => {
+  const hasHeader = computed$1(() => {
     return unref(headerHeight) + unref(fixedRowHeight) > 0;
   });
   const itemKey = ({
@@ -43696,8 +43696,8 @@ var TabNav = defineComponent({
     const navOffset = ref(0);
     const isFocus = ref(false);
     const focusable = ref(true);
-    const sizeName = computed(() => ["top", "bottom"].includes(rootTabs.props.tabPosition) ? "width" : "height");
-    const navStyle = computed(() => {
+    const sizeName = computed$1(() => ["top", "bottom"].includes(rootTabs.props.tabPosition) ? "width" : "height");
+    const navStyle = computed$1(() => {
       const dir = sizeName.value === "width" ? "X" : "Y";
       return {
         transform: `translate${dir}(-${navOffset.value}px)`
@@ -44005,7 +44005,7 @@ var Tabs = defineComponent({
       version: "2.3.0",
       ref: "https://element-plus.org/en-US/component/tabs.html#attributes",
       type: "Attribute"
-    }, computed(() => !!props.activeName));
+    }, computed$1(() => !!props.activeName));
     watch(() => props.activeName, (modelValue) => setCurrentName(modelValue));
     watch(() => props.modelValue, (modelValue) => setCurrentName(modelValue));
     watch(currentName, async () => {
@@ -44094,13 +44094,13 @@ var _sfc_main123 = defineComponent({
       throwError(COMPONENT_NAME24, "usage: <el-tabs><el-tab-pane /></el-tabs/>");
     const ns = useNamespace("tab-pane");
     const index = ref();
-    const isClosable = computed(() => props.closable || tabsRoot.props.closable);
+    const isClosable = computed$1(() => props.closable || tabsRoot.props.closable);
     const active = computedEager(() => {
       var _a2;
       return tabsRoot.currentName.value === ((_a2 = props.name) != null ? _a2 : index.value);
     });
     const loaded = ref(active.value);
-    const paneName = computed(() => {
+    const paneName = computed$1(() => {
       var _a2;
       return (_a2 = props.name) != null ? _a2 : index.value;
     });
@@ -44183,7 +44183,7 @@ var _sfc_main124 = defineComponent({
     const props = __props;
     const textSize = useFormSize();
     const ns = useNamespace("text");
-    const textKls = computed(() => [
+    const textKls = computed$1(() => [
       ns.b(),
       ns.m(props.type),
       ns.m(textSize.value),
@@ -44332,28 +44332,28 @@ var _sfc_main125 = defineComponent({
     const select = ref();
     const _disabled = useFormDisabled();
     const { lang } = useLocale();
-    const value = computed(() => props.modelValue);
-    const start = computed(() => {
+    const value = computed$1(() => props.modelValue);
+    const start = computed$1(() => {
       const time = parseTime(props.start);
       return time ? formatTime2(time) : null;
     });
-    const end2 = computed(() => {
+    const end2 = computed$1(() => {
       const time = parseTime(props.end);
       return time ? formatTime2(time) : null;
     });
-    const step = computed(() => {
+    const step = computed$1(() => {
       const time = parseTime(props.step);
       return time ? formatTime2(time) : null;
     });
-    const minTime = computed(() => {
+    const minTime = computed$1(() => {
       const time = parseTime(props.minTime || "");
       return time ? formatTime2(time) : null;
     });
-    const maxTime = computed(() => {
+    const maxTime = computed$1(() => {
       const time = parseTime(props.maxTime || "");
       return time ? formatTime2(time) : null;
     });
-    const items = computed(() => {
+    const items = computed$1(() => {
       const result = [];
       if (props.start && props.end && props.step) {
         let current = start.value;
@@ -44498,7 +44498,7 @@ var _sfc_main126 = defineComponent({
   setup(__props) {
     const props = __props;
     const ns = useNamespace("timeline-item");
-    const defaultNodeKls = computed(() => [
+    const defaultNodeKls = computed$1(() => [
       ns.e("node"),
       ns.em("node", props.size || ""),
       ns.em("node", props.type || ""),
@@ -44717,7 +44717,7 @@ var _sfc_main127 = defineComponent({
     const props = __props;
     const _open = ref(props.defaultOpen);
     const triggerRef2 = ref(null);
-    const open = computed({
+    const open = computed$1({
       get: () => isPropAbsent(props.open) ? _open.value : props.open,
       set: (open2) => {
         var _a2;
@@ -44725,10 +44725,10 @@ var _sfc_main127 = defineComponent({
         (_a2 = props["onUpdate:open"]) == null ? void 0 : _a2.call(props, open2);
       }
     });
-    const isOpenDelayed = computed(() => isNumber2(props.delayDuration) && props.delayDuration > 0);
+    const isOpenDelayed = computed$1(() => isNumber2(props.delayDuration) && props.delayDuration > 0);
     const { start: onDelayedOpen, stop: clearTimer } = useTimeoutFn(() => {
       open.value = true;
-    }, computed(() => props.delayDuration), {
+    }, computed$1(() => props.delayDuration), {
       immediate: false
     });
     const ns = useNamespace("tooltip-v2");
@@ -44794,7 +44794,7 @@ var _sfc_main128 = defineComponent({
     const props = __props;
     const { ns } = inject(tooltipV2RootKey);
     const { arrowRef } = inject(tooltipV2ContentKey);
-    const arrowStyle = computed(() => {
+    const arrowStyle = computed$1(() => {
       const { style, width, height } = props;
       const namespace = ns.namespace.value;
       return {
@@ -44834,7 +44834,7 @@ var _sfc_main129 = defineComponent({
   props: visualHiddenProps,
   setup(__props) {
     const props = __props;
-    const computedStyle = computed(() => {
+    const computedStyle = computed$1(() => {
       return [
         props.style,
         {
@@ -44877,7 +44877,7 @@ var _sfc_main130 = defineComponent({
     const { referenceRef, contentRef, middlewareData, x: x2, y, update } = useFloating({
       placement,
       strategy,
-      middleware: computed(() => {
+      middleware: computed$1(() => {
         const middleware = [offset(props.offset)];
         if (props.showArrow) {
           middleware.push(arrowMiddleware({
@@ -44889,10 +44889,10 @@ var _sfc_main130 = defineComponent({
     });
     const zIndex2 = useZIndex().nextZIndex();
     const ns = useNamespace("tooltip-v2");
-    const side = computed(() => {
+    const side = computed$1(() => {
       return placement.value.split("-")[0];
     });
-    const contentStyle = computed(() => {
+    const contentStyle = computed$1(() => {
       return {
         position: unref(strategy),
         top: `${unref(y) || 0}px`,
@@ -44900,7 +44900,7 @@ var _sfc_main130 = defineComponent({
         zIndex: zIndex2
       };
     });
-    const arrowStyle = computed(() => {
+    const arrowStyle = computed$1(() => {
       if (!props.showArrow)
         return {};
       const { arrow: arrow2 } = unref(middlewareData);
@@ -44909,7 +44909,7 @@ var _sfc_main130 = defineComponent({
         [`--${ns.namespace.value}-tooltip-v2-arrow-y`]: `${arrow2 == null ? void 0 : arrow2.y}px` || ""
       };
     });
-    const contentClass = computed(() => [
+    const contentClass = computed$1(() => [
       ns.e("content"),
       ns.is("dark", props.effect === "dark"),
       ns.is(unref(strategy)),
@@ -45240,7 +45240,7 @@ var usePropsAlias = (props) => {
     key: "key",
     disabled: "disabled"
   };
-  return computed(() => ({
+  return computed$1(() => ({
     ...initProps,
     ...props.props
   }));
@@ -45249,7 +45249,7 @@ var usePropsAlias = (props) => {
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/transfer/src/composables/use-check.mjs
 var useCheck = (props, panelState, emit) => {
   const propsAlias = usePropsAlias(props);
-  const filteredData = computed(() => {
+  const filteredData = computed$1(() => {
     return props.data.filter((item) => {
       if (isFunction(props.filterMethod)) {
         return props.filterMethod(panelState.query, item);
@@ -45259,8 +45259,8 @@ var useCheck = (props, panelState, emit) => {
       }
     });
   });
-  const checkableData = computed(() => filteredData.value.filter((item) => !item[propsAlias.value.disabled]));
-  const checkedSummary = computed(() => {
+  const checkableData = computed$1(() => filteredData.value.filter((item) => !item[propsAlias.value.disabled]));
+  const checkedSummary = computed$1(() => {
     const checkedLength = panelState.checked.length;
     const dataLength = props.data.length;
     const { noChecked, hasChecked } = props.format;
@@ -45270,7 +45270,7 @@ var useCheck = (props, panelState, emit) => {
       return `${checkedLength}/${dataLength}`;
     }
   });
-  const isIndeterminate = computed(() => {
+  const isIndeterminate = computed$1(() => {
     const checkedLength = panelState.checked.length;
     return checkedLength > 0 && checkedLength < checkableData.value.length;
   });
@@ -45353,9 +45353,9 @@ var useCheckedChange = (checkedState, emit) => {
 // node_modules/.pnpm/registry.npmmirror.com+element-plus@2.4.1_vue@3.2.44/node_modules/element-plus/es/components/transfer/src/composables/use-computed-data.mjs
 var useComputedData = (props) => {
   const propsAlias = usePropsAlias(props);
-  const dataObj = computed(() => props.data.reduce((o2, cur) => (o2[cur[propsAlias.value.key]] = cur) && o2, {}));
-  const sourceData = computed(() => props.data.filter((item) => !props.modelValue.includes(item[propsAlias.value.key])));
-  const targetData = computed(() => {
+  const dataObj = computed$1(() => props.data.reduce((o2, cur) => (o2[cur[propsAlias.value.key]] = cur) && o2, {}));
+  const sourceData = computed$1(() => props.data.filter((item) => !props.modelValue.includes(item[propsAlias.value.key])));
+  const targetData = computed$1(() => {
     if (props.targetOrder === "original") {
       return props.data.filter((item) => props.modelValue.includes(item[propsAlias.value.key]));
     } else {
@@ -45436,8 +45436,8 @@ var _sfc_main133 = defineComponent({
       isIndeterminate,
       handleAllCheckedChange
     } = useCheck(props, panelState, emit);
-    const hasNoMatch = computed(() => !isEmpty(panelState.query) && isEmpty(filteredData.value));
-    const hasFooter = computed(() => !isEmpty(slots.default()[0].children));
+    const hasNoMatch = computed$1(() => !isEmpty(panelState.query) && isEmpty(filteredData.value));
+    const hasFooter = computed$1(() => !isEmpty(slots.default()[0].children));
     const { checked, allChecked, query } = toRefs(panelState);
     expose({
       query
@@ -45562,17 +45562,17 @@ var _sfc_main134 = defineComponent({
           break;
       }
     };
-    const hasButtonTexts = computed(() => props.buttonTexts.length === 2);
-    const leftPanelTitle = computed(() => props.titles[0] || t("el.transfer.titles.0"));
-    const rightPanelTitle = computed(() => props.titles[1] || t("el.transfer.titles.1"));
-    const panelFilterPlaceholder = computed(() => props.filterPlaceholder || t("el.transfer.filterPlaceholder"));
+    const hasButtonTexts = computed$1(() => props.buttonTexts.length === 2);
+    const leftPanelTitle = computed$1(() => props.titles[0] || t("el.transfer.titles.0"));
+    const rightPanelTitle = computed$1(() => props.titles[1] || t("el.transfer.titles.1"));
+    const panelFilterPlaceholder = computed$1(() => props.filterPlaceholder || t("el.transfer.filterPlaceholder"));
     watch(() => props.modelValue, () => {
       var _a2;
       if (props.validateEvent) {
         (_a2 = formItem == null ? void 0 : formItem.validate) == null ? void 0 : _a2.call(formItem, "change").catch((err) => debugWarn(err));
       }
     });
-    const optionRender = computed(() => (option) => {
+    const optionRender = computed$1(() => (option) => {
       if (props.renderContent)
         return props.renderContent(h, option);
       if (slots.default)
@@ -47112,7 +47112,7 @@ var _sfc_main137 = defineComponent({
       store
     });
     useKeydown({ el$ }, store);
-    const isEmpty2 = computed(() => {
+    const isEmpty2 = computed$1(() => {
       const { childNodes } = root.value;
       return !childNodes || childNodes.length === 0 || childNodes.every(({ visible }) => !visible);
     });
@@ -47330,7 +47330,7 @@ var useSelect3 = (props, { attrs }, {
     ...pick_default(toRefs(props), Object.keys(ElSelect.props)),
     ...attrs,
     valueKey: key,
-    popperClass: computed(() => {
+    popperClass: computed$1(() => {
       const classes = [ns.e("popper")];
       if (props.popperClass)
         classes.push(props.popperClass);
@@ -47431,7 +47431,7 @@ var useTree2 = (props, { attrs, slots, emit }, {
     immediate: true,
     deep: true
   });
-  const propsMap = computed(() => ({
+  const propsMap = computed$1(() => ({
     value: key.value,
     label: "label",
     children: "children",
@@ -47451,7 +47451,7 @@ var useTree2 = (props, { attrs, slots, emit }, {
   const defaultExpandedParentKeys = toValidArray(props.modelValue).map((value) => {
     return treeFind(props.data || [], (data) => getNodeValByProp("value", data) === value, (data) => getNodeValByProp("children", data), (data, index, array4, parent) => parent && getNodeValByProp("value", parent));
   }).filter((item) => isValidValue2(item));
-  const cacheOptions = computed(() => {
+  const cacheOptions = computed$1(() => {
     if (!props.renderAfterExpand && !props.lazy)
       return [];
     const options = [];
@@ -47465,17 +47465,17 @@ var useTree2 = (props, { attrs, slots, emit }, {
     }, (data) => getNodeValByProp("children", data));
     return options;
   });
-  const cacheOptionsMap = computed(() => {
+  const cacheOptionsMap = computed$1(() => {
     return cacheOptions.value.reduce((prev, next) => ({ ...prev, [next.value]: next }), {});
   });
   return {
     ...pick_default(toRefs(props), Object.keys(_Tree.props)),
     ...attrs,
     nodeKey: key,
-    expandOnClickNode: computed(() => {
+    expandOnClickNode: computed$1(() => {
       return !props.checkStrictly && props.expandOnClickNode;
     }),
-    defaultExpandedKeys: computed(() => {
+    defaultExpandedKeys: computed$1(() => {
       return props.defaultExpandedKeys ? props.defaultExpandedKeys.concat(defaultExpandedParentKeys) : defaultExpandedParentKeys;
     }),
     renderContent: (h3, { node, data, store }) => {
@@ -47584,7 +47584,7 @@ var _sfc_main138 = defineComponent({
     const { slots, expose } = context;
     const select = ref();
     const tree = ref();
-    const key = computed(() => props.nodeKey || props.valueKey || "value");
+    const key = computed$1(() => props.nodeKey || props.valueKey || "value");
     const selectProps = useSelect3(props, context, { select, tree, key });
     const { cacheOptions, ...treeProps2 } = useTree2(props, context, {
       select,
@@ -47979,7 +47979,7 @@ function useCheck2(props, tree) {
 function useFilter(props, tree) {
   const hiddenNodeKeySet = ref(/* @__PURE__ */ new Set([]));
   const hiddenExpandIconKeySet = ref(/* @__PURE__ */ new Set([]));
-  const filterable = computed(() => {
+  const filterable = computed$1(() => {
     return isFunction(props.filterMethod);
   });
   function doFilter(query) {
@@ -48070,23 +48070,23 @@ function useTree3(props, emit) {
     setCheckedKeys
   } = useCheck2(props, tree);
   const { doFilter, hiddenNodeKeySet, isForceHiddenExpandIcon } = useFilter(props, tree);
-  const valueKey = computed(() => {
+  const valueKey = computed$1(() => {
     var _a2;
     return ((_a2 = props.props) == null ? void 0 : _a2.value) || TreeOptionsEnum.KEY;
   });
-  const childrenKey = computed(() => {
+  const childrenKey = computed$1(() => {
     var _a2;
     return ((_a2 = props.props) == null ? void 0 : _a2.children) || TreeOptionsEnum.CHILDREN;
   });
-  const disabledKey = computed(() => {
+  const disabledKey = computed$1(() => {
     var _a2;
     return ((_a2 = props.props) == null ? void 0 : _a2.disabled) || TreeOptionsEnum.DISABLED;
   });
-  const labelKey = computed(() => {
+  const labelKey = computed$1(() => {
     var _a2;
     return ((_a2 = props.props) == null ? void 0 : _a2.label) || TreeOptionsEnum.LABEL;
   });
-  const flattenTree = computed(() => {
+  const flattenTree = computed$1(() => {
     const expandedKeys = expandedKeySet.value;
     const hiddenKeys = hiddenNodeKeySet.value;
     const flattenNodes = [];
@@ -48117,7 +48117,7 @@ function useTree3(props, emit) {
     traverse();
     return flattenNodes;
   });
-  const isNotEmpty = computed(() => {
+  const isNotEmpty = computed$1(() => {
     return flattenTree.value.length > 0;
   });
   function createTree(data) {
@@ -48323,11 +48323,11 @@ var _sfc_main139 = defineComponent({
     const props = __props;
     const tree = inject(ROOT_TREE_INJECTION_KEY);
     const ns = useNamespace("tree");
-    const indent = computed(() => {
+    const indent = computed$1(() => {
       var _a2;
       return (_a2 = tree == null ? void 0 : tree.props.indent) != null ? _a2 : 16;
     });
-    const icon = computed(() => {
+    const icon = computed$1(() => {
       var _a2;
       return (_a2 = tree == null ? void 0 : tree.props.icon) != null ? _a2 : caret_right_default;
     });
@@ -48420,7 +48420,7 @@ var _sfc_main140 = defineComponent({
   setup(__props, { expose, emit }) {
     const props = __props;
     const slots = useSlots();
-    const treeNodeSize = computed(() => props.itemSize);
+    const treeNodeSize = computed$1(() => props.itemSize);
     provide(ROOT_TREE_INJECTION_KEY, {
       ctx: {
         emit,
@@ -48761,7 +48761,7 @@ var _sfc_main141 = defineComponent({
     const nsList = useNamespace("list");
     const disabled = useFormDisabled();
     const focusing = ref(false);
-    const containerKls = computed(() => [
+    const containerKls = computed$1(() => [
       nsUpload.b("list"),
       nsUpload.bm("list", props.listType),
       nsUpload.is("disabled", props.disabled)
@@ -49354,8 +49354,8 @@ var _sfc_main144 = defineComponent({
       handleProgress,
       revokeFileObjectURL: revokeFileObjectURL2
     } = useHandlers(props, uploadRef);
-    const isPictureCard = computed(() => props.listType === "picture-card");
-    const uploadContentProps2 = computed(() => ({
+    const isPictureCard = computed$1(() => props.listType === "picture-card");
+    const uploadContentProps2 = computed$1(() => ({
       ...props,
       fileList: uploadFiles.value,
       onStart: handleStart,
@@ -49588,35 +49588,35 @@ var _sfc_main145 = defineComponent({
     const style = {
       position: "relative"
     };
-    const color = computed(() => {
+    const color = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = props.font) == null ? void 0 : _a2.color) != null ? _b : "rgba(0,0,0,.15)";
     });
-    const fontSize = computed(() => {
+    const fontSize = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = props.font) == null ? void 0 : _a2.fontSize) != null ? _b : 16;
     });
-    const fontWeight = computed(() => {
+    const fontWeight = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = props.font) == null ? void 0 : _a2.fontWeight) != null ? _b : "normal";
     });
-    const fontStyle = computed(() => {
+    const fontStyle = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = props.font) == null ? void 0 : _a2.fontStyle) != null ? _b : "normal";
     });
-    const fontFamily = computed(() => {
+    const fontFamily = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = props.font) == null ? void 0 : _a2.fontFamily) != null ? _b : "sans-serif";
     });
-    const gapX = computed(() => props.gap[0]);
-    const gapY = computed(() => props.gap[1]);
-    const gapXCenter = computed(() => gapX.value / 2);
-    const gapYCenter = computed(() => gapY.value / 2);
-    const offsetLeft = computed(() => {
+    const gapX = computed$1(() => props.gap[0]);
+    const gapY = computed$1(() => props.gap[1]);
+    const gapXCenter = computed$1(() => gapX.value / 2);
+    const gapYCenter = computed$1(() => gapY.value / 2);
+    const offsetLeft = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = props.offset) == null ? void 0 : _a2[0]) != null ? _b : gapXCenter.value;
     });
-    const offsetTop = computed(() => {
+    const offsetTop = computed$1(() => {
       var _a2, _b;
       return (_b = (_a2 = props.offset) == null ? void 0 : _a2[1]) != null ? _b : gapYCenter.value;
     });
@@ -50413,16 +50413,16 @@ var _sfc_main146 = defineComponent({
     const visible = ref(false);
     const height = ref(0);
     let stopTimer = void 0;
-    const badgeType = computed(() => props.type ? props.type === "error" ? "danger" : props.type : "info");
-    const typeClass = computed(() => {
+    const badgeType = computed$1(() => props.type ? props.type === "error" ? "danger" : props.type : "info");
+    const typeClass = computed$1(() => {
       const type4 = props.type;
       return { [ns.bm("icon", type4)]: type4 && TypeComponentsMap[type4] };
     });
-    const iconComponent = computed(() => props.icon || TypeComponentsMap[props.type] || "");
-    const lastOffset = computed(() => getLastOffset(props.id));
-    const offset2 = computed(() => getOffsetOrSpace(props.id, props.offset) + lastOffset.value);
-    const bottom = computed(() => height.value + offset2.value);
-    const customStyle = computed(() => ({
+    const iconComponent = computed$1(() => props.icon || TypeComponentsMap[props.type] || "");
+    const lastOffset = computed$1(() => getLastOffset(props.id));
+    const offset2 = computed$1(() => getOffsetOrSpace(props.id, props.offset) + lastOffset.value);
+    const bottom = computed$1(() => height.value + offset2.value);
+    const customStyle = computed$1(() => ({
       top: `${offset2.value}px`,
       zIndex: currentZIndex.value
     }));
@@ -50705,7 +50705,7 @@ var _sfc_main147 = defineComponent({
       zIndex: zIndex2,
       ns,
       size: btnSize
-    } = useGlobalComponentSettings("message-box", computed(() => props.buttonSize));
+    } = useGlobalComponentSettings("message-box", computed$1(() => props.buttonSize));
     const { t } = locale;
     const { nextZIndex } = zIndex2;
     const visible = ref(false);
@@ -50744,20 +50744,20 @@ var _sfc_main147 = defineComponent({
       validateError: false,
       zIndex: nextZIndex()
     });
-    const typeClass = computed(() => {
+    const typeClass = computed$1(() => {
       const type4 = state.type;
       return { [ns.bm("icon", type4)]: type4 && TypeComponentsMap[type4] };
     });
     const contentId = useId();
     const inputId = useId();
-    const iconComponent = computed(() => state.icon || TypeComponentsMap[state.type] || "");
-    const hasMessage = computed(() => !!state.message);
+    const iconComponent = computed$1(() => state.icon || TypeComponentsMap[state.type] || "");
+    const hasMessage = computed$1(() => !!state.message);
     const rootRef = ref();
     const headerRef = ref();
     const focusStartRef = ref();
     const inputRef = ref();
     const confirmRef = ref();
-    const confirmButtonClasses = computed(() => state.confirmButtonClass);
+    const confirmButtonClasses = computed$1(() => state.confirmButtonClass);
     watch(() => state.inputValue, async (val) => {
       await nextTick();
       if (props.boxType === "prompt" && val !== null) {
@@ -50794,7 +50794,7 @@ var _sfc_main147 = defineComponent({
         state.validateError = false;
       }
     });
-    const draggable2 = computed(() => props.draggable);
+    const draggable2 = computed$1(() => props.draggable);
     useDraggable(rootRef, headerRef, draggable2);
     onMounted(async () => {
       await nextTick();
@@ -51338,18 +51338,18 @@ var _sfc_main148 = defineComponent({
     const { Close } = CloseComponents;
     const visible = ref(false);
     let timer = void 0;
-    const typeClass = computed(() => {
+    const typeClass = computed$1(() => {
       const type4 = props.type;
       return type4 && TypeComponentsMap[props.type] ? ns.m(type4) : "";
     });
-    const iconComponent = computed(() => {
+    const iconComponent = computed$1(() => {
       if (!props.type)
         return props.icon;
       return TypeComponentsMap[props.type] || props.icon;
     });
-    const horizontalClass = computed(() => props.position.endsWith("right") ? "right" : "left");
-    const verticalProperty = computed(() => props.position.startsWith("top") ? "top" : "bottom");
-    const positionStyle = computed(() => {
+    const horizontalClass = computed$1(() => props.position.endsWith("right") ? "right" : "left");
+    const verticalProperty = computed$1(() => props.position.startsWith("top") ? "top" : "bottom");
+    const positionStyle = computed$1(() => {
       var _a2;
       return {
         [verticalProperty.value]: `${props.offset}px`,

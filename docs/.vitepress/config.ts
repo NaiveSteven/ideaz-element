@@ -26,11 +26,11 @@ export default defineConfig({
     outlineTitle: '本页目录',
     lastUpdatedText: '上次更新',
     logo: '/logo.svg',
-    algolia: {
-      appId: 'X51HWTCQJJ',
-      apiKey: 'ca20f15eb8a667898b65d13f4213ae3d',
-      indexName: 'vitepress-demo',
-    },
+    // algolia: {
+    //   appId: 'X51HWTCQJJ',
+    //   apiKey: 'ca20f15eb8a667898b65d13f4213ae3d',
+    //   indexName: 'vitepress-demo',
+    // },
     nav: [
       { text: '组件', link: '/components/grid', activeMatch: '^/components/' },
       {
@@ -43,19 +43,19 @@ export default defineConfig({
         {
           text: '组件',
           items: [
-            {
-              text: '布局',
-              items: [
-                {
-                  text: 'Grid 栅格',
-                  link: '/components/grid',
-                },
-                {
-                  text: 'Watermark 水印',
-                  link: '/components/watermark',
-                },
-              ],
-            },
+            // {
+            //   text: '布局',
+            //   items: [
+            //     {
+            //       text: 'Grid 栅格',
+            //       link: '/components/grid',
+            //     },
+            //     {
+            //       text: 'Watermark 水印',
+            //       link: '/components/watermark',
+            //     },
+            //   ],
+            // },
             {
               text: '表单',
               items: [

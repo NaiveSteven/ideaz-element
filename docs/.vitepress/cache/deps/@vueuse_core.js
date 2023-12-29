@@ -7,7 +7,7 @@ import {
 import {
   Fragment,
   TransitionGroup,
-  computed,
+  computed$1,
   customRef,
   defineComponent,
   effectScope,
@@ -39,7 +39,7 @@ import {
   version,
   watch,
   watchEffect
-} from "./chunk-OH3DV4HH.js";
+} from "./chunk-EZR2OR7S.js";
 import "./chunk-5WWUZCGV.js";
 
 // node_modules/.pnpm/registry.npmmirror.com+@vueuse+shared@10.5.0_vue@3.2.44/node_modules/@vueuse/shared/index.mjs
@@ -242,7 +242,7 @@ var resolveUnref = toValue;
 function reactify(fn, options) {
   const unrefFn = (options == null ? void 0 : options.computedGetter) === false ? unref : toValue;
   return function(...args) {
-    return computed(() => fn.apply(this, args.map((i) => unrefFn(i))));
+    return computed$1(() => fn.apply(this, args.map((i) => unrefFn(i))));
   };
 }
 function reactifyObject(obj, optionsOrKeys = {}) {
@@ -300,7 +300,7 @@ function toReactive(objectRef) {
   return reactive(proxy);
 }
 function reactiveComputed(fn) {
-  return toReactive(computed(fn));
+  return toReactive(computed$1(fn));
 }
 function reactiveOmit(obj, ...keys2) {
   const flatKeys = keys2.flat();
@@ -574,7 +574,7 @@ function refDebounced(value, ms = 200, options = {}) {
   return debounced;
 }
 function refDefault(source, defaultValue) {
-  return computed({
+  return computed$1({
     get() {
       var _a;
       return (_a = source.value) != null ? _a : defaultValue;
@@ -932,21 +932,21 @@ function useArrayDifference(...args) {
     const key = compareFn;
     compareFn = (value, othVal) => value[key] === othVal[key];
   }
-  return computed(() => toValue(list).filter((x) => toValue(values).findIndex((y) => compareFn(x, y)) === -1));
+  return computed$1(() => toValue(list).filter((x) => toValue(values).findIndex((y) => compareFn(x, y)) === -1));
 }
 function useArrayEvery(list, fn) {
-  return computed(() => toValue(list).every((element, index, array) => fn(toValue(element), index, array)));
+  return computed$1(() => toValue(list).every((element, index, array) => fn(toValue(element), index, array)));
 }
 function useArrayFilter(list, fn) {
-  return computed(() => toValue(list).map((i) => toValue(i)).filter(fn));
+  return computed$1(() => toValue(list).map((i) => toValue(i)).filter(fn));
 }
 function useArrayFind(list, fn) {
-  return computed(() => toValue(
+  return computed$1(() => toValue(
     toValue(list).find((element, index, array) => fn(toValue(element), index, array))
   ));
 }
 function useArrayFindIndex(list, fn) {
-  return computed(() => toValue(list).findIndex((element, index, array) => fn(toValue(element), index, array)));
+  return computed$1(() => toValue(list).findIndex((element, index, array) => fn(toValue(element), index, array)));
 }
 function findLast(arr, cb) {
   let index = arr.length;
@@ -957,7 +957,7 @@ function findLast(arr, cb) {
   return void 0;
 }
 function useArrayFindLast(list, fn) {
-  return computed(() => toValue(
+  return computed$1(() => toValue(
     !Array.prototype.findLast ? findLast(toValue(list), (element, index, array) => fn(toValue(element), index, array)) : toValue(list).findLast((element, index, array) => fn(toValue(element), index, array))
   ));
 }
@@ -979,7 +979,7 @@ function useArrayIncludes(...args) {
     comparator = (element, value2) => element[key] === toValue(value2);
   }
   comparator = comparator != null ? comparator : (element, value2) => element === toValue(value2);
-  return computed(() => toValue(list).slice(formIndex).some((element, index, array) => comparator(
+  return computed$1(() => toValue(list).slice(formIndex).some((element, index, array) => comparator(
     toValue(element),
     toValue(value),
     index,
@@ -987,20 +987,20 @@ function useArrayIncludes(...args) {
   )));
 }
 function useArrayJoin(list, separator) {
-  return computed(() => toValue(list).map((i) => toValue(i)).join(toValue(separator)));
+  return computed$1(() => toValue(list).map((i) => toValue(i)).join(toValue(separator)));
 }
 function useArrayMap(list, fn) {
-  return computed(() => toValue(list).map((i) => toValue(i)).map(fn));
+  return computed$1(() => toValue(list).map((i) => toValue(i)).map(fn));
 }
 function useArrayReduce(list, reducer, ...args) {
   const reduceCallback = (sum, value, index) => reducer(toValue(sum), toValue(value), index);
-  return computed(() => {
+  return computed$1(() => {
     const resolved = toValue(list);
     return args.length ? resolved.reduce(reduceCallback, toValue(args[0])) : resolved.reduce(reduceCallback);
   });
 }
 function useArraySome(list, fn) {
-  return computed(() => toValue(list).some((element, index, array) => fn(toValue(element), index, array)));
+  return computed$1(() => toValue(list).some((element, index, array) => fn(toValue(element), index, array)));
 }
 function uniq(array) {
   return Array.from(new Set(array));
@@ -1013,7 +1013,7 @@ function uniqueElementsBy(array, fn) {
   }, []);
 }
 function useArrayUnique(list, compareFn) {
-  return computed(() => {
+  return computed$1(() => {
     const resolvedList = toValue(list).map((element) => toValue(element));
     return compareFn ? uniqueElementsBy(resolvedList, compareFn) : uniq(resolvedList);
   });
@@ -1104,7 +1104,7 @@ function normalizeDate(date) {
   return new Date(date);
 }
 function useDateFormat(date, formatStr = "HH:mm:ss", options = {}) {
-  return computed(() => formatDate(normalizeDate(toValue(date)), toValue(formatStr), options));
+  return computed$1(() => formatDate(normalizeDate(toValue(date)), toValue(formatStr), options));
 }
 function useIntervalFn(cb, interval = 1e3, options = {}) {
   const {
@@ -1235,7 +1235,7 @@ function useTimeout(interval = 1e3, options = {}) {
     interval,
     options
   );
-  const ready = computed(() => !controls.isPending.value);
+  const ready = computed$1(() => !controls.isPending.value);
   if (exposeControls) {
     return {
       ready,
@@ -1251,7 +1251,7 @@ function useToNumber(value, options = {}) {
     radix,
     nanToZero
   } = options;
-  return computed(() => {
+  return computed$1(() => {
     let resolved = toValue(value);
     if (typeof resolved === "string")
       resolved = Number[method](resolved, radix);
@@ -1261,7 +1261,7 @@ function useToNumber(value, options = {}) {
   });
 }
 function useToString(value) {
-  return computed(() => `${toValue(value)}`);
+  return computed$1(() => `${toValue(value)}`);
 }
 function useToggle(initialValue = false, options = {}) {
   const {
@@ -1553,7 +1553,7 @@ function computedAsync(evaluationCallback, initialState, optionsOrRef) {
     }
   });
   if (lazy) {
-    return computed(() => {
+    return computed$1(() => {
       started.value = true;
       return current.value;
     });
@@ -1568,9 +1568,9 @@ function computedInject(key, options, defaultSource, treatDefaultAsFactory) {
   if (treatDefaultAsFactory)
     source = inject(key, defaultSource, treatDefaultAsFactory);
   if (typeof options === "function") {
-    return computed((ctx) => options(source, ctx));
+    return computed$1((ctx) => options(source, ctx));
   } else {
-    return computed({
+    return computed$1({
       get: (ctx) => options.get(source, ctx),
       set: options.set
     });
@@ -1839,7 +1839,7 @@ function onKeyUp(key, handler, options = {}) {
 var DEFAULT_DELAY = 500;
 function onLongPress(target, handler, options) {
   var _a, _b;
-  const elementRef = computed(() => unrefElement(target));
+  const elementRef = computed$1(() => unrefElement(target));
   let timeout;
   function clear() {
     if (timeout) {
@@ -1966,7 +1966,7 @@ function useMounted() {
 }
 function useSupported(callback) {
   const isMounted = useMounted();
-  return computed(() => {
+  return computed$1(() => {
     isMounted.value;
     return Boolean(callback());
   });
@@ -2047,10 +2047,10 @@ function useAnimate(target, keyframes, options) {
     playState: immediate ? "idle" : "paused",
     replaceState: "active"
   });
-  const pending = computed(() => store.pending);
-  const playState = computed(() => store.playState);
-  const replaceState = computed(() => store.replaceState);
-  const startTime = computed({
+  const pending = computed$1(() => store.pending);
+  const playState = computed$1(() => store.playState);
+  const replaceState = computed$1(() => store.replaceState);
+  const startTime = computed$1({
     get() {
       return store.startTime;
     },
@@ -2060,7 +2060,7 @@ function useAnimate(target, keyframes, options) {
         animate.value.startTime = value;
     }
   });
-  const currentTime = computed({
+  const currentTime = computed$1({
     get() {
       return store.currentTime;
     },
@@ -2072,7 +2072,7 @@ function useAnimate(target, keyframes, options) {
       }
     }
   });
-  const timeline = computed({
+  const timeline = computed$1({
     get() {
       return store.timeline;
     },
@@ -2082,7 +2082,7 @@ function useAnimate(target, keyframes, options) {
         animate.value.timeline = value;
     }
   });
-  const playbackRate = computed({
+  const playbackRate = computed$1({
     get() {
       return store.playbackRate;
     },
@@ -2503,7 +2503,7 @@ function useBluetooth(options) {
     }
   }
   const server = ref();
-  const isConnected = computed(() => {
+  const isConnected = computed$1(() => {
     var _a;
     return ((_a = server.value) == null ? void 0 : _a.connected) || false;
   });
@@ -2694,7 +2694,7 @@ function useBreakpoints(breakpoints, options = {}) {
     },
     current() {
       const points = Object.keys(breakpoints).map((i) => [i, greaterOrEqual(i)]);
-      return computed(() => points.filter(([, v]) => v.value).map(([k]) => k));
+      return computed$1(() => points.filter(([, v]) => v.value).map(([k]) => k));
     }
   });
 }
@@ -2805,7 +2805,7 @@ function useClipboard(options = {}) {
     legacy = false
   } = options;
   const isClipboardApiSupported = useSupported(() => navigator && "clipboard" in navigator);
-  const isSupported = computed(() => isClipboardApiSupported.value || legacy);
+  const isSupported = computed$1(() => isClipboardApiSupported.value || legacy);
   const text = ref("");
   const copied = ref(false);
   const timeout = useTimeoutFn(() => copied.value = false, copiedDuring);
@@ -3065,9 +3065,9 @@ function useColorMode(options = {}) {
     ...options.modes || {}
   };
   const preferredDark = usePreferredDark({ window: window2 });
-  const system = computed(() => preferredDark.value ? "dark" : "light");
+  const system = computed$1(() => preferredDark.value ? "dark" : "light");
   const store = storageRef || (storageKey == null ? toRef2(initialValue) : useStorage(storageKey, initialValue, storage, { window: window2, listenToStorageChanges }));
-  const state = computed(() => store.value === "auto" ? system.value : store.value);
+  const state = computed$1(() => store.value === "auto" ? system.value : store.value);
   const updateHTMLAttrs = getSSRHandler(
     "updateHTMLAttrs",
     (selector2, attribute2, value) => {
@@ -3110,7 +3110,7 @@ function useColorMode(options = {}) {
   }
   watch(state, onChanged, { flush: "post", immediate: true });
   tryOnMounted(() => onChanged(state.value));
-  const auto = computed({
+  const auto = computed$1({
     get() {
       return emitAuto ? store.value : state.value;
     },
@@ -3147,7 +3147,7 @@ function useConfirmDialog(revealed = ref(false)) {
     _resolve({ data, isCanceled: true });
   };
   return {
-    isRevealed: computed(() => revealed.value),
+    isRevealed: computed$1(() => revealed.value),
     reveal,
     confirm,
     cancel,
@@ -3190,7 +3190,7 @@ function useMutationObserver(target, callback, options = {}) {
 function useCssVar(prop, target, options = {}) {
   const { window: window2 = defaultWindow, initialValue = "", observe = false } = options;
   const variable = ref(initialValue);
-  const elRef = computed(() => {
+  const elRef = computed$1(() => {
     var _a;
     return unrefElement(target) || ((_a = window2 == null ? void 0 : window2.document) == null ? void 0 : _a.documentElement);
   });
@@ -3237,7 +3237,7 @@ function useCurrentElement() {
 function useCycleList(list, options) {
   const state = shallowRef(getInitialValue());
   const listRef = toRef2(list);
-  const index = computed({
+  const index = computed$1({
     get() {
       var _a;
       const targetList = listRef.value;
@@ -3298,7 +3298,7 @@ function useDark(options = {}) {
       light: valueLight
     }
   });
-  const isDark = computed({
+  const isDark = computed$1({
     get() {
       return mode.value === "dark";
     },
@@ -3373,9 +3373,9 @@ function useManualRefHistory(source, options = {}) {
   const reset = () => {
     _setSource(last.value);
   };
-  const history = computed(() => [last.value, ...undoStack.value]);
-  const canUndo = computed(() => undoStack.value.length > 0);
-  const canRedo = computed(() => redoStack.value.length > 0);
+  const history = computed$1(() => [last.value, ...undoStack.value]);
+  const canUndo = computed$1(() => undoStack.value.length > 0);
+  const canRedo = computed$1(() => redoStack.value.length > 0);
   return {
     source,
     undoStack,
@@ -3580,9 +3580,9 @@ function useDevicesList(options = {}) {
     onUpdated: onUpdated2
   } = options;
   const devices = ref([]);
-  const videoInputs = computed(() => devices.value.filter((i) => i.kind === "videoinput"));
-  const audioInputs = computed(() => devices.value.filter((i) => i.kind === "audioinput"));
-  const audioOutputs = computed(() => devices.value.filter((i) => i.kind === "audiooutput"));
+  const videoInputs = computed$1(() => devices.value.filter((i) => i.kind === "videoinput"));
+  const audioInputs = computed$1(() => devices.value.filter((i) => i.kind === "audioinput"));
+  const audioOutputs = computed$1(() => devices.value.filter((i) => i.kind === "audiooutput"));
   const isSupported = useSupported(() => navigator && navigator.mediaDevices && navigator.mediaDevices.enumerateDevices);
   const permissionGranted = ref(false);
   let stream;
@@ -3772,8 +3772,8 @@ function useDraggable(target, options = {}) {
   return {
     ...toRefs2(position),
     position,
-    isDragging: computed(() => !!pressedDelta.value),
-    style: computed(
+    isDragging: computed$1(() => !!pressedDelta.value),
+    style: computed$1(
       () => `left:${position.value.x}px;top:${position.value.y}px;`
     )
   };
@@ -3832,7 +3832,7 @@ function useResizeObserver(target, callback, options = {}) {
       observer = void 0;
     }
   };
-  const targets = computed(() => Array.isArray(target) ? target.map((el) => unrefElement(el)) : [unrefElement(target)]);
+  const targets = computed$1(() => Array.isArray(target) ? target.map((el) => unrefElement(el)) : [unrefElement(target)]);
   const stopWatch = watch(
     targets,
     (els) => {
@@ -3970,7 +3970,7 @@ function useElementHover(el, options = {}) {
 }
 function useElementSize(target, initialSize = { width: 0, height: 0 }, options = {}) {
   const { window: window2 = defaultWindow, box = "content-box" } = options;
-  const isSVG = computed(() => {
+  const isSVG = computed$1(() => {
     var _a, _b;
     return (_b = (_a = unrefElement(target)) == null ? void 0 : _a.namespaceURI) == null ? void 0 : _b.includes("svg");
   });
@@ -4021,7 +4021,7 @@ function useIntersectionObserver(target, callback, options = {}) {
     immediate = true
   } = options;
   const isSupported = useSupported(() => window2 && "IntersectionObserver" in window2);
-  const targets = computed(() => {
+  const targets = computed$1(() => {
     const _target = toValue(target);
     return (Array.isArray(_target) ? _target : [_target]).map(unrefElement).filter(notNullish);
   });
@@ -4253,7 +4253,7 @@ function createFetch(config = {}) {
   const _options = config.options || {};
   const _fetchOptions = config.fetchOptions || {};
   function useFactoryFetch(url, ...args) {
-    const computedUrl = computed(() => {
+    const computedUrl = computed$1(() => {
       const baseUrl = toValue(config.baseUrl);
       const targetUrl = toValue(url);
       return baseUrl && !isAbsoluteURL(targetUrl) ? joinPaths(baseUrl, targetUrl) : targetUrl;
@@ -4333,7 +4333,7 @@ function useFetch(url, ...args) {
   const response = shallowRef(null);
   const error = shallowRef(null);
   const data = shallowRef(initialData || null);
-  const canAbort = computed(() => supportsAbort && isFetching.value);
+  const canAbort = computed$1(() => supportsAbort && isFetching.value);
   let controller;
   let timer;
   const abort = () => {
@@ -4602,19 +4602,19 @@ function useFileSystemAccess(options = {}) {
   const fileHandle = ref();
   const data = ref();
   const file = ref();
-  const fileName = computed(() => {
+  const fileName = computed$1(() => {
     var _a, _b;
     return (_b = (_a = file.value) == null ? void 0 : _a.name) != null ? _b : "";
   });
-  const fileMIME = computed(() => {
+  const fileMIME = computed$1(() => {
     var _a, _b;
     return (_b = (_a = file.value) == null ? void 0 : _a.type) != null ? _b : "";
   });
-  const fileSize = computed(() => {
+  const fileSize = computed$1(() => {
     var _a, _b;
     return (_b = (_a = file.value) == null ? void 0 : _a.size) != null ? _b : 0;
   });
-  const fileLastModified = computed(() => {
+  const fileLastModified = computed$1(() => {
     var _a, _b;
     return (_b = (_a = file.value) == null ? void 0 : _a.lastModified) != null ? _b : 0;
   });
@@ -4690,14 +4690,14 @@ function useFileSystemAccess(options = {}) {
 function useFocus(target, options = {}) {
   const { initialValue = false, focusVisible = false } = options;
   const innerFocused = ref(false);
-  const targetElement = computed(() => unrefElement(target));
+  const targetElement = computed$1(() => unrefElement(target));
   useEventListener(targetElement, "focus", (event) => {
     var _a, _b;
     if (!focusVisible || ((_b = (_a = event.target).matches) == null ? void 0 : _b.call(_a, ":focus-visible")))
       innerFocused.value = true;
   });
   useEventListener(targetElement, "blur", () => innerFocused.value = false);
-  const focused = computed({
+  const focused = computed$1({
     get: () => innerFocused.value,
     set(value) {
       var _a, _b;
@@ -4718,8 +4718,8 @@ function useFocus(target, options = {}) {
 }
 function useFocusWithin(target, options = {}) {
   const activeElement = useActiveElement(options);
-  const targetElement = computed(() => unrefElement(target));
-  const focused = computed(() => targetElement.value && activeElement.value ? targetElement.value.contains(activeElement.value) : false);
+  const targetElement = computed$1(() => unrefElement(target));
+  const focused = computed$1(() => targetElement.value && activeElement.value ? targetElement.value.contains(activeElement.value) : false);
   return { focused };
 }
 function useFps(options) {
@@ -4754,12 +4754,12 @@ function useFullscreen(target, options = {}) {
     document: document2 = defaultDocument,
     autoExit = false
   } = options;
-  const targetRef = computed(() => {
+  const targetRef = computed$1(() => {
     var _a;
     return (_a = unrefElement(target)) != null ? _a : document2 == null ? void 0 : document2.querySelector("html");
   });
   const isFullscreen = ref(false);
-  const requestMethod = computed(() => {
+  const requestMethod = computed$1(() => {
     return [
       "requestFullscreen",
       "webkitRequestFullscreen",
@@ -4770,7 +4770,7 @@ function useFullscreen(target, options = {}) {
       "msRequestFullscreen"
     ].find((m) => document2 && m in document2 || targetRef.value && m in targetRef.value);
   });
-  const exitMethod = computed(() => {
+  const exitMethod = computed$1(() => {
     return [
       "exitFullscreen",
       "webkitExitFullscreen",
@@ -4780,7 +4780,7 @@ function useFullscreen(target, options = {}) {
       "msExitFullscreen"
     ].find((m) => document2 && m in document2 || targetRef.value && m in targetRef.value);
   });
-  const fullscreenEnabled = computed(() => {
+  const fullscreenEnabled = computed$1(() => {
     return [
       "fullScreen",
       "webkitIsFullScreen",
@@ -4860,7 +4860,7 @@ function useFullscreen(target, options = {}) {
   };
 }
 function mapGamepadToXbox360Controller(gamepad) {
-  return computed(() => {
+  return computed$1(() => {
     if (gamepad.value) {
       return {
         buttons: {
@@ -5130,7 +5130,7 @@ function useScroll(element, options = {}) {
   } = options;
   const internalX = ref(0);
   const internalY = ref(0);
-  const x = computed({
+  const x = computed$1({
     get() {
       return internalX.value;
     },
@@ -5138,7 +5138,7 @@ function useScroll(element, options = {}) {
       scrollTo(x2, void 0);
     }
   });
-  const y = computed({
+  const y = computed$1({
     get() {
       return internalY.value;
     },
@@ -5277,8 +5277,8 @@ function useInfiniteScroll(element, onLoadMore, options = {}) {
     }
   ));
   const promise = ref();
-  const isLoading = computed(() => !!promise.value);
-  const observedElement = computed(() => {
+  const isLoading = computed$1(() => !!promise.value);
+  const observedElement = computed$1(() => {
     return resolveElement(toValue(element));
   });
   const isElementVisible = useElementVisibility(observedElement);
@@ -5419,7 +5419,7 @@ function useMagicKeys(options = {}) {
         if (!(prop in refs)) {
           if (/[+_-]/.test(prop)) {
             const keys2 = prop.split(/[+_-]/g).map((i) => i.trim());
-            refs[prop] = computed(() => keys2.every((key) => toValue(proxy[key])));
+            refs[prop] = computed$1(() => keys2.every((key) => toValue(proxy[key])));
           } else {
             refs[prop] = ref(false);
           }
@@ -5873,7 +5873,7 @@ function useMousePressed(options = {}) {
     pressed.value = false;
     sourceType.value = null;
   };
-  const target = computed(() => unrefElement(options.target) || window2);
+  const target = computed$1(() => unrefElement(options.target) || window2);
   useEventListener(target, "mousedown", onPressed("mouse"), { passive: true, capture });
   useEventListener(window2, "mouseleave", onReleased, { passive: true, capture });
   useEventListener(window2, "mouseup", onReleased, { passive: true, capture });
@@ -5999,9 +5999,9 @@ function useObjectUrl(object) {
 }
 function useClamp(value, min, max) {
   if (typeof value === "function" || isReadonly(value))
-    return computed(() => clamp(toValue(value), toValue(min), toValue(max)));
+    return computed$1(() => clamp(toValue(value), toValue(min), toValue(max)));
   const _value = ref(value);
-  return computed({
+  return computed$1({
     get() {
       return _value.value = clamp(_value.value, toValue(min), toValue(max));
     },
@@ -6020,13 +6020,13 @@ function useOffsetPagination(options) {
     onPageCountChange = noop
   } = options;
   const currentPageSize = useClamp(pageSize, 1, Number.POSITIVE_INFINITY);
-  const pageCount = computed(() => Math.max(
+  const pageCount = computed$1(() => Math.max(
     1,
     Math.ceil(toValue(total) / toValue(currentPageSize))
   ));
   const currentPage = useClamp(page, 1, pageCount);
-  const isFirstPage = computed(() => currentPage.value === 1);
-  const isLastPage = computed(() => currentPage.value === pageCount.value);
+  const isFirstPage = computed$1(() => currentPage.value === 1);
+  const isLastPage = computed$1(() => currentPage.value === pageCount.value);
   if (isRef(page))
     syncRef(page, currentPage);
   if (isRef(pageSize))
@@ -6093,12 +6093,12 @@ function useParallax(target, options = {}) {
     elementWidth: width,
     elementHeight: height
   } = useMouseInElement(target, { handleOutside: false, window: window2 });
-  const source = computed(() => {
+  const source = computed$1(() => {
     if (orientation.isSupported && (orientation.alpha != null && orientation.alpha !== 0 || orientation.gamma != null && orientation.gamma !== 0))
       return "deviceOrientation";
     return "mouse";
   });
-  const roll = computed(() => {
+  const roll = computed$1(() => {
     if (source.value === "deviceOrientation") {
       const value = -orientation.beta / 90;
       return deviceOrientationRollAdjust(value);
@@ -6107,7 +6107,7 @@ function useParallax(target, options = {}) {
       return mouseRollAdjust(value);
     }
   });
-  const tilt = computed(() => {
+  const tilt = computed$1(() => {
     if (source.value === "deviceOrientation") {
       const value = orientation.gamma / 90;
       return deviceOrientationTiltAdjust(value);
@@ -6261,13 +6261,13 @@ function usePointerSwipe(target, options = {}) {
     posEnd.x = x;
     posEnd.y = y;
   };
-  const distanceX = computed(() => posStart.x - posEnd.x);
-  const distanceY = computed(() => posStart.y - posEnd.y);
+  const distanceX = computed$1(() => posStart.x - posEnd.x);
+  const distanceY = computed$1(() => posStart.y - posEnd.y);
   const { max, abs } = Math;
-  const isThresholdExceeded = computed(() => max(abs(distanceX.value), abs(distanceY.value)) >= threshold);
+  const isThresholdExceeded = computed$1(() => max(abs(distanceX.value), abs(distanceY.value)) >= threshold);
   const isSwiping = ref(false);
   const isPointerDown = ref(false);
-  const direction = computed(() => {
+  const direction = computed$1(() => {
     if (!isThresholdExceeded.value)
       return "none";
     if (abs(distanceX.value) > abs(distanceY.value)) {
@@ -6333,7 +6333,7 @@ function usePointerSwipe(target, options = {}) {
 function usePreferredColorScheme(options) {
   const isLight = useMediaQuery("(prefers-color-scheme: light)", options);
   const isDark = useMediaQuery("(prefers-color-scheme: dark)", options);
-  return computed(() => {
+  return computed$1(() => {
     if (isDark.value)
       return "dark";
     if (isLight.value)
@@ -6345,7 +6345,7 @@ function usePreferredContrast(options) {
   const isMore = useMediaQuery("(prefers-contrast: more)", options);
   const isLess = useMediaQuery("(prefers-contrast: less)", options);
   const isCustom = useMediaQuery("(prefers-contrast: custom)", options);
-  return computed(() => {
+  return computed$1(() => {
     if (isMore.value)
       return "more";
     if (isLess.value)
@@ -6368,7 +6368,7 @@ function usePreferredLanguages(options = {}) {
 }
 function usePreferredReducedMotion(options) {
   const isReduced = useMediaQuery("(prefers-reduced-motion: reduce)", options);
-  return computed(() => {
+  return computed$1(() => {
     if (isReduced.value)
       return "reduce";
     return "no-preference";
@@ -6595,7 +6595,7 @@ function useScrollLock(element, initialState = false) {
     isLocked.value = false;
   };
   tryOnScopeDispose(unlock);
-  return computed({
+  return computed$1({
     get() {
       return isLocked.value;
     },
@@ -6656,7 +6656,7 @@ function useSorted(...args) {
     sortFn = defaultSortFn
   } = options;
   if (!dirty)
-    return computed(() => sortFn([...toValue(source)], compareFn));
+    return computed$1(() => sortFn([...toValue(source)], compareFn));
   watchEffect(() => {
     const result = sortFn(toValue(source), compareFn);
     if (isRef(source))
@@ -6781,7 +6781,7 @@ function useSpeechSynthesis(text, options = {}) {
       error.value = event;
     };
   };
-  const utterance = computed(() => {
+  const utterance = computed$1(() => {
     isPlaying.value = false;
     status.value = "init";
     const newUtterance = new SpeechSynthesisUtterance(spokenText.value);
@@ -6830,13 +6830,13 @@ function useSpeechSynthesis(text, options = {}) {
 }
 function useStepper(steps, initialStep) {
   const stepsRef = ref(steps);
-  const stepNames = computed(() => Array.isArray(stepsRef.value) ? stepsRef.value : Object.keys(stepsRef.value));
+  const stepNames = computed$1(() => Array.isArray(stepsRef.value) ? stepsRef.value : Object.keys(stepsRef.value));
   const index = ref(stepNames.value.indexOf(initialStep != null ? initialStep : stepNames.value[0]));
-  const current = computed(() => at(index.value));
-  const isFirst = computed(() => index.value === 0);
-  const isLast = computed(() => index.value === stepNames.value.length - 1);
-  const next = computed(() => stepNames.value[index.value + 1]);
-  const previous = computed(() => stepNames.value[index.value - 1]);
+  const current = computed$1(() => at(index.value));
+  const isFirst = computed$1(() => index.value === 0);
+  const isLast = computed$1(() => index.value === stepNames.value.length - 1);
+  const next = computed$1(() => stepNames.value[index.value + 1]);
+  const previous = computed$1(() => stepNames.value[index.value - 1]);
   function at(index2) {
     if (Array.isArray(stepsRef.value))
       return stepsRef.value[index2];
@@ -7043,12 +7043,12 @@ function useSwipe(target, options = {}) {
   } = options;
   const coordsStart = reactive({ x: 0, y: 0 });
   const coordsEnd = reactive({ x: 0, y: 0 });
-  const diffX = computed(() => coordsStart.x - coordsEnd.x);
-  const diffY = computed(() => coordsStart.y - coordsEnd.y);
+  const diffX = computed$1(() => coordsStart.x - coordsEnd.x);
+  const diffY = computed$1(() => coordsStart.y - coordsEnd.y);
   const { max, abs } = Math;
-  const isThresholdExceeded = computed(() => max(abs(diffX.value), abs(diffY.value)) >= threshold);
+  const isThresholdExceeded = computed$1(() => max(abs(diffX.value), abs(diffY.value)) >= threshold);
   const isSwiping = ref(false);
-  const direction = computed(() => {
+  const direction = computed$1(() => {
     if (!isThresholdExceeded.value)
       return "none";
     if (abs(diffX.value) > abs(diffY.value)) {
@@ -7157,7 +7157,7 @@ function useTextDirection(options = {}) {
       { attributes: true }
     );
   }
-  return computed({
+  return computed$1({
     get() {
       return dir.value;
     },
@@ -7183,12 +7183,12 @@ function useTextSelection(options = {}) {
     window: window2 = defaultWindow
   } = options;
   const selection = ref(null);
-  const text = computed(() => {
+  const text = computed$1(() => {
     var _a, _b;
     return (_b = (_a = selection.value) == null ? void 0 : _a.toString()) != null ? _b : "";
   });
-  const ranges = computed(() => selection.value ? getRangesFromSelection(selection.value) : []);
-  const rects = computed(() => ranges.value.map((range) => range.getBoundingClientRect()));
+  const ranges = computed$1(() => selection.value ? getRangesFromSelection(selection.value) : []);
+  const rects = computed$1(() => ranges.value.map((range) => range.getBoundingClientRect()));
   function onSelectionChange() {
     selection.value = null;
     if (window2)
@@ -7270,7 +7270,7 @@ function useTimeAgo(time, options = {}) {
     updateInterval = 3e4
   } = options;
   const { now: now2, ...controls } = useNow({ interval: updateInterval, controls: true });
-  const timeAgo = computed(() => formatTimeAgo(new Date(toValue(time)), options, toValue(now2)));
+  const timeAgo = computed$1(() => formatTimeAgo(new Date(toValue(time)), options, toValue(now2)));
   if (exposeControls) {
     return {
       timeAgo,
@@ -7537,7 +7537,7 @@ function useTransition(source, options = {}) {
   tryOnScopeDispose(() => {
     currentId++;
   });
-  return computed(() => toValue(options.disabled) ? sourceVal() : outputRef.value);
+  return computed$1(() => toValue(options.disabled) ? sourceVal() : outputRef.value);
 }
 function useUrlSearchParams(mode = "history", options = {}) {
   const {
@@ -7770,7 +7770,7 @@ function useVModel(props, key, emit, options = {}) {
     );
     return proxy;
   } else {
-    return computed({
+    return computed$1({
       get() {
         return getValue2();
       },
@@ -7920,7 +7920,7 @@ function useWatchForSizes(size, list, calculateRange) {
   });
 }
 function createComputedTotalSize(itemSize, source) {
-  return computed(() => {
+  return computed$1(() => {
     if (typeof itemSize === "number")
       return source.value.length * itemSize;
     return source.value.reduce((sum, _, index) => sum + itemSize(index), 0);
@@ -7947,11 +7947,11 @@ function useHorizontalVirtualList(options, list) {
   const getOffset = createGetOffset(source, itemWidth);
   const calculateRange = createCalculateRange("horizontal", overscan, getOffset, getViewCapacity, resources);
   const getDistanceLeft = createGetDistance(itemWidth, source);
-  const offsetLeft = computed(() => getDistanceLeft(state.value.start));
+  const offsetLeft = computed$1(() => getDistanceLeft(state.value.start));
   const totalWidth = createComputedTotalSize(itemWidth, source);
   useWatchForSizes(size, list, calculateRange);
   const scrollTo = createScrollTo("horizontal", calculateRange, getDistanceLeft, containerRef);
-  const wrapperProps = computed(() => {
+  const wrapperProps = computed$1(() => {
     return {
       style: {
         height: "100%",
@@ -7979,11 +7979,11 @@ function useVerticalVirtualList(options, list) {
   const getOffset = createGetOffset(source, itemHeight);
   const calculateRange = createCalculateRange("vertical", overscan, getOffset, getViewCapacity, resources);
   const getDistanceTop = createGetDistance(itemHeight, source);
-  const offsetTop = computed(() => getDistanceTop(state.value.start));
+  const offsetTop = computed$1(() => getDistanceTop(state.value.start));
   const totalHeight = createComputedTotalSize(itemHeight, source);
   useWatchForSizes(size, list, calculateRange);
   const scrollTo = createScrollTo("vertical", calculateRange, getDistanceTop, containerRef);
-  const wrapperProps = computed(() => {
+  const wrapperProps = computed$1(() => {
     return {
       style: {
         width: "100%",

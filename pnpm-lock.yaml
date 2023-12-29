@@ -92,10 +92,10 @@ importers:
         version: registry.npmmirror.com/@vitejs/plugin-vue-jsx@3.0.2(vite@4.5.0)(vue@3.2.44)
       '@vitepress-demo-preview/component':
         specifier: ^2.3.2
-        version: registry.npmmirror.com/@vitepress-demo-preview/component@2.3.2(vitepress@1.0.0-alpha.65)(vue@3.2.44)
+        version: registry.npmmirror.com/@vitepress-demo-preview/component@2.3.2(vitepress@1.0.0-beta.7)(vue@3.2.44)
       '@vitepress-demo-preview/plugin':
         specifier: ^1.2.2
-        version: registry.npmmirror.com/@vitepress-demo-preview/plugin@1.2.2(markdown-it-container@3.0.0)(vitepress@1.0.0-alpha.65)(vue@3.2.44)
+        version: registry.npmmirror.com/@vitepress-demo-preview/plugin@1.2.2(markdown-it-container@3.0.0)(vitepress@1.0.0-beta.7)(vue@3.2.44)
       '@vue/compiler-sfc':
         specifier: latest
         version: registry.npmmirror.com/@vue/compiler-sfc@3.3.6
@@ -120,6 +120,9 @@ importers:
       eslint-plugin-prettier:
         specifier: ^4.2.1
         version: registry.npmmirror.com/eslint-plugin-prettier@4.2.1(eslint-config-prettier@8.10.0)(eslint@8.51.0)(prettier@2.8.8)
+      flexsearch:
+        specifier: ^0.7.31
+        version: registry.npmmirror.com/flexsearch@0.7.31
       jsdom:
         specifier: ^21.1.1
         version: registry.npmmirror.com/jsdom@21.1.2
@@ -184,11 +187,14 @@ importers:
         specifier: latest
         version: registry.npmmirror.com/vite-plugin-dts@3.6.0(@types/node@20.8.7)(typescript@5.2.2)(vite@4.5.0)
       vitepress:
-        specifier: 1.0.0-alpha.65
-        version: registry.npmmirror.com/vitepress@1.0.0-alpha.65(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(terser@5.22.0)(typescript@5.2.2)
+        specifier: 1.0.0-beta.7
+        version: registry.npmmirror.com/vitepress@1.0.0-beta.7(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(sortablejs@1.15.0)(terser@5.22.0)(typescript@5.2.2)
+      vitepress-plugin-search:
+        specifier: 1.0.4-alpha.21
+        version: registry.npmmirror.com/vitepress-plugin-search@1.0.4-alpha.21(flexsearch@0.7.31)(vitepress@1.0.0-beta.7)(vue@3.2.44)
       vitepress-theme-demoblock:
         specifier: ^2.0.2
-        version: registry.npmmirror.com/vitepress-theme-demoblock@2.0.2(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(terser@5.22.0)(typescript@5.2.2)
+        version: registry.npmmirror.com/vitepress-theme-demoblock@2.0.2(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(sortablejs@1.15.0)(terser@5.22.0)(typescript@5.2.2)
       vitest:
         specifier: latest
         version: registry.npmmirror.com/vitest@0.34.6(jsdom@21.1.2)(sass@1.69.4)(terser@5.22.0)
@@ -1830,6 +1836,12 @@ packages:
     version: 1.0.3
     dev: true
 
+  registry.npmmirror.com/@types/flexsearch@0.7.6:
+    resolution: {integrity: sha512-H5IXcRn96/gaDmo+rDl2aJuIJsob8dgOXDqf8K0t8rWZd1AFNaaspmRsElESiU+EWE33qfbFPgI0OC/B1g9FCA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/flexsearch/-/flexsearch-0.7.6.tgz}
+    name: '@types/flexsearch'
+    version: 0.7.6
+    dev: true
+
   registry.npmmirror.com/@types/json-schema@7.0.14:
     resolution: {integrity: sha512-U3PUjAudAdJBeC2pgN8uTIKgxrb4nlDF3SF0++EldXQvQBGkpFZMSnwQiIoDU77tv45VgNkl/L4ouD+rEomujw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/json-schema/-/json-schema-7.0.14.tgz}
     name: '@types/json-schema'
@@ -1944,6 +1956,12 @@ packages:
     resolution: {integrity: sha512-v/ZHEj9xh82usl8LMR3GarzFY1IrbXJw5L4QfQhokjRV91q+SelFqxQWSep1ucXEZ22+dSTwLFkXeur25sPIbw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/web-bluetooth/-/web-bluetooth-0.0.18.tgz}
     name: '@types/web-bluetooth'
     version: 0.0.18
+
+  registry.npmmirror.com/@types/web-bluetooth@0.0.20:
+    resolution: {integrity: sha512-g9gZnnXVq7gM7v3tJCWV/qw7w+KeOlSHAhgF9RytFyifW6AF61hdT2ucrYhPq9hLs5JIryeupHV3qGk95dH9ow==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/web-bluetooth/-/web-bluetooth-0.0.20.tgz}
+    name: '@types/web-bluetooth'
+    version: 0.0.20
+    dev: true
 
   registry.npmmirror.com/@typescript-eslint/eslint-plugin@5.62.0(@typescript-eslint/parser@5.62.0)(eslint@8.51.0)(typescript@5.2.2):
     resolution: {integrity: sha512-TiZzBSJja/LbhNPvk6yc0JrX9XqhQ0hdh6M2svYfsHGejaKFIAGd9MQ+ERIMzLGlN/kZoYIgdxFV0PuljTKXag==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-5.62.0.tgz}
@@ -2372,7 +2390,7 @@ packages:
       vue: registry.npmmirror.com/vue@3.3.6(typescript@5.2.2)
     dev: true
 
-  registry.npmmirror.com/@vitepress-demo-preview/component@2.3.2(vitepress@1.0.0-alpha.65)(vue@3.2.44):
+  registry.npmmirror.com/@vitepress-demo-preview/component@2.3.2(vitepress@1.0.0-beta.7)(vue@3.2.44):
     resolution: {integrity: sha512-+GCYl3eHA7uoBGZyH2nTP1uab6pHFGEdykj5bSz4Nt2carH05xomBf18kBecuK1SncSqB7kWV/6JHT2Y349NbQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vitepress-demo-preview/component/-/component-2.3.2.tgz}
     id: registry.npmmirror.com/@vitepress-demo-preview/component/2.3.2
     name: '@vitepress-demo-preview/component'
@@ -2381,11 +2399,11 @@ packages:
       vitepress: '*'
       vue: ^3.2.0
     dependencies:
-      vitepress: registry.npmmirror.com/vitepress@1.0.0-alpha.65(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(terser@5.22.0)(typescript@5.2.2)
+      vitepress: registry.npmmirror.com/vitepress@1.0.0-beta.7(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(sortablejs@1.15.0)(terser@5.22.0)(typescript@5.2.2)
       vue: registry.npmmirror.com/vue@3.2.44
     dev: true
 
-  registry.npmmirror.com/@vitepress-demo-preview/plugin@1.2.2(markdown-it-container@3.0.0)(vitepress@1.0.0-alpha.65)(vue@3.2.44):
+  registry.npmmirror.com/@vitepress-demo-preview/plugin@1.2.2(markdown-it-container@3.0.0)(vitepress@1.0.0-beta.7)(vue@3.2.44):
     resolution: {integrity: sha512-Gpw5fmiv8UkYStqNRcVr235NAVrXzO6MKdeuWbqvIoKzS2uLb7nhm4aL+rlXGxKOWP+UcHnpg/fl3+brUUejTw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vitepress-demo-preview/plugin/-/plugin-1.2.2.tgz}
     id: registry.npmmirror.com/@vitepress-demo-preview/plugin/1.2.2
     name: '@vitepress-demo-preview/plugin'
@@ -2398,7 +2416,7 @@ packages:
       '@flypeng/tool': registry.npmmirror.com/@flypeng/tool@5.5.0
       markdown-it: registry.npmmirror.com/markdown-it@13.0.2
       markdown-it-container: registry.npmmirror.com/markdown-it-container@3.0.0
-      vitepress: registry.npmmirror.com/vitepress@1.0.0-alpha.65(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(terser@5.22.0)(typescript@5.2.2)
+      vitepress: registry.npmmirror.com/vitepress@1.0.0-beta.7(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(sortablejs@1.15.0)(terser@5.22.0)(typescript@5.2.2)
       vue: registry.npmmirror.com/vue@3.2.44
     dev: true
 
@@ -2849,6 +2867,20 @@ packages:
     transitivePeerDependencies:
       - vue
 
+  registry.npmmirror.com/@vueuse/core@10.7.1(vue@3.3.6):
+    resolution: {integrity: sha512-74mWHlaesJSWGp1ihg76vAnfVq9NTv1YT0SYhAQ6zwFNdBkkP+CKKJmVOEHcdSnLXCXYiL5e7MaewblfiYLP7g==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/core/-/core-10.7.1.tgz}
+    id: registry.npmmirror.com/@vueuse/core/10.7.1
+    name: '@vueuse/core'
+    version: 10.7.1
+    dependencies:
+      '@types/web-bluetooth': registry.npmmirror.com/@types/web-bluetooth@0.0.20
+      '@vueuse/metadata': registry.npmmirror.com/@vueuse/metadata@10.7.1
+      '@vueuse/shared': registry.npmmirror.com/@vueuse/shared@10.7.1(vue@3.3.6)
+      vue-demi: registry.npmmirror.com/vue-demi@0.14.6(vue@3.3.6)
+    transitivePeerDependencies:
+      - vue
+    dev: true
+
   registry.npmmirror.com/@vueuse/core@9.13.0(vue@3.2.44):
     resolution: {integrity: sha512-pujnclbeHWxxPRqXWmdkKV5OX4Wk4YeK7wusHqRwU0Q7EFusHoqNA/aPhB6KCh9hEqJkLAJo7bb0Lh9b+OIVzw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/core/-/core-9.13.0.tgz}
     id: registry.npmmirror.com/@vueuse/core/9.13.0
@@ -2863,15 +2895,54 @@ packages:
       - vue
     dev: true
 
-  registry.npmmirror.com/@vueuse/core@9.13.0(vue@3.3.6):
-    resolution: {integrity: sha512-pujnclbeHWxxPRqXWmdkKV5OX4Wk4YeK7wusHqRwU0Q7EFusHoqNA/aPhB6KCh9hEqJkLAJo7bb0Lh9b+OIVzw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/core/-/core-9.13.0.tgz}
-    id: registry.npmmirror.com/@vueuse/core/9.13.0
-    name: '@vueuse/core'
-    version: 9.13.0
+  registry.npmmirror.com/@vueuse/integrations@10.7.1(focus-trap@7.5.4)(sortablejs@1.15.0)(vue@3.3.6):
+    resolution: {integrity: sha512-cKo5LEeKVHdBRBtMTOrDPdR0YNtrmN9IBfdcnY2P3m5LHVrsD0xiHUtAH1WKjHQRIErZG6rJUa6GA4tWZt89Og==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/integrations/-/integrations-10.7.1.tgz}
+    id: registry.npmmirror.com/@vueuse/integrations/10.7.1
+    name: '@vueuse/integrations'
+    version: 10.7.1
+    peerDependencies:
+      async-validator: '*'
+      axios: '*'
+      change-case: '*'
+      drauu: '*'
+      focus-trap: '*'
+      fuse.js: '*'
+      idb-keyval: '*'
+      jwt-decode: '*'
+      nprogress: '*'
+      qrcode: '*'
+      sortablejs: '*'
+      universal-cookie: '*'
+    peerDependenciesMeta:
+      async-validator:
+        optional: true
+      axios:
+        optional: true
+      change-case:
+        optional: true
+      drauu:
+        optional: true
+      focus-trap:
+        optional: true
+      fuse.js:
+        optional: true
+      idb-keyval:
+        optional: true
+      jwt-decode:
+        optional: true
+      nprogress:
+        optional: true
+      qrcode:
+        optional: true
+      sortablejs:
+        optional: true
+      universal-cookie:
+        optional: true
     dependencies:
-      '@types/web-bluetooth': registry.npmmirror.com/@types/web-bluetooth@0.0.16
-      '@vueuse/metadata': registry.npmmirror.com/@vueuse/metadata@9.13.0
-      '@vueuse/shared': registry.npmmirror.com/@vueuse/shared@9.13.0(vue@3.3.6)
+      '@vueuse/core': registry.npmmirror.com/@vueuse/core@10.7.1(vue@3.3.6)
+      '@vueuse/shared': registry.npmmirror.com/@vueuse/shared@10.7.1(vue@3.3.6)
+      focus-trap: registry.npmmirror.com/focus-trap@7.5.4
+      sortablejs: registry.npmmirror.com/sortablejs@1.15.0
       vue-demi: registry.npmmirror.com/vue-demi@0.14.6(vue@3.3.6)
     transitivePeerDependencies:
       - vue
@@ -2881,6 +2952,12 @@ packages:
     resolution: {integrity: sha512-fEbElR+MaIYyCkeM0SzWkdoMtOpIwO72x8WsZHRE7IggiOlILttqttM69AS13nrDxosnDBYdyy3C5mR1LCxHsw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/metadata/-/metadata-10.5.0.tgz}
     name: '@vueuse/metadata'
     version: 10.5.0
+
+  registry.npmmirror.com/@vueuse/metadata@10.7.1:
+    resolution: {integrity: sha512-jX8MbX5UX067DYVsbtrmKn6eG6KMcXxLRLlurGkZku5ZYT3vxgBjui2zajvUZ18QLIjrgBkFRsu7CqTAg18QFw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/metadata/-/metadata-10.7.1.tgz}
+    name: '@vueuse/metadata'
+    version: 10.7.1
+    dev: true
 
   registry.npmmirror.com/@vueuse/metadata@9.13.0:
     resolution: {integrity: sha512-gdU7TKNAUVlXXLbaF+ZCfte8BjRJQWPCa2J55+7/h+yDtzw3vOoGQDRXzI6pyKyo6bXFT5/QoPE4hAknExjRLQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/metadata/-/metadata-9.13.0.tgz}
@@ -2898,6 +2975,17 @@ packages:
     transitivePeerDependencies:
       - vue
 
+  registry.npmmirror.com/@vueuse/shared@10.7.1(vue@3.3.6):
+    resolution: {integrity: sha512-v0jbRR31LSgRY/C5i5X279A/WQjD6/JsMzGa+eqt658oJ75IvQXAeONmwvEMrvJQKnRElq/frzBR7fhmWY5uLw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/shared/-/shared-10.7.1.tgz}
+    id: registry.npmmirror.com/@vueuse/shared/10.7.1
+    name: '@vueuse/shared'
+    version: 10.7.1
+    dependencies:
+      vue-demi: registry.npmmirror.com/vue-demi@0.14.6(vue@3.3.6)
+    transitivePeerDependencies:
+      - vue
+    dev: true
+
   registry.npmmirror.com/@vueuse/shared@9.13.0(vue@3.2.44):
     resolution: {integrity: sha512-UrnhU+Cnufu4S6JLCPZnkWh0WwZGUp72ktOF2DFptMlOs3TOdVv8xJN53zhHGARmVOsz5KqOls09+J1NR6sBKw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/shared/-/shared-9.13.0.tgz}
     id: registry.npmmirror.com/@vueuse/shared/9.13.0
@@ -2905,17 +2993,6 @@ packages:
     version: 9.13.0
     dependencies:
       vue-demi: registry.npmmirror.com/vue-demi@0.14.6(vue@3.2.44)
-    transitivePeerDependencies:
-      - vue
-    dev: true
-
-  registry.npmmirror.com/@vueuse/shared@9.13.0(vue@3.3.6):
-    resolution: {integrity: sha512-UrnhU+Cnufu4S6JLCPZnkWh0WwZGUp72ktOF2DFptMlOs3TOdVv8xJN53zhHGARmVOsz5KqOls09+J1NR6sBKw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/shared/-/shared-9.13.0.tgz}
-    id: registry.npmmirror.com/@vueuse/shared/9.13.0
-    name: '@vueuse/shared'
-    version: 9.13.0
-    dependencies:
-      vue-demi: registry.npmmirror.com/vue-demi@0.14.6(vue@3.3.6)
     transitivePeerDependencies:
       - vue
     dev: true
@@ -5303,6 +5380,20 @@ packages:
     version: 3.2.9
     dev: true
 
+  registry.npmmirror.com/flexsearch@0.7.31:
+    resolution: {integrity: sha512-XGozTsMPYkm+6b5QL3Z9wQcJjNYxp0CYn3U1gO7dwD6PAqU1SVWZxI9CCg3z+ml3YfqdPnrBehaBrnH2AGKbNA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/flexsearch/-/flexsearch-0.7.31.tgz}
+    name: flexsearch
+    version: 0.7.31
+    dev: true
+
+  registry.npmmirror.com/focus-trap@7.5.4:
+    resolution: {integrity: sha512-N7kHdlgsO/v+iD/dMoJKtsSqs5Dz/dXZVebRgJw23LDk+jMi/974zyiOYDziY2JPp8xivq9BmUGwIJMiuSBi7w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/focus-trap/-/focus-trap-7.5.4.tgz}
+    name: focus-trap
+    version: 7.5.4
+    dependencies:
+      tabbable: registry.npmmirror.com/tabbable@6.2.0
+    dev: true
+
   registry.npmmirror.com/for-each@0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/for-each/-/for-each-0.3.3.tgz}
     name: for-each
@@ -6828,6 +6919,12 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  registry.npmmirror.com/mark.js@8.11.1:
+    resolution: {integrity: sha512-1I+1qpDt4idfgLQG+BNWmrqku+7/2bi5nLf4YwF8y8zXvmfiTBY3PV3ZibfrjBueCByROpuBjLLFCajqkgYoLQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/mark.js/-/mark.js-8.11.1.tgz}
+    name: mark.js
+    version: 8.11.1
+    dev: true
+
   registry.npmmirror.com/markdown-it-container@3.0.0:
     resolution: {integrity: sha512-y6oKTq4BB9OQuY/KLfk/O3ysFhB3IMYoIWhGJEidXt1NQFocFK2sA2t0NYZAMyMShAGL6x5OPIbrmXPIqaN9rw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/markdown-it-container/-/markdown-it-container-3.0.0.tgz}
     name: markdown-it-container
@@ -7139,6 +7236,12 @@ packages:
     name: minipass
     version: 7.0.4
     engines: {node: '>=16 || 14 >=14.17'}
+    dev: true
+
+  registry.npmmirror.com/minisearch@6.3.0:
+    resolution: {integrity: sha512-ihFnidEeU8iXzcVHy74dhkxh/dn8Dc08ERl0xwoMMGqp4+LvRSCgicb+zGqWthVokQKvCSxITlh3P08OzdTYCQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/minisearch/-/minisearch-6.3.0.tgz}
+    name: minisearch
+    version: 6.3.0
     dev: true
 
   registry.npmmirror.com/minizlib@2.1.2:
@@ -8732,7 +8835,6 @@ packages:
     resolution: {integrity: sha512-bv9qgVMjUMf89wAvM6AxVvS/4MX3sPeN0+agqShejLU5z5GX4C75ow1O2e5k4L6XItUyAK3gH6AxSbXrOM5e8w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/sortablejs/-/sortablejs-1.15.0.tgz}
     name: sortablejs
     version: 1.15.0
-    dev: false
 
   registry.npmmirror.com/source-map-js@1.0.2:
     resolution: {integrity: sha512-R0XvVJ9WusLiqTCEiGCmICCMplcCkIwwR11mOSD9CR5u+IXYdiseeEuXCVAjS54zqwkLcPNnmU4OeJ6tUrWhDw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/source-map-js/-/source-map-js-1.0.2.tgz}
@@ -9148,6 +9250,12 @@ packages:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/symbol-tree/-/symbol-tree-3.2.4.tgz}
     name: symbol-tree
     version: 3.2.4
+    dev: true
+
+  registry.npmmirror.com/tabbable@6.2.0:
+    resolution: {integrity: sha512-Cat63mxsVJlzYvN51JmVXIgNoUokrIaT2zLclCXjRd8boZ0004U4KCs/sToJ75C6sdlByWxpYnb5Boif1VSFew==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/tabbable/-/tabbable-6.2.0.tgz}
+    name: tabbable
+    version: 6.2.0
     dev: true
 
   registry.npmmirror.com/table@6.8.1:
@@ -9974,7 +10082,27 @@ packages:
       fsevents: registry.npmmirror.com/fsevents@2.3.3
     dev: true
 
-  registry.npmmirror.com/vitepress-theme-demoblock@2.0.2(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(terser@5.22.0)(typescript@5.2.2):
+  registry.npmmirror.com/vitepress-plugin-search@1.0.4-alpha.21(flexsearch@0.7.31)(vitepress@1.0.0-beta.7)(vue@3.2.44):
+    resolution: {integrity: sha512-UBkvbQtr3U8EpVWyuyd4FXAbx5I7GkKIGgObaM3BFIHCpLEjJrRZoifFQBdjZ7sZGM2OrjrgjA0W8gWKAiZ3qA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vitepress-plugin-search/-/vitepress-plugin-search-1.0.4-alpha.21.tgz}
+    id: registry.npmmirror.com/vitepress-plugin-search/1.0.4-alpha.21
+    name: vitepress-plugin-search
+    version: 1.0.4-alpha.21
+    engines: {node: ^14.13.1 || ^16.7.0 || >=18}
+    peerDependencies:
+      flexsearch: ^0.7.31
+      vitepress: ^1.0.0-alpha.65
+      vue: '3'
+    dependencies:
+      '@types/flexsearch': registry.npmmirror.com/@types/flexsearch@0.7.6
+      '@types/markdown-it': registry.npmmirror.com/@types/markdown-it@12.2.3
+      flexsearch: registry.npmmirror.com/flexsearch@0.7.31
+      glob-to-regexp: registry.npmmirror.com/glob-to-regexp@0.4.1
+      markdown-it: registry.npmmirror.com/markdown-it@13.0.2
+      vitepress: registry.npmmirror.com/vitepress@1.0.0-beta.7(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(sortablejs@1.15.0)(terser@5.22.0)(typescript@5.2.2)
+      vue: registry.npmmirror.com/vue@3.2.44
+    dev: true
+
+  registry.npmmirror.com/vitepress-theme-demoblock@2.0.2(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(sortablejs@1.15.0)(terser@5.22.0)(typescript@5.2.2):
     resolution: {integrity: sha512-jisyN5zvc7muluEvshSuworGXBmfgCptgBGua8PqGOsfAw473UQ6C1g8/C9JRdAe6io7y1/xa3sNLwp8Ey1KWw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vitepress-theme-demoblock/-/vitepress-theme-demoblock-2.0.2.tgz}
     id: registry.npmmirror.com/vitepress-theme-demoblock/2.0.2
     name: vitepress-theme-demoblock
@@ -9994,38 +10122,53 @@ packages:
       picocolors: registry.npmmirror.com/picocolors@1.0.0
       prettier: registry.npmmirror.com/prettier@2.8.8
       shiki: registry.npmmirror.com/shiki@0.11.1
-      vitepress: registry.npmmirror.com/vitepress@1.0.0-alpha.65(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(terser@5.22.0)(typescript@5.2.2)
+      vitepress: registry.npmmirror.com/vitepress@1.0.0-beta.7(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(sortablejs@1.15.0)(terser@5.22.0)(typescript@5.2.2)
       vue: registry.npmmirror.com/vue@3.2.44
       yaml: registry.npmmirror.com/yaml@2.3.3
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
       - '@types/react'
+      - async-validator
+      - axios
+      - change-case
+      - drauu
+      - fuse.js
+      - idb-keyval
+      - jwt-decode
       - less
       - lightningcss
+      - nprogress
+      - qrcode
       - react
       - react-dom
       - sass
       - search-insights
+      - sortablejs
       - stylus
       - sugarss
       - terser
       - typescript
+      - universal-cookie
     dev: true
 
-  registry.npmmirror.com/vitepress@1.0.0-alpha.65(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(terser@5.22.0)(typescript@5.2.2):
-    resolution: {integrity: sha512-iGWC0AQC6WrfRZTJf5+TiGG4o8PLhqIJNyai8NVxZCY9YpmMJhddvQeqqjJdQniF/LQK/hQ5nQZ9HgSZDGRPGQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vitepress/-/vitepress-1.0.0-alpha.65.tgz}
-    id: registry.npmmirror.com/vitepress/1.0.0-alpha.65
+  registry.npmmirror.com/vitepress@1.0.0-beta.7(@algolia/client-search@4.20.0)(@types/node@20.8.7)(sass@1.69.4)(search-insights@2.9.0)(sortablejs@1.15.0)(terser@5.22.0)(typescript@5.2.2):
+    resolution: {integrity: sha512-P9Rw+FXatKIU4fVdtKxqwHl6fby8E/8zE3FIfep6meNgN4BxbWqoKJ6yfuuQQR9IrpQqwnyaBh4LSabyll6tWg==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/vitepress/-/vitepress-1.0.0-beta.7.tgz}
+    id: registry.npmmirror.com/vitepress/1.0.0-beta.7
     name: vitepress
-    version: 1.0.0-alpha.65
+    version: 1.0.0-beta.7
     hasBin: true
     dependencies:
       '@docsearch/css': registry.npmmirror.com/@docsearch/css@3.5.2
       '@docsearch/js': registry.npmmirror.com/@docsearch/js@3.5.2(@algolia/client-search@4.20.0)(search-insights@2.9.0)
       '@vitejs/plugin-vue': registry.npmmirror.com/@vitejs/plugin-vue@4.4.0(vite@4.5.0)(vue@3.3.6)
       '@vue/devtools-api': registry.npmmirror.com/@vue/devtools-api@6.5.1
-      '@vueuse/core': registry.npmmirror.com/@vueuse/core@9.13.0(vue@3.3.6)
+      '@vueuse/core': registry.npmmirror.com/@vueuse/core@10.7.1(vue@3.3.6)
+      '@vueuse/integrations': registry.npmmirror.com/@vueuse/integrations@10.7.1(focus-trap@7.5.4)(sortablejs@1.15.0)(vue@3.3.6)
       body-scroll-lock: registry.npmmirror.com/body-scroll-lock@4.0.0-beta.0
+      focus-trap: registry.npmmirror.com/focus-trap@7.5.4
+      mark.js: registry.npmmirror.com/mark.js@8.11.1
+      minisearch: registry.npmmirror.com/minisearch@6.3.0
       shiki: registry.npmmirror.com/shiki@0.14.5
       vite: registry.npmmirror.com/vite@4.5.0(@types/node@20.8.7)(sass@1.69.4)(terser@5.22.0)
       vue: registry.npmmirror.com/vue@3.3.6(typescript@5.2.2)
@@ -10033,16 +10176,27 @@ packages:
       - '@algolia/client-search'
       - '@types/node'
       - '@types/react'
+      - async-validator
+      - axios
+      - change-case
+      - drauu
+      - fuse.js
+      - idb-keyval
+      - jwt-decode
       - less
       - lightningcss
+      - nprogress
+      - qrcode
       - react
       - react-dom
       - sass
       - search-insights
+      - sortablejs
       - stylus
       - sugarss
       - terser
       - typescript
+      - universal-cookie
     dev: true
 
   registry.npmmirror.com/vitest@0.34.6(jsdom@21.1.2)(sass@1.69.4)(terser@5.22.0):

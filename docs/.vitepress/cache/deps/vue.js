@@ -18,8 +18,8 @@ import {
   capitalize,
   cloneVNode,
   compatUtils,
-  compile,
-  computed,
+  compile$1,
+  computed$1,
   createApp,
   createBaseVNode,
   createBlock,
@@ -131,7 +131,7 @@ import {
   vModelText,
   vShow,
   version,
-  warn,
+  warn$1,
   watch,
   watchEffect,
   watchPostEffect,
@@ -144,7 +144,7 @@ import {
   withMemo,
   withModifiers,
   withScopeId
-} from "./chunk-OH3DV4HH.js";
+} from "./chunk-EZR2OR7S.js";
 import "./chunk-5WWUZCGV.js";
 export {
   BaseTransition,
@@ -166,8 +166,8 @@ export {
   capitalize,
   cloneVNode,
   compatUtils,
-  compile,
-  computed,
+  compile$1 as compile,
+  computed$1 as computed,
   createApp,
   createBlock,
   createCommentVNode,
@@ -279,7 +279,7 @@ export {
   vModelText,
   vShow,
   version,
-  warn,
+  warn$1 as warn,
   watch,
   watchEffect,
   watchPostEffect,

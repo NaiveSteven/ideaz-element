@@ -9,7 +9,6 @@ import zhCn from '@ideaz/locale/lang/zh-cn'
 import ideazui from '@ideaz/element'
 import * as ElIconModules from '@element-plus/icons-vue'
 import { ElementPlusContainer } from '@vitepress-demo-preview/component'
-import Button from '../../../src/components/Button.vue'
 import '@vitepress-demo-preview/component/dist/style.css'
 import 'uno.css'
 
@@ -21,7 +20,6 @@ export default {
   ...DefaultTheme,
   enhanceApp(ctx) {
     DefaultTheme.enhanceApp(ctx)
-    ctx.app.component(Button.name, Button)
     ctx.app.use(ElementPlus).use(ideazui, { locale: zhCn, size: 'default' })
     Object.keys(ElIconModules).forEach((item) => {
       const cur = item
