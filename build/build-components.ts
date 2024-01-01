@@ -10,7 +10,6 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import glob from 'fast-glob'
 import { build } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import { visualizer } from 'rollup-plugin-visualizer'
 
 interface Manifest {
   dependencies?: Record<string, string>
@@ -53,11 +52,6 @@ const external = id => externalPkgs.some(p => p === id || id.startsWith(`${p}/`)
         dts: 'auto-imports.d.ts',
         dirs: ['packages/hooks'],
         vueTemplate: true,
-      }),
-      visualizer({
-        filename: 'temp/stats-[format].html',
-        gzipSize: true,
-        brotliSize: true,
       }),
       generate(),
     ],
