@@ -14,72 +14,13 @@
 
 传入`el`属性，值为`HTMLElement`或函数类型，表示需要全屏的元素，默认为`body`。
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const getElement = () => {
-  return document.getElementsByClassName('my-water-mark')[0]
-}
-</script>
-
-<template>
-  <z-full-screen :el="getElement">
-    <el-button>点击全屏</el-button>
-  </z-full-screen>
-  <z-watermark content="水印组件" class="my-water-mark bg-white">
-    <div class="h-500px" />
-  </z-watermark>
-</template>
-```
-
-:::
+<preview path="../demo/full-screen/normal.vue" />
 
 ## 插槽
 
 可以使用`enter`和`exit`插槽定制进入和退出时的出入口
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const isFullScreen = ref(false)
-
-const handleChange = (val) => {
-  isFullScreen.value = val
-}
-
-const getElement = () => {
-  return document.getElementsByClassName('my-water-mark')[1]
-}
-</script>
-
-<template>
-  <div class="my-water-mark bg-white">
-    <z-full-screen :el="getElement" @change="handleChange">
-      <template #enter>
-        <el-button class="z-100">
-          点击全屏
-        </el-button>
-      </template>
-      <template #exit>
-        <el-button>
-          退出全屏
-        </el-button>
-      </template>
-    </z-full-screen>
-    <z-watermark content="水印组件">
-      <div class="h-500px" />
-    </z-watermark>
-  </div>
-</template>
-```
-
-:::
+<preview path="../demo/full-screen/slot.vue" />
 
 ## z-full-screen属性
 
