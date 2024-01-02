@@ -6,83 +6,25 @@
 
 由 `type` 属性来选择 `Text` 的类型
 
-:::demo
-
-```vue
-<template>
-  <z-text class="mx-1">
-    Default
-  </z-text>
-  <z-text class="mx-1" type="primary">
-    Primary
-  </z-text>
-  <z-text class="mx-1" type="success">
-    Success
-  </z-text>
-  <z-text class="mx-1" type="info">
-    Info
-  </z-text>
-  <z-text class="mx-1" type="warning">
-    Warning
-  </z-text>
-  <z-text class="mx-1" type="danger">
-    Danger
-  </z-text>
-</template>
-```
-
-:::
+<preview path="../demo/text/normal.vue" />
 
 ## 尺寸
 
 使用 `size` 属性配置尺寸，可选的尺寸大小有: `large`, `default` 或 `small`
 
-:::demo
-
-```vue
-<template>
-  <z-text class="mx-1" size="large">
-    Large
-  </z-text>
-  <z-text class="mx-1">
-    Default
-  </z-text>
-  <z-text class="mx-1" size="small">
-    Small
-  </z-text>
-</template>
-```
-
-:::
+<preview path="../demo/text/size.vue" />
 
 ## 省略
 
 设置`lines`、`length`等属性时，超过限制则展示省略符，超出内容在`tooltip`中展示。
 
-:::demo
-
-```vue
-<template>
-  <z-text text="演示文本演示文本演示文本演示文本演示文本演示文本演示文本演示文本演示文本演示文本演示文本演示文本演示文本" :lines="1" class="mb-4" />
-  <z-text text="演示文本演示文本" :length="5" />
-</template>
-```
-
-:::
+<preview path="../demo/text/omit.vue" />
 
 ## tooltip配置
 
 `tooltip`属性配置参考`el-tooltip`组件属性
 
-:::demo
-
-```vue
-<template>
-  <z-text text="演示文本演示文本" :length="5" :tooltip="{ content: '超出内容', placement: 'right', effect: 'light' }" />
-</template>
-```
-
-:::
+<preview path="../demo/text/tooltip.vue" />
 
 ## z-text 属性
 
