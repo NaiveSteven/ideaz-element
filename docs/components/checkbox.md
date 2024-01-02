@@ -6,167 +6,33 @@
 
 传入`options`自动生成选项
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const checkboxVal = ref([1])
-
-const click = () => {
-  options.value.push({ label: '选项四', value: 4 })
-}
-</script>
-
-<template>
-  <el-button @click="click">
-    点击
-  </el-button>
-  <z-checkbox v-model="checkboxVal" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/checkbox/normal.vue" />
 
 ## 禁用
 
 `option`中的某项设置`disabled`为`true`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2, disabled: true },
-  { label: '选项三', value: 3 }
-])
-
-const checkboxVal = ref([1])
-</script>
-
-<template>
-  <z-checkbox v-model="checkboxVal" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/checkbox/disabled.vue" />
 
 全部禁用，组件传入`disabled`为`true`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const checkboxVal = ref([1])
-</script>
-
-<template>
-  <z-checkbox v-model="checkboxVal" :disabled="true" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/checkbox/disabled-all.vue" />
 
 ## 键值对配置
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { data: { title: '选项一' }, key: 1 },
-  { data: { title: '选项二' }, key: 2 },
-  { data: { title: '选项三' }, key: 3 }
-])
-
-const alias = {
-  label: 'data.title',
-  value: 'key'
-}
-
-const checkboxVal = ref([1])
-</script>
-
-<template>
-  <z-checkbox v-model="checkboxVal" :alias="alias" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/checkbox/kv.vue" />
 
 ## 按钮样式
 
 给`option`某项设置`type`或者直接组件传入`type`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3, type: 'checkbox-button' }
-])
-
-const checkboxVal = ref([1])
-</script>
-
-<template>
-  <z-checkbox v-model="checkboxVal" type="checkbox-button" :options="options" />
-  <z-checkbox v-model="checkboxVal" :options="options" class="mt-4" />
-</template>
-```
-
-:::
+<preview path="../demo/checkbox/style.vue" />
 
 ## 带有边框
 
 `border`属性或者字段可以渲染为带有边框的多选框。
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1, border: true },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const checkboxVal = ref([1])
-</script>
-
-<template>
-  <z-checkbox v-model="checkboxVal" :options="options" />
-  <z-checkbox v-model="checkboxVal" :border="true" :options="options" class="mt-4" />
-</template>
-```
-
-:::
+<preview path="../demo/checkbox/border.vue" />
 
 ## z-checkbox 属性
 
