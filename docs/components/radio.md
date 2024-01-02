@@ -6,190 +6,39 @@
 
 传入`options`自动生成选项
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const radioVal = ref(1)
-</script>
-
-<template>
-  <z-radio v-model="radioVal" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/radio/normal.vue" />
 
 ## 禁用
 
 `option`中的某项设置`disabled`为`true`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2, disabled: true },
-  { label: '选项三', value: 3 }
-])
-
-const radioVal = ref(1)
-</script>
-
-<template>
-  <z-radio v-model="radioVal" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/radio/disabled.vue" />
 
 全部禁用，组件传入`disabled`为`true`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const radioVal = ref(1)
-</script>
-
-<template>
-  <z-radio v-model="radioVal" :disabled="true" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/radio/disabled-all.vue" />
 
 ## 键值对配置
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { data: { title: '选项一' }, key: 1 },
-  { data: { title: '选项二' }, key: 2 },
-  { data: { title: '选项三' }, key: 3 }
-])
-
-const alias = {
-  label: 'data.title',
-  value: 'key'
-}
-
-const radioVal = ref(1)
-</script>
-
-<template>
-  <z-radio v-model="radioVal" :alias="alias" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/radio/kv.vue" />
 
 ## 取消选中
 
 配置`isCancel`为`true`，可以取消选中
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const radioVal = ref(1)
-</script>
-
-<template>
-  <z-radio v-model="radioVal" is-cancel :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/radio/cancel.vue" />
 
 ## 按钮样式
 
 给`option`某项设置`type`或者直接组件传入`type`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3, type: 'radio-button' }
-])
-
-const radioVal = ref(1)
-</script>
-
-<template>
-  <div class="flex flex-col">
-    <z-radio v-model="radioVal" type="radio-button" :options="options" />
-    <z-radio v-model="radioVal" :options="options" class="mt-4" />
-  </div>
-</template>
-```
-
-:::
+<preview path="../demo/radio/button.vue" />
 
 ## 带有边框
 
 `border`属性或者字段可以渲染为带有边框的多选框。
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1, border: true },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const radioVal = ref(1)
-</script>
-
-<template>
-  <div class="flex flex-col">
-    <z-radio v-model="radioVal" :options="options" />
-    <z-radio v-model="radioVal" :border="true" :options="options" class="mt-4" />
-  </div>
-</template>
-```
-
-:::
+<preview path="../demo/radio/border.vue" />
 
 ## z-radio 属性
 
