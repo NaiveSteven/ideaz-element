@@ -15,7 +15,7 @@ import {
 } from "./chunk-EZR2OR7S.js";
 import "./chunk-5WWUZCGV.js";
 
-// node_modules/.pnpm/registry.npmmirror.com+vue-draggable-plus@0.2.4_@types+sortablejs@1.15.4/node_modules/vue-draggable-plus/dist/vue-draggable-plus.js
+// node_modules/.pnpm/registry.npmmirror.com+vue-draggable-plus@0.2.4_@types+sortablejs@1.15.4_@vue+composition-api@1.7.2/node_modules/vue-draggable-plus/dist/vue-draggable-plus.js
 var $t = Object.defineProperty;
 var Pe = Object.getOwnPropertySymbols;
 var mt = Object.prototype.hasOwnProperty;
