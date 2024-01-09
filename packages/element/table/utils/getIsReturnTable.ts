@@ -1,7 +1,7 @@
 import { isArray, isFunction, isObject, isString } from '@ideaz/utils'
-import type { TableCol } from '~/types'
+import type { TableCol } from '../../types'
 
-export const getIsReturnTable = (tableCol: TableCol, toolBar: any | boolean) => {
+export function getIsReturnTable(tableCol: TableCol, toolBar: any | boolean) {
   const isHide = isFunction(tableCol.hide) ? tableCol.hide() : tableCol.hide
   let isUncheck = false
 

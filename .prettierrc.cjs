@@ -1,1 +1,1 @@
-module.exports = require('@vexip-ui/prettier-config')
+// module.exports = require('@vexip-ui/prettier-config')

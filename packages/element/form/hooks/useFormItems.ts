@@ -1,11 +1,11 @@
 import { cloneDeep } from 'lodash-es'
 import { isFunction, isString, uid } from '@ideaz/utils'
 import type { FormProps } from '../src/props'
-import type { FormColumn } from '~/types'
+import type { FormColumn } from '../../types'
 
 export const SELECT_TYPES = ['cascader', 'select', 'datepicker', 'picker', 'checkbox', 'radio']
 
-export const useFormItems = (props: FormProps) => {
+export function useFormItems(props: FormProps) {
   const { t } = useLocale()
 
   const setDefaultPlaceholder = (formItem: FormColumn) => {

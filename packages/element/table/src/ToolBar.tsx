@@ -3,10 +3,10 @@ import { Back, DCaret, FullScreen, Operation, Refresh, Right, VideoPause } from 
 import { VueDraggable } from 'vue-draggable-plus'
 import { isFunction } from '@ideaz/utils'
 import { useFixedTableCols, useToolBarTableCols } from '../hooks'
+import type { TableCol } from '../../types'
 import { toolBarProps } from './props'
-import type { TableCol } from '~/types'
 
-const mergeArraysByUID = (arr1: TableCol[], arr2: TableCol[]) => {
+function mergeArraysByUID(arr1: TableCol[], arr2: TableCol[]) {
   const uidMap: any = {}
   const mergedArray = [...arr2]
 
@@ -159,14 +159,16 @@ export default defineComponent({
         dragChange: () => handleSideFixedDragChange('left'),
         dragEnd: (dragData: any) => handleSortTableCols(dragData, 'left'),
         checkboxData: leftFixedTableCols.value,
-        extraContent: (item: TableCol) => <>
-          <el-tooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
-            <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
-          </el-tooltip>
-          <el-tooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
-            <el-button icon={Right} text onClick={() => handleFixedTableColFromSide(item, 'right')}></el-button>
-          </el-tooltip>
-        </>,
+        extraContent: (item: TableCol) => (
+          <>
+            <el-tooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
+              <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
+            </el-tooltip>
+            <el-tooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
+              <el-button icon={Right} text onClick={() => handleFixedTableColFromSide(item, 'right')}></el-button>
+            </el-tooltip>
+          </>
+        ),
       },
       {
         title: t('table.unfixed'),
@@ -177,14 +179,16 @@ export default defineComponent({
         dragChange: () => { },
         dragEnd: () => handleDataChange(mergeArraysByUID(props.sortTableCols, sortTableCols), props.middleTableCols),
         checkboxData: sortTableCols,
-        extraContent: (item: TableCol) => <>
-          <el-tooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
-            <el-button icon={Back} text onClick={() => handleTableColFixedFromCenter(item, 'left')}></el-button>
-          </el-tooltip>
-          <el-tooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
-            <el-button icon={Right} text onClick={() => handleTableColFixedFromCenter(item, 'right')}></el-button>
-          </el-tooltip>
-        </>,
+        extraContent: (item: TableCol) => (
+          <>
+            <el-tooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
+              <el-button icon={Back} text onClick={() => handleTableColFixedFromCenter(item, 'left')}></el-button>
+            </el-tooltip>
+            <el-tooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
+              <el-button icon={Right} text onClick={() => handleTableColFixedFromCenter(item, 'right')}></el-button>
+            </el-tooltip>
+          </>
+        ),
       },
       {
         title: t('table.rightFixed'),
@@ -195,14 +199,16 @@ export default defineComponent({
         dragChange: () => handleSideFixedDragChange('right'),
         dragEnd: (dragData: any) => handleSortTableCols(dragData, 'right'),
         checkboxData: rightFixedTableCols.value,
-        extraContent: (item: TableCol) => <>
-          <el-tooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
-            <el-button icon={Back} text onClick={() => handleFixedTableColFromSide(item, 'left')}></el-button>
-          </el-tooltip>
-          <el-tooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
-            <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
-          </el-tooltip>
-        </>,
+        extraContent: (item: TableCol) => (
+          <>
+            <el-tooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
+              <el-button icon={Back} text onClick={() => handleFixedTableColFromSide(item, 'left')}></el-button>
+            </el-tooltip>
+            <el-tooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
+              <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
+            </el-tooltip>
+          </>
+        ),
       },
     ]
 
@@ -279,35 +285,37 @@ export default defineComponent({
                   <div class="column-popover__content">
                     {CONTENT_CONFIG.map((config) => {
                       const dragModelValue = (config.dragModelValue as Ref<TableCol[]>).value ? (config.dragModelValue as Ref<TableCol[]>).value : sortTableCols
-                      return <>
-                        {config.titleVisible ? <el-divider>{config.title}</el-divider> : null}
-                        <el-checkbox-group
-                          v-model={config.checkboxModelValue.value}
-                          size='small'
-                          onChange={config.checkboxChange}
-                        >
-                          <draggable
-                            modelValue={dragModelValue}
-                            animation={200}
-                            onChange={config.dragChange}
-                            onEnd={config.dragEnd}
-                            ghostClass='column-popover-checkbox__drag--ghost'
+                      return (
+                        <>
+                          {config.titleVisible ? <el-divider>{config.title}</el-divider> : null}
+                          <el-checkbox-group
+                            v-model={config.checkboxModelValue.value}
+                            size="small"
+                            onChange={config.checkboxChange}
                           >
-                            {config.checkboxData.map((item: TableCol) => {
-                              return (
-                                <div key={item.__uid} class='column-popover-checkbox'>
-                                  <el-checkbox label={item.__uid} key={item.__uid}>
-                                    {item.label || item.type}
-                                  </el-checkbox>
-                                  <div class={ns.be('setting-item', 'extra')}>
-                                    {config.extraContent(item)}
+                            <draggable
+                              modelValue={dragModelValue}
+                              animation={200}
+                              onChange={config.dragChange}
+                              onEnd={config.dragEnd}
+                              ghostClass="column-popover-checkbox__drag--ghost"
+                            >
+                              {config.checkboxData.map((item: TableCol) => {
+                                return (
+                                  <div key={item.__uid} class="column-popover-checkbox">
+                                    <el-checkbox label={item.__uid} key={item.__uid}>
+                                      {item.label || item.type}
+                                    </el-checkbox>
+                                    <div class={ns.be('setting-item', 'extra')}>
+                                      {config.extraContent(item)}
+                                    </div>
                                   </div>
-                                </div>
-                              )
-                            })}
-                          </draggable>
-                        </el-checkbox-group>
-                      </>
+                                )
+                              })}
+                            </draggable>
+                          </el-checkbox-group>
+                        </>
+                      )
                     })}
                   </div>
                 </div>

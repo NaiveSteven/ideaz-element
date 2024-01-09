@@ -1,9 +1,9 @@
 import { config, mount } from '@vue/test-utils'
 import * as ElComponents from 'element-plus'
-import { afterAll, afterEach, describe, expect, test, vi } from 'vitest'
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import * as ZComponents from '../../index'
-import type { FormColumn } from '~/types'
+import type { FormColumn } from '../../types'
 
 config.global.components = {
   ...ElComponents,
@@ -71,27 +71,30 @@ const groupColumns = [
   },
 ]
 
-const getOptions = () =>
-  Array.from(
+function getOptions() {
+  return Array.from(
     document.querySelectorAll<HTMLElement>(
       '.el-select-dropdown__item',
     ),
   )
+}
 
-const getInputValue = (wrapper: VueWrapper<ComponentPublicInstance>, index: number) =>
-  (wrapper.findAll('.el-input__inner').at(index) as any).element.value
+function getInputValue(wrapper: VueWrapper<ComponentPublicInstance>, index: number) {
+  return (wrapper.findAll('.el-input__inner').at(index) as any).element.value
+}
 
 const options = { sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }], age: [{ label: '18', value: '18' }, { label: '16', value: '16' }] }
 
-const getLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.findAll('.el-form-item__label').map(item => item.text())
+function getLabelList(wrapper: VueWrapper<ComponentPublicInstance>) {
+  return wrapper.findAll('.el-form-item__label').map(item => item.text())
+}
 
 describe('form', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
 
-  test('render', async () => {
+  it('render', async () => {
     const wrapper = mount({
       template: '<z-form v-model="value" :columns="cols" :options="options" size="large"/>',
       setup() {
@@ -118,7 +121,7 @@ describe('form', () => {
     expect(getInputValue(wrapper, 1)).toBe('female')
   })
 
-  test('columns', async () => {
+  it('columns', async () => {
     const wrapper = mount({
       template: '<z-form v-model="value" :columns="cols" :options="options" size="large"/>',
       setup() {
@@ -134,7 +137,7 @@ describe('form', () => {
     expect(wrapper.findAll('.el-form-item').length).toBe(4)
   })
 
-  test('hide', async () => {
+  it('hide', async () => {
     const wrapper = mount({
       template: '<z-form v-model="value" :columns="cols" :options="options" size="large"/>',
       setup() {
@@ -145,8 +148,7 @@ describe('form', () => {
           label: 'name',
           class: 'my-input',
           hide: () => value.value.sex === 'male',
-        },
-        {
+        }, {
           component: 'select',
           field: 'sex',
           label: 'sex',
@@ -164,7 +166,7 @@ describe('form', () => {
     expect(wrapper.find('.my-input').exists()).toBe(true)
   })
 
-  test('content slot', async () => {
+  it('content slot', async () => {
     const wrapper = mount({
       template: `<z-form v-model="value" :columns="cols" :options="options" size="large">
         <template #name>
@@ -176,8 +178,7 @@ describe('form', () => {
         const cols = ref([{
           slot: 'name',
           label: 'name',
-        },
-        {
+        }, {
           component: 'select',
           field: 'sex',
           label: 'sex',
@@ -189,7 +190,7 @@ describe('form', () => {
     expect(wrapper.find('.my-input').exists()).toBe(true)
   })
 
-  test('content render', async () => {
+  it('content render', async () => {
     const wrapper = mount({
       template: '<z-form v-model="value" :columns="cols" :options="options" size="large" />',
       setup() {
@@ -197,8 +198,7 @@ describe('form', () => {
         const cols = ref([{
           render: () => h('span', { class: 'my-span' }, 'content'),
           label: 'name',
-        },
-        {
+        }, {
           component: 'select',
           field: 'sex',
           label: 'sex',
@@ -210,7 +210,7 @@ describe('form', () => {
     expect(wrapper.find('.my-span').text()).toBe('content')
   })
 
-  test('form item label', async () => {
+  it('form item label', async () => {
     const wrapper = mount({
       template: `<z-form v-model="value" :columns="cols" :options="options" size="large">
         <template #nameSlot>
@@ -223,8 +223,7 @@ describe('form', () => {
           component: 'input',
           field: 'name',
           label: 'nameSlot',
-        },
-        {
+        }, {
           component: 'select',
           field: 'sex',
           label: () => h('span', { class: 'render-label' }, 'content'),
@@ -237,7 +236,7 @@ describe('form', () => {
     expect(wrapper.find('.render-label').text()).toBe('content')
   })
 
-  test('events', async () => {
+  it('events', async () => {
     const handleChange = vi.fn()
     const wrapper = mount({
       template: '<z-form v-model="value" :columns="cols" :options="options"/>',
@@ -282,7 +281,7 @@ describe('form', () => {
   })
 
   describe('layout', async () => {
-    test('default layout', async () => {
+    it('default layout', async () => {
       const wrapper = mount({
         template: '<z-form v-model="value" :columns="cols" :options="options" size="large"/>',
         setup() {
@@ -301,7 +300,7 @@ describe('form', () => {
       })
     })
 
-    test('column config', async () => {
+    it('column config', async () => {
       const wrapper = mount({
         template: '<z-form v-model="value" :columns="cols" :options="options" size="large" :column="2"/>',
         setup() {
@@ -320,7 +319,7 @@ describe('form', () => {
       })
     })
 
-    test('custom layout', async () => {
+    it('custom layout', async () => {
       const wrapper = mount({
         template: '<z-form v-model="value" :columns="cols" :options="options" size="large" :column="2"/>',
         setup() {
@@ -361,7 +360,7 @@ describe('form', () => {
     })
   })
 
-  test('tooltip and extra', async () => {
+  it('tooltip and extra', async () => {
     const wrapper = mount({
       template: '<z-form v-model="value" :columns="cols" :options="options" size="large"><template #extraSlot>dateExtra<span></span></template></z-form>',
       setup() {
@@ -378,7 +377,7 @@ describe('form', () => {
     expect(list.map(item => item.findAll('.z-form-item__extra').map(cur => cur.text())).flat(1)).toEqual(['nameExtra', 'sexExtra', 'dateExtra'])
   })
 
-  test('colon', async () => {
+  it('colon', async () => {
     const wrapper = mount({
       template: '<z-form v-model="value" :columns="cols" :options="options" size="large" :colon="true"/>',
       setup() {
@@ -396,7 +395,7 @@ describe('form', () => {
   })
 
   describe('group', async () => {
-    test('group form', async () => {
+    it('group form', async () => {
       const wrapper = mount({
         template: '<z-form type="group" v-model="value" :columns="cols" :options="options" />',
         setup() {
@@ -412,7 +411,7 @@ describe('form', () => {
       expect(wrapper.findAll('.el-divider').map(item => item.text()).flat(1)).toEqual(['text1', 'text2'])
     })
 
-    test('divider', async () => {
+    it('divider', async () => {
       const wrapper = mount({
         template: '<z-form type="group" v-model="value" :columns="cols" :options="options" content-position="left"/>',
         setup() {
@@ -426,7 +425,7 @@ describe('form', () => {
       expect(wrapper.find('.is-center').text()).toBe('text2')
     })
 
-    test('label slot', async () => {
+    it('label slot', async () => {
       const wrapper = mount({
         template: '<z-form type="group" v-model="value" :columns="cols" :options="options" content-position="left" ><template #labelSlot><span>test</span></template></z-form>',
         setup() {
@@ -440,7 +439,7 @@ describe('form', () => {
       expect(wrapper.findAll('.el-divider').map(item => item.text()).flat(1)).toEqual(['text1', 'text2', 'test'])
     })
 
-    test('event', async () => {
+    it('event', async () => {
       const handleChange = vi.fn()
       const wrapper = mount({
         template: '<z-form type="group" v-model="value" :columns="cols" :options="options" content-position="left" />',
@@ -464,7 +463,7 @@ describe('form', () => {
       expect(getInputValue(wrapper, 3)).toBe('16')
     })
 
-    test('resetFields', async () => {
+    it('resetFields', async () => {
       const wrapper = mount({
         template: '<z-form ref="form" type="group" v-model="value" :columns="cols" :options="options" content-position="left" />',
         setup() {
@@ -492,7 +491,7 @@ describe('form', () => {
   })
 
   describe('array', async () => {
-    test('array form', async () => {
+    it('array form', async () => {
       const wrapper = mount({
         template: '<z-form type="array" v-model="value" :columns="cols" :options="options" />',
         setup() {
@@ -510,7 +509,7 @@ describe('form', () => {
       expect(wrapper.findAll('.el-form-item').map(item => item.findAll('.el-form-item__label').map(cur => cur.text())).flat(1)).toEqual(['name', 'sex', 'date', 'name', 'sex', 'date'])
     })
 
-    test('max', async () => {
+    it('max', async () => {
       const wrapper = mount({
         template: '<z-form type="array" v-model="value" :columns="cols" :options="options" :max="2" size="small"/>',
         setup() {
@@ -531,7 +530,7 @@ describe('form', () => {
       expect(wrapper.find('.z-array-form-operation__add--small').exists()).toBe(false)
     })
 
-    test('operation', async () => {
+    it('operation', async () => {
       const wrapper = mount({
         template: '<z-form type="array" v-model="value" :columns="cols" :options="options" size="small"/>',
         setup() {
@@ -547,7 +546,7 @@ describe('form', () => {
       expect(wrapper.findAll('.el-form-item').length).toBe(3)
     })
 
-    test('event', async () => {
+    it('event', async () => {
       const handleChange = vi.fn()
       const wrapper = mount({
         template: '<z-form type="array" v-model="value" :columns="cols" :options="options" size="small"/>',
@@ -560,16 +559,14 @@ describe('form', () => {
             tooltip: 'nameTooltip',
             extra: 'nameExtra',
             colon: false,
-          },
-          {
+          }, {
             component: 'select',
             field: 'sex',
             label: 'sex',
             onChange: handleChange,
             tooltip: () => h('span', 'sexTooltip'),
             extra: () => h('span', 'sexExtra'),
-          },
-          {
+          }, {
             component: 'datepicker',
             field: 'date',
             label: 'date',
@@ -595,7 +592,7 @@ describe('form', () => {
       expect(getInputValue(wrapper, 1)).toBe('female')
     })
 
-    test('resetFields', async () => {
+    it('resetFields', async () => {
       const wrapper = mount({
         template: '<z-form ref="form" type="array" v-model="value" :columns="cols" :options="options" size="small"/>',
         setup() {
@@ -622,7 +619,7 @@ describe('form', () => {
   })
 
   describe('step', async () => {
-    test('step form', async () => {
+    it('step form', async () => {
       const wrapper = mount({
         template: '<z-form type="step" v-model:activeStep="activeStep" v-model="value" :columns="cols" :options="options" />',
         setup() {
@@ -647,7 +644,7 @@ describe('form', () => {
       expect((wrapper.vm.activeStep as number)).toBe(1)
     })
 
-    test('label and description', async () => {
+    it('label and description', async () => {
       const wrapper = mount({
         template: '<z-form type="step" v-model:activeStep="activeStep" v-model="value" :columns="cols" :options="options" />',
         setup() {
@@ -662,7 +659,7 @@ describe('form', () => {
       expect(wrapper.findAll('.el-step__description').map(item => item.text()).flat(1)).toEqual(['text1Description', 'text2Description'])
     })
 
-    test('event', async () => {
+    it('event', async () => {
       const handleChange = vi.fn()
       const wrapper = mount({
         template: '<z-form type="step" v-model="value" :columns="cols" :options="options" v-model:activeStep="active"/>',
@@ -686,7 +683,7 @@ describe('form', () => {
       expect(getInputValue(wrapper, 0)).toBe('16')
     })
 
-    test('resetFields', async () => {
+    it('resetFields', async () => {
       const wrapper = mount({
         template: '<z-form ref="form" type="step" v-model="value" :columns="cols" :options="options" v-model:activeStep="active" />',
         setup() {
@@ -714,7 +711,7 @@ describe('form', () => {
   })
 
   describe('collapse', async () => {
-    test('collapse form', async () => {
+    it('collapse form', async () => {
       const wrapper = mount({
         template: '<z-form type="collapse" v-model:activeCollapse="activeCollapse" v-model="value" :columns="cols" :options="options" />',
         setup() {
@@ -733,7 +730,7 @@ describe('form', () => {
       expect(list[2].isVisible()).toBe(false)
     })
 
-    test('label', async () => {
+    it('label', async () => {
       const wrapper = mount({
         template: '<z-form type="collapse" v-model:activeCollapse="activeCollapse" v-model="value" :columns="cols" :options="options" />',
         setup() {
@@ -747,7 +744,7 @@ describe('form', () => {
       expect(wrapper.findAll('.el-collapse-item__header').map(item => item.text()).flat(1)).toEqual(['text1', 'text2'])
     })
 
-    test('event', async () => {
+    it('event', async () => {
       const handleChange = vi.fn()
       const wrapper = mount({
         template: '<z-form type="collapse" v-model="value" :columns="cols" :options="options" v-model:activeCollapse="activeCollapse"/>',
@@ -771,7 +768,7 @@ describe('form', () => {
       expect(getInputValue(wrapper, 3)).toBe('16')
     })
 
-    test('resetFields', async () => {
+    it('resetFields', async () => {
       const wrapper = mount({
         template: '<z-form ref="form" type="collapse" v-model="value" :columns="cols" :options="options" v-model:activeCollapse="activeCollapse" />',
         setup() {

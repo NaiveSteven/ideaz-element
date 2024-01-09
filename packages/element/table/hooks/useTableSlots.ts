@@ -1,8 +1,8 @@
 import { isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import type { Ref } from 'vue-demi'
-import type { TableCol } from '~/types'
+import type { TableCol } from '../../types'
 
-export const useTableSlots = (columns: Ref<TableCol[]>, slots: any) => {
+export function useTableSlots(columns: Ref<TableCol[]>, slots: any) {
   const scopedSlots: any = {}
   const tableSlots: any = {}
 

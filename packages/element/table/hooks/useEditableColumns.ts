@@ -3,7 +3,7 @@ import type { Ref } from 'vue'
 import type { TableColumnCtx } from 'element-plus'
 import DialogTip from '../../dialog/src/dialog'
 import type { ITableProps } from '../src/props'
-import type { TableCol } from '~/types'
+import type { TableCol } from '../../types'
 
 function replacePropertyValues(obj: any, reverse = false) {
   for (const key in obj) {
@@ -22,7 +22,7 @@ function replacePropertyValues(obj: any, reverse = false) {
   return obj
 }
 
-export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref<any>) => {
+export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref<any>) {
   const editableType = ref<'single' | 'multiple'>(isObject(props.editable) ? (props.editable.type || 'single') : 'single')
   const zTableFormRef = ref()
   const columns = ref<TableCol[]>([])
@@ -65,13 +65,13 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
         }
         else {
           zTableFormRef.value.validateField
-            && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
-              if (!validated)
-                return
+          && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
+            if (!validated)
+              return
 
-              replacePropertyValues(row)
-              row.__isEdit = false
-            })
+            replacePropertyValues(row)
+            row.__isEdit = false
+          })
         }
       },
     }
@@ -128,7 +128,8 @@ export const useEditableColumns = (props: ITableProps, emit: any, tableData: Ref
 
   watchEffect(() => {
     const cols = props.columns.map((item) => {
-      if (item.type === 'sort') return { width: 48, ...item, __uid: uid() }
+      if (item.type === 'sort')
+        return { width: 48, ...item, __uid: uid() }
       return { ...item, __uid: uid() }
     }) as TableCol[]
     if (props.editable && cols.length > 0 && cols[cols.length - 1]?.type !== 'button') {

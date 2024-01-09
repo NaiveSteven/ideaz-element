@@ -5,9 +5,9 @@ import { isFunction } from '@ideaz/utils'
 import DialogTip from '../../dialog/src/dialog'
 import type { CrudProps } from '../src/props'
 import type { ITableProps } from '../../table/src/props'
-import type { TableCol } from '~/types'
+import type { TableCol } from '../../types'
 
-export const useSelectionData = (props: CrudProps, emit: any, tableProps: Ref<ITableProps>, refreshAfterRequest: () => void) => {
+export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<ITableProps>, refreshAfterRequest: () => void) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const selectionData = ref(props.selectionData || [])
 
@@ -34,7 +34,7 @@ export const useSelectionData = (props: CrudProps, emit: any, tableProps: Ref<IT
       DialogTip({
         type: 'danger',
         message: t('crud.multipleDeleteTip'),
-        onConfirm: async ({ done, confirmButtonLoading }: { done: () => void; confirmButtonLoading: Ref<boolean> }) => {
+        onConfirm: async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
           confirmButtonLoading.value = true
           try {
             const deleteParams = props.request?.deleteParams

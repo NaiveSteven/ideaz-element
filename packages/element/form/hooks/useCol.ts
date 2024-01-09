@@ -1,9 +1,9 @@
 import { isNumber, isObject } from '@ideaz/utils'
 import type { CSSProperties } from 'vue-demi'
 import type { FormProps } from '../src/props'
-import type { FormColumn } from '~/types'
+import type { FormColumn } from '../../types'
 
-export const useCol = (props: FormProps, formItem: FormColumn) => {
+export function useCol(props: FormProps, formItem: FormColumn) {
   let col: FormColumn
   const ns = useNamespace('col')
   const gutter = computed(() => props.gutter || 0)
@@ -51,8 +51,10 @@ export const useCol = (props: FormProps, formItem: FormColumn) => {
     pos.forEach((prop) => {
       const size = col[prop]
       if (isNumber(size)) {
-        if (prop === 'span') classes.push(ns.b(`${col[prop]}`))
-        else if (size > 0) classes.push(ns.b(`${prop}-${col[prop]}`))
+        if (prop === 'span')
+          classes.push(ns.b(`${col[prop]}`))
+        else if (size > 0)
+          classes.push(ns.b(`${prop}-${col[prop]}`))
       }
     })
 

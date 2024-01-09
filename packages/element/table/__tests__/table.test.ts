@@ -1,10 +1,10 @@
 import type { VueWrapper } from '@vue/test-utils'
 import { config, mount } from '@vue/test-utils'
-import { afterAll, afterEach, describe, expect, test, vi } from 'vitest'
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest'
 import * as ElComponents from 'element-plus'
 import { ElLoadingDirective } from 'element-plus'
 import * as ZComponents from '../../index'
-import type { TableCol } from '~/types'
+import type { TableCol } from '../../types'
 
 config.global.components = {
   ...ElComponents,
@@ -67,42 +67,50 @@ function getOptions(): HTMLElement[] {
 
 const headerClass
   = '.z-table .el-table__header-wrapper .el-table__header thead tr'
-const getHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.findAll(`${headerClass} th`)
-const getMultiHeader = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.findAll(headerClass)
-const getHeaderList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  getHeader(wrapper).map(item => item.find('.cell').text())
-const getHeaderClass = (
-  wrapper: VueWrapper<ComponentPublicInstance>,
-  index = 0,
-) => getHeader(wrapper)[index].classes()
+function getHeader(wrapper: VueWrapper<ComponentPublicInstance>) {
+  return wrapper.findAll(`${headerClass} th`)
+}
+// function getMultiHeader(wrapper: VueWrapper<ComponentPublicInstance>) {
+//   return wrapper.findAll(headerClass)
+// }
+function getHeaderList(wrapper: VueWrapper<ComponentPublicInstance>) {
+  return getHeader(wrapper).map(item => item.find('.cell').text())
+}
+function getHeaderClass(wrapper: VueWrapper<ComponentPublicInstance>, index = 0) {
+  return getHeader(wrapper)[index].classes()
+}
 const bodyClass = '.el-table__row'
-const getBody = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.findAll(bodyClass)
-const getBodyItem = (wrapper: VueWrapper<ComponentPublicInstance>, index = 1) =>
-  wrapper
+function getBody(wrapper: VueWrapper<ComponentPublicInstance>) {
+  return wrapper.findAll(bodyClass)
+}
+function getBodyItem(wrapper: VueWrapper<ComponentPublicInstance>, index = 1) {
+  return wrapper
     .findAll(`${bodyClass}:nth-child(${index}) td`)
     .map(item => item.find('.cell').text())
-const getBodyClass = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.find(`${bodyClass} td`).classes()
-const getCheckBox = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.find(`${headerClass} th .cell .el-checkbox`)
-const getPager = (wrapper: VueWrapper<ComponentPublicInstance>, classes = '') =>
-  wrapper.find(`.z-table .el-pagination .el-pager .number${classes}`)
-const getSizesItem = (classes = '') =>
-  document.querySelector(
+}
+function getBodyClass(wrapper: VueWrapper<ComponentPublicInstance>) {
+  return wrapper.find(`${bodyClass} td`).classes()
+}
+function getCheckBox(wrapper: VueWrapper<ComponentPublicInstance>) {
+  return wrapper.find(`${headerClass} th .cell .el-checkbox`)
+}
+function getPager(wrapper: VueWrapper<ComponentPublicInstance>, classes = '') {
+  return wrapper.find(`.z-table .el-pagination .el-pager .number${classes}`)
+}
+function getSizesItem(classes = '') {
+  return document.querySelector(
     `.el-select__popper .el-select-dropdown__item${classes}`,
   )
-const appendClass
-  = '.z-table .el-table__body-wrapper .el-table__append-wrapper .append'
+}
+// const appendClass
+//   = '.z-table .el-table__body-wrapper .el-table__append-wrapper .append'
 
 describe('table', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
 
-  test('columns', async () => {
+  it('columns', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :toolBar="false"/>',
       setup() {
@@ -140,7 +148,7 @@ describe('table', () => {
     expect(getHeaderList(wrapper)).toContain('-Date')
   })
 
-  test('data', async () => {
+  it('data', async () => {
     const wrapper = mount({
       template: '<z-table :columns="columns" :data="data" :toolBar="false"/>',
       setup() {
@@ -158,7 +166,7 @@ describe('table', () => {
     expect(getBodyItem(wrapper, 5)).toContain('0000')
   })
 
-  test('pagination', async () => {
+  it('pagination', async () => {
     const wrapper = mount({
       template: `
         <z-table
@@ -218,7 +226,7 @@ describe('table', () => {
     // expect(wrapper.find('.el-pagination').exists()).toBe(false)
   })
 
-  test('align', async () => {
+  it('align', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
       setup() {
@@ -240,7 +248,7 @@ describe('table', () => {
     expect(getBodyClass(wrapper)).toContain('is-right')
   })
 
-  test('index', async () => {
+  it('index', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :index="index" :toolBar="false" :data="data"/>',
       setup() {
@@ -257,7 +265,7 @@ describe('table', () => {
     })
   })
 
-  test('expand', async () => {
+  it('expand', async () => {
     const wrapper = mount({
       template: `
         <z-table :data="data" :columns="cols" :toolBar="false">
@@ -289,7 +297,7 @@ describe('table', () => {
     }
   })
 
-  test('selection', async () => {
+  it('selection', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
       setup() {
@@ -305,7 +313,7 @@ describe('table', () => {
     expect(wrapper.findAll('.el-checkbox').length).toBe(6)
   })
 
-  test('hide', async () => {
+  it('hide', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
       setup() {
@@ -329,7 +337,7 @@ describe('table', () => {
     expect(getHeaderList(wrapper)).toContain('Age')
   })
 
-  test('slot', async () => {
+  it('slot', async () => {
     const wrapper = mount({
       template: `<z-table :columns="cols" :data="data" :toolBar="false">
         <template #custom="{row}"><span class="my-custom">{{row.date}}</span></template>
@@ -352,7 +360,7 @@ describe('table', () => {
     expect(wrapper.find('.top-bottom').text()).toBe('topBottom')
   })
 
-  test('render', async () => {
+  it('render', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
       setup() {
@@ -365,7 +373,7 @@ describe('table', () => {
     expect(wrapper.findAll('.my-custom').map(item => item.text())).toContain('2016-05-03')
   })
 
-  test('header slot', async () => {
+  it('header slot', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false"><template #customSlot><span class="my-custom">customHeader</span></template></z-table>',
       setup() {
@@ -379,7 +387,7 @@ describe('table', () => {
     expect(wrapper.find('.my-title').text()).toBe('customH')
   })
 
-  test('tooltip', async () => {
+  it('tooltip', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false"></z-table>',
       setup() {
@@ -405,7 +413,7 @@ describe('table', () => {
   //   expect(wrapper.find('.my-custom').text()).toBe('customHeader')
   // })
 
-  test('buttons', async () => {
+  it('buttons', async () => {
     const handleClick = vi.fn()
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
@@ -425,7 +433,7 @@ describe('table', () => {
     expect(handleClick).toBeCalled()
   })
 
-  test('buttons dropdown', async () => {
+  it('buttons dropdown', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
       setup() {
@@ -448,7 +456,7 @@ describe('table', () => {
     })
   })
 
-  test('buttons hide', async () => {
+  it('buttons hide', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
       setup() {
@@ -473,7 +481,7 @@ describe('table', () => {
     expect(wrapper.find('.edit-button').exists()).toBe(true)
   })
 
-  test('buttons dropdown hide', async () => {
+  it('buttons dropdown hide', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false" />',
       setup() {
@@ -503,7 +511,7 @@ describe('table', () => {
     expect(items.length).toBe(5)
   })
 
-  test('input type', async () => {
+  it('input type', async () => {
     const handleInput = vi.fn()
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false"/>',
@@ -527,7 +535,8 @@ describe('table', () => {
             {
               label: 'Address',
               prop: 'address',
-            }],
+            },
+          ],
           data: [
             {
               date: '2016-05-03',
@@ -566,7 +575,7 @@ describe('table', () => {
     expect(handleInput).toBeCalledTimes(1)
   })
 
-  test('select type', async () => {
+  it('select type', async () => {
     const handleChange = vi.fn()
     const wrapper = mount({
       template: '<z-table :columns="cols" :options="options" v-model:data="data" :toolBar="false"/>',
@@ -588,7 +597,8 @@ describe('table', () => {
             {
               label: 'Address',
               prop: 'address',
-            }],
+            },
+          ],
           options: { name: [{ label: 'Tom', value: 'Tom' }, { label: 'Jack', value: 'Jack' }] },
           data: ref([
             {
@@ -630,7 +640,7 @@ describe('table', () => {
     expect(handleChange).toBeCalled()
   })
 
-  test('multiple editable', async () => {
+  it('multiple editable', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false" :editable="editable"/>',
       setup() {
@@ -641,7 +651,8 @@ describe('table', () => {
               type: 'input',
               label: 'name',
               prop: 'name',
-            }],
+            },
+          ],
           data: ref([
             {
               date: '2016-05-03',
@@ -659,7 +670,7 @@ describe('table', () => {
     expect(wrapper.find('input').element.value).toBe('Tom')
   })
 
-  test('multiple single', async () => {
+  it('multiple single', async () => {
     const wrapper = mount({
       template: '<z-table :columns="cols" :data="data" :toolBar="false" :editable="true"/>',
       setup() {
@@ -669,7 +680,8 @@ describe('table', () => {
               type: 'input',
               label: 'name',
               prop: 'name',
-            }],
+            },
+          ],
           data: ref([
             {
               date: '2016-05-03',

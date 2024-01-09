@@ -1,7 +1,6 @@
 import DefaultTheme from 'vitepress/theme'
 import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
 import './styles/index.scss'
-import '../../../src/styles/index.css'
 import 'element-plus/dist/index.css'
 import '@ideaz/theme-chalk/src/index.scss'
 import ElementPlus from 'element-plus'

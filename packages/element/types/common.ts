@@ -1,3 +1,6 @@
+import type { Slot } from 'vue'
+import type { PaginationProps } from 'element-plus'
+
 export interface IndexOptions { [propName: string]: OptionsItem[] }
 
 export interface IndexType {
@@ -6,23 +9,33 @@ export interface IndexType {
 
 export interface OptionsItem {
   label: string
-  value: any
+  value: string | number
   disabled?: boolean
   [propName: string]: any
 }
-export type validateCallback = (isSuccess: boolean, field: object) => void
+
+export interface ValidateField {
+  [propName: string]: {
+    field: string
+    fieldValue: any
+    message: string
+  }
+}
+export type validateCallback = (isSuccess: boolean, field: ValidateField) => void
 export type validateFieldCallback = (errorMessage: string) => void
 
-export interface Pagination {
-  page: number
-  pageSize: number
-  total: number
-  [propName: string]: any
+export interface Pagination extends Partial<PaginationProps> {
+  page?: number
+  pageSize?: number
+  type?: 'front' | 'backbone'
 }
 
 export interface Alias {
   label?: string
   value?: string
   disabled?: string
-  [propName: string]: any
+}
+
+export interface Slots {
+  [name: string]: undefined | string | (() => JSX.Element) | Slot
 }

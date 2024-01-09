@@ -1,33 +1,31 @@
 import { isArray, isObject } from '@ideaz/utils'
 import type { ToolBarProps } from '../src/props'
 import { getCheckData, getIsReturnToolBar } from '../utils'
-import type { TableCol } from '~/types'
+import type { TableCol } from '../../types'
 
-function getArrayDifference(array1: TableCol[], array2: string[]) {
-  const uidSet = new Set(array2)
+// function getArrayDifference(array1: TableCol[], array2: string[]) {
+//   const uidSet = new Set(array2)
 
-  const difference = array1.filter(obj => !uidSet.has(obj.__uid))
+//   const difference = array1.filter(obj => !uidSet.has(obj.__uid))
 
-  return difference.map(obj => obj.__uid)
-}
+//   return difference.map(obj => obj.__uid)
+// }
 
-function sortByUidOrder(array1: TableCol[], array2: TableCol[]) {
-  const uidMap: any = {}
+// function sortByUidOrder(array1: TableCol[], array2: TableCol[]) {
+//   const uidMap: any = {}
 
-  // 创建一个映射以便根据__uid字段查找对象在第一个数组中的索引
-  array1.forEach((obj, index) => {
-    uidMap[obj.__uid] = index
-  })
+//   array1.forEach((obj, index) => {
+//     uidMap[obj.__uid] = index
+//   })
 
-  // 根据第一个数组中对象的顺序重新排序第二个数组
-  const sortedArray = array2.sort((a, b) => {
-    const indexA = uidMap[a.__uid]
-    const indexB = uidMap[b.__uid]
-    return indexA - indexB
-  })
+//   const sortedArray = array2.sort((a, b) => {
+//     const indexA = uidMap[a.__uid]
+//     const indexB = uidMap[b.__uid]
+//     return indexA - indexB
+//   })
 
-  return sortedArray
-}
+//   return sortedArray
+// }
 
 function insertObjectByFieldValue(array1: TableCol[], objToInsert: TableCol, array2: TableCol[], fieldName = '__uid') {
   const fieldValue = objToInsert[fieldName]
@@ -47,7 +45,7 @@ function removeItemsByValue(array: string[], value: any) {
   return array.filter(item => item !== value)
 }
 
-export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedTableCols: Ref<string[]>) => {
+export function useFixedTableCols(props: ToolBarProps, emit: any, centerCheckedTableCols: Ref<string[]>) {
   const leftFixedTableCols = ref<TableCol[]>(props.originFormatTableCols.filter((tableCol: TableCol) => tableCol.fixed === 'left'))
   const rightFixedTableCols = ref<TableCol[]>(props.originFormatTableCols.filter((tableCol: TableCol) => tableCol.fixed === 'right'))
   const oldLeftFixedTableCols = ref<TableCol[]>(props.originFormatTableCols.filter((tableCol: TableCol) => tableCol.fixed === 'left'))
@@ -188,14 +186,11 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
   function getCheckedFixedCols(direction: 'left' | 'right' | false, checkedUids?: string[]) {
     let tableCols: TableCol[] = []
     const checkedData = checkedUids || (direction === 'left' ? leftCheckedTableColsUids.value : rightCheckedTableColsUids.value)
-    if (direction === 'left') {
-      tableCols = tableCols.concat(leftFixedTableCols.value.filter(item => checkedData.includes(item.__uid)),
-        rightFixedTableCols.value.filter(item => rightCheckedTableColsUids.value.includes(item.__uid)))
-    }
-    else {
-      tableCols = tableCols.concat(rightFixedTableCols.value.filter(item => checkedData.includes(item.__uid)),
-        leftFixedTableCols.value.filter(item => leftCheckedTableColsUids.value.includes(item.__uid)))
-    }
+    if (direction === 'left')
+      tableCols = tableCols.concat(leftFixedTableCols.value.filter(item => checkedData.includes(item.__uid)), rightFixedTableCols.value.filter(item => rightCheckedTableColsUids.value.includes(item.__uid)))
+
+    else
+      tableCols = tableCols.concat(rightFixedTableCols.value.filter(item => checkedData.includes(item.__uid)), leftFixedTableCols.value.filter(item => leftCheckedTableColsUids.value.includes(item.__uid)))
 
     return tableCols
   }
@@ -205,7 +200,7 @@ export const useFixedTableCols = (props: ToolBarProps, emit: any, centerCheckedT
     const fixedUids = leftCheckedTableColsUids.value.concat(rightCheckedTableColsUids.value).filter(uid => uid !== tableCol.__uid)
 
     return getCheckData(props.toolBar, props.originFormatTableCols).filter(item => !fixedUids.includes(item.__uid)
-    && (centerCheckedTableCols.value.includes(item.__uid) || leftCheckedTableColsUids.value.includes(item.__uid) || rightCheckedTableColsUids.value.includes(item.__uid)))
+      && (centerCheckedTableCols.value.includes(item.__uid) || leftCheckedTableColsUids.value.includes(item.__uid) || rightCheckedTableColsUids.value.includes(item.__uid)))
   }
 
   function getOriginSortTableColsWithoutFixed(tableCol: TableCol) {

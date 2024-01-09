@@ -1,9 +1,9 @@
 import { isFunction, isSlot } from '@ideaz/utils'
 import type { FormItemProps } from '../src/props'
 import FormItemLabel from '../src/FormItemLabel'
-import type { Slots } from '~/types'
+import type { Slots } from '../../types'
 
-export const useFormItemSlots = (props: FormItemProps, slots: Slots) => {
+export function useFormItemSlots(props: FormItemProps, slots: Slots) {
   const getContent = () => {
     const { col } = props
     if (isSlot(col.label) && isFunction(slots[col.label as string]))
@@ -31,15 +31,15 @@ export const useFormItemSlots = (props: FormItemProps, slots: Slots) => {
       vSlots.label = () => {
         return getContent()
           || (
-          <FormItemLabel
-            {...{
-              label: col.label,
-              tooltip: col.tooltip,
-              ...col.formItemProps,
-              colon: getColon(),
-            }}
-            v-slots={slots}
-          />
+            <FormItemLabel
+              {...{
+                label: col.label,
+                tooltip: col.tooltip,
+                ...col.formItemProps,
+                colon: getColon(),
+              }}
+              v-slots={slots}
+            />
           )
       }
     }

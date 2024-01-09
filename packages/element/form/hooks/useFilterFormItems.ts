@@ -1,9 +1,9 @@
 import { useWindowReactiveSize } from '@ideaz/hooks'
 import { isFunction } from '@ideaz/utils'
 import type { FilterFormProps, ToggleButtonType } from '../src/props'
-import type { FormColumn } from '~/types'
+import type { FormColumn } from '../../types'
 
-export const useFilterFormItem = (props: FilterFormProps) => {
+export function useFilterFormItem(props: FilterFormProps) {
   const toggleButtonType = ref<ToggleButtonType>(props.collapsed ? 'up' : 'expand')
 
   const ns = useNamespace('form-item')

@@ -1,5 +1,5 @@
 import { isArray, isObject, isString } from '@ideaz/utils'
-import type { TableCol } from '~/types'
+import type { TableCol } from '../../types'
 
 export function getCheckData(toolBar: any, data: TableCol[]) {
   return data

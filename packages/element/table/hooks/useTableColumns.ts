@@ -2,10 +2,10 @@ import { isFunction } from '@ideaz/utils'
 import type { Ref } from 'vue'
 import { getCheckData, getIsReturnToolBar } from '../utils'
 import type { ITableProps } from '../src/props'
+import type { TableCol } from '../../types'
 import { useEditableColumns } from './useEditableColumns'
-import type { TableCol } from '~/types'
 
-export const useTableColumns = (props: ITableProps, emit: any, tableData: Ref<any>) => {
+export function useTableColumns(props: ITableProps, emit: any, tableData: Ref<any>) {
   const middleTableCols = shallowRef<TableCol[]>([])
   const sortTableCols = shallowRef<TableCol[]>([])
   const tableKey = ref(new Date().valueOf())
