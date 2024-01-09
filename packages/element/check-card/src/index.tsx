@@ -71,8 +71,8 @@ export default defineComponent({
         const newValue = changeValue
           // ?.filter((val) => registerValueMap.current.has(val))
           ?.sort((a, b) => {
-            const indexA = newOptions.findIndex((opt: { title: string; value: any } | CheckCardItemProps) => opt.value === a || get(opt, props.alias?.value || 'value', '') === a)
-            const indexB = newOptions.findIndex((opt: { title: string; value: any } | CheckCardItemProps) => opt.value === b || get(opt, props.alias?.value || 'value', '') === b)
+            const indexA = newOptions.findIndex((opt: { title: string, value: any } | CheckCardItemProps) => opt.value === a || get(opt, props.alias?.value || 'value', '') === a)
+            const indexB = newOptions.findIndex((opt: { title: string, value: any } | CheckCardItemProps) => opt.value === b || get(opt, props.alias?.value || 'value', '') === b)
             return indexA - indexB
           })
 
@@ -83,6 +83,7 @@ export default defineComponent({
     const children = () => {
       const { loading, multiple, options } = props
       if (loading) {
+        // eslint-disable-next-line unicorn/no-new-array
         return new Array(options?.length || slots.default?.()?.length || 1)
           .fill(0)
           .map((_, index) => <ZCheckCardItem key={index} loading />)
@@ -92,20 +93,22 @@ export default defineComponent({
         const optionValue = stateValue.value
         return (getOptions() as CheckCardItemProps[]).map((option) => {
           const value = get(option, props.alias?.value || 'value', '')
-          return <ZCheckCardItem
-            key={value.toString()}
-            {...option}
-            disabled={get(option, props.alias?.disabled || 'disabled', false)}
-            size={option.size || size.value}
-            value={value}
-            bordered={isValid(option.bordered) ? option.bordered : props.bordered}
-            checked={
+          return (
+            <ZCheckCardItem
+              key={value.toString()}
+              {...option}
+              disabled={get(option, props.alias?.disabled || 'disabled', false)}
+              size={option.size || size.value}
+              value={value}
+              bordered={isValid(option.bordered) ? option.bordered : props.bordered}
+              checked={
               multiple
                 ? (optionValue as CheckCardValueType[])?.includes(value)
                 : (optionValue as CheckCardValueType) === value
             }
-            title={get(option, props.alias?.title || 'title', '')}
-          />
+              title={get(option, props.alias?.title || 'title', '')}
+            />
+          )
         })
       }
 

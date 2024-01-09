@@ -19,8 +19,10 @@ export default defineComponent({
     const size = useFormSize()
 
     const getSizeCls = (size?: string) => {
-      if (size === 'large') return 'lg'
-      if (size === 'small') return 'sm'
+      if (size === 'large')
+        return 'lg'
+      if (size === 'small')
+        return 'sm'
       return ''
     }
 
@@ -113,9 +115,11 @@ export default defineComponent({
       const { avatar, title, description, cover, extra, style } = props
 
       const metaDom = () => {
-        if (cardLoading) return <div class="py-3 px-4"><ElSkeleton rows={2} animated /></div>
+        if (cardLoading)
+          return <div class="px-4 py-3"><ElSkeleton rows={2} animated /></div>
 
-        if (cover) return renderCover(cover)
+        if (cover)
+          return renderCover(cover)
 
         const avatarDom = avatar
           ? (
@@ -136,9 +140,11 @@ export default defineComponent({
             <div class={ns.e('title')}>
               {isFunction(title) ? title(h) : title}
             </div>
-            {extra && <div class={ns.e('extra')}>
-              {isFunction(extra) ? extra(h) : extra}
-            </div>}
+            {extra && (
+              <div class={ns.e('extra')}>
+                {isFunction(extra) ? extra(h) : extra}
+              </div>
+            )}
           </div>
         )
 
