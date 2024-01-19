@@ -2,13 +2,14 @@
 import { isFunction, isSlot } from '@ideaz/utils'
 import FormItemLabel from '../src/FormItemLabel'
 import type { FormProps } from '../src/props'
-import type { FormColumn, Slots } from '~/types'
+import type { FormColumn, Slots } from '../../types'
 
-export const useFormSlots = (col: FormColumn, slots: Slots, props: FormProps) => {
+export function useFormSlots(col: FormColumn, slots: Slots, props: FormProps) {
   const scopedSlots: Slots = {}
 
   const getLabelSlotName = () => {
-    if (isSlot(col.label)) return col.label as string
+    if (isSlot(col.label))
+      return col.label as string
     return 'label'
   }
 

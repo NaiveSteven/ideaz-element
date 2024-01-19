@@ -1,7 +1,7 @@
 import { getCheckData, getIsReturnToolBar } from '../utils'
-import type { TableCol } from '~/types'
+import type { TableCol } from '../../types'
 
-export const useToolBarTableCols = (props: any, emit: any) => {
+export function useToolBarTableCols(props: any, emit: any) {
   const checkedTableCols = ref(getOriginCheckedTableCols(props.sortTableCols))
 
   watch(

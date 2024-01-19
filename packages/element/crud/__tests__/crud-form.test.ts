@@ -1,10 +1,10 @@
 import { config, mount } from '@vue/test-utils'
 import * as ElComponents from 'element-plus'
-import { afterAll, afterEach, describe, expect, test, vi } from 'vitest'
+import { afterAll, afterEach, describe, expect, it, vi } from 'vitest'
 import type { VueWrapper } from '@vue/test-utils'
 import { ElLoadingDirective } from 'element-plus'
 import * as ZComponents from '../../index'
-import type { TableCol } from '~/types'
+import type { TableCol } from '../../types'
 
 config.global.components = {
   ...ElComponents,
@@ -45,20 +45,23 @@ const columns = [
   },
 ]
 
-const getOptions = () =>
-  Array.from(
+function getOptions() {
+  return Array.from(
     document.querySelectorAll<HTMLElement>(
       '.el-select-dropdown__item',
     ),
   )
+}
 
-const getInputValue = (wrapper: VueWrapper<ComponentPublicInstance>, index: number) =>
-  (wrapper.findAll('.el-input__inner').at(index) as any).element.value
+function getInputValue(wrapper: VueWrapper<ComponentPublicInstance>, index: number) {
+  return (wrapper.findAll('.el-input__inner').at(index) as any).element.value
+}
 
 const options = { sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }] }
 
-const getLabelList = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.findAll('.el-form-item__label').map(item => item.text())
+function getLabelList(wrapper: VueWrapper<ComponentPublicInstance>) {
+  return wrapper.findAll('.el-form-item__label').map(item => item.text())
+}
 
 function delay(time: number) {
   return new Promise((resolve) => {
@@ -71,7 +74,7 @@ describe('crud-form', () => {
     document.body.innerHTML = ''
   })
 
-  test('render', async () => {
+  it('render', async () => {
     const wrapper = mount({
       template: '<z-crud v-model:formData="value" :columns="cols" :options="options" size="large" :toolBar="false" :action="false"/>',
       setup() {
@@ -98,7 +101,7 @@ describe('crud-form', () => {
     expect(getInputValue(wrapper, 1)).toBe('female')
   })
 
-  test('columns', async () => {
+  it('columns', async () => {
     const wrapper = mount({
       template: '<z-crud v-model:formData="value" :columns="cols" :options="options" size="large" :toolBar="false" :action="false"/>',
       setup() {
@@ -114,7 +117,7 @@ describe('crud-form', () => {
     expect(wrapper.findAll('.el-form-item').length).toBe(5)
   })
 
-  test('events', async () => {
+  it('events', async () => {
     const handleSearch = vi.fn()
     const handleReset = vi.fn()
     const handleChange = vi.fn()
@@ -187,7 +190,7 @@ describe('crud-form', () => {
     expect(handleReset).toHaveBeenCalled()
   })
 
-  test('hide', async () => {
+  it('hide', async () => {
     const wrapper = mount({
       template: '<z-crud v-model:formData="value" :columns="cols" :options="options" size="large" :action="false" :toolBar="false"/>',
       setup() {
@@ -204,8 +207,7 @@ describe('crud-form', () => {
             },
             hide: () => value.value.sex === 'male',
           },
-        },
-        {
+        }, {
           label: 'b',
           prop: 'b',
           search: {
@@ -227,7 +229,7 @@ describe('crud-form', () => {
     expect(wrapper.find('.my-input').exists()).toBe(true)
   })
 
-  test('content slot', async () => {
+  it('content slot', async () => {
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :columns="cols" :options="options" size="large" :toolBar="false" :action="false">
         <template #name>
@@ -243,8 +245,7 @@ describe('crud-form', () => {
             slot: 'name',
             label: 'name',
           },
-        },
-        {
+        }, {
           label: 'b',
           prop: 'b',
           search: {
@@ -260,7 +261,7 @@ describe('crud-form', () => {
     expect(wrapper.find('.my-input').exists()).toBe(true)
   })
 
-  test('content render', async () => {
+  it('content render', async () => {
     const wrapper = mount({
       template: '<z-crud v-model:formData="value" :columns="cols" :options="options" size="large" :action="false" :toolBar="false" />',
       setup() {
@@ -282,7 +283,8 @@ describe('crud-form', () => {
               field: 'sex',
               label: 'sex',
             },
-          }])
+          },
+        ])
         return { value, cols, options }
       },
     })
@@ -290,7 +292,7 @@ describe('crud-form', () => {
     expect(wrapper.find('.my-span').text()).toBe('content')
   })
 
-  test('form item label', async () => {
+  it('form item label', async () => {
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :columns="cols" :options="options" size="large" :action="false" :toolBar="false">
         <template #nameSlot>
@@ -317,7 +319,8 @@ describe('crud-form', () => {
               field: 'sex',
               label: () => h('span', { class: 'render-label' }, 'content'),
             },
-          }])
+          },
+        ])
         return { value, cols, options }
       },
     })
@@ -390,7 +393,7 @@ describe('crud-form', () => {
   // })
 
   describe('operation', async () => {
-    test('basic type', async () => {
+    it('basic type', async () => {
       const wrapper = mount({
         template: '<z-crud v-model:value="value" :search="search" :columns="cols" :options="options" :action="false" :toolBar="false"/>',
         setup() {
@@ -415,7 +418,7 @@ describe('crud-form', () => {
       expect(buttons[1].classes()).contain('is-loading')
     })
 
-    test('props', async () => {
+    it('props', async () => {
       const wrapper = mount({
         template: '<z-crud v-model:formData="value" :columns="cols" :options="options" :search="search" :action="false" :toolBar="false"/>',
         setup() {
@@ -453,7 +456,7 @@ describe('crud-form', () => {
       expect(buttons[1].classes()).contain('el-button--danger')
     })
 
-    test('slot', async () => {
+    it('slot', async () => {
       const wrapper = mount({
         template: `<z-crud v-model:formData="value" :action="false" :toolBar="false" :columns="cols" :options="options"><template #formOperation>
         <el-button>content</el-button>
@@ -469,7 +472,7 @@ describe('crud-form', () => {
       expect(buttons.map(item => item.text()).filter(item => item)).toEqual(['content', 'retract'])
     })
 
-    test('render operation', async () => {
+    it('render operation', async () => {
       const wrapper = mount({
         template: '<z-crud v-model:formData="value" :columns="cols" :options="options" :search="search" :toolBar="false" :action="false" />',
         setup() {

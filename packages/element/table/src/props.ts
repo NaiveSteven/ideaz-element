@@ -5,16 +5,17 @@ import type {
   TableProps,
 } from 'element-plus/es/components/table/src/table/defaults'
 import type { WatermarkProps } from '../../watermark/src/watermark'
-import type { Pagination, TableCol, ToolBar } from '~/types'
+import type { Pagination, TableCol, ToolBar } from '../../types'
+
 export interface TableEdit {
   type?: 'multiple' | 'single'
   position?: 'bottom' | 'top'
   maxLength?: number
   deleteConfirm?: boolean
-  onEdit?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
-  onSave?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
-  onDelete?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
-  onCancel?: ({ row, index, column, formRef }: { row: any; index: number; column: TableColumnCtx<any>; formRef: typeof ElForm }) => void
+  onEdit?: ({ row, index, column, formRef }: { row: any, index: number, column: TableColumnCtx<any>, formRef: typeof ElForm }) => void
+  onSave?: ({ row, index, column, formRef }: { row: any, index: number, column: TableColumnCtx<any>, formRef: typeof ElForm }) => void
+  onDelete?: ({ row, index, column, formRef }: { row: any, index: number, column: TableColumnCtx<any>, formRef: typeof ElForm }) => void
+  onCancel?: ({ row, index, column, formRef }: { row: any, index: number, column: TableColumnCtx<any>, formRef: typeof ElForm }) => void
 }
 
 export const tableProps = {

@@ -1,20 +1,51 @@
 {
-  "name": "ideazx-z-ui",
+  "name": "@ideaz/element",
+  "type": "module",
   "private": true,
   "packageManager": "pnpm@7.30.0",
+  "keywords": [
+    "element-plus",
+    "components",
+    "vue",
+    "ideaz",
+    "vite"
+  ],
+  "main": "lib/index.cjs",
+  "module": "es/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "CHANGELOG.md",
+    "dist",
+    "es",
+    "lib",
+    "style",
+    "types.d.ts"
+  ],
   "scripts": {
-    "docs:dev": "pnpm run register:components && vitepress dev docs",
-    "docs:build": "pnpm run register:components && cross-env BASE=/vitepress-demo/ vitepress build docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "cross-env BASE=/vitepress-demo/ vitepress build docs",
     "docs:serve": "vitepress serve docs",
-    "register:components": "vitepress-rc",
     "dev3": "cl switchVue 3 && vite --config ./demo/vue3/vite.config.ts --open",
     "dev2.7": "cl switchVue 2.7 && vite --config ./demo/vue2.7/vite.config.ts --open",
     "dev2.6": "cl switchVue 2.6 && vite --config ./demo/vue2.6/vite.config.ts --open",
+    "build:theme": "gulp --gulpfile build/gulpfile.mjs",
+    "build": "pnpm clean && tsx build/build-components.ts && tsx build/build-types.ts && pnpm build:theme",
+    "clean": "rimraf lib && rimraf dist && rimraf es",
     "lint": "eslint .",
+    "lint:style": "stylelint --cache \"**/*.{vue,scss}\"",
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest",
     "up": "taze major -I"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": ">=1",
+    "vue": "2||3"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@vueuse/core": "latest",
@@ -26,8 +57,7 @@
     "vue-global-config": "latest"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.37.0",
-    "@element-plus/icons": "latest",
+    "@antfu/eslint-config": "^2.6.1",
     "@element-plus/icons-vue": "latest",
     "@iconify-json/carbon": "^1.1.16",
     "@ideaz/directives": "workspace:*",
@@ -37,57 +67,60 @@
     "@ideaz/shared": "workspace:*",
     "@ideaz/theme-chalk": "workspace:*",
     "@ideaz/utils": "workspace:*",
+    "@types/gulp": "^4.0.17",
+    "@types/gulp-autoprefixer": "^0.0.37",
+    "@types/gulp-clean-css": "^4.3.4",
+    "@types/gulp-sass": "^5.0.4",
     "@types/lodash-es": "latest",
     "@types/node": "latest",
     "@types/sortablejs": "^1.15.3",
+    "@unocss/eslint-config": "^0.58.3",
     "@unocss/reset": "^0.50.6",
-    "@unocss/transformer-directives": "^0.50.6",
-    "@unocss/transformer-variant-group": "^0.50.6",
+    "@vexip-ui/prettier-config": "^0.2.0",
+    "@vexip-ui/stylelint-config": "^1.0.0",
     "@vitejs/plugin-vue": "latest",
     "@vitejs/plugin-vue-jsx": "latest",
+    "@vitepress-demo-preview/component": "^2.3.2",
+    "@vitepress-demo-preview/plugin": "^1.2.2",
     "@vue/compiler-sfc": "latest",
     "@vue/test-utils": "latest",
-    "case-police": "latest",
     "element-plus": "latest",
     "element-resize-detector": "latest",
     "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.8.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-format": "^0.1.0",
+    "flexsearch": "^0.7.31",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^9.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-sass": "^5.1.0",
     "jsdom": "^21.1.1",
     "lint-staged": "^13.2.0",
     "lossless-json": "latest",
     "pnpm": "^7.30.0",
-    "prettier": "^2.8.7",
-    "sass": "^1.43.4",
-    "sass-loader": "^10.0.2",
-    "simple-git-hooks": "^2.8.1",
-    "stylelint": "13.13.1",
-    "stylelint-config-prettier": "^9.0.3",
-    "stylelint-config-standard": "22.0.0",
-    "stylelint-order": "^5.0.0",
-    "stylelint-scss": "^4.6.0",
-    "taze": "^0.9.1",
-    "terser": "^5.16.6",
+    "prettier": "^2.8.8",
+    "sass": "^1.69.5",
+    "simple-git-hooks": "^2.9.0",
+    "stylelint": "^16.1.0",
+    "stylelint-prettier": "^5.0.0",
+    "tsx": "^4.7.0",
     "typescript": "^5.0.2",
     "unocss": "^0.50.6",
     "unplugin-auto-import": "latest",
-    "vite": "latest",
-    "vite-plugin-dts": "latest",
-    "vitepress": "1.0.0-alpha.65",
-    "vitepress-theme-demoblock": "^2.0.2",
     "unplugin-vue-macros": "^0.11.2",
+    "vite": "latest",
+    "vite-plugin-dts": "^3.6.0",
+    "vitepress": "1.0.0-beta.7",
+    "vitepress-plugin-search": "1.0.4-alpha.21",
+    "vitepress-theme-demoblock": "^2.0.2",
     "vitest": "latest",
     "vue": "3.2.44",
     "vue-router": "latest",
     "vue-tsc": "^1.2.0"
   },
-  "peerDependencies": {
-    "@vue/composition-api": ">=1",
-    "vue": "2||3"
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
   },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
+  "lint-staged": {
+    "*": "eslint --fix"
   }
 }

@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash-es'
 import { isFunction, isObject } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
 import type { FormProps } from '../src/props'
-import type { ValidateField, validateCallback, validateFieldCallback } from '~/types'
+import type { ValidateField, validateCallback, validateFieldCallback } from '../../types'
 
 interface ElForm {
   validate: (callback?: validateCallback) => Promise<boolean>
@@ -16,7 +16,7 @@ interface ElForm {
   scrollToField: (prop: string) => void
 }
 
-export const useFormMethods = (props?: FormProps) => {
+export function useFormMethods(props?: FormProps) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const originModelValue
     = (isObject(props) && isObject(props.modelValue))

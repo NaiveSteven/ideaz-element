@@ -1,7 +1,7 @@
 import { isBoolean, isFunction, isSlot, isString } from '@ideaz/utils'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { omit } from 'lodash-unified'
-import type { BtnItem } from '~/types'
+import type { BtnItem } from '../../types'
 
 // interface DropdownProps {
 //   disabled?: boolean | ((row: any, index: number, column: any) => boolean)
@@ -95,39 +95,43 @@ export default defineComponent({
       if (isShowButton) {
         if (button.type === 'dropdown') {
           const dropdownProps = omit(button, FILTER_KEYS)
-          return <el-dropdown
-            type="primary"
-            size={size.value}
-            trigger="click"
-            class={ns.e('dropdown')}
-            {...dropdownProps}
-            onCommand={(command: string) => {
-              const dropdownItem = button.children?.find((item: BtnItem) => item.label === command)
-              if (dropdownItem && isFunction(dropdownItem.onClick)) dropdownItem.onClick(scope.row, scope.$index, scope.column)
-            }}
-            v-slots={{
-              dropdown: () => (
-                <el-dropdown-menu>
-                  {button.children?.map((dropdownItem: BtnItem) => {
-                    const dropdownProps = omit(dropdownItem, FILTER_KEYS)
-                    const isHide = isFunction(dropdownItem.hide) ? dropdownItem.hide() : dropdownItem.hide
-                    if (isHide) return null
-                    return (
-                      <el-dropdown-item
-                        {...dropdownProps}
-                        disabled={getDisabled(dropdownItem, scope.row, scope.$index, scope.column)}
-                        command={dropdownItem.label}
-                      >
-                        {dropdownItem.label}
-                      </el-dropdown-item>
-                    )
-                  })}
-                </el-dropdown-menu>
-              ),
-            }}
-          >
-            {renderReference(scope, button)}
-          </el-dropdown>
+          return (
+            <el-dropdown
+              type="primary"
+              size={size.value}
+              trigger="click"
+              class={ns.e('dropdown')}
+              {...dropdownProps}
+              onCommand={(command: string) => {
+                const dropdownItem = button.children?.find((item: BtnItem) => item.label === command)
+                if (dropdownItem && isFunction(dropdownItem.onClick))
+                  dropdownItem.onClick(scope.row, scope.$index, scope.column)
+              }}
+              v-slots={{
+                dropdown: () => (
+                  <el-dropdown-menu>
+                    {button.children?.map((dropdownItem: BtnItem) => {
+                      const dropdownProps = omit(dropdownItem, FILTER_KEYS)
+                      const isHide = isFunction(dropdownItem.hide) ? dropdownItem.hide() : dropdownItem.hide
+                      if (isHide)
+                        return null
+                      return (
+                        <el-dropdown-item
+                          {...dropdownProps}
+                          disabled={getDisabled(dropdownItem, scope.row, scope.$index, scope.column)}
+                          command={dropdownItem.label}
+                        >
+                          {dropdownItem.label}
+                        </el-dropdown-item>
+                      )
+                    })}
+                  </el-dropdown-menu>
+                ),
+              }}
+            >
+              {renderReference(scope, button)}
+            </el-dropdown>
+          )
         }
         return (
           <el-button
@@ -136,7 +140,8 @@ export default defineComponent({
               ...button,
               disabled: getDisabled(button, scope.row, scope.$index, scope.column),
               onClick: () => {
-                if (isFunction(button.onClick)) button.onClick(scope.row, scope.$index, scope.column)
+                if (isFunction(button.onClick))
+                  button.onClick(scope.row, scope.$index, scope.column)
               },
             }}
           >

@@ -2,9 +2,9 @@ import { isObject, uid } from '@ideaz/utils'
 import { reactiveOmit } from '@vueuse/core'
 import { set } from 'lodash-unified'
 import type { ITableProps } from '../src/props'
-import type { Pagination } from '~/types'
+import type { Pagination } from '../../types'
 
-export const usePagination = (props: ITableProps, emit: any) => {
+export function usePagination(props: ITableProps, emit: any) {
   const tableData = ref<any>([])
   const attrs = useAttrs()
 
@@ -83,8 +83,10 @@ export const usePagination = (props: ITableProps, emit: any) => {
     const length = tableAttributes.value.totalData.length
     let start = (page - 1) * pageSize
     let end = page * pageSize
-    if (start >= length) start = 0
-    if (end >= length) end = length
+    if (start >= length)
+      start = 0
+    if (end >= length)
+      end = length
     tableData.value = list.slice(start, end)
     emit('update:data', tableData.value)
   }

@@ -6,228 +6,30 @@
 
 通过配置`column`、传入`detail`数据即可实现描述列表
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-const columns = [
-  { label: 'Date', prop: 'date' },
-  { label: 'Name', prop: 'name' },
-  { label: 'Address', prop: 'address' },
-]
-const detail = {
-  date: '2016-05-03',
-  name: 'Tom',
-  address: 'No. 189, Grove St, Los Angeles',
-}
-</script>
-
-<template>
-  <z-descriptions
-    :columns="columns"
-    :detail="detail"
-  />
-</template>
-```
-
-:::
+<preview path="../demo/descriptions/normal.vue" />
 
 ## 嵌套键值
 
 对具有嵌套结构的对象或数组进行取值，仅需要配置 `prop`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-const columns = [
-  { label: 'Date', prop: 'date' },
-  { label: 'Name', prop: 'people[0].name' },
-  { label: 'Address', prop: 'data.address' },
-]
-const detail = {
-  date: '2016-05-03',
-  name: 'Tom',
-  data: {
-    address: 'No. 189, Grove St, Los Angeles',
-  },
-  people: [{ name: 'Steven' }]
-}
-</script>
-
-<template>
-  <z-descriptions
-    :columns="columns"
-    :detail="detail"
-  />
-</template>
-```
-
-:::
+<preview path="../demo/descriptions/kv.vue" />
 
 ## 尺寸、边框、布局和对齐方式
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const columns = [
-  { label: 'Date', prop: 'date' },
-  { label: 'Name', prop: 'name' },
-  { label: 'Address', prop: 'address' },
-]
-const detail = {
-  date: '2016-05-03',
-  name: 'Tom',
-  address: 'No. 189, Grove St, Los Angeles',
-}
-
-const sizeOptions = [
-  { label: 'large', value: 'large' },
-  { label: 'default ', value: 'default' },
-  { label: 'small', value: 'small' }
-]
-
-const alignOptions = [
-  { label: 'left', value: 'left' },
-  { label: 'center', value: 'center' },
-  { label: 'right', value: 'right' }
-]
-
-const directionOptions = [
-  { label: 'vertical', value: 'vertical' },
-  { label: 'horizontal', value: 'horizontal' }
-]
-
-const size = ref('default')
-const align = ref('center')
-const labelAlign = ref('center')
-const border = ref(true)
-const direction = ref('horizontal')
-</script>
-
-<template>
-  <div class="flex flex-col">
-    <div class="mb-4 flex items-center">
-      <span class="mr-4 w-20 inline-block text-right">边框</span>
-      <el-switch v-model="border" />
-    </div>
-    <div class="mb-4 flex items-center">
-      <span class="mr-4 w-20 inline-block text-right">size</span>
-      <z-radio v-model="size" :options="sizeOptions" type="radio-button" />
-    </div>
-    <div class="mb-4 flex items-center">
-      <span class="mr-4 w-20 inline-block text-right">align</span>
-      <z-radio v-model="align" :options="alignOptions" type="radio-button" />
-    </div>
-    <div class="mb-4 flex items-center">
-      <span class="mr-4 w-20 inline-block text-right">labelAlign</span>
-      <z-radio v-model="labelAlign" :options="alignOptions" type="radio-button" />
-    </div>
-    <div class="mb-4 flex items-center">
-      <span class="mr-4 w-20 inline-block text-right">direction</span>
-      <z-radio v-model="direction" :options="directionOptions" type="radio-button" />
-    </div>
-    <z-descriptions
-      :columns="columns"
-      :detail="detail"
-      :border="border"
-      :align="align"
-      :label-align="labelAlign"
-      :size="size"
-      :direction="direction"
-    />
-  </div>
-</template>
-```
-
-:::
+<preview path="../demo/descriptions/style.vue" />
 
 ## title、label
 
 `title`和`label`属性支持`string`和`render`函数，当你传入字符类型时，如果包含`Slot`，则会被渲染为`Slot`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h } from 'vue'
-const columns = [
-  { label: () => h('span', 'Date'), prop: 'date' },
-  { label: 'Name', prop: 'name' },
-  { label: 'addressSlot', prop: 'address' },
-]
-const detail = {
-  date: '2016-05-03',
-  name: 'Tom',
-  address: 'No. 189, Grove St, Los Angeles',
-}
-const renderTitle = () => {
-  return h('span', '自定义标题')
-}
-</script>
-
-<template>
-  <z-descriptions
-    :columns="columns"
-    :detail="detail"
-    :title="renderTitle"
-    extra="extraSlot"
-    border
-  >
-    <template #addressSlot>
-      <span>自定义Address</span>
-    </template>
-  </z-descriptions>
-</template>
-```
-
-:::
+<preview path="../demo/descriptions/title.vue" />
 
 ## 插槽
 
 在`columns`项目配置`render`，或者在模板中增加带` detail-[prop] `相关的插槽即可使用。
 `extra`配置可传入`字符串`、`render函数`和使用`extra插槽`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h } from 'vue'
-
-const columns = [
-  { label: 'Date', prop: 'date', render: data => h('span', `自定义${data.date}`) },
-  { label: 'Name', prop: 'name' },
-  { label: 'Address', prop: 'address' },
-]
-const detail = {
-  date: '2016-05-03',
-  name: 'Tom',
-  address: 'No. 189, Grove St, Los Angeles',
-}
-</script>
-
-<template>
-  <z-descriptions
-    :columns="columns"
-    :detail="detail"
-    border
-  >
-    <template #detail-name="{ item, size }">
-      <el-tag :size="size">
-        {{ item.name }}
-      </el-tag>
-    </template>
-    <template #extra>
-      <span>extra</span>
-    </template>
-  </z-descriptions>
-</template>
-```
-
-:::
+<preview path="../demo/descriptions/slot.vue" />
 
 ## z-descriptions 属性
 

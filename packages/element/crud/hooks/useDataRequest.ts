@@ -4,9 +4,9 @@ import type { ElTable } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { tableKeys } from '../src/props'
 import type { CrudProps, RequestConfig } from '../src/props'
+import type { Pagination } from '../../types'
 import { useCrudConfig } from './useCrudConfig'
 import { useTableColumns } from './useTableColumns'
-import type { Pagination } from '~/types'
 
 export function stringifyObject(obj: any) {
   const keyValuePairs = []
@@ -31,7 +31,7 @@ function getAliasData(res: any, req: RequestConfig) {
   }
 }
 
-export const useDataRequest = (props: CrudProps, emit: any) => {
+export function useDataRequest(props: CrudProps, emit: any) {
   const sortableData = ref<any>({})
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const {
@@ -84,7 +84,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     }
   })
 
-  async function getTableData(payload?: { column: any; prop: string; order: string }) {
+  async function getTableData(payload?: { column: any, prop: string, order: string }) {
     const req = props.request || {}
     const params = getParams(payload)
     if (isObject(req) && isFunction(req.searchFunc)) {
@@ -113,7 +113,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     }
   }
 
-  function getParams(payload?: { column: any; prop: string; order: string }) {
+  function getParams(payload?: { column: any, prop: string, order: string }) {
     const req = props.request || {}
     const params = {
       ...props.formData,
@@ -124,8 +124,10 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
       params.page = middlePagination.value.page
       params.pageSize = middlePagination.value.pageSize
     }
-    if (isObject(req) && isObject(req.searchParams)) return req.searchParams
-    if (isObject(req) && isFunction(req.searchParams)) return req.searchParams(params)
+    if (isObject(req) && isObject(req.searchParams))
+      return req.searchParams
+    if (isObject(req) && isFunction(req.searchParams))
+      return req.searchParams(params)
     return params
   }
 
@@ -156,7 +158,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     }
   }
 
-  const handlePaginationChange = (val: { page: number;pageSize: number }) => {
+  const handlePaginationChange = (val: { page: number, pageSize: number }) => {
     changePaginationByCustom(val)
     if (isRequest()) {
       setPaginationData(val)
@@ -181,7 +183,7 @@ export const useDataRequest = (props: CrudProps, emit: any) => {
     emit('radio-change', selection)
   }
 
-  const handleSortChange = ({ column, prop, order }: { column: any; prop: string; order: string }) => {
+  const handleSortChange = ({ column, prop, order }: { column: any, prop: string, order: string }) => {
     if (order)
       sortableData.value = { sort: { column, prop, order } }
 

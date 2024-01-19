@@ -6,101 +6,19 @@
 
 基础的`z-input`用法。
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const val = ref('')
-</script>
-
-<template>
-  <z-input v-model="val" clearable placeholder="请输入" />
-</template>
-```
-
-:::
+<preview path="../demo/input/normal.vue" />
 
 ## 带图标的输入框
 
 可以简单地使用 `prefix-icon` 和 `suffix-icon` 属性。 另外， 使用`prefix` 和 `suffix` 传递函数或者插槽也能达到相同效果。
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref, resolveComponent } from 'vue'
-
-const val = ref('')
-const value = ref('')
-
-const setPrefixIcon = () => {
-  return h(resolveComponent('el-icon'), {}, () => h(resolveComponent('i-search')))
-}
-
-const setSuffixIcon = () => {
-  return h(resolveComponent('el-icon'), {}, () => h(resolveComponent('i-calendar')))
-}
-</script>
-
-<template>
-  <z-input v-model="val" clearable placeholder="请输入" prefix-icon="i-search" suffix-icon="i-calendar" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入" :prefix="setPrefixIcon" :suffix="setSuffixIcon" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入">
-    <template #prefix>
-      <el-icon>
-        <i-search />
-      </el-icon>
-    </template>
-    <template #suffix>
-      <el-icon>
-        <i-calendar />
-      </el-icon>
-    </template>
-  </z-input>
-</template>
-```
-
-:::
+<preview path="../demo/input/icon.vue" />
 
 ## 复合型输入框
 
 可以简单地使用 `append` 和 `prepend` 属性。 另外， 使用`append` 和 `prepend` 传递函数或者插槽也能达到相同效果。
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref, resolveComponent } from 'vue'
-
-const val = ref('')
-const value = ref('')
-
-const setAppend = () => {
-  return h(resolveComponent('el-icon'), {}, () => h(resolveComponent('i-search')))
-}
-
-const setPrepend = () => {
-  return h(resolveComponent('el-icon'), {}, () => h(resolveComponent('i-calendar')))
-}
-</script>
-
-<template>
-  <z-input v-model="val" clearable placeholder="请输入" prepend="Http://" append=".com" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入" :append="setAppend" :prepend="setPrepend" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入">
-    <template #append>
-      <span>.com</span>
-    </template>
-    <template #prepend>
-      <span>Http://</span>
-    </template>
-  </z-input>
-</template>
-```
-
-:::
+<preview path="../demo/input/complex.vue" />
 
 ## z-input 属性
 

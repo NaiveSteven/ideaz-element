@@ -122,7 +122,8 @@
 108. `z-crud`的`editDetail`支持自定义参数
 109. `z-crud`的`transformEditDetail`优化
 110. `z-crud`的`add`、`edit`等属性为`false`时，关闭操作列
-111. `vite`打包配置
+111. ~~`vite`打包配置~~
+112. 多语言配置（切换等）
 1201_3z0x8etu5vvckcr
 
 ## FEATURE

@@ -6,148 +6,29 @@
 
 传入`options`自动生成选项
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const selectVal = ref(1)
-
-const handleSelectChange = (val) => {
-  console.log(val, 'handleSelectChange')
-}
-</script>
-
-<template>
-  <z-select v-model="selectVal" :options="options" @change="handleSelectChange" />
-</template>
-```
-
-:::
+<preview path="../demo/select/normal.vue" />
 
 ## 禁用
 
 `option`中的某项设置`disabled`为`true`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2, disabled: true },
-  { label: '选项三', value: 3 }
-])
-
-const selectVal = ref(1)
-</script>
-
-<template>
-  <z-select v-model="selectVal" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/select/disabled.vue" />
 
 全部禁用，组件传入`disabled`为`true`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const selectVal = ref(1)
-</script>
-
-<template>
-  <z-select v-model="selectVal" :disabled="true" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/select/disabled-all.vue" />
 
 ## 键值对配置
 
 配置`alias`，自定义`label`、`value`和`disabled`的键名
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { data: { title: '选项一' }, key: 1 },
-  { data: { title: '选项二' }, key: 2 },
-  { data: { title: '选项三' }, key: 3 }
-])
-
-const alias = {
-  label: 'data.title',
-  value: 'key'
-}
-
-const selectVal = ref(1)
-</script>
-
-<template>
-  <z-select v-model="selectVal" :alias="alias" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/select/kv.vue" />
 
 ## 多选
 
 当 `multiple` 为 `true` 时，启用多选。此时绑定的 `model-value` 为数组格式
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const selectVal = ref([1])
-</script>
-
-<template>
-  <div class="flex flex-col">
-    <z-select v-model="selectVal" :options="options" multiple />
-    <z-select
-      v-model="selectVal"
-      class="mt-4"
-      :options="options"
-      collapse-tags
-      collapse-tags-tooltip
-      multiple
-    />
-  </div>
-</template>
-```
-
-:::
+<preview path="../demo/select/multiple.vue" />
 
 ## 选择全部
 
@@ -155,155 +36,25 @@ const selectVal = ref([1])
 
 当 `all` 为 `true` 时，`options`会拼接`{ label: '全部', value: 'all' }`
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 }
-])
-
-const selectVal = ref([1])
-</script>
-
-<template>
-  <div class="flex flex-col">
-    <z-select v-model="selectVal" :options="options" multiple all />
-  </div>
-</template>
-```
-
-:::
+<preview path="../demo/select/select-all.vue" />
 
 ## 分组
 
 通过 `option` 中的 `options` 字段配置可以轻松生成分组展示
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { ref } from 'vue'
-
-const options = ref([
-  {
-    label: '选项一',
-    options: [
-      { label: '选项一-1', value: 11 },
-      { label: '选项一-2', value: 12 }
-    ]
-  },
-  {
-    label: '选项二',
-    options: [
-      { label: '选项二-1', value: 21 },
-      { label: '选项二-2', value: 22 }
-    ]
-  },
-  {
-    label: '选项三',
-    disabled: true,
-    options: [
-      { label: '选项三-1', value: 31 },
-      { label: '选项三-2', value: 32 }
-    ]
-  }
-])
-
-const selectVal = ref(11)
-</script>
-
-<template>
-  <z-select v-model="selectVal" :options="options" />
-</template>
-```
-
-:::
+<preview path="../demo/select/group.vue" />
 
 ## 内容自定义
 
 `option`项配置`render`函数即可自定义内容，或者`render`字段传入`自定义字符 + Slot`使用插槽功能
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref } from 'vue'
-
-const options = ref([
-  {
-    label: '选项一',
-    value: 1,
-    render: (h, { option }) => {
-      return h('span', {}, `自定义${option.value}`)
-    }
-  },
-  {
-    label: '选项二',
-    value: 2,
-    render: 'optionSlot'
-  },
-  { label: '选项三', value: 3 }
-])
-
-const selectVal = ref(1)
-</script>
-
-<template>
-  <z-select v-model="selectVal" :options="options">
-    <template #optionSlot="{ option }">
-      <span>自定义{{ option.label }}</span>
-    </template>
-  </z-select>
-</template>
-```
-
-:::
+<preview path="../demo/select/custom-content.vue" />
 
 ## 插槽
 
 如果想要自定义组件头部内容或无选项时的列表，配置`prefix`或`empty`属性，或者使用`prefix`或`empty`插槽
 
-:::demo
-
-```vue
-<script lang="ts" setup>
-import { h, ref, resolveComponent } from 'vue'
-
-const options = ref([])
-
-const selectVal = ref()
-
-const setHeader = () => {
-  return h(resolveComponent('el-icon'), {}, () => h(resolveComponent('i-search')))
-}
-
-const setEmpty = () => {
-  return h('div', {}, '自定义内容')
-}
-</script>
-
-<template>
-  <div class="flex flex-col">
-    <z-select v-model="selectVal" :options="options" :prefix="setHeader" :empty="setEmpty" />
-    <z-select v-model="selectVal" :options="options" prefix="header" empty="自定义内容" class="mt-4" />
-    <z-select v-model="selectVal" :options="options" class="mt-4">
-      <template #prefix>
-        <span>头部</span>
-      </template>
-      <template #empty>
-        <span>自定义内容</span>
-      </template>
-    </z-select>
-  </div>
-</template>
-```
-
-:::
+<preview path="../demo/select/slot.vue" />
 
 ## z-select 属性
 
