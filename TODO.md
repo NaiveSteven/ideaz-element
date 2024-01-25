@@ -124,7 +124,10 @@
 110. `z-crud`的`add`、`edit`等属性为`false`时，关闭操作列
 111. ~~`vite`打包配置~~
 112. 多语言配置（切换等）
-1201_3z0x8etu5vvckcr
+113. `z-crud`的插槽优化
+114. `z-form`的`id`和`class`属性配置
+115. 组件的`size`问题处理
+     1201_3z0x8etu5vvckcr
 
 ## FEATURE
 
