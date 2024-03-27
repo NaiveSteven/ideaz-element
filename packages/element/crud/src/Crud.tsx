@@ -75,15 +75,19 @@ export default defineComponent({
     const { t } = useLocale()
     const size = useFormSize()
 
-    provide(crudProvideKey, {
-      props,
-      size: tableProps.value.size,
-    })
+    provide(crudProvideKey, computed(() => {
+      return {
+        ...toRefs(props),
+        size: tableProps.value.size,
+      }
+    }))
 
-    provide(crudProvideKey, {
-      props,
-      size: tableProps.value.size,
-    })
+    provide(crudProvideKey, computed(() => {
+      return {
+        ...toRefs(props),
+        size: tableProps.value.size,
+      }
+    }))
 
     useExpose({
       resetFields,

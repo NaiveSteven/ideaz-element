@@ -69,10 +69,12 @@ export default defineComponent({
     const { t } = useLocale()
     const size = ref(props.size)
 
-    provide(tableProvideKey, {
-      props,
-      size: size.value,
-    })
+    provide(tableProvideKey, computed(() => {
+      return {
+        ...toRefs(props),
+        size: size.value,
+      }
+    }))
 
     const renderPagination = () => {
       return pagination.value.pageSize
@@ -94,52 +96,54 @@ export default defineComponent({
     const renderToolBar = () => {
       const { toolBar } = props
 
-      return <div
-        class={ns.be('tool-bar', 'container')}
-        style={{
-          marginBottom: (toolBar || isFunction(slots.top) || isFunction(slots.topRight) || isFunction(slots.topLeft)) ? '16px' : 0,
-        }}
-      >
-        <div class={ns.bm('tool-bar', 'top')}>
-          {slots.top ? slots.top() : null}
-        </div>
-        <div class={ns.bm('tool-bar', 'center')}>
-          <div class={ns.bm('tool-bar', 'center-slot')}>
-            <div class={ns.bm('too-bar', 'top-left')}>
-              {slots.topLeft ? slots.topLeft() : null}
-            </div>
-            <div class={ns.bm('tool-bar', 'top-right')}>
-              {slots.topRight ? slots.topRight() : null}
-            </div>
+      return (
+        <div
+          class={ns.be('tool-bar', 'container')}
+          style={{
+            marginBottom: (toolBar || isFunction(slots.top) || isFunction(slots.topRight) || isFunction(slots.topLeft)) ? '16px' : 0,
+          }}
+        >
+          <div class={ns.bm('tool-bar', 'top')}>
+            {slots.top ? slots.top() : null}
           </div>
-          {toolBar && (
-            <ToolBar
-              formatTableCols={formatTableCols.value}
-              middleTableCols={middleTableCols.value}
-              originFormatTableCols={originFormatTableCols.value}
-              sortTableCols={sortTableCols.value}
-              size={size.value}
-              toolBar={props.toolBar}
-              tableProps={props}
-              onColumns-change={(data) => {
-                middleTableCols.value = cloneDeep(data)
-                tableKey.value = new Date().valueOf()
-              }}
-              onSize-change={(val) => {
-                size.value = val
-              }}
-              onTable-cols-change={(val) => {
-                sortTableCols.value = cloneDeep(val)
-                tableKey.value = new Date().valueOf()
-              }}
-              onRefresh={() => handleRefresh()}
-            />
-          )}
+          <div class={ns.bm('tool-bar', 'center')}>
+            <div class={ns.bm('tool-bar', 'center-slot')}>
+              <div class={ns.bm('too-bar', 'top-left')}>
+                {slots.topLeft ? slots.topLeft() : null}
+              </div>
+              <div class={ns.bm('tool-bar', 'top-right')}>
+                {slots.topRight ? slots.topRight() : null}
+              </div>
+            </div>
+            {toolBar && (
+              <ToolBar
+                formatTableCols={formatTableCols.value}
+                middleTableCols={middleTableCols.value}
+                originFormatTableCols={originFormatTableCols.value}
+                sortTableCols={sortTableCols.value}
+                size={size.value}
+                toolBar={props.toolBar}
+                tableProps={props}
+                onColumns-change={(data) => {
+                  middleTableCols.value = cloneDeep(data)
+                  tableKey.value = new Date().valueOf()
+                }}
+                onSize-change={(val) => {
+                  size.value = val
+                }}
+                onTable-cols-change={(val) => {
+                  sortTableCols.value = cloneDeep(val)
+                  tableKey.value = new Date().valueOf()
+                }}
+                onRefresh={() => handleRefresh()}
+              />
+            )}
+          </div>
+          <div class={ns.bm('tool-bar', 'top-bottom')}>
+            {slots.topBottom ? slots.topBottom() : null}
+          </div>
         </div>
-        <div class={ns.bm('tool-bar', 'top-bottom')} >
-          {slots.topBottom ? slots.topBottom() : null}
-        </div>
-      </div>
+      )
     }
 
     const renderTable = () => {
@@ -176,14 +180,18 @@ export default defineComponent({
 
     const renderTableDecorator = () => {
       if (isString(props.watermark)) {
-        return <z-watermark content={props.watermark} gapY={80}>
-          {renderTable()}
-        </z-watermark>
+        return (
+          <z-watermark content={props.watermark} gapY={80}>
+            {renderTable()}
+          </z-watermark>
+        )
       }
       if (isObject(props.watermark)) {
-        return <z-watermark {...{ gapY: 80, ...props.watermark }} >
-          {renderTable()}
-        </z-watermark>
+        return (
+          <z-watermark {...{ gapY: 80, ...props.watermark }}>
+            {renderTable()}
+          </z-watermark>
+        )
       }
       return renderTable()
     }
@@ -202,14 +210,16 @@ export default defineComponent({
               {renderTableDecorator()}
             </el-form>
             {position === 'bottom'
-              && maxLength !== tableData.value.length
-              && <el-button
+            && maxLength !== tableData.value.length
+            && (
+              <el-button
                 icon={Plus}
-                class='w-full mt-2'
+                class="mt-2 w-full"
                 onClick={() => addTableData()}
               >
                 {t('table.addData')}
-              </el-button>}
+              </el-button>
+            )}
           </>
         )
       }
