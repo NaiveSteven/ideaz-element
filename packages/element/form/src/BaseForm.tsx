@@ -133,6 +133,9 @@ export default defineComponent({
       const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max } = props
       const isChildren = formatFormItems.value.some(column => column.children)
 
+      if (isFunction(slots.default))
+        return slots.default()
+
       if (type === 'group') {
         return formatFormItems.value.map((column) => {
           if (column.label && column.children && column.children.length) {
