@@ -55,10 +55,12 @@ export default defineComponent({
       scrollToField,
     })
 
-    provide(formProvideKey, {
-      props,
-      size: formConfig.value.size,
-    })
+    provide(formProvideKey, computed(() => {
+      return {
+        ...toRefs(props),
+        size: formConfig.value.size,
+      }
+    }))
 
     const renderCommonColumn = (contentColumns: FormColumn[]) => {
       const { modelValue, options } = props
@@ -130,6 +132,9 @@ export default defineComponent({
     const renderContent = () => {
       const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max } = props
       const isChildren = formatFormItems.value.some(column => column.children)
+
+      if (isFunction(slots.default))
+        return slots.default()
 
       if (type === 'group') {
         return formatFormItems.value.map((column) => {

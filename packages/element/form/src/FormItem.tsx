@@ -22,9 +22,12 @@ export default defineComponent({
     const { vSlots } = useFormItemSlots(props, slots)
     const size = useFormSize()
 
-    provide(formItemProvideKey, {
-      props,
-    })
+    provide(formItemProvideKey, computed(() => {
+      return {
+        ...toRefs(props),
+        size: size.value,
+      }
+    }))
 
     const modify = (val: any) => {
       const { col } = props
