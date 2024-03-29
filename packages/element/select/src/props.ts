@@ -8,12 +8,12 @@ export interface SelectOptionsItem extends OptionsItem {
 
 export const selectProps = {
   value: {
-    type: [String, Number, Array],
+    type: [String, Number, Array, Boolean],
     default: '',
     required: false,
   },
   modelValue: {
-    type: [String, Number, Array],
+    type: [String, Number, Array, Boolean],
     default: '',
     required: false,
   },
