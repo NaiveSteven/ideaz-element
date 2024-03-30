@@ -44,13 +44,13 @@ export default defineComponent({
     }
 
     return () => {
-      const { col, options } = props
+      const { col, options, formConfig } = props
 
       return (
         <ElFormItem
           ref="formItem"
           prop={col.field}
-          class={ns.b()}
+          class={[ns.b(), formConfig.draggable && ns.b('draggable')]}
           {...{ size: size.value, ...formItemProps.value }}
           v-slots={vSlots.value}
         >
