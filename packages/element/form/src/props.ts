@@ -91,6 +91,10 @@ export const formProps = {
   footer: {
     type: [Boolean, Function] as PropType<boolean | (() => VNode)>,
   },
+  draggable: {
+    type: Boolean,
+    default: false,
+  },
 }
 
 export const formItemProps = {
