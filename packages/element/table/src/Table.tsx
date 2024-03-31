@@ -64,7 +64,7 @@ export default defineComponent({
       zTableFormRef,
     } = useTableColumns(props, emit, tableData)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
-    const { draggableOptions, dragging } = useDraggable(emit, tableData)
+    const { draggableOptions, dragging } = useDraggable(emit, tableData, middleTableCols)
     const ns = useNamespace('table')
     const { t } = useLocale()
     const size = ref(props.size)
