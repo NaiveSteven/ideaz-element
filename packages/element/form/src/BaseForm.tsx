@@ -7,7 +7,9 @@ import { isFunction, isString } from '@ideaz/utils'
 import type { CollapseModelValue } from 'element-plus'
 import { ElButton, ElCollapse, ElCollapseItem, ElDivider, ElForm, ElFormItem, ElStep, ElSteps } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
+import { draggable } from '../../../directives'
 import {
+  useDraggable,
   useFormConfig,
   useFormItems,
   useFormMethods,
@@ -22,6 +24,7 @@ export default defineComponent({
   name: 'ZForm',
   components: { FormColumns, OperationCard },
   props: formProps,
+  directives: { draggable },
   emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change', 'next-step', 'previous-step', 'update:activeStep', 'submit'],
   setup(props, { emit, slots }) {
     const { formatFormItems } = useFormItems(props)
@@ -34,6 +37,7 @@ export default defineComponent({
       clearValidate,
       scrollToField,
     } = useFormMethods(props)
+    const { draggableOptions } = useDraggable(emit, formatFormItems)
     const ns = useNamespace('form')
     const { t } = useLocale()
 
@@ -323,6 +327,7 @@ export default defineComponent({
         <ElForm
           {...{ ...formConfig.value, model: modelValue }}
           ref="formRef"
+          v-draggable={draggableOptions}
           class={[rowKls.value, ns.b('')]}
           style={rowStyle.value}
         // onSubmit={withModifiers(function () { }, ['prevent'])}
