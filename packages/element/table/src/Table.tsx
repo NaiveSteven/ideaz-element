@@ -20,7 +20,7 @@ export default defineComponent({
   directives: { draggable },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end'],
+  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end'],
   setup(props, { emit, slots }) {
     const {
       setCurrentRow,

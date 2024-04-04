@@ -127,6 +127,8 @@
 113. `z-crud`的插槽优化
 114. `z-form`的`id`和`class`属性配置
 115. 组件的`size`问题处理
+116. `z-table`和`z-table`组件插槽布局优化
+117. `z-table`支持默认插槽
      1201_3z0x8etu5vvckcr
 
 ## FEATURE

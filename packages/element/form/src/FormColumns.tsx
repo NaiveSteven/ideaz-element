@@ -61,8 +61,9 @@ export default defineComponent({
             v-slots={{ ...slots, ...scopedSlots }}
             v-show={isFunction(col.hideUseVShow) ? !col.hideUseVShow(modelValue) : true}
             onUpdate:modelValue={(val: any, field: string) => {
-              emit('update:modelValue', set(cloneDeep(modelValue), field, val))
-              emit('change', { prop: val, field })
+              const newVal = set(cloneDeep(modelValue), field, val)
+              emit('update:modelValue', newVal)
+              emit('change', { value: val, field, formData: newVal })
             }}
           >
             {(isFunction(col.render) || col.slot) ? renderContent(col, slots) : null}

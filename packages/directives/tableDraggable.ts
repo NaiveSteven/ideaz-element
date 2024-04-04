@@ -11,7 +11,7 @@ export const draggable: Directive = {
     const options: DraggableOption[] = binding.value
     options.forEach((item) => {
       // eslint-disable-next-line no-new
-      new Sortable(el.querySelector(item.selector) as HTMLElement, item.options)
+      new Sortable(item.selector ? el.querySelector(item.selector) as HTMLElement : el, item.options)
     })
   },
 }

@@ -4,9 +4,11 @@ import { ElMessage } from 'element-plus'
 import { Delete, EditPen, View } from '@element-plus/icons-vue'
 import type { ComponentInternalInstance } from 'vue'
 import DialogTip from '../../dialog/src/dialog'
+import type { TableCol } from '../../types'
 import type { CrudProps } from '../src/props'
+import { COLUMN_TYPE_FIELDS } from '../src/props'
 
-export const useTableColumns = (props: CrudProps, emit: any, getTableData: () => void) => {
+export function useTableColumns(props: CrudProps, emit: any, getTableData: () => void) {
   const { t } = useLocale()
   const rowData = ref({})
   const isShowDialog = ref(false)
@@ -28,7 +30,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
       type: 'primary',
       link: true,
       icon: markRaw(EditPen),
-      onClick: (row, index, column) => {
+      onClick: () => {
         rowData.value = row
         currentMode.value = 'edit'
         isShowDialog.value = true
@@ -42,13 +44,13 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
       type: 'danger',
       link: true,
       icon: markRaw(Delete),
-      onClick: (row, index) => {
+      onClick: () => {
         rowData.value = row
         if (props.request?.deleteApi) {
           DialogTip({
             type: 'danger',
             message: t('crud.deleteTip'),
-            onConfirm: async ({ done, confirmButtonLoading }: { done: () => void; confirmButtonLoading: Ref<boolean> }) => {
+            onConfirm: async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
               const dataKey = props.dataKey
               const deleteParams = props.request?.deleteParams
               confirmButtonLoading.value = true
@@ -75,7 +77,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
       type: 'primary',
       link: true,
       icon: markRaw(View),
-      onClick: (row, index) => {
+      onClick: () => {
         rowData.value = row
         isShowDrawer.value = true
       },
@@ -83,8 +85,9 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
   }
 
   const tableColumns = computed(() => {
+    const columns = props.columns?.filter((column: TableCol) => COLUMN_TYPE_FIELDS.some(key => column[key]))
     if (props.action) {
-      return props.columns?.concat([
+      return columns.concat([
         {
           type: 'button',
           label: t('table.action'),
@@ -96,7 +99,7 @@ export const useTableColumns = (props: CrudProps, emit: any, getTableData: () =>
         },
       ])
     }
-    return props.columns
+    return columns
   })
 
   return { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer, refreshAfterRequest }
