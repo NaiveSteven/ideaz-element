@@ -30,7 +30,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       type: 'primary',
       link: true,
       icon: markRaw(EditPen),
-      onClick: () => {
+      onClick: (row: any) => {
         rowData.value = row
         currentMode.value = 'edit'
         isShowDialog.value = true
@@ -44,7 +44,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       type: 'danger',
       link: true,
       icon: markRaw(Delete),
-      onClick: () => {
+      onClick: (row: any) => {
         rowData.value = row
         if (props.request?.deleteApi) {
           DialogTip({
@@ -77,7 +77,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       type: 'primary',
       link: true,
       icon: markRaw(View),
-      onClick: () => {
+      onClick: (row: any) => {
         rowData.value = row
         isShowDrawer.value = true
       },
@@ -85,7 +85,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
   }
 
   const tableColumns = computed(() => {
-    const columns = props.columns?.filter((column: TableCol) => COLUMN_TYPE_FIELDS.some(key => column[key]))
+    const columns = props.columns?.filter((column: TableCol) => COLUMN_TYPE_FIELDS.some(key => column[key])) || []
     if (props.action) {
       return columns.concat([
         {
