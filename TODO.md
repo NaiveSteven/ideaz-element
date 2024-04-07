@@ -129,6 +129,9 @@
 115. 组件的`size`问题处理
 116. `z-table`和`z-table`组件插槽布局优化
 117. `z-table`支持默认插槽
+118. `z-form`组件代码优化，抽取组件
+119. `z-table`组件支持模板配置
+120. `ToolBar`组件重构
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
