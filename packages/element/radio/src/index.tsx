@@ -15,7 +15,8 @@ export default defineComponent({
     const attrs = useAttrs()
 
     const getChildComponentName = (option: RadioOptionsItem) => {
-      if (!option.type && props.type) return `el-${props.type}`
+      if (!option.type && props.type)
+        return `el-${props.type}`
       if (option.type === 'radio' || option.type === 'radio-button')
         return `el-${option.type}`
       return 'el-radio'
@@ -40,7 +41,7 @@ export default defineComponent({
               attrs: {
                 ...option,
                 border: isValid(option.border) ? option.border : props.border,
-                label: get(option, props.alias?.value || 'value', ''),
+                value: get(option, props.alias?.value || 'value', ''),
                 disabled: get(option, props.alias?.disabled || 'disabled', false),
                 key: get(option, props.alias?.value || 'value', ''),
                 onClick: (e: MouseEvent) => {
