@@ -132,6 +132,7 @@
 118. `z-form`组件代码优化，抽取组件
 119. `z-table`组件支持模板配置
 120. `ToolBar`组件重构
+121. `z-form`、`z-table`等组件`component`字段支持直接传入组件
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
