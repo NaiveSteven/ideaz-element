@@ -1,6 +1,6 @@
 .z-form-item {
   .el-form-item__content {
-    // align-items: flex-start;
+    // align-items: flex-start;align-items
 
     .el-input,
     .el-cascader,
@@ -11,33 +11,46 @@
   }
 
   .z-form-item-label__icon {
-    transform: translate(0, 2px);
     font-size: 14px;
     cursor: help;
+    transform: translate(0, 2px);
   }
 
   .z-form-item__extra {
+    position: relative;
+    height: 18px;
+    overflow: hidden;
     clear: both;
     font-size: 12px;
-    color: rgba(0, 0, 0, 0.45);
-    transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
     line-height: 1.5715;
+    color: rgba(0, 0, 0, 45%);
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+    transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 }
 
+.z-form-item-margin-offset {
+  margin-bottom: -18px;
+
+  .el-form-item__content {
+    display: block;
+  }
+}
 
 .z-form-operation {
   display: flex;
 
-  .el-button+.el-button {
+  .el-button + .el-button {
     margin-left: 8px;
   }
 }
 
 .z-form-item-button__col {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
+  justify-content: flex-end;
 
   .el-form-item__content {
     flex-wrap: nowrap;
@@ -86,16 +99,15 @@
   }
 }
 
-
 .z-form-array-form-item {
   width: 100%;
 }
 
 .z-array-form-item-card {
   position: relative;
-  overflow: visible;
-  margin-bottom: 12px;
   width: 100%;
+  margin-bottom: 12px;
+  overflow: visible;
 
   &:last-child {
     margin-bottom: 0;
@@ -142,15 +154,15 @@
 
     .el-collapse-item__content {
       position: relative;
+      box-sizing: border-box;
       display: flex;
       flex-wrap: wrap;
-      box-sizing: border-box;
     }
   }
 
   .z-form-steps {
-    margin-bottom: 20px;
     width: 100%;
+    margin-bottom: 20px;
   }
 
   .z-form-array__add {
