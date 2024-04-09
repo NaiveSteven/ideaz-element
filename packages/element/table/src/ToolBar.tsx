@@ -304,7 +304,7 @@ export default defineComponent({
                               {config.checkboxData.map((item: TableCol) => {
                                 return (
                                   <div key={item.__uid} class="column-popover-checkbox">
-                                    <el-checkbox label={item.__uid} key={item.__uid}>
+                                    <el-checkbox value={item.__uid} key={item.__uid}>
                                       {item.label || item.type}
                                     </el-checkbox>
                                     <div class={ns.be('setting-item', 'extra')}>

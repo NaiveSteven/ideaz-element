@@ -1,5 +1,7 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { h, ref } from 'vue'
+import { ElMessage } from 'element-plus'
 
 const formRef = ref()
 const formData = ref({
@@ -30,7 +32,7 @@ const columns = [
     label: '性别',
     colon: false,
     tooltip: () => h('span', {}, '性别提示'),
-    extra: () => h('span', {}, '性别额外信息'),
+    // extra: () => h('span', {}, '性别额外信息'),
   },
   {
     component: 'input',
@@ -38,7 +40,7 @@ const columns = [
     field: 'age',
     formItemProps: {
       tooltip: '这是年龄',
-      extra: '这是额外信息',
+      extra: () => h('span', {}, '这是额外信息'),
       colon: false,
     },
   },
@@ -47,10 +49,10 @@ const columns = [
   },
 ]
 
-const submit = () => {
+function submit() {
   formRef.value.validate((valid: boolean) => {
     if (valid) {
-      alert('success')
+      ElMessage.success('success')
       console.log(formData.value, 'formData.value')
     }
     else {
@@ -72,7 +74,7 @@ const submit = () => {
     colon
   >
     <template #extraSlot>
-      <span>提示</span>
+      <span>提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示</span>
     </template>
     <template #button>
       <el-button class="w-full" type="primary" @click="submit">

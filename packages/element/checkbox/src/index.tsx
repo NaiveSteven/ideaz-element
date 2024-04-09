@@ -16,7 +16,8 @@ export default defineComponent({
     const attrs = useAttrs()
 
     const getChildComponentName = (option: CheckboxOptionsItem) => {
-      if (!option.type && props.type) return `el-${props.type}`
+      if (!option.type && props.type)
+        return `el-${props.type}`
       if (option.type === 'checkbox' || option.type === 'checkbox-button')
         return `el-${option.type}`
       return 'el-checkbox'
@@ -43,7 +44,7 @@ export default defineComponent({
                   size: size.value,
                   ...option,
                   border: isValid(option.border) ? option.border : props.border,
-                  label: get(option, props.alias?.value || 'value', ''),
+                  value: get(option, props.alias?.value || 'value', ''),
                   disabled: get(option, props.alias?.disabled || 'disabled', false),
                   key: get(option, props.alias?.value || 'value', ''),
                 },
