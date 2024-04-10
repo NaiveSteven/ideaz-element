@@ -3,12 +3,15 @@
 ## FEATURE（new component）
 
 1. ~~添加公共组件`z-row`、`z-col`~~
-2. 添加布局组件`z-layout`、`z-menu`
+2. 添加布局组件`z-layout`
 3. ~~添加导航栏组件`z-guide`（基于`tag`组件，可以参考`iview-plus` [https://github.com/view-design/ViewUIPlus] [https://www.iviewui.com/view-ui-plus/component/form/tag-select]）~~
 4. 大数据表格
 5. ~~添加`z-filter-form`组件~~
 6. ~~添加`z-check-card`组件~~
 7. 添加`z-tree-select`组件（可以参考 [https://tolking.github.io/element-pro-components/zh-CN/components/tree-select] ，上述方案无法实现）
+8. 添加`z-menu`组件
+9. 添加`z-breadcrumb`组件
+10. 添加`z-status`组件，支持`success`、`error`、`warning`、`info`等状态，结合`z-table`组件
 
 ## FEATURE（new function）
 
@@ -124,15 +127,16 @@
 110. `z-crud`的`add`、`edit`等属性为`false`时，关闭操作列
 111. ~~`vite`打包配置~~
 112. 多语言配置（切换等）
-113. `z-crud`的插槽优化
-114. `z-form`的`id`和`class`属性配置
-115. 组件的`size`问题处理
-116. `z-table`和`z-table`组件插槽布局优化
-117. `z-table`支持默认插槽
-118. `z-form`组件代码优化，抽取组件
-119. `z-table`组件支持模板配置
-120. `ToolBar`组件重构
-121. `z-form`、`z-table`等组件`component`字段支持直接传入组件
+113. `z-form`的`id`和`class`属性配置
+114. 组件的`size`问题处理
+115. `z-crud`组件插槽布局优化：`form-top`、`form-bottom`、`toolbar-top`、`toolbar-right`、`toolbar-bottom`、`toolbar-left`、`table-top`、`table-bottom`、`pagination-top`、`pagination-right`、`pagination-bottom`、`pagination-left`
+116. `z-table`支持默认插槽、支持模板配置
+117. `z-form`组件代码优化，抽取组件
+118. `ToolBar`组件重构
+119. `z-form`、`z-table`等组件`component`字段支持直接传入组件
+120. `z-table`组件`column`项的`click`、`hide`、`disabled`、`render`等属性支持参数统一
+121. `z-crud`组件文档优化，添加普通属性文档、插槽文档等
+122. 组件内部写法`-`改为大驼峰
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
