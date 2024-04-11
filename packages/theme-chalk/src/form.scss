@@ -1,6 +1,6 @@
 .z-form-item {
   .el-form-item__content {
-    // align-items: flex-start;align-items
+    align-items: flex-start;
 
     .el-input,
     .el-cascader,
@@ -17,25 +17,17 @@
   }
 
   .z-form-item__extra {
-    position: relative;
-    height: 18px;
-    overflow: hidden;
     clear: both;
     font-size: 12px;
     line-height: 1.5715;
     color: rgba(0, 0, 0, 45%);
-    text-overflow: ellipsis;
-    word-break: break-all;
-    white-space: nowrap;
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
 }
 
 .z-form-item-margin-offset {
-  margin-bottom: -18px;
-
   .el-form-item__content {
-    display: block;
+    margin-bottom: -18px;
   }
 }
 
@@ -54,6 +46,7 @@
 
   .el-form-item__content {
     flex-wrap: nowrap;
+    align-items: center;
     justify-content: end;
   }
 }
