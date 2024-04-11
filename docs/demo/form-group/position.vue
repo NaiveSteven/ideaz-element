@@ -1,5 +1,7 @@
+<!-- eslint-disable no-console -->
+<!-- eslint-disable no-alert -->
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { ref } from 'vue'
 
 const formRef = ref()
 const formData = ref({
@@ -18,38 +20,22 @@ const options = {
 const columns = [
   {
     label: '文本1',
-    borderStyle: 'dashed',
     children: [
       {
         component: 'input',
         field: 'name',
         label: '姓名',
-        onInput: (val) => {
-          console.log(val, 'input event')
-        },
-        onChange: (val) => {
-          console.log(val, 'change event')
-        },
-        rules: {
-          required: true,
-        },
       },
     ],
   },
   {
-    label: () => h('span', '文本2'),
+    label: '文本2',
     contentPosition: 'center',
     children: [
       {
         component: 'select',
         field: 'sex',
         label: '性别',
-        onChange: (val) => {
-          console.log(val, 'change event')
-        },
-        onFocus: () => {
-          console.log('focus event')
-        },
       },
       {
         component: 'datepicker',
@@ -60,9 +46,6 @@ const columns = [
           startPlaceholder: '开始日期',
           endPlaceholder: '结束日期',
         },
-        onChange: (val) => {
-          console.log(val, 'change event')
-        },
       },
     ],
   },
@@ -71,11 +54,11 @@ const columns = [
   },
 ]
 
-const reset = () => {
+function reset() {
   formRef.value.resetFields()
 }
 
-const submit = () => {
+function submit() {
   formRef.value.validate((valid: boolean) => {
     if (valid) {
       alert('submit!')
@@ -101,7 +84,7 @@ const submit = () => {
     content-position="left"
   >
     <template #operate>
-      <div class="flex w-full">
+      <div class="w-full flex">
         <el-button class="w-full" @click="reset">
           重置
         </el-button>
