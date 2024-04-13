@@ -7,6 +7,7 @@ export default defineConfig({
   title: 'Vitepress',
   description: '使用 Vitepress 搭建组件库文档站点。',
   lastUpdated: true,
+  // eslint-disable-next-line node/prefer-global/process
   base: process.env.BASE || '/',
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
   markdown: {
@@ -84,16 +85,25 @@ export default defineConfig({
                   link: '/components/tag-select',
                 },
                 {
-                  text: 'Form 表单',
-                  link: '/components/form',
+                  text: 'CheckCard 多选卡片',
+                  link: '/components/check-card',
                 },
                 {
                   text: 'FilterForm 筛选表单',
                   link: '/components/filter-form',
                 },
                 {
-                  text: 'CheckCard 多选卡片',
-                  link: '/components/check-card',
+                  text: 'Form 表单',
+                  items: [
+                    {
+                      text: '常规使用',
+                      link: '/components/form',
+                    },
+                    {
+                      text: '组表单',
+                      link: '/components/form-group',
+                    },
+                  ],
                 },
               ],
             },
