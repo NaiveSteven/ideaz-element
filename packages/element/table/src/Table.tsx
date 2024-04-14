@@ -100,19 +100,20 @@ export default defineComponent({
         <div
           class={ns.be('tool-bar', 'container')}
           style={{
-            marginBottom: (toolBar || isFunction(slots.top) || isFunction(slots.topRight) || isFunction(slots.topLeft)) ? '16px' : 0,
+            marginBottom: (toolBar || isFunction(slots.tableTop) || isFunction(slots.topRight) || isFunction(slots.topLeft)) ? '16px' : 0,
           }}
         >
           <div class={ns.bm('tool-bar', 'top')}>
-            {slots.top ? slots.top() : null}
+            {isFunction(slots.tableTop) ? slots.tableTop() : null}
+            {!!toolBar && isFunction(slots.toolBarTop) ? slots.toolBarTop() : null}
           </div>
           <div class={ns.bm('tool-bar', 'center')}>
-            <div class={ns.bm('tool-bar', 'center-slot')}>
-              <div class={ns.bm('too-bar', 'top-left')}>
-                {slots.topLeft ? slots.topLeft() : null}
+            <div class={ns.bm('tool-bar', 'center-content')}>
+              <div class={ns.e('title')}>
+                {isFunction(slots.tableTitle) ? slots.tableTitle() : null}
               </div>
-              <div class={ns.bm('tool-bar', 'top-right')}>
-                {slots.topRight ? slots.topRight() : null}
+              <div class={ns.bm('tool-bar', 'left')}>
+                {isFunction(slots.toolBarLeft) ? slots.toolBarLeft() : null}
               </div>
             </div>
             {toolBar && (
@@ -138,9 +139,12 @@ export default defineComponent({
                 onRefresh={() => handleRefresh()}
               />
             )}
+            <div class={ns.bm('tool-bar', 'right')}>
+              {isFunction(slots.toolBarRight) ? slots.toolBarRight() : null}
+            </div>
           </div>
-          <div class={ns.bm('tool-bar', 'top-bottom')}>
-            {slots.topBottom ? slots.topBottom() : null}
+          <div class={ns.bm('tool-bar', 'bottom')}>
+            {isFunction(slots.toolBarBottom) ? slots.toolBarBottom() : null}
           </div>
         </div>
       )

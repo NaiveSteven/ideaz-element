@@ -214,25 +214,29 @@ export default defineComponent({
         },
         class: ns.be('filter-form', 'container'),
         children: () => (
-          <ZFilterForm
-            ref="formRef"
-            {...{
-              size: size.value,
-              labelWidth: '60px',
-              ...omit(props.search || {}, EXCLUDE_FORM_PROPS_KEYS),
-              columns: searchFormColumns.value,
-              ...attrs.value,
-              searchButtonLoading: tableProps.value.loading,
-            }}
-            options={props.options}
-            modelValue={middleFormData.value}
-            onUpdate: modelValue={(val: any) => { middleFormData.value = val }}
-            onSearch={handleSearch}
-            onReset={handleReset}
-            onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
-            v-slots={slots}
-          >
-          </ZFilterForm>
+          <>
+            {isFunction(slots.formTop) ? slots.formTop() : null}
+            <ZFilterForm
+              ref="formRef"
+              {...{
+                size: size.value,
+                labelWidth: '60px',
+                ...omit(props.search || {}, EXCLUDE_FORM_PROPS_KEYS),
+                columns: searchFormColumns.value,
+                ...attrs.value,
+                searchButtonLoading: tableProps.value.loading,
+              }}
+              options={props.options}
+              modelValue={middleFormData.value}
+              onUpdate: modelValue={(val: any) => { middleFormData.value = val }}
+              onSearch={handleSearch}
+              onReset={handleReset}
+              onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
+              v-slots={slots}
+            >
+            </ZFilterForm>
+            {isFunction(slots.formBottom) ? slots.formBottom() : null}
+          </>
         ),
       })
     }
@@ -287,12 +291,17 @@ export default defineComponent({
       )
     }
 
+    const renderMiddleContent = () => {
+      return isFunction(slots.crudMiddle) ? slots.crudMiddle() : null
+    }
+
     return () => {
       // eslint-disable-next-line no-console
       console.log('刷新')
       return (
         <div class={ns.b('')}>
           {renderSearchForm()}
+          {renderMiddleContent()}
           {renderTable()}
           {renderDialog()}
           {renderDrawer()}

@@ -3,8 +3,8 @@
 
   .z-table-column-draggable {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     .z-table-column-draggable__handle {
       padding: 4px;
@@ -35,14 +35,14 @@
 
     .z-table-tool-bar--center {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
       width: 100%;
 
-      .z-table-tool-bar--center-slot {
+      .z-table-tool-bar--center-content {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
         width: 100%;
       }
 
@@ -51,7 +51,7 @@
       }
     }
 
-    .z-table-tool-bar--top-bottom {
+    .z-table-tool-bar--bottom {
       width: 100%;
     }
 
@@ -75,7 +75,7 @@
 
       i {
         font-size: 16px;
-        color: rgb(0, 0, 0, 0.85);
+        color: rgb(0, 0, 0, 85%);
         cursor: pointer;
 
         &:hover {
@@ -84,7 +84,7 @@
       }
 
       .el-loading-mask {
-        background-color: rgba(255, 255, 255, 1);
+        background-color: rgba(255, 255, 255, 100%);
 
         .el-loading-spinner {
           margin-top: calc(0px - 25px / 2);
@@ -118,9 +118,9 @@
     }
 
     .z-table-column-label__icon {
-      transform: translate(0, 2.5px);
       font-size: 14px;
       cursor: help;
+      transform: translate(0, 2.5px);
     }
 
     .z-table-column__dropdown {
@@ -130,9 +130,9 @@
 
     .z-table-column__operation {
       display: flex;
-      justify-content: center;
-      align-items: center;
       flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
     }
 
     .z-table-column__dropdown + .z-table-column__dropdown,
@@ -148,7 +148,6 @@
     background-color: #fff !important;
   }
 }
-
 
 .z-table-editable {
   .el-table__row {
@@ -191,8 +190,8 @@
 .column-popover__inner {
   .column-popover__title {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
     height: 32px;
 
     .el-checkbox {
@@ -204,7 +203,7 @@
     .el-checkbox__label {
       font-size: 14px;
       font-weight: 600;
-      color: rgba(0, 0, 0, 0.88);
+      color: rgba(0, 0, 0, 88%);
     }
 
     .el-checkbox__input {
@@ -213,12 +212,12 @@
 
     > a {
       font-weight: 600;
-      text-decoration: none;
       color: #1677ff;
+      text-decoration: none;
+      cursor: pointer;
       background-color: transparent;
       outline: none;
       transition: color 0.3s;
-      cursor: pointer;
     }
   }
 
@@ -234,21 +233,21 @@
       flex-direction: column;
 
       .column-popover-checkbox__drag--ghost {
-        overflow: hidden;
-        padding: 0;
-        height: 3px;
-        font-size: 0;
-        border: 2px solid var(--el-color-primary);
-        background: var(--el-color-primary);
-        content: '';
         box-sizing: border-box;
+        height: 3px;
+        padding: 0;
+        overflow: hidden;
+        font-size: 0;
+        content: '';
+        background: var(--el-color-primary);
+        border: 2px solid var(--el-color-primary);
         outline-width: 0;
       }
 
       .column-popover-checkbox {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
         margin-bottom: 4px;
 
         .el-checkbox {
@@ -259,24 +258,25 @@
 
           .el-checkbox__input {
             line-height: 0;
+
             // transform: translateY(1px);
           }
 
           .el-checkbox__label {
             display: inline-block;
-            overflow: hidden;
             width: 108px;
             max-width: 108px;
+            overflow: hidden;
             font-size: 14px;
             font-weight: 400;
+            color: rgba(0, 0, 0, 88%);
             text-overflow: ellipsis;
             white-space: nowrap;
-            color: rgba(0, 0, 0, 0.88);
           }
         }
 
         &:hover {
-          background-color: rgba(42, 46, 54, 0.04);
+          background-color: rgba(42, 46, 54, 4%);
 
           .z-table-tool-bar-setting-item__extra {
             display: flex;
@@ -286,13 +286,13 @@
         .z-table-tool-bar-setting-item__extra {
           display: none;
 
-          .el-button+.el-button {
+          .el-button + .el-button {
             margin-left: 0;
           }
 
           .el-button {
-            padding: 4px;
             height: auto;
+            padding: 4px;
 
             &:focus {
               background-color: transparent;
