@@ -230,12 +230,17 @@ export default defineComponent({
       return renderTableDecorator()
     }
 
+    const renderTableBottom = () => {
+      return <div class={ns.e('bottom')}>{isFunction(slots.tableBottom) ? slots.tableBottom() : null}</div>
+    }
+
     return () => {
       return (
         <div class={ns.b('')}>
           {renderToolBar()}
           {renderContent()}
           {renderPagination()}
+          {renderTableBottom()}
         </div>
       )
     }

@@ -149,6 +149,10 @@ export default defineConfig({
                       text: '删除配置',
                       link: '/components/crud-delete',
                     },
+                    {
+                      text: '插槽',
+                      link: '/components/crud-slot',
+                    },
                   ],
                 },
               ],
