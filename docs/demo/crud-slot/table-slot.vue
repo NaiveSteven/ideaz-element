@@ -127,6 +127,7 @@ function mockApi() {
     :options="options"
     :columns="columns"
     :request="request"
+    :tool-bar="false"
   >
     <template #tableTop>
       <div class="slot-demo">
