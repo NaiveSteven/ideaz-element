@@ -58,11 +58,6 @@ const columns = ref([
 const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
-const pagination = ref({
-  page: 1,
-  pageSize: 2,
-  total: 4,
-})
 const request = ref({
   searchApi: mockApi,
 })
@@ -110,7 +105,7 @@ function mockApi() {
           page: 1,
           pageSize: 10,
           total: 4,
-          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
+          list: data,
         },
       })
     }, 100)
@@ -120,7 +115,6 @@ function mockApi() {
 
 <template>
   <z-crud
-    v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"

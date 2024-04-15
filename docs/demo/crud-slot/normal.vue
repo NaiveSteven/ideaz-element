@@ -168,6 +168,26 @@ function mockApi() {
         <el-card>crudMiddle</el-card>
       </div>
     </template>
+    <template #paginationTop>
+      <div class="mb-4">
+        <el-card>paginationTop</el-card>
+      </div>
+    </template>
+    <template #paginationBottom>
+      <div class="mb-4">
+        <el-card>paginationBottom</el-card>
+      </div>
+    </template>
+    <template #paginationLeft>
+      <div class="mb-4">
+        <el-card>paginationLeft</el-card>
+      </div>
+    </template>
+    <template #paginationRight>
+      <div class="mb-4">
+        <el-card>paginationRight</el-card>
+      </div>
+    </template>
   </z-crud>
 </template>
 
