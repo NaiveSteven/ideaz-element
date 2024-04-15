@@ -103,10 +103,6 @@ export default defineComponent({
             marginBottom: (toolBar || isFunction(slots.tableTop) || isFunction(slots.topRight) || isFunction(slots.topLeft)) ? '16px' : 0,
           }}
         >
-          <div class={ns.bm('tool-bar', 'top')}>
-            {isFunction(slots.tableTop) ? slots.tableTop() : null}
-            {!!toolBar && isFunction(slots.toolBarTop) ? slots.toolBarTop() : null}
-          </div>
           <div class={ns.bm('tool-bar', 'center')}>
             <div class={ns.bm('tool-bar', 'center-content')}>
               <div class={ns.e('title')}>
@@ -230,12 +226,28 @@ export default defineComponent({
       return renderTableDecorator()
     }
 
+    const renderTableBottom = () => {
+      return <div class={ns.e('bottom')}>{isFunction(slots.tableBottom) ? slots.tableBottom() : null}</div>
+    }
+
+    const renderTableTop = () => {
+      const { toolBar } = props
+      return (
+        <div class={toolBar ? ns.bm('tool-bar', 'top') : ns.e('top')}>
+          {isFunction(slots.tableTop) ? slots.tableTop() : null}
+          {!!toolBar && isFunction(slots.toolBarTop) ? slots.toolBarTop() : null}
+        </div>
+      )
+    }
+
     return () => {
       return (
         <div class={ns.b('')}>
+          {renderTableTop()}
           {renderToolBar()}
           {renderContent()}
           {renderPagination()}
+          {renderTableBottom()}
         </div>
       )
     }
