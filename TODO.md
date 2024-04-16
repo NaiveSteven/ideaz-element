@@ -140,6 +140,7 @@
 123. `z-table`的按钮类型操作项支持按钮单个自定义
 124. 组件插槽都支持`slot`和`render`函数
 125. `z-table`等组件查询时，表单禁用
+126. `z-table`支持`title`
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
