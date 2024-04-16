@@ -141,6 +141,10 @@ export const tableProps = {
     type: Array,
     default: () => [],
   },
+  title: {
+    type: [String, Function] as PropType<string | (() => VNode)>,
+    default: '',
+  },
 }
 
 export const tableColumnProps = {

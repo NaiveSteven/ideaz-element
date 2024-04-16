@@ -59,6 +59,11 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
+
+        .z-table__title {
+          font-size: 16px;
+          font-weight: 500;
+        }
       }
 
       .z-table-too-bar {

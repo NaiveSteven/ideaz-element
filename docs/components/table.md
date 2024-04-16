@@ -12,6 +12,12 @@
 
 <preview path="../demo/table/normal.vue" />
 
+## 表格标题
+
+配置`title`属性生成表格标题，支持字符串和函数类型，也可使用`tableTitle`插槽自定义。
+
+<preview path="../demo/table/title.vue" />
+
 ## 操作按钮
 
 `column`中配置操作项，`type`传入`button`，配置`buttons`数组。
@@ -157,6 +163,7 @@
 | modelValue:data         | 显示的数据，支持双向绑定                                                                                                                                                                                      | array                                                     | —                                                                                  | —                                                                                            |
 | modelValue:pagination   | 分页配置，支持双向绑定                                                                                                                                                                                        | object                                                    | —                                                                                  | —                                                                                            |
 | loading                 | 表格加载                                                                                                                                                                                                      | boolean                                                   | —                                                                                  | —                                                                                            |
+| title                   | 表格标题                                                                                                                                                                                                      | string / function                                         | —                                                                                  | —                                                                                            |
 | columns                 | 表格配置项                                                                                                                                                                                                    | array                                                     | —                                                                                  | —                                                                                            |
 | toolBar                 | 工具栏配置                                                                                                                                                                                                    | object / boolean                                          | —                                                                                  | —                                                                                            |
 | editable                | 可编辑表格配置                                                                                                                                                                                                | object / boolean                                          | —                                                                                  | —                                                                                            |

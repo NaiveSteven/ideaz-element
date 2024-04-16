@@ -110,7 +110,8 @@ export default defineComponent({
     }
 
     const renderToolBar = () => {
-      const { toolBar } = props
+      const { toolBar, title } = props
+      const tableTitle = slots.tableTitle?.() || (isFunction(title) ? title() : title) || null
 
       return (
         <div
@@ -122,7 +123,7 @@ export default defineComponent({
           <div class={ns.bm('tool-bar', 'center')}>
             <div class={ns.bm('tool-bar', 'center-content')}>
               <div class={ns.e('title')}>
-                {isFunction(slots.tableTitle) ? slots.tableTitle() : null}
+                {tableTitle}
               </div>
               <div class={ns.bm('tool-bar', 'left')}>
                 {isFunction(slots.toolBarLeft) ? slots.toolBarLeft() : null}
