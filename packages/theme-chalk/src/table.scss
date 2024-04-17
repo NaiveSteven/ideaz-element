@@ -18,9 +18,24 @@
     }
   }
 
-  .z-table__pagination {
-    justify-content: flex-end;
+  .z-table-pagination__container {
     margin-top: 16px;
+
+    .z-table-pagination--center {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      .z-table-pagination--right {
+        display: flex;
+        align-items: center;
+
+        .z-table__pagination {
+          justify-content: flex-end;
+        }
+      }
+    }
   }
 
   .z-table-tool-bar__container {
@@ -44,6 +59,11 @@
         align-items: center;
         justify-content: space-between;
         width: 100%;
+
+        .z-table__title {
+          font-size: 16px;
+          font-weight: 500;
+        }
       }
 
       .z-table-too-bar {

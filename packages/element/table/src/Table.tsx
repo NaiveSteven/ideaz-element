@@ -79,22 +79,39 @@ export default defineComponent({
     const renderPagination = () => {
       return pagination.value.pageSize
         ? (
-          <el-pagination
-            class={ns.e('pagination')}
-            background
-            small
-            {...paginationAttrs.value}
-            currentPage={pagination.value.page}
-            total={pagination.value.total}
-            onUpdate:current-page={handleCurrentChange}
-            onUpdate:page-size={handleSizeChange}
-          />
+          <div class={ns.be('pagination', 'container')}>
+            <div class={ns.bm('pagination', 'top')}>
+              {isFunction(slots.paginationTop) ? slots.paginationTop() : null}
+            </div>
+            <div class={ns.bm('pagination', 'center')}>
+              <div class={ns.bm('pagination', 'left')}>
+                {isFunction(slots.paginationLeft) ? slots.paginationLeft() : null}
+              </div>
+              <div class={ns.bm('pagination', 'right')}>
+                <el-pagination
+                  class={ns.e('pagination')}
+                  background
+                  small
+                  {...paginationAttrs.value}
+                  currentPage={pagination.value.page}
+                  total={pagination.value.total}
+                  onUpdate:current-page={handleCurrentChange}
+                  onUpdate:page-size={handleSizeChange}
+                />
+                {isFunction(slots.paginationRight) ? slots.paginationRight() : null}
+              </div>
+            </div>
+            <div class={ns.bm('pagination', 'bottom')}>
+              {isFunction(slots.paginationBottom) ? slots.paginationBottom() : null}
+            </div>
+          </div>
           )
         : null
     }
 
     const renderToolBar = () => {
-      const { toolBar } = props
+      const { toolBar, title } = props
+      const tableTitle = slots.tableTitle?.() || (isFunction(title) ? title() : title) || null
 
       return (
         <div
@@ -106,7 +123,7 @@ export default defineComponent({
           <div class={ns.bm('tool-bar', 'center')}>
             <div class={ns.bm('tool-bar', 'center-content')}>
               <div class={ns.e('title')}>
-                {isFunction(slots.tableTitle) ? slots.tableTitle() : null}
+                {tableTitle}
               </div>
               <div class={ns.bm('tool-bar', 'left')}>
                 {isFunction(slots.toolBarLeft) ? slots.toolBarLeft() : null}

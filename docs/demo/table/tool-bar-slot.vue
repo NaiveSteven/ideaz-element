@@ -58,6 +58,11 @@ const columns = ref([
 const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
+const pagination = ref({
+  page: 1,
+  pageSize: 2,
+  total: 4,
+})
 const request = ref({
   searchApi: mockApi,
 })
@@ -105,7 +110,7 @@ function mockApi() {
           page: 1,
           pageSize: 10,
           total: 4,
-          list: data,
+          list: data.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
         },
       })
     }, 100)
@@ -115,22 +120,37 @@ function mockApi() {
 
 <template>
   <z-crud
+    v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
     :options="options"
     :columns="columns"
     :request="request"
-    :tool-bar="false"
   >
-    <template #tableTop>
+    <template #toolBarTop>
       <div class="slot-demo">
-        tableTop
+        toolBarTop
       </div>
     </template>
-    <template #tableBottom>
+    <template #toolBarBottom>
       <div class="slot-demo">
-        tableBottom
+        toolBarBottom
+      </div>
+    </template>
+    <template #toolBarRight>
+      <div class="slot-demo">
+        toolBarRight
+      </div>
+    </template>
+    <template #toolBarLeft>
+      <div class="slot-demo">
+        toolBarLeft
+      </div>
+    </template>
+    <template #tableTitle>
+      <div class="slot-demo">
+        tableTitle
       </div>
     </template>
   </z-crud>
