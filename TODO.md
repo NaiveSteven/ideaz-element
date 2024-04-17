@@ -129,7 +129,7 @@
 112. 多语言配置（切换等）
 113. `z-form`的`id`和`class`属性配置
 114. 组件的`size`问题处理
-115. `z-crud`组件插槽布局优化：`form-top`、`form-bottom`、`crud-mid`、`toolbar-top`、`toolbar-right`、`toolbar-bottom`、`toolbar-left`、`table-top`、`table-bottom`、`pagination-top`、`pagination-right`、`pagination-bottom`、`pagination-left`
+115. ~~`z-crud`组件插槽布局优化：`form-top`、`form-bottom`、`crud-mid`、`toolbar-top`、`toolbar-right`、`toolbar-bottom`、`toolbar-left`、`table-top`、`table-bottom`、`pagination-top`、`pagination-right`、`pagination-bottom`、`pagination-left`~~
 116. `z-table`支持默认插槽、支持模板配置
 117. ~~`z-form`组件代码优化，抽取组件（暂不抽取）~~
 118. `ToolBar`组件重构
@@ -140,7 +140,7 @@
 123. `z-table`的按钮类型操作项支持按钮单个自定义
 124. 组件插槽都支持`slot`和`render`函数
 125. `z-table`等组件查询时，表单禁用
-126. `z-table`支持`title`
+126. ~~`z-table`支持`title`~~
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
