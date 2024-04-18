@@ -60,14 +60,6 @@
 `label`和`error`支持传入字符串、`render`函数或`拼接Slot的字符串`
 
 <preview path="../demo/form/custom-label.vue" />
-## 可折叠表单
-
-表单类型`type`传入`collapse`，`columns`中配置`children（表单项）`，可以实现可折叠表单。
-
-默认`columns`项的`label`字段为折叠项的`name`，如果`label`为函数，请额外传入`key`字段。
-
-<preview path="../demo/form/collapse-form.vue" />
-
 ## 数组表单
 
 表单类型`type`传入`array`，`columns`中配置`children（表单项）`，可以实现数组表单。

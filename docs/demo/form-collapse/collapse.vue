@@ -1,7 +1,9 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
 
-const activeCollapse = ref('bbb')
+const activeCollapse = ref('文本')
 const formRef = ref()
 const formData = ref({
   name: '',
@@ -18,18 +20,17 @@ const options = {
 
 const columns = [
   {
-    label: () => h('span', {}, '文本a'),
-    key: 'bbb',
+    label: '文本',
     children: [
       {
         component: 'input',
         field: 'name',
         modifier: 'trim',
         label: '姓名',
-        onInput: (val) => {
+        onInput: (val: string) => {
           console.log(val, 'input event')
         },
-        onChange: (val) => {
+        onChange: (val: string) => {
           console.log(val, 'change event')
         },
         rules: {
@@ -39,14 +40,14 @@ const columns = [
     ],
   },
   {
-    label: 'aaa',
+    label: '标题',
     children: [
       {
         component: 'select',
         field: 'sex',
         label: '性别',
         md: 12,
-        onChange: (val) => {
+        onChange: (val: string) => {
           console.log(val, 'change event')
         },
         onFocus: () => {
@@ -63,9 +64,20 @@ const columns = [
           startPlaceholder: '开始日期',
           endPlaceholder: '结束日期',
         },
-        onChange: (val) => {
+        onChange: (val: string) => {
           console.log(val, 'change event')
         },
+      },
+    ],
+  },
+  {
+    label: '禁用',
+    disabled: true,
+    children: [
+      {
+        component: 'input',
+        field: 'disabled',
+        label: '禁用',
       },
     ],
   },
@@ -74,14 +86,14 @@ const columns = [
   },
 ]
 
-const reset = () => {
+function reset() {
   formRef.value.resetFields()
 }
 
-const submit = () => {
+function submit() {
   formRef.value.validate((valid: boolean) => {
     if (valid) {
-      alert('submit!')
+      ElMessage.success('成功')
       console.log(formData.value, 'config.formData')
     }
     else {
@@ -89,10 +101,6 @@ const submit = () => {
       return false
     }
   })
-}
-
-const handleCollapseChange = (val: string) => {
-  console.log(val, 'val')
 }
 </script>
 
@@ -107,7 +115,6 @@ const handleCollapseChange = (val: string) => {
     size="default"
     type="collapse"
     accordion
-    @collapse-change="handleCollapseChange"
   >
     <template #operate>
       <el-button type="primary" @click="submit">
