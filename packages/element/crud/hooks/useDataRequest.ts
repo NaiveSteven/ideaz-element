@@ -2,7 +2,7 @@ import { get, pick } from 'lodash-unified'
 import { isFunction, isObject, isString } from '@ideaz/utils'
 import type { ElTable } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
-import { tableKeys } from '../src/props'
+import { FILTER_TABLE_KEYS, tableKeys } from '../src/props'
 import type { CrudProps, RequestConfig } from '../src/props'
 import type { Pagination } from '../../types'
 import { useCrudConfig } from './useCrudConfig'
@@ -73,7 +73,7 @@ export function useDataRequest(props: CrudProps, emit: any) {
 
   const tableProps = computed<any>(() => {
     return {
-      ...pick(props, tableKeys),
+      ...pick(props, tableKeys.filter(key => !FILTER_TABLE_KEYS.includes(key))),
       'columns': tableColumns.value,
       ...attrs,
       'fullScreenElement': document.getElementsByClassName('z-crud')[0],

@@ -154,3 +154,5 @@ export type CrudProps = ExtractPropTypes<typeof crudProps>
 export const crudProvideKey = Symbol('crudKey')
 export const EXCLUDE_FORM_PROPS_KEYS = ['columns', 'dialog']
 export const COLUMN_TYPE_FIELDS = ['type', 'slot', 'label', 'render', 'prop', '__uid']
+
+export const FILTER_TABLE_KEYS = ['watermark']
