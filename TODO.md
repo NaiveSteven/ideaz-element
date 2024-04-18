@@ -120,7 +120,7 @@
 103. `z-table`的`row-key`处理，`editApi`等
 104. `z-crud`表单数据处理，`addFormData`和`editFormData`
 105. ~~`z-crud`编辑查看处理~~
-106. `z-crud`水印问题
+106. ~~`z-crud`水印问题~~
 107. `z-crud`操作项`action`和`add`等属性逻辑关联处理问题
 108. `z-crud`的`editDetail`支持自定义参数
 109. `z-crud`的`transformEditDetail`优化
@@ -133,7 +133,7 @@
 116. `z-table`支持默认插槽、支持模板配置
 117. ~~`z-form`组件代码优化，抽取组件（暂不抽取）~~
 118. `ToolBar`组件重构
-119. `z-form`、`z-table`等组件`component`字段支持直接传入组件
+119. ~~`z-form`组件`component`字段支持直接传入组件~~
 120. `z-table`组件`column`项的`click`、`hide`、`disabled`、`render`等属性支持参数统一
 121. `z-crud`组件文档优化，添加普通属性文档、插槽文档等
 122. 组件内部写法`-`改为大驼峰
@@ -141,6 +141,7 @@
 124. 组件插槽都支持`slot`和`render`函数
 125. `z-table`等组件查询时，表单禁用
 126. ~~`z-table`支持`title`~~
+127. `z-table`组件`column`配置项优化（目前仍是使用`type`、`attrs`等属性）
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
