@@ -21,14 +21,15 @@ export function resolveDynamicComponent(options: ResolveOptions) {
       : nativeTags.includes(options.name as string)
         ? options.name
         : getCurrentInstance()!.appContext!.components[toCamelCase(options.name as string)]
-    return h(
-      // resolveComponent(options.name),
-      cop,
-      {
-        ...(options.attrs || {}),
-      },
-      options.content || {},
-    )
+    return cop
+      ? h(
+        // resolveComponent(options.name),
+        cop,
+        {
+          ...(options.attrs || {}),
+        },
+        options.content || {},
+      ) : h('div')
   }
   // return
   // <name {...{ props: options.attrs || {} }} {...{ on: options.events || {} }}>

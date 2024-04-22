@@ -34,31 +34,11 @@ const columns = [
   },
   {
     label: '标题',
-    children: [
-      {
-        component: 'select',
-        field: 'sex',
-        label: '性别',
-      },
-    ],
+    render: () => h('span', 'custom content'),
   },
   {
-    component: 'input',
-    field: 'address',
     label: '地址',
-  },
-  {
-    component: 'datepicker',
-    field: 'time',
-    label: '出生日期',
-    fieldProps: {
-      type: 'daterange',
-      startPlaceholder: '开始日期',
-      endPlaceholder: '结束日期',
-    },
-    onChange: (val: string) => {
-      console.log(val, 'change event')
-    },
+    slot: 'addressSlot',
   },
   {
     slot: 'operate',
@@ -94,6 +74,9 @@ function submit() {
     size="default"
     type="collapse"
   >
+    <template #addressSlot>
+      <div>自定义地址</div>
+    </template>
     <template #operate>
       <el-button type="primary" @click="submit">
         提交

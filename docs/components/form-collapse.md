@@ -11,7 +11,7 @@
 <preview path="../demo/form-collapse/normal.vue" />
 ## 标题
 
-默认`column`项的`label`字段为折叠项的`name`，如果`label`为函数，请额外传入`key`字段。支持`slot`插槽。
+默认`column`项的`label`字段为折叠项的`name`，如果`label`为函数或不想将`label`作为折叠项`name`，请额外传入`key`字段。支持`slot`插槽自定义标题。
 
 <preview path="../demo/form-collapse/label.vue" />
 
@@ -21,11 +21,11 @@
 
 <preview path="../demo/form-collapse/collapse.vue" />
 
-## 结合表单
+## 自定义内容
 
-当`ZForm`组件`type`属性为`collapse`时，`column`项不配置`children`字段或无数据，则该`column`默认渲染成表单项。
+当`ZForm`组件`type`属性为`collapse`时，`column`项可配置`slot`或`render`自定义折叠内容。
 
-<preview path="../demo/form-collapse/combination.vue" />
+<preview path="../demo/form-collapse/custom.vue" />
 ## 折叠展开事件
 
 `collapse-change`事件返回当前展开的折叠项`label`，直接绑定`ZForm`组件即可。
