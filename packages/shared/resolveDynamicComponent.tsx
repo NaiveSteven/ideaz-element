@@ -1,32 +1,35 @@
 import { getCurrentInstance, isVue2, isVue3 } from 'vue-demi'
-import { toCamelCase } from '@ideaz/utils'
+import { isObject, toCamelCase } from '@ideaz/utils'
 
 interface IndexType {
   [propName: string]: any
 }
 
 interface ResolveOptions {
-  name: string
+  name: string | object
   attrs: IndexType
   content?: any
 }
 
-export const resolveDynamicComponent = (options: ResolveOptions) => {
+export function resolveDynamicComponent(options: ResolveOptions) {
   const nativeTags = ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
-  const cop = isVue2
-    ? options.name
-    : nativeTags.includes(options.name)
-      ? options.name
-      : getCurrentInstance()!.appContext!.components[toCamelCase(options.name)]
   if (isVue3) {
-    return h(
-      // resolveComponent(options.name),
-      cop,
-      {
-        ...(options.attrs || {}),
-      },
-      options.content || {},
-    )
+    if (isObject(options.name))
+      return h(options.name, options.attrs || {}, options.content || {})
+    const cop = isVue2
+      ? options.name
+      : nativeTags.includes(options.name as string)
+        ? options.name
+        : getCurrentInstance()!.appContext!.components[toCamelCase(options.name as string)]
+    return cop
+      ? h(
+        // resolveComponent(options.name),
+        cop,
+        {
+          ...(options.attrs || {}),
+        },
+        options.content || {},
+      ) : h('div')
   }
   // return
   // <name {...{ props: options.attrs || {} }} {...{ on: options.events || {} }}>

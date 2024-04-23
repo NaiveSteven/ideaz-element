@@ -103,6 +103,10 @@ export default defineConfig({
                       text: '组表单',
                       link: '/components/form-group',
                     },
+                    {
+                      text: '折叠表单',
+                      link: '/components/form-collapse',
+                    },
                   ],
                 },
               ],

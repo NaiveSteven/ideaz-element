@@ -165,7 +165,7 @@ export default defineComponent({
             onChange={(val: CollapseModelValue) => { emit('collapse-change', val) }}
           >
             {formatFormItems.value.map((column) => {
-              if (column.label && column.children && column.children.length) {
+              if (column.label || column.key) {
                 const name = isString(column.label) ? column.label : column.key
                 return (
                   <ElCollapseItem
@@ -175,11 +175,11 @@ export default defineComponent({
                       title: () => getContentByRenderAndSlot(column.label, slots),
                     }}
                   >
-                    {renderCommonColumn(column.children || [])}
+                    {column.render?.() || slots[column.slot || '']?.() || renderCommonColumn(column.children || [])}
                   </ElCollapseItem>
                 )
               }
-              return renderCommonColumn([column])
+              return null
             })}
           </ElCollapse>
         )

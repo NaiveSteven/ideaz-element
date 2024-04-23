@@ -1,7 +1,7 @@
 import { ElAlert, ElButton, ElDrawer, useAttrs } from 'element-plus'
 import { omit } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isObject, isString } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
 import { useFormMethods } from '../../form/hooks'
 import {
@@ -295,14 +295,37 @@ export default defineComponent({
       return isFunction(slots.crudMiddle) ? slots.crudMiddle() : null
     }
 
+    const renderCrudDecorator = () => {
+      const content = () => (
+        <>
+          {renderSearchForm()}
+          {renderMiddleContent()}
+          {renderTable()}
+        </>
+      )
+      if (isString(props.watermark)) {
+        return (
+          <z-watermark content={props.watermark} gapY={80}>
+            {content()}
+          </z-watermark>
+        )
+      }
+      if (isObject(props.watermark)) {
+        return (
+          <z-watermark {...{ gapY: 80, ...props.watermark }}>
+            {content()}
+          </z-watermark>
+        )
+      }
+      return content()
+    }
+
     return () => {
       // eslint-disable-next-line no-console
       console.log('刷新')
       return (
         <div class={ns.b('')}>
-          {renderSearchForm()}
-          {renderMiddleContent()}
-          {renderTable()}
+          {renderCrudDecorator()}
           {renderDialog()}
           {renderDrawer()}
         </div>

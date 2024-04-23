@@ -13,4 +13,9 @@ export default antfu(
       markdown: 'prettier',
     },
   },
+  {
+    rules: {
+      'style/multiline-ternary': 'off',
+    },
+  },
 )

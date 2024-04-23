@@ -8,10 +8,9 @@
 
 ## 基础用法
 
-- 传入`columns`定义表单，`modelValue`为表单数据，`options`为数据配置项
+- 传入`columns`定义表单，`modelValue`为表单数据，`options`为数据配置项，`component`为表单项组件，`field`为字段名， `fieldProps`为组件属性配置，`formItemProps`为表单项装饰组件属性配置
+- `FormItem`组件属性（表单项装饰组件）属性配置在`formItemProps`字段中，有些字段为了方便使用，直接配置在`column`项中也可生效（如：`label`、`required`、`message`、`rule`等）
 - 事件使用`on`+`事件名`
-- 表单项组件属性直接在`column`项中配置即可
-- `FormItem`组件属性（表单项装饰组件）属性配置在`formItemProps`字段中，有些字段为了方便使用，直接配置在`column`项中也可生效（如：`label`、`required`、`message`等）
 
 <preview path="../demo/form/normal.vue" />
 
@@ -61,14 +60,6 @@
 `label`和`error`支持传入字符串、`render`函数或`拼接Slot的字符串`
 
 <preview path="../demo/form/custom-label.vue" />
-## 可折叠表单
-
-表单类型`type`传入`collapse`，`columns`中配置`children（表单项）`，可以实现可折叠表单。
-
-默认`columns`项的`label`字段为折叠项的`name`，如果`label`为函数，请额外传入`key`字段。
-
-<preview path="../demo/form/collapse-form.vue" />
-
 ## 数组表单
 
 表单类型`type`传入`array`，`columns`中配置`children（表单项）`，可以实现数组表单。

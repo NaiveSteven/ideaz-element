@@ -1,5 +1,7 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { ElInput } from 'element-plus'
 
 const formRef = ref()
 const formData = ref({
@@ -17,13 +19,13 @@ const options = {
 
 const columns = [
   {
-    component: 'input',
+    component: ElInput,
     field: 'name',
     label: '姓名',
-    onInput: (val) => {
+    onInput: (val: string) => {
       console.log(val, 'input event')
     },
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
     required: true,
@@ -32,7 +34,7 @@ const columns = [
     component: 'select',
     field: 'sex',
     label: '性别',
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
     onFocus: () => {
@@ -48,7 +50,7 @@ const columns = [
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
     },
-    onChange: (val) => {
+    onChange: (val: string[]) => {
       console.log(val, 'change event')
     },
   },
@@ -57,19 +59,17 @@ const columns = [
   },
 ]
 
-const reset = () => {
+function reset() {
   formRef.value.resetFields()
 }
 
-const submit = () => {
+function submit() {
   formRef.value.validate((valid: boolean) => {
-    if (valid) {
-      alert('success')
+    if (valid)
       console.log(formData.value, 'config.formData')
-    }
-    else {
+
+    else
       console.log('error')
-    }
   })
 }
 </script>
@@ -84,7 +84,7 @@ const submit = () => {
     size="small"
   >
     <template #button>
-      <div class="flex w-full">
+      <div class="w-full flex">
         <el-button class="w-full" @click="reset">
           重置
         </el-button>

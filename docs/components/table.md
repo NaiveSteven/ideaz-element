@@ -42,6 +42,10 @@
 
 <preview path="../demo/table/pagination.vue" />
 
+配置`paginationLeft`、`paginationRight`、`paginationTop`、`paginationBottom`插槽实现分页上下左右内容自定义。
+
+<preview path="../demo/table/pagination-slot.vue" />
+
 ## 前端分页
 
 配置`pagination`的`type`为`front`，开启前端分页功能，`totalData`字段传入所有数据。
