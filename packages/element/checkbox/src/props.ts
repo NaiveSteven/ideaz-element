@@ -43,3 +43,5 @@ export const checkboxProps = {
 }
 
 export type CheckboxProps = ExtractPropTypes<typeof checkboxProps>
+
+export const CHECKBOX_FILTER_PROPS = ['options', 'border']
