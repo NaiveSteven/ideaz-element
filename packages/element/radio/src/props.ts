@@ -44,3 +44,5 @@ export const radioProps = {
 }
 
 export type RadioProps = ExtractPropTypes<typeof radioProps>
+
+export const FILTER_RADIO_PROPS = ['border', 'options']

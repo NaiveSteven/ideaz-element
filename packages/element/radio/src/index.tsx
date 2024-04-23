@@ -1,16 +1,16 @@
+import { ElRadioGroup } from 'element-plus'
 import { resolveDynamicComponent } from '@ideaz/shared'
 import { isFunction, isValid } from '@ideaz/utils'
-import { get } from 'lodash-unified'
-import { radioProps } from './props'
+import { get, omit } from 'lodash-unified'
+import { FILTER_RADIO_PROPS, radioProps } from './props'
 import type { RadioOptionsItem } from './props'
 
 export default defineComponent({
   name: 'ZRadio',
   props: radioProps,
   emits: ['input', 'update:modelValue'],
-  setup(props, { emit, listeners = {} }) {
-    const { attrsAll, onAll } = useFormComponentAttrs(props)
-    const { vModelVal, handleInput } = useVModel(props, emit)
+  setup(props, { emit }) {
+    const { vModelVal } = useVModel(props, emit)
     const size = useFormSize()
     const attrs = useAttrs()
 
@@ -24,15 +24,11 @@ export default defineComponent({
 
     return () => {
       return (
-        <el-radio-group
-          {...{ props: attrsAll.value }}
-          {...{ on: { ...onAll.value, ...listeners } }}
-          {...{ ...attrs, ...props }}
-          value={vModelVal.value}
+        <ElRadioGroup
+          {...{ ...attrs, ...omit(props, FILTER_RADIO_PROPS) }}
           modelValue={vModelVal.value}
           size={size.value}
-          onInput={handleInput}
-          onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
+          onUpdate:modelValue={(val: string | number | boolean | undefined) => (vModelVal.value = val)}
         >
           {props.options.map((option) => {
             const ChildName = getChildComponentName(option)
@@ -59,7 +55,7 @@ export default defineComponent({
               content: () => get(option, props.alias?.label || 'label', ''),
             })
           })}
-        </el-radio-group>
+        </ElRadioGroup>
       )
     }
   },
