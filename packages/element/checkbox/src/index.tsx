@@ -1,7 +1,9 @@
+import { ElCheckboxGroup } from 'element-plus'
 import { resolveDynamicComponent } from '@ideaz/shared'
 import { isValid } from '@ideaz/utils'
-import { get } from 'lodash-unified'
-import { checkboxProps } from './props'
+import { get, omit } from 'lodash-unified'
+import type { CheckboxGroupValueType } from 'element-plus'
+import { CHECKBOX_FILTER_PROPS, checkboxProps } from './props'
 import type { CheckboxOptionsItem } from './props'
 
 export default defineComponent({
@@ -9,9 +11,8 @@ export default defineComponent({
   inheritAttrs: false,
   props: checkboxProps,
   emits: ['input', 'update:modelValue'],
-  setup: (props, { emit, listeners = {} }) => {
-    const { attrsAll, onAll } = useFormComponentAttrs(props)
-    const { vModelVal, handleInput } = useVModel(props, emit)
+  setup: (props, { emit }) => {
+    const { vModelVal } = useVModel(props, emit)
     const size = useFormSize()
     const attrs = useAttrs()
 
@@ -25,15 +26,11 @@ export default defineComponent({
 
     return () => {
       return (
-        <el-checkbox-group
-          {...{ props: attrsAll.value }}
-          {...{ on: { ...onAll.value, ...listeners } }}
-          {...{ ...attrs, ...props }}
+        <ElCheckboxGroup
+          {...{ ...attrs, ...omit(props, CHECKBOX_FILTER_PROPS) }}
           size={size.value}
-          value={vModelVal.value}
           modelValue={vModelVal.value}
-          onInput={handleInput}
-          onUpdate:modelValue={(val: string) => (vModelVal.value = val)}
+          onUpdate:modelValue={(val: CheckboxGroupValueType) => (vModelVal.value = val)}
         >
           {props.options
             .map((option) => {
@@ -51,7 +48,7 @@ export default defineComponent({
                 content: () => get(option, props.alias?.label || 'label', ''),
               })
             })}
-        </el-checkbox-group>
+        </ElCheckboxGroup>
       )
     }
   },

@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -8,8 +9,12 @@ const options = ref([
 ])
 
 const radioVal = ref(1)
+
+function handleRadioChange(val: number) {
+  console.log('radio change:', val)
+}
 </script>
 
 <template>
-  <z-radio v-model="radioVal" :options="options" />
+  <z-radio v-model="radioVal" :options="options" @change="handleRadioChange" />
 </template>
