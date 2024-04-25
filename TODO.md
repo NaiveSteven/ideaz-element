@@ -143,7 +143,8 @@
 126. ~~`z-table`支持`title`~~
 127. `z-table`组件`column`配置项优化（目前仍是使用`type`、`attrs`等属性）
 128. ~~`z-input`和`z-select`组件方法按官方更新~~
-129. `z-select`组件`props`优化
+129. ~~`z-select`组件`props`优化~~
+130. `z-select`等组件`render`和插槽参数统一
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
