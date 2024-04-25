@@ -56,6 +56,10 @@
 
 <preview path="../demo/select/slot.vue" />
 
+支持`tag`、`loading`、`header`、`footer`等插槽
+
+<preview path="../demo/select/slot-more.vue" />
+
 ## z-select 属性
 
 | 属性名                           | 说明                                                         | 类型                                       | 可选值                                                       | 默认值           |

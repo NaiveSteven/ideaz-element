@@ -7,11 +7,6 @@ export interface SelectOptionsItem extends OptionsItem {
 }
 
 export const selectProps = {
-  value: {
-    type: [String, Number, Array, Boolean],
-    default: '',
-    required: false,
-  },
   modelValue: {
     type: [String, Number, Array, Boolean],
     default: '',
@@ -38,6 +33,6 @@ export const selectProps = {
   },
 }
 
-export const SELECT_SLOTS = ['prefix', 'empty']
+export const SELECT_SLOTS = ['prefix', 'empty', 'tag', 'loading', 'header', 'footer']
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>
