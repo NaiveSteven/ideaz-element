@@ -10,7 +10,7 @@ export default defineComponent({
   name: 'ZSelect',
   props: selectProps,
   emits: ['input', 'update:modelValue'],
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots, expose }) {
     const { vModelVal } = useVModel(props, emit)
     const { focus, blur } = useSelectMethods()
     const { scopedSlots } = useFormComponentSlots(props, slots, SELECT_SLOTS)
@@ -18,7 +18,7 @@ export default defineComponent({
     const size = useFormSize()
     const attrs = useAttrs()
 
-    useExpose({ focus, blur })
+    expose({ focus, blur })
 
     const getOption = (option: SelectOptionsItem) => {
       const value = get(option, props.alias?.value || 'value', '')

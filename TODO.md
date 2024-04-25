@@ -142,7 +142,7 @@
 125. `z-table`等组件查询时，表单禁用
 126. ~~`z-table`支持`title`~~
 127. `z-table`组件`column`配置项优化（目前仍是使用`type`、`attrs`等属性）
-128. `z-input`和`z-select`组件方法按官方更新
+128. ~~`z-input`和`z-select`组件方法按官方更新~~
 129. `z-select`组件`props`优化
      1201_3z0x8etu5vvckcr
 
