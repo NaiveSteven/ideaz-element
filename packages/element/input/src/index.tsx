@@ -8,13 +8,13 @@ export default defineComponent({
   inheritAttrs: false,
   props: zInputProps,
   emits: inputEmits,
-  setup: (props, { emit, slots }) => {
+  setup: (props, { emit, slots, expose }) => {
     const { vModelVal } = useVModel(props, emit)
     const { scopedSlots } = useFormComponentSlots(props, slots, INPUT_SLOTS)
     const { focus, blur, select, clear, resizeTextarea } = useInputMethods()
     const size = useFormSize()
     const attrs = useAttrs()
-    useExpose({ focus, blur, select, clear, resizeTextarea })
+    expose({ focus, blur, select, clear, resizeTextarea })
 
     return () => {
       return (

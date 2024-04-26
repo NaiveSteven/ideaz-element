@@ -2,15 +2,15 @@ import { isFunction, isString } from '@ideaz/utils'
 import type { Ref, Slot } from 'vue-demi'
 
 export interface Slots {
-  [name: string]: undefined | string | (() => JSX.Element) | Slot
+  [name: string]: undefined | string | (() => VNode) | Slot
 }
 
-export const useFormComponentSlots = (props: Record<any, any>, slots: Slots, slotKeys: string[]) => {
+export function useFormComponentSlots(props: Record<any, any>, slots: Slots, slotKeys: string[]) {
   const scopedSlots: Ref<Slots> = shallowRef({})
 
   const getSlotContent = (
-    slot: string | (() => JSX.Element) | undefined | Slot,
-    defaultContent: Slot | (() => JSX.Element) | undefined = () => <span />,
+    slot: string | (() => VNode) | undefined | Slot,
+    defaultContent: Slot | (() => VNode) | undefined = () => <span />,
   ) => {
     if (isFunction(slot))
       return slot
