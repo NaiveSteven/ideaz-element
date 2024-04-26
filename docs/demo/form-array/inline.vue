@@ -1,5 +1,7 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
 
 const formRef = ref()
 const formData = ref({
@@ -50,6 +52,8 @@ const columns = [
   {
     label: '文本2',
     field: 'b',
+    extra: 'asdfsdf',
+    tooltip: '提示',
     children: [
       {
         component: 'select',
@@ -90,15 +94,15 @@ const columns = [
   },
 ]
 
-const reset = () => {
+function reset() {
   formRef.value.resetFields()
 }
 
-const submit = () => {
+function submit() {
   formRef.value.validate((valid: boolean, data) => {
     console.log(formData.value, data, 'config.formData')
     if (valid)
-      alert('success')
+      ElMessage.success('提交成功')
 
     else
       console.log('error')
@@ -118,7 +122,7 @@ const submit = () => {
     type="array"
   >
     <template #operate>
-      <div class="flex w-full">
+      <div class="w-full flex">
         <el-button class="w-full" @click="reset">
           重置
         </el-button>

@@ -107,6 +107,10 @@ export default defineConfig({
                       text: '折叠表单',
                       link: '/components/form-collapse',
                     },
+                    {
+                      text: '数组表单',
+                      link: '/components/form-array',
+                    },
                   ],
                 },
               ],
