@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 
@@ -26,14 +27,7 @@ const columns = [
         field: 'name',
         modifier: 'trim',
         label: '姓名',
-        onInput: (val) => {
-          console.log(val, 'input event')
-        },
-        onChange: (val) => {
-          console.log(val, 'change event')
-        },
         required: true,
-        error: '姓名必填',
       },
     ],
   },
@@ -45,13 +39,6 @@ const columns = [
         component: 'select',
         field: 'sex',
         label: '性别',
-        onChange: (val) => {
-          console.log(val, 'change event')
-        },
-        onFocus: () => {
-          console.log('focus event')
-        },
-        required: true,
       },
       {
         component: 'datepicker',
@@ -62,31 +49,13 @@ const columns = [
           startPlaceholder: '开始日期',
           endPlaceholder: '结束日期',
         },
-        onChange: (val) => {
-          console.log(val, 'change event')
-        },
       },
     ],
   },
 ]
 
-const handlePrevious = () => {
-  activeStep.value--
-}
-
-const handleNext = () => {
-  formRef.value.validate((val) => {
-    if (val) activeStep.value++
-  })
-}
-
-const submit = () => {
-  formRef.value.validate((val) => {
-    if (val) {
-      alert('success')
-      console.log(formData.value, 'success')
-    }
-  })
+function submit() {
+  console.log(formData.value, 'success')
 }
 </script>
 
@@ -100,17 +69,8 @@ const submit = () => {
     label-width="80px"
     size="default"
     type="step"
-  >
-    <template #footer>
-      <el-button :disabled="activeStep === 0" @click="handlePrevious">
-        上一步
-      </el-button>
-      <el-button :disabled="activeStep === 1" @click="handleNext">
-        下一步
-      </el-button>
-      <el-button v-if="activeStep === 1" @click="submit">
-        提交
-      </el-button>
-    </template>
-  </z-form>
+    process-status="error"
+    finish-status="success"
+    @submit="submit"
+  />
 </template>

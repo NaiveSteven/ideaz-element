@@ -61,20 +61,6 @@
 
 <preview path="../demo/form/custom-label.vue" />
 
-## 步骤条表单
-
-表单类型`type`传入`step`，`columns`中配置`children（表单项）`，可以实现步骤条表单。
-
-`column`中配置`label`、`description`、`icon`和`status`，可以配置步骤条文案、描述、图标和状态。
-
-需要配置`el-step`组件属性，如：`process-status`、`finish-status`、`align-center`等，直接通过`z-form`传入。
-
-<preview path="../demo/form/step-form.vue" />
-
-配置`footer`插槽或者`render`函数可以自定义步骤条底部内容。
-
-<preview path="../demo/form/step-form-footer.vue" />
-
 ## z-form属性
 
 | 属性名                  | 说明                                                         | 类型                   | 默认  |

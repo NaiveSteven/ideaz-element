@@ -111,6 +111,10 @@ export default defineConfig({
                       text: '数组表单',
                       link: '/components/form-array',
                     },
+                    {
+                      text: '步骤表单',
+                      link: '/components/form-step',
+                    },
                   ],
                 },
               ],
