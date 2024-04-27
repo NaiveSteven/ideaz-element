@@ -1,4 +1,4 @@
-import { isFunction, isString } from '@ideaz/utils'
+import { getRowKey } from '@ideaz/shared'
 import { radioColumnProps } from './props'
 
 export default defineComponent({
@@ -12,17 +12,6 @@ export default defineComponent({
       return { width: 48, align: 'center', ...props.column }
     })
 
-    const getRowKey = (rowData: any) => {
-      const { rowKey } = props.tableProps
-      if (isFunction(rowKey))
-        return rowKey(rowData)
-
-      if (isString(rowKey))
-        return rowData[rowKey]
-
-      return rowData.id
-    }
-
     const handleRadioChange = (row: any) => {
       emit('radio-change', row)
     }
@@ -34,11 +23,7 @@ export default defineComponent({
 
     const toggleRadioSelection = (row: any) => {
       const { rowKey } = props.tableProps
-      const rowKeyVal = isFunction(rowKey)
-        ? rowKey(row)
-        : isString(rowKey)
-          ? row[rowKey]
-          : row.id
+      const rowKeyVal = getRowKey(row, rowKey)
       radioValue.value = rowKeyVal
       handleRadioChange(row)
     }
@@ -49,15 +34,22 @@ export default defineComponent({
     })
 
     return () => {
-      return <el-table-column {...attrsAll.value} v-slots={{
-        default: ({ row }: any) => {
-          return <el-radio
-            v-model={radioValue.value}
-            label={getRowKey(row)}
-            onChange={() => handleRadioChange(row)}
-          />
-        },
-      }} />
+      return (
+        <el-table-column
+          {...attrsAll.value}
+          v-slots={{
+            default: ({ row }: any) => {
+              return (
+                <el-radio
+                  v-model={radioValue.value}
+                  label={getRowKey(row, props.tableProps?.rowKey)}
+                  onChange={() => handleRadioChange(row)}
+                />
+              )
+            },
+          }}
+        />
+      )
     }
   },
 })
