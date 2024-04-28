@@ -1,5 +1,7 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
 
 const formRef = ref()
 const formData = ref([{
@@ -21,24 +23,12 @@ const columns = [
     field: 'name',
     modifier: 'trim',
     label: '姓名',
-    onInput: (val) => {
-      console.log(val, 'input event')
-    },
-    onChange: (val) => {
-      console.log(val, 'change event')
-    },
     required: true,
   },
   {
     component: 'select',
     field: 'sex',
     label: '性别',
-    onChange: (val) => {
-      console.log(val, 'change event')
-    },
-    onFocus: () => {
-      console.log('focus event')
-    },
   },
   {
     component: 'datepicker',
@@ -49,21 +39,18 @@ const columns = [
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
     },
-    onChange: (val) => {
-      console.log(val, 'change event')
-    },
   },
 ]
 
-const reset = () => {
+function reset() {
   formRef.value.resetFields()
 }
 
-const submit = () => {
+function submit() {
   formRef.value.validate((valid: boolean, data) => {
     console.log(formData.value, data, 'config.formData')
     if (valid)
-      alert('success')
+      ElMessage.success('提交成功')
 
     else
       console.log('error')
@@ -82,7 +69,7 @@ const submit = () => {
     size="small"
     type="array"
   />
-  <div class="flex w-full mt-4">
+  <div class="mt-4 w-full flex">
     <el-button class="w-full" @click="reset">
       重置
     </el-button>

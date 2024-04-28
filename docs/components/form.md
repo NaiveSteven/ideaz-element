@@ -60,38 +60,11 @@
 `label`和`error`支持传入字符串、`render`函数或`拼接Slot的字符串`
 
 <preview path="../demo/form/custom-label.vue" />
-## 数组表单
-
-表单类型`type`传入`array`，`columns`中配置`children（表单项）`，可以实现数组表单。
-
-表单或表单项（`column`）配置`max`，可以限制数组表单项最大数量。
-
-<preview path="../demo/form/array-form.vue" />
-
-## 内置数组表单
-
-复杂的内置数组表单案列。想要校验表单项，可以直接调用表单`validate`方法。
-
-<preview path="../demo/form/inline-array-form.vue" />
-
-## 步骤条表单
-
-表单类型`type`传入`step`，`columns`中配置`children（表单项）`，可以实现步骤条表单。
-
-`column`中配置`label`、`description`、`icon`和`status`，可以配置步骤条文案、描述、图标和状态。
-
-需要配置`el-step`组件属性，如：`process-status`、`finish-status`、`align-center`等，直接通过`z-form`传入。
-
-<preview path="../demo/form/step-form.vue" />
-
-配置`footer`插槽或者`render`函数可以自定义步骤条底部内容。
-
-<preview path="../demo/form/step-form-footer.vue" />
 
 ## z-form属性
 
-| 属性名                    | 说明                                                                                        | 类型                                               | 默认值   |
-| :------------------------ | :------------------------------------------------------------------------------------------ | :------------------------------------------------- | :------- | ------------------------------------------------------------ | --- |
+| 属性名                  | 说明                                                         | 类型                   | 默认  |
+| :---------------------- | :----------------------------------------------------------- | :--------------------- | :---- |
 | modelValue                | 表单数据对象                                                                                | `object`                                           | —        |
 | type                      | 表单类型                                                                                    | `normal` / `group` / `collapse` / `array` / `step` | `normal` |
 | rules                     | 表单验证规则                                                                                | `object`                                           | —        |

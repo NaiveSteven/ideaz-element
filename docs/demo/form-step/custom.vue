@@ -18,23 +18,14 @@ const options = {
 
 const columns = [
   {
-    label: '第一步',
-    description: '描述内容',
+    label: 'firstLabelSlot',
+    description: 'firstDescSlot',
     children: [
       {
         component: 'input',
         field: 'name',
-        modifier: 'trim',
         label: '姓名',
-        onInput: (val) => {
-          console.log(val, 'input event')
-        },
-        onChange: (val) => {
-          console.log(val, 'change event')
-        },
-        rules: {
-          required: true,
-        },
+        required: true,
       },
     ],
   },
@@ -46,15 +37,7 @@ const columns = [
         component: 'select',
         field: 'sex',
         label: '性别',
-        onChange: (val) => {
-          console.log(val, 'change event')
-        },
-        onFocus: () => {
-          console.log('focus event')
-        },
-        rules: {
-          required: true,
-        },
+        required: true,
       },
       {
         component: 'datepicker',
@@ -65,25 +48,13 @@ const columns = [
           startPlaceholder: '开始日期',
           endPlaceholder: '结束日期',
         },
-        onChange: (val) => {
-          console.log(val, 'change event')
-        },
       },
     ],
   },
 ]
-
-const reset = () => {
-  formRef.value.resetFields()
-}
-
-const submit = () => {
-  console.log(formData.value, 'success')
-}
 </script>
 
 <template>
-  {{ activeStep }}
   <z-form
     ref="formRef"
     v-model="formData"
@@ -93,6 +64,12 @@ const submit = () => {
     label-width="80px"
     size="default"
     type="step"
-    @submit="submit"
-  />
+  >
+    <template #firstLabelSlot>
+      <span>custom label</span>
+    </template>
+    <template #firstDescSlot>
+      <span>custom description</span>
+    </template>
+  </z-form>
 </template>
