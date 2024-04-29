@@ -117,7 +117,7 @@
 100. `z-crud`操作按钮权限
 101. ~~`z-crud`接口支持参数自定义~~
 102. ~~`z-table`前端分页优化~~
-103. `z-table`的`row-key`处理，`editApi`等
+103. ~~`z-table`的`row-key`处理，`editApi`等~~
 104. `z-crud`表单数据处理，`addFormData`和`editFormData`
 105. ~~`z-crud`编辑查看处理~~
 106. ~~`z-crud`水印问题~~
@@ -144,7 +144,7 @@
 127. `z-table`组件`column`配置项优化（目前仍是使用`type`、`attrs`等属性）
 128. ~~`z-input`和`z-select`组件方法按官方更新~~
 129. ~~`z-select`组件`props`优化~~
-130. `z-select`等组件`render`和插槽参数统一
+130. `z-form`组件`extra`属性和`error`冲突问题
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
