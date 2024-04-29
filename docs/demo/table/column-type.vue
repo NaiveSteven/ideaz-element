@@ -46,12 +46,12 @@ const columns = ref([
     type: 'selection',
   },
   {
-    type: 'input',
+    component: 'input',
     prop: 'name',
     label: '姓名',
   },
   {
-    type: 'select',
+    component: 'select',
     prop: 'sex',
     label: '性别',
   },

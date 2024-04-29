@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -30,22 +31,22 @@ const tableData = ref([
 
 const columns = ref([
   {
-    type: 'input',
+    component: 'input',
     prop: 'name',
     label: '姓名',
   },
   {
-    type: 'select',
+    component: 'select',
     prop: 'sex',
     label: '性别',
   },
   {
-    type: 'input',
+    component: 'input',
     prop: 'age',
     label: '年龄',
   },
   {
-    type: 'datepicker',
+    component: 'datepicker',
     prop: 'time',
     label: '出生日期',
     attrs: {
@@ -64,18 +65,18 @@ const options = {
 const editable = {
   type: 'single',
   maxLength: 5,
-  onCancel: ({ row, index, column, formRef }) => {
-    console.log(row, 'row onCancel')
+  onCancel: ({ row, index, column, formRef }: any) => {
+    console.log(row, index, column, formRef, 'row onCancel')
   },
-  onSave: ({ row, index, column, formRef }) => {
-    console.log(row, 'row onSave')
+  onSave: ({ row, index, column, formRef }: any) => {
+    console.log(row, index, column, formRef, 'row onSave')
   },
-  onDelete: ({ row, index, column, formRef }) => {
-    console.log(row, 'row onDelete')
+  onDelete: ({ row, index, column, formRef }: any) => {
+    console.log(row, index, column, formRef, 'row onDelete')
   },
-  onEdit: ({ row, index, column, formRef }) => {
+  onEdit: ({ row, index, column, formRef }: any) => {
     row.__isEdit = true
-    console.log(row, 'row onEdit')
+    console.log(row, index, column, formRef, 'row onEdit')
   },
 }
 </script>

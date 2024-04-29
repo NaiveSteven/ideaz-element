@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -30,22 +31,22 @@ const tableData = ref([
 
 const columns = ref([
   {
-    type: 'input',
+    component: 'input',
     prop: 'name',
     label: '姓名',
   },
   {
-    type: 'select',
+    component: 'select',
     prop: 'sex',
     label: '性别',
   },
   {
-    type: 'input',
+    component: 'input',
     prop: 'age',
     label: '年龄',
   },
   {
-    type: 'datepicker',
+    component: 'datepicker',
     prop: 'time',
     label: '出生日期',
     attrs: {
@@ -61,7 +62,7 @@ const options = {
   ],
 }
 
-const handleClick = () => {
+function handleClick() {
   console.log(tableData.value, 'handleClick')
 }
 </script>
