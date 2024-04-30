@@ -48,7 +48,7 @@ const columns = ref([
     component: 'datepicker',
     prop: 'time',
     label: '出生日期',
-    attrs: {
+    fieldProps: {
       valueFormat: 'YYYY-MM-DD',
     },
   },

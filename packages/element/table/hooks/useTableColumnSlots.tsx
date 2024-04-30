@@ -14,10 +14,10 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
   const getLabel = (row: any) => {
     const { column = {} } = props
     const options = props.tableProps.options
-    if (column.component === 'radio' || (column.component === 'select' && !column.attrs?.multiple))
+    if (column.component === 'radio' || (column.component === 'select' && !column.fieldProps?.multiple))
       return options[column.prop] ? options[column.prop].find((item: { label: string, value: any }) => item.value === row?.[column.prop])?.label : ''
 
-    if ((column.component === 'select' && column.attrs?.multiple) || column.component === 'checkbox') {
+    if ((column.component === 'select' && column.fieldProps?.multiple) || column.component === 'checkbox') {
       const label: string[] = []
       if (row[column.prop]) {
         row[column.prop].forEach((item: any) => {
@@ -27,7 +27,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
       return label.join(',')
     }
     if (column.component === 'el-switch')
-      return row[column.prop] ? (column.attrs?.activeText || 'true') : (column.attrs?.inactiveText || 'false')
+      return row[column.prop] ? (column.fieldProps?.activeText || 'true') : (column.fieldProps?.inactiveText || 'false')
 
     return row[column.prop]
   }
@@ -82,7 +82,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
               'rowData': scope.row,
               size,
               'options': tableProps.options?.[column.prop] || [],
-              ...column.attrs,
+              ...column.fieldProps,
               'disabled':
                 isBoolean(column.disabled)
                   ? column.disabled
