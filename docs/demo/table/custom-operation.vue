@@ -30,43 +30,46 @@ const tableData = ref([
 
 const columns = ref([
   {
-    type: 'input',
+    component: 'input',
     prop: 'name',
     label: '姓名',
   },
   {
-    type: 'select',
+    component: 'select',
     prop: 'sex',
     label: '性别',
   },
   {
-    type: 'input',
+    component: 'input',
     prop: 'age',
     label: '年龄',
   },
   {
-    type: 'datepicker',
+    component: 'datepicker',
     prop: 'time',
     label: '出生日期',
-    attrs: {
+    fieldProps: {
       valueFormat: 'YYYY-MM-DD',
     },
   },
   {
     type: 'button',
     label: '操作',
-    buttons: ({ renderEdit, renderCancel, renderDelete, renderSave }, tableData) => {
+    buttons: ({ renderEdit, renderCancel, renderDelete, renderSave }: any, tableData: any) => {
       return [
         {
           type: 'primary',
           link: true,
           label: '复制',
-          hide: row => row.__isEdit,
-          onClick: (row) => {
+          hide: (row: any) => row.__isEdit,
+          onClick: (row: any) => {
             tableData.value.push({ ...row })
           },
         },
-        renderEdit, renderCancel, renderDelete, renderSave,
+        renderEdit,
+        renderCancel,
+        renderDelete,
+        renderSave,
       ]
     },
   },

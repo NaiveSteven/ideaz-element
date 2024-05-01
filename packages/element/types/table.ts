@@ -28,7 +28,7 @@ export interface TableCol {
   // slot?: string;
   // headerSlot?: string;
   type?: string
-  btnList?: BtnItem[]
+  component?: string | (() => string)
   buttons?: BtnItem[]
   attrs?: {
     [propName: string]: any
