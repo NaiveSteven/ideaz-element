@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -49,11 +50,23 @@ const columns = ref([
     component: 'input',
     prop: 'name',
     label: '姓名',
+    onChange: (rowData: any, val: string) => {
+      console.log('change event', rowData, val)
+    },
+    onInput: (rowData: any, val: string) => {
+      console.log('input event', rowData, val)
+    },
+    fieldProps: {
+      clearable: true,
+    },
   },
   {
     component: 'select',
     prop: 'sex',
     label: '性别',
+    onChange: (rowData: any, val: string) => {
+      console.log('change event', rowData, val)
+    },
   },
   {
     prop: 'age',

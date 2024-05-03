@@ -17,7 +17,7 @@ export default defineComponent({
     options: {
       type: Object,
     },
-    on: {
+    evts: {
       type: Object,
     },
     rowData: {
