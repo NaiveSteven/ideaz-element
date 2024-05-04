@@ -1,28 +1,12 @@
-import { useComponentMethods } from './useComponentMethods'
+import { toCamelCase } from '@ideaz/utils'
 
-export const useFormComponentAttrs = (props: Record<any, any>) => {
-  const { blur, focus, change, input, clear, visibleChange, removeTag }
-    = useComponentMethods(props)
-  const obj = {
-    blur,
-    focus,
-    change,
-    input,
-    clear,
-    visibleChange,
-    removeTag,
-  }
-
-  type EventType = keyof typeof obj
-
+export function useFormComponentAttrs(props: Record<any, any>) {
   const attrs = useAttrs()
   const onAll = computed(() => {
-    const newOn: {
-      [K in EventType]: any
-    } = {} as typeof obj
-    if (props.on) {
-      Object.keys(props.on).forEach((item) => {
-        newOn[item as keyof typeof obj] = obj[item as keyof typeof obj] || function () {}
+    const newOn: any = {}
+    if (props.evts) {
+      Object.keys(props.evts).forEach((eventName: string) => {
+        newOn[`on${toCamelCase(eventName)}`] = (...args: any) => (props.evts[eventName] || function () {})(props.rowData, ...args)
       })
     }
     return newOn

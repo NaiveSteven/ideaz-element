@@ -1,5 +1,5 @@
 import { Operation, QuestionFilled } from '@element-plus/icons-vue'
-import { isBoolean, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
+import { getEventsFromCamel, isBoolean, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import { ElIcon } from 'element-plus'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
@@ -69,6 +69,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
       ) {
         scopedSlots.value.default = (scope: any) => {
           const renderCustomComponent = () => {
+            const events = getEventsFromCamel(column)
             return h(resolveComponent(componentName), {
               'modelValue': scope.row[column.prop],
               'onUpdate:modelValue': (val: any) => {
@@ -78,7 +79,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
                 emit('update:data', list)
               },
               'componentName': getDynamicComponentName(column.component!),
-              'on': column.on,
+              'evts': events,
               'rowData': scope.row,
               size,
               'options': tableProps.options?.[column.prop] || [],
