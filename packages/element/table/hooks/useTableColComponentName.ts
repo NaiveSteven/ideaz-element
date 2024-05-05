@@ -1,4 +1,4 @@
-export const useTableColComponentName = () => {
+export function useTableColComponentName() {
   const getComponentName = (type: string | (() => string)) => {
     const cNames = ['select']
     const propComponentName = typeof type === 'function' ? type() : type
@@ -14,6 +14,8 @@ export const useTableColComponentName = () => {
     const eleNames = ['input', 'datepicker', 'switch']
     const propComponentName = typeof type === 'function' ? type() : type
 
+    if (propComponentName === 'select')
+      return 'z-select'
     if (eleNames.includes(propComponentName)) {
       if (propComponentName === 'datepicker')
         return 'el-date-picker'

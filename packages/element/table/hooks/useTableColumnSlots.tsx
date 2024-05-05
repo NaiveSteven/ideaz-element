@@ -58,8 +58,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
     () => props.column,
     () => {
       const { column = {}, size, tableProps } = props
-      const { getComponentName, getDynamicComponentName } = useTableColComponentName()
-      const componentName = getComponentName(column.component!)
+      const { getDynamicComponentName } = useTableColComponentName()
 
       if (
         !['index', 'selection', 'radio', undefined].includes(column.type)
@@ -70,7 +69,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
         scopedSlots.value.default = (scope: any) => {
           const renderCustomComponent = () => {
             const events = getEventsFromCamel(column)
-            return h(resolveComponent(componentName), {
+            return h(resolveComponent('z-table-custom-column-container'), {
               'modelValue': scope.row[column.prop],
               'onUpdate:modelValue': (val: any) => {
                 const rowData = { ...scope.row, [column.prop]: val }

@@ -6,6 +6,66 @@
 某些属性在`z-table`内部被默认配置，例如：`align` 设置为 `center`
 :::
 
+## 基础用法
+
+配置`column`生成表格项。`el-table`表格属性直接传入`z-table`，`el-table-column`属性在`column`中配置。
+
+<preview path="../demo/table/normal.vue" />
+
+## 表格标题
+
+配置`title`属性生成表格标题，支持字符串和函数类型，也可使用`tableTitle`插槽自定义。
+
+<preview path="../demo/table/title.vue" />
+
+## 操作按钮
+
+`column`中配置操作项，`type`传入`button`，配置`buttons`数组。
+
+<preview path="../demo/table/operation.vue" />
+
+## 操作项下拉
+
+如需下拉，可以在`buttons`数组中配置`type`为`dropdown`，`children`中配置下拉选项
+
+<preview path="../demo/table/dropdown.vue" />
+
+`reference`字段配置下拉关联文案（默认为`更多`），支持函数和字符串类型。
+
+支持配置`el-dropdown`和`el-dropdown-item`组件属性和方法。
+
+<preview path="../demo/table/reference.vue" />
+
+## 分页
+
+配置`pagination`，支持双向绑定，实现分页效果。
+
+<preview path="../demo/table/pagination.vue" />
+
+配置`paginationLeft`、`paginationRight`、`paginationTop`、`paginationBottom`插槽实现分页上下左右内容自定义。
+
+<preview path="../demo/table/pagination-slot.vue" />
+
+## 前端分页
+
+配置`pagination`的`type`为`front`，开启前端分页功能，`totalData`字段传入所有数据。
+
+`pageSize`为`0`、`pagination`为`false`或`pagination`不传，分页不展示。
+
+<preview path="../demo/table/pagination-front.vue" />
+
+## 列显隐
+
+`column`中配置`hide`字段，支持函数或布尔值，函数返回布尔值，true表示隐藏，false表示显示。
+
+<preview path="../demo/table/hide.vue" />
+
+## 列自定义
+
+`column`中配置`slot`或`render`实现自定义列内容。
+
+<preview path="../demo/table/custom-column.vue" />
+
 ## 列类型
 
 `column`中配置`type`实现表格列类型，支持`expand`、`radio`、`selection`、`input`、`select`。
@@ -15,6 +75,90 @@
 :::
 
 <preview path="../demo/table/column-type.vue" />
+
+## 表格头自定义
+
+`column`中将`label`配置为带`slot`或`Slot`的字符串或配置为`render`函数实现自定义列表头。
+
+<preview path="../demo/table/custom-header.vue" />
+
+## 表格顶部自定义
+
+配置`top`、`topRight`、`topLeft`和`topBottom`插槽实现顶部自定义。
+
+<preview path="../demo/table/custom-top.vue" />
+
+## 列提示
+
+`column`中配置`tooltip`实现表头提示功能，支持函数和字符串。
+
+<preview path="../demo/table/tooltip.vue" />
+
+## 工具栏
+
+> `toolBar` 配置项，用于配置表格的工具栏。
+
+`toolBar`值为`false`，不展示工具栏。
+
+<preview path="../demo/table/tool-bar.vue" />
+
+`toolBar`支持配置默认不选中，配置`uncheck`字段，值为`column`项的`label`。
+
+<preview path="../demo/table/uncheck.vue" />
+
+`toolBar`支持排除某些表格项，配置`exclude`字段，值为`column`项的`label`。
+
+<preview path="../demo/table/exclude.vue" />
+
+`toolBar`上下左右内容支持自定义，通过`toolBarTop`、`toolBarBottom`、`toolBarRight`、`toolBarLeft`、`tableTitle`插槽配置。
+
+<preview path="../demo/table/tool-bar-slot.vue" />
+
+## 数据拖拽
+
+设置`draggable`为`true`，开启数据拖拽。
+
+:::warning
+必须配置`row-key`，否则会出现更新问题。
+:::
+
+<preview path="../demo/table/drag.vue" />
+
+支持设置`slot`或`render`自定义拖拽图标。
+
+<preview path="../demo/table/drag-icon.vue" />
+
+## 可编辑表格
+
+`editable`设置为`true`，开启表格编辑模式，该字段支持布尔值或对象类型，可编辑表格`type`默认为`single`。
+
+<preview path="../demo/table/editable.vue" />
+
+`editable`设置为`type`为`multiple`，开启多行编辑模式。
+
+配置`editable`的`maxLength`，可以设置最大新增数量。配置`editable`的`deleteConfirm`为`true`，可开启删除二次确认。
+
+<preview path="../demo/table/editable.vue" />
+
+配置`editable`的`onSave`、`onDelete`、`onEdit`、`onCancel`。
+
+<preview path="../demo/table/editable-events.vue" />
+
+支持自定义操作按钮。
+
+<preview path="../demo/table/custom-operation.vue" />
+
+## 水印
+
+配置`watermark`，详情可参考`z-watermark`配置。
+
+<preview path="../demo/table/custom-operation.vue" />
+
+## 表格方法
+
+`z-table`的表格方法按照`el-table`使用即可。
+
+<preview path="../demo/table/methods.vue" />
 
 ## z-table属性
 
