@@ -4,6 +4,7 @@ import { ElIcon } from 'element-plus'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
 import { SELECT_TYPES } from '../../form/hooks'
+import TableCustomColumnContainer from '../src/TableCustomColumnContainer'
 import { useTableColComponentName } from './useTableColComponentName'
 
 export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: any) {
@@ -69,27 +70,30 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
         scopedSlots.value.default = (scope: any) => {
           const renderCustomComponent = () => {
             const events = getEventsFromCamel(column)
-            return h(resolveComponent('z-table-custom-column-container'), {
-              'modelValue': scope.row[column.prop],
-              'onUpdate:modelValue': (val: any) => {
-                const rowData = { ...scope.row, [column.prop]: val }
-                const list = [...props.tableProps.data]
-                list.splice(scope.$index, 1, rowData)
-                emit('update:data', list)
-              },
-              'componentName': getDynamicComponentName(column.component!),
-              'evts': events,
-              'rowData': scope.row,
-              size,
-              'options': tableProps.options?.[column.prop] || [],
-              ...column.fieldProps,
-              'disabled':
-                isBoolean(column.disabled)
-                  ? column.disabled
-                  : isFunction(column.disabled)
-                    ? column.disabled(scope.row, scope.$index, scope.column)
-                    : false,
-            })
+            return (
+              <TableCustomColumnContainer
+                modelValue={scope.row[column.prop]}
+                onUpdate:modelValue={(val: any) => {
+                  const rowData = { ...scope.row, [column.prop]: val }
+                  const list = [...props.tableProps.data]
+                  list.splice(scope.$index, 1, rowData)
+                  emit('update:data', list)
+                }}
+                componentName={getDynamicComponentName(column.component!)}
+                evts={events}
+                rowData={scope.row}
+                size={size}
+                options={tableProps.options?.[column.prop] || []}
+                {...column.fieldProps}
+                disabled={
+                  isBoolean(column.disabled)
+                    ? column.disabled
+                    : isFunction(column.disabled)
+                      ? column.disabled(scope.row, scope.$index, scope.column)
+                      : false
+                }
+              />
+            )
           }
 
           if (column.type === 'expand' && isFunction(slots.expand))

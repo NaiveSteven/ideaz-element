@@ -12,7 +12,7 @@ export function useFormComponentAttrs(props: Record<any, any>) {
     return newOn
   })
   const attrsAll = computed(() => {
-    return { ...props, ...attrs, ...props.attrs }
+    return { ...props, ...attrs }
   })
 
   return { attrsAll, onAll }

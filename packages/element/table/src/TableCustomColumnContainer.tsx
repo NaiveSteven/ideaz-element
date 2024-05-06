@@ -11,9 +11,6 @@ export default defineComponent({
       type: String,
       default: 'unknown',
     },
-    attrs: {
-      type: Object,
-    },
     options: {
       type: Object,
     },
