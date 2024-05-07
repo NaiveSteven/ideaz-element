@@ -141,7 +141,7 @@
 124. 组件插槽都支持`slot`和`render`函数
 125. `z-table`等组件查询时，表单禁用
 126. ~~`z-table`支持`title`~~
-127. `z-table`组件`column`配置项优化（目前仍是使用`type`、`attrs`等属性）
+127. ~~`z-table`组件`column`配置项优化（目前仍是使用`type`、`attrs`等属性）~~
 128. ~~`z-input`和`z-select`组件方法按官方更新~~
 129. ~~`z-select`组件`props`优化~~
 130. `z-form`组件`extra`属性和`error`冲突问题
@@ -168,7 +168,7 @@
 8. ~~修复`z-filter-form`的`placeholder`问题~~
 9. ~~修复`z-filter-form`校验`message`错误问题~~
 10. ~~修复`z-filter-form`的`hide`导致布局错误问题~~
-11. 修复`z-form`的`type`为`collapse`时，点击跳转问题（等待`element-plus`修复）
+11. ~~修复`z-form`的`type`为`collapse`时，点击跳转问题（等待`element-plus`修复）~~
 12. ~~修复`z-table`的`z-table-tool-bar--top-bottom`多余`margin-bottom`~~
 13. ~~优化`z-table`的操作按钮和`dropdown`同时出现时的布局问题~~
 14. ~~修复`z-table`的`editable`模式和`type`冲突问题~~
