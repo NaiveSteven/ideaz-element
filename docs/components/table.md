@@ -76,6 +76,12 @@
 
 <preview path="../demo/table/column-type.vue" />
 
+## 动态属性
+
+`column`自定义内容支持动态属性，`disabled`、`placeholder`等组件属性支持传入函数（函数属性暂不支持，如：`ElInput`组件的`formatter`属性），参数为当前行`scope`数据。
+
+<preview path="../demo/table/dynamic-attributes.vue" />
+
 ## 表格头自定义
 
 `column`中将`label`配置为带`slot`或`Slot`的字符串或配置为`render`函数实现自定义列表头。

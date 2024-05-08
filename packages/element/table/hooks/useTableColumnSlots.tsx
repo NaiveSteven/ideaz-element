@@ -1,5 +1,5 @@
 import { Operation, QuestionFilled } from '@element-plus/icons-vue'
-import { getEventsFromCamel, isBoolean, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
+import { getEventsFromCamel, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import { ElIcon } from 'element-plus'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
@@ -84,14 +84,8 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
                 rowData={scope.row}
                 size={size}
                 options={tableProps.options?.[column.prop] || []}
-                {...column.fieldProps}
-                disabled={
-                  isBoolean(column.disabled)
-                    ? column.disabled
-                    : isFunction(column.disabled)
-                      ? column.disabled(scope.row, scope.$index, scope.column)
-                      : false
-                }
+                scope={scope}
+                fieldProps={column.fieldProps}
               />
             )
           }
