@@ -134,7 +134,7 @@
 117. ~~`z-form`组件代码优化，抽取组件（暂不抽取）~~
 118. `ToolBar`组件重构
 119. ~~`z-form`组件`component`字段支持直接传入组件~~
-120. `z-table`组件`column`项的`click`、`hide`、`disabled`、`render`等属性支持参数统一
+120. ~~`z-table`组件`column`项的`click`、`hide`、`disabled`、`render`等属性支持参数统一~~
 121. `z-crud`组件文档优化，添加普通属性文档、插槽文档等
 122. 组件内部写法`-`改为大驼峰
 123. `z-table`的按钮类型操作项支持按钮单个自定义
@@ -145,6 +145,7 @@
 128. ~~`z-input`和`z-select`组件方法按官方更新~~
 129. ~~`z-select`组件`props`优化~~
 130. `z-form`组件`extra`属性和`error`冲突问题
+131. `z-form`组件数组表单表单项无法配置`tooltip`等属性问题
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
