@@ -81,7 +81,6 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
                 }}
                 componentName={getDynamicComponentName(column.component!)}
                 evts={events}
-                rowData={scope.row}
                 size={size}
                 options={tableProps.options?.[column.prop] || []}
                 scope={scope}
@@ -100,10 +99,10 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
             return <div class={ns.b('draggable')}>{slots.sort(scope)}</div>
 
           if (column.type === 'sort' && isFunction(column.render))
-            return <div class={ns.b('draggable')}>{column.render(h, scope)}</div>
+            return <div class={ns.b('draggable')}>{column.render(scope)}</div>
 
           if (isFunction(column.render))
-            return column.render(h, scope)
+            return column.render(scope)
 
           if (column.type === 'button') {
             return (

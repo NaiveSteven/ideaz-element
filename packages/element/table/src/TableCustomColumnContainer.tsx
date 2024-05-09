@@ -19,9 +19,6 @@ export default defineComponent({
     evts: {
       type: Object,
     },
-    rowData: {
-      type: Object,
-    },
     scope: {
       type: Object,
     },
