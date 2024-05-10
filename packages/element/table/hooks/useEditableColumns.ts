@@ -130,6 +130,8 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
     const cols = props.columns.map((item) => {
       if (item.type === 'sort')
         return { width: 48, ...item, __uid: uid() }
+      if (isObject(item.component))
+        return { ...item, __uid: uid(), component: markRaw(item.component) }
       return { ...item, __uid: uid() }
     }) as TableCol[]
     if (props.editable && cols.length > 0 && cols[cols.length - 1]?.type !== 'button') {

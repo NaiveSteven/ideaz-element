@@ -1,4 +1,5 @@
 import { getDynamicAttributes } from '@ideaz/shared'
+import { isObject } from '@ideaz/utils'
 
 export default defineComponent({
   name: 'ZTableCustomColumnContainer',
@@ -10,7 +11,7 @@ export default defineComponent({
       type: String,
     },
     componentName: {
-      type: String,
+      type: [String, Object],
       default: 'unknown',
     },
     options: {
@@ -37,7 +38,7 @@ export default defineComponent({
     const dynamicAttributes = getDynamicAttributes(props.fieldProps, props.scope)
 
     return () => {
-      return h(resolveComponent(props.componentName), {
+      return h(isObject(props.componentName) ? props.componentName : resolveComponent(props.componentName), {
         ...attrsAll.value,
         ...onAll.value,
         ...props.fieldProps,

@@ -76,6 +76,10 @@
 `type`为`radio`或者需要跨页选中`checkbox`时，需要配合`rowKey`使用（默认`id`）。
 :::
 
+:::tip
+`component`直接传入组件，请使用`markRaw`包裹，防止影响性能。
+:::
+
 <preview path="../demo/table/column-type.vue" />
 
 ## 动态属性
