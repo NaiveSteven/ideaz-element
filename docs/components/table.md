@@ -68,7 +68,9 @@
 
 ## 列类型
 
-`column`中配置`type`实现表格列类型，支持`expand`、`radio`、`selection`、`input`、`select`。
+`column`中配置`type`实现表格列类型，支持`expand`、`radio`、`selection`、`index`。
+
+支持自定义列组件，配置`component`字段，支持`input`、`select`、`datepicker`、`switch`、任意局部或全局注册组件。
 
 :::tip
 `type`为`radio`或者需要跨页选中`checkbox`时，需要配合`rowKey`使用（默认`id`）。

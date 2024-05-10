@@ -50,11 +50,11 @@ const columns = ref([
     component: 'input',
     prop: 'name',
     label: '姓名',
-    onChange: (rowData: any, val: string) => {
-      console.log('change event', rowData, val)
+    onChange: ({ row }: any, val: string) => {
+      console.log('change event', row, val)
     },
-    onInput: (rowData: any, val: string) => {
-      console.log('input event', rowData, val)
+    onInput: ({ row }: any, val: string) => {
+      console.log('input event', row, val)
     },
     fieldProps: {
       clearable: true,
@@ -64,8 +64,8 @@ const columns = ref([
     component: 'select',
     prop: 'sex',
     label: '性别',
-    onChange: (rowData: any, val: string) => {
-      console.log('change event', rowData, val)
+    onChange: ({ row }: any, val: string) => {
+      console.log('change event', row, val)
     },
   },
   {

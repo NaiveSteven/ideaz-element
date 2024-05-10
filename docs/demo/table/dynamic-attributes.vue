@@ -1,3 +1,4 @@
+<!-- eslint-disable unused-imports/no-unused-vars -->
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
@@ -38,15 +39,15 @@ const columns = ref([
     component: 'input',
     prop: 'name',
     label: '姓名',
-    onChange: (rowData: any, val: string) => {
-      console.log('change event', rowData, val)
+    onChange: ({ row }: any, val: string) => {
+      console.log('change event', row, val)
     },
-    onInput: (rowData: any, val: string) => {
-      console.log('input event', rowData, val)
+    onInput: ({ row }: any, val: string) => {
+      console.log('input event', row, val)
     },
     fieldProps: {
       clearable: true,
-      disabled: ({ row }: any) => {
+      disabled: ({ row, column, $index }: any) => {
         return row.id === 1
       },
     },
@@ -55,11 +56,11 @@ const columns = ref([
     component: 'select',
     prop: 'sex',
     label: '性别',
-    onChange: (rowData: any, val: string) => {
-      console.log('change event', rowData, val)
+    onChange: ({ row }: any, val: string) => {
+      console.log('change event', row, val)
     },
     fieldProps: {
-      placeholder: ({ row, $index }: any) => {
+      placeholder: ({ row, column, $index }: any) => {
         return `${row.name}性别${$index}`
       },
       clearable: true,
