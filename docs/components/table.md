@@ -358,9 +358,9 @@
 | label             | 文案                                                        | `string`                                                                 | —       |
 | children          | `type`为`dropdown`生效，下拉项                              | `array`                                                                  | —       |
 | hide              | 按钮隐藏                                                    | `boolean` / `() => boolean`                                              | —       |
-| onClick           | 点击事件                                                    | `(row, index, column) => void`                                           | —       |
+| onClick           | 点击事件                                                    | `({ row, $index, column }) => void`                                           | —       |
 | plain             | 是否为朴素按钮                                              | `boolean`                                                                | false   |
-| disabled          | 按钮是否为禁用状态                                          | `boolean` / `(row, index, column) => boolean`                            | false   |
+| disabled          | 按钮是否为禁用状态                                          | `boolean` / `({ row, $index, column }) => boolean`                            | false   |
 | size              | 尺寸                                                        | `default` / `large` / `small`                                            | —       |
 | plain             | 是否为朴素按钮                                              | `boolean`                                                                | false   |
 | text              | 是否为文字按钮                                              | `boolean`                                                                | false   |
@@ -382,7 +382,7 @@
 
 | 属性名         | 说明                                                                                                     | 类型                     | 可选值                                                           | 默认值                                                                     |
 | :------------- | :------------------------------------------------------------------------------------------------------- | :----------------------- | :--------------------------------------------------------------- | :------------------------------------------------------------------------- |
-| reference      | 关联文案                                                                                                 | `string` / `() => VNode` | —                                                                | `更多`                                                                     |
+| reference      | 关联文案                                                                                                 | `string` / `(scope) => VNode` | —                                                                | `更多`                                                                     |
 | onCommand      | 点击菜单项触发的事件回调                                                                                 | `(command) => void`      | —                                                                | —                                                                          |
 | type           | 菜单按钮类型，同 `Button` 组件一样，仅在 `split-button` 为 true 的情况下有效。                           | string                   | —                                                                | —                                                                          |
 | size           | 菜单尺寸，在 split-button 为 true 的情况下也对触发按钮生效。                                             | string                   | `large` / `default` / `small`                                    | default                                                                    |
@@ -404,8 +404,8 @@
 
 | 属性名   | 说明           | 类型                                        | 可选值 | 默认值 |
 | :------- | :------------- | :------------------------------------------ | :----- | :----- |
-| disabled | 是否禁用       | `boolean / (row, index, column) => boolean` | —      | false  |
-| onClick  | 下拉项点击     | `(row, index, column) => void`              | —      | —      |
+| disabled | 是否禁用       | `boolean / ({ row, $index, column }) => boolean` | —      | false  |
+| onClick  | 下拉项点击     | `({ row, $index, column }) => void`              | —      | —      |
 | divided  | 是否显示分隔符 | `boolean`                                   | —      | false  |
 | icon     | 自定义图标     | `string` / `Component`                      | —      | —      |
 

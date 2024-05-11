@@ -5,11 +5,11 @@ import type { FormColumn } from './form'
 
 export type BtnItem = Partial<Omit<ButtonProps, 'type' | 'disabled'>> & {
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'dropdown'
-  disabled?: ((row: any, index: number) => boolean) | boolean
-  hide?: ((row?: any, index?: number) => boolean) | boolean
-  onClick?: (row: any, index: number, column: any) => void
+  disabled?: ((scope: any) => boolean) | boolean
+  hide?: ((scope: any) => boolean) | boolean
+  onClick?: (scope: any) => void
   children?: BtnItem
-  reference?: string | ((h: any, scope: any) => VNode)
+  reference?: string | ((scope: any) => VNode)
   onCommand?: (command: string) => void
   [propName: string]: any
 } & Partial<ExtractPropTypes<typeof dropdownItemProps>> & Omit<Partial<ExtractPropTypes<typeof dropdownProps>>, 'type'>

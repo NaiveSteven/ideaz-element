@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -54,7 +55,7 @@ const columns = ref([
         type: 'primary',
         link: true,
         label: '编辑',
-        onClick: (row) => {
+        onClick: ({ row }: any) => {
           console.log(row, 'edit')
         },
       },
@@ -62,7 +63,7 @@ const columns = ref([
         type: 'danger',
         link: true,
         label: '删除',
-        onClick: (row) => {
+        onClick: ({ row }: any) => {
           console.log(row, 'delete')
         },
       },

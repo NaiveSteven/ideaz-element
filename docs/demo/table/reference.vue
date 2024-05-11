@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 
@@ -59,7 +60,7 @@ const columns = ref([
             type: 'primary',
             link: true,
             label: '编辑',
-            onClick: (row) => {
+            onClick: ({ row }: any) => {
               console.log(row, 'edit')
             },
           },
@@ -67,7 +68,7 @@ const columns = ref([
             type: 'danger',
             link: true,
             label: '删除',
-            onClick: (row) => {
+            onClick: ({ row }: any) => {
               console.log(row, 'delete')
             },
           },
@@ -77,7 +78,7 @@ const columns = ref([
         type: 'dropdown',
         reference: () => h('span', { style: { cursor: 'pointer' } }, '操作2'),
         placement: 'top',
-        onVisibleChange: (visible) => {
+        onVisibleChange: (visible: boolean) => {
           console.log(visible, 'visible')
         },
         children: [
@@ -85,7 +86,7 @@ const columns = ref([
             type: 'primary',
             link: true,
             label: '复制',
-            onClick: (row) => {
+            onClick: ({ row }: any) => {
               console.log(row, 'copy')
             },
           },
@@ -94,7 +95,7 @@ const columns = ref([
             link: true,
             label: '操作',
             divided: true,
-            onClick: (row) => {
+            onClick: ({ row }: any) => {
               console.log(row, 'operate')
             },
           },
