@@ -6,7 +6,7 @@ export function useFormComponentAttrs(props: Record<any, any>) {
     const newOn: any = {}
     if (props.evts) {
       Object.keys(props.evts).forEach((eventName: string) => {
-        newOn[`on${toCamelCase(eventName)}`] = (...args: any) => (props.evts[eventName] || function () {})(props.rowData, ...args)
+        newOn[`on${toCamelCase(eventName)}`] = (...args: any) => (props.evts[eventName] || function () {})(props.scope, ...args)
       })
     }
     return newOn

@@ -32,7 +32,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    render: (h, { row }) => h('span', row.name),
+    render: ({ row }: any) => h('span', row.name),
   },
   {
     prop: 'sex',

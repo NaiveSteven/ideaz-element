@@ -68,13 +68,25 @@
 
 ## 列类型
 
-`column`中配置`type`实现表格列类型，支持`expand`、`radio`、`selection`、`input`、`select`。
+`column`中配置`type`实现表格列类型，支持`expand`、`radio`、`selection`、`index`。
+
+支持自定义列组件，配置`component`字段，支持`input`、`select`、`datepicker`、`switch`、任意局部或全局注册组件。
 
 :::tip
 `type`为`radio`或者需要跨页选中`checkbox`时，需要配合`rowKey`使用（默认`id`）。
 :::
 
+:::tip
+`component`直接传入组件，请使用`markRaw`包裹，防止影响性能。
+:::
+
 <preview path="../demo/table/column-type.vue" />
+
+## 动态属性
+
+`column`自定义内容支持动态属性，`disabled`、`placeholder`等组件属性支持传入函数（函数属性暂不支持，如：`ElInput`组件的`formatter`属性），参数为当前行`scope`数据。
+
+<preview path="../demo/table/dynamic-attributes.vue" />
 
 ## 表格头自定义
 

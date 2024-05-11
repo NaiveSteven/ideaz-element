@@ -1,5 +1,5 @@
 import { Operation, QuestionFilled } from '@element-plus/icons-vue'
-import { getEventsFromCamel, isBoolean, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
+import { getEventsFromCamel, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import { ElIcon } from 'element-plus'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
@@ -15,10 +15,11 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
   const getLabel = (row: any) => {
     const { column = {} } = props
     const options = props.tableProps.options
-    if (column.component === 'radio' || (column.component === 'select' && !column.fieldProps?.multiple))
+    const type = isFunction(column.component) ? column.component() : isObject(column.component) ? column.component.name : column.component
+    if (type === 'radio' || (type === 'select' && !column.fieldProps?.multiple))
       return options[column.prop] ? options[column.prop].find((item: { label: string, value: any }) => item.value === row?.[column.prop])?.label : ''
 
-    if ((column.component === 'select' && column.fieldProps?.multiple) || column.component === 'checkbox') {
+    if ((type === 'select' && column.fieldProps?.multiple) || type === 'checkbox') {
       const label: string[] = []
       if (row[column.prop]) {
         row[column.prop].forEach((item: any) => {
@@ -27,7 +28,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
       }
       return label.join(',')
     }
-    if (column.component === 'el-switch')
+    if (type === 'el-switch')
       return row[column.prop] ? (column.fieldProps?.activeText || 'true') : (column.fieldProps?.inactiveText || 'false')
 
     return row[column.prop]
@@ -81,17 +82,10 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
                 }}
                 componentName={getDynamicComponentName(column.component!)}
                 evts={events}
-                rowData={scope.row}
                 size={size}
                 options={tableProps.options?.[column.prop] || []}
-                {...column.fieldProps}
-                disabled={
-                  isBoolean(column.disabled)
-                    ? column.disabled
-                    : isFunction(column.disabled)
-                      ? column.disabled(scope.row, scope.$index, scope.column)
-                      : false
-                }
+                scope={scope}
+                fieldProps={column.fieldProps}
               />
             )
           }
@@ -106,10 +100,10 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
             return <div class={ns.b('draggable')}>{slots.sort(scope)}</div>
 
           if (column.type === 'sort' && isFunction(column.render))
-            return <div class={ns.b('draggable')}>{column.render(h, scope)}</div>
+            return <div class={ns.b('draggable')}>{column.render(scope)}</div>
 
           if (isFunction(column.render))
-            return column.render(h, scope)
+            return column.render(scope)
 
           if (column.type === 'button') {
             return (

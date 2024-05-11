@@ -1,3 +1,6 @@
+import { getDynamicAttributes } from '@ideaz/shared'
+import { isObject } from '@ideaz/utils'
+
 export default defineComponent({
   name: 'ZTableCustomColumnContainer',
   props: {
@@ -8,7 +11,7 @@ export default defineComponent({
       type: String,
     },
     componentName: {
-      type: String,
+      type: [String, Object],
       default: 'unknown',
     },
     options: {
@@ -17,19 +20,29 @@ export default defineComponent({
     evts: {
       type: Object,
     },
-    rowData: {
+    scope: {
       type: Object,
+    },
+    size: {
+      type: String,
+    },
+    fieldProps: {
+      type: Object,
+      default: () => ({}),
     },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const { attrsAll, onAll } = useFormComponentAttrs(props)
     const size = useFormSize()
+    const dynamicAttributes = getDynamicAttributes(props.fieldProps, props.scope)
 
     return () => {
-      return h(resolveComponent(props.componentName), {
+      return h(isObject(props.componentName) ? props.componentName : resolveComponent(props.componentName), {
         ...attrsAll.value,
         ...onAll.value,
+        ...props.fieldProps,
+        ...dynamicAttributes,
         'size': size.value,
         'modelValue': props.modelValue,
         'onUpdate:modelValue': (val: any) => {

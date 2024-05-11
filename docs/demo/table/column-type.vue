@@ -1,6 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { markRaw, ref } from 'vue'
+import { ElInput } from 'element-plus'
 
 const tableData = ref([
   {
@@ -50,11 +51,11 @@ const columns = ref([
     component: 'input',
     prop: 'name',
     label: '姓名',
-    onChange: (rowData: any, val: string) => {
-      console.log('change event', rowData, val)
+    onChange: ({ row, column, $index }: any, val: string) => {
+      console.log('change event', row, column, $index, val)
     },
-    onInput: (rowData: any, val: string) => {
-      console.log('input event', rowData, val)
+    onInput: ({ row, column, $index }: any, val: string) => {
+      console.log('input event', row, column, $index, val)
     },
     fieldProps: {
       clearable: true,
@@ -64,13 +65,20 @@ const columns = ref([
     component: 'select',
     prop: 'sex',
     label: '性别',
-    onChange: (rowData: any, val: string) => {
-      console.log('change event', rowData, val)
+    onChange: ({ row, column, $index }: any, val: string) => {
+      console.log('change event', row, column, $index, val)
     },
   },
   {
     prop: 'age',
     label: '年龄',
+    component: markRaw(ElInput),
+    fieldProps: {
+      clearable: true,
+    },
+    onChange: ({ row, column, $index }: any, val: string) => {
+      console.log('change event', row, column, $index, val)
+    },
   },
   {
     prop: 'time',
