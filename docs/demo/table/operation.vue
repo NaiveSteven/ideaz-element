@@ -1,6 +1,14 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { TableColumnScopeData } from '@ideaz/element'
+
+interface RowData {
+  name: string
+  sex: string
+  age: number
+  time: string
+}
 
 const loading = ref(false)
 const tableData = ref([
@@ -55,7 +63,7 @@ const columns = ref([
         type: 'primary',
         link: true,
         label: '编辑',
-        onClick: ({ row }: any) => {
+        onClick: ({ row }: TableColumnScopeData<RowData>) => {
           console.log(row, 'edit')
         },
       },
@@ -63,7 +71,7 @@ const columns = ref([
         type: 'danger',
         link: true,
         label: '删除',
-        onClick: ({ row }: any) => {
+        onClick: ({ row }: TableColumnScopeData<RowData>) => {
           console.log(row, 'delete')
         },
       },

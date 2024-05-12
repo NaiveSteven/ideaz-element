@@ -1,16 +1,7 @@
 import { isBoolean, isFunction, isSlot, isString } from '@ideaz/utils'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { omit } from 'lodash-unified'
-import type { BtnItem } from '../../types'
-
-// interface DropdownProps {
-//   disabled?: boolean | ((row: any, index: number, column: any) => boolean)
-//   reference?: string | ((h: any, scope: any) => VNode)
-//   size?: string
-//   trigger?: string
-//   type?: string
-//   onCommand?: (command: string) => void
-// }
+import type { BtnItem, TableColumnScopeData } from '../../types'
 
 export default defineComponent({
   name: 'ZTableButton',
@@ -23,7 +14,7 @@ export default defineComponent({
       type: String,
     },
     scope: {
-      type: Object,
+      type: Object as PropType<TableColumnScopeData>,
       default: () => ({}),
     },
     tableColumnSlots: {
@@ -38,32 +29,32 @@ export default defineComponent({
 
     const FILTER_KEYS = ['children', 'type', 'hide', 'onClick']
 
-    const getButtonVisible = (button: BtnItem, scope: any) => {
+    const getButtonVisible = (button: BtnItem, scope: TableColumnScopeData) => {
       const keys = Object.keys(button)
       if (keys.includes('hide')) {
         return isBoolean(button.hide)
           ? !button.hide
           : isFunction(button.hide)
-            ? !(button.hide as (scope: any) => boolean)(scope)
+            ? !(button.hide as (scope: TableColumnScopeData) => boolean)(scope)
             : true
       }
       return true
     }
 
-    const getDisabled = (button: BtnItem, scope: any) => {
+    const getDisabled = (button: BtnItem, scope: TableColumnScopeData) => {
       const keys = Object.keys(button)
       if (keys.includes('disabled')) {
         return isBoolean(button.disabled)
           ? button.disabled
           : isFunction(button.disabled)
-            ? (button.disabled as (scope: any) => boolean)(scope)
+            ? (button.disabled as (scope: TableColumnScopeData) => boolean)(scope)
             : false
       }
       return false
     }
 
     const renderReference = (
-      scope: any,
+      scope: TableColumnScopeData,
       dropdownProps: BtnItem,
     ) => {
       const reference = dropdownProps.reference

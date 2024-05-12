@@ -1,7 +1,15 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { TableColumnScopeData } from '@ideaz/element'
 
-const tableData = ref([
+interface RowData {
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
+const tableData = ref<RowData[]>([
   {
     name: 'Steven',
     sex: 'male',
@@ -32,7 +40,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    render: ({ row }: any) => h('span', row.name),
+    render: ({ row }: TableColumnScopeData<RowData>) => h('span', row.name),
   },
   {
     prop: 'sex',

@@ -2,8 +2,17 @@
 <script lang="ts" setup>
 import { markRaw, ref } from 'vue'
 import { ElInput } from 'element-plus'
+import type { TableColumnScopeData } from '@ideaz/element'
 
-const tableData = ref([
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
+const tableData = ref<RowData[]>([
   {
     id: 1,
     name: 'Steven',
@@ -51,10 +60,10 @@ const columns = ref([
     component: 'input',
     prop: 'name',
     label: '姓名',
-    onChange: ({ row, column, $index }: any, val: string) => {
+    onChange: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, column, $index, val)
     },
-    onInput: ({ row, column, $index }: any, val: string) => {
+    onInput: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
       console.log('input event', row, column, $index, val)
     },
     fieldProps: {
@@ -65,7 +74,7 @@ const columns = ref([
     component: 'select',
     prop: 'sex',
     label: '性别',
-    onChange: ({ row, column, $index }: any, val: string) => {
+    onChange: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, column, $index, val)
     },
   },
@@ -76,7 +85,7 @@ const columns = ref([
     fieldProps: {
       clearable: true,
     },
-    onChange: ({ row, column, $index }: any, val: string) => {
+    onChange: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, column, $index, val)
     },
   },
@@ -95,11 +104,7 @@ const options = {
 </script>
 
 <template>
-  <z-table
-    v-model:data="tableData"
-    :columns="columns"
-    :options="options"
-  >
+  <z-table v-model:data="tableData" :columns="columns" :options="options">
     <template #expand>
       <span>展开内容</span>
     </template>
