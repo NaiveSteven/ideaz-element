@@ -88,6 +88,9 @@ const columns = ref([
     onChange: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, column, $index, val)
     },
+    onInput: ({ row }: TableColumnScopeData<RowData>, val: string) => {
+      console.log('input event', row, val)
+    },
   },
   {
     prop: 'time',

@@ -86,6 +86,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
                 size={size}
                 options={tableProps.options?.[column.prop] || []}
                 scope={scope}
+                column={column}
                 fieldProps={column.fieldProps}
               />
             )

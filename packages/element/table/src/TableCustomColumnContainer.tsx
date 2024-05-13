@@ -1,5 +1,6 @@
 import { getDynamicAttributes } from '@ideaz/shared'
 import { isObject } from '@ideaz/utils'
+import type { TableCol } from '../../types'
 
 export default defineComponent({
   name: 'ZTableCustomColumnContainer',
@@ -28,6 +29,10 @@ export default defineComponent({
     },
     fieldProps: {
       type: Object,
+      default: () => ({}),
+    },
+    column: {
+      type: Object as PropType<TableCol>,
       default: () => ({}),
     },
   },
