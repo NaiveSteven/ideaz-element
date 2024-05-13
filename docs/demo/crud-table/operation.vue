@@ -1,5 +1,15 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { TableColumnScopeData } from '@ideaz/element'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
 
 const columns = ref([
   {
@@ -22,8 +32,18 @@ const columns = ref([
     type: 'button',
     label: '操作',
     buttons: [
-      { label: '查看', link: true, type: 'primary', onClick: row => console.log(row, 'row') },
-      { label: '删除', link: true, type: 'danger', onClick: row => console.log(row, 'row') },
+      {
+        label: '查看',
+        link: true,
+        type: 'primary',
+        onClick: ({ row }: TableColumnScopeData<RowData>) => console.log(row, 'row'),
+      },
+      {
+        label: '删除',
+        link: true,
+        type: 'danger',
+        onClick: ({ row }: TableColumnScopeData<RowData>) => console.log(row, 'row'),
+      },
     ],
   },
 ])
@@ -38,7 +58,7 @@ const pagination = ref({
 })
 const loading = ref(false)
 
-function getTableData(params) {
+function getTableData(params: any) {
   console.log(params, 'getTableData params')
   return new Promise((resolve) => {
     setTimeout(() => {

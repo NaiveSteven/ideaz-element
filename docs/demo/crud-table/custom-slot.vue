@@ -1,5 +1,15 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { h, ref } from 'vue'
+import type { TableColumnScopeData } from '@ideaz/element'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
 
 const columns = ref([
   {
@@ -21,7 +31,7 @@ const columns = ref([
     },
   },
   {
-    render: (h, { row }) => h('span', row.age),
+    render: ({ row }: TableColumnScopeData<RowData>) => h('span', row.age),
     label: '年龄',
     form: {
       component: 'input',
@@ -52,7 +62,7 @@ const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
 
-function getTableData(params) {
+function getTableData(params: any) {
   console.log(params, 'getTableData params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -99,7 +109,7 @@ function getTableData(params) {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: any) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
