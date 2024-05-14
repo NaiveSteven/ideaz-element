@@ -145,11 +145,12 @@
 128. ~~`z-input`和`z-select`组件方法按官方更新~~
 129. ~~`z-select`组件`props`优化~~
 130. `z-form`组件`extra`属性和`error`冲突问题
-131. `z-form`组件数组表单表单项无法配置`tooltip`等属性问题
+131. ~~`z-form`组件数组表单表单项无法配置`tooltip`等属性问题~~
 132. ~~`z-table`按钮`onClick`、`disabled`等属性参数统一~~
 133. ~~`z-table`的`column`项的`component`支持传入组件~~
-134. `z-table`的`editable`模式下，清空选择或输入框数据，行数据未更新
-135. `z-crud`文档同步更新（参数、类型等`z-table`修改）
+134. ~~`z-table`的`editable`模式下，清空选择或输入框数据，行数据未更新~~
+135. ~~`z-crud`文档同步更新（参数、类型等`z-table`修改）~~
+136. `z-form`组件数组表单插槽配置问题
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
