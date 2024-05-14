@@ -11,7 +11,7 @@ interface FormData {
 }
 
 const formRef = ref()
-const formData = ref<FormData[]>([{
+const form = ref<FormData[]>([{
   name: '',
   sex: '',
   address: '',
@@ -63,10 +63,10 @@ const columns = [
       console.log(val, 'change event')
     },
   },
-  // {
-  //   slot: 'address',
-  //   label: '地址',
-  // },
+  {
+    slot: 'address',
+    label: '地址',
+  },
 ]
 
 function reset() {
@@ -75,7 +75,7 @@ function reset() {
 
 function submit() {
   formRef.value.validate((valid: boolean, data: any) => {
-    console.log(formData.value, data, 'config.formData')
+    console.log(form.value, data, 'config.form')
     if (valid)
       ElMessage.success('success')
 
@@ -88,13 +88,17 @@ function submit() {
 <template>
   <z-form
     ref="formRef"
-    v-model="formData"
+    v-model="form"
     :options="options"
     :columns="columns"
     label-width="80px"
     size="small"
     type="array"
-  />
+  >
+    <template #address="{ formData }">
+      <el-input v-model="formData.address" />
+    </template>
+  </z-form>
   <div class="mt-4 w-full flex">
     <el-button class="w-full" @click="reset">
       重置
