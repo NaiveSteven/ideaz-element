@@ -3,10 +3,18 @@
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 
+interface FormData {
+  name: string
+  sex: string
+  address: string
+  time: string[]
+}
+
 const formRef = ref()
-const formData = ref([{
+const formData = ref<FormData[]>([{
   name: '',
   sex: '',
+  address: '',
   time: [],
 }])
 
@@ -23,10 +31,10 @@ const columns = [
     field: 'name',
     modifier: 'trim',
     label: '姓名',
-    onInput: (val) => {
+    onInput: (val: string) => {
       console.log(val, 'input event')
     },
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
     required: true,
@@ -35,7 +43,7 @@ const columns = [
     component: 'select',
     field: 'sex',
     label: '性别',
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
     onFocus: () => {
@@ -51,10 +59,14 @@ const columns = [
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
     },
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
   },
+  // {
+  //   slot: 'address',
+  //   label: '地址',
+  // },
 ]
 
 function reset() {
@@ -62,10 +74,10 @@ function reset() {
 }
 
 function submit() {
-  formRef.value.validate((valid: boolean, data) => {
+  formRef.value.validate((valid: boolean, data: any) => {
     console.log(formData.value, data, 'config.formData')
     if (valid)
-      ElMessage.success('提交成功')
+      ElMessage.success('success')
 
     else
       console.log('error')

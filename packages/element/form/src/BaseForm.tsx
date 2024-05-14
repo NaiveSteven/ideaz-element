@@ -19,10 +19,11 @@ import type { FormColumn } from '../../types'
 import { FORM_FILTER_KEYS, FORM_ITEM_FILTER_KEYS, formProps, formProvideKey } from './props'
 import FormColumns from './FormColumns'
 import OperationCard from './OperationCard'
+import ZFormItem from './FormItem'
 
 export default defineComponent({
   name: 'ZForm',
-  components: { FormColumns, OperationCard },
+  components: { FormColumns, OperationCard, ZFormItem },
   props: formProps,
   directives: { draggable },
   emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change', 'next-step', 'previous-step', 'update:activeStep', 'submit', 'update:columns'],
@@ -230,7 +231,7 @@ export default defineComponent({
             const field = column.field!
             const maxLength = column.max || max
             return (
-              <ElFormItem label={column.label} prop={column.field} class={ns.b('array-form-item')} {...omit(column, FORM_ITEM_FILTER_KEYS)}>
+              <ZFormItem col={column} class={ns.b('array-form-item')} formConfig={{ ...omit(column, FORM_ITEM_FILTER_KEYS) }}>
                 <>
                   {modelValue[field].map((data: any, index: number) => {
                     const formProps = omit(column, FORM_FILTER_KEYS)
@@ -280,7 +281,7 @@ export default defineComponent({
                     </ElButton>
                   )}
                 </>
-              </ElFormItem>
+              </ZFormItem>
             )
           }
           return renderCommonColumn([column])
