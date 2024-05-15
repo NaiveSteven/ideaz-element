@@ -23,13 +23,17 @@
     color: rgba(0, 0, 0, 45%);
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
-}
 
-.z-form-item-margin-offset {
-  .el-form-item__content {
-    margin-bottom: -18px;
+  .el-form-item__error {
+    top: 60%;
   }
 }
+
+// .z-form-item-margin-offset {
+//   .el-form-item__content {
+//     margin-bottom: -18px;margin-bottom
+//   }
+// }
 
 .z-form-operation {
   display: flex;
@@ -160,5 +164,11 @@
 
   .z-form-array__add {
     width: 100%;
+  }
+
+  .is-extra {
+    .el-form-item__error {
+      top: 100%;
+    }
   }
 }

@@ -52,7 +52,7 @@ export default defineComponent({
         <ElFormItem
           ref="formItem"
           prop={col.field || col.slot}
-          class={[ns.b(), formConfig.draggable && ns.b('draggable'), formItemProps.value.extra && ns.b('margin-offset')]}
+          class={[ns.b(), formConfig.draggable && ns.b('draggable'), formItemProps.value.extra && 'is-extra']}
           {...{ size: size.value, ...formItemProps.value }}
           v-slots={vSlots.value}
         >
