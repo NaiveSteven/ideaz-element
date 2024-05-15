@@ -51,7 +51,7 @@
 
 ## 表单项自定义
 
-我们可以使用`slot`或`render`自定义表单项内容。
+我们可以使用`slot`或`render`自定义表单项内容。请仍然传入`field`字段，否则重置无法清空数据（`field`字段不传，默认取`slot`字段）。
 
 <preview path="../demo/form/custom-form-item.vue" />
 

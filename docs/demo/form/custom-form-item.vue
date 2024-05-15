@@ -24,6 +24,7 @@ const columns = [
   },
   {
     slot: 'sex',
+    field: 'sex',
     label: '性别',
   },
   {

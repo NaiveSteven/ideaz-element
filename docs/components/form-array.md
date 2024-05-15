@@ -14,6 +14,12 @@
 
 <preview path="../demo/form-array/inline.vue" />
 
+## 最大数量
+
+通过`max`属性设置最大数量。
+
+<preview path="../demo/form-array/max.vue" />
+
 ## array表单属性
 
 | 属性名 | 说明           | 类型     | 默认值 |
