@@ -23,10 +23,6 @@
     color: rgba(0, 0, 0, 45%);
     transition: color 0.3s cubic-bezier(0.215, 0.61, 0.355, 1);
   }
-
-  .el-form-item__error {
-    top: 60%;
-  }
 }
 
 // .z-form-item-margin-offset {
@@ -166,9 +162,21 @@
     width: 100%;
   }
 
-  .is-extra {
+  .z-form-item-no-extra--small {
     .el-form-item__error {
-      top: 100%;
+      top: 24px;
+    }
+  }
+
+  .z-form-item-no-extra--default {
+    .el-form-item__error {
+      top: 32px;
+    }
+  }
+
+  .z-form-item-no-extra--large {
+    .el-form-item__error {
+      top: 40px;
     }
   }
 }
