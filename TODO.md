@@ -132,35 +132,36 @@
 115. ~~`z-crud`组件插槽布局优化：`form-top`、`form-bottom`、`crud-mid`、`toolbar-top`、`toolbar-right`、`toolbar-bottom`、`toolbar-left`、`table-top`、`table-bottom`、`pagination-top`、`pagination-right`、`pagination-bottom`、`pagination-left`~~
 116. `z-table`支持默认插槽、支持模板配置
 117. ~~`z-form`组件代码优化，抽取组件（暂不抽取）~~
-118. `ToolBar`组件重构
-119. ~~`z-form`组件`component`字段支持直接传入组件~~
-120. ~~`z-table`组件`column`项的`click`、`hide`、`disabled`、`render`等属性支持参数统一~~
-121. `z-crud`组件文档优化，添加普通属性文档、插槽文档等
-122. 组件内部写法`-`改为大驼峰
-123. `z-table`的按钮类型操作项支持按钮单个自定义
-124. 组件插槽都支持`slot`和`render`函数
-125. `z-table`等组件查询时，表单禁用
-126. ~~`z-table`支持`title`~~
-127. ~~`z-table`组件`column`配置项优化（目前仍是使用`type`、`attrs`等属性）~~
-128. ~~`z-input`和`z-select`组件方法按官方更新~~
-129. ~~`z-select`组件`props`优化~~
-130. `z-form`组件`extra`属性和`error`冲突问题
-131. ~~`z-form`组件数组表单表单项无法配置`tooltip`等属性问题~~
-132. ~~`z-table`按钮`onClick`、`disabled`等属性参数统一~~
-133. ~~`z-table`的`column`项的`component`支持传入组件~~
-134. ~~`z-table`的`editable`模式下，清空选择或输入框数据，行数据未更新~~
-135. ~~`z-crud`文档同步更新（参数、类型等`z-table`修改）~~
-136. `z-form`组件数组表单插槽配置问题
+118. ~~`z-form`组件`component`字段支持直接传入组件~~
+119. ~~`z-table`组件`column`项的`click`、`hide`、`disabled`、`render`等属性支持参数统一~~
+120. `z-crud`组件文档优化，添加普通属性文档、插槽文档等
+121. 组件内部写法`-`改为大驼峰
+122. `z-table`的按钮类型操作项支持按钮单个自定义
+123. 组件插槽都支持`slot`和`render`函数
+124. ~~`z-table`等组件查询时，表单禁用（暂时不添加）~~
+125. ~~`z-table`支持`title`~~
+126. ~~`z-table`组件`column`配置项优化（目前仍是使用`type`、`attrs`等属性）~~
+127. ~~`z-input`和`z-select`组件方法按官方更新~~
+128. ~~`z-select`组件`props`优化~~
+129. ~~`z-form`组件`extra`和`error`冲突问题（`z-crud`和`z-filter-form`组件不允许使用`extra`，优化`errorMessage`位置）~~
+130. ~~`z-form`组件数组表单表单项无法配置`tooltip`等属性问题~~
+131. ~~`z-table`按钮`onClick`、`disabled`等属性参数统一~~
+132. ~~`z-table`的`column`项的`component`支持传入组件~~
+133. ~~`z-table`的`editable`模式下，清空选择或输入框数据，行数据未更新~~
+134. ~~`z-crud`文档同步更新（参数、类型等`z-table`修改）~~
+135. ~~`z-form`组件数组表单插槽配置问题~~
+136. `z-form`的`form item`支持`help`字段
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
 
 ## LONG_TERM FEATURE
 
-1. 更换`vitepress`模板，目前的`vitepress`模板问题较多
-2. `z-crud`的`default-key`相关处理
+1. ~~更换`vitepress`模板，目前的`vitepress`模板问题较多~~
+2. ~~`z-crud`的`default-key`相关处理~~
 3. 样式文件包含过多不需要的`element-plus`的样式代码，需要精简
 4. 文档`mock`数据内容修改
+5. `ToolBar`组件重构
 
 ## FIX
 
