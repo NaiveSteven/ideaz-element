@@ -1,7 +1,15 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { TableFormConfig } from '@ideaz/element'
+import type { TableColumnScopeData } from '@ideaz/element'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
 
 const columns = ref([
   {
@@ -20,6 +28,24 @@ const columns = ref([
     prop: 'time',
     label: '出生日期',
   },
+  {
+    type: 'button',
+    label: '操作',
+    buttons: [
+      {
+        label: '查看',
+        link: true,
+        type: 'primary',
+        onClick: ({ row }: TableColumnScopeData<RowData>) => console.log(row, 'row'),
+      },
+      {
+        label: '删除',
+        link: true,
+        type: 'danger',
+        onClick: ({ row }: TableColumnScopeData<RowData>) => console.log(row, 'row'),
+      },
+    ],
+  },
 ])
 const request = ref({
   searchApi: getTableData,
@@ -31,9 +57,6 @@ const pagination = ref({
   total: 0,
 })
 const loading = ref(false)
-const detailConfig = ref<TableFormConfig | boolean>(true)
-const deleteConfig = ref<TableFormConfig | boolean>(true)
-const editConfig = ref<TableFormConfig | boolean>(true)
 
 function getTableData(params: any) {
   console.log(params, 'getTableData params')
@@ -81,18 +104,6 @@ function getTableData(params: any) {
     }, 100)
   })
 }
-
-function handleChangeViewVisible() {
-  detailConfig.value = !detailConfig.value
-}
-
-function handleChangeDeleteVisible() {
-  deleteConfig.value = !deleteConfig.value
-}
-
-function handleChangeEditVisible() {
-  editConfig.value = !editConfig.value
-}
 </script>
 
 <template>
@@ -102,20 +113,6 @@ function handleChangeEditVisible() {
     v-model:loading="loading"
     :columns="columns"
     :request="request"
-    :detail="detailConfig"
-    :edit="editConfig"
-    :delete="deleteConfig"
-  >
-    <template #toolBarLeft>
-      <el-button type="primary" size="small" @click="handleChangeViewVisible">
-        查看按钮显隐
-      </el-button>
-      <el-button type="primary" size="small" @click="handleChangeDeleteVisible">
-        删除按钮显隐
-      </el-button>
-      <el-button type="primary" size="small" @click="handleChangeEditVisible">
-        编辑按钮显隐
-      </el-button>
-    </template>
-  </z-crud>
+    :action="false"
+  />
 </template>
