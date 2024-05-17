@@ -114,7 +114,7 @@
 97. ~~`z-table`行拖拽添加条件~~
 98. ~~`z-dialog`的`onConfirm`等方法的`confirmBtnLoading`等参数名优化~~
 99. `z-crud`的表单校验规则配置
-100. `z-crud`操作按钮权限
+100. ~~`z-crud`操作按钮权限~~
 101. ~~`z-crud`接口支持参数自定义~~
 102. ~~`z-table`前端分页优化~~
 103. ~~`z-table`的`row-key`处理，`editApi`等~~
@@ -124,7 +124,7 @@
 107. `z-crud`操作项`action`和`add`等属性逻辑关联处理问题
 108. `z-crud`的`editDetail`支持自定义参数
 109. `z-crud`的`transformEditDetail`优化
-110. `z-crud`的`add`、`edit`等属性为`false`时，关闭操作列
+110. ~~`z-crud`的`add`、`edit`等属性为`false`时，关闭操作列~~
 111. ~~`vite`打包配置~~
 112. 多语言配置（切换等）
 113. `z-form`的`id`和`class`属性配置
@@ -151,6 +151,8 @@
 134. ~~`z-crud`文档同步更新（参数、类型等`z-table`修改）~~
 135. ~~`z-form`组件数组表单插槽配置问题~~
 136. `z-form`的`form item`支持`help`字段
+137. `z-table`操作列配置固定格式，如：`width`、`fixed`等，且`width`根据操作按钮个数动态计算
+138. `z-crud`新增按钮和批量删除按钮不显示问题
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
