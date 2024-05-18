@@ -152,10 +152,10 @@ export default defineComponent({
               {...{ size: size.value, ...tableProps.value }}
               v-slots={{
                 ...slots,
-                topLeft: () => {
+                toolBarLeft: () => {
                   return (
                     <>
-                      {slots.topLeft && slots.topLeft()}
+                      {slots.toolBarLeft && slots.toolBarLeft()}
                       {props.action && props.add && (
                         <ElButton
                           size={size.value}
@@ -185,11 +185,11 @@ export default defineComponent({
                     </>
                   )
                 },
-                topBottom: () => {
+                toolBarBottom: () => {
                   if (isSelection.value && props.action && props.alert)
                     return renderAlert()
 
-                  return slots.topBottom?.()
+                  return slots.toolBarBottom?.()
                 },
               }}
               onUpdate:pagination={(pagination: Pagination) => emit('update:pagination', pagination)}
