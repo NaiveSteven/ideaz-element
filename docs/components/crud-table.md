@@ -8,6 +8,12 @@
 
 <preview path="../demo/crud-table/normal.vue" />
 
+## 表格标题
+
+配置`title`属性生成表格标题，支持字符串和函数类型，也可使用`tableTitle`插槽自定义。
+
+<preview path="../demo/crud-table/title.vue" />
+
 ## 操作项
 
 操作项默认会拼接在`columns`末尾，表格头为`操作`，有`查看`、`编辑`、`删除`三个操作。

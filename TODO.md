@@ -153,6 +153,7 @@
 136. `z-form`的`form item`支持`help`字段
 137. `z-table`操作列配置固定格式，如：`width`、`fixed`等，且`width`根据操作按钮个数动态计算
 138. `z-crud`新增按钮和批量删除按钮不显示问题
+139. `z-crud`和`z-table`文档表格翻页使用接口数据真实翻页
      1201_3z0x8etu5vvckcr
 
 ## FEATURE

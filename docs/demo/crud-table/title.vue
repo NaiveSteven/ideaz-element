@@ -2,19 +2,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-interface RowData {
-  id: number
-  name: string
-  sex: string
-  age: number
-  time: string
-}
-
 const columns = ref([
-  {
-    type: 'selection',
-    reserveSelection: true,
-  },
   {
     label: '姓名',
     prop: 'name',
@@ -42,7 +30,6 @@ const pagination = ref({
   total: 0,
 })
 const loading = ref(false)
-const selectionData = ref<RowData[]>([])
 
 function getTableData(params: any) {
   console.log(params, 'getTableData params')
@@ -97,11 +84,8 @@ function getTableData(params: any) {
     v-model:data="tableData"
     v-model:pagination="pagination"
     v-model:loading="loading"
-    v-model:selectionData="selectionData"
     :columns="columns"
     :request="request"
-    :action="true"
-    row-key="id"
-    stripe
+    title="表格标题"
   />
 </template>
