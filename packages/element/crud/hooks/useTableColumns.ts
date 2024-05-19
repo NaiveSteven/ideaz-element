@@ -87,15 +87,14 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
   const tableColumns = computed(() => {
     const columns = props.columns?.filter((column: TableCol) => COLUMN_TYPE_FIELDS.some(key => column[key])) || []
     if (props.action && (props.detail !== false || props.edit !== false || props.delete !== false)) {
+      const buttons = [props.detail !== false && renderView(), props.edit !== false && renderEdit(), props.delete !== false && renderDelete()].filter(item => item)
       return columns.concat([
         {
           type: 'button',
           label: t('table.action'),
-          buttons: [
-            props.detail !== false && renderView(),
-            props.edit !== false && renderEdit(),
-            props.delete !== false && renderDelete(),
-          ].filter(item => item),
+          fixed: 'right',
+          width: buttons.length * 60,
+          buttons,
         },
       ])
     }
