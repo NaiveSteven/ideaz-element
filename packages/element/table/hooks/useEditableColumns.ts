@@ -1,9 +1,8 @@
 import { isFunction, isObject, uid } from '@ideaz/utils'
 import type { Ref } from 'vue'
-import type { TableColumnCtx } from 'element-plus'
 import DialogTip from '../../dialog/src/dialog'
 import type { ITableProps } from '../src/props'
-import type { TableCol } from '../../types'
+import type { TableCol, TableColumnScopeData } from '../../types'
 
 function replacePropertyValues(obj: any, reverse = false) {
   for (const key in obj) {
@@ -40,8 +39,8 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       label: t('common.edit'),
       type: 'primary',
       link: true,
-      hide: (row: any) => row.__isEdit || editableType.value === 'multiple',
-      onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
+      hide: ({ row }: TableColumnScopeData) => row.__isEdit || editableType.value === 'multiple',
+      onClick: ({ row, $index: index, column }: TableColumnScopeData) => {
         if (isObject(props.editable) && isFunction(props.editable?.onEdit))
           props.editable?.onEdit({ row, index, column, formRef: zTableFormRef.value })
 
@@ -56,8 +55,8 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       label: t('common.save'),
       type: 'primary',
       link: true,
-      hide: (row: any) => !row.__isEdit || editableType.value === 'multiple',
-      onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
+      hide: ({ row }: TableColumnScopeData) => !row.__isEdit || editableType.value === 'multiple',
+      onClick: ({ row, $index: index, column }: TableColumnScopeData) => {
         if (!zTableFormRef.value)
           return
         if (isObject(props.editable) && isFunction(props.editable?.onSave)) {
@@ -82,8 +81,8 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       label: t('common.cancel'),
       type: 'primary',
       link: true,
-      hide: (row: any) => !row.__isEdit || editableType.value === 'multiple',
-      onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
+      hide: ({ row }: TableColumnScopeData) => !row.__isEdit || editableType.value === 'multiple',
+      onClick: ({ row, $index: index, column }: TableColumnScopeData) => {
         if (isObject(props.editable) && isFunction(props.editable?.onCancel)) {
           props.editable?.onCancel({ row, index, column, formRef: zTableFormRef.value })
         }
@@ -100,7 +99,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       label: t('common.delete'),
       type: 'primary',
       link: true,
-      onClick: (row: any, index: number, column: TableColumnCtx<any>) => {
+      onClick: ({ row, $index: index, column }: TableColumnScopeData) => {
         const delData = () => {
           if (isObject(props.editable) && isFunction(props.editable?.onDelete))
             props.editable?.onDelete({ row, index, column, formRef: zTableFormRef.value })
@@ -127,7 +126,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
   }
 
   watchEffect(() => {
-    const cols = props.columns.map((item) => {
+    const cols = props.columns.map((item: TableCol) => {
       if (item.type === 'sort')
         return { width: 48, ...item, __uid: uid() }
       if (isObject(item.component))
@@ -148,7 +147,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       } as TableCol)
     }
     else if (props.editable && cols.length > 0 && cols[cols.length - 1]?.type === 'button') {
-      columns.value = cols.map((item: any) => {
+      columns.value = cols.map((item: TableCol) => {
         if (item.type === 'button') {
           if (isFunction(item.buttons))
             item.buttons = item.buttons({ renderEdit: renderEdit(), renderSave: renderSave(), renderCancel: renderCancel(), renderDelete: renderDelete() }, tableData)

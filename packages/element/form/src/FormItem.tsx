@@ -29,6 +29,8 @@ export default defineComponent({
       }
     }))
 
+    const isShowDefault = computed(() => isFunction(props.col.render) || props.col.slot || (slots.default?.()[0]?.children?.length as number) > 0)
+
     const modify = (val: any) => {
       const { col } = props
       if (col.modifier) {
@@ -49,36 +51,34 @@ export default defineComponent({
       return (
         <ElFormItem
           ref="formItem"
-          prop={col.field}
-          class={[ns.b(), formConfig.draggable && ns.b('draggable'), formItemProps.value.extra && ns.b('margin-offset')]}
+          prop={col.field || col.slot}
+          class={[ns.b(), formConfig.draggable && ns.b('draggable'), !formItemProps.value.extra && ns.bm('no-extra', size.value)]}
           {...{ size: size.value, ...formItemProps.value }}
           v-slots={vSlots.value}
         >
-          {(isFunction(col.render) || col.slot)
-            ? slots.default?.()
-            : h(resolveDynamicComponent({
-              name: ComponentName.value,
-              attrs: {
-                'modelValue': isFunction(col.fieldProps && col.fieldProps.format)
-                  ? col.fieldProps?.format(get(props.modelValue, col.field!))
-                  : get(props.modelValue, col.field!),
-                'prop': col.field,
-                'options': options
-                  ? (options[col.field!] || (col.fieldProps && col.fieldProps.options))
-                  : {},
-                'size': size.value,
-                'class': col.class,
-                'style': col.style,
-                ...col.fieldProps,
-                'directives': {
-                  ref: isObject(col.fieldProps)
-                    ? (col.fieldProps.ref || (() => { }))
-                    : () => { },
-                },
-                'onUpdate:modelValue': (val: any) => modify(val),
-                ...extractEvents(col),
+          {isShowDefault.value ? slots.default?.() : h(resolveDynamicComponent({
+            name: ComponentName.value,
+            attrs: {
+              'modelValue': isFunction(col.fieldProps && col.fieldProps.format)
+                ? col.fieldProps?.format(get(props.modelValue, col.field!))
+                : get(props.modelValue, col.field!),
+              'prop': col.field,
+              'options': options
+                ? (options[col.field!] || (col.fieldProps && col.fieldProps.options))
+                : {},
+              'size': size.value,
+              'class': col.class,
+              'style': col.style,
+              ...col.fieldProps,
+              'directives': {
+                ref: isObject(col.fieldProps)
+                  ? (col.fieldProps.ref || (() => { }))
+                  : () => { },
               },
-            }))}
+              'onUpdate:modelValue': (val: any) => modify(val),
+              ...extractEvents(col),
+            },
+          }))}
           {formItemProps.value.extra && (
             <div class={ns.e('extra')}>
               {getContentByRenderAndSlot(formItemProps.value.extra, slots)}

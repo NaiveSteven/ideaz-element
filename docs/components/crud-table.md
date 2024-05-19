@@ -5,16 +5,30 @@
 ## 表格使用
 
 在`z-table`上封装，表格属性直接传递即可。
-配置`action`为`false`，可以关闭组件内部封装的操作。
 
 <preview path="../demo/crud-table/normal.vue" />
+
+## 表格标题
+
+配置`title`属性生成表格标题，支持字符串和函数类型，也可使用`tableTitle`插槽自定义。
+
+<preview path="../demo/crud-table/title.vue" />
 
 ## 操作项
 
 操作项默认会拼接在`columns`末尾，表格头为`操作`，有`查看`、`编辑`、`删除`三个操作。
-当然也可以配置`action`为`false`关闭默认的操作项，自定义表格操作。
+
+操作内部具体配置请查看[新增编辑配置](/components/crud-cu.html)、[查看配置](/components/crud-view.html)、[删除配置](/components/crud-delete.html)等文档。
+
+支持动态控制具体操作显隐。
 
 <preview path="../demo/crud-table/operation.vue" />
+
+## 操作项自定义
+
+配置`action`为`false`关闭默认的操作项，自定义表格操作。
+
+<preview path="../demo/crud-table/operation-custom.vue" />
 
 ## 操作项下拉
 

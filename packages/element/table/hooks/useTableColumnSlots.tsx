@@ -5,6 +5,7 @@ import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
 import { SELECT_TYPES } from '../../form/hooks'
 import TableCustomColumnContainer from '../src/TableCustomColumnContainer'
+import type { TableColumnScopeData } from '../../types'
 import { useTableColComponentName } from './useTableColComponentName'
 
 export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: any) {
@@ -68,7 +69,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
         || column.render
         || column.component
       ) {
-        scopedSlots.value.default = (scope: any) => {
+        scopedSlots.value.default = (scope: TableColumnScopeData) => {
           const renderCustomComponent = () => {
             const events = getEventsFromCamel(column)
             return (
@@ -85,6 +86,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
                 size={size}
                 options={tableProps.options?.[column.prop] || []}
                 scope={scope}
+                column={column}
                 fieldProps={column.fieldProps}
               />
             )
@@ -137,11 +139,11 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
       }
 
       if (isSlot(column.label) && slots[column.label]) {
-        scopedSlots.value.header = (scope: any) =>
+        scopedSlots.value.header = (scope: TableColumnScopeData) =>
           slots[column.label](scope)
       }
       if (isFunction(column.label))
-        scopedSlots.value.header = (scope: any) => column.label(scope)
+        scopedSlots.value.header = (scope: TableColumnScopeData) => column.label(scope)
 
       if (!isSlot(column.label) && !isFunction(column.label) && column.tooltip) {
         const tooltip = column.tooltip
@@ -150,7 +152,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
           : { content: isString(tooltip) ? tooltip : '' }
         const tooltipSlot: any = {}
 
-        scopedSlots.value.header = (scope: any) => {
+        scopedSlots.value.header = (scope: TableColumnScopeData) => {
           if (isFunction(tooltip))
             tooltipSlot.content = () => tooltip(scope)
           return (

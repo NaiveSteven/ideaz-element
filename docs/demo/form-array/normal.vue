@@ -3,10 +3,18 @@
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 
+interface FormData {
+  name: string
+  sex: string
+  address: string
+  time: string[]
+}
+
 const formRef = ref()
-const formData = ref([{
+const form = ref<FormData[]>([{
   name: '',
   sex: '',
+  address: '',
   time: [],
 }])
 
@@ -23,10 +31,10 @@ const columns = [
     field: 'name',
     modifier: 'trim',
     label: '姓名',
-    onInput: (val) => {
+    onInput: (val: string) => {
       console.log(val, 'input event')
     },
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
     required: true,
@@ -35,7 +43,7 @@ const columns = [
     component: 'select',
     field: 'sex',
     label: '性别',
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
     onFocus: () => {
@@ -51,9 +59,13 @@ const columns = [
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
     },
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
+  },
+  {
+    slot: 'address',
+    label: '地址',
   },
 ]
 
@@ -62,10 +74,10 @@ function reset() {
 }
 
 function submit() {
-  formRef.value.validate((valid: boolean, data) => {
-    console.log(formData.value, data, 'config.formData')
+  formRef.value.validate((valid: boolean, data: any) => {
+    console.log(form.value, data, 'config.form')
     if (valid)
-      ElMessage.success('提交成功')
+      ElMessage.success('success')
 
     else
       console.log('error')
@@ -76,13 +88,17 @@ function submit() {
 <template>
   <z-form
     ref="formRef"
-    v-model="formData"
+    v-model="form"
     :options="options"
     :columns="columns"
     label-width="80px"
     size="small"
     type="array"
-  />
+  >
+    <template #address="{ formData }">
+      <el-input v-model="formData.address" />
+    </template>
+  </z-form>
   <div class="mt-4 w-full flex">
     <el-button class="w-full" @click="reset">
       重置

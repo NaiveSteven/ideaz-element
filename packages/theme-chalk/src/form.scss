@@ -25,11 +25,11 @@
   }
 }
 
-.z-form-item-margin-offset {
-  .el-form-item__content {
-    margin-bottom: -18px;
-  }
-}
+// .z-form-item-margin-offset {
+//   .el-form-item__content {
+//     margin-bottom: -18px;margin-bottom
+//   }
+// }
 
 .z-form-operation {
   display: flex;
@@ -160,5 +160,23 @@
 
   .z-form-array__add {
     width: 100%;
+  }
+
+  .z-form-item-no-extra--small {
+    .el-form-item__error {
+      top: 24px;
+    }
+  }
+
+  .z-form-item-no-extra--default {
+    .el-form-item__error {
+      top: 32px;
+    }
+  }
+
+  .z-form-item-no-extra--large {
+    .el-form-item__error {
+      top: 40px;
+    }
   }
 }

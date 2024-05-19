@@ -1,6 +1,6 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { ref } from 'vue'
 import type { TableColumnScopeData } from '@ideaz/element'
 
 interface RowData {
@@ -14,40 +14,41 @@ interface RowData {
 const columns = ref([
   {
     label: '姓名',
-    slot: 'name',
-    form: {
-      component: 'input',
-      label: '姓名',
-      field: 'name',
-    },
+    prop: 'name',
   },
   {
-    slot: 'sex',
+    prop: 'sex',
     label: '性别',
-    form: {
-      component: 'select',
-      label: '性别',
-      field: 'sex',
-    },
   },
   {
-    render: ({ row }: TableColumnScopeData<RowData>) => h('span', row.age),
+    prop: 'age',
     label: '年龄',
-    form: {
-      component: 'input',
-      label: '年龄',
-      field: 'age',
-    },
   },
   {
     prop: 'time',
     label: '出生日期',
   },
+  {
+    type: 'button',
+    label: '操作',
+    buttons: [
+      {
+        label: '查看',
+        link: true,
+        type: 'primary',
+        onClick: ({ row }: TableColumnScopeData<RowData>) => console.log(row, 'row'),
+      },
+      {
+        label: '删除',
+        link: true,
+        type: 'danger',
+        onClick: ({ row }: TableColumnScopeData<RowData>) => console.log(row, 'row'),
+      },
+    ],
+  },
 ])
 const request = ref({
   searchApi: getTableData,
-  deleteApi: commonApi,
-  submitApi: commonApi,
 })
 const tableData = ref([])
 const pagination = ref({
@@ -56,11 +57,6 @@ const pagination = ref({
   total: 0,
 })
 const loading = ref(false)
-const formData = ref({})
-
-const options = {
-  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
-}
 
 function getTableData(params: any) {
   console.log(params, 'getTableData params')
@@ -108,35 +104,15 @@ function getTableData(params: any) {
     }, 100)
   })
 }
-
-function commonApi(params: any) {
-  console.log(params, 'commonApi params')
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve({
-        msg: 'success',
-        code: 200,
-      })
-    }, 100)
-  })
-}
 </script>
 
 <template>
   <z-crud
-    v-model:formData="formData"
     v-model:data="tableData"
     v-model:pagination="pagination"
     v-model:loading="loading"
-    :options="options"
     :columns="columns"
     :request="request"
-  >
-    <template #name>
-      sdf
-    </template>
-    <template #sex>
-      asdf
-    </template>
-  </z-crud>
+    :action="false"
+  />
 </template>

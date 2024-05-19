@@ -8,12 +8,12 @@ import type { FormColumn } from '../../types'
 import FormItem from './FormItem'
 import type { FormProps } from './props'
 
-function renderContent(col: FormColumn, slots: any) {
+function renderContent(col: FormColumn, slots: any, data: any) {
   if (col.slot)
-    return slots[col.slot] && slots[col.slot]()
+    return slots[col.slot] && slots[col.slot]({ formData: data })
 
   if (isFunction(col.render))
-    return col.render(h)
+    return col.render({ formData: data })
 }
 
 export default defineComponent({
@@ -66,7 +66,7 @@ export default defineComponent({
               emit('change', { value: val, field, formData: newVal })
             }}
           >
-            {(isFunction(col.render) || col.slot) ? renderContent(col, slots) : null}
+            {(isFunction(col.render) || col.slot) ? renderContent(col, slots, props.modelValue) : null}
           </FormItem>
         )
       })

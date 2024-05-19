@@ -32,7 +32,7 @@ const columns = [
     label: '性别',
     colon: false,
     tooltip: () => h('span', {}, '性别提示'),
-    // extra: () => h('span', {}, '性别额外信息'),
+    required: true,
   },
   {
     component: 'input',

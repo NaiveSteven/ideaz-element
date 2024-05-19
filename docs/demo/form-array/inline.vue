@@ -1,10 +1,10 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { ref } from 'vue'
 
 const formRef = ref()
-const formData = ref({
+const form = ref({
   time: [],
   a: [
     {
@@ -17,6 +17,7 @@ const formData = ref({
     {
       name: '',
       sex: '',
+      address: '',
       time: [],
     },
   ],
@@ -39,10 +40,10 @@ const columns = [
         component: 'input',
         field: 'name',
         label: '姓名',
-        onInput: (val) => {
+        onInput: (val: string) => {
           console.log(val, 'input event')
         },
-        onChange: (val) => {
+        onChange: (val: string) => {
           console.log(val, 'change event')
         },
         required: true,
@@ -59,7 +60,7 @@ const columns = [
         component: 'select',
         field: 'sex',
         label: '性别',
-        onChange: (val) => {
+        onChange: (val: string) => {
           console.log(val, 'change event')
         },
         onFocus: () => {
@@ -78,9 +79,14 @@ const columns = [
           startPlaceholder: '开始日期',
           endPlaceholder: '结束日期',
         },
-        onChange: (val) => {
+        onChange: (val: string) => {
           console.log(val, 'change event')
         },
+      },
+      {
+        slot: 'test',
+        field: 'address',
+        label: '地址',
       },
     ],
   },
@@ -99,10 +105,10 @@ function reset() {
 }
 
 function submit() {
-  formRef.value.validate((valid: boolean, data) => {
-    console.log(formData.value, data, 'config.formData')
+  formRef.value.validate((valid: boolean, data: any) => {
+    console.log(form.value, data, 'config.formData')
     if (valid)
-      ElMessage.success('提交成功')
+      ElMessage.success('success')
 
     else
       console.log('error')
@@ -113,7 +119,7 @@ function submit() {
 <template>
   <z-form
     ref="formRef"
-    v-model="formData"
+    v-model="form"
     :options="options"
     :columns="columns"
     :max="3"
@@ -121,6 +127,9 @@ function submit() {
     size="default"
     type="array"
   >
+    <template #test="{ formData }">
+      <el-input v-model="formData.address" />
+    </template>
     <template #operate>
       <div class="w-full flex">
         <el-button class="w-full" @click="reset">

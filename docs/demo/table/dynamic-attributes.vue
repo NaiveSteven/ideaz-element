@@ -2,6 +2,15 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { TableColumnScopeData } from '@ideaz/element'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
 
 const tableData = ref([
   {
@@ -39,15 +48,15 @@ const columns = ref([
     component: 'input',
     prop: 'name',
     label: '姓名',
-    onChange: ({ row }: any, val: string) => {
+    onChange: ({ row }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, val)
     },
-    onInput: ({ row }: any, val: string) => {
+    onInput: ({ row }: TableColumnScopeData<RowData>, val: string) => {
       console.log('input event', row, val)
     },
     fieldProps: {
       clearable: true,
-      disabled: ({ row, column, $index }: any) => {
+      disabled: ({ row, column, $index }: TableColumnScopeData<RowData>) => {
         return row.id === 1
       },
     },
@@ -56,11 +65,11 @@ const columns = ref([
     component: 'select',
     prop: 'sex',
     label: '性别',
-    onChange: ({ row }: any, val: string) => {
+    onChange: ({ row }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, val)
     },
     fieldProps: {
-      placeholder: ({ row, column, $index }: any) => {
+      placeholder: ({ row, column, $index }: TableColumnScopeData<RowData>) => {
         return `${row.name}性别${$index}`
       },
       clearable: true,

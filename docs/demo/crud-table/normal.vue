@@ -1,5 +1,14 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
 
 const columns = ref([
   {
@@ -33,8 +42,9 @@ const pagination = ref({
   total: 0,
 })
 const loading = ref(false)
+const selectionData = ref<RowData[]>([])
 
-function getTableData(params) {
+function getTableData(params: any) {
   console.log(params, 'getTableData params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -87,6 +97,7 @@ function getTableData(params) {
     v-model:data="tableData"
     v-model:pagination="pagination"
     v-model:loading="loading"
+    v-model:selectionData="selectionData"
     :columns="columns"
     :request="request"
     :action="true"

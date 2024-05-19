@@ -1,15 +1,15 @@
-import type { ButtonProps, dropdownItemProps, dropdownProps } from 'element-plus'
+import type { ButtonProps, TableColumnCtx, dropdownItemProps, dropdownProps } from 'element-plus'
 import type { ExtractPropTypes } from 'vue'
 import type { OptionsItem } from './common'
 import type { FormColumn } from './form'
 
 export type BtnItem = Partial<Omit<ButtonProps, 'type' | 'disabled'>> & {
   type?: 'primary' | 'success' | 'warning' | 'danger' | 'info' | 'dropdown'
-  disabled?: ((row: any, index: number) => boolean) | boolean
-  hide?: ((row?: any, index?: number) => boolean) | boolean
-  onClick?: (row: any, index: number, column: any) => void
+  disabled?: ((scope: TableColumnScopeData) => boolean) | boolean
+  hide?: ((scope: TableColumnScopeData) => boolean) | boolean
+  onClick?: (scope: TableColumnScopeData) => void
   children?: BtnItem
-  reference?: string | ((h: any, scope: any) => VNode)
+  reference?: string | ((scope: TableColumnScopeData) => VNode)
   onCommand?: (command: string) => void
   [propName: string]: any
 } & Partial<ExtractPropTypes<typeof dropdownItemProps>> & Omit<Partial<ExtractPropTypes<typeof dropdownProps>>, 'type'>
@@ -56,4 +56,10 @@ export interface TableCol {
   form?: FormColumn
   __uid?: string
   [propName: string]: any
+}
+
+export interface TableColumnScopeData<T = any> {
+  row: T
+  column: TableColumnCtx<T>
+  $index: number
 }

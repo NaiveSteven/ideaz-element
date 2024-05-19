@@ -20,7 +20,7 @@ export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
   emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'operate-submit', 'operate-delete', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change', 'radio-change'],
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots, expose }) {
     const attrs = useAttrs()
     const {
       setCurrentRow,
@@ -89,15 +89,13 @@ export default defineComponent({
       }
     }))
 
-    useExpose({
+    expose({
       resetFields,
       validate,
       validateField,
       clearValidate,
       scrollToField,
-    })
 
-    useExpose({
       setCurrentRow,
       toggleRowSelection,
       clearSelection,
@@ -109,6 +107,7 @@ export default defineComponent({
       sort,
       getTableData,
     })
+
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
 
     const renderDecorator = (decoratorProps: any) => {
@@ -153,10 +152,10 @@ export default defineComponent({
               {...{ size: size.value, ...tableProps.value }}
               v-slots={{
                 ...slots,
-                topLeft: () => {
+                toolBarLeft: () => {
                   return (
                     <>
-                      {slots.topLeft && slots.topLeft()}
+                      {slots.toolBarLeft && slots.toolBarLeft()}
                       {props.action && props.add && (
                         <ElButton
                           size={size.value}
@@ -186,14 +185,14 @@ export default defineComponent({
                     </>
                   )
                 },
-                topBottom: () => {
+                toolBarBottom: () => {
                   if (isSelection.value && props.action && props.alert)
                     return renderAlert()
 
-                  return slots.topBottom?.()
+                  return slots.toolBarBottom?.()
                 },
               }}
-              onUpdate: pagination={(pagination: Pagination) => emit('update:pagination', pagination)}
+              onUpdate:pagination={(pagination: Pagination) => emit('update:pagination', pagination)}
               onRefresh={handlePaginationChange}
               onSort-change={handleSortChange}
               onSelection-change={handleCheckboxChange}
@@ -228,7 +227,7 @@ export default defineComponent({
               }}
               options={props.options}
               modelValue={middleFormData.value}
-              onUpdate: modelValue={(val: any) => { middleFormData.value = val }}
+              onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
               onSearch={handleSearch}
               onReset={handleReset}
               onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
@@ -253,7 +252,7 @@ export default defineComponent({
           columns={columns}
           options={props.options}
           modelValue={dialogFormData.value}
-          onUpdate: modelValue={(val: any) => { dialogFormData.value = val }}
+          onUpdate:modelValue={(val: any) => { dialogFormData.value = val }}
           v-loading={isOperateFormLoading.value}
           v-slots={slots}
         >
@@ -266,7 +265,7 @@ export default defineComponent({
       return (
         <ZDialog
           modelValue={isShowDialog.value}
-          onUpdate: modelValue={(val: boolean) => isShowDialog.value = val}
+          onUpdate:modelValue={(val: boolean) => isShowDialog.value = val}
           {...dialogProps.value}
           onOpen={handleDialogOpen}
           onClosed={handleDialogClosed}
@@ -282,7 +281,7 @@ export default defineComponent({
       return (
         <ElDrawer
           modelValue={isShowDrawer.value}
-          onUpdate: modelValue={(val: boolean) => isShowDrawer.value = val}
+          onUpdate:modelValue={(val: boolean) => isShowDrawer.value = val}
           {...drawerProps.value}
           onOpen={() => handleDrawerOpen(rowData.value)}
         >

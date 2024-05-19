@@ -61,8 +61,8 @@ const columns = ref([
           type: 'primary',
           link: true,
           label: '复制',
-          hide: (row: any) => row.__isEdit,
-          onClick: (row: any) => {
+          hide: ({ row }: any) => row.__isEdit,
+          onClick: ({ row }: any) => {
             tableData.value.push({ ...row })
           },
         },
