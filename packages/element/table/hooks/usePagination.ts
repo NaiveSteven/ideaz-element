@@ -26,7 +26,7 @@ export function usePagination(props: ITableProps, emit: any) {
   const paginationAttrs = computed(() => {
     return {
       ...pagination.value,
-      layout: pagination.value.layout || 'total, prev, pager, next',
+      layout: pagination.value.layout || 'total, sizes, prev, pager, next, jumper',
       pageSizes: pagination.value.pageSizes || [100, 200, 300, 400, 500],
     }
   })
