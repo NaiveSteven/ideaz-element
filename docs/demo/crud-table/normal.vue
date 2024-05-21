@@ -100,7 +100,7 @@ function getTableData(params: any) {
     v-model:selectionData="selectionData"
     :columns="columns"
     :request="request"
-    :action="true"
+    :action="false"
     row-key="id"
     stripe
   />
