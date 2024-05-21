@@ -36,7 +36,6 @@ const pagination = ref({
   page: 1,
   pageSize: 2,
   total: 0,
-  layout: 'prev, pager, next, sizes',
 })
 
 function mockApi(params: { page: number, pageSize: number }): Promise<{ result: { page: number, pageSize: number, total: number, list: RowData[] } }> {

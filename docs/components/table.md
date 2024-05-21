@@ -38,7 +38,7 @@
 
 ## 分页
 
-配置`pagination`，支持双向绑定，实现分页效果。
+配置`pagination`，支持双向绑定，实现分页效果。`layout`默认配置为`total, sizes, prev, pager, next, jumper`，`pageSizes`默认配置为`[100, 200, 300, 400, 500]`，支持自定义。
 
 <preview path="../demo/table/pagination.vue" />
 
@@ -358,9 +358,9 @@
 | label             | 文案                                                        | `string`                                                                 | —       |
 | children          | `type`为`dropdown`生效，下拉项                              | `array`                                                                  | —       |
 | hide              | 按钮隐藏                                                    | `boolean` / `() => boolean`                                              | —       |
-| onClick           | 点击事件                                                    | `({ row, $index, column }) => void`                                           | —       |
+| onClick           | 点击事件                                                    | `({ row, $index, column }) => void`                                      | —       |
 | plain             | 是否为朴素按钮                                              | `boolean`                                                                | false   |
-| disabled          | 按钮是否为禁用状态                                          | `boolean` / `({ row, $index, column }) => boolean`                            | false   |
+| disabled          | 按钮是否为禁用状态                                          | `boolean` / `({ row, $index, column }) => boolean`                       | false   |
 | size              | 尺寸                                                        | `default` / `large` / `small`                                            | —       |
 | plain             | 是否为朴素按钮                                              | `boolean`                                                                | false   |
 | text              | 是否为文字按钮                                              | `boolean`                                                                | false   |
@@ -380,34 +380,34 @@
 
 ## button类型为dropdown
 
-| 属性名         | 说明                                                                                                     | 类型                     | 可选值                                                           | 默认值                                                                     |
-| :------------- | :------------------------------------------------------------------------------------------------------- | :----------------------- | :--------------------------------------------------------------- | :------------------------------------------------------------------------- |
+| 属性名         | 说明                                                                                                     | 类型                          | 可选值                                                           | 默认值                                                                     |
+| :------------- | :------------------------------------------------------------------------------------------------------- | :---------------------------- | :--------------------------------------------------------------- | :------------------------------------------------------------------------- |
 | reference      | 关联文案                                                                                                 | `string` / `(scope) => VNode` | —                                                                | `更多`                                                                     |
-| onCommand      | 点击菜单项触发的事件回调                                                                                 | `(command) => void`      | —                                                                | —                                                                          |
-| type           | 菜单按钮类型，同 `Button` 组件一样，仅在 `split-button` 为 true 的情况下有效。                           | string                   | —                                                                | —                                                                          |
-| size           | 菜单尺寸，在 split-button 为 true 的情况下也对触发按钮生效。                                             | string                   | `large` / `default` / `small`                                    | default                                                                    |
-| max-height     | 菜单最大高度                                                                                             | string / number          | —                                                                | —                                                                          |
-| split-button   | 下拉触发元素呈现为按钮组                                                                                 | boolean                  | —                                                                | false                                                                      |
-| disabled       | 是否禁用                                                                                                 | boolean                  | —                                                                | false                                                                      |
-| placement      | 菜单弹出位置                                                                                             | string                   | `top`/`top-start`/`top-end`/`bottom`/`bottom-start`/`bottom-end` | bottom                                                                     |
-| trigger        | 触发下拉的行为                                                                                           | string                   | `hover` / `click` /`contextmenu`                                 | hover                                                                      |
-| hide-on-click  | 是否在点击菜单项后隐藏菜单                                                                               | boolean                  | —                                                                | true                                                                       |
-| show-timeout   | 展开下拉菜单的延时，仅在 trigger 为 hover 时有效                                                         | number                   | —                                                                | 250                                                                        |
-| hide-timeout   | 收起下拉菜单的延时（仅在 trigger 为 hover 时有效）                                                       | number                   | —                                                                | 150                                                                        |
-| role           | 下拉菜单的 ARIA 属性。 根据具体场景，您可能想要将此更改为“navigation”                                    | string                   | —                                                                | 'menu'                                                                     |
-| tabindex       | Dropdown 组件的 [tabindex](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex) | number                   | —                                                                | 0                                                                          |
-| popper-class   | 自定义浮层类名                                                                                           | string                   | —                                                                | —                                                                          |
-| popper-options | [popper.js](https://popper.js.org/docs/v2/) 参数                                                         | Object                   | 请参考 [popper.js](https://popper.js.org/docs/v2/) 文档          | `{modifiers: [{name: 'computeStyles',options: {gpuAcceleration: false}}]}` |
-| teleported     | 是否将下拉列表插入至 body 元素                                                                           | boolean                  | —                                                                | true                                                                       |
+| onCommand      | 点击菜单项触发的事件回调                                                                                 | `(command) => void`           | —                                                                | —                                                                          |
+| type           | 菜单按钮类型，同 `Button` 组件一样，仅在 `split-button` 为 true 的情况下有效。                           | string                        | —                                                                | —                                                                          |
+| size           | 菜单尺寸，在 split-button 为 true 的情况下也对触发按钮生效。                                             | string                        | `large` / `default` / `small`                                    | default                                                                    |
+| max-height     | 菜单最大高度                                                                                             | string / number               | —                                                                | —                                                                          |
+| split-button   | 下拉触发元素呈现为按钮组                                                                                 | boolean                       | —                                                                | false                                                                      |
+| disabled       | 是否禁用                                                                                                 | boolean                       | —                                                                | false                                                                      |
+| placement      | 菜单弹出位置                                                                                             | string                        | `top`/`top-start`/`top-end`/`bottom`/`bottom-start`/`bottom-end` | bottom                                                                     |
+| trigger        | 触发下拉的行为                                                                                           | string                        | `hover` / `click` /`contextmenu`                                 | hover                                                                      |
+| hide-on-click  | 是否在点击菜单项后隐藏菜单                                                                               | boolean                       | —                                                                | true                                                                       |
+| show-timeout   | 展开下拉菜单的延时，仅在 trigger 为 hover 时有效                                                         | number                        | —                                                                | 250                                                                        |
+| hide-timeout   | 收起下拉菜单的延时（仅在 trigger 为 hover 时有效）                                                       | number                        | —                                                                | 150                                                                        |
+| role           | 下拉菜单的 ARIA 属性。 根据具体场景，您可能想要将此更改为“navigation”                                    | string                        | —                                                                | 'menu'                                                                     |
+| tabindex       | Dropdown 组件的 [tabindex](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/tabindex) | number                        | —                                                                | 0                                                                          |
+| popper-class   | 自定义浮层类名                                                                                           | string                        | —                                                                | —                                                                          |
+| popper-options | [popper.js](https://popper.js.org/docs/v2/) 参数                                                         | Object                        | 请参考 [popper.js](https://popper.js.org/docs/v2/) 文档          | `{modifiers: [{name: 'computeStyles',options: {gpuAcceleration: false}}]}` |
+| teleported     | 是否将下拉列表插入至 body 元素                                                                           | boolean                       | —                                                                | true                                                                       |
 
 ## button类型为dropdown的children下拉项属性
 
-| 属性名   | 说明           | 类型                                        | 可选值 | 默认值 |
-| :------- | :------------- | :------------------------------------------ | :----- | :----- |
+| 属性名   | 说明           | 类型                                             | 可选值 | 默认值 |
+| :------- | :------------- | :----------------------------------------------- | :----- | :----- |
 | disabled | 是否禁用       | `boolean / ({ row, $index, column }) => boolean` | —      | false  |
 | onClick  | 下拉项点击     | `({ row, $index, column }) => void`              | —      | —      |
-| divided  | 是否显示分隔符 | `boolean`                                   | —      | false  |
-| icon     | 自定义图标     | `string` / `Component`                      | —      | —      |
+| divided  | 是否显示分隔符 | `boolean`                                        | —      | false  |
+| icon     | 自定义图标     | `string` / `Component`                           | —      | —      |
 
 ## toolBar属性
 

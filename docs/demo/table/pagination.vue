@@ -15,7 +15,7 @@ const pagination = ref({
   page: 1,
   pageSize: 2,
   total: 0,
-  layout: 'total, sizes, prev, pager, next, jumper',
+  layout: 'total, prev, pager, next',
 })
 
 const columns = ref([
