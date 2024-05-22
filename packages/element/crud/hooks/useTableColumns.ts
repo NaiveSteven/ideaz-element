@@ -4,7 +4,7 @@ import { ElMessage } from 'element-plus'
 import { Delete, EditPen, View } from '@element-plus/icons-vue'
 import type { ComponentInternalInstance } from 'vue'
 import DialogTip from '../../dialog/src/dialog'
-import type { TableCol } from '../../types'
+import type { TableCol, TableColumnScopeData } from '../../types'
 import type { CrudProps } from '../src/props'
 import { COLUMN_TYPE_FIELDS } from '../src/props'
 
@@ -30,7 +30,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       type: 'primary',
       link: true,
       icon: markRaw(EditPen),
-      onClick: (row: any) => {
+      onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
         currentMode.value = 'edit'
         isShowDialog.value = true
@@ -44,7 +44,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       type: 'danger',
       link: true,
       icon: markRaw(Delete),
-      onClick: (row: any) => {
+      onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
         if (props.request?.deleteApi) {
           DialogTip({
@@ -77,7 +77,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       type: 'primary',
       link: true,
       icon: markRaw(View),
-      onClick: (row: any) => {
+      onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
         isShowDrawer.value = true
       },
@@ -87,15 +87,14 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
   const tableColumns = computed(() => {
     const columns = props.columns?.filter((column: TableCol) => COLUMN_TYPE_FIELDS.some(key => column[key])) || []
     if (props.action && (props.detail !== false || props.edit !== false || props.delete !== false)) {
+      const buttons = [props.detail !== false && renderView(), props.edit !== false && renderEdit(), props.delete !== false && renderDelete()].filter(item => item)
       return columns.concat([
         {
           type: 'button',
           label: t('table.action'),
-          buttons: [
-            props.detail !== false && renderView(),
-            props.edit !== false && renderEdit(),
-            props.delete !== false && renderDelete(),
-          ].filter(item => item),
+          fixed: 'right',
+          width: buttons.length * 60,
+          buttons,
         },
       ])
     }

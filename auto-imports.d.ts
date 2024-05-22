@@ -165,7 +165,6 @@ declare module 'vue' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly useAttr: UnwrapRef<typeof import('./packages/hooks/useAttr')['useAttr']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
-    readonly useComponentMethods: UnwrapRef<typeof import('./packages/hooks/useComponentMethods')['useComponentMethods']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useExpose: UnwrapRef<typeof import('./packages/hooks/useExpose')['useExpose']>
@@ -256,7 +255,6 @@ declare module '@vue/runtime-core' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly useAttr: UnwrapRef<typeof import('./packages/hooks/useAttr')['useAttr']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
-    readonly useComponentMethods: UnwrapRef<typeof import('./packages/hooks/useComponentMethods')['useComponentMethods']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useExpose: UnwrapRef<typeof import('./packages/hooks/useExpose')['useExpose']>

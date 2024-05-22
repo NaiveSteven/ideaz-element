@@ -1,4 +1,3 @@
-<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -31,8 +30,7 @@ const pagination = ref({
 })
 const loading = ref(false)
 
-function getTableData(params: any) {
-  console.log(params, 'getTableData params')
+function getTableData() {
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -86,6 +84,7 @@ function getTableData(params: any) {
     v-model:loading="loading"
     :columns="columns"
     :request="request"
+    :action="false"
     title="表格标题"
   />
 </template>

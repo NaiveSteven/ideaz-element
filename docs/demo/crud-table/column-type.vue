@@ -82,7 +82,7 @@ const options = {
     v-model:data="tableData"
     :columns="columns"
     :options="options"
-    :action="true"
+    :action="false"
     row-key="id"
   >
     <template #expand>
