@@ -113,7 +113,7 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   const handleDialogClosed = () => {
     dialogForm.value.resetFields()
     if (isFunction(props.dialog?.onClosed))
-      props.dialog.onClosed()
+      props.dialog.onClosed({ form: dialogForm.value, type: currentMode.value, rowData: currentMode.value === 'edit' ? rowData.value : {} })
   }
 
   const handleDialogOpen = async () => {
@@ -126,15 +126,20 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
           const res = await editDetailApi({ [props.dataKey]: rowData.value[props.dataKey] })
           dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail(res) : res.data
         }
-        catch (error) {}
+        catch (error) { }
         isOperateFormLoading.value = false
       }
       else {
         dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail({ ...rowData.value }) : { ...rowData.value }
       }
     }
-    if (isFunction(props.dialog?.onOpen))
-      props.dialog.onOpen()
+    if (isFunction(props.dialog?.onOpen)) {
+      props.dialog.onOpen({
+        form: dialogForm.value,
+        type: currentMode.value,
+        rowData: currentMode.value === 'edit' ? rowData.value : {},
+      })
+    }
   }
 
   return { dialogProps, dialogFormData, dialogForm, isOperateFormLoading, handleCancel, handleConfirm, handleDialogClosed, handleDialogOpen }
