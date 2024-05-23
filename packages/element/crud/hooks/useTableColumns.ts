@@ -4,9 +4,10 @@ import { ElMessage } from 'element-plus'
 import { Delete, EditPen, View } from '@element-plus/icons-vue'
 import type { ComponentInternalInstance } from 'vue'
 import DialogTip from '../../dialog/src/dialog'
+import { COLUMN_TYPE_FIELDS } from '../src/props'
 import type { TableCol, TableColumnScopeData } from '../../types'
 import type { CrudProps } from '../src/props'
-import { COLUMN_TYPE_FIELDS } from '../src/props'
+import type ZTable from '../../table/src/Table'
 
 export function useTableColumns(props: CrudProps, emit: any, getTableData: () => void) {
   const { t } = useLocale()
@@ -46,6 +47,9 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       icon: markRaw(Delete),
       onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
+        if (isFunction(props.delete))
+          props.delete({ row, table: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
+
         if (props.request?.deleteApi) {
           DialogTip({
             type: 'danger',
@@ -61,7 +65,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
                 ElMessage.success(t('common.success'))
                 refreshAfterRequest()
               }
-              catch (error) {}
+              catch (error) { }
               confirmButtonLoading.value = false
             },
           })

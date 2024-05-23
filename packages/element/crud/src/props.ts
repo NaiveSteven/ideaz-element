@@ -4,6 +4,7 @@ import type { ComponentSize, ElTable } from 'element-plus'
 import { tableProps } from '../../table/src/props'
 import { formProps } from '../../form/src/props'
 import type { TableFormConfig } from '../../types'
+import type ZTable from '../../table/src/Table'
 
 const _tableProps = omit(tableProps, 'columns')
 // const _formProps = omit(formProps, 'columns')
@@ -114,7 +115,7 @@ export const crudProps = {
     default: true,
   },
   delete: {
-    type: [Object, Boolean] as PropType<boolean>,
+    type: [Boolean, Function] as PropType<boolean | (({ row, table, getTableData }: { row: any, table: typeof ZTable, getTableData: (() => void) }) => void)>,
     default: true,
   },
   dialog: {
