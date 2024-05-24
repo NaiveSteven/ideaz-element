@@ -78,7 +78,7 @@
 | searchParams        | 自定义查询接口参数                 | `() => object`        | —      |
 | detailParams        | 自定义详情接口参数                 | `() => object`        | —      |
 | submitParams        | 自定义确认接口参数                 | `() => object`        | —      |
-| deleteParams        | 自定义删除接口参数                 | `() => object`        | —      |
+| deleteParams        | 自定义删除接口参数                 | `(row) => object`        | —      |
 | addParams           | 自定义新增接口参数                 | `() => object`        | —      |
 | editParams          | 自定义编辑接口参数                 | `() => object`        | —      |
 | searchFunc          | 查询方法重写                       | `({ params }) => any` | —      |
@@ -102,7 +102,7 @@
 
 | 事件名         | 说明         | 类型       |
 | :------------- | :----------- | :--------- |
-| operate-delete | 删除表格数据 | `Function` |
+| operate-delete | 删除表格数据 | `({ selectionData, table, getTableData }) => void` |
 
 ## z-crud删除相关插槽
 

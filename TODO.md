@@ -158,7 +158,9 @@
 141. ~~`z-crud`弹窗打开，执行自定义方法，如果是编辑，需要传递`rowData`、`form`等参数，如果是新增，需要传递`form`等参数~~
 142. ~~`z-crud`弹窗关闭，执行自定义方法，需要传递`form`等参数~~
 143. ~~`z-crud`弹窗打开，数据未清空问题~~
-144. `z-crud`删除事件参数优化
+144. ~~`z-crud`删除事件参数优化~~
+145. `z-crud`的`editDetail Api`命名
+146. `z-crud`的`deleteApi`等接口方法，方法参数和`deleteParams`功能重复
      1201_3z0x8etu5vvckcr
 
 ## FEATURE

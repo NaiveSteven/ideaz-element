@@ -3,11 +3,12 @@ import type { ComponentInternalInstance, Ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { isFunction } from '@ideaz/utils'
 import DialogTip from '../../dialog/src/dialog'
+import type ZTable from '../../table/src/Table'
 import type { CrudProps } from '../src/props'
 import type { ITableProps } from '../../table/src/props'
 import type { TableCol } from '../../types'
 
-export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<ITableProps>, refreshAfterRequest: () => void) {
+export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<ITableProps>, refreshAfterRequest: () => void, getTableData: () => void) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const selectionData = ref(props.selectionData || [])
 
@@ -49,7 +50,7 @@ export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<IT
         },
       })
     }
-    emit('operate-delete', selectionData.value)
+    emit('operate-delete', { selectionData: selectionData.value, table: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
   }
 
   return {

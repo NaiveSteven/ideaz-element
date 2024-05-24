@@ -147,7 +147,7 @@
 | searchParams                      | 自定义查询接口参数                                  | `() => object`             |   —       |
 | detailParams                      | 自定义详情接口参数                                  | `() => object`             |   —       |
 | submitParams                      | 自定义确认接口参数                                  | `() => object`             |   —       |
-| deleteParams                      | 自定义删除接口参数                                  | `() => object`             |   —       |
+| deleteParams                      | 自定义删除接口参数                                  | `(row) => object`             |   —       |
 | addParams                      | 自定义新增接口参数                                  | `() => object`             |   —       |
 | editParams                      | 自定义编辑接口参数                                  | `() => object`             |   —       |
 | searchFunc                      | 查询方法重写                                  | `({ params }) => any`             |   —       |

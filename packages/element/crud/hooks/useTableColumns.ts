@@ -70,7 +70,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
             },
           })
         }
-        emit('operate-delete', row)
+        emit('operate-delete', { row, table: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
       },
     }
   }
