@@ -117,13 +117,13 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   }
 
   const handleDialogOpen = async () => {
-    const editDetailApi = props.request?.editDetailApi
+    const detailApi = props.request?.detailApi
     const transformEditDetail = props.request?.transformEditDetail
     if (currentMode.value === 'edit') {
-      if (editDetailApi) {
+      if (detailApi) {
         isOperateFormLoading.value = true
         try {
-          const res = await editDetailApi({ [props.dataKey]: rowData.value[props.dataKey] })
+          const res = await detailApi({ [props.dataKey]: rowData.value[props.dataKey] })
           dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail(res) : res.data
         }
         catch (error) { }

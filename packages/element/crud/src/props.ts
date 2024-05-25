@@ -22,7 +22,6 @@ export interface RequestConfig {
   addApi?: (params?: any) => Promise<any>
   editApi?: (params?: any) => Promise<any>
   detailApi?: (params?: any) => Promise<any>
-  editDetailApi?: (params?: any) => Promise<any>
   alias?: {
     list: string | ((res: any) => any)
     total: string | ((res: any) => any)
