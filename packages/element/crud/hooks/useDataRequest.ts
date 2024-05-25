@@ -114,7 +114,7 @@ export function useDataRequest(props: CrudProps, emit: any) {
   }
 
   function getParams(payload?: { column: any, prop: string, order: string }) {
-    const req = props.request || {}
+    // const req = props.request || {}
     const params = {
       ...props.formData,
       ...payload,
@@ -124,10 +124,6 @@ export function useDataRequest(props: CrudProps, emit: any) {
       params.page = middlePagination.value.page
       params.pageSize = middlePagination.value.pageSize
     }
-    if (isObject(req) && isObject(req.searchParams))
-      return req.searchParams
-    if (isObject(req) && isFunction(req.searchParams))
-      return req.searchParams(params)
     return params
   }
 

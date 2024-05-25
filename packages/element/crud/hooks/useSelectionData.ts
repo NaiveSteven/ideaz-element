@@ -1,7 +1,6 @@
 import type { ElTable } from 'element-plus'
 import type { ComponentInternalInstance, Ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { isFunction } from '@ideaz/utils'
 import DialogTip from '../../dialog/src/dialog'
 import type ZTable from '../../table/src/Table'
 import type { CrudProps } from '../src/props'
@@ -38,8 +37,7 @@ export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<IT
         onConfirm: async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
           confirmButtonLoading.value = true
           try {
-            const deleteParams = props.request?.deleteParams
-            await deleteApi(isFunction(deleteParams) ? deleteParams(selectionData.value) : { [props.dataKey]: selectionData.value.map((item: any) => item[props.dataKey]) })
+            await deleteApi({ [props.dataKey]: selectionData.value.map((item: any) => item[props.dataKey]), selectionData: selectionData.value })
             confirmButtonLoading.value = false
             done()
             ElMessage.success(t('common.success'))

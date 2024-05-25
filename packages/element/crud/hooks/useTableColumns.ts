@@ -56,10 +56,9 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
             message: t('crud.deleteTip'),
             onConfirm: async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
               const dataKey = props.dataKey
-              const deleteParams = props.request?.deleteParams
               confirmButtonLoading.value = true
               try {
-                await props.request?.deleteApi?.(isFunction(deleteParams) ? deleteParams(row) : { [dataKey]: row[dataKey] })
+                await props.request?.deleteApi?.({ [dataKey]: row[dataKey], row })
                 confirmButtonLoading.value = false
                 done()
                 ElMessage.success(t('common.success'))

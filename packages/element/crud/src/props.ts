@@ -27,12 +27,6 @@ export interface RequestConfig {
     total: string | ((res: any) => any)
     detail: string | ((res: any) => any)
   }
-  searchParams?: (params: any) => any
-  detailParams?: ({ rowData }: any) => any
-  submitParams?: ({ formData, rowData, type }: any) => any
-  deleteParams?: (rowData: any) => any
-  addParams?: ({ formData }: any) => any
-  editParams?: ({ formData, rowData }: any) => any
   beforeData?: () => Promise<any>
   afterData?: (res: any) => Promise<any>
   searchFunc?: ({ params }: any) => void
