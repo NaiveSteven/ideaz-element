@@ -15,13 +15,31 @@ type TableKeys = Array<keyof typeof tableProps>
 export const tableKeys = Object.keys(_tableProps) as TableKeys
 export const formKeys = Object.keys(formProps) as FormKeys
 
+export interface DetailRequestApiParams {
+  row: any
+  [propName: string]: any
+}
+
+export interface DeleteRequestApiParams {
+  row?: any
+  selectionData?: any
+  [propName: string]: any
+}
+
+export interface AddRequestApiParams {
+  type: 'add' | 'edit' | 'view'
+  formData: any
+}
+
+export type EditRequestApiParams = AddRequestApiParams & DetailRequestApiParams
+
 export interface RequestConfig {
-  deleteApi?: (params?: any) => Promise<any>
-  submitApi?: (params?: any) => Promise<any>
+  deleteApi?: (params?: DeleteRequestApiParams) => Promise<any>
+  submitApi?: (params?: AddRequestApiParams | EditRequestApiParams) => Promise<any>
   searchApi?: (params?: any) => Promise<any>
-  addApi?: (params?: any) => Promise<any>
-  editApi?: (params?: any) => Promise<any>
-  detailApi?: (params?: any) => Promise<any>
+  addApi?: (params?: AddRequestApiParams) => Promise<any>
+  editApi?: (params?: EditRequestApiParams) => Promise<any>
+  detailApi?: (params: DetailRequestApiParams) => Promise<any>
   alias?: {
     list: string | ((res: any) => any)
     total: string | ((res: any) => any)

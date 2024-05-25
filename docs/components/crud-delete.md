@@ -8,12 +8,6 @@
 
 <preview path="../demo/crud-delete/normal.vue" />
 
-## 自定义参数
-
-配置`request`的`deleteParams`字段，可以自定义删除接口参数。
-
-<preview path="../demo/crud-delete/params.vue" />
-
 ## 自定义删除
 
 配置`operate-delete`事件，可以自定义删除逻辑。
@@ -67,20 +61,13 @@
 
 | 属性名              | 说明                               | 类型                  | 默认值 |
 | :------------------ | :--------------------------------- | :-------------------- | :----- |
-| searchApi           | 查询接口                           | `() => promise`       | —      |
-| submitApi           | 编辑新增确认                       | `() => promise`       | —      |
-| deleteApi           | 删除接口                           | `() => promise`       | —      |
-| addApi              | 新增接口                           | `() => promise`       | —      |
-| editApi             | 编辑接口                           | `() => promise`       | —      |
-| detailApi           | 详情接口                           | `() => promise`       | —      |
-| editDetailApi       | 编辑详情接口（编辑弹窗打开时调用） | `() => promise`       | —      |
+| searchApi           | 查询接口                           | `(params: any) => promise`       | —      |
+| submitApi           | 编辑新增确认                       | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise`       | —      |
+| deleteApi           | 删除接口                           | `({ [key: string]?: any, row?: any, selectionData?: any }) => promise`       | —      |
+| addApi              | 新增接口                           | `({ type: 'add' / 'edit' / 'view', formData: any }) => promise`       | —      |
+| editApi             | 编辑接口                           | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise`       | —      |
+| detailApi           | 详情接口                           | `({ [key: string]: any, row: any }) => promise`       | —      |
 | alias               | 数据路径自定义                     | `object`              | —      |
-| searchParams        | 自定义查询接口参数                 | `() => object`        | —      |
-| detailParams        | 自定义详情接口参数                 | `() => object`        | —      |
-| submitParams        | 自定义确认接口参数                 | `() => object`        | —      |
-| deleteParams        | 自定义删除接口参数                 | `(row) => object`        | —      |
-| addParams           | 自定义新增接口参数                 | `() => object`        | —      |
-| editParams          | 自定义编辑接口参数                 | `() => object`        | —      |
 | searchFunc          | 查询方法重写                       | `({ params }) => any` | —      |
 | tableData           | 表格数据自定义返回                 | `(res) => any`        | —      |
 | transformEditDetail | 编辑详情数据自定义返回             | `() => object`        | —      |

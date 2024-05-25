@@ -3,7 +3,7 @@ import { ElMessage } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue-demi'
 import { isFunction, isObject } from '@ideaz/utils'
 import type ZTable from '../../table/src/Table'
-import type { CrudProps } from '../src/props'
+import type { CrudProps, EditRequestApiParams } from '../src/props'
 import type { ValidateField } from '../../types'
 
 export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'edit' | 'add' | 'view'>, isShowDialog: Ref<boolean>, rowData: Ref<any>) {
@@ -68,7 +68,7 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
                 await submitApi(params)
 
               if (isFunction(editApi))
-                await editApi(params)
+                await editApi(params as EditRequestApiParams)
             }
             if (currentMode.value === 'add') {
               if (isFunction(submitApi))
@@ -91,12 +91,9 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   }
 
   function getParams() {
-    const params = { formData: dialogFormData.value }
+    const params = { type: currentMode.value, formData: dialogFormData.value }
     if (currentMode.value === 'edit')
-      return { ...params, row: rowData.value, type: currentMode.value, [props.dataKey]: rowData.value[props.dataKey] }
-
-    if (currentMode.value === 'add')
-      return { ...params, type: currentMode.value }
+      return { ...params, row: rowData.value, [props.dataKey]: rowData.value[props.dataKey] }
 
     return params
   }
