@@ -34,13 +34,13 @@
 
 ## 编辑详情数据
 
-配置`request`的`editDetailApi`可以实现编辑弹窗默认数据从接口中获取。
+配置`request`的`detailApi`可以实现编辑弹窗默认数据从接口中获取。
 
 <preview path="../demo/crud-cu/edit-detail-api.vue" />
 
 ## 详情数据二次处理
 
-如果需要对接口返回的详情数据二次梳理，可以配置`request.transformEditDetail`。
+如果需要对接口返回的详情数据二次梳理，可以配置`request.alias.detail`。传入函数支持自定义详情数据，传入字符串支持自定义数据路径。
 
 <preview path="../demo/crud-cu/transform-edit-detail.vue" />
 

@@ -54,7 +54,7 @@
 37. ~~`z-table`支持`watermark`~~
 38. ~~`z-crud`支持缓存~~
 39. ~~`z-crud`支持`request`~~
-40. `z-crud`支持编辑、新增、查看和删除配置
+40. ~~`z-crud`支持编辑、新增、查看和删除配置~~
 41. ~~`z-table`支持数据项排列~~
 42. ~~`z-crud`支持`selection`提示~~
 43. `z-crud`编辑、新增、查看和删除支持接口和非接口配置
@@ -160,7 +160,8 @@
 143. ~~`z-crud`弹窗打开，数据未清空问题~~
 144. ~~`z-crud`删除事件参数优化~~
 145. ~~`z-crud`的`editDetail Api`命名~~
-146. ~~`z-crud`的`deleteApi`、`addApi`等接口方法，方法参数和自定义`params`功能重复~~ 147.`z-crud`和`z-table`文档`Api`参数使用详细类型而不是`any`
+146. ~~`z-crud`的`deleteApi`、`addApi`等接口方法，方法参数和自定义`params`功能重复~~
+147. `z-crud`和`z-table`文档`Api`参数使用详细类型而不是`any`
      1201_3z0x8etu5vvckcr
 
 ## FEATURE

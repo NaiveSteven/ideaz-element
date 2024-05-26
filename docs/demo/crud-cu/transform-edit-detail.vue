@@ -64,12 +64,14 @@ const request = ref({
   addApi: commonApi,
   editApi: commonApi,
   detailApi,
-  transformEditDetail: ({ data }: { data: any }) => {
-    console.log(data, 'data')
-    return {
-      ...data,
-      time: [],
-    }
+  alias: {
+    detail: (res: any) => {
+      console.log(res, 'res')
+      return {
+        ...res.data,
+        time: [],
+      }
+    },
   },
 })
 
