@@ -49,7 +49,6 @@ export interface RequestConfig {
   afterData?: (res: any) => Promise<any>
   searchFunc?: ({ params }: any) => void
   tableData?: (res: any) => any
-  transformEditDetail?: (res: any) => any
 }
 
 export interface AlertConfig {

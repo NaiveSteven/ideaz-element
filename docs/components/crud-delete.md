@@ -59,18 +59,17 @@
 
 ## request属性
 
-| 属性名              | 说明                               | 类型                  | 默认值 |
-| :------------------ | :--------------------------------- | :-------------------- | :----- |
-| searchApi           | 查询接口                           | `(params: any) => promise`       | —      |
-| submitApi           | 编辑新增确认                       | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise`       | —      |
-| deleteApi           | 删除接口                           | `({ [key: string]?: any, row?: any, selectionData?: any }) => promise`       | —      |
-| addApi              | 新增接口                           | `({ type: 'add' / 'edit' / 'view', formData: any }) => promise`       | —      |
-| editApi             | 编辑接口                           | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise`       | —      |
-| detailApi           | 详情接口                           | `({ [key: string]: any, row: any }) => promise`       | —      |
-| alias               | 数据路径自定义                     | `object`              | —      |
-| searchFunc          | 查询方法重写                       | `({ params }) => any` | —      |
-| tableData           | 表格数据自定义返回                 | `(res) => any`        | —      |
-| transformEditDetail | 编辑详情数据自定义返回             | `() => object`        | —      |
+| 属性名     | 说明               | 类型                                                                                          | 默认值 |
+| :--------- | :----------------- | :-------------------------------------------------------------------------------------------- | :----- |
+| searchApi  | 查询接口           | `(params: any) => promise`                                                                    | —      |
+| submitApi  | 编辑新增确认       | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise` | —      |
+| deleteApi  | 删除接口           | `({ [key: string]?: any, row?: any, selectionData?: any }) => promise`                        | —      |
+| addApi     | 新增接口           | `({ type: 'add' / 'edit' / 'view', formData: any }) => promise`                               | —      |
+| editApi    | 编辑接口           | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise` | —      |
+| detailApi  | 详情接口           | `({ [key: string]: any, row: any }) => promise`                                               | —      |
+| alias      | 数据路径自定义     | `object`                                                                                      | —      |
+| searchFunc | 查询方法重写       | `({ params }) => any`                                                                         | —      |
+| tableData  | 表格数据自定义返回 | `(res) => any`                                                                                | —      |
 
 ## alert属性
 
@@ -87,8 +86,8 @@
 
 ## z-crud删除相关事件
 
-| 事件名         | 说明         | 类型       |
-| :------------- | :----------- | :--------- |
+| 事件名         | 说明         | 类型                                               |
+| :------------- | :----------- | :------------------------------------------------- |
 | operate-delete | 删除表格数据 | `({ selectionData, table, getTableData }) => void` |
 
 ## z-crud删除相关插槽

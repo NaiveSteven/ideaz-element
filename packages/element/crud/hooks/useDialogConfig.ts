@@ -1,7 +1,8 @@
 import type { Ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { get } from 'lodash-unified'
 import type { ComponentInternalInstance } from 'vue-demi'
-import { isFunction, isObject } from '@ideaz/utils'
+import { isFunction, isObject, isString } from '@ideaz/utils'
 import type ZTable from '../../table/src/Table'
 import type { CrudProps, EditRequestApiParams } from '../src/props'
 import type { ValidateField } from '../../types'
@@ -106,19 +107,19 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
 
   const handleDialogOpen = async () => {
     const detailApi = props.request?.detailApi
-    const transformEditDetail = props.request?.transformEditDetail
+    const detail = props.request?.alias?.detail
     if (currentMode.value === 'edit') {
       if (detailApi) {
         isOperateFormLoading.value = true
         try {
           const res = await detailApi({ [props.dataKey]: rowData.value[props.dataKey], row: rowData.value })
-          dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail(res) : res.data
+          dialogFormData.value = isFunction(detail) ? detail(res) : isString(detail) ? get(res, detail) : res?.data
         }
         catch (error) { }
         isOperateFormLoading.value = false
       }
       else {
-        dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail({ ...rowData.value }) : { ...rowData.value }
+        dialogFormData.value = isFunction(detail) ? detail({ ...rowData.value }) : { ...rowData.value }
       }
     }
     if (isFunction(props.dialog?.onOpen)) {
