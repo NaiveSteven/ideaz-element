@@ -122,7 +122,7 @@
 105. ~~`z-crud`编辑查看处理~~
 106. ~~`z-crud`水印问题~~
 107. `z-crud`操作项`action`和`add`等属性逻辑关联处理问题
-108. `z-crud`的`editDetail`支持自定义参数
+108. ~~`z-crud`的`editDetail`支持自定义参数（已移除）~~
 109. `z-crud`的`transformEditDetail`优化
 110. ~~`z-crud`的`add`、`edit`等属性为`false`时，关闭操作列~~
 111. ~~`vite`打包配置~~
@@ -160,7 +160,8 @@
 143. ~~`z-crud`弹窗打开，数据未清空问题~~
 144. ~~`z-crud`删除事件参数优化~~
 145. ~~`z-crud`的`editDetail Api`命名~~
-146. `z-crud`的`deleteApi`、`addApi`等接口方法，方法参数和自定义`params`功能重复
+146. ~~`z-crud`的`deleteApi`、`addApi`等接口方法，方法参数和自定义`params`功能重复~~
+147.`z-crud`和`z-table`文档`Api`参数使用详细类型而不是`any`
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
