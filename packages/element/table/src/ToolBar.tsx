@@ -11,12 +11,12 @@ function mergeArraysByUID(arr1: TableCol[], arr2: TableCol[]) {
   const mergedArray = [...arr2]
 
   arr1.forEach((item: TableCol, index: number) => {
-    uidMap[item.__uid] = index
+    uidMap[item.__uid!] = index
   })
 
   arr1.forEach((item: TableCol) => {
     if (!mergedArray.some(mergedItem => mergedItem.__uid === item.__uid)) {
-      const insertIndex = uidMap[item.__uid]
+      const insertIndex = uidMap[item.__uid!]
       mergedArray.splice(insertIndex, 0, item)
     }
   })
@@ -60,18 +60,18 @@ export default defineComponent({
     const isFullScreen = ref(false)
 
     function getIsCheckAll(leftChecked: string[], centerChecked: string[], rightChecked: string[]) {
-      const leftFixedTableColsUids = leftFixedTableCols.value.map(item => item.__uid)
-      const centerTableColsUids = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide).map(item => item.__uid)
-      const rightFixedTableColsUids = rightFixedTableCols.value.map(item => item.__uid)
+      const leftFixedTableColsUids = leftFixedTableCols.value.map(item => item.__uid!)
+      const centerTableColsUids = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide).map(item => item.__uid!)
+      const rightFixedTableColsUids = rightFixedTableCols.value.map(item => item.__uid!)
       return (leftFixedTableColsUids.every(item => leftChecked.includes(item)))
         && (centerTableColsUids.every(item => centerChecked.includes(item)))
         && (rightFixedTableColsUids.every(item => rightChecked.includes(item)))
     }
 
     function getIsIndeterminate(leftChecked: string[], centerChecked: string[], rightChecked: string[]) {
-      const leftIndeterminate = leftFixedTableCols.value.map(item => item.__uid).some(__uid => leftChecked.includes(__uid))
-      const centerIndeterminate = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide).map(item => item.__uid).some(__uid => centerChecked.includes(__uid))
-      const rightIndeterminate = rightFixedTableCols.value.map(item => item.__uid).some(__uid => rightChecked.includes(__uid))
+      const leftIndeterminate = leftFixedTableCols.value.map(item => item.__uid).some(__uid => leftChecked.includes(__uid!))
+      const centerIndeterminate = props.sortTableCols.filter((item: any) => isFunction(item.hide) ? !item.hide() : !item.hide).map(item => item.__uid).some(__uid => centerChecked.includes(__uid!))
+      const rightIndeterminate = rightFixedTableCols.value.map(item => item.__uid).some(__uid => rightChecked.includes(__uid!))
       return (leftIndeterminate || centerIndeterminate || rightIndeterminate)
         && !getIsCheckAll(leftChecked, centerChecked, rightChecked)
         && Boolean(leftChecked.length || centerChecked.length || rightChecked.length)
@@ -101,7 +101,7 @@ export default defineComponent({
         otherData.forEach((item: TableCol) => {
           const column: TableCol = {
             ...item,
-            fixed: leftCheckedTableColsUids.value.includes(item.__uid) ? 'left' : rightCheckedTableColsUids.value.includes(item.__uid) ? 'right' : undefined,
+            fixed: leftCheckedTableColsUids.value.includes(item.__uid!) ? 'left' : rightCheckedTableColsUids.value.includes(item.__uid!) ? 'right' : undefined,
           }
           const i = props.originFormatTableCols.findIndex(
             (tableCol: TableCol) => column.__uid === tableCol.__uid,
@@ -114,8 +114,8 @@ export default defineComponent({
     }
 
     const handleCheckAllChange = (val: string[]) => {
-      checkedTableCols.value = val ? props.sortTableCols.map((item: TableCol) => item.__uid) : []
-      handleChangeTableCols(val ? props.sortTableCols.map((item: TableCol) => item.__uid) : [])
+      checkedTableCols.value = val ? props.sortTableCols.map((item: TableCol) => item.__uid!) : []
+      handleChangeTableCols(val ? props.sortTableCols.map((item: TableCol) => item.__uid!) : [])
     }
 
     const handleCheckedTableColsChange = (val: string[]) => {
@@ -279,7 +279,7 @@ export default defineComponent({
                     >
                       {t('table.columnDisplay')}
                     </el-checkbox>
-                    <a onClick={resetAll} class="column-popover__reset">
+                    <a onClick={resetAll} href="javascript:;" class="column-popover__reset">
                       {t('common.reset')}
                     </a>
                   </div>

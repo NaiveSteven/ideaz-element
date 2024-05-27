@@ -19,7 +19,7 @@ export function useToolBarTableCols(props: any, emit: any) {
   function getOriginCheckedTableCols(data: TableCol[]) {
     return getCheckData(props.toolBar, data)
       .filter(item => !item.fixed)
-      .map(item => item.__uid)
+      .map(item => item.__uid!)
   }
 
   const handleDataChange = (val: TableCol[], tableCols: TableCol[]) => {
