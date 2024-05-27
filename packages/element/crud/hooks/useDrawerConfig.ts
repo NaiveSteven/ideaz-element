@@ -30,6 +30,8 @@ export function useDrawerConfig(props: CrudProps) {
     else {
       viewData.value = isFunction(detail) ? detail({ ...row }) : { ...row }
     }
+    if (isFunction(props.drawer?.onOpen))
+      props.drawer.onOpen({ row })
   }
 
   return { drawerProps, isDescLoading, viewData, handleDrawerOpen }
