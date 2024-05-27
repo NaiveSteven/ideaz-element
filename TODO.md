@@ -54,7 +54,7 @@
 37. ~~`z-table`支持`watermark`~~
 38. ~~`z-crud`支持缓存~~
 39. ~~`z-crud`支持`request`~~
-40. `z-crud`支持编辑、新增、查看和删除配置
+40. ~~`z-crud`支持编辑、新增、查看和删除配置~~
 41. ~~`z-table`支持数据项排列~~
 42. ~~`z-crud`支持`selection`提示~~
 43. `z-crud`编辑、新增、查看和删除支持接口和非接口配置
@@ -122,8 +122,8 @@
 105. ~~`z-crud`编辑查看处理~~
 106. ~~`z-crud`水印问题~~
 107. `z-crud`操作项`action`和`add`等属性逻辑关联处理问题
-108. `z-crud`的`editDetail`支持自定义参数
-109. `z-crud`的`transformEditDetail`优化
+108. ~~`z-crud`的`editDetail`支持自定义参数（已移除）~~
+109. ~~`z-crud`的`transformEditDetail`优化（已移除）~~
 110. ~~`z-crud`的`add`、`edit`等属性为`false`时，关闭操作列~~
 111. ~~`vite`打包配置~~
 112. 多语言配置（切换等）
@@ -158,7 +158,10 @@
 141. ~~`z-crud`弹窗打开，执行自定义方法，如果是编辑，需要传递`rowData`、`form`等参数，如果是新增，需要传递`form`等参数~~
 142. ~~`z-crud`弹窗关闭，执行自定义方法，需要传递`form`等参数~~
 143. ~~`z-crud`弹窗打开，数据未清空问题~~
-144. `z-crud`删除事件参数优化
+144. ~~`z-crud`删除事件参数优化~~
+145. ~~`z-crud`的`editDetail Api`命名~~
+146. ~~`z-crud`的`deleteApi`、`addApi`等接口方法，方法参数和自定义`params`功能重复~~
+147. `z-crud`和`z-table`文档`Api`参数使用详细类型而不是`any`
      1201_3z0x8etu5vvckcr
 
 ## FEATURE

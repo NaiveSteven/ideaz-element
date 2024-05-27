@@ -15,30 +15,40 @@ type TableKeys = Array<keyof typeof tableProps>
 export const tableKeys = Object.keys(_tableProps) as TableKeys
 export const formKeys = Object.keys(formProps) as FormKeys
 
+export interface DetailRequestApiParams {
+  row: any
+  [propName: string]: any
+}
+
+export interface DeleteRequestApiParams {
+  row?: any
+  selectionData?: any
+  [propName: string]: any
+}
+
+export interface AddRequestApiParams {
+  type: 'add' | 'edit' | 'view'
+  formData: any
+}
+
+export type EditRequestApiParams = AddRequestApiParams & DetailRequestApiParams
+
 export interface RequestConfig {
-  deleteApi?: (params?: any) => Promise<any>
-  submitApi?: (params?: any) => Promise<any>
+  deleteApi?: (params?: DeleteRequestApiParams) => Promise<any>
+  submitApi?: (params?: AddRequestApiParams | EditRequestApiParams) => Promise<any>
   searchApi?: (params?: any) => Promise<any>
-  addApi?: (params?: any) => Promise<any>
-  editApi?: (params?: any) => Promise<any>
-  detailApi?: (params?: any) => Promise<any>
-  editDetailApi?: (params?: any) => Promise<any>
+  addApi?: (params?: AddRequestApiParams) => Promise<any>
+  editApi?: (params?: EditRequestApiParams) => Promise<any>
+  detailApi?: (params: DetailRequestApiParams) => Promise<any>
   alias?: {
     list: string | ((res: any) => any)
     total: string | ((res: any) => any)
     detail: string | ((res: any) => any)
   }
-  searchParams?: (params: any) => any
-  detailParams?: ({ rowData }: any) => any
-  submitParams?: ({ formData, rowData, type }: any) => any
-  deleteParams?: (rowData: any) => any
-  addParams?: ({ formData }: any) => any
-  editParams?: ({ formData, rowData }: any) => any
   beforeData?: () => Promise<any>
   afterData?: (res: any) => Promise<any>
   searchFunc?: ({ params }: any) => void
   tableData?: (res: any) => any
-  transformEditDetail?: (res: any) => any
 }
 
 export interface AlertConfig {

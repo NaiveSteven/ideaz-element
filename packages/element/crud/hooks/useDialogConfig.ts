@@ -1,9 +1,10 @@
 import type { Ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { get } from 'lodash-unified'
 import type { ComponentInternalInstance } from 'vue-demi'
-import { isFunction, isObject } from '@ideaz/utils'
+import { isFunction, isObject, isString } from '@ideaz/utils'
 import type ZTable from '../../table/src/Table'
-import type { CrudProps } from '../src/props'
+import type { CrudProps, EditRequestApiParams } from '../src/props'
 import type { ValidateField } from '../../types'
 
 export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'edit' | 'add' | 'view'>, isShowDialog: Ref<boolean>, rowData: Ref<any>) {
@@ -68,7 +69,7 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
                 await submitApi(params)
 
               if (isFunction(editApi))
-                await editApi(params)
+                await editApi(params as EditRequestApiParams)
             }
             if (currentMode.value === 'add') {
               if (isFunction(submitApi))
@@ -91,22 +92,10 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   }
 
   function getParams() {
-    let params = { ...dialogFormData.value }
-    const addParams = props.request?.addParams
-    const editParams = props.request?.editParams
-    const submitParams = props.request?.submitParams
-    if (currentMode.value === 'edit') {
-      params = isFunction(editParams) ? editParams({ formData: dialogFormData.value, rowData: rowData.value }) : { ...dialogFormData.value, id: rowData.value.id }
-      if (isFunction(submitParams))
-        return submitParams({ formData: dialogFormData.value, rowData: rowData.value, type: currentMode.value })
-      return params
-    }
-    if (currentMode.value === 'add') {
-      params = isFunction(addParams) ? addParams({ formData: dialogFormData.value }) : { ...dialogFormData.value }
-      if (isFunction(submitParams))
-        return submitParams({ formData: dialogFormData.value, type: currentMode.value })
-      return params
-    }
+    const params = { type: currentMode.value, formData: dialogFormData.value }
+    if (currentMode.value === 'edit')
+      return { ...params, row: rowData.value, [props.dataKey]: rowData.value[props.dataKey] }
+
     return params
   }
 
@@ -117,20 +106,20 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   }
 
   const handleDialogOpen = async () => {
-    const editDetailApi = props.request?.editDetailApi
-    const transformEditDetail = props.request?.transformEditDetail
+    const detailApi = props.request?.detailApi
+    const detail = props.request?.alias?.detail
     if (currentMode.value === 'edit') {
-      if (editDetailApi) {
+      if (detailApi) {
         isOperateFormLoading.value = true
         try {
-          const res = await editDetailApi({ [props.dataKey]: rowData.value[props.dataKey] })
-          dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail(res) : res.data
+          const res = await detailApi({ [props.dataKey]: rowData.value[props.dataKey], row: rowData.value })
+          dialogFormData.value = isFunction(detail) ? detail(res) : isString(detail) ? get(res, detail) : res?.data
         }
         catch (error) { }
         isOperateFormLoading.value = false
       }
       else {
-        dialogFormData.value = isFunction(transformEditDetail) ? transformEditDetail({ ...rowData.value }) : { ...rowData.value }
+        dialogFormData.value = isFunction(detail) ? detail({ ...rowData.value }) : { ...rowData.value }
       }
     }
     if (isFunction(props.dialog?.onOpen)) {

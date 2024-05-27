@@ -18,12 +18,6 @@
 
 <preview path="../demo/crud-api/alias-function.vue" />
 
-## 表格数据接口参数
-
-支持通过`request.searchParams`自定义表格数据接口参数。
-
-<preview path="../demo/crud-api/search-params.vue" />
-
 ## 表格数据方法自定义
 
 支持通过`request.searchFunc`自定义表格数据方法。
@@ -64,7 +58,6 @@
 | addApi       | 新增接口                 | `Function`           | —    |
 | editApi      | 编辑接口                 | `Function`           | —    |
 | detailApi    | 详情接口                 | `Function`           | —    |
-| searchParams | 表格数据接口参数自定义   | `(params) => object` | —    |
 | beforeData   | 表格数据接口调用前的回调 | `Function`           | —    |
 | afterData    | 表格数据接口调用后的回调 | `(res) => void`      | —    |
 | searchFunc   | 自定义表格数据方法       | `({params}) => void` | —    |

@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -62,7 +63,7 @@ const request = ref({
   searchApi: mockApi,
   addApi: commonApi,
   editApi: commonApi,
-  editDetailApi: detailApi,
+  detailApi,
 })
 
 function mockApi() {
@@ -115,7 +116,7 @@ function mockApi() {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: { formData: any }) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -127,7 +128,7 @@ function commonApi(params) {
   })
 }
 
-function detailApi(params) {
+function detailApi(params: { id: number }) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
