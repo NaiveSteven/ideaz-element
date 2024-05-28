@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { OptionsItem } from '@ideaz/element'
 
 const options = ref([
   {
     label: '选项一',
     value: 1,
-    render: (h, { option }) => {
+    render: ({ option }: OptionsItem) => {
       return h('span', {}, `自定义${option.value}`)
     },
   },
