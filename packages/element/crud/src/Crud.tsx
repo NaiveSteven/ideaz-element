@@ -14,6 +14,7 @@ import ZForm from '../../form/src/BaseForm'
 import ZTable from '../../table/src/Table'
 import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from '../hooks'
 import type { Pagination } from '../../types'
+import type { AlertConfig } from './props'
 import { EXCLUDE_FORM_PROPS_KEYS, crudProps, crudProvideKey } from './props'
 
 export default defineComponent({
@@ -124,13 +125,14 @@ export default defineComponent({
       if (isFunction(slots.alert))
         return slots.alert({ selectionData: selectionData.value })
 
+      const alertProps = omit(props.alert, ['title', 'description']) as Omit<AlertConfig, 'title' | 'description'>
       return (
         <ElAlert
           type="success"
           close-text={t('crud.unselect')}
           onClose={handleCloseAlert}
           class={ns.b('alert')}
-          {...omit(props.alert, ['title', 'description'])}
+          {...alertProps}
           v-slots={{
             title: isFunction(alert.title)
               ? () => (alert.title as Function)(selectionData.value, ctx!.$refs.zTableRef)
