@@ -3,6 +3,7 @@ import { omit } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { isFunction, isObject, isString } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
+import { withKeys } from 'vue'
 import { useFormMethods } from '../../form/hooks'
 import {
   useTableMethods,
@@ -232,7 +233,7 @@ export default defineComponent({
               onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
               onSearch={handleSearch}
               onReset={handleReset}
-              onkeydown={(e: KeyboardEvent) => handleKeyDown(e)}
+              onKeydown={withKeys((e: KeyboardEvent) => handleKeyDown(e), ['enter'])}
               v-slots={slots}
             >
             </ZFilterForm>

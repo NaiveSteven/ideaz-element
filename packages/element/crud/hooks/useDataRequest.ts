@@ -114,7 +114,6 @@ export function useDataRequest(props: CrudProps, emit: any) {
   }
 
   function getParams(payload?: { column: any, prop: string, order: string }) {
-    // const req = props.request || {}
     const params = {
       ...props.formData,
       ...payload,
@@ -148,10 +147,8 @@ export function useDataRequest(props: CrudProps, emit: any) {
   }
 
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.keyCode === 13) {
-      e.preventDefault()
-      handleSearch()
-    }
+    e.preventDefault()
+    handleSearch()
   }
 
   const handlePaginationChange = (val: { page: number, pageSize: number }) => {
