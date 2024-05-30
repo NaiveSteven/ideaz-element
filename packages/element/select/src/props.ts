@@ -3,10 +3,15 @@ import type { Alias, OptionsItem } from '../../types'
 
 export interface SelectOptionsItem extends OptionsItem {
   options?: OptionsItem[]
-  render?: string | ((h: any, { option }: { option: SelectOptionsItem }) => JSX.Element)
+  render?: string | (({ option }: { option: SelectOptionsItem }) => JSX.Element)
 }
 
 export const selectProps = {
+  value: {
+    type: [String, Number, Array, Boolean],
+    default: '',
+    required: false,
+  },
   modelValue: {
     type: [String, Number, Array, Boolean],
     default: '',
@@ -33,6 +38,6 @@ export const selectProps = {
   },
 }
 
-export const SELECT_SLOTS = ['prefix', 'empty', 'tag', 'loading', 'header', 'footer']
+export const SELECT_SLOTS = ['prefix', 'empty']
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>

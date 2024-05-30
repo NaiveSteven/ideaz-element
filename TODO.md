@@ -162,6 +162,7 @@
 145. ~~`z-crud`的`editDetail Api`命名~~
 146. ~~`z-crud`的`deleteApi`、`addApi`等接口方法，方法参数和自定义`params`功能重复~~
 147. `z-crud`和`z-table`文档`Api`参数使用详细类型而不是`any`
+148. `z-select`、`z-checkbox`等组件`render`方法参数统一优化
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
