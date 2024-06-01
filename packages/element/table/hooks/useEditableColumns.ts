@@ -2,7 +2,7 @@ import { isFunction, isObject, uid } from '@ideaz/utils'
 import type { Ref } from 'vue'
 import DialogTip from '../../dialog/src/dialog'
 import type { ITableProps } from '../src/props'
-import type { TableCol, TableColumnScopeData } from '../../types'
+import type { BtnItem, TableCol, TableColumnScopeData } from '../../types'
 
 function replacePropertyValues(obj: any, reverse = false) {
   for (const key in obj) {
@@ -34,7 +34,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
     return []
   }
 
-  const renderEdit = () => {
+  const renderEdit = (): BtnItem => {
     return {
       label: t('common.edit'),
       type: 'primary',
@@ -50,7 +50,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
     }
   }
 
-  const renderSave = () => {
+  const renderSave = (): BtnItem => {
     return {
       label: t('common.save'),
       type: 'primary',
@@ -76,7 +76,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
     }
   }
 
-  const renderCancel = () => {
+  const renderCancel = (): BtnItem => {
     return {
       label: t('common.cancel'),
       type: 'primary',
@@ -94,7 +94,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
     }
   }
 
-  const renderDelete = () => {
+  const renderDelete = (): BtnItem => {
     return {
       label: t('common.delete'),
       type: 'primary',

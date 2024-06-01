@@ -1,5 +1,15 @@
 <script lang="ts" setup>
+import type { Ref } from 'vue'
 import { ref } from 'vue'
+import type { DefaultButtonOperation, TableColumnScopeData } from '@ideaz/element'
+
+interface RowData {
+  name: string
+  sex: string
+  age: number
+  time: string
+  __isEdit: boolean
+}
 
 const tableData = ref([
   {
@@ -55,14 +65,14 @@ const columns = ref([
   {
     type: 'button',
     label: '操作',
-    buttons: ({ renderEdit, renderCancel, renderDelete, renderSave }: any, tableData: any) => {
+    buttons: ({ renderEdit, renderCancel, renderDelete, renderSave }: DefaultButtonOperation, tableData: Ref<RowData[]>) => {
       return [
         {
           type: 'primary',
           link: true,
           label: '复制',
-          hide: ({ row }: any) => row.__isEdit,
-          onClick: ({ row }: any) => {
+          hide: ({ row }: TableColumnScopeData<RowData>) => row.__isEdit,
+          onClick: ({ row }: TableColumnScopeData<RowData>) => {
             tableData.value.push({ ...row })
           },
         },
