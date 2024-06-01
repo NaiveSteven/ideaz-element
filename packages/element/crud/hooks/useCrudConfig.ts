@@ -2,11 +2,11 @@ import { debounce } from 'lodash-unified'
 import type { ElForm } from 'element-plus'
 import { isObject } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
-import type { CrudProps } from '../src/props'
+import type { CrudProps, Pagination } from '../src/props'
 import { useFormStorage } from './useFormStorage'
 import { usePaginationStorage } from './usePaginationStorage'
 
-export const useCrudConfig = (props: CrudProps, emit: any) => {
+export function useCrudConfig(props: CrudProps, emit: any) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
 
   const { middleFormData, originFormData, isUseFormDataStorage } = useFormStorage(props, emit)
@@ -36,10 +36,10 @@ export const useCrudConfig = (props: CrudProps, emit: any) => {
       updateTableProFormData(props)
     }
     if (isObject(props.pagination) && isUsePaginationStorage.value) {
-      const pagination: any = {}
+      const pagination: Pagination = {}
       Object.keys(props.pagination).forEach((key) => {
-        pagination[key] = originPagination.value[key]
-        middlePagination.value[key] = originPagination.value[key]
+        (pagination[key]) = originPagination.value[key as keyof typeof props.pagination];
+        (middlePagination.value[key as keyof typeof props.pagination] as Pagination) = originPagination.value[key as keyof typeof props.pagination] as Pagination
       })
       emit('update:pagination', pagination)
       updateTableProPagination()
