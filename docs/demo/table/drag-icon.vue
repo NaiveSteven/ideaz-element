@@ -1,7 +1,15 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-const tableData = ref([
+interface RowData {
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
+const tableData = ref<RowData[]>([
   {
     name: 'Steven',
     sex: 'male',
@@ -51,7 +59,7 @@ const columns = ref([
   },
 ])
 
-const handleSortEnd = (data) => {
+function handleSortEnd(data: RowData[]) {
   console.log(data, 'data')
 }
 </script>

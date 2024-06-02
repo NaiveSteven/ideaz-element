@@ -8,6 +8,7 @@ const formData = ref({
   time: [],
 })
 const tableData = ref([])
+const visible = ref(false)
 
 const columns = ref([
   {
@@ -35,7 +36,7 @@ const columns = ref([
       component: 'datepicker',
       field: 'time',
       label: '出生日期',
-      hide: () => !formData.value.sex,
+      hide: () => !visible.value,
       fieldProps: {
         type: 'daterange',
         startPlaceholder: '开始日期',
@@ -102,9 +103,16 @@ function mockApi() {
     }, 100)
   })
 }
+
+function handleClick() {
+  visible.value = !visible.value
+}
 </script>
 
 <template>
+  <el-button @click="handleClick">
+    点击
+  </el-button>
   <z-crud
     v-model:pagination="pagination"
     v-model:data="tableData"

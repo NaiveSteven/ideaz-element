@@ -74,6 +74,9 @@ const columns = ref([
     component: 'select',
     prop: 'sex',
     label: '性别',
+    fieldProps: {
+      clearable: true,
+    },
     onChange: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, column, $index, val)
     },

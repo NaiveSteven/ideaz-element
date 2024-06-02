@@ -1,10 +1,19 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
 const zTableRef = ref()
 const radioData = ref({})
-const selectionData = ref([])
-const tableData = ref([
+const selectionData = ref<RowData[]>([])
+const tableData = ref<RowData[]>([
   {
     id: 1,
     name: 'Steven',
@@ -60,17 +69,17 @@ const columns = ref([
   },
 ])
 
-const handleRadioChange = (row) => {
+function handleRadioChange(row: RowData) {
   radioData.value = row
   console.log(row, 'radio data')
 }
 
-const handleSelectionChange = (selection) => {
-  selectionData.value = selection
-  console.log(selection, 'selection data')
+function handleSelectionChange(data: RowData[]) {
+  selectionData.value = data
+  console.log(data, 'selection data')
 }
 
-const handleClear = () => {
+function handleClear() {
   zTableRef.value.clearSelection()
 }
 </script>
