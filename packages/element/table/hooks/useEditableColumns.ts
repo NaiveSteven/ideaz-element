@@ -40,9 +40,9 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       type: 'primary',
       link: true,
       hide: ({ row }: TableColumnScopeData) => row.__isEdit || editableType.value === 'multiple',
-      onClick: ({ row, $index: index, column }: TableColumnScopeData) => {
+      onClick: ({ row, $index, column }: TableColumnScopeData) => {
         if (isObject(props.editable) && isFunction(props.editable?.onEdit))
-          props.editable?.onEdit({ row, index, column, formRef: zTableFormRef.value })
+          props.editable?.onEdit({ row, $index, column, formRef: zTableFormRef.value })
 
         else
           row.__isEdit = true
@@ -56,15 +56,15 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       type: 'primary',
       link: true,
       hide: ({ row }: TableColumnScopeData) => !row.__isEdit || editableType.value === 'multiple',
-      onClick: ({ row, $index: index, column }: TableColumnScopeData) => {
+      onClick: ({ row, $index, column }: TableColumnScopeData) => {
         if (!zTableFormRef.value)
           return
         if (isObject(props.editable) && isFunction(props.editable?.onSave)) {
-          props.editable?.onSave({ row, index, column, formRef: zTableFormRef.value })
+          props.editable?.onSave({ row, $index, column, formRef: zTableFormRef.value })
         }
         else {
           zTableFormRef.value.validateField
-          && zTableFormRef.value.validateField(generateValidateFields(index), (validated: boolean) => {
+          && zTableFormRef.value.validateField(generateValidateFields($index), (validated: boolean) => {
             if (!validated)
               return
 
@@ -82,9 +82,9 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       type: 'primary',
       link: true,
       hide: ({ row }: TableColumnScopeData) => !row.__isEdit || editableType.value === 'multiple',
-      onClick: ({ row, $index: index, column }: TableColumnScopeData) => {
+      onClick: ({ row, $index, column }: TableColumnScopeData) => {
         if (isObject(props.editable) && isFunction(props.editable?.onCancel)) {
-          props.editable?.onCancel({ row, index, column, formRef: zTableFormRef.value })
+          props.editable?.onCancel({ row, $index, column, formRef: zTableFormRef.value })
         }
         else {
           replacePropertyValues(row, true)
@@ -99,13 +99,13 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       label: t('common.delete'),
       type: 'primary',
       link: true,
-      onClick: ({ row, $index: index, column }: TableColumnScopeData) => {
+      onClick: ({ row, $index, column }: TableColumnScopeData) => {
         const delData = () => {
           if (isObject(props.editable) && isFunction(props.editable?.onDelete))
-            props.editable?.onDelete({ row, index, column, formRef: zTableFormRef.value })
+            props.editable?.onDelete({ row, $index, column, formRef: zTableFormRef.value })
 
           else
-            tableData.value.splice(index, 1)
+            tableData.value.splice($index, 1)
         }
         if (isObject(props.editable) && props.editable?.deleteConfirm) {
           DialogTip({

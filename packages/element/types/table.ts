@@ -1,4 +1,4 @@
-import type { ButtonProps, TableColumnCtx, dropdownItemProps, dropdownProps } from 'element-plus'
+import type { ButtonProps, ElForm, TableColumnCtx, dropdownItemProps, dropdownProps } from 'element-plus'
 import type { ExtractPropTypes, Ref } from 'vue'
 import type { OptionsItem } from './common'
 import type { FormColumn } from './form'
@@ -70,4 +70,11 @@ export interface TableColumnScopeData<T = any> {
   row: T
   column: TableColumnCtx<T>
   $index: number
+}
+
+export interface EditableTableEventParams<T = any> {
+  row: T
+  $index: number
+  column: TableColumnCtx<T>
+  formRef: typeof ElForm
 }

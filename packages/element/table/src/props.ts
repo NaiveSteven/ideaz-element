@@ -1,21 +1,21 @@
 import type { CSSProperties, ExtractPropTypes, PropType } from 'vue'
-import type { ComponentSize, ElForm, TableColumnCtx } from 'element-plus'
+import type { ComponentSize } from 'element-plus'
 import type {
   DefaultRow,
   TableProps,
 } from 'element-plus/es/components/table/src/table/defaults'
 import type { WatermarkProps } from '../../watermark/src/watermark'
-import type { Pagination, TableCol, ToolBar } from '../../types'
+import type { EditableTableEventParams, Pagination, TableCol, ToolBar } from '../../types'
 
 export interface TableEdit {
   type?: 'multiple' | 'single'
   position?: 'bottom' | 'top'
   maxLength?: number
   deleteConfirm?: boolean
-  onEdit?: ({ row, index, column, formRef }: { row: any, index: number, column: TableColumnCtx<any>, formRef: typeof ElForm }) => void
-  onSave?: ({ row, index, column, formRef }: { row: any, index: number, column: TableColumnCtx<any>, formRef: typeof ElForm }) => void
-  onDelete?: ({ row, index, column, formRef }: { row: any, index: number, column: TableColumnCtx<any>, formRef: typeof ElForm }) => void
-  onCancel?: ({ row, index, column, formRef }: { row: any, index: number, column: TableColumnCtx<any>, formRef: typeof ElForm }) => void
+  onEdit?: ({ row, $index, column, formRef }: EditableTableEventParams) => void
+  onSave?: ({ row, $index, column, formRef }: EditableTableEventParams) => void
+  onDelete?: ({ row, $index, column, formRef }: EditableTableEventParams) => void
+  onCancel?: ({ row, $index, column, formRef }: EditableTableEventParams) => void
 }
 
 export const tableProps = {
