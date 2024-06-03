@@ -125,7 +125,7 @@ export const crudProps = {
     default: true,
   },
   delete: {
-    type: [Boolean, Function] as PropType<boolean | (({ row, table, getTableData }: { row: any, table: typeof ZTable, getTableData: (() => void) }) => void)>,
+    type: [Boolean, Function] as PropType<boolean | (({ row, tableRef, getTableData }: { row: any, tableRef: typeof ZTable, getTableData: (() => void) }) => void)>,
     default: true,
   },
   dialog: {

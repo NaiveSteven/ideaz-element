@@ -38,7 +38,7 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
     if (!props.onCancel)
       done()
 
-    emit('cancel', { done, form: dialogForm.value, formData: dialogFormData.value, type: currentMode.value, confirmButtonLoading })
+    emit('cancel', { done, formRef: dialogForm.value, formData: dialogFormData.value, type: currentMode.value, confirmButtonLoading })
   }
 
   const handleConfirm = () => {
@@ -52,7 +52,7 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
           done,
           isValid,
           invalidFields,
-          form: dialogForm.value,
+          formRef: dialogForm.value,
           formData: dialogFormData.value,
           type: currentMode.value,
           row: currentMode.value === 'edit' ? rowData.value : {},
@@ -102,7 +102,7 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   const handleDialogClosed = () => {
     dialogForm.value.resetFields()
     if (isFunction(props.dialog?.onClosed))
-      props.dialog.onClosed({ form: dialogForm.value, type: currentMode.value, row: currentMode.value === 'edit' ? rowData.value : {} })
+      props.dialog.onClosed({ formRef: dialogForm.value, type: currentMode.value, row: currentMode.value === 'edit' ? rowData.value : {} })
   }
 
   const handleDialogOpen = async () => {
@@ -124,7 +124,7 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
     }
     if (isFunction(props.dialog?.onOpen)) {
       props.dialog.onOpen({
-        form: dialogForm.value,
+        formRef: dialogForm.value,
         type: currentMode.value,
         row: currentMode.value === 'edit' ? rowData.value : {},
       })

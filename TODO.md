@@ -165,7 +165,7 @@
 148. ~~`z-select`、`z-checkbox`等组件`render`方法参数统一优化~~
 149. 修复`z-crud`最后一个数据`hide`时，重置会失效的问题
 150. `z-table`的`tableCol`类型优化
-151. `z-table`的`editable`模式`onCancel`、`onSave`等参数和文档优化
+151. ~~`z-table`的`editable`模式`onCancel`、`onSave`等参数和文档优化~~
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
