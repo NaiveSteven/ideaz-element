@@ -1,5 +1,5 @@
 import { Operation, QuestionFilled } from '@element-plus/icons-vue'
-import { getEventsFromCamel, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
+import { getEventsFromCamel, isArray, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import { ElIcon } from 'element-plus'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
@@ -107,7 +107,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
           if (isFunction(column.render))
             return column.render(scope)
 
-          if (column.type === 'button') {
+          if (column.type === 'button' && isArray(column.buttons)) {
             return (
               <div class={ns.e('operation')}>
                 {column.buttons?.map((button) => {
