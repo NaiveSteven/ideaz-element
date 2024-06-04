@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -139,7 +140,7 @@ function mockApi() {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: any) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -158,8 +159,8 @@ function commonApi(params) {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
+    v-model:columns="columns"
     :options="options"
-    :columns="columns"
     :search="searchFormConfig"
     :form="formConfig"
     :request="request"
