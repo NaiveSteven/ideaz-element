@@ -2,6 +2,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
 const columns = ref([
   {
     prop: 'name',
@@ -47,7 +55,7 @@ const request = ref({
   searchApi: getData,
   deleteApi: commonApi,
   submitApi: commonApi,
-  tableData: (data) => {
+  tableData: (data: RowData[]) => {
     return data.map((item, index) => ({
       ...item,
       name: item.name + index,
@@ -104,7 +112,7 @@ function getData() {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: any) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {

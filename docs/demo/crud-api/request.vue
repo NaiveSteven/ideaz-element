@@ -53,7 +53,7 @@ const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
 
-function getTableData(params) {
+function getTableData(params: any) {
   console.log(params, 'getTableData params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -100,7 +100,7 @@ function getTableData(params) {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: any) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {

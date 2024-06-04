@@ -99,7 +99,7 @@ function getData() {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: any) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {

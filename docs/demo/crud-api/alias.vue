@@ -2,6 +2,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
 const columns = ref([
   {
     prop: 'name',
@@ -58,7 +66,7 @@ const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
 
-function getTableData(params) {
+function getTableData(params: any) {
   console.log(params, 'getTableData params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -105,7 +113,7 @@ function getTableData(params) {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: any) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -117,8 +125,8 @@ function commonApi(params) {
   })
 }
 
-function detailApi(params) {
-  console.log(params, 'detailApi params')
+function detailApi({ id, row }: { id: number, row: RowData }) {
+  console.log(id, row, 'detailApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({

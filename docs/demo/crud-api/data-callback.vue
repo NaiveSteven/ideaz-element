@@ -2,6 +2,16 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
+interface GetTableDataRes { data: { page: number, pageSize: number, list: RowData[], total: number } }
+
 const columns = ref([
   {
     prop: 'name',
@@ -51,7 +61,7 @@ const request = ref({
     await delay(100)
     console.log('beforeData')
   },
-  afterData: (res) => {
+  afterData: (res: GetTableDataRes) => {
     console.log(res, 'afterData')
   },
 })
@@ -59,13 +69,13 @@ const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
 
-function delay(time) {
+function delay(time: number) {
   return new Promise((resolve) => {
     setTimeout(resolve, time)
   })
 }
 
-function getData() {
+function getData(): Promise<GetTableDataRes> {
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -111,7 +121,7 @@ function getData() {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: any) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
