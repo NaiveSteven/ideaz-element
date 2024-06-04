@@ -13,3 +13,21 @@ export interface DialogFormSubmitParams<T = any, K = any> extends DialogFormCanc
   row: K
   invalidFields: string[]
 }
+
+export interface DetailRequestApiParams<T = any> {
+  row: T
+  [propName: string]: any
+}
+
+export interface DeleteRequestApiParams<T = any> {
+  row?: T
+  selectionData?: T[]
+  [propName: string]: any
+}
+
+export interface AddRequestApiParams<T = any> {
+  type: 'add' | 'edit' | 'view'
+  formData: T
+}
+
+export type EditRequestApiParams<T = any, K = any> = AddRequestApiParams<T> & DetailRequestApiParams<K>
