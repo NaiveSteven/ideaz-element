@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -105,11 +106,11 @@ function mockApi() {
   })
 }
 
-const handleSearch = () => {
+function handleSearch() {
   console.log(formData.value, 'formData')
 }
 
-const handleReset = () => {
+function handleReset() {
   console.log(formData.value, 'formData')
 }
 </script>
@@ -120,8 +121,8 @@ const handleReset = () => {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
+    v-model:columns="columns"
     :options="options"
-    :columns="columns"
     :search="{ labelWidth: '80px' }"
     :action="false"
     :request="request"
