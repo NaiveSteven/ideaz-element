@@ -1,6 +1,22 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { EditRequestApiParams } from '@ideaz/element'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  date: string
+  time: string[]
+}
+
+interface FormData {
+  name: string
+  sex: string
+  age: string
+}
 
 const loading = ref(false)
 const formData = ref({
@@ -172,7 +188,7 @@ function mockApi() {
   })
 }
 
-function commonApi(params: any) {
+function commonApi(params: EditRequestApiParams<FormData, RowData>) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {

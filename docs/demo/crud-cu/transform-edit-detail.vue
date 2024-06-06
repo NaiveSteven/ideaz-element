@@ -1,6 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { EditRequestApiParams } from '@ideaz/element'
 
 interface RowData {
   id: number
@@ -9,6 +10,12 @@ interface RowData {
   age: number
   time: string[]
   date: string
+}
+
+interface FormData {
+  name: string
+  sex: string
+  age: string
 }
 
 interface GetTableDataRes { data: { page: number, pageSize: number, list: RowData[], total: number } }
@@ -136,7 +143,7 @@ function mockApi(): Promise<GetTableDataRes> {
   })
 }
 
-function commonApi(params: { formData: any }) {
+function commonApi(params: EditRequestApiParams<FormData, RowData>) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
