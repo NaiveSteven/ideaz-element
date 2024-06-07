@@ -57,7 +57,7 @@ const columns = [
           startPlaceholder: '开始日期',
           endPlaceholder: '结束日期',
         },
-        onChange: (val: string) => {
+        onChange: (val: string[]) => {
           console.log(val, 'change event')
         },
       },

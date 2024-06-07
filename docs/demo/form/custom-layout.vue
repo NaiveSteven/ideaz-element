@@ -1,5 +1,7 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
 
 const formRef = ref()
 const formData = ref({
@@ -41,10 +43,10 @@ const columns = [
   },
 ]
 
-const submit = () => {
+function submit() {
   formRef.value.validate((valid: boolean) => {
     if (valid) {
-      alert('success')
+      ElMessage.success('success')
       console.log(formData.value, 'formData.value')
     }
     else {
