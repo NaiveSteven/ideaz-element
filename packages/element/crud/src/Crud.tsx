@@ -41,7 +41,7 @@ export default defineComponent({
       validateField,
       clearValidate,
       scrollToField,
-    } = useFormMethods(props)
+    } = useFormMethods()
     const {
       handleSearch,
       tableProps,

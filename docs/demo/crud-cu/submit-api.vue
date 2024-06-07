@@ -1,5 +1,22 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { DialogFormSubmitParams } from '@ideaz/element'
+
+interface FormData {
+  name?: string
+  sex?: string
+  age?: string
+}
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  date: string
+  time: string[]
+}
 
 const loading = ref(false)
 const formData = ref({
@@ -113,7 +130,7 @@ function mockApi() {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: DialogFormSubmitParams<FormData, RowData>) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -132,8 +149,8 @@ function commonApi(params) {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
+    v-model:columns="columns"
     :options="options"
-    :columns="columns"
     :detail="false"
     :request="request"
   />

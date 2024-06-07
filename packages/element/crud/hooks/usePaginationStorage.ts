@@ -4,7 +4,7 @@ import type { CrudProps } from '../src/props'
 import type { Pagination } from '../../types'
 
 export function usePaginationStorage(props: CrudProps, emit: any) {
-  const originPagination = ref(cloneDeep(props.pagination || {}))
+  const originPagination = ref<Pagination>(cloneDeep(props.pagination || {}) as Pagination)
 
   const middlePagination = computed<Pagination>({
     get() {

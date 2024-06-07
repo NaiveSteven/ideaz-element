@@ -1,8 +1,17 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { EditableTableEventParams } from '@ideaz/element'
 
-const tableData = ref([
+interface RowData {
+  name: string
+  sex: string
+  age: number
+  time: string
+  __isEdit: boolean
+}
+
+const tableData = ref<RowData[]>([
   {
     name: 'Steven',
     sex: '1',
@@ -65,18 +74,18 @@ const options = {
 const editable = {
   type: 'single',
   maxLength: 5,
-  onCancel: ({ row, index, column, formRef }: any) => {
-    console.log(row, index, column, formRef, 'row onCancel')
+  onCancel: ({ row, $index, column, formRef }: EditableTableEventParams<RowData>) => {
+    console.log(row, $index, column, formRef, 'row onCancel')
   },
-  onSave: ({ row, index, column, formRef }: any) => {
-    console.log(row, index, column, formRef, 'row onSave')
+  onSave: ({ row, $index, column, formRef }: EditableTableEventParams<RowData>) => {
+    console.log(row, $index, column, formRef, 'row onSave')
   },
-  onDelete: ({ row, index, column, formRef }: any) => {
-    console.log(row, index, column, formRef, 'row onDelete')
+  onDelete: ({ row, $index, column, formRef }: EditableTableEventParams<RowData>) => {
+    console.log(row, $index, column, formRef, 'row onDelete')
   },
-  onEdit: ({ row, index, column, formRef }: any) => {
+  onEdit: ({ row, $index, column, formRef }: EditableTableEventParams<RowData>) => {
     row.__isEdit = true
-    console.log(row, index, column, formRef, 'row onEdit')
+    console.log(row, $index, column, formRef, 'row onEdit')
   },
 }
 </script>

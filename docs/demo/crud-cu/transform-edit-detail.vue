@@ -1,6 +1,24 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { EditRequestApiParams } from '@ideaz/element'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string[]
+  date: string
+}
+
+interface FormData {
+  name: string
+  sex: string
+  age: string
+}
+
+interface GetTableDataRes { data: { page: number, pageSize: number, list: RowData[], total: number } }
 
 const loading = ref(false)
 const formData = ref({
@@ -8,7 +26,7 @@ const formData = ref({
   sex: '',
   age: '',
 })
-const tableData = ref([])
+const tableData = ref<RowData[]>([])
 
 const columns = ref([
   {
@@ -65,7 +83,7 @@ const request = ref({
   editApi: commonApi,
   detailApi,
   alias: {
-    detail: (res: any) => {
+    detail: (res: GetTableDataRes) => {
       console.log(res, 'res')
       return {
         ...res.data,
@@ -75,7 +93,7 @@ const request = ref({
   },
 })
 
-function mockApi() {
+function mockApi(): Promise<GetTableDataRes> {
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -125,7 +143,7 @@ function mockApi() {
   })
 }
 
-function commonApi(params: { formData: any }) {
+function commonApi(params: EditRequestApiParams<FormData, RowData>) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -161,8 +179,8 @@ function detailApi(params: { id: number }) {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
+    v-model:columns="columns"
     :options="options"
-    :columns="columns"
     :detail="false"
     :request="request"
   />

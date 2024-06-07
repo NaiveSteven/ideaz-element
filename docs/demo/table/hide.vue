@@ -50,7 +50,7 @@ const columns = ref([
   },
 ])
 
-const changeVisible = () => {
+function changeVisible() {
   isHide.value = !isHide.value
 }
 </script>

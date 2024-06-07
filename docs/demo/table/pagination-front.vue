@@ -1,9 +1,17 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+interface RowData {
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
 const loading = ref(false)
 const tableData = ref([])
-const totalData = ref([])
+const totalData = ref<RowData[]>([])
 const pagination = ref({
   type: 'front',
   page: 1,
@@ -31,7 +39,8 @@ const columns = ref([
   },
 ])
 
-const mockApi = () => {
+function mockApi(params: { page: number, pageSize: number }): Promise<{ result: { page: number, pageSize: number, total: number, list: RowData[] } }> {
+  console.log(params, 'pagination front params')
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -73,7 +82,7 @@ const mockApi = () => {
   })
 }
 
-const getTableData = async () => {
+async function getTableData() {
   loading.value = true
   try {
     const res = await mockApi({ ...pagination.value })

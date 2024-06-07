@@ -1,5 +1,22 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { DialogFormSubmitParams } from '@ideaz/element'
+
+interface FormData {
+  name?: string
+  sex?: string
+  age?: string
+}
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  date: string
+  time: string[]
+}
 
 const loading = ref(false)
 const formData = ref({
@@ -112,9 +129,9 @@ function mockApi() {
   })
 }
 
-const handleSubmit = ({ done, form, formData, type, confirmButtonLoading, rowData, invalidFields }) => {
+function handleSubmit({ done, formRef, formData, type, confirmButtonLoading, row, invalidFields }: DialogFormSubmitParams<FormData, RowData>) {
   confirmButtonLoading.value = true
-  console.log(form, formData, type, invalidFields, rowData)
+  console.log(formRef, formData, type, invalidFields, row)
   done()
   confirmButtonLoading.value = false
 }
@@ -126,8 +143,8 @@ const handleSubmit = ({ done, form, formData, type, confirmButtonLoading, rowDat
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
+    v-model:columns="columns"
     :options="options"
-    :columns="columns"
     :detail="false"
     :request="request"
     @operate-submit="handleSubmit"

@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -59,7 +60,7 @@ const request = ref({
   searchApi: mockApi,
 })
 
-function mockApi(params) {
+function mockApi(params: any) {
   console.log(params, 'cache params second')
   return new Promise((resolve) => {
     setTimeout(() => {

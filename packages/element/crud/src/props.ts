@@ -3,7 +3,7 @@ import type { ExtractPropTypes, VNode } from 'vue'
 import type { ComponentSize, ElTable } from 'element-plus'
 import { tableProps } from '../../table/src/props'
 import { formProps } from '../../form/src/props'
-import type { TableFormConfig } from '../../types'
+import type { AddRequestApiParams, DeleteRequestApiParams, DetailRequestApiParams, EditRequestApiParams, TableFormConfig } from '../../types'
 import type ZTable from '../../table/src/Table'
 
 const _tableProps = omit(tableProps, 'columns')
@@ -14,24 +14,6 @@ type TableKeys = Array<keyof typeof tableProps>
 
 export const tableKeys = Object.keys(_tableProps) as TableKeys
 export const formKeys = Object.keys(formProps) as FormKeys
-
-export interface DetailRequestApiParams {
-  row: any
-  [propName: string]: any
-}
-
-export interface DeleteRequestApiParams {
-  row?: any
-  selectionData?: any
-  [propName: string]: any
-}
-
-export interface AddRequestApiParams {
-  type: 'add' | 'edit' | 'view'
-  formData: any
-}
-
-export type EditRequestApiParams = AddRequestApiParams & DetailRequestApiParams
 
 export interface RequestConfig {
   deleteApi?: (params?: DeleteRequestApiParams) => Promise<any>
@@ -125,7 +107,7 @@ export const crudProps = {
     default: true,
   },
   delete: {
-    type: [Boolean, Function] as PropType<boolean | (({ row, table, getTableData }: { row: any, table: typeof ZTable, getTableData: (() => void) }) => void)>,
+    type: [Boolean, Function] as PropType<boolean | (({ row, tableRef, getTableData }: { row: any, tableRef: typeof ZTable, getTableData: (() => void) }) => void)>,
     default: true,
   },
   dialog: {

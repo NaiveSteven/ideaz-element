@@ -1,5 +1,15 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import type { DeleteRequestApiParams } from '@ideaz/element'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
 
 const loading = ref(false)
 const formData = ref({
@@ -111,7 +121,7 @@ function mockApi() {
   })
 }
 
-function deleteMockApi(params) {
+function deleteMockApi(params: DeleteRequestApiParams<RowData>) {
   console.log(params, 'params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -130,8 +140,8 @@ function deleteMockApi(params) {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
+    v-model:columns="columns"
     :options="options"
-    :columns="columns"
     :request="request"
     :detail="false"
     :add="false"

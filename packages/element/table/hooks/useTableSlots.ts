@@ -12,7 +12,7 @@ export function useTableSlots(columns: Ref<TableCol[]>, slots: any) {
       columns.value.forEach((item: TableCol) => {
         if (item.slot && slots[item.slot]) {
           scopedSlots[item.slot] = (scope: any) =>
-            slots[item.slot](scope)
+            slots[item.slot!](scope)
         }
         if (
           item.type === 'button'

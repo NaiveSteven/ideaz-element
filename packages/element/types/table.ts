@@ -1,5 +1,5 @@
-import type { ButtonProps, TableColumnCtx, dropdownItemProps, dropdownProps } from 'element-plus'
-import type { ExtractPropTypes } from 'vue'
+import type { ButtonProps, ElForm, TableColumnCtx, dropdownItemProps, dropdownProps } from 'element-plus'
+import type { ExtractPropTypes, Ref } from 'vue'
 import type { OptionsItem } from './common'
 import type { FormColumn } from './form'
 
@@ -24,12 +24,20 @@ export interface TableFormConfig {
   [propName: string]: any
 }
 
-export interface TableCol {
+export interface DefaultButtonOperation {
+  renderEdit: BtnItem
+  renderSave: BtnItem
+  renderCancel: BtnItem
+  renderDelete: BtnItem
+}
+export type ButtonRender<T = any> = (renderData: DefaultButtonOperation, tableData: Ref<T>) => BtnItem[]
+
+export interface TableCol<T = any> {
   // slot?: string;
   // headerSlot?: string;
   type?: string
   component?: string | (() => string)
-  buttons?: BtnItem[]
+  buttons?: BtnItem[] | ButtonRender<T>
   attrs?: {
     [propName: string]: any
   }
@@ -62,4 +70,11 @@ export interface TableColumnScopeData<T = any> {
   row: T
   column: TableColumnCtx<T>
   $index: number
+}
+
+export interface EditableTableEventParams<T = any> {
+  row: T
+  $index: number
+  column: TableColumnCtx<T>
+  formRef: typeof ElForm
 }

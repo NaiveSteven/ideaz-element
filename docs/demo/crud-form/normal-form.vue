@@ -1,5 +1,15 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+
+interface RowData {
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
+interface GetTableDataRes { result: { page: number, pageSize: number, list: RowData[], total: number } }
 
 const loading = ref(false)
 const formData = ref({
@@ -7,7 +17,7 @@ const formData = ref({
   sex: '',
   age: '',
 })
-const tableData = ref([])
+const tableData = ref<RowData[]>([])
 
 const columns = ref([
   {
@@ -58,7 +68,8 @@ const pagination = ref({
   total: 4,
 })
 
-const mockApi = () => {
+function mockApi(params: any): Promise<GetTableDataRes> {
+  console.log(params, 'any')
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -100,11 +111,12 @@ const mockApi = () => {
   })
 }
 
-const getTableData = async () => {
+async function getTableData() {
   loading.value = true
   try {
     const params = {
-      ...pagination.value, ...formData.value,
+      ...pagination.value,
+      ...formData.value,
     }
     const res = await mockApi(params)
     tableData.value = res.result.list
@@ -116,7 +128,7 @@ const getTableData = async () => {
   loading.value = false
 }
 
-const handleSearch = () => {
+function handleSearch() {
   pagination.value.page = 1
   getTableData()
 }
@@ -129,9 +141,9 @@ getTableData()
     v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:formData="formData"
+    v-model:columns="columns"
     :options="options"
     :loading="loading"
-    :columns="columns"
     @refresh="getTableData"
     @search="handleSearch"
     @reset="handleSearch"

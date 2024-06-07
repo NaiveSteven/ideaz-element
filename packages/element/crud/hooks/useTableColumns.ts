@@ -48,7 +48,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
         if (isFunction(props.delete))
-          props.delete({ row, table: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
+          props.delete({ row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
 
         if (props.request?.deleteApi) {
           DialogTip({
@@ -69,7 +69,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
             },
           })
         }
-        emit('operate-delete', { row, table: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
+        emit('operate-delete', { row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
       },
     }
   }

@@ -46,16 +46,16 @@
 
 ## z-crud删除相关属性
 
-| 属性名  | 说明                                     | 类型                 | 默认值 |
-| :------ | :--------------------------------------- | :------------------- | :----- |
-| delete  | 查询表单属性配置                         | `boolean`            | `true` |
-| action  | 操作项是否展示（内置的删除、编辑等按钮） | `boolean`            | `true` |
-| edit    | 编辑配置                                 | `boolean` / `object` | `true` |
-| add     | 新增配置                                 | `boolean` / `object` | `true` |
-| detail  | 详情配置                                 | `boolean` / `object` | `true` |
-| search  | 查询配置                                 | `boolean` / `object` |
-| alert   | 固定的选中数据提示                       | `object` / `boolean` | `true` |
-| request | 接口配置                                 | `object`             | —      |
+| 属性名  | 说明                                     | 类型                                                    | 默认值 |
+| :------ | :--------------------------------------- | :------------------------------------------------------ | :----- |
+| delete  | 查询表单属性配置                         | `boolean` / `({ row, tableRef, getTableData }) => void` | `true` |
+| action  | 操作项是否展示（内置的删除、编辑等按钮） | `boolean`                                               | `true` |
+| edit    | 编辑配置                                 | `boolean` / `object`                                    | `true` |
+| add     | 新增配置                                 | `boolean` / `object`                                    | `true` |
+| detail  | 详情配置                                 | `boolean` / `object`                                    | `true` |
+| search  | 查询配置                                 | `boolean` / `object`                                    |
+| alert   | 固定的选中数据提示                       | `object` / `boolean`                                    | `true` |
+| request | 接口配置                                 | `object`                                                | —      |
 
 ## request属性
 
@@ -73,16 +73,16 @@
 
 ## alert属性
 
-| 名称        | 说明               | 类型                                     | 默认值    | 必填 |
-| :---------- | :----------------- | :--------------------------------------- | :-------- | :--- |
-| title       | Alert 标题。       | `string` / `() => VNode`                 | —         | 否   |
-| type        | Alert 类型。       | `success` / `warning` / `info` / `error` | `info`    | 否   |
-| description | 描述性文本         | `string` / `() => VNode`                 | —         | 否   |
-| closable    | 是否可以关闭       | `boolean`                                | `true`    | 否   |
-| center      | 文字是否居中       | `boolean`                                | `false`   | 否   |
-| close-text  | 自定义关闭按钮文本 | `string`                                 | —         | 否   |
-| effect      | 主题样式           | `light` / `dark`                         | `'light'` | 否   |
-| onClose     | 关闭 Alert 事件    | `Function`                               | —         | 否   |
+| 名称        | 说明               | 类型                                            | 默认值    | 必填 |
+| :---------- | :----------------- | :---------------------------------------------- | :-------- | :--- |
+| title       | Alert 标题。       | `string` / `(selectionData, tableRef) => VNode` | —         | 否   |
+| type        | Alert 类型。       | `success` / `warning` / `info` / `error`        | `info`    | 否   |
+| description | 描述性文本         | `string` / `() => VNode`                        | —         | 否   |
+| closable    | 是否可以关闭       | `boolean`                                       | `true`    | 否   |
+| center      | 文字是否居中       | `boolean`                                       | `false`   | 否   |
+| close-text  | 自定义关闭按钮文本 | `string`                                        | —         | 否   |
+| effect      | 主题样式           | `light` / `dark`                                | `'light'` | 否   |
+| onClose     | 关闭 Alert 事件    | `Function`                                      | —         | 否   |
 
 ## z-crud删除相关事件
 

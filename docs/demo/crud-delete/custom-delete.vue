@@ -1,6 +1,16 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { ZDialogTip } from '@ideaz/element'
+import type { DeleteRequestApiParams } from '@ideaz/element'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
 
 const loading = ref(false)
 const formData = ref({
@@ -107,7 +117,7 @@ function mockApi() {
   })
 }
 
-function deleteMockApi(params) {
+function deleteMockApi(params: DeleteRequestApiParams<RowData>) {
   console.log(params, 'params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -119,7 +129,7 @@ function deleteMockApi(params) {
   })
 }
 
-const handleDelete = (rowData) => {
+function handleDelete({ row }: { row: RowData }) {
   ZDialogTip({
     type: 'warning',
     title: '提示',
@@ -127,7 +137,7 @@ const handleDelete = (rowData) => {
     onConfirm: async ({ confirmButtonLoading, done }) => {
       confirmButtonLoading.value = true
       try {
-        await deleteMockApi({ id: rowData.id })
+        await deleteMockApi({ id: row.id })
         confirmButtonLoading.value = false
         done()
       }
@@ -144,8 +154,8 @@ const handleDelete = (rowData) => {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
+    v-model:columns="columns"
     :options="options"
-    :columns="columns"
     :request="request"
     :detail="false"
     :add="false"

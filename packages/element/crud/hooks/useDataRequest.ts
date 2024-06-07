@@ -160,10 +160,10 @@ export function useDataRequest(props: CrudProps, emit: any) {
   }
 
   function setPaginationData(data: Pagination) {
-    const pagination = { ...middlePagination.value }
+    const pagination: Pagination = { ...middlePagination.value }
     Object.keys(data).forEach((key) => {
       if (Object.hasOwnProperty.call(middlePagination.value, key))
-        pagination[key] = data[key as keyof typeof middlePagination.value]
+        (pagination[key as keyof typeof pagination] as Pagination) = data[key as keyof typeof pagination] as Pagination
     })
     middlePagination.value = pagination
     // if (isUsePaginationStorage.value)

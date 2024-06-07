@@ -1,6 +1,18 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { ZDialogTip } from '@ideaz/element'
+import type { Pagination } from '@ideaz/element'
+
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
+interface GetTableDataRes { data: { page: number, pageSize: number, list: RowData[], total: number } }
 
 const columns = ref([
   {
@@ -36,7 +48,7 @@ const columns = ref([
     label: '出生日期',
   },
 ])
-const tableData = ref([])
+const tableData = ref<RowData[]>([])
 const pagination = ref({
   page: 1,
   pageSize: 2,
@@ -52,7 +64,8 @@ const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
 
-function getData() {
+function getData(params: any): Promise<GetTableDataRes> {
+  console.log(params, 'params')
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -98,7 +111,8 @@ function getData() {
   })
 }
 
-function commonApi() {
+function commonApi(params: any) {
+  console.log(params, 'params')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -126,9 +140,9 @@ async function getTableData() {
   loading.value = false
 }
 
-function handleRefresh(val) {
-  pagination.value.page = val.page
-  pagination.value.pageSize = val.pageSize
+function handleRefresh(val: Pagination) {
+  pagination.value.page = val.page!
+  pagination.value.pageSize = val.pageSize!
   getTableData()
 }
 
@@ -138,7 +152,7 @@ function handleSearch() {
 }
 
 function handleDelete() {
-  window.ZDialogTip({
+  ZDialogTip({
     type: 'warning',
     message: '确定删除该条数据吗？',
     title: '警告',
@@ -150,18 +164,18 @@ function handleDelete() {
   })
 }
 
-async function handleSubmit({ formData, type, rowData, form, done, isValid }) {
+async function handleSubmit({ formData, type, rowData, formRef, done, isValid }: { formData: any, type: 'add' | 'edit', rowData: RowData, formRef: any, done: () => void, isValid: boolean }) {
   if (isValid) {
     dialog.value.confirmButtonLoading = true
     try {
       const params = {
         ...formData,
       }
-      console.log(params, rowData, 'params')
+      console.log(params, rowData, formRef, 'params')
       if (type === 'edit')
         await commonApi({ ...params, id: rowData.id })
       else
-        await commonApi(params, form)
+        await commonApi(params)
       dialog.value.confirmButtonLoading = false
       done()
       getTableData()

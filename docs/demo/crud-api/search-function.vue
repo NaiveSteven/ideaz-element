@@ -2,6 +2,16 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
+interface GetTableDataRes { data: { page: number, pageSize: number, list: RowData[], total: number } }
+
 const columns = ref([
   {
     prop: 'name',
@@ -35,7 +45,7 @@ const columns = ref([
     label: '出生日期',
   },
 ])
-const tableData = ref([])
+const tableData = ref<RowData[]>([])
 const pagination = ref({
   page: 1,
   pageSize: 2,
@@ -46,10 +56,10 @@ const formData = ref({})
 const request = ref({
   deleteApi: commonApi,
   submitApi: commonApi,
-  searchFunc: async ({ params }) => {
+  searchFunc: async ({ params }: any) => {
     loading.value = true
     try {
-      console.log(params, 'params')
+      console.log(params, 'searchFunc params')
       const res = await getData(params)
       tableData.value = res.data.list
       pagination.value.total = res.data.total
@@ -64,7 +74,8 @@ const options = {
   sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
 
-function getData() {
+function getData(params: any): Promise<GetTableDataRes> {
+  console.log(params, 'params')
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -110,7 +121,7 @@ function getData() {
   })
 }
 
-function commonApi(params) {
+function commonApi(params: any) {
   console.log(params, 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
