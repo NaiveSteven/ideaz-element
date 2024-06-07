@@ -3,6 +3,16 @@
 import { ref } from 'vue'
 import type { TableFormConfig } from '@ideaz/element'
 
+interface RowData {
+  id: number
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
+interface GetTableDataRes { data: { page: number, pageSize: number, list: RowData[], total: number } }
+
 const columns = ref([
   {
     label: '姓名',
@@ -24,7 +34,7 @@ const columns = ref([
 const request = ref({
   searchApi: getTableData,
 })
-const tableData = ref([])
+const tableData = ref<RowData[]>([])
 const pagination = ref({
   page: 1,
   pageSize: 2,
@@ -35,7 +45,7 @@ const detailConfig = ref<TableFormConfig | boolean>(true)
 const deleteConfig = ref<TableFormConfig | boolean>(true)
 const editConfig = ref<TableFormConfig | boolean>(true)
 
-function getTableData(params: any) {
+function getTableData(params: any): Promise<GetTableDataRes> {
   console.log(params, 'getTableData params')
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -100,7 +110,7 @@ function handleChangeEditVisible() {
     v-model:data="tableData"
     v-model:pagination="pagination"
     v-model:loading="loading"
-    :columns="columns"
+    v-model:columns="columns"
     :request="request"
     :detail="detailConfig"
     :edit="editConfig"
