@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -41,11 +42,11 @@ const columns = [
   },
 ]
 
-const handleSearch = () => {
+function handleSearch() {
   console.log(formData.value, 'formData')
 }
 
-const handleReset = () => {
+function handleReset() {
   console.log(formData.value, 'formData')
 }
 </script>

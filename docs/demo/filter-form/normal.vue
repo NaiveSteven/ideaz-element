@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -20,10 +21,10 @@ const columns = [
     component: 'input',
     field: 'name',
     label: '名字',
-    onInput: (val) => {
+    onInput: (val: string) => {
       console.log(val, 'input event')
     },
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
   },
@@ -31,7 +32,7 @@ const columns = [
     component: 'select',
     field: 'sex',
     label: '性别',
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
     onFocus: () => {
@@ -47,17 +48,17 @@ const columns = [
       startPlaceholder: '开始日期',
       endPlaceholder: '结束日期',
     },
-    onChange: (val) => {
+    onChange: (val: string) => {
       console.log(val, 'change event')
     },
   },
 ]
 
-const handleSearch = () => {
+function handleSearch() {
   console.log(formData.value, 'search')
 }
 
-const handleReset = () => {
+function handleReset() {
   console.log(formData.value, 'reset')
 }
 </script>
