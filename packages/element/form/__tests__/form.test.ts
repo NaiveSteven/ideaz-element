@@ -79,8 +79,12 @@ function getOptions() {
   )
 }
 
-function getInputValue(wrapper: VueWrapper<ComponentPublicInstance>, index: number) {
-  return (wrapper.findAll('.el-input__inner').at(index) as any).element.value
+// function getInputValue(wrapper: VueWrapper<ComponentPublicInstance>, index: number) {
+//   return (wrapper.findAll('.el-input__inner').at(index) as any).element.value
+// }
+
+function getSelectInputValue(wrapper: VueWrapper<ComponentPublicInstance>, index: number) {
+  return (wrapper.findAll('.el-select__placeholder').at(index) as any).text()
 }
 
 const options = { sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }], age: [{ label: '18', value: '18' }, { label: '16', value: '16' }] }
@@ -103,22 +107,24 @@ describe('form', () => {
         return { value, cols, options }
       },
     })
+    await nextTick()
+    await nextTick()
 
     const labelList = getLabelList(wrapper)
     expect(labelList).toEqual(['name', 'sex', 'date'])
     expect(wrapper.find('.el-form--large').exists()).toBe(true)
 
-    expect(wrapper.findAll('.select-trigger').length).toBe(1)
-    await wrapper.find('.select-trigger').trigger('click')
+    expect(wrapper.findAll('.el-select__wrapper').length).toBe(1)
+    await wrapper.find('.el-select__wrapper').trigger('click')
     await nextTick()
     const data = getOptions()
     expect((wrapper.vm.value as any).sex).toBe('')
-    expect(getInputValue(wrapper, 1)).toBe('')
+    // expect(getSelectInputValue(wrapper, 0)).toBe('')
 
     data[1].click()
     await nextTick()
     expect((wrapper.vm.value as any).sex).toBe('female')
-    expect(getInputValue(wrapper, 1)).toBe('female')
+    expect(getSelectInputValue(wrapper, 0)).toBe('female')
   })
 
   it('columns', async () => {
@@ -267,16 +273,16 @@ describe('form', () => {
       },
     })
 
-    expect(wrapper.findAll('.select-trigger').length).toBe(1)
-    await wrapper.find('.select-trigger').trigger('click')
+    expect(wrapper.findAll('.el-select__wrapper').length).toBe(1)
+    await wrapper.find('.el-select__wrapper').trigger('click')
     await nextTick()
     const data = getOptions()
     expect((wrapper.vm.value as any).sex).toBe('')
-    expect(getInputValue(wrapper, 1)).toBe('')
+    // expect(getSelectInputValue(wrapper, 0)).toBe('')
     data[1].click()
     await nextTick()
     expect((wrapper.vm.value as any).sex).toBe('female')
-    expect(getInputValue(wrapper, 1)).toBe('female')
+    expect(getSelectInputValue(wrapper, 0)).toBe('female')
     expect(handleChange).toHaveBeenCalled()
   })
 
@@ -456,11 +462,11 @@ describe('form', () => {
       await select.trigger('click')
       const opts = getOptions()
       expect((wrapper.vm.value as any).age).toBe('')
-      expect(getInputValue(wrapper, 3)).toBe('')
+      // expect(getSelectInputValue(wrapper, 0)).toBe('')
       await opts[3].click()
       expect(handleChange).toHaveBeenCalled()
       expect((wrapper.vm.value as any).age).toBe('16')
-      expect(getInputValue(wrapper, 3)).toBe('16')
+      expect(getSelectInputValue(wrapper, 1)).toBe('16')
     })
 
     it('resetFields', async () => {
@@ -480,13 +486,13 @@ describe('form', () => {
       await select.trigger('click')
       const opts = getOptions()
       expect((wrapper.vm.value as any).age).toBe('')
-      expect(getInputValue(wrapper, 3)).toBe('')
+      expect(getSelectInputValue(wrapper, 1)).toBe('please selectage')
       await opts[3].click()
       expect((wrapper.vm.value as any).age).toBe('16')
-      expect(getInputValue(wrapper, 3)).toBe('16')
+      expect(getSelectInputValue(wrapper, 1)).toBe('16')
       await (wrapper.vm.$refs.form as any).resetFields()
       expect((wrapper.vm.value as any).age).toBe('')
-      expect(getInputValue(wrapper, 3)).toBe('')
+      expect(getSelectInputValue(wrapper, 1)).toBe('please selectage')
     })
   })
 
@@ -580,16 +586,16 @@ describe('form', () => {
         },
       })
 
-      const select = wrapper.find('.select-trigger')
+      const select = wrapper.find('.el-select__wrapper')
       expect(select.exists()).toBe(true)
       await select.trigger('click')
       const opts = getOptions()
       expect((wrapper.vm.value[0] as any).sex).toBe('')
-      expect(getInputValue(wrapper, 1)).toBe('')
+      // expect(getInputValue(wrapper, 1)).toBe('')
       await opts[1].click()
       expect(handleChange).toHaveBeenCalled()
       expect((wrapper.vm.value[0] as any).sex).toBe('female')
-      expect(getInputValue(wrapper, 1)).toBe('female')
+      expect(getSelectInputValue(wrapper, 0)).toBe('female')
     })
 
     it('resetFields', async () => {
@@ -603,18 +609,18 @@ describe('form', () => {
         },
       })
 
-      const select = wrapper.find('.select-trigger')
+      const select = wrapper.find('.el-select__wrapper')
       expect(select.exists()).toBe(true)
       await select.trigger('click')
       const opts = getOptions()
       expect((wrapper.vm.value[0] as any).sex).toBe('')
-      expect(getInputValue(wrapper, 1)).toBe('')
+      expect(getSelectInputValue(wrapper, 0)).toBe('please selectsex')
       await opts[1].click()
       expect((wrapper.vm.value[0] as any).sex).toBe('female')
-      expect(getInputValue(wrapper, 1)).toBe('female')
+      expect(getSelectInputValue(wrapper, 0)).toBe('female')
       await (wrapper.vm.$refs.form as any).resetFields()
       expect((wrapper.vm.value[0] as any).sex).toBe('')
-      expect(getInputValue(wrapper, 1)).toBe('')
+      expect(getSelectInputValue(wrapper, 0)).toBe('please selectsex')
     })
   })
 
@@ -676,11 +682,11 @@ describe('form', () => {
       await select.trigger('click')
       const opts = getOptions()
       expect((wrapper.vm.value as any).age).toBe('')
-      expect(getInputValue(wrapper, 0)).toBe('')
+      // expect(getSelectInputValue(wrapper, 0)).toBe('')
       await opts[1].click()
       expect(handleChange).toHaveBeenCalled()
       expect((wrapper.vm.value as any).age).toBe('16')
-      expect(getInputValue(wrapper, 0)).toBe('16')
+      expect(getSelectInputValue(wrapper, 0)).toBe('16')
     })
 
     it('resetFields', async () => {
@@ -700,13 +706,13 @@ describe('form', () => {
       await select.trigger('click')
       const opts = getOptions()
       expect((wrapper.vm.value as any).age).toBe('')
-      expect(getInputValue(wrapper, 0)).toBe('')
+      expect(getSelectInputValue(wrapper, 0)).toBe('please selectage')
       await opts[1].click()
       expect((wrapper.vm.value as any).age).toBe('16')
-      expect(getInputValue(wrapper, 0)).toBe('16')
+      expect(getSelectInputValue(wrapper, 0)).toBe('16')
       await (wrapper.vm.$refs.form as any).resetFields()
       expect((wrapper.vm.value as any).age).toBe('')
-      expect(getInputValue(wrapper, 0)).toBe('')
+      expect(getSelectInputValue(wrapper, 0)).toBe('please selectage')
     })
   })
 
@@ -761,11 +767,11 @@ describe('form', () => {
       await select.trigger('click')
       const opts = getOptions()
       expect((wrapper.vm.value as any).age).toBe('')
-      expect(getInputValue(wrapper, 3)).toBe('')
+      // expect(getSelectInputValue(wrapper, 3)).toBe('')
       await opts[3].click()
       expect(handleChange).toHaveBeenCalled()
       expect((wrapper.vm.value as any).age).toBe('16')
-      expect(getInputValue(wrapper, 3)).toBe('16')
+      expect(getSelectInputValue(wrapper, 1)).toBe('16')
     })
 
     it('resetFields', async () => {
@@ -785,13 +791,13 @@ describe('form', () => {
       await select.trigger('click')
       const opts = getOptions()
       expect((wrapper.vm.value as any).age).toBe('')
-      expect(getInputValue(wrapper, 3)).toBe('')
+      expect(getSelectInputValue(wrapper, 1)).toBe('please selectage')
       await opts[3].click()
       expect((wrapper.vm.value as any).age).toBe('16')
-      expect(getInputValue(wrapper, 3)).toBe('16')
+      expect(getSelectInputValue(wrapper, 1)).toBe('16')
       await (wrapper.vm.$refs.form as any).resetFields()
       expect((wrapper.vm.value as any).age).toBe('')
-      expect(getInputValue(wrapper, 3)).toBe('')
+      expect(getSelectInputValue(wrapper, 1)).toBe('please selectage')
     })
   })
 })
