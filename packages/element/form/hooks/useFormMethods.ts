@@ -1,5 +1,6 @@
 import { getCurrentInstance } from 'vue-demi'
-import { isFunction } from '@ideaz/utils'
+import { cloneDeep } from 'lodash-unified'
+import { isFunction, isObject } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
 import type { FormProps } from '../src/props'
 import type { ValidateField, validateCallback, validateFieldCallback } from '../../types'
@@ -17,10 +18,10 @@ interface ElForm {
 
 export function useFormMethods(props?: FormProps) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-  // const originModelValue
-  //   = (isObject(props) && isObject(props.modelValue))
-  //     ? cloneDeep(props.modelValue)
-  //     : null
+  const originModelValue
+    = (isObject(props) && isObject(props.modelValue))
+      ? cloneDeep(props.modelValue)
+      : null
 
   const runArrayFormMethods = (method: string, props?: any, callback?: validateCallback | validateFieldCallback) => {
     Object.keys(ctx!.$refs).forEach((key) => {
@@ -75,17 +76,18 @@ export function useFormMethods(props?: FormProps) {
   }
 
   const resetFields = () => {
-    if (props && props.type === 'array')
+    if (props && props.type === 'array') {
       runArrayFormMethods('resetFields')
-
-    else
+    }
+    else {
       (ctx?.$refs.formRef as ElForm).resetFields()
-      // 表单项使用 hide，条件满足显示元素，最后一个表单项数据无法被重置。手动清空
-      // if (originModelValue) {
-      //   Object.keys(originModelValue).forEach((key) => {
-      //     props!.modelValue[key] = originModelValue[key]
-      //   })
-      // }
+      // If you use hide for form entries, the form entry data may not be reset. Manual clearing
+      if (originModelValue) {
+        Object.keys(originModelValue).forEach((key) => {
+          props!.modelValue[key] = originModelValue[key]
+        })
+      }
+    }
   }
 
   const scrollToField = (prop: string) => {
