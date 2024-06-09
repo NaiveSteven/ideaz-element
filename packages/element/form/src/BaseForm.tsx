@@ -166,7 +166,7 @@ export default defineComponent({
             onChange={(val: CollapseModelValue) => { emit('collapse-change', val) }}
           >
             {formatFormItems.value.map((column) => {
-              if (column.label || column.key) {
+              if (column.children) {
                 const name = isString(column.label) ? column.label : column.key
                 return (
                   <ElCollapseItem
@@ -180,7 +180,12 @@ export default defineComponent({
                   </ElCollapseItem>
                 )
               }
-              return null
+              else if (column.slot || column.render) {
+                return renderCommonColumn([column])
+              }
+              else {
+                return null
+              }
             })}
           </ElCollapse>
         )

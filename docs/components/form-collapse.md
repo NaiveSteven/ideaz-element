@@ -25,6 +25,12 @@
 
 当`ZForm`组件`type`属性为`collapse`时，`column`项可配置`slot`或`render`自定义折叠内容。
 
+:::tip
+
+`column`项传入`children`字段（不管数组有没有长度），都会渲染`ElCollapse`的折叠项
+
+:::
+
 <preview path="../demo/form-collapse/custom.vue" />
 ## 折叠展开事件
 
