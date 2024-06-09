@@ -33,10 +33,10 @@ export default defineConfig({
     //   indexName: 'vitepress-demo',
     // },
     nav: [
-      { text: '组件', link: '/components/grid', activeMatch: '^/components/' },
+      { text: '组件', link: '/components/text', activeMatch: '^/components/' },
       {
         text: '更新日志',
-        link: 'https://github.com/xinlei3166/vitepress-demo',
+        link: 'https://github.com/NaiveSteven/ideaz-element/commits/main/',
       },
     ],
     sidebar: {
