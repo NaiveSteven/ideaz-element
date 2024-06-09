@@ -111,12 +111,19 @@
 | 属性名                  | 说明                                                                                                                                                                                                          | 类型                                                      | 可选值                                                                             | 默认值                                                                                       |
 | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------- | :--------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------- |
 | modelValue:data         | 显示的数据，支持双向绑定                                                                                                                                                                                      | array                                                     | —                                                                                  | —                                                                                            |
+| modelValue:formData         | 查询表单数据，支持双向绑定                                                                                                                                                                                      | array                                                     | —                                                                                  | —                                                                                            |
 | modelValue:pagination   | 分页配置，支持双向绑定                                                                                                                                                                                        | object                                                    | —                                                                                  | —                                                                                            |
 | modelValue:loading      | 表格加载，支持双向绑定                                                                                                                                                                                        | boolean                                                   | —                                                                                  | —                                                                                            |
+| modelValue:selection      | checkbox选中数据，支持双向绑定                                                                                                                                                                                        | array                                                   | —                                                                                  | —                                                                                            |
 | columns                 | 表格配置项                                                                                                                                                                                                    | array                                                     | —                                                                                  | —                                                                                            |
 | toolBar                 | 工具栏配置                                                                                                                                                                                                    | object / boolean                                          | —                                                                                  | —                                                                                            |
 | editable                | 可编辑表格配置                                                                                                                                                                                                | object / boolean                                          | —                                                                                  | —                                                                                            |
 | options                 | 表格内部选项数据源                                                                                                                                                                                            | object                                                    | —                                                                                  | —                                                                                            |
+| title                   | 表格标题                                                                                                                                                                                                      | string / function                                         | —                                                                                  | —                                                                                            |
+| totalData               | 表格所有数据（前端分页生效）                                                                                                                                                                                  | array                                                     | —                                                                                  | —                                                                                            |
+| name                 | 表格`key`，配置`name`默认开启缓存                                                                                                                                                                                            | string                                                    | —                                                                                  | —                                                                                            |
+| paginationStorage                 | 分页数据缓存                                                                                                                                                                                            | boolean                                                    | —                                                                                  | false                                                                                            |
+| formStorage                 | 查询表单数据缓存                                                                                                                                                                                            | boolean                                                    | —                                                                                  | false                                                                                            |
 | watermark               | 水印配置                                                                                                                                                                                                      | object（具体配置可查看`z-watermark`文档）                 | —                                                                                  | —                                                                                            |
 | height                  | Table 的高度， 默认为自动高度。 如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。                                | string / number                                           | —                                                                                  | —                                                                                            |
 | max-height              | Table 的最大高度。 合法的值为数字或者单位为 px 的高度。                                                                                                                                                       | string / number                                           | —                                                                                  | —                                                                                            |
@@ -185,6 +192,7 @@
 
 | 方法名             | 说明                                                                                                    | 参数                                                  |
 | :----------------- | :------------------------------------------------------------------------------------------------------ | :---------------------------------------------------- |
+| getTableData       | 获取表格数据方法                                                                                        | —                                                     |
 | clearSelection     | 用于多选表格或单选表格，清空用户的选择                                                                  | —                                                     |
 | getSelectionRows   | 返回当前选中的行                                                                                        |                                                       |
 | toggleRowSelection | 用于多选表格，切换某一行的选中状态， 如果使用了第二个参数，则可直接设置这一行选中与否                   | row, selected                                         |
@@ -201,23 +209,37 @@
 
 ## z-crud插槽
 
-| 插槽名    | 说明                                                                                                                                    | 子标签 |
-| :-------- | :-------------------------------------------------------------------------------------------------------------------------------------- | :----- |
-| append    | 插入至表格最后一行之后的内容， 如果需要对表格的内容进行无限滚动操作，可能需要用到这个 slot。 若表格有合计行，该 slot 会位于合计行之上。 | —      |
-| empty     | 当数据为空时自定义的内容                                                                                                                | —      |
-| top       | 顶部插槽                                                                                                                                | —      |
-| topRight  | 工具栏左侧右部插槽                                                                                                                      | —      |
-| topBottom | 工具栏底部插槽                                                                                                                          | —      |
-| topLeft   | 工具栏左侧左部插槽                                                                                                                      | —      |
+| 插槽名           | 说明                                                                                                                                    | 子标签 |
+| :--------------- | :-------------------------------------------------------------------------------------------------------------------------------------- | :----- |
+| append           | 插入至表格最后一行之后的内容， 如果需要对表格的内容进行无限滚动操作，可能需要用到这个 slot。 若表格有合计行，该 slot 会位于合计行之上。 | —      |
+| empty            | 当数据为空时自定义的内容                                                                                                                | —      |
+| tableTop         | 顶部插槽                                                                                                                                | —      |
+| tableBottom      | 底部插槽                                                                                                                                | —      |
+| toolBarTop       | 工具栏顶部插槽                                                                                                                          | —      |
+| toolBarBottom    | 工具栏底部插槽                                                                                                                          | —      |
+| toolBarRight     | 工具栏右部插槽                                                                                                                          | —      |
+| toolBarLeft      | 工具栏左侧左部插槽                                                                                                                      | —      |
+| tableTitle       | 表格标题插槽                                                                                                                            | —      |
+| paginationTop    | 分页顶部插槽                                                                                                                            | —      |
+| paginationBottom | 分页底部插槽                                                                                                                            | —      |
+| paginationLeft   | 分页左侧插槽                                                                                                                            | —      |
+| paginationRight  | 分页右侧插槽                                                                                                                            | —      |     | —   |
+| formTop          | 表单顶部插槽                                                                                                                            | —      |     | —   |
+| formBottom       | 表单底部插槽                                                                                                                            | —      |     | —   |
+| crudMiddle       | 中间内容插槽                                                                                                                            | —      |     | —   |
 
 ## columns属性
 
 | 属性名                | 说明                                                                                                                                                                                   | 类型                                    | 可选值                                                                                               | 默认值                                                                                             |
 | :-------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | :-------------------------------------- | :--------------------------------------------------------------------------------------------------- | :------------------------------------------------------------------------------------------------- |
-| type                  | 对应列的类型。                                                                                                                                                                         | string                                  | selection / index / expand/ radio / button / input / select                                          | —                                                                                                  |
+| type                  | 对应列的类型。                                                                                                                                                                         | string                                  | selection / index / expand/ radio / button                                                           | —                                                                                                  |
 | index                 | 如果设置了 `type=index`，可以通过传递 `index` 属性来自定义索引                                                                                                                         | number / function(index)                | —                                                                                                    | —                                                                                                  |
 | label                 | 显示的标题（建议配置）                                                                                                                                                                 | string                                  | —                                                                                                    | —                                                                                                  |
 | form                  | 表单配置                                                                                                                                                                               | object                                  | —                                                                                                    | —                                                                                                  |
+| add                   | 新增表单配置                                                                                                                                                                           | object / boolean                        | —                                                                                                    | —                                                                                                  |
+| edit                  | 编辑表单配置                                                                                                                                                                           | object / boolean                        | —                                                                                                    | —                                                                                                  |
+| search                | 查询表单配置                                                                                                                                                                           | object / boolean                        | —                                                                                                    | —                                                                                                  |
+| detail                | 详情表单配置                                                                                                                                                                           | object / boolean                        | —                                                                                                    | —                                                                                                  |
 | buttons               | 按钮配置                                                                                                                                                                               | array                                   | —                                                                                                    | —                                                                                                  |
 | options               | 选项组件数据源                                                                                                                                                                         | array                                   | —                                                                                                    |
 | tooltip               | 列提示                                                                                                                                                                                 | `string` / `() => VNode`                | —                                                                                                    | —                                                                                                  |
@@ -271,43 +293,43 @@
 
 ## editable属性
 
-| 属性名        | 说明           | 类型                                        | 默认值  |
-| :------------ | :------------- | :------------------------------------------ | :------ |
-| type          | 可编辑表格模式 | `single` / `multiple`                       | —       |
-| maxLength     | 最大数量       | `number`                                    | —       |
-| deleteConfirm | 删除二次确认   | `boolean`                                   | `false` |
-| onEdit        | 编辑回调       | `({ row, index, column, formRef }) => void` | —       |
-| onCancel      | 取消回调       | `({ row, index, column, formRef }) => void` | —       |
-| onSave        | 保存回调       | `({ row, index, column, formRef }) => void` | —       |
-| onDelete      | 删除回调       | `({ row, index, column, formRef }) => void` | —       |
+| 属性名        | 说明           | 类型                                        | 默认值   |
+| :------------ | :------------- | :------------------------------------------ | :------- |
+| type          | 可编辑表格模式 | `single` / `multiple`                       | `single` |
+| maxLength     | 最大数量       | `number`                                    | —        |
+| deleteConfirm | 删除二次确认   | `boolean`                                   | `false`  |
+| onEdit        | 编辑回调       | `({ row, index, column, formRef }) => void` | —        |
+| onCancel      | 取消回调       | `({ row, index, column, formRef }) => void` | —        |
+| onSave        | 保存回调       | `({ row, index, column, formRef }) => void` | —        |
+| onDelete      | 删除回调       | `({ row, index, column, formRef }) => void` | —        |
 
 ## column中buttons属性
 
-| 属性名            | 说明                                                        | 类型                                                                     | 默认值  |
-| :---------------- | :---------------------------------------------------------- | :----------------------------------------------------------------------- | :------ |
-| type              | 类型                                                        | `type` / `primary`/ `success`'/ `warning`/ `danger`/ `info` / `dropdown` | —       |
-| label             | 文案                                                        | `string`                                                                 | —       |
-| children          | `type`为`dropdown`生效，下拉项                              | `array`                                                                  | —       |
-| hide              | 按钮隐藏                                                    | `boolean` / `() => boolean`                                              | —       |
-| onClick           | 点击事件                                                    | `(row, index, column) => void`                                           | —       |
-| plain             | 是否为朴素按钮                                              | `boolean`                                                                | false   |
-| disabled          | 按钮是否为禁用状态                                          | `boolean` / `(row, index, column) => boolean`                            | false   |
-| size              | 尺寸                                                        | `default` / `large` / `small`                                            | —       |
-| plain             | 是否为朴素按钮                                              | `boolean`                                                                | false   |
-| text              | 是否为文字按钮                                              | `boolean`                                                                | false   |
-| bg                | 是否显示文字按钮背景颜色                                    | `boolean`                                                                | false   |
-| link              | 是否为链接按钮                                              | `boolean`                                                                | false   |
-| round             | 是否为圆角按钮                                              | `boolean`                                                                | false   |
-| circle            | 是否为圆形按钮                                              | `boolean`                                                                | false   |
-| loading           | 是否为加载中状态                                            | `boolean`                                                                | false   |
-| loading-icon      | 自定义加载中状态图标组件                                    | `string` / `Component`                                                   | Loading |
-| icon              | 图标组件                                                    | `string` / `Component`                                                   | —       |
-| autofocus         | 原生 `autofocus` 属性                                       | `boolean`                                                                | false   |
-| native-type       | 原生 type 属性                                              | `button` / `submit` / `reset`                                            | button  |
-| auto-insert-space | 自动在两个中文字符之间插入空格                              | `boolean`                                                                | —       |
-| color             | 自定义按钮颜色, 并自动计算 `hover` 和 `active` 触发后的颜色 | `string`                                                                 | —       |
-| dark              | dark 模式, 意味着自动设置 `color` 为 dark 模式的颜色        | `boolean`                                                                | false   |
-| tag               | 自定义元素标签                                              | `string` / `Component`                                                   | button  |
+| 属性名            | 说明                                                        | 类型                                                            | 默认值  |
+| :---------------- | :---------------------------------------------------------- | :-------------------------------------------------------------- | :------ |
+| type              | 类型                                                        | `primary`/ `success`'/ `warning`/ `danger`/ `info` / `dropdown` | —       |
+| label             | 文案                                                        | `string`                                                        | —       |
+| children          | `type`为`dropdown`生效，下拉项                              | `array`                                                         | —       |
+| hide              | 按钮隐藏                                                    | `boolean` / `() => boolean`                                     | —       |
+| onClick           | 点击事件                                                    | `(row, index, column) => void`                                  | —       |
+| plain             | 是否为朴素按钮                                              | `boolean`                                                       | false   |
+| disabled          | 按钮是否为禁用状态                                          | `boolean` / `(row, index, column) => boolean`                   | false   |
+| size              | 尺寸                                                        | `default` / `large` / `small`                                   | —       |
+| plain             | 是否为朴素按钮                                              | `boolean`                                                       | false   |
+| text              | 是否为文字按钮                                              | `boolean`                                                       | false   |
+| bg                | 是否显示文字按钮背景颜色                                    | `boolean`                                                       | false   |
+| link              | 是否为链接按钮                                              | `boolean`                                                       | false   |
+| round             | 是否为圆角按钮                                              | `boolean`                                                       | false   |
+| circle            | 是否为圆形按钮                                              | `boolean`                                                       | false   |
+| loading           | 是否为加载中状态                                            | `boolean`                                                       | false   |
+| loading-icon      | 自定义加载中状态图标组件                                    | `string` / `Component`                                          | Loading |
+| icon              | 图标组件                                                    | `string` / `Component`                                          | —       |
+| autofocus         | 原生 `autofocus` 属性                                       | `boolean`                                                       | false   |
+| native-type       | 原生 type 属性                                              | `button` / `submit` / `reset`                                   | button  |
+| auto-insert-space | 自动在两个中文字符之间插入空格                              | `boolean`                                                       | —       |
+| color             | 自定义按钮颜色, 并自动计算 `hover` 和 `active` 触发后的颜色 | `string`                                                        | —       |
+| dark              | dark 模式, 意味着自动设置 `color` 为 dark 模式的颜色        | `boolean`                                                       | false   |
+| tag               | 自定义元素标签                                              | `string` / `Component`                                          | button  |
 
 ## button类型为dropdown
 

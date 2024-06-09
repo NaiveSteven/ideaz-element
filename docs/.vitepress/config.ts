@@ -138,12 +138,8 @@ export default defineConfig({
                       link: '/components/crud-table',
                     },
                     {
-                      text: '表单配置',
+                      text: '查询表单配置',
                       link: '/components/crud-form',
-                    },
-                    {
-                      text: 'Api配置',
-                      link: '/components/crud-api',
                     },
                     {
                       text: '新增编辑配置',
@@ -156,6 +152,10 @@ export default defineConfig({
                     {
                       text: '删除配置',
                       link: '/components/crud-delete',
+                    },
+                    {
+                      text: 'Api配置',
+                      link: '/components/crud-api',
                     },
                     {
                       text: '插槽',
