@@ -29,6 +29,19 @@ const installer = makeInstaller([...components])
 export default installer
 export * from './form/hooks'
 export * from './types'
+export * from './text'
+export * from './tag-select'
+export * from './table'
+export * from './select'
+export * from './radio'
+export * from './input'
+export * from './full-screen'
+export * from './form'
+export * from './dialog'
+export * from './descriptions'
+export * from './crud'
+export * from './checkbox'
+export * from './check-card'
 
 export {
   ZRadio,

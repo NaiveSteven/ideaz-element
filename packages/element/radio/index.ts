@@ -1,4 +1,5 @@
 import { withInstall } from '@ideaz/utils'
-import Radio from './src/index.tsx'
+import Radio from './src/index'
 
 export default withInstall(Radio)
+export * from './src/props'
