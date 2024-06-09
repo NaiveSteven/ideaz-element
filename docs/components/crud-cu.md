@@ -50,6 +50,12 @@
 
 <preview path="../demo/crud-cu/operate-submit.vue" />
 
+## 自定义取消
+
+`operate-cancel`自定义取消事件，如果组件不配置，点击取消默认关闭。
+
+<preview path="../demo/crud-cu/operate-submit.vue" />
+
 ## 表单属性
 
 使用`add`和`edit`对象配置表单属性。
@@ -142,4 +148,5 @@
 
 | 事件名         | 说明     | 类型       |
 | :------------- | :------- | :--------- |
-| operate-submit | 弹窗确认 | `Function` |
+| operate-submit | 弹窗确认 | `({ done, formRef, formData, type, confirmButtonLoading, row, invalidFields }) => void` |
+| operate-cancel | 弹窗取消 | `({ done, formRef, formData, type, confirmButtonLoading, row }) => void` |

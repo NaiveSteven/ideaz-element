@@ -54,7 +54,7 @@ const columns = [
   {
     label: '文本2',
     field: 'b',
-    extra: 'asdfsdf',
+    extra: 'extra field',
     tooltip: '提示',
     children: [
       {

@@ -126,7 +126,7 @@ export const crudProps = {
     type: Object as PropType<any>,
     default: () => ({}),
   },
-  onCancel: {
+  onOperateCancel: {
     type: Function,
   },
   dataKey: {
