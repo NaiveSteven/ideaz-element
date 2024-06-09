@@ -337,30 +337,34 @@ describe('table', () => {
     expect(getHeaderList(wrapper)).toContain('Age')
   })
 
-  // it('slot', async () => {
-  //   const wrapper = mount({
-  //     template: `<z-table :columns="cols" :data="data">
-  //       <template #custom="{row}"><span class="my-custom">{{row.date}}</span></template>
-  //       <template #toolBarTop><span class="toolBarTop">toolBarTop</span></template>
-  //       <template #toolBarBottom><span class="toolBarBottom">toolBarBottom</span></template>
-  //       <template #toolBarRight><span class="toolBarRight">toolBarRight</span></template>
-  //       <template #toolBarLeft><span class="toolBarLeft">toolBarLeft</span></template>
-  //       <template #tableTitle><span class="tableTitle">tableTitle</span></template>
-  //     </z-table>`,
-  //     setup() {
-  //       const cols = ref([...columns].concat({ slot: 'custom' }))
-  //       return { cols, data: tableData }
-  //     },
-  //   })
-  //   await nextTick()
-  //   await nextTick()
-  //   expect(wrapper.findAll('.my-custom').map(item => item.text())).toContain('2016-05-03')
-  //   expect(wrapper.find('.toolBarTop').text()).toBe('toolBarTop')
-  //   expect(wrapper.find('.toolBarBottom').text()).toBe('toolBarBottom')
-  //   expect(wrapper.find('.toolBarRight').text()).toBe('toolBarRight')
-  //   expect(wrapper.find('.toolBarLeft').text()).toBe('toolBarLeft')
-  //   expect(wrapper.find('.tableTitle').text()).toBe('tableTitle')
-  // })
+  it('slot', async () => {
+    const wrapper = mount({
+      template: `<z-table :columns="cols" :pagination="{ page: 1, pageSize: 10 }" :toolBar="false" :data="data">
+        <template #custom="{row}"><span class="my-custom">{{row.date}}</span></template>
+        <template #tableTop><span class="tableTop">tableTop</span></template>
+        <template #toolBarRight><span class="toolBarRight">toolBarRight</span></template>
+        <template #tableTitle><span class="tableTitle">tableTitle</span></template>
+        <template #paginationTop><span class="paginationTop">paginationTop</span></template>
+        <template #paginationBottom><span class="paginationBottom">paginationBottom</span></template>
+        <template #paginationLeft><span class="paginationLeft">paginationLeft</span></template>
+        <template #paginationRight><span class="paginationRight">paginationRight</span></template>
+      </z-table>`,
+      setup() {
+        const cols = ref([...columns].concat({ slot: 'custom' }))
+        return { cols, data: tableData }
+      },
+    })
+    await nextTick()
+    await nextTick()
+    expect(wrapper.findAll('.my-custom').map(item => item.text())).toContain('2016-05-03')
+    expect(wrapper.find('.tableTop').text()).toBe('tableTop')
+    expect(wrapper.find('.toolBarRight').text()).toBe('toolBarRight')
+    expect(wrapper.find('.tableTitle').text()).toBe('tableTitle')
+    expect(wrapper.find('.paginationTop').text()).toBe('paginationTop')
+    expect(wrapper.find('.paginationBottom').text()).toBe('paginationBottom')
+    expect(wrapper.find('.paginationLeft').text()).toBe('paginationLeft')
+    expect(wrapper.find('.paginationRight').text()).toBe('paginationRight')
+  })
 
   it('render', async () => {
     const wrapper = mount({
@@ -641,35 +645,35 @@ describe('table', () => {
     expect(handleChange).toBeCalled()
   })
 
-  // it('multiple editable', async () => {
-  //   const wrapper = mount({
-  //     template: '<z-table :columns="cols" :data="data" :toolBar="false" :editable="editable"/>',
-  //     setup() {
-  //       return {
-  //         editable: { type: 'multiple' },
-  //         cols: [
-  //           {
-  //             component: 'input',
-  //             label: 'name',
-  //             field: 'name',
-  //           },
-  //         ],
-  //         data: ref([
-  //           {
-  //             date: '2016-05-03',
-  //             name: 'Tom',
-  //             address: 'No. 189, Grove St, Los Angeles',
-  //           },
-  //         ]),
-  //       }
-  //     },
-  //   })
-  //   await nextTick()
-  //   await nextTick()
+  it('multiple editable', async () => {
+    const wrapper = mount({
+      template: '<z-table :columns="cols" :data="data" :toolBar="false" :editable="editable"/>',
+      setup() {
+        return {
+          editable: { type: 'multiple' },
+          cols: [
+            {
+              component: 'input',
+              label: 'name',
+              prop: 'name',
+            },
+          ],
+          data: ref([
+            {
+              date: '2016-05-03',
+              name: 'Tom',
+              address: 'No. 189, Grove St, Los Angeles',
+            },
+          ]),
+        }
+      },
+    })
+    await nextTick()
+    await nextTick()
 
-  //   expect(wrapper.findAll('.el-input').length).toBe(1)
-  //   expect(wrapper.find('input').element.value).toBe('Tom')
-  // })
+    expect(wrapper.findAll('.el-input').length).toBe(1)
+    expect(wrapper.find('input').element.value).toBe('Tom')
+  })
 
   it('multiple single', async () => {
     const wrapper = mount({

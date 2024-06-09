@@ -94,12 +94,6 @@
 
 <preview path="../demo/table/custom-header.vue" />
 
-## 表格顶部自定义
-
-配置`top`、`topRight`、`topLeft`和`topBottom`插槽实现顶部自定义。
-
-<preview path="../demo/table/custom-top.vue" />
-
 ## 列提示
 
 `column`中配置`tooltip`实现表头提示功能，支持函数和字符串。

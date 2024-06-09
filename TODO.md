@@ -167,7 +167,7 @@
 150. ~~`z-table`的`tableCol`类型优化~~
 151. ~~`z-table`的`editable`模式`onCancel`、`onSave`等参数和文档优化~~
 152. ~~`z-table`的`editable`的`multiple`模式问题~~
-153. `z-table`的`slot`处理以及相关文档和测试文件
+153. ~~`z-table`的`slot`处理以及相关文档和测试文件~~
      1201_3z0x8etu5vvckcr
 
 ## FEATURE

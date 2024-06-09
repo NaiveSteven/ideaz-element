@@ -117,7 +117,7 @@ export default defineComponent({
         <div
           class={ns.be('tool-bar', 'container')}
           style={{
-            marginBottom: (toolBar || isFunction(slots.tableTop) || isFunction(slots.topRight) || isFunction(slots.topLeft)) ? '16px' : 0,
+            marginBottom: (toolBar || isFunction(slots.tableTop)) ? '16px' : 0,
           }}
         >
           <div class={ns.bm('tool-bar', 'center')}>

@@ -86,12 +86,6 @@
 
 <preview path="../demo/crud-table/custom-header.vue" />
 
-## 表格顶部自定义
-
-配置`top`、`topRight`、`topLeft`和`topBottom`插槽实现顶部自定义。
-
-<preview path="../demo/crud-table/custom-top.vue" />
-
 ## 可编辑表格
 
 > 详细文档请查看`z-table`可编辑表格内容。
