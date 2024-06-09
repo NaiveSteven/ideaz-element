@@ -150,7 +150,7 @@
 
 配置`editable`的`maxLength`，可以设置最大新增数量。配置`editable`的`deleteConfirm`为`true`，可开启删除二次确认。
 
-<preview path="../demo/table/editable.vue" />
+<preview path="../demo/table/editable-multiple.vue" />
 
 配置`editable`的`onSave`、`onDelete`、`onEdit`、`onCancel`。
 
