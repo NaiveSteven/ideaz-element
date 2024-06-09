@@ -1,6 +1,6 @@
 import { Operation, QuestionFilled } from '@element-plus/icons-vue'
 import { getEventsFromCamel, isArray, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
-import { ElIcon } from 'element-plus'
+import { ElFormItem, ElIcon, ElTooltip } from 'element-plus'
 import type { TableColumnProps } from '../src/props'
 import TableButton from '../src/TableButton'
 import { SELECT_TYPES } from '../../form/hooks'
@@ -54,7 +54,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
         ...column.rules,
       }
     }
-    return isEmptyObject(rules) ? null : rules
+    return isEmptyObject(rules) ? undefined : rules
   }
 
   watch(
@@ -123,9 +123,9 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
           if (tableProps.editable) {
             return scope.row.__isEdit === true
               ? (
-                <el-form-item prop={`tableData.${scope.$index}.${column.prop}`} rules={getRules()} class={[ns.b('form-item'), ns.bm('form-item', size)]}>
+                <ElFormItem prop={`tableData.${scope.$index}.${column.prop}`} rules={getRules()} class={[ns.b('form-item'), ns.bm('form-item', size)]}>
                   {renderCustomComponent()}
-                </el-form-item>
+                </ElFormItem>
                 )
               : <span>{getLabel(scope.row)}</span>
           }
@@ -158,18 +158,18 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
           return (
             <span>
               {column.label}
-              <el-tooltip
+              <ElTooltip
                 effect="dark"
                 placement="top"
                 {...tooltipProps}
                 v-slots={tooltipSlot}
               >
                 {tooltip && (
-                  <el-icon class={ns.be('label', 'icon')}>
+                  <ElIcon class={ns.be('label', 'icon')}>
                     <QuestionFilled />
-                  </el-icon>
+                  </ElIcon>
                 )}
-              </el-tooltip>
+              </ElTooltip>
             </span>
           )
         }

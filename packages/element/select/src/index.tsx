@@ -1,4 +1,4 @@
-import { ElOption, ElSelect } from 'element-plus'
+import { ElOption, ElOptionGroup, ElSelect } from 'element-plus'
 import { isArray, isFunction, isSlot } from '@ideaz/utils'
 import { get } from 'lodash-unified'
 import type { Slots } from '@ideaz/hooks'
@@ -51,11 +51,11 @@ export default defineComponent({
         {options.value.map((option) => {
           if (isArray(option.options)) {
             return (
-              <el-option-group label={option.label} key={option.label} disabled={option.disabled}>
+              <ElOptionGroup label={option.label} key={option.label} disabled={option.disabled}>
                 {option.options.map((childOption) => {
                   return getOption(childOption)
                 })}
-              </el-option-group>
+              </ElOptionGroup>
             )
           }
           return getOption(option)

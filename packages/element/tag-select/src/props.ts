@@ -3,7 +3,7 @@ import type { ComponentSize } from 'element-plus'
 import type { Alias, OptionsItem } from '../../types'
 
 export interface TagSelectOptionsItem extends OptionsItem {
-  type?: 'success' | 'info' | 'warning' | 'danger' | ''
+  type?: 'success' | 'info' | 'warning' | 'danger'
   disableTransitions?: boolean
   hit?: boolean
   color?: string

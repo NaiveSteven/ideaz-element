@@ -1,5 +1,6 @@
 import { resolveDynamicComponent } from '@ideaz/shared'
 import { cutStrByFullLength, getStrFullLength, getStyle, isObject, isValid } from '@ideaz/utils'
+import { ElTooltip } from 'element-plus'
 import { textProps } from './text'
 
 export default defineComponent({
@@ -38,13 +39,13 @@ export default defineComponent({
       let text = getText()
       let height = props.height || 0
 
-      // 当 height 未定义，且 lines 定义时，计算真实高度，否则使用 props.height
+      // When height is undefined and lines are defined, calculate the true height, otherwise use props.height
       if (!height && props.lines) {
-        const lineHeight = parseInt(getStyle($el, 'lineHeight') || '', 10) || 24
+        const lineHeight = Number.parseInt(getStyle($el, 'lineHeight') || '', 10) || 24
         height = lineHeight * props.lines
       }
       if ($text) {
-        // 指定 length，则按具体字数剪裁
+        // If length is specified, it is tailored to the specific number of words
         if (props.length) {
           const textLength = props.fullWidthRecognition ? getStrFullLength(text) : text.length
           if (textLength > props.length) {
@@ -59,9 +60,9 @@ export default defineComponent({
             $more.style.display = 'inline-block'
             while ($el.offsetHeight > height && n > 0) {
               if ($el.offsetHeight > height * 3)
-                $text.innerText = text = text.substring(0, Math.floor(text.length / 2))
+                $text.textContent = text = text.substring(0, Math.floor(text.length / 2))
               else
-                $text.innerText = text = text.substring(0, text.length - 1)
+                $text.textContent = text = text.substring(0, text.length - 1)
 
               n--
             }
@@ -79,7 +80,7 @@ export default defineComponent({
       const $text = textRef.value
       // const $el = zText.value
       if ($text)
-        $text.innerText = computedText.value
+        $text.textContent = computedText.value
       // if ($el.offsetHeight > this.height)
       //   emit('on-hide')
       // else
@@ -103,25 +104,31 @@ export default defineComponent({
         content: (() => {
           if (computedReady.value) {
             if (oversize.value) {
-              return <el-tooltip content={getText()} {...tooltipConfig}>
-                <div>
-                  <span ref={textRef}>{getText()}</span>
-                  <span v-show={oversize.value} ref={moreRef}>...</span>
-                </div>
-              </el-tooltip>
+              return (
+                <ElTooltip content={getText()} {...tooltipConfig}>
+                  <div>
+                    <span ref={textRef}>{getText()}</span>
+                    <span v-show={oversize.value} ref={moreRef}>...</span>
+                  </div>
+                </ElTooltip>
+              )
             }
             else {
-              return <>
-                <span ref={textRef}>{getText()}</span>
-                <span v-show={oversize.value} ref={moreRef}>...</span>
-              </>
+              return (
+                <>
+                  <span ref={textRef}>{getText()}</span>
+                  <span v-show={oversize.value} ref={moreRef}>...</span>
+                </>
+              )
             }
           }
           else {
-            return <>
-              <span ref={textRef}>{getText()}</span>
-              <span v-show={oversize.value} ref={moreRef}>...</span>
-            </>
+            return (
+              <>
+                <span ref={textRef}>{getText()}</span>
+                <span v-show={oversize.value} ref={moreRef}>...</span>
+              </>
+            )
           }
         })(),
       })

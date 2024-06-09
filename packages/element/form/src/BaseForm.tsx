@@ -4,7 +4,7 @@ import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { isFunction, isString } from '@ideaz/utils'
-import type { CollapseModelValue } from 'element-plus'
+import type { CollapseModelValue, FormRules } from 'element-plus'
 import { ElButton, ElCollapse, ElCollapseItem, ElDivider, ElForm, ElFormItem, ElStep, ElSteps } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { draggable } from '../../../directives'
@@ -200,7 +200,7 @@ export default defineComponent({
                   }}
                   addVisible={modelValue.length !== max}
                 >
-                  <ElForm {...{ labelWidth: formConfig.value.labelWidth, formProps }} model={data} ref={`arrayForm${index}`}>
+                  <ElForm {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} model={data} ref={`arrayForm${index}`}>
                     <FormColumns
                       modelValue={data}
                       options={options}
@@ -249,7 +249,7 @@ export default defineComponent({
                         }}
                         addVisible={modelValue[field].length !== maxLength}
                       >
-                        <ElForm {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} model={data} ref={`arrayForm${index}${field}`}>
+                        <ElForm {...{ labelWidth: formConfig.value.labelWidth, ...formProps, rules: formProps.rules as FormRules }} model={data} ref={`arrayForm${index}${field}`}>
                           <FormColumns
                             modelValue={data}
                             options={column.options || options}

@@ -1,6 +1,7 @@
 import { useExpose } from '@ideaz/hooks'
 import { isFunction } from '@ideaz/utils'
 import { omit } from 'lodash-unified'
+import { ElTableColumn } from 'element-plus'
 import {
   useRadioColumnMethods,
   useTableColumnSlots,
@@ -43,7 +44,7 @@ export default defineComponent({
         )
       }
       return (
-        <el-table-column {...attrsAll.value} v-slots={scopedSlots.value}/>
+        <ElTableColumn {...attrsAll.value} v-slots={scopedSlots.value} />
       )
     }
   },

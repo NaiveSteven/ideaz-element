@@ -1,6 +1,7 @@
 import { isBoolean, isFunction, isSlot, isString } from '@ideaz/utils'
 import { ArrowDown } from '@element-plus/icons-vue'
 import { omit } from 'lodash-unified'
+import { ElButton, ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon } from 'element-plus'
 import type { BtnItem, TableColumnScopeData } from '../../types'
 
 export default defineComponent({
@@ -65,12 +66,12 @@ export default defineComponent({
         return props.tableColumnSlots[reference](scope)
 
       return (
-        <el-button type="primary" link size={size.value}>
+        <ElButton type="primary" link size={size.value}>
           {isString(dropdownProps.reference) ? dropdownProps.reference : t('table.more')}
-          <el-icon class="el-icon--right">
+          <ElIcon class="el-icon--right">
             <ArrowDown />
-          </el-icon>
-        </el-button>
+          </ElIcon>
+        </ElButton>
       )
     }
 
@@ -82,7 +83,7 @@ export default defineComponent({
         if (button.type === 'dropdown') {
           const dropdownProps = omit(button, FILTER_KEYS)
           return (
-            <el-dropdown
+            <ElDropdown
               type="primary"
               size={size.value}
               trigger="click"
@@ -95,35 +96,36 @@ export default defineComponent({
               }}
               v-slots={{
                 dropdown: () => (
-                  <el-dropdown-menu>
+                  <ElDropdownMenu>
                     {button.children?.map((dropdownItem: BtnItem) => {
                       const dropdownProps = omit(dropdownItem, FILTER_KEYS)
                       const isHide = isFunction(dropdownItem.hide) ? dropdownItem.hide(scope) : dropdownItem.hide
                       if (isHide)
                         return null
                       return (
-                        <el-dropdown-item
+                        <ElDropdownItem
                           {...dropdownProps}
                           disabled={getDisabled(dropdownItem, scope)}
                           command={dropdownItem.label}
                         >
                           {dropdownItem.label}
-                        </el-dropdown-item>
+                        </ElDropdownItem>
                       )
                     })}
-                  </el-dropdown-menu>
+                  </ElDropdownMenu>
                 ),
               }}
             >
               {renderReference(scope, button)}
-            </el-dropdown>
+            </ElDropdown>
           )
         }
         return (
-          <el-button
+          <ElButton
             size={size.value}
             {...{
               ...button,
+              type: button.type,
               disabled: getDisabled(button, scope),
               onClick: () => {
                 if (isFunction(button.onClick))
@@ -132,7 +134,7 @@ export default defineComponent({
             }}
           >
             {button.label}
-          </el-button>
+          </ElButton>
         )
       }
       return null

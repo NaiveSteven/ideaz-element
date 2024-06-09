@@ -2,6 +2,8 @@
 import { Back, DCaret, FullScreen, Operation, Refresh, Right, VideoPause } from '@element-plus/icons-vue'
 import { VueDraggable } from 'vue-draggable-plus'
 import { isFunction } from '@ideaz/utils'
+import type { CheckboxValueType } from 'element-plus'
+import { ElButton, ElCheckbox, ElCheckboxGroup, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElPopover, ElTooltip } from 'element-plus'
 import { useFixedTableCols, useToolBarTableCols } from '../hooks'
 import type { TableCol } from '../../types'
 import { toolBarProps } from './props'
@@ -83,7 +85,7 @@ export default defineComponent({
     })
 
     // center checked table cols
-    const handleChangeTableCols = (values: string[]) => {
+    const handleChangeTableCols = (values: CheckboxValueType[]) => {
       const data: TableCol[] = []
       if (values && values.length > 0) {
         const otherData = props.originFormatTableCols.filter(
@@ -113,12 +115,12 @@ export default defineComponent({
       emit('columns-change', data)
     }
 
-    const handleCheckAllChange = (val: string[]) => {
+    const handleCheckAllChange = (val: CheckboxValueType) => {
       checkedTableCols.value = val ? props.sortTableCols.map((item: TableCol) => item.__uid!) : []
       handleChangeTableCols(val ? props.sortTableCols.map((item: TableCol) => item.__uid!) : [])
     }
 
-    const handleCheckedTableColsChange = (val: string[]) => {
+    const handleCheckedTableColsChange = (val: CheckboxValueType[]) => {
       handleChangeTableCols(val)
     }
 
@@ -155,19 +157,19 @@ export default defineComponent({
         title: t('table.leftFixed'),
         titleVisible: leftFixedTableCols.value.length,
         checkboxModelValue: leftCheckedTableColsUids,
-        checkboxChange: (val: string[]) => handleFixedCheckedTableColsChange('left', val),
+        checkboxChange: (val: CheckboxValueType[]) => handleFixedCheckedTableColsChange('left', val),
         dragModelValue: leftFixedTableCols,
         dragChange: () => handleSideFixedDragChange('left'),
         dragEnd: (dragData: any) => handleSortTableCols(dragData, 'left'),
         checkboxData: leftFixedTableCols.value,
         extraContent: (item: TableCol) => (
           <>
-            <el-tooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
-              <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
-            </el-tooltip>
-            <el-tooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
-              <el-button icon={Right} text onClick={() => handleFixedTableColFromSide(item, 'right')}></el-button>
-            </el-tooltip>
+            <ElTooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
+              <ElButton icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></ElButton>
+            </ElTooltip>
+            <ElTooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
+              <ElButton icon={Right} text onClick={() => handleFixedTableColFromSide(item, 'right')}></ElButton>
+            </ElTooltip>
           </>
         ),
       },
@@ -182,12 +184,12 @@ export default defineComponent({
         checkboxData: sortTableCols,
         extraContent: (item: TableCol) => (
           <>
-            <el-tooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
-              <el-button icon={Back} text onClick={() => handleTableColFixedFromCenter(item, 'left')}></el-button>
-            </el-tooltip>
-            <el-tooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
-              <el-button icon={Right} text onClick={() => handleTableColFixedFromCenter(item, 'right')}></el-button>
-            </el-tooltip>
+            <ElTooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
+              <ElButton icon={Back} text onClick={() => handleTableColFixedFromCenter(item, 'left')}></ElButton>
+            </ElTooltip>
+            <ElTooltip effect="dark" content={t('table.rightFixed')} placement="top" showAfter={300}>
+              <ElButton icon={Right} text onClick={() => handleTableColFixedFromCenter(item, 'right')}></ElButton>
+            </ElTooltip>
           </>
         ),
       },
@@ -195,19 +197,19 @@ export default defineComponent({
         title: t('table.rightFixed'),
         titleVisible: rightFixedTableCols.value.length,
         checkboxModelValue: rightCheckedTableColsUids,
-        checkboxChange: (val: string[]) => handleFixedCheckedTableColsChange('right', val),
+        checkboxChange: (val: CheckboxValueType[]) => handleFixedCheckedTableColsChange('right', val),
         dragModelValue: rightFixedTableCols,
         dragChange: () => handleSideFixedDragChange('right'),
         dragEnd: (dragData: any) => handleSortTableCols(dragData, 'right'),
         checkboxData: rightFixedTableCols.value,
         extraContent: (item: TableCol) => (
           <>
-            <el-tooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
-              <el-button icon={Back} text onClick={() => handleFixedTableColFromSide(item, 'left')}></el-button>
-            </el-tooltip>
-            <el-tooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
-              <el-button icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></el-button>
-            </el-tooltip>
+            <ElTooltip effect="dark" content={t('table.leftFixed')} placement="top" showAfter={300}>
+              <ElButton icon={Back} text onClick={() => handleFixedTableColFromSide(item, 'left')}></ElButton>
+            </ElTooltip>
+            <ElTooltip effect="dark" content={t('table.unpin')} placement="top" showAfter={300}>
+              <ElButton icon={VideoPause} text onClick={() => handleUnfixedTableCol(item)}></ElButton>
+            </ElTooltip>
           </>
         ),
       },
@@ -221,54 +223,54 @@ export default defineComponent({
 
       return (
         <div class={ns.b('')}>
-          <el-tooltip effect="dark" content={t('common.refresh')} placement="top" showAfter={300}>
-            <el-button v-loading={loading} size={size.value} icon={Refresh} text onClick={handleRefresh}></el-button>
-          </el-tooltip>
-          <el-tooltip effect="dark" content={t('table.density')} placement="top" showAfter={300}>
-            <el-dropdown
+          <ElTooltip effect="dark" content={t('common.refresh')} placement="top" showAfter={300}>
+            <ElButton v-loading={loading} size={size.value} icon={Refresh} text onClick={handleRefresh}></ElButton>
+          </ElTooltip>
+          <ElTooltip effect="dark" content={t('table.density')} placement="top" showAfter={300}>
+            <ElDropdown
               onCommand={handleCommand}
               trigger="click"
               size="default"
               v-slots={{
                 dropdown: () => (
                   <>
-                    <el-dropdown-menu>
+                    <ElDropdownMenu>
                       {TABLE_SIZE_LIST.map(item => (
-                        <el-dropdown-item
+                        <ElDropdownItem
                           command={item.size}
                           class={props.size === item.size && 'density-dropdown__active'}
                         >
                           {item.label}
-                        </el-dropdown-item>
+                        </ElDropdownItem>
                       ))}
-                    </el-dropdown-menu>
+                    </ElDropdownMenu>
                   </>
                 ),
               }}
             >
-              <el-button icon={DCaret} text></el-button>
-            </el-dropdown>
-          </el-tooltip>
-          <el-tooltip effect="dark" content={isFullScreen.value ? t('common.cancelFullScreen') : t('common.fullScreen')} placement="top" showAfter={300}>
+              <ElButton icon={DCaret} text></ElButton>
+            </ElDropdown>
+          </ElTooltip>
+          <ElTooltip effect="dark" content={isFullScreen.value ? t('common.cancelFullScreen') : t('common.fullScreen')} placement="top" showAfter={300}>
             <z-full-screen el={fullScreenElement || document.getElementsByClassName('z-table__container')[0]} onChange={(val: boolean) => isFullScreen.value = val}>
-              <el-button icon={FullScreen} text size={size.value} />
+              <ElButton icon={FullScreen} text size={size.value} />
             </z-full-screen>
-          </el-tooltip>
-          <el-tooltip effect="dark" content={t('table.columnSetting')} placement="top" showAfter={300}>
+          </ElTooltip>
+          <ElTooltip effect="dark" content={t('table.columnSetting')} placement="top" showAfter={300}>
             <div>
-              <el-popover
+              <ElPopover
                 placement="bottom"
                 width="190"
                 trigger="click"
                 v-slots={{
                   reference: () => (
-                    <el-button icon={Operation} text size={size.value}></el-button>
+                    <ElButton icon={Operation} text size={size.value}></ElButton>
                   ),
                 }}
               >
                 <div class="column-popover__inner">
                   <div class="column-popover__title">
-                    <el-checkbox
+                    <ElCheckbox
                       modelValue={checkAll.value}
                       indeterminate={isIndeterminate.value}
                       onChange={handleCheckAllChange}
@@ -278,7 +280,7 @@ export default defineComponent({
                       size="small"
                     >
                       {t('table.columnDisplay')}
-                    </el-checkbox>
+                    </ElCheckbox>
                     <a onClick={resetAll} href="javascript:;" class="column-popover__reset">
                       {t('common.reset')}
                     </a>
@@ -288,8 +290,8 @@ export default defineComponent({
                       const dragModelValue = (config.dragModelValue as Ref<TableCol[]>).value ? (config.dragModelValue as Ref<TableCol[]>).value : sortTableCols
                       return (
                         <>
-                          {config.titleVisible ? <el-divider>{config.title}</el-divider> : null}
-                          <el-checkbox-group
+                          {config.titleVisible ? <ElDivider>{config.title}</ElDivider> : null}
+                          <ElCheckboxGroup
                             v-model={config.checkboxModelValue.value}
                             size="small"
                             onChange={config.checkboxChange}
@@ -304,9 +306,9 @@ export default defineComponent({
                               {config.checkboxData.map((item: TableCol) => {
                                 return (
                                   <div key={item.__uid} class="column-popover-checkbox">
-                                    <el-checkbox value={item.__uid} key={item.__uid}>
+                                    <ElCheckbox value={item.__uid} key={item.__uid}>
                                       {item.label || item.type}
-                                    </el-checkbox>
+                                    </ElCheckbox>
                                     <div class={ns.be('setting-item', 'extra')}>
                                       {config.extraContent(item)}
                                     </div>
@@ -314,15 +316,15 @@ export default defineComponent({
                                 )
                               })}
                             </draggable>
-                          </el-checkbox-group>
+                          </ElCheckboxGroup>
                         </>
                       )
                     })}
                   </div>
                 </div>
-              </el-popover>
+              </ElPopover>
             </div>
-          </el-tooltip>
+          </ElTooltip>
         </div>
       )
     }
