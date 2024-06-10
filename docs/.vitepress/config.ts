@@ -4,7 +4,7 @@ import { componentPreview, containerPreview } from '@vitepress-demo-preview/plug
 
 export default defineConfig({
   // lang: 'en-US',
-  title: 'Ideaz Element',
+  title: ' ',
   description: '更适合中后台的业务组件库。',
   lastUpdated: true,
   // eslint-disable-next-line node/prefer-global/process
@@ -224,7 +224,7 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2024-present NaiveSteven',
+      copyright: 'Copyright © 2023-present NaiveSteven',
     },
   },
 })

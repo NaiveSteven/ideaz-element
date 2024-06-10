@@ -1,10 +1,8 @@
 <p align="center">
-  <a href="" target="_blank" rel="noopener noreferrer">
-    <img src="" alt="Ideaz Element" width="180" style="width: 180px;" />
+  <a href="https://github.com/NaiveSteven/ideaz-element" target="_blank" rel="noopener noreferrer">
+    <img src="./docs/public/logo.svg" alt="Ideaz Element" width="300" height="90" style="width: 300px;height: 90px" />
   </a>
 </p>
-
-<h1 align="center">Ideaz Element</h1>
 
 <p align="center">
   Highly customizability, full TypeScript and TSX, performance pretty good
