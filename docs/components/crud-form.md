@@ -73,7 +73,7 @@
 
 <preview path="../demo/crud-form/expand.vue" />
 
-## z-crud表单相关属性
+## z-crud查询表单相关属性
 
 | 属性名              | 说明                                     | 类型                 | 默认值 |
 | :------------------ | :--------------------------------------- | :------------------- | :----- |
@@ -86,6 +86,8 @@
 | delete              | 删除配置                                 | `boolean` / `object` |
 | search              | 查询配置                                 | `boolean` / `object` | `true` |
 | request             | 接口配置                                 | `object`             | —      |
+| paginationStorage             | 分页缓存                                 | `boolean`             | `false`      |
+| formStorage             | 查询表单数据缓存                                 | `boolean`             | `false`      |
 
 ## search属性
 
@@ -123,26 +125,22 @@
 
 ## 表单项属性
 
-| 属性名        | 说明                   | 类型                        | 默认值 |
-| :------------ | :--------------------- | :-------------------------- | :----- |
-| component     | 表单项组件             | `string` / `() => VNode`    | —      |
-| field         | 字段名                 | `string`                    | —      |
-| fieldProps    | `component`组件属性    | `object`                    | —      |
-| detail        | 详情项                 | `object` / `boolean`        | —      |
-| add           | 新增项                 | `object` / `boolean`        | —      |
-| search        | 查询项                 | `object` / `boolean`        | —      |
-| edit          | 编辑项                 | `object` / `boolean`        | —      |
-| formItemProps | `formItem`组件属性     | `object`                    | —      |
-| label         | 表单标签名             | `string` / `() => VNode`    | —      |
-| hide          | 显隐                   | `boolean` / `() => boolean` | —      |
-| hideUseVShow  | 使用`v-show`显隐       | `boolean` / `() => boolean` | —      |
-| slot          | 表单项自定义内容插槽   | `string`                    | —      |
-| render        | 表单项自定义内容render | `() => VNode`               | —      |
-| required      | 表单项是否必填         | `boolean`                   | —      |
-| rules         | 该表单项校验规则       | `boolean`                   | —      |
-| error         | 错误信息               | `string` / `() => VNode`    | —      |
-| tooltip       | 提示信息               | `string` / `() => VNode`    | —      |
-| extra         | 额外信息               | `string` / `() => VNode`    | —      |
+| 属性名        | 说明                   | 类型                                   | 默认值 |
+| :------------ | :--------------------- | :------------------------------------- | :----- |
+| component     | 表单项组件             | `string` / `() => VNode` / `Component` | —      |
+| field         | 字段名                 | `string`                               | —      |
+| fieldProps    | `component`组件属性    | `object`                               | —      |
+| formItemProps | `formItem`组件属性     | `object`                               | —      |
+| label         | 表单标签名             | `string` / `() => VNode`               | —      |
+| hide          | 显隐                   | `boolean` / `() => boolean`            | —      |
+| hideUseVShow  | 使用`v-show`显隐       | `boolean` / `() => boolean`            | —      |
+| slot          | 表单项自定义内容插槽   | `string`                               | —      |
+| render        | 表单项自定义内容render | `() => VNode`                          | —      |
+| required      | 表单项是否必填         | `boolean`                              | —      |
+| rules         | 该表单项校验规则       | `boolean`                              | —      |
+| error         | 错误信息               | `string` / `() => VNode`               | —      |
+| tooltip       | 提示信息               | `string` / `() => VNode`               | —      |
+| extra         | 额外信息               | `string` / `() => VNode`               | —      |
 
 ## formItemProps属性
 

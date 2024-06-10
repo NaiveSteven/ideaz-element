@@ -1,4 +1,5 @@
 import { getRowKey } from '@ideaz/shared'
+import { ElRadio, ElTableColumn } from 'element-plus'
 import { radioColumnProps } from './props'
 
 export default defineComponent({
@@ -35,12 +36,12 @@ export default defineComponent({
 
     return () => {
       return (
-        <el-table-column
+        <ElTableColumn
           {...attrsAll.value}
           v-slots={{
             default: ({ row }: any) => {
               return (
-                <el-radio
+                <ElRadio
                   v-model={radioValue.value}
                   label={getRowKey(row, props.tableProps?.rowKey)}
                   onChange={() => handleRadioChange(row)}

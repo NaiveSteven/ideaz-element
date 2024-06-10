@@ -50,6 +50,12 @@
 
 <preview path="../demo/crud-cu/operate-submit.vue" />
 
+## 自定义取消
+
+`operate-cancel`自定义取消事件，如果组件不配置，点击取消默认关闭。
+
+<preview path="../demo/crud-cu/operate-submit.vue" />
+
 ## 表单属性
 
 使用`add`和`edit`对象配置表单属性。
@@ -124,21 +130,23 @@
 
 ## request属性
 
-| 属性名        | 说明                               | 类型                                                                                            | 默认值 |
-| :------------ | :--------------------------------- | :---------------------------------------------------------------------------------------------- | :----- |
-| searchApi     | 查询接口                           | `(params: any) => promise`                                                                      | —      |
-| submitApi     | 编辑新增确认                       | `({ [key: string]?: any, row?: any, type: 'add' / 'edit' / 'view', formData: any }) => promise` | —      |
-| deleteApi     | 删除接口                           | `({ [key: string]?: any, row?: any, selectionData?: any }) => promise`                          | —      |
-| addApi        | 新增接口                           | `({ type: 'add' / 'edit' / 'view', formData: any }) => promise`                                 | —      |
-| editApi       | 编辑接口                           | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise`   | —      |
-| detailApi     | 详情接口                           | `({ [key: string]: any, row: any }) => promise`                                                 | —      |
-| editDetailApi | 编辑详情接口（编辑弹窗打开时调用） | `() => promise`                                                                                 | —      |
-| alias         | 数据路径自定义                     | `object`                                                                                        | —      |
-| searchFunc    | 查询方法重写                       | `({ params }) => any`                                                                           | —      |
-| tableData     | 表格数据自定义返回                 | `(res) => any`                                                                                  | —      |
+| 属性名     | 说明                     | 类型                                                                                          | 默认值 |
+| :--------- | :----------------------- | :-------------------------------------------------------------------------------------------- | :----- |
+| searchApi  | 查询接口                 | `(params: any) => promise`                                                                    | —      |
+| submitApi  | 编辑新增确认             | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise` | —      |
+| deleteApi  | 删除接口                 | `({ [key: string]?: any, row?: any, selectionData?: any }) => promise`                        | —      |
+| addApi     | 新增接口                 | `({ type: 'add' / 'edit' / 'view', formData: any }) => promise`                               | —      |
+| editApi    | 编辑接口                 | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise` | —      |
+| detailApi  | 详情接口                 | `({ [key: string]: any, row: any }) => promise`                                               | —      |
+| alias      | 数据路径自定义           | `object`                                                                                      | —      |
+| beforeData | 表格数据接口调用前的回调 | `Function`                                                                                    | —      |
+| afterData  | 表格数据接口调用后的回调 | `(res) => void`                                                                               | —      |
+| searchFunc | 查询方法重写             | `({ params }) => any`                                                                         | —      |
+| tableData  | 表格数据自定义返回       | `(res) => any`                                                                                | —      |
 
 ## z-crud新增编辑相关事件
 
 | 事件名         | 说明     | 类型       |
 | :------------- | :------- | :--------- |
-| operate-submit | 弹窗确认 | `Function` |
+| operate-submit | 弹窗确认 | `({ done, formRef, formData, type, confirmButtonLoading, row, invalidFields }) => void` |
+| operate-cancel | 弹窗取消 | `({ done, formRef, formData, type, confirmButtonLoading, row }) => void` |

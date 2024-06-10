@@ -13,3 +13,4 @@ _DialogTip.install = (app: App) => {
 }
 
 export default { ZDialog: withInstall(Dialog), ZDialogTip: _DialogTip }
+export * from './src/props'

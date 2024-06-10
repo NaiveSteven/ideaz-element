@@ -32,19 +32,14 @@ export interface DefaultButtonOperation {
 }
 export type ButtonRender<T = any> = (renderData: DefaultButtonOperation, tableData: Ref<T>) => BtnItem[]
 
-export interface TableCol<T = any> {
-  // slot?: string;
-  // headerSlot?: string;
-  type?: string
+export interface TableCol<T = any> extends Partial<TableColumnCtx<T>> {
+  slot?: string
+  type?: 'index' | 'selection' | 'radio' | 'expand' | 'sort' | 'button'
   component?: string | (() => string)
   buttons?: BtnItem[] | ButtonRender<T>
-  attrs?: {
+  fieldProps?: {
     [propName: string]: any
   }
-  on?: {
-    [propName: string]: any
-  }
-  disabled?: ((row: any, index: number, column?: any) => boolean) | boolean
   options?: OptionsItem[]
   dropdown?:
     | number
@@ -52,7 +47,9 @@ export interface TableCol<T = any> {
     | {
       maxlength?: number
       exclude?: number[]
-      dropdownItem?: IndexType
+      dropdownItem?: {
+        [propName: string]: any
+      }
       reference?: string | any
       [propName: string]: any
     }

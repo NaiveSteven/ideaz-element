@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ElInput, ElMessage } from 'element-plus'
 
 const activeCollapse = ref(['文本', '标题'])
 const formRef = ref()
@@ -9,6 +9,7 @@ const formData = ref({
   name: '',
   sex: '',
   address: '',
+  input: '',
   time: [],
 })
 
@@ -35,10 +36,17 @@ const columns = [
   {
     label: '标题',
     render: () => h('span', 'custom content'),
+    children: [],
   },
   {
     label: '地址',
     slot: 'addressSlot',
+  },
+  {
+    label: '输入框',
+    slot: 'input',
+    required: true,
+    message: '请输入文案',
   },
   {
     slot: 'operate',
@@ -77,13 +85,18 @@ function submit() {
     <template #addressSlot>
       <div>自定义地址</div>
     </template>
+    <template #input>
+      <ElInput v-model="formData.input" />
+    </template>
     <template #operate>
-      <el-button type="primary" @click="submit">
-        提交
-      </el-button>
-      <el-button @click="reset">
-        重置
-      </el-button>
+      <div class="mt-4 w-full flex">
+        <el-button class="w-full" type="primary" @click="submit">
+          提交
+        </el-button>
+        <el-button class="w-full" @click="reset">
+          重置
+        </el-button>
+      </div>
     </template>
   </z-form>
 </template>

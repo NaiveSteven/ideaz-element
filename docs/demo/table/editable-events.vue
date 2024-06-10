@@ -8,7 +8,7 @@ interface RowData {
   sex: string
   age: number
   time: string
-  __isEdit: boolean
+  __isEdit?: boolean
 }
 
 const tableData = ref<RowData[]>([

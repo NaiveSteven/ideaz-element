@@ -3,3 +3,4 @@ import Table from './src/Table'
 import TableCustomColumnContainer from './src/TableCustomColumnContainer'
 
 export default { ZTable: withInstall(Table), ZTableCustomColumnContainer: withInstall(TableCustomColumnContainer) }
+export * from './src/props'

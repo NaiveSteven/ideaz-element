@@ -1,5 +1,4 @@
 import type { ExtractPropTypes, PropType } from 'vue-demi'
-import type { Alias } from '../../types'
 
 export const checkCardItemProps = {
   defaultChecked: {
@@ -32,7 +31,7 @@ export const checkCardItemProps = {
     type: [String, Function] as PropType<string | ((h: (type: string, children?: any) => VNode) => VNode)>,
   },
   size: {
-    type: String as PropType<'small' | 'default' | 'large'>,
+    type: String as PropType<'small' | 'default' | 'large' | ''>,
   },
   bordered: {
     type: Boolean,
@@ -82,7 +81,7 @@ export const checkCardGroupProps = {
     default: true,
   },
   alias: {
-    type: Object as PropType<Alias>,
+    type: Object as PropType<{ title?: string, value?: string, disabled?: string }>,
   },
 }
 

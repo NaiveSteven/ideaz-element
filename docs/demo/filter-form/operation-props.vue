@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -43,14 +44,14 @@ const columns = [
   },
 ]
 
-const handleSearch = async () => {
+async function handleSearch() {
   searchButtonLoading.value = true
   await delay(200)
   searchButtonLoading.value = false
   console.log(formData.value, 'formData')
 }
 
-const handleReset = async () => {
+async function handleReset() {
   resetButtonLoading.value = true
   await delay(200)
   resetButtonLoading.value = false

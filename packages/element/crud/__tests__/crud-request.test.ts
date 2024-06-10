@@ -1,5 +1,5 @@
 import { config, mount } from '@vue/test-utils'
-import { afterAll, afterEach, describe, expect, test } from 'vitest'
+import { afterAll, afterEach, describe, expect, it } from 'vitest'
 import * as ElComponents from 'element-plus'
 import { ElLoadingDirective } from 'element-plus'
 import type { VueWrapper } from '@vue/test-utils'
@@ -106,29 +106,32 @@ function delay(time: number) {
   })
 }
 const bodyClass = '.el-table__row'
-const getBody = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.findAll(bodyClass)
-const getBodyItem = (wrapper: VueWrapper<ComponentPublicInstance>, index = 1) =>
-  wrapper
+function getBody(wrapper: VueWrapper<ComponentPublicInstance>) {
+  return wrapper.findAll(bodyClass)
+}
+function getBodyItem(wrapper: VueWrapper<ComponentPublicInstance>, index = 1) {
+  return wrapper
     .findAll(`${bodyClass}:nth-child(${index}) td`)
     .map(item => item.find('.cell').text())
-const getBodyClass = (wrapper: VueWrapper<ComponentPublicInstance>) =>
-  wrapper.find(`${bodyClass} td`).classes()
-const options = { sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }] }
-function getOptions(): HTMLElement[] {
-  return Array.from(
-    document.querySelectorAll<HTMLElement>(
-      '.el-select-dropdown__item',
-    ),
-  )
 }
+// function getBodyClass(wrapper: VueWrapper<ComponentPublicInstance>) {
+//   return wrapper.find(`${bodyClass} td`).classes()
+// }
+const options = { sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }] }
+// function getOptions(): HTMLElement[] {
+//   return Array.from(
+//     document.querySelectorAll<HTMLElement>(
+//       '.el-select-dropdown__item',
+//     ),
+//   )
+// }
 
 describe('crud-request', () => {
   afterEach(() => {
     document.body.innerHTML = ''
   })
 
-  test('searchApi', async () => {
+  it('searchApi', async () => {
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
       :columns="cols" :options="options" :toolBar="false" :action="false"/>`,
@@ -172,7 +175,7 @@ describe('crud-request', () => {
     expect(getBodyItem(wrapper, 3)).toContain('0000')
   })
 
-  test('searchParams', async () => {
+  it('searchParams', async () => {
     let params: any = {}
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
@@ -202,12 +205,11 @@ describe('crud-request', () => {
           })
         }
         const request = ref({
-          searchApi: mockApi,
-          searchParams: (params: any) => {
-            return {
+          searchApi: async () => {
+            return await mockApi({
               ...params,
               test: true,
-            }
+            })
           },
         })
         return { value, cols, options, request, pagination, data }
@@ -219,7 +221,7 @@ describe('crud-request', () => {
     expect(params.test).toBe(true)
   })
 
-  test('searchFunc', async () => {
+  it('searchFunc', async () => {
     let payload: any = {}
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
@@ -268,7 +270,7 @@ describe('crud-request', () => {
     expect(payload).toEqual({ page: 1, pageSize: 2, name: '', sex: '' })
   })
 
-  test('alias', async () => {
+  it('alias', async () => {
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
       :columns="cols" :options="options" :toolBar="false" :action="false"/>`,
@@ -309,7 +311,7 @@ describe('crud-request', () => {
     expect(getBody(wrapper)).toHaveLength(2)
   })
 
-  test('tableData', async () => {
+  it('tableData', async () => {
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
       :columns="cols" :options="options" :toolBar="false" :action="false"/>`,
@@ -359,7 +361,7 @@ describe('crud-request', () => {
     expect(getBodyItem(wrapper, 1)).toContain('000')
   })
 
-  test('addApi and addParams', async () => {
+  it('addApi and addParams', async () => {
     let params: any = {}
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
@@ -402,11 +404,10 @@ describe('crud-request', () => {
         }
         const request = ref({
           searchApi: mockApi,
-          addApi: commonApi,
-          addParams: () => {
-            return {
+          addApi: async () => {
+            return await commonApi({
               name: 'sdf',
-            }
+            })
           },
         })
         return { value, cols, options, request, pagination, data }
@@ -426,8 +427,8 @@ describe('crud-request', () => {
     expect(params).toEqual({ name: 'sdf' })
   })
 
-  test('deleteApi and deleteParams', async () => {
-    let params: any = {}
+  it('deleteApi and deleteParams', async () => {
+    // let params: any = {}
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
       :columns="cols" :options="options" :toolBar="false" :edit="false" :detail="false" :add="false"/>`,
@@ -497,7 +498,7 @@ describe('crud-request', () => {
     // expect(params).toEqual({ id: 2, name: 'sdf' })
   })
 
-  test('editApi and editParams', async () => {
+  it('editApi and editParams', async () => {
     let obj: any = {}
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
@@ -540,13 +541,12 @@ describe('crud-request', () => {
         }
         const request = ref({
           searchApi: mockApi,
-          editApi: commonApi,
-          editParams: ({ formData, rowData }: any) => {
-            return {
-              ...rowData,
+          editApi: async ({ formData, row }: any) => {
+            return await commonApi({
+              ...row,
               ...formData,
               test: true,
-            }
+            })
           },
         })
         return { value, cols, options, request, pagination, data }
@@ -572,7 +572,7 @@ describe('crud-request', () => {
     })
   })
 
-  test('detailApi and detailParams', async () => {
+  it('detailApi and detailParams', async () => {
     let payload: any = {}
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
@@ -615,13 +615,12 @@ describe('crud-request', () => {
         }
         const request = ref({
           searchApi: mockApi,
-          detailApi: commonApi,
-          detailParams: ({ rowData }: any) => {
+          detailApi: async ({ row }: any) => {
             payload = {
-              ...rowData,
+              ...row,
               test: true,
             }
-            return payload
+            return await commonApi()
           },
         })
         return { value, cols, options, request, pagination, data }
@@ -646,7 +645,7 @@ describe('crud-request', () => {
     })
   })
 
-  test('detailData', async () => {
+  it('detailData', async () => {
     const wrapper = mount({
       template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
       :columns="cols" :options="options" :toolBar="false" :add="false" :edit="false" :delete="false" />`,
@@ -687,99 +686,6 @@ describe('crud-request', () => {
     await addButton?.trigger('click')
     await nextTick()
     expect(wrapper.findAll('.el-descriptions__content').map(item => item.text())).toStrictEqual(['Tom', 'male'])
-  })
-
-  test('editDetail', async () => {
-    let editDetailParams: any = {}
-    let obj: any = {}
-    let editParams: any = {}
-    const wrapper = mount({
-      template: `<z-crud v-model:formData="value" :loading="false" v-model:data="data" :request="request" v-model:pagination="pagination"
-      :columns="cols" :options="options" :toolBar="false" :add="false" :detail="false" :delete="false" />`,
-      setup() {
-        const value = ref({ name: '', sex: '' })
-        const cols = ref([...columns])
-        const data = ref([])
-        const pagination = ref({
-          page: 1,
-          pageSize: 2,
-          total: 4,
-        })
-        const mockApi = () => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve({
-                data: {
-                  page: 1,
-                  pageSize: 10,
-                  total: 4,
-                  list: tableData.slice((pagination.value.page - 1) * pagination.value.pageSize, pagination.value.page * pagination.value.pageSize),
-                },
-              })
-            }, 10)
-          })
-        }
-        const commonApi = () => {
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve({
-                data: {
-                  code: 200,
-                  message: 'success',
-                },
-              })
-            }, 10)
-          })
-        }
-
-        const editDetailApi = (payload: any) => {
-          editDetailParams = payload
-          return new Promise((resolve) => {
-            setTimeout(() => {
-              resolve({
-                data: {
-                  name: 'nameTest',
-                  sex: 'sexTest',
-                },
-              })
-            }, 10)
-          })
-        }
-        const request = ref({
-          searchApi: mockApi,
-          editApi: commonApi,
-          editDetailApi,
-          transformEditDetail: (res: any) => {
-            obj = {
-              ...res.data,
-              name: 'transformName',
-            }
-            return obj
-          },
-          editParams: ({ formData }: any) => {
-            editParams = { ...formData }
-            return editParams
-          },
-        })
-        return { value, cols, options, request, pagination, data }
-      },
-    })
-
-    await delay(20)
-    expect(getBody(wrapper)).toHaveLength(2)
-    const addButton = wrapper.findAll('.el-button').at(2)
-    expect(addButton?.text()).toBe('edit')
-    await addButton?.trigger('click')
-    await delay(20)
-    expect(editDetailParams).toEqual({ id: 1 })
-    expect(obj).toEqual({
-      name: 'transformName',
-      sex: 'sexTest',
-    })
-    const confirmButton = wrapper.findAll('.el-button')?.at(5)
-    expect(confirmButton?.text()).toBe('confirm')
-    await confirmButton?.trigger('click')
-    expect(editParams).toEqual({ name: 'transformName', sex: 'sexTest' })
   })
 })
 

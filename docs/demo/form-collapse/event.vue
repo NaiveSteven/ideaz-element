@@ -110,12 +110,14 @@ function handleCollapseChange(val: string) {
     @collapse-change="handleCollapseChange"
   >
     <template #operate>
-      <el-button type="primary" @click="submit">
-        提交
-      </el-button>
-      <el-button @click="reset">
-        重置
-      </el-button>
+      <div class="mt-4 w-full flex">
+        <el-button class="w-full" type="primary" @click="submit">
+          提交
+        </el-button>
+        <el-button class="w-full" @click="reset">
+          重置
+        </el-button>
+      </div>
     </template>
   </z-form>
 </template>

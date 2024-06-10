@@ -54,6 +54,10 @@ const columns = [
   },
 ]
 
+// function reset() {
+//   formRef.value.resetFields()
+// }
+
 function submit() {
   console.log(formData.value, 'success')
 }

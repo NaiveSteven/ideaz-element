@@ -2,6 +2,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import type { ValidateField } from '@ideaz/element'
 
 const formRef = ref()
 const formData = ref([{
@@ -47,10 +48,10 @@ function reset() {
 }
 
 function submit() {
-  formRef.value.validate((valid: boolean, data) => {
-    console.log(formData.value, data, 'config.formData')
+  formRef.value.validate((valid: boolean, fields: ValidateField) => {
+    console.log(formData.value, fields, 'config.formData')
     if (valid)
-      ElMessage.success('提交成功')
+      ElMessage.success('success')
 
     else
       console.log('error')

@@ -4,8 +4,8 @@ import { componentPreview, containerPreview } from '@vitepress-demo-preview/plug
 
 export default defineConfig({
   // lang: 'en-US',
-  title: 'Vitepress',
-  description: '使用 Vitepress 搭建组件库文档站点。',
+  title: 'Ideaz Element',
+  description: '更适合中后台的业务组件库。',
   lastUpdated: true,
   // eslint-disable-next-line node/prefer-global/process
   base: process.env.BASE || '/',
@@ -14,7 +14,7 @@ export default defineConfig({
     headers: {
       level: [0, 0],
     },
-    theme: { light: 'github-light', dark: 'github-dark' },
+    // theme: { light: 'github-light', dark: 'github-dark' },
     config: (md) => {
       md.use(demoBlockPlugin, {
         cssPreprocessor: 'scss',
@@ -33,10 +33,11 @@ export default defineConfig({
     //   indexName: 'vitepress-demo',
     // },
     nav: [
-      { text: '组件', link: '/components/grid', activeMatch: '^/components/' },
+      { text: '指南', link: '/guide/start', activeMatch: '^/guide/' },
+      { text: '组件', link: '/components/text', activeMatch: '^/components/' },
       {
         text: '更新日志',
-        link: 'https://github.com/xinlei3166/vitepress-demo',
+        link: 'https://github.com/NaiveSteven/ideaz-element/commits/main/',
       },
     ],
     sidebar: {
@@ -138,12 +139,8 @@ export default defineConfig({
                       link: '/components/crud-table',
                     },
                     {
-                      text: '表单配置',
+                      text: '查询表单配置',
                       link: '/components/crud-form',
-                    },
-                    {
-                      text: 'Api配置',
-                      link: '/components/crud-api',
                     },
                     {
                       text: '新增编辑配置',
@@ -156,6 +153,10 @@ export default defineConfig({
                     {
                       text: '删除配置',
                       link: '/components/crud-delete',
+                    },
+                    {
+                      text: 'Api配置',
+                      link: '/components/crud-api',
                     },
                     {
                       text: '插槽',
@@ -186,16 +187,25 @@ export default defineConfig({
           text: '指南',
           items: [
             {
-              text: '文档1',
-              link: '/guide/',
+              text: '安装',
+              link: '/guide/install',
             },
             {
-              text: '文档2',
-              link: '/guide/button',
+              text: '快速上手',
+              link: '/guide/start',
             },
             {
-              text: '文档3',
-              link: '/guide/modal',
+              text: '更新日志',
+              link: '/guide/changelog',
+            },
+          ],
+        },
+        {
+          text: '开发',
+          items: [
+            {
+              text: '开发指南',
+              link: '/guide/dev',
             },
           ],
         },
@@ -204,17 +214,17 @@ export default defineConfig({
 
     editLink: {
       pattern:
-        'https://github.com/xinlei3166/vitepress-demo/edit/master/docs/:path',
+        'https://github.com/NaiveSteven/ideaz-element/edit/main/docs/:path',
       text: '在 GitHub 上编辑此页',
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/xinlei3166/vitepress-demo' },
+      { icon: 'github', link: 'https://github.com/NaiveSteven/ideaz-element' },
     ],
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2022-present 君惜',
+      copyright: 'Copyright © 2024-present NaiveSteven',
     },
   },
 })

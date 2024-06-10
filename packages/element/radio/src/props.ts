@@ -1,16 +1,8 @@
 import { radioGroupProps } from 'element-plus'
 import type { ExtractPropTypes } from 'vue-demi'
-import type { Alias, OptionsItem } from '../../types'
+import type { Alias, RadioOptionsItem } from '../../types'
 
 export type RadioType = 'radio' | 'radio-button'
-
-export interface RadioOptionsItem extends OptionsItem {
-  type?: 'radio' | 'radio-button'
-  border?: boolean
-  size?: 'large' | 'default' | 'small'
-  name?: string
-  change?: (value: any) => void
-}
 
 export const radioProps = {
   ...radioGroupProps,

@@ -1,16 +1,16 @@
 ---
 layout: home
 
-title: Vitepress Demo
-titleTemplate: 使用 Vitepress 搭建组件库文档站点。
+title: Ideaz Element
+# titleTemplate: 使用 Ideaz Element 业务组件库搭建中后台业务。
 
 hero:
-  name: Vitepress
-  text: 使用 Vitepress 搭建组件库文档站点。
-  tagline: 基于 vitepress-theme-demoblock 插件来实现 Vue 组件的支持。
+  name: Ideaz Element
+  # text: 使用 Ideaz Element 搭建中后台业务。
+  tagline: 基于 Vue3 和 element-plus，面向中后台业务开发的组件库。
   image:
     src: /logo.svg
-    alt: vitepress-theme-demoblock  
+    alt: Ideaz Element
   actions:
     - theme: brand
       text: Get Started
@@ -20,16 +20,16 @@ hero:
       link: /guide/
 
 features:
-  - icon: ⚡️
-    title: "Vite: The DX that can't be beat"
-    details: Feel the speed of Vite. Instant server start and lightning fast HMR that stays fast regardless of the app size.
+  - icon: 💪
+    title: Powerful business components
+    details: Powerful business component library for middle and back office business.
   - icon: 💡
-    title: Designed to be simplicity first
-    details: With Markdown-centered content, it's built to help you focus on writing and deployed with minimum configuration.
-  - icon: 🛠️
-    title: Power of Vue meets Markdown
-    details: Enhance your content with all the features of Vue in Markdown, while being able to customize your site with Vue.
-  - icon: 🔑
-    title: Fully static yet still dynamic
-    details: Go wild with true SSG + SPA architecture. Static on page load, but engage users with 100% interactivity from there.
+    title: Complete unit testing
+    details: Complete test cases, all components are unit tested using Vitest.
+  - icon: ⚡️
+    title: Vue 3 Composition API
+    details: The internal logic of the component is 100% wrapped in hooks.
+  - icon: 🔥
+    title: Written in TypeScript
+    details: Component libraries are 100% developed using tsx and TypeScript.
 ---

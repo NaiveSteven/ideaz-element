@@ -2,6 +2,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import type { ValidateField } from '@ideaz/element'
 
 interface FormData {
   name: string
@@ -74,8 +75,8 @@ function reset() {
 }
 
 function submit() {
-  formRef.value.validate((valid: boolean, data: any) => {
-    console.log(form.value, data, 'config.form')
+  formRef.value.validate((valid: boolean, fields: ValidateField) => {
+    console.log(form.value, fields, 'config.formData')
     if (valid)
       ElMessage.success('success')
 

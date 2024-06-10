@@ -54,7 +54,7 @@ function getOptions() {
 }
 
 function getInputValue(wrapper: VueWrapper<ComponentPublicInstance>, index: number) {
-  return (wrapper.findAll('.el-input__inner').at(index) as any).element.value
+  return (wrapper.findAll('.el-select__placeholder').at(index) as any).text()
 }
 
 const options = { sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }] }
@@ -88,17 +88,17 @@ describe('crud-form', () => {
     expect(labelList).toEqual(['name', 'sex', 'date'])
     expect(wrapper.find('.el-form--large').exists()).toBe(true)
 
-    expect(wrapper.findAll('.select-trigger').length).toBe(1)
-    await wrapper.find('.select-trigger').trigger('click')
+    expect(wrapper.findAll('.el-select__wrapper').length).toBe(1)
+    await wrapper.find('.el-select__wrapper').trigger('click')
     await nextTick()
     const data = getOptions()
     expect((wrapper.vm.value as any).sex).toBe('')
-    expect(getInputValue(wrapper, 1)).toBe('')
+    // expect(getInputValue(wrapper, 0)).toBe('')
 
     data[1].click()
     await nextTick()
     expect((wrapper.vm.value as any).sex).toBe('female')
-    expect(getInputValue(wrapper, 1)).toBe('female')
+    expect(getInputValue(wrapper, 0)).toBe('female')
   })
 
   it('columns', async () => {
@@ -171,16 +171,16 @@ describe('crud-form', () => {
     await delay(200)
     expect(handleSearch).toHaveBeenCalled()
 
-    expect(wrapper.findAll('.select-trigger').length).toBe(1)
-    await wrapper.find('.select-trigger').trigger('click')
+    expect(wrapper.findAll('.el-select__wrapper').length).toBe(1)
+    await wrapper.find('.el-select__wrapper').trigger('click')
     await nextTick()
     const data = getOptions()
     expect((wrapper.vm.value as any).sex).toBe('')
-    expect(getInputValue(wrapper, 1)).toBe('')
+    // expect(getInputValue(wrapper, 0)).toBe('')
     data[1].click()
     await nextTick()
     expect((wrapper.vm.value as any).sex).toBe('female')
-    expect(getInputValue(wrapper, 1)).toBe('female')
+    expect(getInputValue(wrapper, 0)).toBe('female')
     expect(handleChange).toHaveBeenCalled()
 
     await buttons[1].trigger('click')

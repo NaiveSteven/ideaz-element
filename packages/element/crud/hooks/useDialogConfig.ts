@@ -4,8 +4,8 @@ import { get } from 'lodash-unified'
 import type { ComponentInternalInstance } from 'vue-demi'
 import { isFunction, isObject, isString } from '@ideaz/utils'
 import type ZTable from '../../table/src/Table'
-import type { CrudProps, EditRequestApiParams } from '../src/props'
-import type { ValidateField } from '../../types'
+import type { CrudProps } from '../src/props'
+import type { EditRequestApiParams, ValidateField } from '../../types'
 
 export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'edit' | 'add' | 'view'>, isShowDialog: Ref<boolean>, rowData: Ref<any>) {
   const instance = getCurrentInstance() as ComponentInternalInstance
@@ -35,10 +35,17 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   }
 
   const handleCancel = () => {
-    if (!props.onCancel)
+    if (!props.onOperateCancel)
       done()
 
-    emit('cancel', { done, formRef: dialogForm.value, formData: dialogFormData.value, type: currentMode.value, confirmButtonLoading })
+    emit('operate-cancel', {
+      done,
+      formRef: dialogForm.value,
+      formData: dialogFormData.value,
+      type: currentMode.value,
+      row: currentMode.value === 'edit' ? rowData.value : {},
+      confirmButtonLoading,
+    })
   }
 
   const handleConfirm = () => {

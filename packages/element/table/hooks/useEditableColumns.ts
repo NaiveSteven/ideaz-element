@@ -26,6 +26,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
   const zTableFormRef = ref()
   const columns = ref<TableCol[]>([])
   const { t } = useLocale()
+  const { editable } = props
 
   const generateValidateFields = (index: number) => {
     if (tableData.value.length)
@@ -133,7 +134,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
         return { ...item, __uid: uid(), component: markRaw(item.component) }
       return { ...item, __uid: uid() }
     }) as TableCol[]
-    if (props.editable && cols.length > 0 && cols[cols.length - 1]?.type !== 'button') {
+    if (editable && cols.length > 0 && cols[cols.length - 1]?.type !== 'button') {
       columns.value = cols.concat({
         type: 'button',
         __uid: uid(),
@@ -146,7 +147,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
         ],
       } as TableCol)
     }
-    else if (props.editable && cols.length > 0 && cols[cols.length - 1]?.type === 'button') {
+    else if (editable && cols.length > 0 && cols[cols.length - 1]?.type === 'button') {
       columns.value = cols.map((item: TableCol) => {
         if (item.type === 'button') {
           if (isFunction(item.buttons))

@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash-es'
 import { Plus } from '@element-plus/icons-vue'
-import { useExpose } from '@ideaz/hooks'
 import { isFunction, isObject, isString } from '@ideaz/utils'
+import { ElButton, ElForm, ElPagination, ElTable } from 'element-plus'
 import {
   useDraggable,
   usePagination,
@@ -21,7 +21,7 @@ export default defineComponent({
   inheritAttrs: false,
   props: tableProps,
   emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end'],
-  setup(props, { emit, slots }) {
+  setup(props, { emit, slots, expose }) {
     const {
       setCurrentRow,
       toggleRowSelection,
@@ -34,7 +34,7 @@ export default defineComponent({
       sort,
     } = useTableMethods()
 
-    useExpose({
+    expose({
       setCurrentRow,
       toggleRowSelection,
       clearSelection,
@@ -88,7 +88,7 @@ export default defineComponent({
                 {isFunction(slots.paginationLeft) ? slots.paginationLeft() : null}
               </div>
               <div class={ns.bm('pagination', 'right')}>
-                <el-pagination
+                <ElPagination
                   class={ns.e('pagination')}
                   background
                   small
@@ -117,7 +117,7 @@ export default defineComponent({
         <div
           class={ns.be('tool-bar', 'container')}
           style={{
-            marginBottom: (toolBar || isFunction(slots.tableTop) || isFunction(slots.topRight) || isFunction(slots.topLeft)) ? '16px' : 0,
+            marginBottom: (toolBar || isFunction(slots.tableTop)) ? '16px' : 0,
           }}
         >
           <div class={ns.bm('tool-bar', 'center')}>
@@ -166,7 +166,7 @@ export default defineComponent({
     const renderTable = () => {
       const { loading, editable } = props
       return (
-        <el-table
+        <ElTable
           ref="zTableRef"
           v-loading={loading}
           class={[editable && ns.b('editable'), dragging.value && 'z-table-dragging']}
@@ -191,7 +191,7 @@ export default defineComponent({
               />
             )
           })}
-        </el-table>
+        </ElTable>
       )
     }
 
@@ -220,22 +220,22 @@ export default defineComponent({
       if (editable) {
         return (
           <>
-            <el-form
+            <ElForm
               ref={zTableFormRef}
               model={{ tableData: tableData.value }}
             >
               {renderTableDecorator()}
-            </el-form>
+            </ElForm>
             {position === 'bottom'
             && maxLength !== tableData.value.length
             && (
-              <el-button
+              <ElButton
                 icon={Plus}
                 class="mt-2 w-full"
                 onClick={() => addTableData()}
               >
                 {t('table.addData')}
-              </el-button>
+              </ElButton>
             )}
           </>
         )

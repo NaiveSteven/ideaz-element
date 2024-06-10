@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { h, ref } from 'vue'
 
@@ -41,18 +42,18 @@ const columns = [
   },
 ]
 
-const handleSearch = () => {
-  formRef.value.validate((val) => {
+function handleSearch() {
+  formRef.value.validate((val: string) => {
     if (val)
       console.log(formData.value, 'formData')
   })
 }
 
-const handleReset = () => {
+function handleReset() {
   formRef.value.resetFields()
 }
 
-const renderOperation = () => {
+function renderOperation() {
   return h('span', {}, '查询')
 }
 </script>

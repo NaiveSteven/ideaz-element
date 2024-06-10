@@ -58,4 +58,5 @@ export interface FormColumn {
   // group
   contentPosition?: 'left' | 'right' | 'center'
   borderStyle?: 'none' | 'solid' | 'hidden' | 'dashed' | ''
+  prop?: string
 }

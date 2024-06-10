@@ -1,8 +1,18 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
+interface RowData {
+  name: string
+  sex: string
+  age: number
+  time: string
+}
+
+interface GetTableDataRes { result: { page: number, pageSize: number, list: RowData[], total: number } }
+
 const loading = ref(false)
-const tableData = ref([])
+const tableData = ref<RowData[]>([])
 const pagination = ref({
   page: 1,
   pageSize: 2,
@@ -29,7 +39,8 @@ const columns = ref([
   },
 ])
 
-const mockApi = () => {
+function mockApi(params: any): Promise<GetTableDataRes> {
+  console.log(params, 'params')
   return new Promise((resolve) => {
     setTimeout(() => {
       const dataFirstPage = [
@@ -72,7 +83,7 @@ const mockApi = () => {
   })
 }
 
-const getTableData = async () => {
+async function getTableData() {
   loading.value = true
   try {
     const res = await mockApi({ ...pagination.value })
@@ -93,7 +104,7 @@ getTableData()
     v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:loading="loading"
-    :columns="columns"
+    v-model:columns="columns"
     :action="false"
     @refresh="getTableData"
   />
