@@ -4,8 +4,8 @@ import { componentPreview, containerPreview } from '@vitepress-demo-preview/plug
 
 export default defineConfig({
   // lang: 'en-US',
-  title: 'Vitepress',
-  description: '使用 Vitepress 搭建组件库文档站点。',
+  title: 'Ideaz Element',
+  description: '更适合中后台的业务组件库。',
   lastUpdated: true,
   // eslint-disable-next-line node/prefer-global/process
   base: process.env.BASE || '/',
@@ -14,7 +14,7 @@ export default defineConfig({
     headers: {
       level: [0, 0],
     },
-    theme: { light: 'github-light', dark: 'github-dark' },
+    // theme: { light: 'github-light', dark: 'github-dark' },
     config: (md) => {
       md.use(demoBlockPlugin, {
         cssPreprocessor: 'scss',
@@ -138,8 +138,12 @@ export default defineConfig({
                       link: '/components/crud-table',
                     },
                     {
-                      text: '查询表单配置',
+                      text: '表单配置',
                       link: '/components/crud-form',
+                    },
+                    {
+                      text: 'Api配置',
+                      link: '/components/crud-api',
                     },
                     {
                       text: '新增编辑配置',
@@ -152,10 +156,6 @@ export default defineConfig({
                     {
                       text: '删除配置',
                       link: '/components/crud-delete',
-                    },
-                    {
-                      text: 'Api配置',
-                      link: '/components/crud-api',
                     },
                     {
                       text: '插槽',
@@ -204,17 +204,17 @@ export default defineConfig({
 
     editLink: {
       pattern:
-        'https://github.com/xinlei3166/vitepress-demo/edit/master/docs/:path',
+        'https://github.com/NaiveSteven/ideaz-element/edit/main/docs/:path',
       text: '在 GitHub 上编辑此页',
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/xinlei3166/vitepress-demo' },
+      { icon: 'github', link: 'https://github.com/NaiveSteven/ideaz-element' },
     ],
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright © 2022-present 君惜',
+      copyright: 'Copyright © 2024-present NaiveSteven',
     },
   },
 })
