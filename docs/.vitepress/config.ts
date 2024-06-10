@@ -33,6 +33,7 @@ export default defineConfig({
     //   indexName: 'vitepress-demo',
     // },
     nav: [
+      { text: '指南', link: '/guide/start', activeMatch: '^/guide/' },
       { text: '组件', link: '/components/text', activeMatch: '^/components/' },
       {
         text: '更新日志',
@@ -138,12 +139,8 @@ export default defineConfig({
                       link: '/components/crud-table',
                     },
                     {
-                      text: '表单配置',
+                      text: '查询表单配置',
                       link: '/components/crud-form',
-                    },
-                    {
-                      text: 'Api配置',
-                      link: '/components/crud-api',
                     },
                     {
                       text: '新增编辑配置',
@@ -156,6 +153,10 @@ export default defineConfig({
                     {
                       text: '删除配置',
                       link: '/components/crud-delete',
+                    },
+                    {
+                      text: 'Api配置',
+                      link: '/components/crud-api',
                     },
                     {
                       text: '插槽',
@@ -186,16 +187,25 @@ export default defineConfig({
           text: '指南',
           items: [
             {
-              text: '文档1',
-              link: '/guide/',
+              text: '安装',
+              link: '/guide/install',
             },
             {
-              text: '文档2',
-              link: '/guide/button',
+              text: '快速上手',
+              link: '/guide/start',
             },
             {
-              text: '文档3',
-              link: '/guide/modal',
+              text: '更新日志',
+              link: '/guide/changelog',
+            },
+          ],
+        },
+        {
+          text: '开发',
+          items: [
+            {
+              text: '开发指南',
+              link: '/guide/dev',
             },
           ],
         },

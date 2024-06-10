@@ -6,8 +6,8 @@ title: Ideaz Element
 
 hero:
   name: Ideaz Element
-  text: 使用 Ideaz Element 搭建中后台业务。
-  tagline: 组件库基于 Vue3 和 element-plus。
+  # text: 使用 Ideaz Element 搭建中后台业务。
+  tagline: 基于 Vue3 和 element-plus，面向中后台业务开发的组件库。
   image:
     src: /logo.svg
     alt: Ideaz Element
