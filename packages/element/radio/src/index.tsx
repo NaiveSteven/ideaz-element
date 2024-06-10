@@ -2,8 +2,8 @@ import { ElRadioGroup } from 'element-plus'
 import { resolveDynamicComponent } from '@ideaz/shared'
 import { isFunction, isValid } from '@ideaz/utils'
 import { get, omit } from 'lodash-unified'
+import type { RadioOptionsItem } from '../../types'
 import { FILTER_RADIO_PROPS, radioProps } from './props'
-import type { RadioOptionsItem } from './props'
 
 export default defineComponent({
   name: 'ZRadio',

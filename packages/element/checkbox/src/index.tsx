@@ -3,8 +3,8 @@ import { resolveDynamicComponent } from '@ideaz/shared'
 import { isValid } from '@ideaz/utils'
 import { get, omit } from 'lodash-unified'
 import type { CheckboxGroupValueType } from 'element-plus'
+import type { CheckboxOptionsItem } from '../../types'
 import { CHECKBOX_FILTER_PROPS, checkboxProps } from './props'
-import type { CheckboxOptionsItem } from './props'
 
 export default defineComponent({
   name: 'ZCheckbox',
