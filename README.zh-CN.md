@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" target="_blank" rel="noopener noreferrer">
-    <img src="" alt="Ideaz Element" width="180" style="width: 180px;" />
+    <img src="./docs/public/logo.svg" alt="Ideaz Element" width="180" style="width: 180px;" />
   </a>
 </p>
 

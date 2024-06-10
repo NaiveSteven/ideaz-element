@@ -1,3 +1,4 @@
+/* stylelint-disable declaration-property-value-disallowed-list */
 :root {
   --vp-c-brand: #646cff;
   --vp-c-brand-light: #747bff;
@@ -6,8 +7,36 @@
   --vp-c-brand-dark: #535bf2;
   --vp-c-brand-darker: #454ce1;
   --vp-code-block-bg: #f9fafb;
-  --vp-font-family-base: 'Chinese Quotes', 'Inter var', 'Inter', ui-sans-serif, system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', helvetica, arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --vp-font-family-base: 'Chinese Quotes', 'Inter var', 'Inter', ui-sans-serif,
+    system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto,
+    'Helvetica Neue', helvetica, arial, 'Noto Sans', sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   --vp-layout-max-width: 1688px;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+.VPHero {
+  .container {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    margin-top: 100px;
+
+    .main {
+      margin-top: 20px;
+
+      .actions {
+        justify-content: center;
+      }
+    }
+  }
+}
+
+@media (width >= 960px) {
+  [data-v-d99aa4f9] .image-src {
+    max-width: 480px;
+    max-height: 480px;
+  }
 }
 
 .content-container {
@@ -27,12 +56,12 @@ html.dark {
 }
 
 .z-table {
-  table{
+  table {
     display: table;
-    margin: 0;
     width: 100%;
+    margin: 0;
+    font-family: THEX, '微软雅黑', Arial;
     font-size: 12px;
-    font-family: THEX, 微软雅黑, Arial;
     font-weight: 400;
   }
 
@@ -41,66 +70,69 @@ html.dark {
   }
 
   ul {
-    margin: 0;
     padding: 0;
+    margin: 0;
     list-style: none;
   }
 
   ol {
-    margin: 0;
     padding: 0;
+    margin: 0;
     list-style: none;
   }
 
-
-  table{
+  table {
     border: none;
   }
 
-  td,th,tr {
+  td,
+  th,
+  tr {
     font-size: 12px;
     border: none;
   }
 
   > table {
-    display: table;
-    margin-bottom: 45px;
-    width: 100%;
-    font-size: 14px;
-    border-color: grey;
-    text-indent: initial;
     box-sizing: border-box;
+    display: table;
+    width: 100%;
+    margin-bottom: 45px;
+    font-size: 14px;
+    line-height: 1.5;
+    text-indent: initial;
     border-spacing: 2px;
     border-collapse: collapse;
-    line-height: 1.5;
+    border-color: grey;
 
     tr {
       border: none;
     }
 
     th {
-      padding: 15px;
       max-width: 250px;
+      padding: 15px;
       font-weight: 400;
-      border: none;
-      border-bottom: 1px solid #dcdfe6;
+      color: #909399;
       text-align: left;
       white-space: nowrap;
-      color: #909399;
+      border: none;
+      border-bottom: 1px solid #dcdfe6;
     }
 
     td {
-      padding: 15px;
       max-width: 250px;
-      border: none;
-      border-bottom: 1px solid #dcdfe6;
+      padding: 15px;
       color: #606266;
       word-break: break-word;
+      border: none;
+      border-bottom: 1px solid #dcdfe6;
     }
   }
 }
 
-table, tbody, thead {
+table,
+tbody,
+thead {
   width: 100%;
 }
 
@@ -109,8 +141,8 @@ table {
 }
 
 .el-descriptions__table {
-  overflow: initial;
   margin: 0 !important;
+  overflow: initial;
 
   tr {
     border: none;

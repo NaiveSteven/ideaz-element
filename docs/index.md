@@ -5,7 +5,7 @@ title: Ideaz Element
 # titleTemplate: 使用 Ideaz Element 业务组件库搭建中后台业务。
 
 hero:
-  name: Ideaz Element
+  # name: Ideaz Element
   # text: 使用 Ideaz Element 搭建中后台业务。
   tagline: 基于 Vue3 和 element-plus，面向中后台业务开发的组件库。
   image:
@@ -14,10 +14,10 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/
+      link: /guide/install
     - theme: alt
       text: Learn More
-      link: /guide/
+      link: /guide/start
 
 features:
   - icon: 💪
@@ -31,5 +31,5 @@ features:
     details: The internal logic of the component is 100% wrapped in hooks.
   - icon: 🔥
     title: Written in TypeScript
-    details: Component libraries are 100% developed using tsx and TypeScript.
+    details: Component libraries are 100% developed using TSX and TypeScript.
 ---
