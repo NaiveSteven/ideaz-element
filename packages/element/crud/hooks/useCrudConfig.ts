@@ -2,7 +2,8 @@ import { debounce } from 'lodash-unified'
 import type { ElForm } from 'element-plus'
 import { isObject } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'
-import type { CrudProps, Pagination } from '../src/props'
+import type { CrudProps } from '../src/props'
+import type { Pagination } from '../../types'
 import { useFormStorage } from './useFormStorage'
 import { usePaginationStorage } from './usePaginationStorage'
 
@@ -38,7 +39,7 @@ export function useCrudConfig(props: CrudProps, emit: any) {
     if (isObject(props.pagination) && isUsePaginationStorage.value) {
       const pagination: Pagination = {}
       Object.keys(props.pagination).forEach((key) => {
-        (pagination[key]) = originPagination.value[key as keyof typeof props.pagination];
+        (pagination[key as keyof typeof props.pagination] as Pagination) = originPagination.value[key as keyof typeof props.pagination] as Pagination;
         (middlePagination.value[key as keyof typeof props.pagination] as Pagination) = originPagination.value[key as keyof typeof props.pagination] as Pagination
       })
       emit('update:pagination', pagination)
@@ -58,7 +59,7 @@ export function useCrudConfig(props: CrudProps, emit: any) {
     emit('refresh', val)
   }
 
-  function updateTableProFormData(config: any, data?: any) {
+  function updateTableProFormData(config: CrudProps, data?: any) {
     const formData = window.sessionStorage.getItem('zCrudFormData')
       ? JSON.parse(window.sessionStorage.getItem('zCrudFormData')!)
       : {}

@@ -1,4 +1,6 @@
 import type { Ref } from 'vue'
+import type { TableCol } from './table'
+import type { FormColumn } from './form'
 
 export interface DialogFormCancelParams<T = any, K = any> {
   done: () => void
@@ -29,6 +31,14 @@ export interface DeleteRequestApiParams<T = any> {
 export interface AddRequestApiParams<T = any> {
   type: 'add' | 'edit' | 'view'
   formData: T
+}
+
+export interface CrudCol extends Partial<TableCol> {
+  add?: FormColumn
+  edit?: FormColumn
+  detail?: FormColumn
+  search?: FormColumn
+  form?: FormColumn
 }
 
 export type EditRequestApiParams<T = any, K = any> = AddRequestApiParams<T> & DetailRequestApiParams<K>

@@ -5,7 +5,7 @@ import { Delete, EditPen, View } from '@element-plus/icons-vue'
 import type { ComponentInternalInstance } from 'vue'
 import DialogTip from '../../dialog/src/dialog'
 import { COLUMN_TYPE_FIELDS } from '../src/props'
-import type { TableCol, TableColumnScopeData } from '../../types'
+import type { CrudCol, TableColumnScopeData } from '../../types'
 import type { CrudProps } from '../src/props'
 import type ZTable from '../../table/src/Table'
 
@@ -88,7 +88,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
   }
 
   const tableColumns = computed(() => {
-    const columns = props.columns?.filter((column: TableCol) => COLUMN_TYPE_FIELDS.some(key => column[key])) || []
+    const columns = props.columns?.filter((column: CrudCol) => COLUMN_TYPE_FIELDS.some(key => column[key])) || []
     if (props.action && (props.detail !== false || props.edit !== false || props.delete !== false)) {
       const buttons = [props.detail !== false && renderView(), props.edit !== false && renderEdit(), props.delete !== false && renderDelete()].filter(item => item)
       return columns.concat([

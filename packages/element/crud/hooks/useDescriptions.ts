@@ -1,7 +1,7 @@
 import { isArray, isObject } from '@ideaz/utils'
 import { omit } from 'lodash-unified'
 import type { CrudProps } from '../src/props'
-import type { TableCol } from '../../types'
+import type { CrudCol } from '../../types'
 
 export function useDescriptions(props: CrudProps) {
   const descriptionColumns = computed(() => {
@@ -15,7 +15,7 @@ export function useDescriptions(props: CrudProps) {
         }
       })
     }
-    return props.columns.filter((column: TableCol) => column.detail || (column.form && column.detail !== false)).map((column: TableCol) => {
+    return props.columns?.filter((column: CrudCol) => column.detail || (column.form && column.detail !== false)).map((column: CrudCol) => {
       return {
         label: column.detail?.label || column.form?.label || column.label,
         prop: column.detail?.prop || column.detail?.field || column.form?.field,
