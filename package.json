@@ -1,6 +1,7 @@
 {
   "name": "@ideaz/element",
   "type": "module",
+  "version": "0.0.1",
   "private": true,
   "packageManager": "pnpm@7.30.0",
   "keywords": [
@@ -36,7 +37,8 @@
     "typecheck": "vue-tsc --noEmit",
     "preview": "vite preview",
     "test": "vitest",
-    "up": "taze major -I"
+    "up": "taze major -I",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s --commit-path ."
   },
   "peerDependencies": {
     "@vue/composition-api": ">=1",
@@ -84,6 +86,8 @@
     "@vitepress-demo-preview/plugin": "^1.2.2",
     "@vue/compiler-sfc": "latest",
     "@vue/test-utils": "latest",
+    "conventional-changelog-angular": "7.0.0",
+    "conventional-changelog-cli": "^5.0.0",
     "element-plus": "latest",
     "element-resize-detector": "latest",
     "eslint": "^8.36.0",
