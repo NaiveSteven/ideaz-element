@@ -1,6 +1,6 @@
 import { ElInput } from 'element-plus'
 import { omit } from 'lodash-unified'
-import { useInputMethods } from '../hooks'
+import { useInputMethods } from './hooks'
 import { FILTER_INPUT_PROPS, INPUT_SLOTS, inputEmits, zInputProps } from './input'
 
 export default defineComponent({

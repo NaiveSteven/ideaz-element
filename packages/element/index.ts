@@ -27,7 +27,7 @@ const components = [ZCheckbox, ZRadio, ZSelect, ZRow, ZCol, ZForm, ZInput, ZTabl
 const installer = makeInstaller([...components])
 
 export default installer
-export * from './form/hooks'
+export * from './form/src/hooks'
 export * from './types'
 export * from './text'
 export * from './tag-select'

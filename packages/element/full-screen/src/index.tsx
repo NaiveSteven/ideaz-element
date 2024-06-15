@@ -1,7 +1,7 @@
 import { defineComponent } from 'vue'
 import type { EnhancedHTMLElement } from '@ideaz/utils'
 import { isFunction } from '@ideaz/utils'
-import { useFullscreen } from '../hooks/useFullScreen'
+import { useFullscreen } from './hooks'
 
 export default defineComponent({
   name: 'ZFullScreen',

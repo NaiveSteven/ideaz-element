@@ -14,7 +14,7 @@ import {
   useFormItems,
   useFormMethods,
   useRow,
-} from '../hooks'
+} from './hooks'
 import type { FormColumn } from '../../types'
 import { FORM_FILTER_KEYS, FORM_ITEM_FILTER_KEYS, formProps, formProvideKey } from './props'
 import FormColumns from './FormColumns'

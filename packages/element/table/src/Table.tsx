@@ -8,7 +8,7 @@ import {
   useTableColumns,
   useTableMethods,
   useTableSlots,
-} from '../hooks'
+} from './hooks'
 import { draggable } from '../../../directives'
 import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'

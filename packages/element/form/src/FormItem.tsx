@@ -7,7 +7,7 @@ import {
   useFormItemComponent,
   useFormItemProps,
   useFormItemSlots,
-} from '../hooks'
+} from './hooks'
 import { formItemProps, formItemProvideKey } from './props'
 
 export default defineComponent({

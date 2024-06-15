@@ -5,7 +5,7 @@ import { ElTableColumn } from 'element-plus'
 import {
   useRadioColumnMethods,
   useTableColumnSlots,
-} from '../hooks'
+} from './hooks'
 import RadioColumn from './RadioColumn'
 import { tableColumnProps } from './props'
 

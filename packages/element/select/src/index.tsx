@@ -2,7 +2,7 @@ import { ElOption, ElOptionGroup, ElSelect } from 'element-plus'
 import { isArray, isFunction, isSlot } from '@ideaz/utils'
 import { get } from 'lodash-unified'
 import type { Slots } from '@ideaz/hooks'
-import { useOptions, useSelectMethods } from '../hooks'
+import { useOptions, useSelectMethods } from './hooks'
 import type { SelectOptionsItem } from './props'
 import { SELECT_SLOTS, selectProps } from './props'
 
