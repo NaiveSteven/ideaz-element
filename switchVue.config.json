@@ -8,7 +8,7 @@
   "3": {
     "vue": "3.4.21",
     "vue-router": "latest",
-    "element-plus": "latest",
+    "element-plus": "2.7.5",
     "@element-plus/icons-vue": "latest",
     "@vitejs/plugin-vue-jsx": "latest"
   }
