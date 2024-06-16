@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import type { OptionsItem } from '@ideaz/element'
 
 const options = ref([
-  { label: '选项一', value: 1, render: (h: any, { option }: { option: OptionsItem }) => h('span', `${option.label}${option.value}`) },
+  { label: '选项一', value: 1, render: ({ option }: { option: OptionsItem }) => h('span', `${option.label}${option.value}`) },
   { label: '选项二', value: 2 },
   { label: '选项三', value: 3 },
 ])

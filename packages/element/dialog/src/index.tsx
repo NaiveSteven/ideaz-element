@@ -1,7 +1,7 @@
 import { WarningFilled } from '@element-plus/icons-vue'
 import { isFunction, isString } from '@ideaz/utils'
 import { ElButton, ElDialog, ElIcon } from 'element-plus'
-import { useDialog } from '../hooks'
+import { useDialog } from './hooks'
 import { dialogProps } from './props'
 
 export default defineComponent({

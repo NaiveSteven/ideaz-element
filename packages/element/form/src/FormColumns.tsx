@@ -3,7 +3,7 @@ import { cloneDeep, set } from 'lodash-unified'
 import {
   useCol,
   useFormSlots,
-} from '../hooks'
+} from './hooks'
 import type { FormColumn } from '../../types'
 import FormItem from './FormItem'
 import type { FormProps } from './props'

@@ -4,7 +4,7 @@ import { VueDraggable } from 'vue-draggable-plus'
 import { isFunction } from '@ideaz/utils'
 import type { CheckboxValueType } from 'element-plus'
 import { ElButton, ElCheckbox, ElCheckboxGroup, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElPopover, ElTooltip } from 'element-plus'
-import { useFixedTableCols, useToolBarTableCols } from '../hooks'
+import { useFixedTableCols, useToolBarTableCols } from './hooks'
 import type { TableCol } from '../../types'
 import { toolBarProps } from './props'
 

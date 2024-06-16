@@ -11,7 +11,7 @@
 ## 常规弹窗
 >
 
-<preview path="../demo/dialog/normal.vue" />
+<preview path="../demo/dialog/Normal.vue" />
 
 ## 信息、警告、错误弹窗
 
