@@ -11,7 +11,7 @@ export const dialogProps = {
   },
   draggable: {
     type: Boolean,
-    default: true,
+    default: false,
   },
   confirmButtonProps: {
     type: Object as PropType<Partial<ButtonProps>>,
@@ -22,10 +22,10 @@ export const dialogProps = {
     default: () => ({}),
   },
   onCancel: {
-    type: Function as PropType<({ done, cancelButtonLoading }: { done: () => void; cancelButtonLoading: Ref<boolean> }) => void>,
+    type: Function as PropType<({ done, cancelButtonLoading }: { done: () => void, cancelButtonLoading: Ref<boolean> }) => void>,
   },
   onConfirm: {
-    type: Function as PropType<({ done, confirmButtonLoading }: { done: () => void; confirmButtonLoading: Ref<boolean> }) => void>,
+    type: Function as PropType<({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => void>,
   },
   title: {
     type: [Function, String] as PropType<(() => VNode) | string>,
@@ -63,3 +63,9 @@ export const dialogProps = {
 }
 
 export type DialogProps = ExtractPropTypes<typeof dialogProps>
+
+export interface DialogHeaderSlotProps {
+  key: string
+  titleId: string
+  titleClass: string
+}

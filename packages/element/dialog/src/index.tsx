@@ -2,6 +2,7 @@ import { WarningFilled } from '@element-plus/icons-vue'
 import { isFunction, isString } from '@ideaz/utils'
 import { ElButton, ElDialog, ElIcon } from 'element-plus'
 import { useDialog } from './hooks'
+import type { DialogHeaderSlotProps } from './props'
 import { dialogProps } from './props'
 
 export default defineComponent({
@@ -14,15 +15,16 @@ export default defineComponent({
     const { t } = useLocale()
 
     const getHeader = () => {
-      if (isFunction(props.title))
-        return () => (props.title as () => VNode)()
+      if (isFunction(props.title)) {
+        return (headerProps: DialogHeaderSlotProps) => (props.title as (headerProps: DialogHeaderSlotProps) => VNode)(headerProps)
+      }
 
       if (isString(props.title))
         return () => <span class="el-dialog__title">{props.title}</span>
 
       // default config
       if (props.extend)
-        return () => t('dialog.tip')
+        return () => <span class="el-dialog__title">{t('dialog.tip')}</span>
 
       return slots.header || slots.title
     }

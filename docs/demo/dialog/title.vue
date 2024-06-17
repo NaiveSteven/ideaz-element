@@ -5,20 +5,23 @@ import { ZDialogTip } from '@ideaz/element'
 const isShowDialog = ref(false)
 const isShowRenderDialog = ref(false)
 
-const renderTitle = () => {
+function renderTitle() {
   return h('span', 'render标题')
 }
 
-const handleClick = () => {
+function handleClick() {
   ZDialogTip({
     type: 'danger',
     message: () => h('span', {}, 'custom message'),
     title: () => h('span', {}, 'custom title'),
     onConfirm: ({ done, confirmButtonLoading }) => {
       confirmButtonLoading.value = true
+      done()
     },
     onCancel: ({ done, cancelButtonLoading }) => {
+      cancelButtonLoading.value = true
       done()
+      cancelButtonLoading.value = false
     },
   })
 }
