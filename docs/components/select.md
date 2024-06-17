@@ -56,7 +56,7 @@
 
 <preview path="../demo/select/slot.vue" />
 
-支持`tag`、`loading`、`header`、`footer`等插槽
+支持`tag`、`loading`、`header`、`footer`、`label`等插槽
 
 <preview path="../demo/select/slot-more.vue" />
 

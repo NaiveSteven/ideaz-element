@@ -38,6 +38,6 @@ export const selectProps = {
   },
 }
 
-export const SELECT_SLOTS = ['prefix', 'empty']
+export const SELECT_SLOTS = ['prefix', 'empty', 'header', 'footer', 'tag', 'loading', 'label']
 
 export type SelectProps = ExtractPropTypes<typeof selectProps>
