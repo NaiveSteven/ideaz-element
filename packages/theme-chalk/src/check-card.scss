@@ -1,21 +1,22 @@
 .z-check-card--bordered {
-  border: 1px solid #d9d9d9;
+  border: 1px solid var(--el-border-color-dark);
 }
 
 .z-check-card {
   position: relative;
   display: inline-block;
   width: 320px;
-  font-size: 14px;
-  border-radius: 6px;
-  color: rgba(42, 46, 54, 0.88);
-  background-color: #fff;
-  transition: all 0.3s;
-  margin-inline-end: 16px;
   margin-block-end: 16px;
-  line-height: 1.5714285714285714;
+  margin-inline-end: 16px;
+  font-size: 14px;
+  line-height: 1.57;
+  color: var(--el-text-color-primary);
   vertical-align: top;
   cursor: pointer;
+  background-color: #fff;
+  border-radius: 6px;
+  /* stylelint-disable-next-line declaration-property-value-disallowed-list */
+  transition: all 0.3s;
 
   &:last-child {
     margin-inline-end: 0;
@@ -23,38 +24,38 @@
 
   .z-check-card__content {
     display: flex;
-    padding-inline: 12px;
     padding-block: 16px;
+    padding-inline: 12px;
 
     .z-check-card__avatar {
       padding-inline-end: 8px;
     }
 
     .z-check-card__detail {
-      overflow: hidden;
       width: 100%;
+      overflow: hidden;
 
-      >div:not(:last-child) {
+      > div:not(:last-child) {
         margin-block-end: 4px;
       }
 
       .z-check-card__header {
         display: flex;
-        justify-content: space-between;
         align-items: center;
+        justify-content: space-between;
 
         .z-check-card__title {
           overflow: hidden;
           font-size: 14px;
           font-weight: 500;
+          color: var(--el-text-color-primary);
           text-overflow: ellipsis;
           white-space: nowrap;
-          color: rgba(42, 46, 54, 0.88);
         }
       }
 
       .z-check-card__description {
-        color: rgba(42, 46, 54, 0.65);
+        color: var(--el-text-color-regular);
       }
     }
   }
@@ -65,18 +66,18 @@
   }
 
   .z-check-card__cover {
-    padding-inline: 4px;
     padding-block: 4px;
+    padding-inline: 4px;
   }
 
   &:not(.z-check-card--disabled):hover {
-    border-color: #1677FF;
+    border-color: var(--el-color-primary);
   }
 }
 
 .z-check-card--checked {
-  border-color: #1677FF;
   background-color: #b0d0ff;
+  border-color: var(--el-color-primary);
 
   &::after {
     position: absolute;
@@ -84,35 +85,37 @@
     inset-inline-end: 2px;
     width: 0;
     height: 0;
-    border: 6px solid #1677FF;
+    content: '';
+    border: 6px solid var(--el-color-primary);
     border-block-end: 6px solid transparent;
     border-inline-start: 6px solid transparent;
     border-start-end-radius: 2px;
-    content: '';
   }
 }
 
 .z-check-card--disabled {
-  border-color: #d9d9d9;
-  background-color: rgba(42, 46, 54, 0.04);
   cursor: not-allowed;
+  background-color: var(--el-disabled-bg-color);
+  border-color: var(--el-border-color-dark);
 
   .z-check-card__content {
     .z-check-card__detail {
       .z-check-card__description {
-        color: rgba(42, 46, 54, 0.25);
+        color: var(--el-disabled-text-color);
+        -webkit-text-fill-color: var(--el-disabled-text-color);
       }
 
       .z-check-card__header {
         .z-check-card__title {
-          color: rgba(42, 46, 54, 0.25);
+          color: var(--el-disabled-text-color);
+          -webkit-text-fill-color: var(--el-disabled-text-color);
         }
       }
     }
   }
 
   .z-check-card__avatar {
-    opacity: 0.25;
+    opacity: 25%;
   }
 }
 
