@@ -13,7 +13,7 @@
   color: var(--el-text-color-primary);
   vertical-align: top;
   cursor: pointer;
-  background-color: #fff;
+  background-color: var(--el-bg-color);
   border-radius: 6px;
   /* stylelint-disable-next-line declaration-property-value-disallowed-list */
   transition: all 0.3s;
@@ -76,7 +76,7 @@
 }
 
 .z-check-card--checked {
-  background-color: #b0d0ff;
+  background-color: var(--el-color-primary-light-7);
   border-color: var(--el-color-primary);
 
   &::after {

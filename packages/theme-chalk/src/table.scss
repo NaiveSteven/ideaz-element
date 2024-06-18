@@ -1,5 +1,6 @@
+/* stylelint-disable custom-property-pattern */
 .z-table {
-  background-color: #fff;
+  background: var(--el-bg-color);
 
   .z-table-column-draggable {
     display: flex;
@@ -95,7 +96,7 @@
         cursor: pointer;
 
         &:hover {
-          color: #1677ff;
+          color: var(--el-color-primary);
         }
       }
 
@@ -228,7 +229,7 @@
 
     > a {
       font-weight: 600;
-      color: #1677ff;
+      color: var(--el-color-primary);
       text-decoration: none;
       cursor: pointer;
       background-color: transparent;
@@ -325,8 +326,8 @@
 }
 
 .density-dropdown__active {
-  color: #66b1ff;
-  background-color: #ecf5ff;
+  color: var(--el-dropdown-menuItem-hover-color);
+  background-color: var(--el-dropdown-menuItem-hover-fill);
 }
 
 .column-popover__container {
