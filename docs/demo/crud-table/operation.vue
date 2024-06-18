@@ -110,7 +110,7 @@ function handleChangeEditVisible() {
     v-model:data="tableData"
     v-model:pagination="pagination"
     v-model:loading="loading"
-    v-model:columns="columns"
+    :columns="columns"
     :request="request"
     :detail="detailConfig"
     :edit="editConfig"

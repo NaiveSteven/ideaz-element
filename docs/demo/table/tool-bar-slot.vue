@@ -101,7 +101,7 @@ getTableData()
   <z-table
     v-model:pagination="pagination"
     v-model:data="tableData"
-    v-model:columns="columns"
+    :columns="columns"
     :loading="loading"
     @refresh="getTableData"
   >

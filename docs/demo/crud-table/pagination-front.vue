@@ -104,7 +104,7 @@ getTableData()
     v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:loading="loading"
-    v-model:columns="columns"
+    :columns="columns"
     :action="false"
     @refresh="getTableData"
   />
