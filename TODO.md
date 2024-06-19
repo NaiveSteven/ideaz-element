@@ -169,6 +169,9 @@
 152. ~~`z-table`的`editable`的`multiple`模式问题~~
 153. ~~`z-table`的`slot`处理以及相关文档和测试文件~~
 154. ~~`z-crud`的`cancel`事件处理~~
+155. `z-table`的全屏修复
+156. `z-table`的`toolBar`支持单个不展示
+157. `row`和`col`的样式文件删除
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
@@ -258,9 +261,9 @@ const config = {
       // rowProps: {}, // row props
       render: () => {}, // custom
       // renderFormItem or formItem: () => {}
-      ref: (c: any) => {}, // v-ref
+      ref: (c) => {}, // v-ref
       rules: [] | object, // form rules
-      modifier: string | ((val: any) => any),
+      modifier: string | (val => any),
       onClick: () => {}, // event
       // default set prop slot
     }

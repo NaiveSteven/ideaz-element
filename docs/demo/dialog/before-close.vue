@@ -1,28 +1,25 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { h, ref } from 'vue'
+import { ref } from 'vue'
 import { ZDialogTip } from '@ideaz/element'
 
 const isShowDialog = ref(false)
 
-const handleConfirm = (done) => {
+function handleConfirm(done: () => void) {
   console.log(done, 'sdf')
 }
 
-const handleBeforeClose = async (done) => {
+async function handleBeforeClose(done: () => void) {
   console.log('handleBeforeClose')
-  // await delay(200)
-  // done()
+  await delay(200)
+  done()
 }
 
-const renderTitle = () => {
-  return h('span', {}, 'title')
-}
-
-const handleOpen = () => {
+function handleOpen() {
   isShowDialog.value = true
 }
 
-const openDialog = () => {
+function openDialog() {
   ZDialogTip({
     type: 'warning',
     message: '内容',
@@ -31,16 +28,16 @@ const openDialog = () => {
       console.log('before close extend')
       done()
     },
-    onConfirm: ({ done, confirmButtonLoading }) => {
+    onConfirm: ({ confirmButtonLoading }) => {
       confirmButtonLoading.value = true
     },
-    onCancel: ({ done, cancelButtonLoading }) => {
+    onCancel: ({ done }) => {
       done()
     },
   })
 }
 
-const handleClose = () => {
+function handleClose() {
   console.log('handleClose')
 }
 

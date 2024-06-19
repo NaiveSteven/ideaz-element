@@ -2,7 +2,7 @@
 import { h } from 'vue'
 import { ZDialogTip } from '@ideaz/element'
 
-const openInfoDialog = () => {
+function openInfoDialog() {
   ZDialogTip({
     type: 'info',
     message: '提示信息',
@@ -10,33 +10,33 @@ const openInfoDialog = () => {
       confirmButtonLoading.value = true
       done()
     },
-    onCancel: ({ done, cancelButtonLoading }) => {
+    onCancel: ({ done }) => {
       done()
     },
   })
 }
 
-const openWarningDialog = () => {
+function openWarningDialog() {
   ZDialogTip.warning('提示信息', '标题', {
     type: 'warning',
-    onConfirm: ({ done, confirmButtonLoading }) => {
+    onConfirm: ({ confirmButtonLoading }) => {
       confirmButtonLoading.value = true
     },
-    onCancel: ({ done, cancelButtonLoading }) => {
+    onCancel: ({ done }) => {
       done()
     },
   })
 }
 
-const openDangerDialog = () => {
+function openDangerDialog() {
   ZDialogTip({
     type: 'danger',
     message: () => h('span', {}, 'custom message'),
     title: () => h('span', {}, 'custom title'),
-    onConfirm: ({ done, confirmButtonLoading }) => {
+    onConfirm: ({ confirmButtonLoading }) => {
       confirmButtonLoading.value = true
     },
-    onCancel: ({ done, cancelButtonLoading }) => {
+    onCancel: ({ done }) => {
       done()
     },
   })
