@@ -5,7 +5,7 @@ import type { FormColumn } from '../../../types'
 
 export function useCol(props: FormProps, formItem: FormColumn) {
   let col: FormColumn
-  const ns = useNamespace('col')
+  const ns = useNamespace('col', ref('el'))
   const gutter = computed(() => props.gutter || 0)
 
   if (props.column) {
