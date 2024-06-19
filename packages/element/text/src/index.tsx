@@ -7,7 +7,7 @@ export default defineComponent({
   name: 'ZText',
   props: textProps,
   setup(props, { slots }) {
-    const ns = useNamespace('text')
+    const ns = useNamespace('text', ref('el'))
     const size = useFormSize()
 
     const zText = ref()
