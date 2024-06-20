@@ -2,6 +2,9 @@ import { cloneDeep } from 'lodash-es'
 import { Plus } from '@element-plus/icons-vue'
 import { isFunction, isObject, isString } from '@ideaz/utils'
 import { ElButton, ElForm, ElPagination, ElTable } from 'element-plus'
+import { getCurrentInstance } from 'vue'
+import type { ComponentInternalInstance } from 'vue'
+import { draggable } from '../../../directives'
 import {
   useDraggable,
   usePagination,
@@ -9,7 +12,6 @@ import {
   useTableMethods,
   useTableSlots,
 } from './hooks'
-import { draggable } from '../../../directives'
 import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'
 import { tableProps, tableProvideKey } from './props'
@@ -22,6 +24,7 @@ export default defineComponent({
   props: tableProps,
   emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end'],
   setup(props, { emit, slots, expose }) {
+    const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
     const {
       setCurrentRow,
       toggleRowSelection,
@@ -137,7 +140,7 @@ export default defineComponent({
                 sortTableCols={sortTableCols.value}
                 size={size.value}
                 toolBar={props.toolBar}
-                tableProps={props}
+                tableProps={{ ...props, fullScreenElement: props.fullScreenElement || (() => ctx!.$refs.zTableRef as HTMLElement) }}
                 onColumns-change={(data) => {
                   middleTableCols.value = cloneDeep(data)
                   tableKey.value = new Date().valueOf()
@@ -259,7 +262,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <div class={ns.b('')}>
+        <div class={ns.b('')} ref="zTableRef">
           {renderTableTop()}
           {renderToolBar()}
           {renderContent()}

@@ -76,7 +76,7 @@ export function useDataRequest(props: CrudProps, emit: any) {
       ...pick(props, tableKeys.filter(key => !FILTER_TABLE_KEYS.includes(key))),
       'columns': tableColumns.value,
       ...attrs,
-      'fullScreenElement': document.getElementsByClassName('z-crud')[0],
+      'fullScreenElement': () => ctx?.$refs.crudRef,
       'pagination': middlePagination.value,
       'data': tableData.value,
       'loading': isLoading.value,
