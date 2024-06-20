@@ -1,6 +1,6 @@
 # Crud 增删改查
 
-> 集成`z-form`和`z-table`组件，实现增删改查功能。
+集成`z-form`和`z-table`组件，实现增删改查功能。
 
 ## 基础用法
 
@@ -63,7 +63,7 @@ const pagination = ref({
   total: 4,
 })
 
-const mockApi = () => {
+function mockApi() {
   return new Promise((resolve) => {
     setTimeout(() => {
       const data = [
@@ -105,11 +105,12 @@ const mockApi = () => {
   })
 }
 
-const getTableData = async () => {
+async function getTableData() {
   loading.value = true
   try {
     const params = {
-      ...pagination.value, ...formData.value
+      ...pagination.value,
+      ...formData.value
     }
     const res = await mockApi(params)
     tableData.value = res.result.list
@@ -121,7 +122,7 @@ const getTableData = async () => {
   loading.value = false
 }
 
-const handleDelete = () => {
+function handleDelete() {
   window.ZDialogTip({
     type: 'warning',
     message: '确定删除该条数据吗？',
@@ -132,7 +133,7 @@ const handleDelete = () => {
   })
 }
 
-const handleSearch = () => {
+function handleSearch() {
   pagination.value.page = 1
   getTableData()
 }
@@ -237,7 +238,7 @@ function getReqData() {
   })
 }
 
-const changeNameVisible = () => {
+function changeNameVisible() {
   isShowName.value = !isShowName.value
   // console.log(tableData.value, 'shuju')
 }
@@ -355,7 +356,10 @@ const columns = [
             tableData.value.push({ ...row })
           }
         },
-        renderEdit, renderCancel, renderDelete, renderSave
+        renderEdit,
+        renderCancel,
+        renderDelete,
+        renderSave
       ]
     }
   }
@@ -404,19 +408,19 @@ const options = {
   ]
 }
 
-const click = (row) => {
+function click(row) {
   row.__isEdit = true
 }
 
-const save = (row) => {
+function save(row) {
   row.__isEdit = false
 }
 
-const cancel = (row) => {
+function cancel(row) {
   row.__isEdit = false
 }
 
-const getData = () => {
+function getData() {
   loading.value = true
   // console.log(pagination.value, formModel.value, 'pagination')
   setTimeout(() => {
@@ -457,54 +461,54 @@ const getData = () => {
     loading.value = false
   }, 1000)
 }
-const handlePaginationChange = (val: { page: number; pageSize: number }) => {
+function handlePaginationChange(val: { page: number, pageSize: number }) {
   pagination.value.page = val.page
   pagination.value.pageSize = val.pageSize
   getData()
 }
 
-const handleClick = () => {
+function handleClick() {
   console.log(tableData.value, 'tableData')
 }
 
-const handleDivClick = () => {
+function handleDivClick() {
   console.log('handleDivClick')
 }
 
-const testClick = () => {
+function testClick() {
   console.log(formModel.value, 'formModel')
   console.log(pagination.value, 'pagination')
   console.log(addFormData.value, 'addFormData')
   console.log(editFormData.value, 'editFormData')
 }
 
-const handleCancel = (a) => {
+function handleCancel(a) {
   console.log(a, 'handleCancel')
 }
 
-const handleClose = () => {
+function handleClose() {
   console.log('dialog close')
 }
 
-const handleDrawerOpen = () => {
+function handleDrawerOpen() {
   // console.log('handleDrawerOpen')
 }
 
-const handleSelectionChange = () => {
+function handleSelectionChange() {
   console.log('selection')
 }
 
-const handleDeleteRow = (data) => {
+function handleDeleteRow(data) {
   console.log(data, tableData.value, 'data')
   tableData.value.splice(data.index, 1)
 }
 
-const getAlertTitle = (selectionData, table) => {
+function getAlertTitle(selectionData, table) {
   console.log(table, 'table')
   return `已选择 ${selectionData.length} 项`
 }
 
-const getAlertContent = (selectionData, table) => {
+function getAlertContent(selectionData, table) {
   console.log(table, 'table')
   return `已选择 ${selectionData.length} 项`
 }

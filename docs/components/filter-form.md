@@ -1,6 +1,6 @@
 # FilterForm 筛选表单
 
-筛选表单，基于`z-form`封装
+筛选表单，基于`z-form`封装。
 
 :::tip
 

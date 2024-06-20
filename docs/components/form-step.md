@@ -1,6 +1,6 @@
 # StepForm 组表单
 
-基于`ZForm`组件封装。
+基于`ZForm`组件和`ElStep`组件封装。
 
 ## 步骤条表单
 

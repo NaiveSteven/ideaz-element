@@ -1,6 +1,6 @@
 # CollapseForm 折叠表单
 
-基于`ZForm`组件和`ElCollapse`封装。
+基于`ZForm`组件和`ElCollapse`组件封装。
 
 ## 常规使用
 
