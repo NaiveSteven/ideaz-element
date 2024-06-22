@@ -22,7 +22,7 @@ export default defineComponent({
     const ns = useNamespace('full-screen')
 
     const { isTargetFullscreen, toggleFullscreen } = useFullscreen({
-      getElement: props.el,
+      getElement: document.body,
       onFullscreenChange: (value: boolean) => {
         const element = isFunction(props.el) ? props.el() : props.el
         if (element) {
@@ -53,9 +53,11 @@ export default defineComponent({
     }
 
     return () => {
-      return <div class={ns.b('')} onClick={toggleFullscreen}>
-        {renderContent()}
-      </div>
+      return (
+        <div class={ns.b('')} onClick={toggleFullscreen}>
+          {renderContent()}
+        </div>
+      )
     }
   },
 })

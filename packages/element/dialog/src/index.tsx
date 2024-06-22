@@ -109,6 +109,7 @@ export default defineComponent({
             isShowDialog.value = val
             emit('update:modelValue', val)
           }}
+          // appendToBody={true}
           onClosed={handleClosed}
           v-slots={{
             footer: () => renderDialogFooter(),
