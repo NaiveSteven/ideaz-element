@@ -1,6 +1,7 @@
 import { ArrowDown } from '@element-plus/icons-vue'
 import { getPxValue, isFunction, isValid } from '@ideaz/utils'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
+import { useVModel } from '@vueuse/core'
 import { get, set } from 'lodash-unified'
 import { ElIcon, ElTag } from 'element-plus'
 import { useShowMore } from './hooks'
@@ -14,19 +15,11 @@ export default defineComponent({
   emits: ['change', 'update:modelValue'],
   setup(props, { emit, slots }) {
     const { isShowMore, zTag } = useShowMore()
+    const activeTag = useVModel(props, 'modelValue', emit)
     const ns = useNamespace('tag-select')
     const size = useFormSize()
     const { t } = useLocale()
     const isExpand = ref(false)
-
-    const activeTag = computed<number[] | number | string | string[]>({
-      get() {
-        return props.modelValue
-      },
-      set(val: number[] | number | string | string[]) {
-        emit('update:modelValue', val)
-      },
-    })
 
     const options = computed(() => {
       if (props.all && props.multiple) {

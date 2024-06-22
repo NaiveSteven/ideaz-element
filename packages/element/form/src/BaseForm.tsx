@@ -3,11 +3,13 @@ import { useExpose } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
+import { useVModel } from '@vueuse/core'
 import { isFunction, isString } from '@ideaz/utils'
 import type { CollapseModelValue, FormRules } from 'element-plus'
 import { ElButton, ElCollapse, ElCollapseItem, ElDivider, ElForm, ElFormItem, ElStep, ElSteps } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { draggable } from '../../../directives'
+import type { FormColumn } from '../../types'
 import {
   useDraggable,
   useFormConfig,
@@ -15,7 +17,6 @@ import {
   useFormMethods,
   useRow,
 } from './hooks'
-import type { FormColumn } from '../../types'
 import { FORM_FILTER_KEYS, FORM_ITEM_FILTER_KEYS, formProps, formProvideKey } from './props'
 import FormColumns from './FormColumns'
 import OperationCard from './OperationCard'
@@ -43,14 +44,7 @@ export default defineComponent({
     const { t } = useLocale()
 
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-    const activeStep = computed({
-      get() {
-        return props.activeStep
-      },
-      set(val) {
-        emit('update:activeStep', val)
-      },
-    })
+    const activeStep = useVModel(props, 'activeStep', emit)
 
     useExpose({
       resetFields,
