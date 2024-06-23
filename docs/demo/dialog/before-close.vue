@@ -1,7 +1,6 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { ZDialogTip } from '@ideaz/element'
 
 const isShowDialog = ref(false)
 
@@ -20,7 +19,7 @@ function handleOpen() {
 }
 
 function openDialog() {
-  ZDialogTip({
+  window.ZDialogTip({
     type: 'warning',
     message: '内容',
     title: '标题',

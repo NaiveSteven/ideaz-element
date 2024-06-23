@@ -3,9 +3,7 @@ import 'vitepress-theme-demoblock/dist/theme/styles/index.css'
 import './styles/index.scss'
 import 'element-plus/dist/index.css'
 import '@ideaz/theme-chalk/src/index.scss'
-import ElementPlus from 'element-plus'
 import zhCn from '@ideaz/locale/lang/zh-cn'
-import ideazui from '@ideaz/element'
 import * as ElIconModules from '@element-plus/icons-vue'
 import { ElementPlusContainer } from '@vitepress-demo-preview/component'
 import '@vitepress-demo-preview/component/dist/style.css'
@@ -17,13 +15,20 @@ function transElIconName(iconName) {
 
 export default {
   ...DefaultTheme,
-  enhanceApp(ctx) {
-    DefaultTheme.enhanceApp(ctx)
-    ctx.app.use(ElementPlus).use(ideazui, { locale: zhCn, size: 'default' })
+  async enhanceApp({ app }) {
+    // DefaultTheme.enhanceApp(ctx)
     Object.keys(ElIconModules).forEach((item) => {
       const cur = item
-      ctx.app.component(transElIconName(item), ElIconModules[cur])
+      app.component(transElIconName(item), ElIconModules[cur])
     })
-    ctx.app.component('DemoPreview', ElementPlusContainer)
+    app.component('DemoPreview', ElementPlusContainer)
+    if (!import.meta.env.SSR) {
+      const { ZDialogTip } = await import('@ideaz/element')
+      const ElementPlus = await import('element-plus')
+      const ideazui = await import('@ideaz/element')
+      window.ZDialogTip = ZDialogTip
+      app.use(ElementPlus)
+      app.use(ideazui.default, { locale: zhCn, size: 'default' })
+    }
   },
 }

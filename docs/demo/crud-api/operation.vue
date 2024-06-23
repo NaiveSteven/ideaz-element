@@ -1,7 +1,6 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { ZDialogTip } from '@ideaz/element'
 import type { Pagination } from '@ideaz/element'
 
 interface RowData {
@@ -152,7 +151,7 @@ function handleSearch() {
 }
 
 function handleDelete() {
-  ZDialogTip({
+  window.ZDialogTip({
     type: 'warning',
     message: '确定删除该条数据吗？',
     title: '警告',

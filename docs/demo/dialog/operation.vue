@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { ZDialogTip } from '@ideaz/element'
 
 const isShowDialog = ref(false)
 const isShow = ref(false)
@@ -21,7 +20,7 @@ const isConfirmBtnLoading = ref(false)
 const isCancelBtnLoading = ref(false)
 
 function openWarningDialog() {
-  ZDialogTip({
+  window.ZDialogTip({
     type: 'warning',
     message: '警告信息',
     onConfirm: async ({ done, confirmButtonLoading }) => {

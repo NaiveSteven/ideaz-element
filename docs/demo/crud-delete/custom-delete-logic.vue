@@ -1,7 +1,6 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { ZDialogTip } from '@ideaz/element'
 
 interface RowData {
   id: number
@@ -129,7 +128,7 @@ function deleteMockApi(params: { id: number }) {
 }
 
 function handleDelete({ row, getTableData }: { row: RowData, getTableData: () => void }) {
-  ZDialogTip({
+  window.ZDialogTip({
     type: 'warning',
     title: '提示',
     message: '确定删除吗？',

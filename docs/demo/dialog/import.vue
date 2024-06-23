@@ -1,9 +1,8 @@
 <script lang="ts" setup>
 import { h } from 'vue'
-import { ZDialogTip } from '@ideaz/element'
 
 function openInfoDialog() {
-  ZDialogTip({
+  window.ZDialogTip({
     type: 'info',
     message: '提示信息',
     onConfirm: ({ done, confirmButtonLoading }) => {
@@ -17,7 +16,7 @@ function openInfoDialog() {
 }
 
 function openWarningDialog() {
-  ZDialogTip.warning('提示信息', '标题', {
+  window.ZDialogTip.warning('提示信息', '标题', {
     type: 'warning',
     onConfirm: ({ confirmButtonLoading }) => {
       confirmButtonLoading.value = true
@@ -29,7 +28,7 @@ function openWarningDialog() {
 }
 
 function openDangerDialog() {
-  ZDialogTip({
+  window.ZDialogTip({
     type: 'danger',
     message: () => h('span', {}, 'custom message'),
     title: () => h('span', {}, 'custom title'),

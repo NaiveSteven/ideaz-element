@@ -9,6 +9,7 @@ export default defineConfig({
   lastUpdated: true,
   // eslint-disable-next-line node/prefer-global/process
   base: process.env.BASE || '/',
+  appearance: false,
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
   markdown: {
     headers: {

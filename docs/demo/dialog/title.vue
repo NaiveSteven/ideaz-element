@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { h, ref } from 'vue'
-import { ZDialogTip } from '@ideaz/element'
 
 const isShowDialog = ref(false)
 const isShowRenderDialog = ref(false)
@@ -10,7 +9,7 @@ function renderTitle() {
 }
 
 function handleClick() {
-  ZDialogTip({
+  window.ZDialogTip({
     type: 'danger',
     message: () => h('span', {}, 'custom message'),
     title: () => h('span', {}, 'custom title'),
