@@ -196,6 +196,10 @@ export default defineConfig({
               link: '/guide/start',
             },
             {
+              text: '约定',
+              link: '/guide/appoint',
+            },
+            {
               text: '更新日志',
               link: '/guide/changelog',
             },

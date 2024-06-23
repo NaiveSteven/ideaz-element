@@ -14,7 +14,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /components/checkbox
+      link: /guide/install
     - theme: alt
       text: Learn More
       link: /guide/start
