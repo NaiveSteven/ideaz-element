@@ -61,7 +61,7 @@ const columns = ref([
     prop: 'age',
     label: '年龄',
     add: {
-      component: 'datepicker',
+      component: 'el-date-picker',
       field: 'time',
       label: '出生日期',
       fieldProps: {
@@ -71,7 +71,7 @@ const columns = ref([
       },
     },
     edit: {
-      component: 'datepicker',
+      component: 'el-date-picker',
       field: 'time',
       label: '出生日期',
       fieldProps: {

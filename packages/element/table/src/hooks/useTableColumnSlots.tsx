@@ -6,7 +6,19 @@ import TableButton from '../TableButton'
 import { SELECT_TYPES } from '../../../form/src/hooks'
 import TableCustomColumnContainer from '../TableCustomColumnContainer'
 import type { TableColumnScopeData } from '../../../types'
-import { useTableColComponentName } from './useTableColComponentName'
+
+function getDynamicComponentName(type: string | (() => string)) {
+  const zNames = ['select', 'checkbox', 'radio', 'input']
+  const propComponentName = typeof type === 'function' ? type() : type
+
+  if (zNames.includes(propComponentName)) {
+    return `z-${propComponentName}`
+  }
+
+  else {
+    return propComponentName || 'unknown'
+  }
+}
 
 export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: any) {
   const scopedSlots = shallowRef<any>({})
@@ -62,7 +74,6 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
     () => props.column,
     () => {
       const { column = {}, size, tableProps } = props
-      const { getDynamicComponentName } = useTableColComponentName()
       const prop = column.prop || ''
 
       if (

@@ -33,7 +33,7 @@ const columns = ref([
     prop: 'age',
     label: '年龄',
     search: {
-      component: 'datepicker',
+      component: 'el-date-picker',
       field: 'time',
       label: '出生日期',
       hide: () => !visible.value,

@@ -55,7 +55,7 @@ const columns = ref([
     label: '年龄',
   },
   {
-    component: 'datepicker',
+    component: 'el-date-picker',
     prop: 'time',
     label: '出生日期',
     fieldProps: {
