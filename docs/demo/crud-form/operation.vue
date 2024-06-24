@@ -121,7 +121,7 @@ function handleReset() {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
-    v-model:columns="columns"
+    :columns="columns"
     :options="options"
     :search="{ labelWidth: '80px' }"
     :action="false"

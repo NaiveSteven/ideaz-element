@@ -152,7 +152,7 @@ function commonApi(params: EditRequestApiParams<FormData, RowData>) {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
-    v-model:columns="columns"
+    :columns="columns"
     :options="options"
     :delete="false"
     :request="request"

@@ -13,9 +13,6 @@ const loading = ref(false)
 const tableData = ref<RowData[]>([])
 const columns = ref([
   {
-    type: 'expand',
-  },
-  {
     prop: 'name',
     label: '姓名',
   },

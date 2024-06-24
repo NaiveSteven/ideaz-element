@@ -179,7 +179,7 @@ function detailApi(params: { id: number }) {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
-    v-model:columns="columns"
+    :columns="columns"
     :options="options"
     :detail="false"
     :request="request"

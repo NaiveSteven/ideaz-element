@@ -102,7 +102,7 @@ function mockApi() {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
-    v-model:columns="columns"
+    :columns="columns"
     :options="options"
     :search="{ size: 'default' }"
     :action="false"

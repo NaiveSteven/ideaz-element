@@ -144,7 +144,7 @@ function renderAlert(selectionData: RowData[]) {
     v-model:data="tableData"
     v-model:formData="formData"
     v-model:loading="loading"
-    v-model:columns="columns"
+    :columns="columns"
     :options="options"
     :request="request"
     :detail="false"

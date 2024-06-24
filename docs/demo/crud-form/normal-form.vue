@@ -141,7 +141,7 @@ getTableData()
     v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:formData="formData"
-    v-model:columns="columns"
+    :columns="columns"
     :options="options"
     :loading="loading"
     @refresh="getTableData"
