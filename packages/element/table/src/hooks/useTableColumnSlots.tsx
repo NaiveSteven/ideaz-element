@@ -16,23 +16,24 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
   const getLabel = (row: any) => {
     const { column = {} } = props
     const options = props.tableProps.options
+    const prop = column.prop!
     const type = isFunction(column.component) ? column.component() : isObject(column.component) ? column.component.name : column.component
     if (type === 'radio' || (type === 'select' && !column.fieldProps?.multiple))
-      return options[column.prop] ? options[column.prop].find((item: { label: string, value: any }) => item.value === row?.[column.prop])?.label : ''
+      return options[prop] ? options[prop].find((item: { label: string, value: any }) => item.value === row?.[prop])?.label : ''
 
     if ((type === 'select' && column.fieldProps?.multiple) || type === 'checkbox') {
       const label: string[] = []
-      if (row[column.prop]) {
-        row[column.prop].forEach((item: any) => {
-          label.push(options[column.prop].find((option: { label: string, value: any }) => option.value === item)?.label)
+      if (row[prop]) {
+        row[prop].forEach((item: any) => {
+          label.push(options[prop].find((option: { label: string, value: any }) => option.value === item)?.label)
         })
       }
       return label.join(',')
     }
     if (type === 'el-switch')
-      return row[column.prop] ? (column.fieldProps?.activeText || 'true') : (column.fieldProps?.inactiveText || 'false')
+      return row[prop] ? (column.fieldProps?.activeText || 'true') : (column.fieldProps?.inactiveText || 'false')
 
-    return row[column.prop]
+    return row[prop]
   }
 
   const getRules = () => {
@@ -62,6 +63,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
     () => {
       const { column = {}, size, tableProps } = props
       const { getDynamicComponentName } = useTableColComponentName()
+      const prop = column.prop || ''
 
       if (
         !['index', 'selection', 'radio', undefined].includes(column.type)
@@ -74,9 +76,9 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
             const events = getEventsFromCamel(column)
             return (
               <TableCustomColumnContainer
-                modelValue={scope.row[column.prop]}
+                modelValue={scope.row[prop]}
                 onUpdate:modelValue={(val: any) => {
-                  const rowData = { ...scope.row, [column.prop]: val }
+                  const rowData = { ...scope.row, [prop]: val }
                   const list = [...props.tableProps.data]
                   list.splice(scope.$index, 1, rowData)
                   emit('update:data', list)
@@ -84,7 +86,7 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
                 componentName={getDynamicComponentName(column.component!)}
                 evts={events}
                 size={size}
-                options={tableProps.options?.[column.prop] || []}
+                options={tableProps.options?.[prop] || []}
                 scope={scope}
                 column={column}
                 fieldProps={column.fieldProps}
@@ -138,12 +140,12 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
         }
       }
 
-      if (isSlot(column.label) && slots[column.label]) {
+      if (isSlot(column.label) && slots[column.label as string]) {
         scopedSlots.value.header = (scope: TableColumnScopeData) =>
-          slots[column.label](scope)
+          slots[column.label as string](scope)
       }
       if (isFunction(column.label))
-        scopedSlots.value.header = (scope: TableColumnScopeData) => column.label(scope)
+        scopedSlots.value.header = (scope: TableColumnScopeData) => (column.label as (scope: TableColumnScopeData) => VNode)(scope)
 
       if (!isSlot(column.label) && !isFunction(column.label) && column.tooltip) {
         const tooltip = column.tooltip

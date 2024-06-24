@@ -32,9 +32,10 @@ export function useTableSlots(columns: Ref<TableCol[]>, slots: any) {
             slots.expand(scope)
         }
 
-        if (isSlot(item.label) && slots[item.label]) {
-          scopedSlots[item.label] = (scope: any) =>
-            slots[item.label](scope)
+        const label = item.label as string
+        if (isSlot(item.label) && slots[label]) {
+          scopedSlots[label] = (scope: any) =>
+            slots[label](scope)
         }
       })
 

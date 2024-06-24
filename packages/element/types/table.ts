@@ -32,8 +32,9 @@ export interface DefaultButtonOperation {
 }
 export type ButtonRender<T = any> = (renderData: DefaultButtonOperation, tableData: Ref<T>) => BtnItem[]
 
-export interface TableCol<T = any> extends Partial<TableColumnCtx<T>> {
+export interface TableCol<T = any> extends Partial<Omit<TableColumnCtx<T>, 'label'>> {
   slot?: string
+  label?: string | ((scope: TableColumnScopeData) => VNode)
   type?: 'index' | 'selection' | 'radio' | 'expand' | 'sort' | 'button'
   component?: string | (() => string)
   buttons?: BtnItem[] | ButtonRender<T>
