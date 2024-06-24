@@ -94,7 +94,7 @@ export default defineComponent({
                 <ElPagination
                   class={ns.e('pagination')}
                   background
-                  small
+                  size="small"
                   {...paginationAttrs.value}
                   currentPage={pagination.value.page}
                   total={pagination.value.total}

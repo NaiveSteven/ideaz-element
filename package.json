@@ -84,7 +84,7 @@
     "@vitepress-demo-preview/plugin": "^1.2.2",
     "@vue/compiler-sfc": "^3.4.27",
     "@vue/test-utils": "^2.0.0",
-    "element-plus": "^2.7.5",
+    "element-plus": "^2.7.6",
     "element-resize-detector": "latest",
     "eslint": "^8.36.0",
     "eslint-plugin-format": "^0.1.0",
