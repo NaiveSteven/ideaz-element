@@ -40,7 +40,7 @@ const columns = [
     },
   },
   {
-    component: 'datepicker',
+    component: 'el-date-picker',
     field: 'time',
     label: '出生日期',
     fieldProps: {

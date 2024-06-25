@@ -23,7 +23,7 @@
 
 ### 内置组件
 
-表单或表格的`column`项，`component`字段支持`局部组件`、`全局组件`和内置组件。
+表单或表格的`column`项，`component`字段支持`局部组件（受控组件）`、`全局组件（受控组件）`和内置组件。
 
 内置组件包含：`input`、`select`、`radio`、`checkbox`，在表单和表格组件内部会被处理为`z-input`、`z-select`等。
 

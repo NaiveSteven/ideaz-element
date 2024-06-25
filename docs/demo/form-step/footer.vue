@@ -49,7 +49,7 @@ const columns = [
         required: true,
       },
       {
-        component: 'datepicker',
+        component: 'el-date-picker',
         field: 'time',
         label: '出生日期',
         fieldProps: {

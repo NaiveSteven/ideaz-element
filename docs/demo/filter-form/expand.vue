@@ -27,7 +27,7 @@ const columns = [
     label: '性别',
   },
   {
-    component: 'datepicker',
+    component: 'el-date-picker',
     field: 'time',
     label: '出生日期',
     fieldProps: {

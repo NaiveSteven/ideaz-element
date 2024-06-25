@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 
@@ -39,7 +40,7 @@ const columns = [
     required: true,
   },
   {
-    component: 'datepicker',
+    component: 'el-date-picker',
     field: 'time',
     label: '出生日期',
     required: true,
@@ -51,14 +52,14 @@ const columns = [
   },
 ]
 
-const handleSearch = async () => {
+async function handleSearch() {
   searchButtonProps.loading = true
   await delay(200)
   searchButtonProps.loading = false
   console.log(formData.value, 'formData')
 }
 
-const handleReset = async () => {
+async function handleReset() {
   resetButtonProps.loading = true
   await delay(200)
   resetButtonProps.loading = false
