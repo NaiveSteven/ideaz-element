@@ -111,11 +111,11 @@ function handleCollapseChange(val: string) {
   >
     <template #operate>
       <div class="mt-4 w-full flex">
-        <el-button class="w-full" type="primary" @click="submit">
-          提交
-        </el-button>
         <el-button class="w-full" @click="reset">
           重置
+        </el-button>
+        <el-button class="w-full" type="primary" @click="submit">
+          提交
         </el-button>
       </div>
     </template>

@@ -173,6 +173,8 @@
 156. `z-table`的`toolBar`支持单个不展示
 157. ~~`row`和`col`的样式文件删除~~
 158. `column`项支持使用`v-show`显隐
+159. 数组表单操作项支持自定义
+160. `z-table`支持合并同类项
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
