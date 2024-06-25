@@ -5,7 +5,7 @@ import { ref } from 'vue'
 interface RowData {
   id: number
   name: string
-  sex: string
+  gender: string
   age: number
   time: string
 }
@@ -17,28 +17,28 @@ const tableData = ref<RowData[]>([
   {
     id: 1,
     name: 'Steven',
-    sex: 'male',
+    gender: 'male',
     age: 22,
     time: '2020-01-01',
   },
   {
     id: 2,
     name: 'Helen',
-    sex: 'male',
+    gender: 'male',
     age: 12,
     time: '2012-01-01',
   },
   {
     id: 3,
     name: 'Nancy',
-    sex: 'female',
+    gender: 'female',
     age: 18,
     time: '2018-01-01',
   },
   {
     id: 4,
     name: 'Jack',
-    sex: 'male',
+    gender: 'male',
     age: 28,
     time: '2028-01-01',
   },
@@ -56,7 +56,7 @@ const columns = ref([
     label: '姓名',
   },
   {
-    prop: 'sex',
+    prop: 'gender',
     label: '性别',
   },
   {

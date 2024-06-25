@@ -7,12 +7,12 @@ const activeCollapse = ref(['文本', '标题'])
 const formRef = ref()
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   time: [],
 })
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],
@@ -44,7 +44,7 @@ const columns = [
     children: [
       {
         component: 'select',
-        field: 'sex',
+        field: 'gender',
         label: '性别',
         md: 12,
         onChange: (val: string) => {

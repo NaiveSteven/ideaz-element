@@ -6,7 +6,7 @@ import type { ValidateField } from '@ideaz/element'
 
 interface FormData {
   name: string
-  sex: string
+  gender: string
   address: string
   time: string[]
 }
@@ -14,13 +14,13 @@ interface FormData {
 const formRef = ref()
 const form = ref<FormData[]>([{
   name: '',
-  sex: '',
+  gender: '',
   address: '',
   time: [],
 }])
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],
@@ -42,7 +42,7 @@ const columns = [
   },
   {
     component: 'select',
-    field: 'sex',
+    field: 'gender',
     label: '性别',
     onChange: (val: string) => {
       console.log(val, 'change event')

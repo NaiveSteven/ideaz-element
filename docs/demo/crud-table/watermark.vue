@@ -4,25 +4,25 @@ import { ref } from 'vue'
 const tableData = ref([
   {
     name: 'Steven',
-    sex: '1',
+    gender: '1',
     age: 22,
     time: '2020-01-01',
   },
   {
     name: 'Helen',
-    sex: '1',
+    gender: '1',
     age: 12,
     time: '2012-01-01',
   },
   {
     name: 'Nancy',
-    sex: '2',
+    gender: '2',
     age: 18,
     time: '2018-01-01',
   },
   {
     name: 'Jack',
-    sex: '1',
+    gender: '1',
     age: 28,
     time: '2028-01-01',
   },
@@ -39,7 +39,7 @@ const columns = ref([
     },
   },
   {
-    prop: 'sex',
+    prop: 'gender',
     label: '性别',
   },
   {
@@ -53,7 +53,7 @@ const columns = ref([
 ])
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],

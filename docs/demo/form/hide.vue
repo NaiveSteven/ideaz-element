@@ -1,15 +1,17 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
+import { ElMessage } from 'element-plus'
 
 const formRef = ref()
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   age: '',
 })
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],
@@ -24,13 +26,13 @@ const columns = [
   },
   {
     component: 'select',
-    field: 'sex',
+    field: 'gender',
     label: '性别',
   },
   {
     component: 'input',
     label: '年龄',
-    hide: () => !formData.value.sex,
+    hide: () => !formData.value.gender,
     field: 'age',
   },
   {
@@ -38,10 +40,10 @@ const columns = [
   },
 ]
 
-const submit = () => {
+function submit() {
   formRef.value.validate((valid: boolean) => {
     if (valid) {
-      alert('success')
+      ElMessage.success('success')
       console.log(formData.value, 'formData.value')
     }
     else {

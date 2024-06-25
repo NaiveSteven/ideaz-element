@@ -13,12 +13,12 @@ const columns = ref([
     },
   },
   {
-    prop: 'sex',
+    prop: 'gender',
     label: '性别',
     form: {
       component: 'select',
       label: '性别',
-      field: 'sex',
+      field: 'gender',
     },
   },
   {
@@ -50,7 +50,7 @@ const loading = ref(false)
 const formData = ref({})
 
 const options = {
-  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
+  gender: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
 
 function getTableData(params: any) {
@@ -61,28 +61,28 @@ function getTableData(params: any) {
         {
           id: 1,
           name: 'Steven',
-          sex: 'male',
+          gender: 'male',
           age: 22,
           time: '2020-01-01',
         },
         {
           id: 2,
           name: 'Helen',
-          sex: 'male',
+          gender: 'male',
           age: 12,
           time: '2012-01-01',
         },
         {
           id: 3,
           name: 'Nancy',
-          sex: 'female',
+          gender: 'female',
           age: 18,
           time: '2018-01-01',
         },
         {
           id: 4,
           name: 'Jack',
-          sex: 'male',
+          gender: 'male',
           age: 28,
           time: '2028-01-01',
         },

@@ -5,7 +5,7 @@ import { reactive, ref } from 'vue'
 const formRef = ref()
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   time: [],
 })
 const searchButtonProps = reactive({
@@ -20,7 +20,7 @@ const resetButtonProps = reactive({
 })
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],
@@ -35,7 +35,7 @@ const columns = [
   },
   {
     component: 'select',
-    field: 'sex',
+    field: 'gender',
     label: '性别',
     required: true,
   },

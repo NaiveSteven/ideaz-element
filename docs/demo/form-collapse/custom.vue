@@ -7,14 +7,14 @@ const activeCollapse = ref(['文本', '标题'])
 const formRef = ref()
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   address: '',
   input: '',
   time: [],
 })
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],

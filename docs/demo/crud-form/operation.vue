@@ -5,7 +5,7 @@ import { ref } from 'vue'
 const loading = ref(false)
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   time: [],
 })
 const tableData = ref([])
@@ -22,11 +22,11 @@ const columns = ref([
     },
   },
   {
-    prop: 'sex',
+    prop: 'gender',
     label: '性别',
     search: {
       component: 'select',
-      field: 'sex',
+      field: 'gender',
       label: '性别',
       required: true,
     },
@@ -53,7 +53,7 @@ const columns = ref([
 ])
 
 const options = {
-  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
+  gender: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
 const pagination = ref({
   page: 1,
@@ -70,25 +70,25 @@ function mockApi() {
       const data = [
         {
           name: 'Steven',
-          sex: 'male',
+          gender: 'male',
           age: 22,
           time: '2020-01-01',
         },
         {
           name: 'Helen',
-          sex: 'male',
+          gender: 'male',
           age: 12,
           time: '2012-01-01',
         },
         {
           name: 'Nancy',
-          sex: 'female',
+          gender: 'female',
           age: 18,
           time: '2018-01-01',
         },
         {
           name: 'Jack',
-          sex: 'male',
+          gender: 'male',
           age: 28,
           time: '2028-01-01',
         },
