@@ -197,8 +197,11 @@ export default defineComponent({
                     model.splice(index, 1)
                     emit('update:modelValue', model)
                   }}
-                  showAdd={modelValue.length !== max && action}
-                  showDelete={action}
+                  showAdd={modelValue.length !== max && !!action}
+                  showDelete={!!action}
+                  action={action}
+                  contentIndex={index}
+                  v-slots={slots}
                 >
                   <ElForm {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} model={data} ref={`arrayForm${index}`}>
                     <FormColumns
@@ -246,7 +249,11 @@ export default defineComponent({
                           model[field].splice(index, 1)
                           emit('update:modelValue', model)
                         }}
-                        addVisible={modelValue[field].length !== maxLength}
+                        showAdd={modelValue[field].length !== maxLength && !!action}
+                        showDelete={!!action}
+                        action={action}
+                        contentIndex={index}
+                        v-slots={slots}
                       >
                         <ElForm {...{ labelWidth: formConfig.value.labelWidth, ...formProps, rules: formProps.rules as FormRules }} model={data} ref={`arrayForm${index}${field}`}>
                           <FormColumns

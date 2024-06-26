@@ -96,7 +96,7 @@ export const formProps = {
     default: false,
   },
   action: {
-    type: Boolean,
+    type: [Boolean, Function] as PropType<boolean | (() => VNode)>,
     default: true,
   },
 }

@@ -1,5 +1,6 @@
 import { Delete, Plus } from '@element-plus/icons-vue'
 import { ElButton, ElCard } from 'element-plus'
+import { isFunction } from '@ideaz/utils'
 
 export default defineComponent({
   name: 'ZOperationCard',
@@ -12,16 +13,29 @@ export default defineComponent({
       type: Boolean,
       default: true,
     },
+    action: {
+      type: [Function, Boolean],
+      default: true,
+    },
+    contentIndex: {
+      type: Number,
+      default: 0,
+    },
   },
   emits: ['add', 'delete'],
   setup(props, { slots, emit }) {
     const ns = useNamespace('array-form')
     const size = useFormSize()
 
-    return () => {
+    const getOperation = () => {
+      if (isFunction(slots.action)) {
+        return slots.action({ index: props.contentIndex })
+      }
+      if (isFunction(props.action)) {
+        return props.action({ index: props.contentIndex })
+      }
       return (
-        <ElCard shadow="never" class={ns.b('item-card')}>
-          {slots.default?.()}
+        <>
           {props.showAdd && (
             <ElButton
               type="primary"
@@ -42,6 +56,15 @@ export default defineComponent({
               onClick={() => emit('delete')}
             />
           )}
+        </>
+      )
+    }
+
+    return () => {
+      return (
+        <ElCard shadow="never" class={ns.b('item-card')}>
+          {slots.default?.()}
+          {getOperation()}
         </ElCard>
       )
     }
