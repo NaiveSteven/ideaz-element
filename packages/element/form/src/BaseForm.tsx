@@ -129,7 +129,7 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max } = props
+      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max, action } = props
       const isChildren = formatFormItems.value.some(column => column.children)
 
       if (isFunction(slots.default))
@@ -197,7 +197,8 @@ export default defineComponent({
                     model.splice(index, 1)
                     emit('update:modelValue', model)
                   }}
-                  addVisible={modelValue.length !== max}
+                  showAdd={modelValue.length !== max && action}
+                  showDelete={action}
                 >
                   <ElForm {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} model={data} ref={`arrayForm${index}`}>
                     <FormColumns
@@ -215,8 +216,7 @@ export default defineComponent({
                 </OperationCard>
               )
             })}
-            {modelValue.length !== max
-            && (
+            {modelValue.length !== max && action && (
               <ElButton class={ns.be('array', 'add')} onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
                 {t('form.add')}
               </ElButton>
@@ -265,8 +265,7 @@ export default defineComponent({
                       </OperationCard>
                     )
                   })}
-                  {modelValue[field].length !== maxLength
-                  && (
+                  {modelValue[field].length !== maxLength && action && (
                     <ElButton
                       class={ns.be('array', 'add')}
                       onClick={() => {

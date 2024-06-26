@@ -95,6 +95,10 @@ export const formProps = {
     type: Boolean,
     default: false,
   },
+  action: {
+    type: Boolean,
+    default: true,
+  },
 }
 
 export const formItemProps = {
