@@ -8,7 +8,7 @@
 
 ## 基础用法
 
-配置`column`生成表格项。`el-table`表格属性直接传入`z-table`，`el-table-column`属性在`column`中配置。
+配置`column`生成表格项。`el-table`相关属性直接在`z-table`组件上传入，`el-table-column`属性在`column`中配置。
 
 <preview path="../demo/table/normal.vue" />
 
@@ -20,9 +20,13 @@
 
 ## 操作按钮
 
-`column`中配置操作项，`type`传入`button`，配置`buttons`数组。
+`column`中配置操作项，`type`传入`button`，配置`buttons`数组。按钮属性直接在操作项中配置即可。
 
 <preview path="../demo/table/operation.vue" />
+
+操作按钮也支持动态属性，如：`disabled`等。传入一个方法，参数为当前行相关数据。
+
+<preview path="../demo/table/operation-dynamic.vue" />
 
 ## 操作项下拉
 

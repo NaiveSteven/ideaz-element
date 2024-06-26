@@ -13,6 +13,7 @@ interface GetTableDataRes { result: { page: number, pageSize: number, list: RowD
 
 const loading = ref(false)
 const tableData = ref<RowData[]>([])
+const totalData = ref<RowData[]>([])
 const pagination = ref({
   type: 'front',
   page: 1,
@@ -87,7 +88,7 @@ async function getTableData() {
   loading.value = true
   try {
     const res = await mockApi({ ...pagination.value })
-    tableData.value = res.result.list
+    totalData.value = res.result.list
     pagination.value.total = res.result.total
   }
   catch (error) {
@@ -100,10 +101,12 @@ getTableData()
 </script>
 
 <template>
+  {{ tableData }}
   <z-crud
     v-model:pagination="pagination"
     v-model:data="tableData"
     v-model:loading="loading"
+    :total-data="totalData"
     :columns="columns"
     :action="false"
     @refresh="getTableData"

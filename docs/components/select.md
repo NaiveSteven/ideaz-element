@@ -32,7 +32,9 @@
 
 ## 选择全部
 
-> 前提 multiple 为 true 时，才会生效
+:::tip
+前提 multiple 为 true 时，才会生效
+:::
 
 当 `all` 为 `true` 时，`options`会拼接`{ label: '全部', value: 'all' }`
 

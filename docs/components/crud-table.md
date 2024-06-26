@@ -1,6 +1,6 @@
 # Crud 增删改查
 
-`z-crud`组件表格部分功能介绍。
+`z-crud`组件表格部分功能介绍。表格部分功能用法基本等同于`z-table`。
 
 ## 表格使用
 
@@ -27,6 +27,8 @@
 ## 操作项自定义
 
 配置`action`为`false`关闭默认的操作项，自定义表格操作。
+
+操作按钮也支持动态属性，如：`disabled`等。传入一个方法，参数为当前行相关数据。
 
 <preview path="../demo/crud-table/operation-custom.vue" />
 

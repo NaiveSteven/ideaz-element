@@ -175,6 +175,7 @@
 158. `column`项支持使用`v-show`显隐
 159. 数组表单操作项支持自定义
 160. `z-table`支持合并同类项
+161. `z-crud`默认操作项支持禁用
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
