@@ -150,6 +150,9 @@ importers:
       lossless-json:
         specifier: latest
         version: 4.0.1
+      magic-string:
+        specifier: ^0.30.10
+        version: 0.30.10
       pnpm:
         specifier: ^7.30.0
         version: 7.33.7
