@@ -1,7 +1,7 @@
-import type { Ref } from 'vue'
+import type { ComponentInternalInstance, Ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { get } from 'lodash-unified'
-import type { ComponentInternalInstance } from 'vue-demi'
+
 import { isFunction, isObject, isString } from '@ideaz/utils'
 import type ZTable from '../../../table/src/Table'
 import type { CrudProps } from '../props'

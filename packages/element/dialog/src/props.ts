@@ -1,7 +1,6 @@
 import type { ButtonProps } from 'element-plus'
 import { dialogProps as elDialogProps } from 'element-plus'
-import type { Ref } from 'vue'
-import type { ExtractPropTypes } from 'vue-demi'
+import type { ExtractPropTypes, Ref } from 'vue'
 
 export const dialogProps = {
   ...elDialogProps,

@@ -1,5 +1,5 @@
 import { isFunction, isString } from '@ideaz/utils'
-import type { Ref, Slot } from 'vue-demi'
+import type { Ref, Slot } from 'vue'
 import type { Slots } from '../element/types'
 
 export function useFormComponentSlots(props: Record<any, any>, slots: Slots, slotKeys: string[]) {

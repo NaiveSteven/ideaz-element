@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'vue-demi'
+import type { CSSProperties } from 'vue'
 import type { FormProps } from '../props'
 
 export function useRow(props: FormProps) {

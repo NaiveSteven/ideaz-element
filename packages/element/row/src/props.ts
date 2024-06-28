@@ -1,4 +1,4 @@
-import type { ExtractPropTypes } from 'vue-demi'
+import type { ExtractPropTypes } from 'vue'
 
 export const RowJustify = [
   'start',

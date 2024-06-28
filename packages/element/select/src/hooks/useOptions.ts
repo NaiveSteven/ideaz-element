@@ -1,10 +1,10 @@
 import { get, set } from 'lodash-unified'
 import { findDifferentItems } from '@ideaz/utils'
-import type { Ref } from 'vue-demi'
+import type { Ref } from 'vue'
 import type { SelectProps } from '../props'
 import type { OptionsItem } from '../../../types'
 
-export const useOptions = (props: SelectProps, vModelVal: Ref<string[]>) => {
+export function useOptions(props: SelectProps, vModelVal: Ref<string[]>) {
   const { t } = useLocale()
 
   const options = computed(() => {

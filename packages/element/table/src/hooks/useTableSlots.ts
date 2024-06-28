@@ -1,5 +1,5 @@
 import { isFunction, isObject, isSlot, isString } from '@ideaz/utils'
-import type { Ref } from 'vue-demi'
+import type { Ref } from 'vue'
 import type { TableCol } from '../../../types'
 
 export function useTableSlots(columns: Ref<TableCol[]>, slots: any) {

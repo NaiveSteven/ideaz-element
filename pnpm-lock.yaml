@@ -23,9 +23,6 @@ importers:
       sortablejs:
         specifier: ^1.15.0
         version: 1.15.2
-      vue-demi:
-        specifier: latest
-        version: 0.14.8(@vue/composition-api@1.7.2(vue@3.4.27(typescript@5.4.5)))(vue@3.4.27(typescript@5.4.5))
       vue-draggable-plus:
         specifier: ^0.2.4
         version: 0.2.4(@types/sortablejs@1.15.8)(@vue/composition-api@1.7.2(vue@3.4.27(typescript@5.4.5)))

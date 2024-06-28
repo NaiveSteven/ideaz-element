@@ -1,6 +1,6 @@
 import { isNumber, isObject } from '@ideaz/utils'
 import { resolveDynamicComponent } from '@ideaz/shared'
-import type { CSSProperties } from 'vue-demi'
+import type { CSSProperties } from 'vue'
 import { colProps } from './props'
 
 export default defineComponent({
@@ -26,8 +26,10 @@ export default defineComponent({
       pos.forEach((prop) => {
         const size = props[prop]
         if (isNumber(size)) {
-          if (prop === 'span') classes.push(ns.b(`${props[prop]}`))
-          else if (size > 0) classes.push(ns.b(`${prop}-${props[prop]}`))
+          if (prop === 'span')
+            classes.push(ns.b(`${props[prop]}`))
+          else if (size > 0)
+            classes.push(ns.b(`${prop}-${props[prop]}`))
         }
       })
 

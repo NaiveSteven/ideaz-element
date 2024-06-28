@@ -1,5 +1,5 @@
 import { isNumber, isObject } from '@ideaz/utils'
-import type { CSSProperties } from 'vue-demi'
+import type { CSSProperties } from 'vue'
 import type { FormProps } from '../props'
 import type { FormColumn } from '../../../types'
 

@@ -1,5 +1,5 @@
-import { getCurrentInstance } from 'vue-demi'
-import type { ComponentInternalInstance } from 'vue-demi'
+import { getCurrentInstance } from 'vue'
+import type { ComponentInternalInstance } from 'vue'
 import { isArray } from '@ideaz/utils'
 
 interface ElTable {
@@ -15,7 +15,7 @@ interface ElTable {
   doLayout?: () => void
 }
 
-export const useTableMethods = () => {
+export function useTableMethods() {
   const instance = getCurrentInstance() as ComponentInternalInstance
   const ctx = instance.proxy
 
@@ -28,7 +28,7 @@ export const useTableMethods = () => {
     Object.keys(ctx!.$refs).forEach((key) => {
       if (key.startsWith('zTableColumn')) {
         (ctx?.$refs[key] as ElTable).clearSelection
-          && (ctx?.$refs[key] as ElTable).clearSelection?.()
+        && (ctx?.$refs[key] as ElTable).clearSelection?.()
       }
     })
     return (ctx?.$refs.zTableRef as ElTable).clearSelection?.()
@@ -43,7 +43,7 @@ export const useTableMethods = () => {
     Object.keys(ctx!.$refs).forEach((key) => {
       if (key.startsWith('zTableColumn')) {
         (ctx?.$refs[key] as ElTable).toggleRadioSelection
-          && (ctx?.$refs[key] as ElTable).toggleRadioSelection?.(row)
+        && (ctx?.$refs[key] as ElTable).toggleRadioSelection?.(row)
       }
     })
     if (ctx?.$refs.zTableRef && (ctx?.$refs.zTableRef as ElTable).toggleRadioSelection)

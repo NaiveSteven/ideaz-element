@@ -52,7 +52,6 @@
     "lodash-es": "latest",
     "lodash-unified": "latest",
     "sortablejs": "^1.15.0",
-    "vue-demi": "latest",
     "vue-draggable-plus": "^0.2.4",
     "vue-global-config": "latest"
   },

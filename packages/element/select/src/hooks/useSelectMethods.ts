@@ -1,12 +1,12 @@
-import { getCurrentInstance } from 'vue-demi'
-import type { ComponentInternalInstance } from 'vue-demi'
+import { getCurrentInstance } from 'vue'
+import type { ComponentInternalInstance } from 'vue'
 
 interface SelectMethods {
   focus: () => void
   blur: () => void
 }
 
-export const useSelectMethods = () => {
+export function useSelectMethods() {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
 
   const focus = () => {

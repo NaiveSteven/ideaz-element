@@ -1,4 +1,4 @@
-// import { h } from 'vue-demi';
+// import { h } from 'vue';
 import { isFunction, isSlot } from '@ideaz/utils'
 import FormItemLabel from '../FormItemLabel'
 import type { FormProps } from '../props'

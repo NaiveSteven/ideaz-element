@@ -1,4 +1,4 @@
-import { h } from 'vue-demi'
+import { h } from 'vue'
 import { isFunction } from '@ideaz/utils'
 import { useNamespace } from '@ideaz/hooks'
 import { ElAvatar, ElSkeleton } from 'element-plus'
