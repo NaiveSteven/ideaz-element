@@ -302,7 +302,7 @@ describe('form', () => {
 
       const list = wrapper.findAll('.el-form-item')
       list.forEach((item) => {
-        expect(item.classes()).toContain('z-col-24')
+        expect(item.classes()).toContain('el-col-24')
       })
     })
 
@@ -321,7 +321,7 @@ describe('form', () => {
 
       const list = wrapper.findAll('.el-form-item')
       list.forEach((item) => {
-        expect(item.classes()).toContain('z-col-xl-12')
+        expect(item.classes()).toContain('el-col-xl-12')
       })
     })
 
@@ -359,10 +359,10 @@ describe('form', () => {
       })
       const list = wrapper.findAll('.el-form-item')
       expect(list.length).toBe(4)
-      expect(list[0].classes()).toContain('z-col-24')
-      expect(list[1].classes()).toContain('z-col-12')
-      expect(list[2].classes()).toContain('z-col-12')
-      expect(list[3].classes()).toContain('z-col-24')
+      expect(list[0].classes()).toContain('el-col-24')
+      expect(list[1].classes()).toContain('el-col-12')
+      expect(list[2].classes()).toContain('el-col-12')
+      expect(list[3].classes()).toContain('el-col-24')
     })
   })
 
