@@ -30,12 +30,13 @@ const externalPkgs = ['@vue'].concat(
 const external = id => externalPkgs.some(p => p === id || id.startsWith(`${p}/`)) || id.includes('element-plus') || id.includes('vitest')
 
 ;(async () => {
-  const input = await glob('packages/element/**/*.{ts,vue}', {
+  let input = await glob('packages/element/**/*.{ts,vue}', {
     cwd: __dirname,
     absolute: true,
     onlyFiles: true,
   })
   input.push(resolve(__dirname, 'index.ts'))
+  input = input.filter(path => !path.includes('__tests__'))
 
   await build({
     configFile: false,
