@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { DialogFormSubmitParams } from '@ideaz/element'
+import type { DialogFormSubmitParams } from 'ideaz-element'
 
 interface FormData {
   name?: string

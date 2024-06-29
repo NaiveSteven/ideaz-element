@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { Pagination } from '@ideaz/element'
+import type { Pagination } from 'ideaz-element'
 
 const loading = ref(false)
 const tableData = ref<any>([])

@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { h, ref } from 'vue'
-import type { DeleteRequestApiParams } from '@ideaz/element'
+import type { DeleteRequestApiParams } from 'ideaz-element'
 
 interface RowData {
   id: number

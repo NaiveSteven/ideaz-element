@@ -8,13 +8,13 @@
 ```js
 // main.ts
 import { createApp } from 'vue'
-import IdeazElement from '@ideaz/element'
-import '@ideaz/dist/index.css'
+import { installer } from 'ideaz-element'
+import 'ideaz-element/dist/theme-chalk/index.css'
 import App from './App.vue'
 
 const app = createApp(App)
 
-app.use(IdeazElement)
+app.use(installer)
 app.mount('#app')
 ```
 
@@ -23,7 +23,7 @@ Ideaz Element 提供了基于 `ES Module` 的开箱即用的 `Tree Shaking` 功�
 
 ```vue
 <script>
-import { ZSelect } from '@ideaz/element'
+import { ZSelect } from 'ideaz-element'
 export default {
   components: { ZSelect },
 }
@@ -41,8 +41,8 @@ export default {
 
 ```js
 import { createApp } from 'vue'
-import IdeazElement from '@ideaz/element'
-import zhCn from '@ideaz/locale/lang/zh-cn'
+import IdeazElement from 'ideaz-element'
+import zhCn from 'ideaz-element/dist/locale/lang/zh-cn'
 import App from './App.vue'
 
 const app = createApp(App)

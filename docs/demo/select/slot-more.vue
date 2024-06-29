@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { OptionsItem } from '@ideaz/element'
+import type { OptionsItem } from 'ideaz-element'
 
 const options = ref([
   { label: '选项一', value: 1, render: ({ option }: { option: OptionsItem }) => h('span', `${option.label}${option.value}`) },

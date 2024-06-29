@@ -3,7 +3,7 @@
 import { ref } from 'vue'
 import { ElIcon, ElMessage } from 'element-plus'
 import { Delete } from '@element-plus/icons-vue'
-import type { ValidateField } from '@ideaz/element'
+import type { ValidateField } from 'ideaz-element'
 
 interface FormData {
   name: string

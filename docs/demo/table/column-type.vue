@@ -2,7 +2,7 @@
 <script lang="ts" setup>
 import { markRaw, ref } from 'vue'
 import { ElInput } from 'element-plus'
-import type { TableColumnScopeData } from '@ideaz/element'
+import type { TableColumnScopeData } from 'ideaz-element'
 
 interface RowData {
   id: number

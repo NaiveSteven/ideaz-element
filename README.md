@@ -40,10 +40,10 @@ It is recommended to use pnpm or yarn to install:
 
 ```sh
 # use pnpm
-pnpm add @ideaz/element
+pnpm add ideaz-element
 
 # use yarn
-yarn add @ideaz/element
+yarn add ideaz-element
 ```
 
 ## Documentation

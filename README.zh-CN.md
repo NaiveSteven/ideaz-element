@@ -42,10 +42,10 @@ Ideaz Element 提供了一系列开箱即用的组件。
 
 ```sh
 # use pnpm
-pnpm add @ideaz/element
+pnpm add ideaz-element
 
 # use yarn
-yarn add @ideaz/element
+yarn add ideaz-element
 ```
 
 ## 文档
