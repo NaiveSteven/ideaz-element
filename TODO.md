@@ -4,11 +4,11 @@
 
 1. ~~添加公共组件`z-row`、`z-col`~~
 2. 添加布局组件`z-layout`
-3. ~~添加导航栏组件`z-guide`（基于`tag`组件，可以参考`iview-plus` [https://github.com/view-design/ViewUIPlus] [https://www.iviewui.com/view-ui-plus/component/form/tag-select]）~~
+3. ~~添加导航栏组件`z-guide`（基于`tag`组件~~
 4. 大数据表格
 5. ~~添加`z-filter-form`组件~~
 6. ~~添加`z-check-card`组件~~
-7. 添加`z-tree-select`组件（可以参考 [https://tolking.github.io/element-pro-components/zh-CN/components/tree-select] ，上述方案无法实现）
+7. 添加`z-tree-select`组件
 8. 添加`z-menu`组件
 9. 添加`z-breadcrumb`组件
 10. 添加`z-status`组件，支持`success`、`error`、`warning`、`info`等状态，结合`z-table`组件
@@ -19,7 +19,7 @@
 2. 表单支持拖拽
 3. 表单支持接口配置
 4. ~~表格数据和表格头支持拖拽~~
-5. 表格项`column`中可以直接配置`编辑、新增`表单（可以参考`iview-crud` [https://icrud.iviewui.com/]）
+5. 表格项`column`中可以直接配置`编辑、新增`表单
 6. `z-form-filter`组件可以支持`colSize`，（可以参考`pro components` [https://procomponents.ant.design/components/query-filter]）
 7. ~~`z-tag-select`组件`title`优化~~
 8. `z-form`组件结合操作按钮和接口
