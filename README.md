@@ -48,7 +48,7 @@ yarn add @ideaz/element
 
 ## Documentation
 
-[Here](https://github.com/NaiveSteven/ideaz-element) you can view the online document.
+[Here](https://naivesteven.github.io/ideaz-element/) you can view the online document.
 
 > Author is not good at English. If you have any advice to improve the English document, you can create an issue or a PR.
 

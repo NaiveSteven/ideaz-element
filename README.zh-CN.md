@@ -50,7 +50,7 @@ yarn add @ideaz/element
 
 ## 文档
 
-[这里](https://github.com/NaiveSteven/ideaz-element) 可以查看在线文档。
+[这里](https://naivesteven.github.io/ideaz-element/) 可以查看在线文档。
 
 > 作者的英语很差，如果你有任何改进英语文档的建议，可以创建一个 issue 或 PR。
 
