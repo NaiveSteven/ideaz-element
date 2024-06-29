@@ -17,6 +17,7 @@ lib
 es
 dist-ssr
 *.local
+dist
 
 lib
 
