@@ -227,8 +227,9 @@
       line-height: 0;
     }
 
-    > a {
+    .column-popover__reset {
       font-weight: 600;
+      line-height: 32px;
       color: var(--el-color-primary);
       text-decoration: none;
       cursor: pointer;
