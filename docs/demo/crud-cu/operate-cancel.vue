@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { DialogFormCancelParams } from '@ideaz/element'
+import type { DialogFormCancelParams } from 'ideaz-element'
 
 interface FormData {
   name?: string

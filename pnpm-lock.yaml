@@ -42,9 +42,6 @@ importers:
       '@ideaz/directives':
         specifier: workspace:*
         version: link:packages/directives
-      '@ideaz/element':
-        specifier: workspace:*
-        version: link:packages/element
       '@ideaz/hooks':
         specifier: workspace:*
         version: link:packages/hooks
@@ -138,6 +135,9 @@ importers:
       gulp-sass:
         specifier: ^5.1.0
         version: 5.1.0
+      ideaz-element:
+        specifier: workspace:*
+        version: link:packages/element
       jsdom:
         specifier: ^21.1.1
         version: 21.1.2

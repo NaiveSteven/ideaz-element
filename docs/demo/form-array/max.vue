@@ -2,7 +2,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import type { ValidateField } from '@ideaz/element'
+import type { ValidateField } from 'ideaz-element'
 
 const formRef = ref()
 const formData = ref([{

@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { EditRequestApiParams } from '@ideaz/element'
+import type { EditRequestApiParams } from 'ideaz-element'
 
 interface RowData {
   id: number

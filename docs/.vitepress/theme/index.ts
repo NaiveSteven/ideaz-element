@@ -23,9 +23,9 @@ export default {
     })
     app.component('DemoPreview', ElementPlusContainer)
     if (!import.meta.env.SSR) {
-      const { ZDialogTip } = await import('@ideaz/element')
+      const { ZDialogTip } = await import('ideaz-element')
       const ElementPlus = await import('element-plus')
-      const ideazui = await import('@ideaz/element')
+      const ideazui = await import('ideaz-element')
       window.ZDialogTip = ZDialogTip
       app.use(ElementPlus)
       app.use(ideazui.default, { locale: zhCn, size: 'default' })

@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { Pagination } from '@ideaz/element'
+import type { Pagination } from 'ideaz-element'
 
 interface RowData {
   id: number

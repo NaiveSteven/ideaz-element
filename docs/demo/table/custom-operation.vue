@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import type { Ref } from 'vue'
 import { ref } from 'vue'
-import type { DefaultButtonOperation, TableColumnScopeData } from '@ideaz/element'
+import type { DefaultButtonOperation, TableColumnScopeData } from 'ideaz-element'
 
 interface RowData {
   name: string

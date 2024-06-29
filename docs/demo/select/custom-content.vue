@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { OptionsItem } from '@ideaz/element'
+import type { OptionsItem } from 'ideaz-element'
 
 const options = ref([
   {

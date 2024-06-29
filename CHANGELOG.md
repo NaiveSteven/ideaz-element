@@ -1,6 +1,6 @@
 ## <small>0.0.1 (2024-06-11)</small>
 
-* feat: add @ideaz/element and component docs ([7aec591](https://github.com/NaiveSteven/-ideaz-element/commit/7aec591))
+* feat: add ideaz-element and component docs ([7aec591](https://github.com/NaiveSteven/-ideaz-element/commit/7aec591))
 * feat: add add button ([d934197](https://github.com/NaiveSteven/-ideaz-element/commit/d934197))
 * feat: add Array Form doc ([99a08c8](https://github.com/NaiveSteven/-ideaz-element/commit/99a08c8))
 * feat: add build config file ([651c490](https://github.com/NaiveSteven/-ideaz-element/commit/651c490))

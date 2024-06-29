@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { TableColumnScopeData } from '@ideaz/element'
+import type { TableColumnScopeData } from 'ideaz-element'
 
 interface RowData {
   name: string

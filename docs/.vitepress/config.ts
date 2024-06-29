@@ -7,7 +7,8 @@ export default defineConfig({
   title: ' ',
   description: '更适合中后台的业务组件库。',
   lastUpdated: true,
-  base: '/ideaz-element',
+  // eslint-disable-next-line node/prefer-global/process
+  base: process.env.BASE || '/',
   appearance: false,
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
   markdown: {

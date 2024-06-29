@@ -6,5 +6,5 @@ declare module '*.vue' {
 }
 
 declare interface Window {
-  ZDialogTip: typeof import('@ideaz/element')['ZDialogTip']
+  ZDialogTip: typeof import('ideaz-element')['ZDialogTip']
 }
