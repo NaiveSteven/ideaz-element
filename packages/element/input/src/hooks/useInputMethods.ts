@@ -1,5 +1,5 @@
-import { getCurrentInstance } from 'vue-demi'
-import type { ComponentInternalInstance } from 'vue-demi'
+import { getCurrentInstance } from 'vue'
+import type { ComponentInternalInstance } from 'vue'
 
 interface InputMethods {
   focus: () => Promise<void>
@@ -9,7 +9,7 @@ interface InputMethods {
   resizeTextarea: () => void
 }
 
-export const useInputMethods = () => {
+export function useInputMethods() {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
 
   const focus = async () => {

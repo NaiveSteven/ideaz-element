@@ -1,4 +1,4 @@
-import { provide } from 'vue-demi'
+import { provide } from 'vue'
 import { useNamespace } from '@ideaz/hooks'
 import { get } from 'lodash-unified'
 import { isValid } from '@ideaz/utils'

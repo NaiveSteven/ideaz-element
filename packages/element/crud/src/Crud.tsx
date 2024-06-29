@@ -13,15 +13,15 @@ import ZDescription from '../../descriptions/src/index'
 import ZDialog from '../../dialog/src/index'
 import ZForm from '../../form/src/BaseForm'
 import ZTable from '../../table/src/Table'
-import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from './hooks'
 import type { Pagination } from '../../types'
+import { useDataRequest, useDescriptions, useDialogConfig, useDrawerConfig, useFormColumns, useSelectionData } from './hooks'
 import type { AlertConfig } from './props'
 import { EXCLUDE_FORM_PROPS_KEYS, crudProps, crudProvideKey } from './props'
 
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'operate-submit', 'operate-delete', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change', 'radio-change'],
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'operate-submit', 'operate-delete', 'operate-cancel', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change', 'radio-change'],
   setup(props, { emit, slots, expose }) {
     const attrs = useAttrs()
     const {
@@ -326,7 +326,7 @@ export default defineComponent({
       // eslint-disable-next-line no-console
       console.log('刷新')
       return (
-        <div class={ns.b('')}>
+        <div ref="crudRef" class={ns.b('')}>
           {renderCrudDecorator()}
           {renderDialog()}
           {renderDrawer()}

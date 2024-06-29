@@ -1,5 +1,5 @@
 import { isFunction, isObject, isSlot, isString } from '@ideaz/utils'
-import type { Ref } from 'vue-demi'
+import type { Ref } from 'vue'
 import type { TableCol } from '../../../types'
 
 export function useTableSlots(columns: Ref<TableCol[]>, slots: any) {
@@ -32,9 +32,10 @@ export function useTableSlots(columns: Ref<TableCol[]>, slots: any) {
             slots.expand(scope)
         }
 
-        if (isSlot(item.label) && slots[item.label]) {
-          scopedSlots[item.label] = (scope: any) =>
-            slots[item.label](scope)
+        const label = item.label as string
+        if (isSlot(item.label) && slots[label]) {
+          scopedSlots[label] = (scope: any) =>
+            slots[label](scope)
         }
       })
 

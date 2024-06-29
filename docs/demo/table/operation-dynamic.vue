@@ -1,3 +1,4 @@
+<!-- eslint-disable unused-imports/no-unused-vars -->
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
@@ -43,13 +44,16 @@ const columns = ref([
         type: 'primary',
         link: true,
         label: '编辑',
+        disabled: ({ row, column, $index }: TableColumnScopeData<RowData>) => row.name === 'Steven',
         onClick: ({ row }: TableColumnScopeData<RowData>) => {
           console.log(row, 'edit')
         },
       },
       {
         type: 'danger',
+        link: true,
         label: '删除',
+        disabled: ({ row, column, $index }: TableColumnScopeData<RowData>) => row.age === 18,
         onClick: ({ row }: TableColumnScopeData<RowData>) => {
           console.log(row, 'delete')
         },

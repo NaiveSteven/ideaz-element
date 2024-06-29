@@ -1,4 +1,4 @@
-import { computed, ref, unref } from 'vue-demi'
+import { computed, ref, unref } from 'vue'
 import type { MaybeRef } from '@vueuse/core'
 import type { ComponentSize } from 'element-plus'
 import { formItemProvideKey, formProvideKey } from '../element/form/src/props'

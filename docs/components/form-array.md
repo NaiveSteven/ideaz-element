@@ -20,8 +20,19 @@
 
 <preview path="../demo/form-array/max.vue" />
 
+## 操作
+
+配置`action`为`false`，可以关闭操作项。
+
+<preview path="../demo/form-array/action.vue" />
+
+配置`action`为`插槽`或`render函数`，可以自定义操作项。
+
+<preview path="../demo/form-array/action-custom.vue" />
+
 ## array表单属性
 
 | 属性名 | 说明           | 类型     | 默认值 |
 | :----- | :------------- | :------- | :----- |
 | max    | 最大表单项数量 | `number` | —      |
+| action    | 操作项 | `boolean` / `() => VNode` | `true`      |

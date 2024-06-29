@@ -1,6 +1,6 @@
 import { isString } from '@ideaz/utils'
 import { inputProps } from 'element-plus'
-import type { ExtractPropTypes, PropType } from 'vue-demi'
+import type { ExtractPropTypes, PropType } from 'vue'
 
 export const definePropType = <T>(val: any): PropType<T> => val
 

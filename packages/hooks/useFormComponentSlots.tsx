@@ -1,9 +1,6 @@
 import { isFunction, isString } from '@ideaz/utils'
-import type { Ref, Slot } from 'vue-demi'
-
-export interface Slots {
-  [name: string]: undefined | string | (() => VNode) | Slot
-}
+import type { Ref, Slot } from 'vue'
+import type { Slots } from '../element/types'
 
 export function useFormComponentSlots(props: Record<any, any>, slots: Slots, slotKeys: string[]) {
   const scopedSlots: Ref<Slots> = shallowRef({})

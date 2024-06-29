@@ -29,18 +29,18 @@ export interface IDialogTip {
 
   info: IDialogTipMethod
 
-  close(): void
+  close: () => void
 }
 
 const dialogInstance = new Map<
-  ComponentPublicInstance<{ done: () => void; exposed: any }>, // marking doClose as function
+  ComponentPublicInstance<{ done: () => void, exposed: any }>, // marking doClose as function
   {
     options: any
     callback: any | undefined
   }
 >()
 
-const getAppendToElement = (props: any): HTMLElement => {
+function getAppendToElement(props: any): HTMLElement {
   let appendTo: HTMLElement | null = document.body
   if (props.appendTo) {
     if (isString(props.appendTo))
@@ -61,11 +61,7 @@ const getAppendToElement = (props: any): HTMLElement => {
   return appendTo
 }
 
-const initInstance = (
-  props: any,
-  container: HTMLElement,
-  appContext: AppContext | null = null,
-) => {
+function initInstance(props: any, container: HTMLElement, appContext: AppContext | null = null) {
   const vnode = createVNode(
     DialogConstructor,
     props,
@@ -83,14 +79,13 @@ const initInstance = (
   return vnode.component
 }
 
-const genContainer = () => {
+function genContainer() {
   return document.createElement('div')
 }
 
-const showMessage = (options: any, appContext?: AppContext | null) => {
+function showMessage(options: any, appContext?: AppContext | null) {
   const container = genContainer()
   const instance = initInstance(options, container, appContext)!
-
   // This is how we use message box programmably.
   // Maybe consider releasing a template version?
   // get component instance like v2.
@@ -126,7 +121,8 @@ function DialogTip(
   options: any | string | VNode,
   appContext: AppContext | null = null,
 ) {
-  if (!isClient) return
+  if (!isClient)
+    return
   let callback: any | undefined
   if (isString(options) || isVNode(options)) {
     options = {

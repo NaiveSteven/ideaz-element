@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue-demi'
+import type { ExtractPropTypes, PropType } from 'vue'
 import { formProps as elFormProps } from 'element-plus'
 import type { FormColumn } from '../../types'
 
@@ -94,6 +94,10 @@ export const formProps = {
   draggable: {
     type: Boolean,
     default: false,
+  },
+  action: {
+    type: [Boolean, Function] as PropType<boolean | (() => VNode)>,
+    default: true,
   },
 }
 

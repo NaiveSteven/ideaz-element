@@ -1,6 +1,6 @@
 # Dialog 弹窗
 
-在 element-plus 弹窗组件基础上封装，更适合业务开发。
+在 element-plus 弹窗组件基础上封装，更适合业务快速开发。
 
 :::tip
 

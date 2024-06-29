@@ -1,3 +1,4 @@
+<!-- eslint-disable unused-imports/no-unused-vars -->
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
@@ -6,7 +7,7 @@ import type { TableColumnScopeData } from '@ideaz/element'
 interface RowData {
   id: number
   name: string
-  sex: string
+  gender: string
   age: number
   time: string
 }
@@ -17,7 +18,7 @@ const columns = ref([
     prop: 'name',
   },
   {
-    prop: 'sex',
+    prop: 'gender',
     label: '性别',
   },
   {
@@ -36,12 +37,14 @@ const columns = ref([
         label: '查看',
         link: true,
         type: 'primary',
+        disabled: ({ row, column, $index }: TableColumnScopeData<RowData>) => row.name === 'Steven',
         onClick: ({ row }: TableColumnScopeData<RowData>) => console.log(row, 'row'),
       },
       {
         label: '删除',
         link: true,
         type: 'danger',
+        disabled: ({ row, column, $index }: TableColumnScopeData<RowData>) => row.age === 18,
         onClick: ({ row }: TableColumnScopeData<RowData>) => console.log(row, 'row'),
       },
     ],
@@ -66,28 +69,28 @@ function getTableData(params: any) {
         {
           id: 1,
           name: 'Steven',
-          sex: 'male',
+          gender: 'male',
           age: 22,
           time: '2020-01-01',
         },
         {
           id: 2,
           name: 'Helen',
-          sex: 'male',
+          gender: 'male',
           age: 12,
           time: '2012-01-01',
         },
         {
           id: 3,
           name: 'Nancy',
-          sex: 'female',
+          gender: 'female',
           age: 18,
           time: '2018-01-01',
         },
         {
           id: 4,
           name: 'Jack',
-          sex: 'male',
+          gender: 'male',
           age: 28,
           time: '2028-01-01',
         },

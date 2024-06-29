@@ -9,6 +9,7 @@ export default defineConfig({
   lastUpdated: true,
   // eslint-disable-next-line node/prefer-global/process
   base: process.env.BASE || '/',
+  appearance: false,
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
   markdown: {
     headers: {
@@ -34,7 +35,7 @@ export default defineConfig({
     // },
     nav: [
       { text: '指南', link: '/guide/start', activeMatch: '^/guide/' },
-      { text: '组件', link: '/components/text', activeMatch: '^/components/' },
+      { text: '组件', link: '/components/checkbox', activeMatch: '^/components/' },
       {
         text: '更新日志',
         link: 'https://github.com/NaiveSteven/ideaz-element/commits/main/',
@@ -61,10 +62,10 @@ export default defineConfig({
             {
               text: '表单',
               items: [
-                {
-                  text: 'Text 文本',
-                  link: '/components/text',
-                },
+                // {
+                //   text: 'Text 文本',
+                //   link: '/components/text',
+                // },
                 {
                   text: 'Checkbox 多选框',
                   link: '/components/checkbox',
@@ -193,6 +194,10 @@ export default defineConfig({
             {
               text: '快速上手',
               link: '/guide/start',
+            },
+            {
+              text: '约定',
+              link: '/guide/appoint',
             },
             {
               text: '更新日志',

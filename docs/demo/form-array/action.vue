@@ -4,10 +4,18 @@ import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import type { ValidateField } from '@ideaz/element'
 
+interface FormData {
+  name: string
+  gender: string
+  address: string
+  time: string[]
+}
+
 const formRef = ref()
-const formData = ref([{
+const form = ref<FormData[]>([{
   name: '',
   gender: '',
+  address: '',
   time: [],
 }])
 
@@ -41,6 +49,10 @@ const columns = [
       endPlaceholder: '结束日期',
     },
   },
+  {
+    slot: 'address',
+    label: '地址',
+  },
 ]
 
 function reset() {
@@ -49,7 +61,7 @@ function reset() {
 
 function submit() {
   formRef.value.validate((valid: boolean, fields: ValidateField) => {
-    console.log(formData.value, fields, 'config.formData')
+    console.log(form.value, fields, 'config.formData')
     if (valid)
       ElMessage.success('success')
 
@@ -57,19 +69,30 @@ function submit() {
       console.log('error')
   })
 }
+
+function handleAdd() {
+  form.value.push({})
+}
 </script>
 
 <template>
   <z-form
     ref="formRef"
-    v-model="formData"
+    v-model="form"
     :options="options"
     :columns="columns"
-    :max="2"
+    :action="false"
     label-width="80px"
     size="small"
     type="array"
-  />
+  >
+    <template #address="{ formData }">
+      <el-input v-model="formData.address" />
+    </template>
+  </z-form>
+  <el-button class="mt-1 w-full" type="warning" @click="handleAdd">
+    添加
+  </el-button>
   <div class="mt-4 w-full flex">
     <el-button class="w-full" @click="reset">
       重置

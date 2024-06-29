@@ -1,5 +1,5 @@
 import type { Slot } from 'vue'
-import { mergeProps } from 'vue-demi'
+import { mergeProps } from 'vue'
 import { reactiveOmit } from '@vueuse/core'
 import { ElDescriptions, ElDescriptionsItem } from 'element-plus'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
@@ -60,9 +60,12 @@ export default defineComponent({
     }
 
     function createExtra() {
-      if (isFunction(props.extra)) return props.extra()
-      if (isString(props.extra)) return props.extra
-      if (isFunction(slots.extra)) return slots.extra()
+      if (isFunction(props.extra))
+        return props.extra()
+      if (isString(props.extra))
+        return props.extra
+      if (isFunction(slots.extra))
+        return slots.extra()
       return null
     }
 

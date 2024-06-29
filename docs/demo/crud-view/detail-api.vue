@@ -4,7 +4,7 @@ import { ref } from 'vue'
 const loading = ref(false)
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   age: '',
 })
 const tableData = ref([])
@@ -24,15 +24,15 @@ const columns = ref([
     },
   },
   {
-    prop: 'sex',
+    prop: 'gender',
     label: '性别',
     search: {
       component: 'select',
       label: '性别',
-      field: 'sex',
+      field: 'gender',
     },
     detail: {
-      field: 'sex',
+      field: 'gender',
       label: '性别',
     },
   },
@@ -56,7 +56,7 @@ const columns = ref([
 ])
 
 const options = {
-  sex: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
+  gender: [{ label: 'male', value: 'male' }, { label: 'female', value: 'female' }],
 }
 const pagination = ref({
   page: 1,
@@ -75,7 +75,7 @@ function mockApi() {
         {
           id: 1,
           name: 'Steven',
-          sex: 'male',
+          gender: 'male',
           age: 22,
           date: '2020-01-01',
           time: ['2020-01-01', '2020-01-02'],
@@ -83,7 +83,7 @@ function mockApi() {
         {
           id: 2,
           name: 'Helen',
-          sex: 'male',
+          gender: 'male',
           age: 12,
           date: '2012-01-01',
           time: ['2020-01-01', '2020-01-02'],
@@ -91,7 +91,7 @@ function mockApi() {
         {
           id: 3,
           name: 'Nancy',
-          sex: 'female',
+          gender: 'female',
           age: 18,
           date: '2018-01-01',
           time: ['2020-01-01', '2020-01-02'],
@@ -99,7 +99,7 @@ function mockApi() {
         {
           id: 4,
           name: 'Jack',
-          sex: 'male',
+          gender: 'male',
           age: 28,
           date: '2028-01-01',
           time: ['2020-01-01', '2020-01-02'],
@@ -125,7 +125,7 @@ function detailApi() {
         data: {
           id: 3,
           time: '2023-01-12',
-          sex: 'male',
+          gender: 'male',
           name: 'David',
         },
       })

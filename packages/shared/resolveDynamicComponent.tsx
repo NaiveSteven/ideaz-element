@@ -1,4 +1,4 @@
-import { getCurrentInstance, isVue2, isVue3 } from 'vue-demi'
+import { getCurrentInstance } from 'vue'
 import { isObject, toCamelCase } from '@ideaz/utils'
 
 interface IndexType {
@@ -13,34 +13,18 @@ interface ResolveOptions {
 
 export function resolveDynamicComponent(options: ResolveOptions) {
   const nativeTags = ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
-  if (isVue3) {
-    if (isObject(options.name))
-      return h(options.name, options.attrs || {}, options.content || {})
-    const cop = isVue2
-      ? options.name
-      : nativeTags.includes(options.name as string)
-        ? options.name
-        : getCurrentInstance()!.appContext!.components[toCamelCase(options.name as string)]
-    return cop
-      ? h(
-        // resolveComponent(options.name),
-        cop,
-        {
-          ...(options.attrs || {}),
-        },
-        options.content || {},
-      ) : h('div')
-  }
-  // return
-  // <name {...{ props: options.attrs || {} }} {...{ on: options.events || {} }}>
-  //   {options.content || null}
-  // </name>
-  return h(
-    options.name,
-    {
-      props: { ...(options.attrs || {}) },
-      ...(options.attrs || {}),
-    },
-    options.content || {},
-  )
+  if (isObject(options.name))
+    return h(options.name, options.attrs || {}, options.content || {})
+  const cop = nativeTags.includes(options.name as string)
+    ? options.name
+    : getCurrentInstance()!.appContext!.components[toCamelCase(options.name as string)]
+  return cop
+    ? h(
+      // resolveComponent(options.name),
+      cop,
+      {
+        ...(options.attrs || {}),
+      },
+      options.content || {},
+    ) : h('div')
 }

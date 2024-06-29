@@ -1,7 +1,7 @@
-import { getCurrentInstance } from 'vue-demi'
-import type { ComponentInternalInstance } from 'vue-demi'
+import { getCurrentInstance } from 'vue'
+import type { ComponentInternalInstance } from 'vue'
 
-export const useRadioColumnMethods = () => {
+export function useRadioColumnMethods() {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
 
   const clearSelection = () => {
@@ -11,7 +11,7 @@ export const useRadioColumnMethods = () => {
   }
 
   const toggleRadioSelection = (row: any) => {
-    const radioColumn = ctx!.$refs.radioColumn as { toggleRadioSelection?: (row: any) => void; clearSelection?: () => void }
+    const radioColumn = ctx!.$refs.radioColumn as { toggleRadioSelection?: (row: any) => void, clearSelection?: () => void }
     if (radioColumn && radioColumn.clearSelection)
       radioColumn.toggleRadioSelection?.(row)
   }

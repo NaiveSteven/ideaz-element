@@ -1,4 +1,4 @@
-import type { App, Component } from 'vue-demi'
+import type { App, Component } from 'vue'
 
 type SFCWithInstall = Component & {
   install: (app: App, options?: Record<keyof any, any>) => void

@@ -37,5 +37,5 @@ export interface Alias {
 }
 
 export interface Slots {
-  [name: string]: undefined | string | (() => JSX.Element) | Slot
+  [name: string]: undefined | string | (() => VNode) | Slot
 }

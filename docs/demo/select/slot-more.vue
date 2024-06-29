@@ -20,6 +20,10 @@ const selectVal = ref()
       <template #footer>
         <span>自定义内容</span>
       </template>
+      <template #label="{ label, value }">
+        <span>{{ label }}: </span>
+        <span style="font-weight: bold">{{ value }}</span>
+      </template>
     </z-select>
   </div>
 </template>

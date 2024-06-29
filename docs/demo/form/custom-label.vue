@@ -6,12 +6,12 @@ import { ElMessage } from 'element-plus'
 const formRef = ref()
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   age: '',
 })
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],
@@ -27,7 +27,7 @@ const columns = [
   },
   {
     component: 'select',
-    field: 'sex',
+    field: 'gender',
     label: 'labelSlot',
     required: true,
     error: h('span', {}, 'errorSlot'),

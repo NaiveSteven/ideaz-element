@@ -1,5 +1,5 @@
 import { resolveDynamicComponent } from '@ideaz/shared'
-import type { CSSProperties } from 'vue-demi'
+import type { CSSProperties } from 'vue'
 import { rowProps } from './props'
 
 export default defineComponent({

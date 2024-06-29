@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 interface RowData {
   name: string
-  sex: string
+  gender: string
   age: number
   time: string
 }
@@ -23,7 +23,7 @@ const columns = ref([
     label: '姓名',
   },
   {
-    prop: 'sex',
+    prop: 'gender',
     label: '性别',
   },
   {
@@ -43,13 +43,13 @@ function mockApi(params: { page: number, pageSize: number }): Promise<{ result: 
       const dataFirstPage = [
         {
           name: 'Steven',
-          sex: 'male',
+          gender: 'male',
           age: 22,
           time: '2020-01-01',
         },
         {
           name: 'Helen',
-          sex: 'male',
+          gender: 'male',
           age: 12,
           time: '2012-01-01',
         },
@@ -57,13 +57,13 @@ function mockApi(params: { page: number, pageSize: number }): Promise<{ result: 
       const dataSecondPage = [
         {
           name: 'Nancy',
-          sex: 'female',
+          gender: 'female',
           age: 18,
           time: '2018-01-01',
         },
         {
           name: 'Jack',
-          sex: 'male',
+          gender: 'male',
           age: 28,
           time: '2028-01-01',
         },
@@ -100,7 +100,7 @@ getTableData()
   <z-table
     v-model:pagination="pagination"
     v-model:data="tableData"
-    v-model:columns="columns"
+    :columns="columns"
     :loading="loading"
     title="表格标题"
     @refresh="getTableData"

@@ -1,42 +1,41 @@
 <script lang="ts" setup>
 import { h } from 'vue'
-import { ZDialogTip } from '@ideaz/element'
 
-const openInfoDialog = () => {
-  ZDialogTip({
+function openInfoDialog() {
+  window.ZDialogTip({
     type: 'info',
     message: '提示信息',
     onConfirm: ({ done, confirmButtonLoading }) => {
       confirmButtonLoading.value = true
       done()
     },
-    onCancel: ({ done, cancelButtonLoading }) => {
+    onCancel: ({ done }) => {
       done()
     },
   })
 }
 
-const openWarningDialog = () => {
-  ZDialogTip.warning('提示信息', '标题', {
+function openWarningDialog() {
+  window.ZDialogTip.warning('提示信息', '标题', {
     type: 'warning',
-    onConfirm: ({ done, confirmButtonLoading }) => {
+    onConfirm: ({ confirmButtonLoading }) => {
       confirmButtonLoading.value = true
     },
-    onCancel: ({ done, cancelButtonLoading }) => {
+    onCancel: ({ done }) => {
       done()
     },
   })
 }
 
-const openDangerDialog = () => {
-  ZDialogTip({
+function openDangerDialog() {
+  window.ZDialogTip({
     type: 'danger',
     message: () => h('span', {}, 'custom message'),
     title: () => h('span', {}, 'custom title'),
-    onConfirm: ({ done, confirmButtonLoading }) => {
+    onConfirm: ({ confirmButtonLoading }) => {
       confirmButtonLoading.value = true
     },
-    onCancel: ({ done, cancelButtonLoading }) => {
+    onCancel: ({ done }) => {
       done()
     },
   })

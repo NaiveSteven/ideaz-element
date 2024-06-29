@@ -169,6 +169,13 @@
 152. ~~`z-table`的`editable`的`multiple`模式问题~~
 153. ~~`z-table`的`slot`处理以及相关文档和测试文件~~
 154. ~~`z-crud`的`cancel`事件处理~~
+155. ~~`z-table`的全屏修复~~
+156. `z-table`的`toolBar`支持单个不展示
+157. ~~`row`和`col`的样式文件删除~~
+158. `column`项支持使用`v-show`显隐
+159. 数组表单操作项支持自定义
+160. `z-table`支持合并同类项
+161. `z-crud`默认操作项支持禁用
      1201_3z0x8etu5vvckcr
 
 ## FEATURE
@@ -177,7 +184,7 @@
 
 1. ~~更换`vitepress`模板，目前的`vitepress`模板问题较多~~
 2. ~~`z-crud`的`default-key`相关处理~~
-3. 样式文件包含过多不需要的`element-plus`的样式代码，需要精简
+3. ~~样式文件包含过多不需要的`element-plus`的样式代码，需要精简~~
 4. 文档`mock`数据内容修改
 5. `ToolBar`组件重构
 
@@ -258,9 +265,9 @@ const config = {
       // rowProps: {}, // row props
       render: () => {}, // custom
       // renderFormItem or formItem: () => {}
-      ref: (c: any) => {}, // v-ref
+      ref: (c) => {}, // v-ref
       rules: [] | object, // form rules
-      modifier: string | ((val: any) => any),
+      modifier: string | (val => any),
       onClick: () => {}, // event
       // default set prop slot
     }

@@ -137,7 +137,7 @@
 
 | 属性名        | 说明                                   | 类型                        | 默认值 |
 | :------------ | :------------------------------------- | :-------------------------- | :----- |
-| component     | 表单项组件                             | `string` / `() => VNode`    | —      |
+| component     | 表单项组件                             | `input` / `checkbox` / `select` / `radio` / `任意局部注册或全局注册组件`    | —      |
 | field         | 字段名                                 | `string`                    | —      |
 | fieldProps    | `component`组件属性                    | `object`                    | —      |
 | formItemProps | `formItem`组件属性                     | `object`                    | —      |

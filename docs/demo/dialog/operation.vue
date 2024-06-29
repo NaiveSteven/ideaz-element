@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
-import { ZDialogTip } from '@ideaz/element'
 
 const isShowDialog = ref(false)
 const isShow = ref(false)
@@ -20,8 +19,8 @@ const cancelButtonProps = reactive({
 const isConfirmBtnLoading = ref(false)
 const isCancelBtnLoading = ref(false)
 
-const openWarningDialog = () => {
-  ZDialogTip({
+function openWarningDialog() {
+  window.ZDialogTip({
     type: 'warning',
     message: '警告信息',
     onConfirm: async ({ done, confirmButtonLoading }) => {
@@ -39,7 +38,7 @@ const openWarningDialog = () => {
   })
 }
 
-const handleConfirm = async () => {
+async function handleConfirm() {
   confirmButtonProps.loading = true
   try {
     await delay(200)
@@ -50,7 +49,7 @@ const handleConfirm = async () => {
   confirmButtonProps.loading = false
 }
 
-const handleCancel = async () => {
+async function handleCancel() {
   cancelButtonProps.loading = true
   try {
     await delay(200)
@@ -61,7 +60,7 @@ const handleCancel = async () => {
   cancelButtonProps.loading = false
 }
 
-const confirm = async () => {
+async function confirm() {
   isConfirmBtnLoading.value = true
   try {
     await delay(200)
@@ -72,7 +71,7 @@ const confirm = async () => {
   isConfirmBtnLoading.value = false
 }
 
-const cancel = async () => {
+async function cancel() {
   isCancelBtnLoading.value = true
   try {
     await delay(200)

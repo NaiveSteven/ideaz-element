@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url'
 import AutoImport from 'unplugin-auto-import/vite'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import glob from 'fast-glob'
+import MagicString from 'magic-string'
 import { build } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
@@ -23,18 +24,19 @@ const entryDir = path.resolve(__dirname, 'packages')
 // const outputDir = path.resolve(__dirname, 'lib')
 
 const externalPkgs = ['@vue'].concat(
-  Object.keys(pkg.dependencies || {}),
+  // Object.keys(pkg.dependencies || {}),
   Object.keys(pkg.peerDependencies || {}),
 )
 const external = id => externalPkgs.some(p => p === id || id.startsWith(`${p}/`)) || id.includes('element-plus') || id.includes('vitest')
 
 ;(async () => {
-  const input = await glob('packages/element/**/*.{ts,vue}', {
+  let input = await glob('packages/element/**/*.{ts,vue}', {
     cwd: __dirname,
     absolute: true,
     onlyFiles: true,
   })
   input.push(resolve(__dirname, 'index.ts'))
+  input = input.filter(path => !path.includes('__tests__'))
 
   await build({
     configFile: false,
@@ -98,6 +100,24 @@ function generate() {
         if (bundle[key].fileName?.includes('packages'))
           bundle[key].fileName = bundle[key].fileName.replace('packages/', '')
       })
+    },
+    renderChunk(code, chunk) {
+      if (
+        chunk.fileName === 'index.cjs' || chunk.fileName === 'index.mjs'
+      ) {
+        code = code.replaceAll('./packages', '.')
+        return {
+          code,
+          map: new MagicString(code).generateMap(),
+        }
+      }
+      if (chunk.fileName.includes('packages')) {
+        code = code.replaceAll('../node_modules', 'node_modules')
+        return {
+          code,
+          map: new MagicString(code).generateMap(),
+        }
+      }
     },
   }
 }

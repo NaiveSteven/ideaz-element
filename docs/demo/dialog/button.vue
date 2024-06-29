@@ -5,7 +5,7 @@ const isShowDialog = ref(false)
 const isShowRenderDialog = ref(false)
 const isShowFooterDialog = ref(false)
 
-const renderFooter = () => {
+function renderFooter() {
   return h('div', 'render底部')
 }
 </script>

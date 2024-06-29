@@ -1,13 +1,22 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { ElMessage } from 'element-plus'
+import { ElIcon, ElMessage } from 'element-plus'
+import { Delete } from '@element-plus/icons-vue'
 import type { ValidateField } from '@ideaz/element'
 
+interface FormData {
+  name: string
+  gender: string
+  address: string
+  time: string[]
+}
+
 const formRef = ref()
-const formData = ref([{
+const form = ref<FormData[]>([{
   name: '',
   gender: '',
+  address: '',
   time: [],
 }])
 
@@ -41,6 +50,10 @@ const columns = [
       endPlaceholder: '结束日期',
     },
   },
+  {
+    slot: 'address',
+    label: '地址',
+  },
 ]
 
 function reset() {
@@ -49,7 +62,7 @@ function reset() {
 
 function submit() {
   formRef.value.validate((valid: boolean, fields: ValidateField) => {
-    console.log(formData.value, fields, 'config.formData')
+    console.log(form.value, fields, 'config.formData')
     if (valid)
       ElMessage.success('success')
 
@@ -57,19 +70,31 @@ function submit() {
       console.log('error')
   })
 }
+
+function handleDelete(index: number) {
+  form.value.splice(index, 1)
+}
 </script>
 
 <template>
   <z-form
     ref="formRef"
-    v-model="formData"
+    v-model="form"
     :options="options"
     :columns="columns"
-    :max="2"
     label-width="80px"
     size="small"
     type="array"
-  />
+  >
+    <template #address="{ formData }">
+      <el-input v-model="formData.address" />
+    </template>
+    <template #action="{ index }">
+      <ElIcon size="16" class="delete cursor-pointer" @click="handleDelete(index)">
+        <Delete />
+      </ElIcon>
+    </template>
+  </z-form>
   <div class="mt-4 w-full flex">
     <el-button class="w-full" @click="reset">
       重置
@@ -79,3 +104,12 @@ function submit() {
     </el-button>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.delete {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  color: red;
+}
+</style>

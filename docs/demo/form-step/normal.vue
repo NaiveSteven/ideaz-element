@@ -6,12 +6,12 @@ const activeStep = ref(0)
 const formRef = ref()
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   time: [],
 })
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],
@@ -45,7 +45,7 @@ const columns = [
     children: [
       {
         component: 'select',
-        field: 'sex',
+        field: 'gender',
         label: '性别',
         onChange: (val: string) => {
           console.log(val, 'change event')
@@ -58,7 +58,7 @@ const columns = [
         },
       },
       {
-        component: 'datepicker',
+        component: 'el-date-picker',
         field: 'time',
         label: '出生日期',
         fieldProps: {

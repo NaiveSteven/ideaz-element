@@ -1,4 +1,4 @@
-import { getCurrentInstance } from 'vue-demi'
+import { getCurrentInstance } from 'vue'
 import { cloneDeep } from 'lodash-unified'
 import { isFunction, isObject } from '@ideaz/utils'
 import type { ComponentInternalInstance } from 'vue'

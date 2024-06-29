@@ -1,13 +1,15 @@
-// import { withModifiers } from 'vue-demi';
+// import { withModifiers } from 'vue';
 import { useExpose } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
+import { useVModel } from '@vueuse/core'
 import { isFunction, isString } from '@ideaz/utils'
 import type { CollapseModelValue, FormRules } from 'element-plus'
 import { ElButton, ElCollapse, ElCollapseItem, ElDivider, ElForm, ElFormItem, ElStep, ElSteps } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { draggable } from '../../../directives'
+import type { FormColumn } from '../../types'
 import {
   useDraggable,
   useFormConfig,
@@ -15,7 +17,6 @@ import {
   useFormMethods,
   useRow,
 } from './hooks'
-import type { FormColumn } from '../../types'
 import { FORM_FILTER_KEYS, FORM_ITEM_FILTER_KEYS, formProps, formProvideKey } from './props'
 import FormColumns from './FormColumns'
 import OperationCard from './OperationCard'
@@ -43,14 +44,7 @@ export default defineComponent({
     const { t } = useLocale()
 
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-    const activeStep = computed({
-      get() {
-        return props.activeStep
-      },
-      set(val) {
-        emit('update:activeStep', val)
-      },
-    })
+    const activeStep = useVModel(props, 'activeStep', emit)
 
     useExpose({
       resetFields,
@@ -135,7 +129,7 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max } = props
+      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max, action } = props
       const isChildren = formatFormItems.value.some(column => column.children)
 
       if (isFunction(slots.default))
@@ -203,7 +197,11 @@ export default defineComponent({
                     model.splice(index, 1)
                     emit('update:modelValue', model)
                   }}
-                  addVisible={modelValue.length !== max}
+                  showAdd={modelValue.length !== max && !!action}
+                  showDelete={!!action}
+                  action={action}
+                  contentIndex={index}
+                  v-slots={slots}
                 >
                   <ElForm {...{ labelWidth: formConfig.value.labelWidth, ...formProps }} model={data} ref={`arrayForm${index}`}>
                     <FormColumns
@@ -221,8 +219,7 @@ export default defineComponent({
                 </OperationCard>
               )
             })}
-            {modelValue.length !== max
-            && (
+            {modelValue.length !== max && action && (
               <ElButton class={ns.be('array', 'add')} onClick={() => { emit('update:modelValue', [...model, {}]) }} icon={Plus}>
                 {t('form.add')}
               </ElButton>
@@ -252,7 +249,11 @@ export default defineComponent({
                           model[field].splice(index, 1)
                           emit('update:modelValue', model)
                         }}
-                        addVisible={modelValue[field].length !== maxLength}
+                        showAdd={modelValue[field].length !== maxLength && !!action}
+                        showDelete={!!action}
+                        action={action}
+                        contentIndex={index}
+                        v-slots={slots}
                       >
                         <ElForm {...{ labelWidth: formConfig.value.labelWidth, ...formProps, rules: formProps.rules as FormRules }} model={data} ref={`arrayForm${index}${field}`}>
                           <FormColumns
@@ -271,8 +272,7 @@ export default defineComponent({
                       </OperationCard>
                     )
                   })}
-                  {modelValue[field].length !== maxLength
-                  && (
+                  {modelValue[field].length !== maxLength && action && (
                     <ElButton
                       class={ns.be('array', 'add')}
                       onClick={() => {

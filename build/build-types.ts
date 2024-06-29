@@ -10,7 +10,7 @@ import dts from 'vite-plugin-dts'
 const __dirname = fileURLToPath(new URL('..', import.meta.url))
 const pkg = JSON.parse(readFileSync(resolve(__dirname, 'package.json'), 'utf-8'))
 const externalPkgs = ['@vue'].concat(
-  Object.keys(pkg.dependencies || {}),
+  // Object.keys(pkg.dependencies || {}),
   Object.keys(pkg.peerDependencies || {}),
 )
 const external = id => externalPkgs.some(p => p === id || id.startsWith(`${p}/`)) || id.includes('element-plus') || id.includes('vitest')
@@ -42,7 +42,7 @@ const external = id => externalPkgs.some(p => p === id || id.startsWith(`${p}/`)
             content,
           }
         },
-        exclude: ['node_modules'],
+        exclude: ['node_modules', 'packages/element/**/__tests__/**'],
         outDir: 'dist',
         compilerOptions: {
           sourceMap: false,

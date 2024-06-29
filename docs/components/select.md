@@ -1,6 +1,6 @@
 # Select 选择器
 
-> 选择器封装，和`z-form`组件配合食用，风味更佳。
+选择器封装，和`z-form`组件配合食用，风味更佳。
 
 ## 基础用法
 
@@ -32,7 +32,9 @@
 
 ## 选择全部
 
-> 前提 multiple 为 true 时，才会生效
+:::tip
+前提 multiple 为 true 时，才会生效
+:::
 
 当 `all` 为 `true` 时，`options`会拼接`{ label: '全部', value: 'all' }`
 
@@ -56,7 +58,7 @@
 
 <preview path="../demo/select/slot.vue" />
 
-支持`tag`、`loading`、`header`、`footer`等插槽
+支持`tag`、`loading`、`header`、`footer`、`label`等插槽
 
 <preview path="../demo/select/slot-more.vue" />
 

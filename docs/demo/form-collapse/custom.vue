@@ -7,14 +7,14 @@ const activeCollapse = ref(['文本', '标题'])
 const formRef = ref()
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   address: '',
   input: '',
   time: [],
 })
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],
@@ -90,11 +90,11 @@ function submit() {
     </template>
     <template #operate>
       <div class="mt-4 w-full flex">
-        <el-button class="w-full" type="primary" @click="submit">
-          提交
-        </el-button>
         <el-button class="w-full" @click="reset">
           重置
+        </el-button>
+        <el-button class="w-full" type="primary" @click="submit">
+          提交
         </el-button>
       </div>
     </template>

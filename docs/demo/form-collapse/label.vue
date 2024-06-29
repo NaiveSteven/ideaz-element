@@ -7,12 +7,12 @@ const activeCollapse = ref(['bbb', 'labelSlot'])
 const formRef = ref()
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   time: [],
 })
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],
@@ -45,7 +45,7 @@ const columns = [
     children: [
       {
         component: 'select',
-        field: 'sex',
+        field: 'gender',
         label: '性别',
         md: 12,
         onChange: (val: string) => {
@@ -56,7 +56,7 @@ const columns = [
         },
       },
       {
-        component: 'datepicker',
+        component: 'el-date-picker',
         field: 'time',
         label: '出生日期',
         md: 12,
@@ -110,11 +110,11 @@ function submit() {
     </template>
     <template #operate>
       <div class="mt-4 w-full flex">
-        <el-button class="w-full" type="primary" @click="submit">
-          提交
-        </el-button>
         <el-button class="w-full" @click="reset">
           重置
+        </el-button>
+        <el-button class="w-full" type="primary" @click="submit">
+          提交
         </el-button>
       </div>
     </template>

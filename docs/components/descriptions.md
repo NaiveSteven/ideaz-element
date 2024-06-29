@@ -1,6 +1,6 @@
 # Descriptions 描述列表
 
-> 基于数据驱动的描述列表封装
+基于数据驱动的描述列表封装。
 
 ## 基础用法
 
@@ -26,8 +26,8 @@
 
 ## 插槽
 
-在`columns`项目配置`render`，或者在模板中增加带` detail-[prop] `相关的插槽即可使用。
-`extra`配置可传入`字符串`、`render函数`和使用`extra插槽`
+在`columns`项目配置`render`，或者在模板中增加带` detail-[prop] `相关的插槽即可自定义内容。
+`extra`配置可传入`字符串`、`render函数`或使用`extra插槽`。
 
 <preview path="../demo/descriptions/slot.vue" />
 

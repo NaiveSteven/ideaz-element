@@ -4,7 +4,7 @@ import type { TableColumnScopeData } from '@ideaz/element'
 
 interface RowData {
   name: string
-  sex: string
+  gender: string
   age: number
   time: string
 }
@@ -12,25 +12,25 @@ interface RowData {
 const tableData = ref<RowData[]>([
   {
     name: 'Steven',
-    sex: 'male',
+    gender: 'male',
     age: 22,
     time: '2020-01-01',
   },
   {
     name: 'Helen',
-    sex: 'male',
+    gender: 'male',
     age: 12,
     time: '2012-01-01',
   },
   {
     name: 'Nancy',
-    sex: 'female',
+    gender: 'female',
     age: 18,
     time: '2018-01-01',
   },
   {
     name: 'Jack',
-    sex: 'male',
+    gender: 'male',
     age: 28,
     time: '2028-01-01',
   },
@@ -43,9 +43,9 @@ const columns = ref([
     render: ({ row }: TableColumnScopeData<RowData>) => h('span', row.name),
   },
   {
-    prop: 'sex',
+    prop: 'gender',
     label: '性别',
-    slot: 'sex',
+    slot: 'gender',
   },
   {
     prop: 'age',
@@ -63,8 +63,8 @@ const columns = ref([
     :data="tableData"
     :columns="columns"
   >
-    <template #sex="{ row }">
-      <el-input :model-value="row.sex" />
+    <template #gender="{ row }">
+      <el-input :model-value="row.gender" />
     </template>
   </z-table>
 </template>

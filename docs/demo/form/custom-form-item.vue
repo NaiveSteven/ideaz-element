@@ -4,12 +4,12 @@ import { h, ref } from 'vue'
 const formRef = ref()
 const formData = ref({
   name: '',
-  sex: '',
+  gender: '',
   age: '',
 })
 
 const options = {
-  sex: [
+  gender: [
     { label: '男', value: '1' },
     { label: '女', value: '2' },
   ],
@@ -23,8 +23,8 @@ const columns = [
     required: true,
   },
   {
-    slot: 'sex',
-    field: 'sex',
+    slot: 'gender',
+    field: 'gender',
     label: '性别',
   },
   {
@@ -42,8 +42,8 @@ const columns = [
     label-width="90px"
     size="small"
   >
-    <template #sex>
-      <z-select v-model="formData.sex" :options="options.sex" clearable filterable placeholder="请选择性别" />
+    <template #gender>
+      <z-select v-model="formData.gender" :options="options.gender" clearable filterable placeholder="请选择性别" />
     </template>
   </z-form>
 </template>
