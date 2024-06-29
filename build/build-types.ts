@@ -46,17 +46,9 @@ const external = id => externalPkgs.some(p => p === id || id.startsWith(`${p}/`)
         outDir: 'dist',
         compilerOptions: {
           sourceMap: false,
-          // paths: {
-          //   '@/*': ['./*'],
-          //   '@vexip-ui/config': ['common/config/src'],
-          //   'vexip-ui': ['.'],
-          //   'vue-router': ['node_modules/vue-router'],
-          //   'csstype': ['node_modules/csstype'],
-          // },
         },
         copyDtsFiles: true,
         pathsToAliases: false,
-        // aliasesExclude: [/^@vexip-ui\/(bem-helper|utils|hooks|config)/],
       }),
     ],
     build: {

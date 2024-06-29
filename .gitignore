@@ -15,7 +15,6 @@ docs/.vitepress/cache/**
 node_modules
 lib
 es
-dist
 dist-ssr
 *.local
 
