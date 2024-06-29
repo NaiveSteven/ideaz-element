@@ -1,0 +1,41 @@
+name: Build and Deploy
+# 监听 master 分支上的 push 事件
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-deploy:
+    # 构建环境使用 ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
+
+      - name: Set node version to LTS
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18.20.3"
+          cache: pnpm
+
+      - name: Use npmmirror registry
+        run: pnpm config set registry https://registry.npmmirror.com
+
+      # 下载依赖、打包项目
+      - name: Install and Build
+        run: |
+          pnpm install
+          pnpm docs:build
+
+      # 部署
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@v4.3.3
+        with:
+          # 项目配置的打包目录名称
+          folder: docs/.vitepress/dist
+          # 部署后提交到的分支
+          branch: gh-pages
