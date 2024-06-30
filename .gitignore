@@ -18,6 +18,7 @@ es
 dist-ssr
 *.local
 dist
+theme-chalk
 
 lib
 

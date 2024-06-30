@@ -9,11 +9,14 @@ import cleanCSS from 'gulp-clean-css'
 
 // const { existsSync, emptyDir, mkdirSync } = fsExtra
 const rootDir = resolve(fileURLToPath(import.meta.url), '..', '..')
+// eslint-disable-next-line no-unused-vars
 const __dirname = path.resolve()
 const { dest, parallel, series, src } = gulp
 // const outputDir = resolve(__dirname, 'lib')
 const outputLibDir = resolve(rootDir, 'lib/theme-chalk')
 const outputEsDir = resolve(rootDir, 'es/theme-chalk')
+const outputDistDir = resolve(rootDir, 'dist/theme-chalk')
+const outputThemeDir = resolve(rootDir, 'theme-chalk')
 
 function buildLibStyle() {
   // ensureEmptyDir(outputLibDir)
@@ -25,6 +28,8 @@ function buildLibStyle() {
     .pipe(cleanCSS())
     .pipe(dest(outputLibDir))
     .pipe(dest(outputEsDir))
+    .pipe(dest(outputDistDir))
+    .pipe(dest(outputThemeDir))
 }
 
 // function ensureEmptyDir(dir) {

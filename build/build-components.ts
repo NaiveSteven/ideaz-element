@@ -57,6 +57,10 @@ const external = id => externalPkgs.some(p => p === id || id.startsWith(`${p}/`)
       }),
       generate(),
     ],
+    esbuild: {
+      drop: ['debugger'],
+      pure: ['console.log'],
+    },
     build: {
       sourcemap: true,
       lib: {
