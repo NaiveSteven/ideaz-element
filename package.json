@@ -1,7 +1,7 @@
 {
   "name": "ideaz-element",
   "type": "module",
-  "version": "0.0.1-beta.4",
+  "version": "0.0.1-beta.5",
   "packageManager": "pnpm@7.30.0",
   "keywords": [
     "element-plus",
@@ -10,51 +10,10 @@
     "ideaz",
     "vite"
   ],
-  "exports": {
-    ".": {
-      "types": "./dist/element/index.d.ts",
-      "import": "./es/index.mjs",
-      "require": "./lib/index.cjs"
-    },
-    "./global": {
-      "types": "./types.d.ts"
-    },
-    "./es": {
-      "types": "./dist/element/index.d.ts",
-      "import": "./es/index.mjs"
-    },
-    "./lib": {
-      "types": "./dist/element/index.d.ts",
-      "require": "./lib/index.cjs"
-    },
-    "./es/*.mjs": {
-      "types": "./dist/element/*.d.ts",
-      "import": "./es/*.mjs"
-    },
-    "./es/*": {
-      "types": [
-        "./dist/element/*.d.ts",
-        "./dist/element/*/index.d.ts"
-      ],
-      "import": "./es/*.mjs"
-    },
-    "./lib/*.js": {
-      "types": "./dist/element/*.d.ts",
-      "require": "./lib/*.cjs"
-    },
-    "./lib/*": {
-      "types": [
-        "./dist/element/*.d.ts",
-        "./dist/element/*/index.d.ts"
-      ],
-      "require": "./lib/*.cjs"
-    },
-    "./*": "./*"
-  },
   "main": "lib/index.cjs",
   "module": "es/index.mjs",
   "types": "dist/element/index.d.ts",
-  "style": "es/theme-chalk/index.css",
+  "style": "dist/theme-chalk/index.css",
   "files": [
     "CHANGELOG.md",
     "dist",
