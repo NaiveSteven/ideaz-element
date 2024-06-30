@@ -21,6 +21,7 @@
     "es",
     "lib",
     "style",
+    "theme-chalk",
     "types.d.ts"
   ],
   "scripts": {
