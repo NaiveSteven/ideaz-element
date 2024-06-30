@@ -16,6 +16,7 @@ const { dest, parallel, series, src } = gulp
 const outputLibDir = resolve(rootDir, 'lib/theme-chalk')
 const outputEsDir = resolve(rootDir, 'es/theme-chalk')
 const outputDistDir = resolve(rootDir, 'dist/theme-chalk')
+const outputThemeDir = resolve(rootDir, 'theme-chalk')
 
 function buildLibStyle() {
   // ensureEmptyDir(outputLibDir)
@@ -28,6 +29,7 @@ function buildLibStyle() {
     .pipe(dest(outputLibDir))
     .pipe(dest(outputEsDir))
     .pipe(dest(outputDistDir))
+    .pipe(dest(outputThemeDir))
 }
 
 // function ensureEmptyDir(dir) {

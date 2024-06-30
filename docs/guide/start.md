@@ -9,7 +9,7 @@
 // main.ts
 import { createApp } from 'vue'
 import { install } from 'ideaz-element'
-import 'ideaz-element/es/theme-chalk/index.css'
+import 'ideaz-element/theme-chalk/index.css'
 import App from './App.vue'
 
 const app = createApp(App)

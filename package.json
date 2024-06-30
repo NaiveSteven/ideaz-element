@@ -1,8 +1,9 @@
 {
   "name": "ideaz-element",
   "type": "module",
-  "version": "0.0.1-beta.5",
+  "version": "0.0.1-beta.6",
   "packageManager": "pnpm@7.30.0",
+  "homepage": "https://naivesteven.github.io/ideaz-element/",
   "keywords": [
     "element-plus",
     "components",
@@ -31,7 +32,7 @@
     "dev2.6": "cl switchVue 2.6 && vite --config ./demo/vue2.6/vite.config.ts --open",
     "build:theme": "gulp --gulpfile build/gulpfile.mjs",
     "build": "pnpm clean && tsx build/build-components.ts && tsx build/build-types.ts && pnpm build:theme",
-    "clean": "rimraf lib && rimraf dist && rimraf es",
+    "clean": "rimraf lib && rimraf dist && rimraf es && rimraf theme-chalk",
     "lint": "eslint .",
     "lint:style": "stylelint --cache \"**/*.{vue,scss}\"",
     "typecheck": "vue-tsc --noEmit",
