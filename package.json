@@ -1,7 +1,7 @@
 {
   "name": "ideaz-element",
   "type": "module",
-  "version": "0.0.1-beta.3",
+  "version": "0.0.1-beta.4",
   "packageManager": "pnpm@7.30.0",
   "keywords": [
     "element-plus",
@@ -54,6 +54,7 @@
   "main": "lib/index.cjs",
   "module": "es/index.mjs",
   "types": "dist/element/index.d.ts",
+  "style": "es/theme-chalk/index.css",
   "files": [
     "CHANGELOG.md",
     "dist",
