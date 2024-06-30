@@ -23,7 +23,7 @@ const { ZDialog, ZDialogTip } = Dialog
 const components = [ZCheckbox, ZRadio, ZSelect, ZForm, ZInput, ZTable, ZFilterForm, ZTagSelect, ZText, ZWatermark, ZCheckCard, ZCheckCardItem, ZDescription, ZTagSelectItem, ZTableCustomColumnContainer, ZFullScreen, ZCrud, ZDialog, ZDialogTip, ZFormItem]
 
 const installer = makeInstaller([...components])
-
+export const install = installer.install
 export * from './form/src/hooks'
 export * from './types'
 export * from './text'
@@ -61,7 +61,6 @@ export {
   ZDialog,
   ZDialogTip,
   ZFormItem,
-  installer,
 }
 
 export default installer

@@ -8,13 +8,13 @@
 ```js
 // main.ts
 import { createApp } from 'vue'
-import { installer } from 'ideaz-element'
-import 'ideaz-element/dist/theme-chalk/index.css'
+import { install } from 'ideaz-element'
+import 'ideaz-element/es/theme-chalk/index.css'
 import App from './App.vue'
 
 const app = createApp(App)
 
-app.use(installer)
+app.use(install)
 app.mount('#app')
 ```
 
@@ -42,7 +42,7 @@ export default {
 ```js
 import { createApp } from 'vue'
 import IdeazElement from 'ideaz-element'
-import zhCn from 'ideaz-element/dist/locale/lang/zh-cn'
+import zhCn from 'ideaz-element/es/locale/lang/zh-cn'
 import App from './App.vue'
 
 const app = createApp(App)
