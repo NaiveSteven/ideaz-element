@@ -1,10 +1,10 @@
 import { isFunction } from '@ideaz/utils'
 import { cloneDeep, set } from 'lodash-unified'
+import type { FormColumn } from '../../types'
 import {
   useCol,
   useFormSlots,
 } from './hooks'
-import type { FormColumn } from '../../types'
 import FormItem from './FormItem'
 import type { FormProps } from './props'
 
@@ -59,7 +59,7 @@ export default defineComponent({
             class={colKls.value}
             style={colStyle.value}
             v-slots={{ ...slots, ...scopedSlots }}
-            v-show={isFunction(col.hideUseVShow) ? !col.hideUseVShow(modelValue) : true}
+            v-show={isFunction(col.show) ? col.show(modelValue) : col.show}
             onUpdate:modelValue={(val: any, field: string) => {
               const newVal = set(cloneDeep(modelValue), field, val)
               emit('update:modelValue', newVal)

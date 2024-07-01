@@ -27,7 +27,7 @@ export function useFilterFormItem(props: FilterFormProps) {
       .map((cur: FormColumn, index: number) => ({
         ...cur,
         ...colLayout,
-        hideUseVShow: () => judgeIsHideFormItem(index),
+        show: () => !judgeIsHideFormItem(index),
       }))
   })
 
@@ -82,8 +82,9 @@ export function useFilterFormItem(props: FilterFormProps) {
     if (
       windowReactiveSize.value === 'sm'
       || windowReactiveSize.value === 'xs'
-    )
+    ) {
       return virtualColumns.value.length + 1 > 2
+    }
 
     return true
   })
@@ -93,8 +94,9 @@ export function useFilterFormItem(props: FilterFormProps) {
       if (
         length === 3
         && (windowReactiveSize.value === 'xl')
-      )
+      ) {
         return 6
+      }
       if (length === 2 && windowReactiveSize.value === 'lg')
         return 8
 
@@ -119,8 +121,9 @@ export function useFilterFormItem(props: FilterFormProps) {
     if (
       windowReactiveSize.value === 'sm'
       || windowReactiveSize.value === 'xs'
-    )
+    ) {
       return index > 0 && toggleButtonType.value === 'expand'
+    }
 
     return false
   }

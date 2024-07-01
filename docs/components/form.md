@@ -43,9 +43,11 @@
 
 ## 联动
 
-`column`表单项传入`hide`（支持字符串或函数类型），可以配置表单项联动隐藏。
+`column`表单项传入`hide`（支持布尔值或函数类型），可以配置表单项联动隐藏。
 
-试试选中性别，年龄表单项会出现。
+某些业务中需要使用`v-show`决定组件显隐，`column`表单项传入字段`show`（支持布尔值或函数类型）即可。
+
+姓名输入框有值，会展示性别选择框，然后试试选中性别，年龄表单项会出现。
 
 <preview path="../demo/form/hide.vue" />
 
@@ -142,8 +144,8 @@
 | fieldProps    | `component`组件属性                    | `object`                    | —      |
 | formItemProps | `formItem`组件属性                     | `object`                    | —      |
 | label         | 表单标签名                             | `string` / `() => VNode`    | —      |
-| hide          | 显隐                                   | `boolean` / `() => boolean` | —      |
-| hideUseVShow  | 使用`v-show`显隐                       | `boolean` / `() => boolean` | —      |
+| hide          | 显隐                                   | `boolean` / `(formData) => boolean` | —      |
+| show  | 使用`v-show`显隐                       | `boolean` / `(formData) => boolean` | —      |
 | slot          | 表单项自定义内容插槽                   | `string`                    | —      |
 | render        | 表单项自定义内容render                 | `() => VNode`               | —      |
 | required      | 表单项是否必填                         | `boolean`                   | —      |
