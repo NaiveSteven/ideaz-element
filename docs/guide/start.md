@@ -1,6 +1,23 @@
 # 快速开始
 本节将介绍如何在项目中使用 Ideaz Element。
 
+## 安装
+
+### 使用包管理器
+我们建议您使用包管理器（如`NPM、Yarn 或 pnpm`）安装 Ideaz Element，然后您就可以使用打包工具，例如 Vite 或 webpack。
+
+``` sh
+npm install ideaz-element --save
+```
+
+```sh
+yarn add ideaz-element
+```
+
+```sh
+pnpm install ideaz-element
+```
+
 ## 用法
 ### 完整引入
 如果你对打包后的文件大小不是很在乎，那么使用完整导入会更方便。
