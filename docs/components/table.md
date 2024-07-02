@@ -110,6 +110,8 @@
 
 `toolBar`值为`false`，不展示工具栏。
 
+如果想配置某个功能不展示，配置`toolBar`下的四个字段`refresh`、`density`、`fullScreen`、`setting`为`false`即可。
+
 <preview path="../demo/table/tool-bar.vue" />
 
 `toolBar`支持配置默认不选中，配置`uncheck`字段，值为`column`项的`label`。
@@ -420,3 +422,7 @@
 | :------ | :-------------------------------- | :------ | :----- | :----- |
 | exclude | 不显示在工具栏的表格项 label 集合 | `array` | —      | —      |
 | unCheck | 默认不选中的 label 集合           | `array` | —      | —      |
+| refresh | 刷新功能是否展示           | `boolean` | —      | `true`      |
+| density | 密度功能是否展示           | `boolean` | —      | `true`      |
+| fullScreen | 全屏功能是否展示           | `boolean` | —      | `true`      |
+| setting | 列配置功能是否展示           | `boolean` | —      | `true`      |

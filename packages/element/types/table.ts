@@ -17,6 +17,10 @@ export type BtnItem = Partial<Omit<ButtonProps, 'type' | 'disabled'>> & {
 export interface ToolBar {
   uncheck?: string[]
   exclude?: string[]
+  refresh?: boolean
+  fullScreen?: boolean
+  density?: boolean
+  setting?: boolean
 }
 
 export interface TableFormConfig {

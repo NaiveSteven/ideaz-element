@@ -371,3 +371,7 @@
 | :------ | :-------------------------------- | :------ | :----- | :----- |
 | exclude | 不显示在工具栏的表格项 label 集合 | `array` | —      | —      |
 | unCheck | 默认不选中的 label 集合           | `array` | —      | —      |
+| refresh | 刷新功能是否展示           | `boolean` | —      | `true`      |
+| density | 密度功能是否展示           | `boolean` | —      | `true`      |
+| fullScreen | 全屏功能是否展示           | `boolean` | —      | `true`      |
+| setting | 列配置功能是否展示           | `boolean` | —      | `true`      |
