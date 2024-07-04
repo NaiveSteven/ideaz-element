@@ -58,7 +58,7 @@
 
 ## 表单属性
 
-使用`add`和`edit`对象配置表单属性。
+使用`add`和`edit`对象配置新增和编辑表单属性。`form`属性可以统一配置新增和编辑。
 
 <preview path="../demo/crud-cu/form-props.vue" />
 
