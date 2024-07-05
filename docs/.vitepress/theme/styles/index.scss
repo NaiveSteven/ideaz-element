@@ -18,6 +18,11 @@
   background-color: #fff;
 }
 
+body {
+  width: 100% !important;
+  overflow: auto !important;
+}
+
 /* stylelint-disable-next-line selector-class-pattern */
 .VPHero {
   .container {
