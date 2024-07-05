@@ -81,6 +81,13 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       link: true,
       icon: markRaw(View),
       onClick: ({ row }: TableColumnScopeData) => {
+        if (isFunction(props.detail)) {
+          props.detail({ row, tableRef: ctx!.$refs.zTableRef as typeof ZTable })
+        }
+        if (props.onOperateView) {
+          emit('operate-view', { row, tableRef: ctx!.$refs.zTableRef as typeof ZTable })
+          return
+        }
         rowData.value = row
         isShowDrawer.value = true
       },

@@ -20,7 +20,7 @@
 
 ## 多选框
 
-多选狂和删除功能结合，组件内部会有`el-alert`和批量删除等内置功能。
+多选框和删除功能结合，组件内部会有`el-alert`和批量删除等内置功能。
 
 <preview path="../demo/crud-delete/checkbox.vue" />
 
@@ -48,11 +48,11 @@
 
 | 属性名  | 说明                                     | 类型                                                    | 默认值 |
 | :------ | :--------------------------------------- | :------------------------------------------------------ | :----- |
-| delete  | 查询表单属性配置                         | `boolean` / `({ row, tableRef, getTableData }) => void` | `true` |
+| delete  | 删除配置                         | `boolean` / `({ row, tableRef, getTableData }) => void` | `true` |
 | action  | 操作项是否展示（内置的删除、编辑等按钮） | `boolean`                                               | `true` |
 | edit    | 编辑配置                                 | `boolean` / `object`                                    | `true` |
 | add     | 新增配置                                 | `boolean` / `object`                                    | `true` |
-| detail  | 详情配置                                 | `boolean` / `object`                                    | `true` |
+| detail  | 详情配置                                 | `boolean` / `object` / `({ row, tableRef }) => void`                                    | `true` |
 | search  | 查询配置                                 | `boolean` / `object`                                    |
 | alert   | 固定的选中数据提示                       | `object` / `boolean`                                    | `true` |
 | request | 接口配置                                 | `object`                                                | —      |
@@ -90,7 +90,7 @@
 
 | 事件名         | 说明         | 类型                                               |
 | :------------- | :----------- | :------------------------------------------------- |
-| operate-delete | 删除表格数据 | `({ selectionData, table, getTableData }) => void` |
+| operate-delete | 删除表格数据 | `({ selectionData, row, table, getTableData }) => void` |
 
 ## z-crud删除相关插槽
 
