@@ -1,4 +1,5 @@
 import { isFunction, isString } from '@ideaz/utils'
+import type { VNode } from 'vue'
 
 export function getContentByRenderAndSlot(content: string | ((...args: any) => VNode) | undefined, slots: any, ...args: any) {
   if (isFunction(content))

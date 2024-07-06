@@ -1,5 +1,5 @@
 import type { FormItemProps as ElFormItemProps, FormItemRule, FormRules } from 'element-plus'
-import type { CSSProperties } from 'vue'
+import type { CSSProperties, VNode } from 'vue'
 import type { IndexType, OptionsItem } from './common'
 
 interface FormItemProps {

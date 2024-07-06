@@ -1,9 +1,9 @@
-import type { ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes, VNode } from 'vue'
 import type { Alias, OptionsItem } from '../../types'
 
 export interface SelectOptionsItem extends OptionsItem {
   options?: OptionsItem[]
-  render?: string | (({ option }: { option: SelectOptionsItem }) => JSX.Element)
+  render?: string | (({ option }: { option: SelectOptionsItem }) => VNode)
 }
 
 export const selectProps = {

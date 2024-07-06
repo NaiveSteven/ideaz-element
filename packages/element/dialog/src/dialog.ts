@@ -2,7 +2,7 @@ import { createVNode, isVNode, render } from 'vue'
 import { hasOwn } from '@vue/shared'
 import { isClient } from '@vueuse/core'
 import { isElement, isFunction, isObject, isString, isUndefined } from '@ideaz/utils'
-import type { AppContext, ComponentPublicInstance } from 'vue'
+import type { AppContext, ComponentPublicInstance, VNode } from 'vue'
 import type { DialogProps } from './props'
 import DialogConstructor from './index'
 

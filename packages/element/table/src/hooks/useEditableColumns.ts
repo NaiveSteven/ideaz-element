@@ -21,7 +21,7 @@ function replacePropertyValues(obj: any, reverse = false) {
   return obj
 }
 
-export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref<any>) {
+export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref<any>): { zTableFormRef: Ref<any>, columns: Ref<TableCol[]> } {
   const editableType = ref<'single' | 'multiple'>(isObject(props.editable) ? (props.editable.type || 'single') : 'single')
   const zTableFormRef = ref()
   const columns = ref<TableCol[]>([])

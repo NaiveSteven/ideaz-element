@@ -1,5 +1,5 @@
 import type { ButtonProps, ElForm, TableColumnCtx, dropdownItemProps, dropdownProps } from 'element-plus'
-import type { ExtractPropTypes, Ref } from 'vue'
+import type { ExtractPropTypes, Ref, VNode } from 'vue'
 import type { OptionsItem } from './common'
 import type { FormColumn } from './form'
 

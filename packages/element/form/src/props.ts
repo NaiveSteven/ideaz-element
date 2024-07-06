@@ -1,4 +1,4 @@
-import type { ExtractPropTypes, PropType } from 'vue'
+import type { ExtractPropTypes, PropType, VNode } from 'vue'
 import { formProps as elFormProps } from 'element-plus'
 import type { FormColumn } from '../../types'
 

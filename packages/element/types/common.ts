@@ -1,4 +1,4 @@
-import type { Slot } from 'vue'
+import type { Slot, VNode } from 'vue'
 import type { PaginationProps } from 'element-plus'
 
 export interface IndexOptions { [propName: string]: OptionsItem[] }

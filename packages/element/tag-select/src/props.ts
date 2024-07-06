@@ -1,4 +1,4 @@
-import type { ExtractPropTypes } from 'vue'
+import type { ExtractPropTypes, VNode } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type { Alias, OptionsItem } from '../../types'
 

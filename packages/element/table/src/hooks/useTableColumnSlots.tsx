@@ -1,6 +1,7 @@
 import { Operation, QuestionFilled } from '@element-plus/icons-vue'
 import { getEventsFromCamel, isArray, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import { ElFormItem, ElIcon, ElTooltip } from 'element-plus'
+import type { VNode } from 'vue'
 import type { TableColumnProps } from '../props'
 import TableButton from '../TableButton'
 import { SELECT_TYPES } from '../../../form/src/hooks'

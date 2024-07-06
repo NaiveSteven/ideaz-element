@@ -1,4 +1,4 @@
-import type { CSSProperties, ExtractPropTypes, PropType } from 'vue'
+import type { CSSProperties, ExtractPropTypes, PropType, VNode } from 'vue'
 import type { ComponentSize } from 'element-plus'
 import type {
   DefaultRow,
