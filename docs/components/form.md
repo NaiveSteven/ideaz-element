@@ -36,7 +36,7 @@
 ## 校验
 
 - `columns`表单项中添加`required`字段，或者`formItemProps`中设置`required`字段，即可设置必填，校验信息会根据`label`自动生成也可自定义。
-- `z-filter-form`传入`rules`字段，可以定义表单校验规则。
+- `form`传入`rules`字段，可以定义表单校验规则。
 - `columns`表单项配置`rules`，可以定义当前表单项校验规则。
 
 <preview path="../demo/form/validate.vue" />
