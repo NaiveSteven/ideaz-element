@@ -75,6 +75,12 @@
 
 <preview path="../demo/crud-form/expand.vue" />
 
+## 装饰组件
+
+配置`formDecorator`和`crudDecorator`可以配置筛选表单和表格的背景。`name`字段可以是`div`、`span`等标签，也可以是全局注册组件名称。
+
+<preview path="../demo/crud-form/decorator.vue" />
+
 ## z-crud查询表单相关属性
 
 | 属性名              | 说明                                     | 类型                 | 默认值 |
@@ -90,6 +96,8 @@
 | request             | 接口配置                                 | `object`             | —      |
 | paginationStorage             | 分页缓存                                 | `boolean`             | `false`      |
 | formStorage             | 查询表单数据缓存                                 | `boolean`             | `false`      |
+| formDecorator             |    表单背景                              | `object`             | `{ name: 'el-card' }`      |
+| tableDecorator             | 表格背景                                 | `object`             | `{ name: 'el-card' }`      |
 
 ## search属性
 
