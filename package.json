@@ -1,7 +1,7 @@
 {
   "name": "ideaz-element",
   "type": "module",
-  "version": "0.0.1-beta.6",
+  "version": "0.0.1-beta.7",
   "packageManager": "pnpm@7.30.0",
   "homepage": "https://naivesteven.github.io/ideaz-element/",
   "keywords": [

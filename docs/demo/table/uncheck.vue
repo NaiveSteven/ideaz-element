@@ -52,6 +52,6 @@ const columns = ref([
   <z-table
     :data="tableData"
     :columns="columns"
-    :tool-bar="{ uncheck: ['性别'] }"
+    :tool-bar="{ uncheck: ['性别'], density: false, setting: false }"
   />
 </template>

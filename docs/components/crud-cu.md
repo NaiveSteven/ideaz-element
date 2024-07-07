@@ -58,7 +58,7 @@
 
 ## 表单属性
 
-使用`add`和`edit`对象配置表单属性。
+使用`add`和`edit`对象配置新增和编辑表单属性。`form`属性可以统一配置新增和编辑。
 
 <preview path="../demo/crud-cu/form-props.vue" />
 
@@ -72,12 +72,12 @@
 
 | 属性名  | 说明                                     | 类型                 | 默认值 |
 | :------ | :--------------------------------------- | :------------------- | :----- |
-| detail  | 查询表单属性配置                         | `boolean` / `object` | `true` |
+| detail  | 详情配置                         | `boolean` / `object` / `({ row, tableRef }) => void` | `true` |
 | form    | 查询、新增、编辑和查看表单属性配置       | `object`             | —      |
 | action  | 操作项是否展示（内置的删除、编辑等按钮） | `boolean`            | `true` |
 | edit    | 编辑配置                                 | `boolean` / `object` | `true` |
 | add     | 新增配置                                 | `boolean` / `object` | `true` |
-| delete  | 删除配置                                 | `boolean` / `object` |
+| delete  | 删除配置                                 | `boolean` / `({ row, tableRef, getTableData }) => void` |
 | search  | 查询配置                                 | `boolean` / `object` | `true` |
 | request | 接口配置                                 | `object`             | —      |
 

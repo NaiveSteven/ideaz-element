@@ -75,21 +75,29 @@
 
 <preview path="../demo/crud-form/expand.vue" />
 
+## 装饰组件
+
+配置`formDecorator`和`crudDecorator`可以配置筛选表单和表格的背景。`name`字段可以是`div`、`span`等标签，也可以是全局注册组件名称。
+
+<preview path="../demo/crud-form/decorator.vue" />
+
 ## z-crud查询表单相关属性
 
 | 属性名              | 说明                                     | 类型                 | 默认值 |
 | :------------------ | :--------------------------------------- | :------------------- | :----- |
 | modelValue:formData | 查询表单数据                             | `object`             | —      |
-| detail              | 查询表单属性配置                         | `boolean` / `object` | `true` |
+| detail              | 详情配置                         | `boolean` / `object` / `({ row, tableRef }) => void` | `true` |
 | form                | 查询、新增、编辑和查看表单属性配置       | `object`             | —      |
 | action              | 操作项是否展示（内置的删除、编辑等按钮） | `boolean`            | `true` |
 | edit                | 编辑配置                                 | `boolean` / `object` | `true` |
 | add                 | 新增配置                                 | `boolean` / `object` | `true` |
-| delete              | 删除配置                                 | `boolean` / `object` |
+| delete              | 删除配置                                 | `boolean` / `({ row, tableRef, getTableData }) => void` |
 | search              | 查询配置                                 | `boolean` / `object` | `true` |
 | request             | 接口配置                                 | `object`             | —      |
 | paginationStorage             | 分页缓存                                 | `boolean`             | `false`      |
 | formStorage             | 查询表单数据缓存                                 | `boolean`             | `false`      |
+| formDecorator             |    表单背景                              | `object`             | `{ name: 'el-card' }`      |
+| tableDecorator             | 表格背景                                 | `object`             | `{ name: 'el-card' }`      |
 
 ## search属性
 
@@ -134,8 +142,8 @@
 | fieldProps    | `component`组件属性    | `object`                               | —      |
 | formItemProps | `formItem`组件属性     | `object`                               | —      |
 | label         | 表单标签名             | `string` / `() => VNode`               | —      |
-| hide          | 显隐                   | `boolean` / `() => boolean`            | —      |
-| hideUseVShow  | 使用`v-show`显隐       | `boolean` / `() => boolean`            | —      |
+| hide          | 显隐                   | `boolean` / `(formData) => boolean`            | —      |
+| show  | 使用`v-show`显隐       | `boolean` / `(formData) => boolean`            | —      |
 | slot          | 表单项自定义内容插槽   | `string`                               | —      |
 | render        | 表单项自定义内容render | `() => VNode`                          | —      |
 | required      | 表单项是否必填         | `boolean`                              | —      |

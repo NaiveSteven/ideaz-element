@@ -14,10 +14,10 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /guide/install
+      link: /guide/start
     - theme: alt
       text: Learn More
-      link: /guide/start
+      link: /components/checkbox
 
 features:
   - icon: 💪

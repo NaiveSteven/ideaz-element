@@ -24,6 +24,10 @@
 支持通过方法调用打开弹窗，内部会默认配置标题。
 我们可以通过`title`、`message`或者函数的参数传入字符串实现自定义标题和内容。
 
+:::tip
+因为文档的渲染原因，`ZDialogTip`函数直接绑定在了`window`上，如果您在项目中使用，可以直接从`ideaz-element`包中导入。
+:::
+
 <preview path="../demo/dialog/import.vue" />
 
 ## 操作按钮

@@ -1,5 +1,5 @@
 import type { FormItemProps as ElFormItemProps, FormItemRule, FormRules } from 'element-plus'
-import type { CSSProperties } from 'vue'
+import type { CSSProperties, VNode } from 'vue'
 import type { IndexType, OptionsItem } from './common'
 
 interface FormItemProps {
@@ -20,8 +20,8 @@ export interface FormColumn {
   field?: string
   formItemProps?: Partial<ElFormItemProps> & FormItemProps
   fieldProps?: IndexType
-  hide?: (formData: any) => boolean
-  hideUseVShow?: (formData: any) => boolean
+  hide?: ((formData: any) => boolean) | boolean
+  show?: ((formData: any) => boolean) | boolean
   on?: IndexType
   slot?: string
   colGrid?: IndexType

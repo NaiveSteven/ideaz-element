@@ -21,7 +21,7 @@ function replacePropertyValues(obj: any, reverse = false) {
   return obj
 }
 
-export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref<any>) {
+export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref<any>): { zTableFormRef: Ref<any>, columns: Ref<TableCol[]> } {
   const editableType = ref<'single' | 'multiple'>(isObject(props.editable) ? (props.editable.type || 'single') : 'single')
   const zTableFormRef = ref()
   const columns = ref<TableCol[]>([])
@@ -42,11 +42,13 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       link: true,
       hide: ({ row }: TableColumnScopeData) => row.__isEdit || editableType.value === 'multiple',
       onClick: ({ row, $index, column }: TableColumnScopeData) => {
-        if (isObject(props.editable) && isFunction(props.editable?.onEdit))
+        if (isObject(props.editable) && isFunction(props.editable?.onEdit)) {
           props.editable?.onEdit({ row, $index, column, formRef: zTableFormRef.value })
-
-        else
+        }
+        else {
           row.__isEdit = true
+          emit('update:data', tableData.value)
+        }
       },
     }
   }
@@ -71,6 +73,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
 
             replacePropertyValues(row)
             row.__isEdit = false
+            emit('update:data', tableData.value)
           })
         }
       },
@@ -90,6 +93,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
         else {
           replacePropertyValues(row, true)
           row.__isEdit = false
+          emit('update:data', tableData.value)
         }
       },
     }
@@ -102,11 +106,13 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       link: true,
       onClick: ({ row, $index, column }: TableColumnScopeData) => {
         const delData = () => {
-          if (isObject(props.editable) && isFunction(props.editable?.onDelete))
+          if (isObject(props.editable) && isFunction(props.editable?.onDelete)) {
             props.editable?.onDelete({ row, $index, column, formRef: zTableFormRef.value })
-
-          else
+          }
+          else {
             tableData.value.splice($index, 1)
+            emit('update:data', tableData.value)
+          }
         }
         if (isObject(props.editable) && props.editable?.deleteConfirm) {
           DialogTip({

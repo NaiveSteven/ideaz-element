@@ -1,4 +1,5 @@
 import { isFunction, isSlot } from '@ideaz/utils'
+import type { VNode } from 'vue'
 import type { FormItemProps } from '../props'
 import FormItemLabel from '../FormItemLabel'
 import type { Slots } from '../../../types'

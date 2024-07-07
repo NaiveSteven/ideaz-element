@@ -188,10 +188,6 @@ export default defineConfig({
           text: '指南',
           items: [
             {
-              text: '安装',
-              link: '/guide/install',
-            },
-            {
               text: '快速上手',
               link: '/guide/start',
             },

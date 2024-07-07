@@ -1,11 +1,11 @@
 // import draggable from 'vuedraggable'
 import { Back, DCaret, FullScreen, Operation, Refresh, Right, VideoPause } from '@element-plus/icons-vue'
 import { VueDraggable } from 'vue-draggable-plus'
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isObject, isValid } from '@ideaz/utils'
 import type { CheckboxValueType } from 'element-plus'
 import { ElButton, ElCheckbox, ElCheckboxGroup, ElDivider, ElDropdown, ElDropdownItem, ElDropdownMenu, ElPopover, ElTooltip } from 'element-plus'
-import { useFixedTableCols, useToolBarTableCols } from './hooks'
 import type { TableCol } from '../../types'
+import { useFixedTableCols, useToolBarTableCols } from './hooks'
 import { toolBarProps } from './props'
 
 function mergeArraysByUID(arr1: TableCol[], arr2: TableCol[]) {
@@ -139,6 +139,14 @@ export default defineComponent({
       },
     ]
 
+    const getFunctionVisible = (key: string) => {
+      const toolBar = props.toolBar
+      if (isObject(toolBar) && isValid(toolBar[key])) {
+        return toolBar[key]
+      }
+      return true
+    }
+
     const handleRefresh = () => {
       emit('refresh')
     }
@@ -223,108 +231,117 @@ export default defineComponent({
 
       return (
         <div class={ns.b('')}>
-          <ElTooltip effect="dark" content={t('common.refresh')} placement="top" showAfter={300}>
-            <ElButton v-loading={loading} size={size.value} icon={Refresh} text onClick={handleRefresh}></ElButton>
-          </ElTooltip>
-          <ElTooltip effect="dark" content={t('table.density')} placement="top" showAfter={300}>
-            <ElDropdown
-              onCommand={handleCommand}
-              trigger="click"
-              size="default"
-              v-slots={{
-                dropdown: () => (
-                  <>
-                    <ElDropdownMenu>
-                      {TABLE_SIZE_LIST.map(item => (
-                        <ElDropdownItem
-                          command={item.size}
-                          class={props.size === item.size && 'density-dropdown__active'}
-                        >
-                          {item.label}
-                        </ElDropdownItem>
-                      ))}
-                    </ElDropdownMenu>
-                  </>
-                ),
-              }}
-            >
-              <ElButton icon={DCaret} text></ElButton>
-            </ElDropdown>
-          </ElTooltip>
-          <ElTooltip effect="dark" content={isFullScreen.value ? t('common.cancelFullScreen') : t('common.fullScreen')} placement="top" showAfter={300}>
-            <z-full-screen el={fullScreenElement || document.getElementsByClassName('z-table__container')[0]} onChange={(val: boolean) => isFullScreen.value = val}>
-              <ElButton icon={FullScreen} text size={size.value} />
-            </z-full-screen>
-          </ElTooltip>
-          <ElTooltip effect="dark" content={t('table.columnSetting')} placement="top" showAfter={300}>
-            <div>
-              <ElPopover
-                placement="bottom"
-                width="190"
+          {getFunctionVisible('refresh') && (
+            <ElTooltip effect="dark" content={t('common.refresh')} placement="top" showAfter={300}>
+              <ElButton v-loading={loading} size={size.value} icon={Refresh} text onClick={handleRefresh}></ElButton>
+            </ElTooltip>
+          )}
+          {getFunctionVisible('density') && (
+            <ElTooltip effect="dark" content={t('table.density')} placement="top" showAfter={300}>
+              <ElDropdown
+                onCommand={handleCommand}
                 trigger="click"
+                size="default"
                 v-slots={{
-                  reference: () => (
-                    <ElButton icon={Operation} text size={size.value}></ElButton>
+                  dropdown: () => (
+                    <>
+                      <ElDropdownMenu>
+                        {TABLE_SIZE_LIST.map(item => (
+                          <ElDropdownItem
+                            command={item.size}
+                            class={props.size === item.size && 'density-dropdown__active'}
+                          >
+                            {item.label}
+                          </ElDropdownItem>
+                        ))}
+                      </ElDropdownMenu>
+                    </>
                   ),
                 }}
               >
-                <div class="column-popover__inner">
-                  <div class="column-popover__title">
-                    <ElCheckbox
-                      modelValue={checkAll.value}
-                      indeterminate={isIndeterminate.value}
-                      onChange={handleCheckAllChange}
-                      onUpdate:modelValue={(val: any) => {
-                        checkAll.value = val
-                      }}
-                      size="small"
-                    >
-                      {t('table.columnDisplay')}
-                    </ElCheckbox>
-                    <a onClick={resetAll} href="javascript:;" class="column-popover__reset">
-                      {t('common.reset')}
-                    </a>
-                  </div>
-                  <div class="column-popover__content">
-                    {CONTENT_CONFIG.map((config) => {
-                      const dragModelValue = (config.dragModelValue as Ref<TableCol[]>).value ? (config.dragModelValue as Ref<TableCol[]>).value : sortTableCols
-                      return (
-                        <>
-                          {config.titleVisible ? <ElDivider>{config.title}</ElDivider> : null}
-                          <ElCheckboxGroup
-                            v-model={config.checkboxModelValue.value}
-                            size="small"
-                            onChange={config.checkboxChange}
-                          >
-                            <draggable
-                              modelValue={dragModelValue}
-                              animation={200}
-                              onChange={config.dragChange}
-                              onEnd={config.dragEnd}
-                              ghostClass="column-popover-checkbox__drag--ghost"
+                <ElButton icon={DCaret} text></ElButton>
+              </ElDropdown>
+            </ElTooltip>
+          )}
+          {getFunctionVisible('fullScreen') && (
+            <ElTooltip effect="dark" content={isFullScreen.value ? t('common.cancelFullScreen') : t('common.fullScreen')} placement="top" showAfter={300}>
+              <z-full-screen el={fullScreenElement || document.getElementsByClassName('z-table__container')[0]} onChange={(val: boolean) => isFullScreen.value = val}>
+                <ElButton icon={FullScreen} text size={size.value} />
+              </z-full-screen>
+            </ElTooltip>
+          )}
+          {getFunctionVisible('setting') && (
+            <ElTooltip effect="dark" content={t('table.columnSetting')} placement="top" showAfter={300}>
+              <div>
+                <ElPopover
+                  placement="bottom"
+                  width="190"
+                  trigger="click"
+                  v-slots={{
+                    reference: () => (
+                      <ElButton icon={Operation} text size={size.value}></ElButton>
+                    ),
+                  }}
+                >
+                  <div class="column-popover__inner">
+                    <div class="column-popover__title">
+                      <ElCheckbox
+                        modelValue={checkAll.value}
+                        indeterminate={isIndeterminate.value}
+                        onChange={handleCheckAllChange}
+                        onUpdate:modelValue={(val: any) => {
+                          checkAll.value = val
+                        }}
+                        size="small"
+                      >
+                        {t('table.columnDisplay')}
+                      </ElCheckbox>
+                      <a onClick={resetAll} href="javascript:;" class="column-popover__reset">
+                        {t('common.reset')}
+                      </a>
+                    </div>
+                    <div class="column-popover__content">
+                      {CONTENT_CONFIG.map((config) => {
+                        const dragModelValue = (config.dragModelValue as Ref<TableCol[]>).value ? (config.dragModelValue as Ref<TableCol[]>).value : sortTableCols
+                        return (
+                          <>
+                            {config.titleVisible ? <ElDivider>{config.title}</ElDivider> : null}
+                            <ElCheckboxGroup
+                              v-model={config.checkboxModelValue.value}
+                              size="small"
+                              onChange={config.checkboxChange}
                             >
-                              {config.checkboxData.map((item: TableCol) => {
-                                return (
-                                  <div key={item.__uid} class="column-popover-checkbox">
-                                    <ElCheckbox value={item.__uid} key={item.__uid}>
-                                      {item.label || item.type}
-                                    </ElCheckbox>
-                                    <div class={ns.be('setting-item', 'extra')}>
-                                      {config.extraContent(item)}
+                              <draggable
+                                modelValue={dragModelValue}
+                                animation={200}
+                                onChange={config.dragChange}
+                                onEnd={config.dragEnd}
+                                ghostClass="column-popover-checkbox__drag--ghost"
+                              >
+                                {config.checkboxData.map((item: TableCol) => {
+                                  return (
+                                    <div key={item.__uid} class="column-popover-checkbox">
+                                      <ElCheckbox value={item.__uid} key={item.__uid}>
+                                        {item.label || item.type}
+                                      </ElCheckbox>
+                                      <div class={ns.be('setting-item', 'extra')}>
+                                        {config.extraContent(item)}
+                                      </div>
                                     </div>
-                                  </div>
-                                )
-                              })}
-                            </draggable>
-                          </ElCheckboxGroup>
-                        </>
-                      )
-                    })}
+                                  )
+                                })}
+                              </draggable>
+                            </ElCheckboxGroup>
+                          </>
+                        )
+                      })}
+                    </div>
                   </div>
-                </div>
-              </ElPopover>
-            </div>
-          </ElTooltip>
+                </ElPopover>
+              </div>
+            </ElTooltip>
+          )}
+
         </div>
       )
     }

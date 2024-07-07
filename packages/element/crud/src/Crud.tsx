@@ -21,7 +21,7 @@ import { EXCLUDE_FORM_PROPS_KEYS, crudProps, crudProvideKey } from './props'
 export default defineComponent({
   name: 'ZCrud',
   props: crudProps,
-  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'operate-submit', 'operate-delete', 'operate-cancel', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change', 'radio-change'],
+  emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'operate-submit', 'operate-delete', 'operate-view', 'operate-cancel', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change', 'radio-change'],
   setup(props, { emit, slots, expose }) {
     const attrs = useAttrs()
     const {
@@ -116,7 +116,7 @@ export default defineComponent({
       const nativeTags = ['div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6']
       const isNativeTag = nativeTags.includes(decoratorProps.name)
       const name = decoratorProps.name ? isNativeTag ? decoratorProps.name : resolveComponent(decoratorProps.name) : resolveComponent('el-card')
-      return h(name, omit(decoratorProps, ['children', 'name']), decoratorProps.children)
+      return h(name, omit(decoratorProps, ['children', 'name']), isNativeTag ? decoratorProps.children() : decoratorProps.children)
     }
 
     const renderAlert = () => {

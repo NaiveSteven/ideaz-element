@@ -1,12 +1,12 @@
 import { isArray, isObject } from '@ideaz/utils'
 import { omit } from 'lodash-unified'
 import type { CrudProps } from '../props'
-import type { CrudCol } from '../../../types'
+import type { CrudCol, TableFormConfig } from '../../../types'
 
 export function useDescriptions(props: CrudProps) {
   const descriptionColumns = computed(() => {
-    if (isObject(props.detail) && isArray(props.detail?.columns))
-      return props.detail.columns
+    if (isObject(props.detail) && isArray((props.detail as TableFormConfig).columns))
+      return (props.detail as TableFormConfig).columns
     if (isObject(props.form) && isArray(props.form.columns) && props.detail !== false) {
       return props.form.columns.map((column) => {
         return {

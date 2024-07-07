@@ -1,5 +1,5 @@
 import type { ButtonProps, ElForm, TableColumnCtx, dropdownItemProps, dropdownProps } from 'element-plus'
-import type { ExtractPropTypes, Ref } from 'vue'
+import type { ExtractPropTypes, Ref, VNode } from 'vue'
 import type { OptionsItem } from './common'
 import type { FormColumn } from './form'
 
@@ -17,6 +17,10 @@ export type BtnItem = Partial<Omit<ButtonProps, 'type' | 'disabled'>> & {
 export interface ToolBar {
   uncheck?: string[]
   exclude?: string[]
+  refresh?: boolean
+  fullScreen?: boolean
+  density?: boolean
+  setting?: boolean
 }
 
 export interface TableFormConfig {

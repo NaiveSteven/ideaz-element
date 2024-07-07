@@ -103,7 +103,7 @@ export const crudProps = {
     default: true,
   },
   detail: {
-    type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
+    type: [Object, Boolean, Function] as PropType<TableFormConfig | boolean | (({ row, tableRef }: { row: any, tableRef: typeof ZTable }) => void)>,
     default: true,
   },
   delete: {
@@ -127,6 +127,9 @@ export const crudProps = {
     default: () => ({}),
   },
   onOperateCancel: {
+    type: Function,
+  },
+  onOperateView: {
     type: Function,
   },
   dataKey: {

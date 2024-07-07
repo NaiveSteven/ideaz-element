@@ -25,6 +25,7 @@ export function useFormItems(props: FormProps) {
 
   const formatFormItems = computed<FormColumn[]>(() => {
     const _schema = cloneDeep(props.columns).map((item: FormColumn) => ({
+      show: true,
       ...item,
       __key: item.key || item.field || item.slot || uid(),
       children: item.children
@@ -43,6 +44,7 @@ export function useFormItems(props: FormProps) {
                 ...child?.fieldProps,
               }
           return {
+            show: true,
             ...child,
             fieldProps,
           }

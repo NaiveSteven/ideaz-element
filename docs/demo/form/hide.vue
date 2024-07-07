@@ -28,11 +28,12 @@ const columns = [
     component: 'select',
     field: 'gender',
     label: '性别',
+    show: (formData: any) => formData.name,
   },
   {
     component: 'input',
     label: '年龄',
-    hide: () => !formData.value.gender,
+    hide: formData => formData.gender === '1' || !formData.gender,
     field: 'age',
   },
   {

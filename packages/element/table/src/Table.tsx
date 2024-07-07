@@ -140,7 +140,7 @@ export default defineComponent({
                 sortTableCols={sortTableCols.value}
                 size={size.value}
                 toolBar={props.toolBar}
-                tableProps={{ ...props, fullScreenElement: props.fullScreenElement || (() => ctx!.$refs.zTableRef as HTMLElement) }}
+                tableProps={{ ...props, fullScreenElement: props.fullScreenElement || (() => ctx!.$refs.containerRef as HTMLElement) }}
                 onColumns-change={(data) => {
                   middleTableCols.value = cloneDeep(data)
                   tableKey.value = new Date().valueOf()
@@ -262,7 +262,7 @@ export default defineComponent({
 
     return () => {
       return (
-        <div class={ns.b('')} ref="zTableRef">
+        <div class={ns.b('')} ref="containerRef">
           {renderTableTop()}
           {renderToolBar()}
           {renderContent()}

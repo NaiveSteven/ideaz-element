@@ -36,16 +36,18 @@
 ## 校验
 
 - `columns`表单项中添加`required`字段，或者`formItemProps`中设置`required`字段，即可设置必填，校验信息会根据`label`自动生成也可自定义。
-- `z-filter-form`传入`rules`字段，可以定义表单校验规则。
+- `form`传入`rules`字段，可以定义表单校验规则。
 - `columns`表单项配置`rules`，可以定义当前表单项校验规则。
 
 <preview path="../demo/form/validate.vue" />
 
 ## 联动
 
-`column`表单项传入`hide`（支持字符串或函数类型），可以配置表单项联动隐藏。
+`column`表单项传入`hide`（支持布尔值或函数类型），可以配置表单项联动隐藏。
 
-试试选中性别，年龄表单项会出现。
+某些业务中需要使用`v-show`决定组件显隐，`column`表单项传入字段`show`（支持布尔值或函数类型）即可。
+
+姓名输入框有值，会展示性别选择框，然后试试选中性别，年龄表单项会出现。
 
 <preview path="../demo/form/hide.vue" />
 
@@ -142,8 +144,8 @@
 | fieldProps    | `component`组件属性                    | `object`                    | —      |
 | formItemProps | `formItem`组件属性                     | `object`                    | —      |
 | label         | 表单标签名                             | `string` / `() => VNode`    | —      |
-| hide          | 显隐                                   | `boolean` / `() => boolean` | —      |
-| hideUseVShow  | 使用`v-show`显隐                       | `boolean` / `() => boolean` | —      |
+| hide          | 显隐                                   | `boolean` / `(formData) => boolean` | —      |
+| show  | 使用`v-show`显隐                       | `boolean` / `(formData) => boolean` | —      |
 | slot          | 表单项自定义内容插槽                   | `string`                    | —      |
 | render        | 表单项自定义内容render                 | `() => VNode`               | —      |
 | required      | 表单项是否必填                         | `boolean`                   | —      |

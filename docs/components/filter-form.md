@@ -113,8 +113,8 @@
 | fieldProps                      | `component`组件属性                                  | `object`             |  —      |
 | formItemProps                      | `formItem`组件属性                                  | `object`             |  —      |
 | label                      | 表单标签名                                  | `string` / `() => VNode`             |  —      |
-| hide                      | 显隐                                  | `boolean` / `() => boolean`             |  —      |
-| hideUseVShow                      | 使用`v-show`显隐                                  | `boolean` / `() => boolean`             |  —      |
+| hide                      | 显隐                                  | `boolean` / `(formData) => boolean`             |  —      |
+| show                      | 使用`v-show`显隐                                  | `boolean` / `(formData) => boolean`             |  —      |
 | slot                      | 表单项自定义内容插槽                                  | `string`             |  —      |
 | render                      | 表单项自定义内容render                                  | `() => VNode`             |  —      |
 | required                      |  表单项是否必填                                 | `boolean`             |  —      |
