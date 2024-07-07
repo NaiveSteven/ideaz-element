@@ -164,7 +164,7 @@
 
 配置`watermark`，详情可参考`z-watermark`配置。
 
-<preview path="../demo/table/custom-operation.vue" />
+<preview path="../demo/table/watermark.vue" />
 
 ## 表格方法
 
