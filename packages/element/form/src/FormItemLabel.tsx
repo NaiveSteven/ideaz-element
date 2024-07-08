@@ -1,7 +1,7 @@
 import { isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import { QuestionFilled } from '@element-plus/icons-vue'
 import { ElIcon, ElTooltip } from 'element-plus'
-import type { FormItemTooltip } from '../../types'
+import type { FormItemTooltip, TooltipObjectType } from '../../types'
 
 interface TooltipReference { reference?: (() => VNode) }
 
@@ -42,9 +42,19 @@ export default defineComponent({
       const { label, colon, tooltip } = props
 
       const tooltipProps = isObject(tooltip)
-        ? tooltip
+        ? { content: isString((tooltip as TooltipObjectType).content) ? (tooltip as TooltipObjectType).content : '' }
         : { content: isString(tooltip) ? tooltip : '' }
       const tooltipSlot: any = {}
+
+      if (isObject(tooltip)) {
+        const content = (tooltip as TooltipObjectType).content
+        if (isFunction(content)) {
+          tooltipSlot.content = () => content()
+        }
+        if (isSlot(content)) {
+          tooltipSlot.content = () => slots[content as string]?.()
+        }
+      }
 
       if (isFunction(tooltip))
         tooltipSlot.content = () => tooltip()
@@ -58,7 +68,7 @@ export default defineComponent({
           <ElTooltip
             effect="dark"
             placement="top"
-            {...tooltipProps}
+            {...tooltipProps as Omit<TooltipObjectType, 'content'>}
             v-slots={tooltipSlot}
           >
             {renderReference(tooltip)}

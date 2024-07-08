@@ -2,9 +2,9 @@ import type { FormItemProps as ElFormItemProps, ElTooltipProps, FormItemRule, Fo
 import type { CSSProperties, VNode } from 'vue'
 import type { IndexType, OptionsItem } from './common'
 
-type tooltipProps = ElTooltipProps & { reference?: (() => VNode) | string }
+export type TooltipObjectType = Omit<Partial<ElTooltipProps>, 'content'> & { reference?: (() => VNode) | string, content: string | (() => VNode) }
 
-export type FormItemTooltip = string | (() => VNode) | tooltipProps
+export type FormItemTooltip = string | (() => VNode) | TooltipObjectType
 
 export interface FormItemProps {
   tooltip?: FormItemTooltip

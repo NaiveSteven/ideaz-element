@@ -44,7 +44,7 @@ const columns = [
     formItemProps: {
       tooltip: {
         reference: 'tooltipSlot',
-        content: '提示内容',
+        content: () => h('span', {}, '自定义年龄提示'),
       },
       colon: false,
     },
