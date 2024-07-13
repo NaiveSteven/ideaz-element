@@ -33,6 +33,10 @@
 
 <preview path="../demo/form/tooltip.vue" />
 
+`tooltip`支持传入`render函数`和插槽自定义。
+
+<preview path="../demo/form/custom-tooltip.vue" />
+
 ## 校验
 
 - `columns`表单项中添加`required`字段，或者`formItemProps`中设置`required`字段，即可设置必填，校验信息会根据`label`自动生成也可自定义。

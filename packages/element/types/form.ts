@@ -1,9 +1,13 @@
-import type { FormItemProps as ElFormItemProps, FormItemRule, FormRules } from 'element-plus'
+import type { FormItemProps as ElFormItemProps, ElTooltipProps, FormItemRule, FormRules } from 'element-plus'
 import type { CSSProperties, VNode } from 'vue'
 import type { IndexType, OptionsItem } from './common'
 
-interface FormItemProps {
-  tooltip?: string | (() => VNode)
+export type TooltipObjectType = Omit<Partial<ElTooltipProps>, 'content'> & { reference?: (() => VNode) | string, content: string | (() => VNode) }
+
+export type FormItemTooltip = string | (() => VNode) | TooltipObjectType
+
+export interface FormItemProps {
+  tooltip?: FormItemTooltip
   label?: string | (() => VNode)
   extra?: string | (() => VNode)
   colon?: boolean
@@ -13,7 +17,7 @@ interface FormItemProps {
 
 export interface FormColumn {
   component?: string | (() => string)
-  tooltip?: string | (() => VNode)
+  tooltip?: FormItemTooltip
   label?: string | (() => VNode)
   extra?: string | (() => VNode)
   colon?: boolean

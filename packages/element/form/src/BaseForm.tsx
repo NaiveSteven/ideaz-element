@@ -233,7 +233,7 @@ export default defineComponent({
             const field = column.field!
             const maxLength = column.max || max
             return (
-              <ZFormItem col={column} class={ns.b('array-form-item')} formConfig={{ ...omit(column, FORM_ITEM_FILTER_KEYS) }}>
+              <ZFormItem col={column} class={ns.b('array-form-item')} formConfig={{ ...omit(column, FORM_ITEM_FILTER_KEYS) }} v-slots={slots}>
                 <>
                   {modelValue[field].map((data: any, index: number) => {
                     const formProps = omit(column, FORM_FILTER_KEYS)
