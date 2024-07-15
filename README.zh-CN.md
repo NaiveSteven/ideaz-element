@@ -52,8 +52,6 @@ yarn add ideaz-element
 
 [这里](https://naivesteven.github.io/ideaz-element/) 可以查看在线文档。
 
-> 作者的英语很差，如果你有任何改进英语文档的建议，可以创建一个 issue 或 PR。
-
 ## 帮助
 
 在 [issue](https://github.com/NaiveSteven/ideaz-element/issues) 给我留言，以便第一时间获得帮助。
