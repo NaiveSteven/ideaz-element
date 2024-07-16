@@ -18,6 +18,10 @@
 
 <preview path="../demo/crud-delete/custom-delete-logic.vue" />
 
+`delete`属性传入对象，可以直接自定义删除弹窗属性（属性详情可查看弹窗文档）。
+
+<preview path="../demo/crud-delete/custom-delete-dialog.vue" />
+
 ## 多选框
 
 多选框和删除功能结合，组件内部会有`el-alert`和批量删除等内置功能。
@@ -48,7 +52,7 @@
 
 | 属性名  | 说明                                     | 类型                                                    | 默认值 |
 | :------ | :--------------------------------------- | :------------------------------------------------------ | :----- |
-| delete  | 删除配置                         | `boolean` / `({ row, tableRef, getTableData }) => void` | `true` |
+| delete  | 删除配置                         | `boolean` / `({ row, tableRef, getTableData }) => void` / `object` | `true` |
 | action  | 操作项是否展示（内置的删除、编辑等按钮） | `boolean`                                               | `true` |
 | edit    | 编辑配置                                 | `boolean` / `object`                                    | `true` |
 | add     | 新增配置                                 | `boolean` / `object`                                    | `true` |

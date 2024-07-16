@@ -3,6 +3,7 @@ import type { ExtractPropTypes, VNode } from 'vue'
 import type { ComponentSize, ElTable } from 'element-plus'
 import { tableProps } from '../../table/src/props'
 import { formProps } from '../../form/src/props'
+import type { DialogProps } from '../../dialog/src/props'
 import type { AddRequestApiParams, CrudCol, DeleteRequestApiParams, DetailRequestApiParams, EditRequestApiParams, TableFormConfig } from '../../types'
 import type ZTable from '../../table/src/Table'
 
@@ -107,7 +108,7 @@ export const crudProps = {
     default: true,
   },
   delete: {
-    type: [Boolean, Function] as PropType<boolean | (({ row, tableRef, getTableData }: { row: any, tableRef: typeof ZTable, getTableData: (() => void) }) => void)>,
+    type: [Boolean, Function, Object] as PropType<boolean | (({ row, tableRef, getTableData }: { row: any, tableRef: typeof ZTable, getTableData: (() => void) }) => void) | DialogProps>,
     default: true,
   },
   dialog: {
