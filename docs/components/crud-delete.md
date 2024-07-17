@@ -22,11 +22,14 @@
 
 <preview path="../demo/crud-delete/custom-delete-dialog.vue" />
 
-## 多选框
+## 多选删除
 
 多选框和删除功能结合，组件内部会有`el-alert`和批量删除等内置功能。
 
 <preview path="../demo/crud-delete/checkbox.vue" />
+
+自定义多选删除弹窗内容。
+<preview path="../demo/crud-delete/custom-multiple-delete.vue" />
 
 ## Alert配置
 
