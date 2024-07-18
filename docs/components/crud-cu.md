@@ -77,7 +77,7 @@
 | action  | 操作项是否展示（内置的删除、编辑等按钮） | `boolean`            | `true` |
 | edit    | 编辑配置                                 | `boolean` / `object` | `true` |
 | add     | 新增配置                                 | `boolean` / `object` | `true` |
-| delete  | 删除配置                                 | `boolean` / `({ row, tableRef, getTableData }) => void` |
+| delete  | 删除配置                                 | `boolean` / `({ row, tableRef, getTableData }) => void` / `object` |
 | search  | 查询配置                                 | `boolean` / `object` | `true` |
 | request | 接口配置                                 | `object`             | —      |
 

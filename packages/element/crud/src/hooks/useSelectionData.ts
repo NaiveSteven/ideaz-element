@@ -1,11 +1,13 @@
 import type { ElTable } from 'element-plus'
 import type { ComponentInternalInstance, Ref } from 'vue'
 import { ElMessage } from 'element-plus'
+import { isFunction, isObject } from '@ideaz/utils'
 import DialogTip from '../../../dialog/src/dialog'
 import type ZTable from '../../../table/src/Table'
 import type { CrudProps } from '../props'
 import type { ITableProps } from '../../../table/src/props'
 import type { TableCol } from '../../../types'
+import type { DialogProps } from '../../../dialog'
 
 export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<ITableProps>, refreshAfterRequest: () => void, getTableData: () => void) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
@@ -31,21 +33,25 @@ export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<IT
   const handleMultipleDelete = () => {
     const deleteApi = props.request?.deleteApi
     if (deleteApi) {
+      const dialogTipProps: DialogProps = isObject(props.delete) ? props.delete as DialogProps : {} as DialogProps
       DialogTip({
         type: 'danger',
-        message: t('crud.multipleDeleteTip'),
-        onConfirm: async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
-          confirmButtonLoading.value = true
-          try {
-            await deleteApi({ [props.dataKey]: selectionData.value.map((item: any) => item[props.dataKey]), selectionData: selectionData.value })
+        ...dialogTipProps as Omit<DialogProps, 'type'>,
+        message: isFunction(dialogTipProps.message) ? dialogTipProps.message({ selectionData: selectionData.value }) : t('crud.multipleDeleteTip'),
+        onConfirm: isFunction(dialogTipProps.onConfirm)
+          ? ({ done, confirmButtonLoading }) => dialogTipProps.onConfirm?.({ done, confirmButtonLoading, selectionData: selectionData.value, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
+          : async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
+            confirmButtonLoading.value = true
+            try {
+              await deleteApi({ [props.dataKey]: selectionData.value.map((item: any) => item[props.dataKey]), selectionData: selectionData.value })
+              confirmButtonLoading.value = false
+              done()
+              ElMessage.success(t('common.success'))
+              refreshAfterRequest()
+            }
+            catch (error) {}
             confirmButtonLoading.value = false
-            done()
-            ElMessage.success(t('common.success'))
-            refreshAfterRequest()
-          }
-          catch (error) {}
-          confirmButtonLoading.value = false
-        },
+          },
       })
     }
     emit('operate-delete', { selectionData: selectionData.value, table: ctx!.$refs.zTableRef as typeof ZTable, getTableData })

@@ -50,8 +50,6 @@ yarn add ideaz-element
 
 [Here](https://naivesteven.github.io/ideaz-element/) you can view the online document.
 
-> Author is not good at English. If you have any advice to improve the English document, you can create an issue or a PR.
-
 ## Help
 
 Open a [issue](https://github.com/NaiveSteven/ideaz-element/issues) to request help.

@@ -1,9 +1,10 @@
-import { isFunction } from '@ideaz/utils'
+import { isFunction, isObject } from '@ideaz/utils'
 import type { ElTable } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { Delete, EditPen, View } from '@element-plus/icons-vue'
 import type { ComponentInternalInstance } from 'vue'
 import DialogTip from '../../../dialog/src/dialog'
+import type { DialogProps } from '../../../dialog'
 import { COLUMN_TYPE_FIELDS } from '../props'
 import type { CrudCol, TableColumnScopeData } from '../../../types'
 import type { CrudProps } from '../props'
@@ -51,22 +52,26 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
           props.delete({ row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
 
         if (props.request?.deleteApi) {
+          const dialogTipProps: DialogProps = isObject(props.delete) ? props.delete as DialogProps : {} as DialogProps
           DialogTip({
             type: 'danger',
-            message: t('crud.deleteTip'),
-            onConfirm: async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
-              const dataKey = props.dataKey
-              confirmButtonLoading.value = true
-              try {
-                await props.request?.deleteApi?.({ [dataKey]: row[dataKey], row })
+            ...dialogTipProps as Omit<DialogProps, 'type'>,
+            message: isFunction(dialogTipProps.message) ? dialogTipProps.message({ row }) : t('crud.deleteTip'),
+            onConfirm: isFunction(dialogTipProps.onConfirm)
+              ? ({ done, confirmButtonLoading }) => dialogTipProps.onConfirm?.({ done, confirmButtonLoading, row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
+              : async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
+                const dataKey = props.dataKey
+                confirmButtonLoading.value = true
+                try {
+                  await props.request?.deleteApi?.({ [dataKey]: row[dataKey], row })
+                  confirmButtonLoading.value = false
+                  done()
+                  ElMessage.success(t('common.success'))
+                  refreshAfterRequest()
+                }
+                catch (error) { }
                 confirmButtonLoading.value = false
-                done()
-                ElMessage.success(t('common.success'))
-                refreshAfterRequest()
-              }
-              catch (error) { }
-              confirmButtonLoading.value = false
-            },
+              },
           })
         }
         emit('operate-delete', { row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
