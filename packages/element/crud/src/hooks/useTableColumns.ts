@@ -4,10 +4,9 @@ import { ElMessage } from 'element-plus'
 import { Delete, EditPen, View } from '@element-plus/icons-vue'
 import type { ComponentInternalInstance } from 'vue'
 import DialogTip from '../../../dialog/src/dialog'
-import type { DialogProps } from '../../../dialog'
 import { COLUMN_TYPE_FIELDS } from '../props'
 import type { CrudCol, TableColumnScopeData } from '../../../types'
-import type { CrudProps } from '../props'
+import type { CrudDeleteDialogTipProps, CrudProps } from '../props'
 import type ZTable from '../../../table/src/Table'
 
 export function useTableColumns(props: CrudProps, emit: any, getTableData: () => void) {
@@ -52,10 +51,10 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
           props.delete({ row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
 
         if (props.request?.deleteApi) {
-          const dialogTipProps: DialogProps = isObject(props.delete) ? props.delete as DialogProps : {} as DialogProps
+          const dialogTipProps: CrudDeleteDialogTipProps = isObject(props.delete) ? props.delete as CrudDeleteDialogTipProps : {} as CrudDeleteDialogTipProps
           DialogTip({
             type: 'danger',
-            ...dialogTipProps as Omit<DialogProps, 'type'>,
+            ...dialogTipProps as Omit<CrudDeleteDialogTipProps, 'type'>,
             message: isFunction(dialogTipProps.message) ? dialogTipProps.message({ row }) : t('crud.deleteTip'),
             onConfirm: isFunction(dialogTipProps.onConfirm)
               ? ({ done, confirmButtonLoading }) => dialogTipProps.onConfirm?.({ done, confirmButtonLoading, row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
