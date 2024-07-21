@@ -16,6 +16,10 @@ type TableKeys = Array<keyof typeof tableProps>
 export const tableKeys = Object.keys(_tableProps) as TableKeys
 export const formKeys = Object.keys(formProps) as FormKeys
 
+export type CrudDeleteDialogTipProps = Omit<DialogProps, 'onConfirm'> & {
+  onConfirm: ({ done, confirmButtonLoading, selectionData, row, tableRef }: { done: () => void, confirmButtonLoading: Ref<boolean>, selectionData?: any, row?: any, tableRef: typeof ZTable, getTableData: () => void }) => void
+}
+
 export interface RequestConfig {
   deleteApi?: (params?: DeleteRequestApiParams) => Promise<any>
   submitApi?: (params?: AddRequestApiParams | EditRequestApiParams) => Promise<any>
@@ -108,7 +112,7 @@ export const crudProps = {
     default: true,
   },
   delete: {
-    type: [Boolean, Function, Object] as PropType<boolean | (({ row, tableRef, getTableData }: { row: any, tableRef: typeof ZTable, getTableData: (() => void) }) => void) | DialogProps>,
+    type: [Boolean, Function, Object] as PropType<boolean | (({ row, tableRef, getTableData }: { row: any, tableRef: typeof ZTable, getTableData: (() => void) }) => void) | CrudDeleteDialogTipProps>,
     default: true,
   },
   dialog: {

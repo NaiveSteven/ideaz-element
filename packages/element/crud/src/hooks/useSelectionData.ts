@@ -4,10 +4,9 @@ import { ElMessage } from 'element-plus'
 import { isFunction, isObject } from '@ideaz/utils'
 import DialogTip from '../../../dialog/src/dialog'
 import type ZTable from '../../../table/src/Table'
-import type { CrudProps } from '../props'
+import type { CrudDeleteDialogTipProps, CrudProps } from '../props'
 import type { ITableProps } from '../../../table/src/props'
 import type { TableCol } from '../../../types'
-import type { DialogProps } from '../../../dialog'
 
 export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<ITableProps>, refreshAfterRequest: () => void, getTableData: () => void) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
@@ -33,10 +32,10 @@ export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<IT
   const handleMultipleDelete = () => {
     const deleteApi = props.request?.deleteApi
     if (deleteApi) {
-      const dialogTipProps: DialogProps = isObject(props.delete) ? props.delete as DialogProps : {} as DialogProps
+      const dialogTipProps: CrudDeleteDialogTipProps = isObject(props.delete) ? props.delete as CrudDeleteDialogTipProps : {} as CrudDeleteDialogTipProps
       DialogTip({
         type: 'danger',
-        ...dialogTipProps as Omit<DialogProps, 'type'>,
+        ...dialogTipProps as Omit<CrudDeleteDialogTipProps, 'type'>,
         message: isFunction(dialogTipProps.message) ? dialogTipProps.message({ selectionData: selectionData.value }) : t('crud.multipleDeleteTip'),
         onConfirm: isFunction(dialogTipProps.onConfirm)
           ? ({ done, confirmButtonLoading }) => dialogTipProps.onConfirm?.({ done, confirmButtonLoading, selectionData: selectionData.value, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
