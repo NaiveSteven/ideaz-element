@@ -50,6 +50,12 @@ export interface AlertConfig {
   effect?: 'light' | 'dark'
 }
 
+export interface CrudOperation extends TableFormConfig {
+  referenceLabel?: string
+  referenceDisabled?: boolean | (() => boolean)
+  referenceHide?: boolean | (() => boolean)
+}
+
 export const crudProps = {
   ..._tableProps,
   // ..._formProps,
@@ -96,7 +102,7 @@ export const crudProps = {
     default: true,
   },
   edit: {
-    type: [Object, Boolean] as PropType<TableFormConfig | boolean>,
+    type: [Object, Boolean] as PropType<CrudOperation | boolean>,
     default: true,
   },
   search: {
@@ -108,11 +114,11 @@ export const crudProps = {
     default: true,
   },
   detail: {
-    type: [Object, Boolean, Function] as PropType<TableFormConfig | boolean | (({ row, tableRef }: { row: any, tableRef: typeof ZTable }) => void)>,
+    type: [Object, Boolean, Function] as PropType<CrudOperation | boolean | (({ row, tableRef }: { row: any, tableRef: typeof ZTable }) => void)>,
     default: true,
   },
   delete: {
-    type: [Boolean, Function, Object] as PropType<boolean | (({ row, tableRef, getTableData }: { row: any, tableRef: typeof ZTable, getTableData: (() => void) }) => void) | CrudDeleteDialogTipProps>,
+    type: [Boolean, Function, Object] as PropType<boolean | (({ row, tableRef, getTableData }: { row: any, tableRef: typeof ZTable, getTableData: (() => void) }) => void) | (CrudDeleteDialogTipProps & CrudOperation)>,
     default: true,
   },
   dialog: {
