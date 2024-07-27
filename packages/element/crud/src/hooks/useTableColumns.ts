@@ -1,4 +1,4 @@
-import { isFunction, isObject } from '@ideaz/utils'
+import { isBoolean, isFunction, isObject } from '@ideaz/utils'
 import type { ElTable } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { Delete, EditPen, View } from '@element-plus/icons-vue'
@@ -6,7 +6,7 @@ import type { ComponentInternalInstance } from 'vue'
 import DialogTip from '../../../dialog/src/dialog'
 import { COLUMN_TYPE_FIELDS } from '../props'
 import type { CrudCol, TableColumnScopeData } from '../../../types'
-import type { CrudDeleteDialogTipProps, CrudProps } from '../props'
+import type { CrudDeleteDialogTipProps, CrudOperation, CrudProps } from '../props'
 import type ZTable from '../../../table/src/Table'
 
 export function useTableColumns(props: CrudProps, emit: any, getTableData: () => void) {
@@ -16,6 +16,20 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
   const isShowDrawer = ref(false)
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const currentMode = ref<'add' | 'view' | 'edit'>('add')
+
+  const getKeyValue = (config: any, key: string, scope: TableColumnScopeData, defaultValue: boolean) => {
+    if (!config)
+      return defaultValue
+    const keys = Object.keys(config)
+    if (keys.includes(key)) {
+      return isBoolean(config[key])
+        ? config[key]
+        : isFunction(config[key])
+          ? (config[key] as (scope: TableColumnScopeData) => boolean)(scope)
+          : false
+    }
+    return false
+  }
 
   const refreshAfterRequest = () => {
     const tableRef = ctx!.$refs.zTableRef as typeof ElTable
@@ -27,10 +41,12 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
 
   const renderEdit = () => {
     return {
-      label: t('common.edit'),
+      label: (props.edit as CrudOperation)?.referenceLabel || t('common.edit'),
       type: 'primary',
       link: true,
       icon: markRaw(EditPen),
+      disabled: (scope: TableColumnScopeData) => getKeyValue({ disabled: (props.edit as CrudOperation)?.referenceDisabled }, 'disabled', scope, false),
+      hide: (props.edit as CrudOperation)?.referenceHide,
       onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
         currentMode.value = 'edit'
@@ -41,10 +57,12 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
 
   const renderDelete = () => {
     return {
-      label: t('common.delete'),
+      label: (props.delete as CrudOperation)?.referenceLabel || t('common.delete'),
       type: 'danger',
       link: true,
       icon: markRaw(Delete),
+      disabled: (scope: TableColumnScopeData) => getKeyValue({ disabled: (props.delete as CrudOperation)?.referenceDisabled }, 'disabled', scope, false),
+      hide: (props.delete as CrudOperation)?.referenceHide,
       onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
         if (isFunction(props.delete))
@@ -80,10 +98,12 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
 
   const renderView = () => {
     return {
-      label: t('common.view'),
+      label: (props.detail as CrudOperation)?.referenceLabel || t('common.view'),
       type: 'primary',
       link: true,
       icon: markRaw(View),
+      disabled: (scope: TableColumnScopeData) => getKeyValue({ disabled: (props.detail as CrudOperation)?.referenceDisabled }, 'disabled', scope, false),
+      hide: (props.detail as CrudOperation)?.referenceHide,
       onClick: ({ row }: TableColumnScopeData) => {
         if (isFunction(props.detail)) {
           props.detail({ row, tableRef: ctx!.$refs.zTableRef as typeof ZTable })
