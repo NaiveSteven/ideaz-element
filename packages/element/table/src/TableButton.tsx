@@ -30,29 +30,43 @@ export default defineComponent({
 
     const FILTER_KEYS = ['children', 'type', 'hide', 'onClick']
 
-    const getButtonVisible = (button: BtnItem, scope: TableColumnScopeData) => {
-      const keys = Object.keys(button)
-      if (keys.includes('hide')) {
-        return isBoolean(button.hide)
-          ? !button.hide
-          : isFunction(button.hide)
-            ? !(button.hide as (scope: TableColumnScopeData) => boolean)(scope)
-            : true
-      }
-      return true
-    }
-
-    const getDisabled = (button: BtnItem, scope: TableColumnScopeData) => {
-      const keys = Object.keys(button)
-      if (keys.includes('disabled')) {
-        return isBoolean(button.disabled)
-          ? button.disabled
-          : isFunction(button.disabled)
-            ? (button.disabled as (scope: TableColumnScopeData) => boolean)(scope)
+    const getKeyValue = (config: any, key: string, scope: TableColumnScopeData, defaultValue: boolean) => {
+      if (!config)
+        return defaultValue
+      const keys = Object.keys(config)
+      if (keys.includes(key)) {
+        return isBoolean(config[key])
+          ? config[key]
+          : isFunction(config[key])
+            ? (config[key] as (scope: TableColumnScopeData) => boolean)(scope)
             : false
       }
       return false
     }
+
+    // const getButtonVisible = (button: BtnItem, scope: TableColumnScopeData) => {
+    //   const keys = Object.keys(button)
+    //   if (keys.includes('hide')) {
+    //     return isBoolean(button.hide)
+    //       ? !button.hide
+    //       : isFunction(button.hide)
+    //         ? !(button.hide as (scope: TableColumnScopeData) => boolean)(scope)
+    //         : true
+    //   }
+    //   return true
+    // }
+
+    // const getDisabled = (button: BtnItem, scope: TableColumnScopeData) => {
+    //   const keys = Object.keys(button)
+    //   if (keys.includes('disabled')) {
+    //     return isBoolean(button.disabled)
+    //       ? button.disabled
+    //       : isFunction(button.disabled)
+    //         ? (button.disabled as (scope: TableColumnScopeData) => boolean)(scope)
+    //         : false
+    //   }
+    //   return false
+    // }
 
     const renderReference = (
       scope: TableColumnScopeData,
@@ -77,7 +91,7 @@ export default defineComponent({
 
     return () => {
       const { button, scope } = props
-      const isShowButton = getButtonVisible(button, scope)
+      const isShowButton = !getKeyValue(button, 'hide', scope, false)
 
       if (isShowButton) {
         if (button.type === 'dropdown') {
@@ -105,7 +119,7 @@ export default defineComponent({
                       return (
                         <ElDropdownItem
                           {...dropdownProps}
-                          disabled={getDisabled(dropdownItem, scope)}
+                          disabled={getKeyValue(dropdownItem, 'disabled', scope, false)}
                           command={dropdownItem.label}
                         >
                           {dropdownItem.label}
@@ -126,7 +140,7 @@ export default defineComponent({
             {...{
               ...button,
               type: button.type,
-              disabled: getDisabled(button, scope),
+              disabled: getKeyValue(button, 'disabled', scope, false),
               onClick: () => {
                 if (isFunction(button.onClick))
                   button.onClick(scope)
