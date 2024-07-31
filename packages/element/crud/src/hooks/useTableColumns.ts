@@ -1,4 +1,4 @@
-import { isBoolean, isFunction, isObject } from '@ideaz/utils'
+import { isFunction, isObject } from '@ideaz/utils'
 import type { ElTable } from 'element-plus'
 import { ElMessage } from 'element-plus'
 import { Delete, EditPen, View } from '@element-plus/icons-vue'
@@ -17,20 +17,6 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const currentMode = ref<'add' | 'view' | 'edit'>('add')
 
-  const getKeyValue = (config: any, key: string, scope: TableColumnScopeData, defaultValue: boolean) => {
-    if (!config)
-      return defaultValue
-    const keys = Object.keys(config)
-    if (keys.includes(key)) {
-      return isBoolean(config[key])
-        ? config[key]
-        : isFunction(config[key])
-          ? (config[key] as (scope: TableColumnScopeData) => boolean)(scope)
-          : false
-    }
-    return false
-  }
-
   const refreshAfterRequest = () => {
     const tableRef = ctx!.$refs.zTableRef as typeof ElTable
     tableRef.clearSelection()
@@ -45,7 +31,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       type: 'primary',
       link: true,
       icon: markRaw(EditPen),
-      disabled: (scope: TableColumnScopeData) => getKeyValue({ disabled: (props.edit as CrudOperation)?.referenceDisabled }, 'disabled', scope, false),
+      disabled: (props.edit as CrudOperation)?.referenceDisabled,
       hide: (props.edit as CrudOperation)?.referenceHide,
       onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
@@ -61,7 +47,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       type: 'danger',
       link: true,
       icon: markRaw(Delete),
-      disabled: (scope: TableColumnScopeData) => getKeyValue({ disabled: (props.delete as CrudOperation)?.referenceDisabled }, 'disabled', scope, false),
+      disabled: (props.delete as CrudOperation)?.referenceDisabled,
       hide: (props.delete as CrudOperation)?.referenceHide,
       onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
@@ -102,7 +88,7 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
       type: 'primary',
       link: true,
       icon: markRaw(View),
-      disabled: (scope: TableColumnScopeData) => getKeyValue({ disabled: (props.detail as CrudOperation)?.referenceDisabled }, 'disabled', scope, false),
+      disabled: (props.detail as CrudOperation)?.referenceDisabled,
       hide: (props.detail as CrudOperation)?.referenceHide,
       onClick: ({ row }: TableColumnScopeData) => {
         if (isFunction(props.detail)) {
