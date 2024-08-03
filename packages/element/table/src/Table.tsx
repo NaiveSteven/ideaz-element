@@ -4,7 +4,7 @@ import { isFunction, isObject, isString } from '@ideaz/utils'
 import { ElButton, ElForm, ElPagination, ElTable } from 'element-plus'
 import { getCurrentInstance } from 'vue'
 import type { ComponentInternalInstance } from 'vue'
-import { draggable } from '../../../directives'
+import { draggable, sticky } from '../../../directives'
 import {
   useDraggable,
   usePagination,
@@ -19,7 +19,7 @@ import { tableProps, tableProvideKey } from './props'
 export default defineComponent({
   name: 'ZTable',
   components: { TableColumn, ToolBar },
-  directives: { draggable },
+  directives: { draggable, sticky },
   inheritAttrs: false,
   props: tableProps,
   emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end'],
@@ -176,6 +176,7 @@ export default defineComponent({
           v-slots={tableSlots}
           key={tableKey.value}
           v-draggable={draggableOptions}
+          v-sticky={{ top: '50px', parent: 'document', zIndex: 996 }}
           {...{ ...tableAttributes.value, data: tableData.value, size: size.value }}
         >
           {formatTableCols.value.map((item, index) => {
