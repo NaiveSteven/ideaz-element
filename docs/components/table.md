@@ -160,6 +160,13 @@
 
 <preview path="../demo/table/custom-operation.vue" />
 
+## 吸顶
+
+通过配置`sticky`属性的`top`、`parent（会出现滚动条的DOM元素）`和`zIndex`实现吸顶功能。
+`top`默认为`50px`，`zIndex`默认为`100`。
+
+<preview path="../demo/table/sticky.vue" />
+
 ## 水印
 
 配置`watermark`，详情可参考`z-watermark`配置。
@@ -185,6 +192,7 @@
 | editable                | 可编辑表格配置                                                                                                                                                                                                | object / boolean                                          | —                                                                                  | —                                                                                            |
 | options                 | 表格内部选项数据源                                                                                                                                                                                            | object                                                    | —                                                                                  | —                                                                                            |
 | watermark               | 水印配置                                                                                                                                                                                                      | object（具体配置可查看`z-watermark`文档）                 | —                                                                                  | —                                                                                            |
+| sticky               | 表格头吸顶配置                                                                                                                                                                                                      | object                 | —                                                                                  | —                                                                                            |
 | options                 | 表格内部选项数据源                                                                                                                                                                                            | object                                                    | —                                                                                  | —                                                                                            |
 | totalData               | 表格所有数据（前端分页生效）                                                                                                                                                                                  | array                                                     | —                                                                                  | —                                                                                            |
 | height                  | Table 的高度， 默认为自动高度。 如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。                                | string / number                                           | —                                                                                  | —                                                                                            |
