@@ -18,6 +18,12 @@ export interface TableEdit {
   onCancel?: ({ row, $index, column, formRef }: EditableTableEventParams) => void
 }
 
+export interface TableSticky {
+  top?: string
+  parent?: string
+  zIndex?: number
+}
+
 export const tableProps = {
   data: {
     type: Array as PropType<DefaultRow[]>,
@@ -144,6 +150,10 @@ export const tableProps = {
   title: {
     type: [String, Function] as PropType<string | (() => VNode)>,
     default: '',
+  },
+  sticky: {
+    type: [Boolean, Object] as PropType<boolean | TableSticky>,
+    default: false,
   },
 }
 

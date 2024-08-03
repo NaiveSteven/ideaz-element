@@ -176,7 +176,7 @@ export default defineComponent({
           v-slots={tableSlots}
           key={tableKey.value}
           v-draggable={draggableOptions}
-          v-sticky={{ top: '50px', parent: 'document', zIndex: 996 }}
+          v-sticky={isObject(props.sticky) ? { top: '50px', zIndex: 100, ...props.sticky } : undefined}
           {...{ ...tableAttributes.value, data: tableData.value, size: size.value }}
         >
           {formatTableCols.value.map((item, index) => {
