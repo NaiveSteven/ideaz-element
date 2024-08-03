@@ -42,7 +42,7 @@ function createTableSticky(el: any, binding: any) {
   copyThead.style.zIndex = zIndex || 1994
   copyThead.style.top = `${stickyTop}px`
   copyThead.style.backgroundColor = '#fff'
-  copyThead.style.borderTop = '1px solid #999999'
+  // copyThead.style.borderTop = '1px solid #999999'
 
   thead.parentNode.insertBefore(copyThead, elBodyBox)
 
@@ -104,6 +104,8 @@ let clearTimeId: any = null
 
 export const sticky = {
   mounted(el: any, binding: any) {
+    if (!binding.value)
+      return
     const random = Number.parseInt(`${Math.random() * 10}`)
     // TIP delay Settings to ensure successful rendering of the table!
     clearTimeId = setTimeout(() => {
@@ -113,6 +115,8 @@ export const sticky = {
   },
 
   update(el: any, binding: any) {
+    if (!binding.value)
+      return
     const random = Number.parseInt(`${Math.random() * 10}`)
     // TIP delay Settings to ensure successful rendering of the table!
     clearTimeId = setTimeout(() => {
