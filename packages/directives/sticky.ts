@@ -1,3 +1,5 @@
+import type { Directive, DirectiveBinding } from 'vue'
+
 /**
  * Idea: Set fixed through the simple el-table's thead and tbody parent level areas
  * 1.Make a copy of thead set to fixed and hide it.
@@ -22,7 +24,7 @@ function getTableShowWidth(thead: string) {
 
 // Use setTime to ensure that the Settings are not repeated
 
-function createTableSticky(el: any, binding: any) {
+function createTableSticky(el: any, binding: DirectiveBinding) {
   let stickyTop = binding.value.top || 0
   const zIndex = binding.value.zIndex || 0
   stickyTop = Number.parseFloat(stickyTop)
@@ -102,8 +104,8 @@ function createTableSticky(el: any, binding: any) {
 
 let clearTimeId: any = null
 
-export const sticky = {
-  mounted(el: any, binding: any) {
+export const sticky: Directive = {
+  mounted(el: any, binding: DirectiveBinding) {
     if (!binding.value)
       return
     const random = Number.parseInt(`${Math.random() * 10}`)
@@ -114,16 +116,16 @@ export const sticky = {
     }, 1000 + random)
   },
 
-  update(el: any, binding: any) {
-    if (!binding.value)
-      return
-    const random = Number.parseInt(`${Math.random() * 10}`)
-    // TIP delay Settings to ensure successful rendering of the table!
-    clearTimeId = setTimeout(() => {
-      createTableSticky(el, binding)
-      // clearTimeout(clearTimeId)
-    }, 1000 + random)
-  },
+  // update(el: any, binding: DirectiveBinding) {
+  //   if (!binding.value)
+  //     return
+  //   const random = Number.parseInt(`${Math.random() * 10}`)
+  //   // TIP delay Settings to ensure successful rendering of the table!
+  //   clearTimeId = setTimeout(() => {
+  //     createTableSticky(el, binding)
+  //     // clearTimeout(clearTimeId)
+  //   }, 1000 + random)
+  // },
 
   unmounted() {
     clearTimeId && clearTimeout(clearTimeId)
