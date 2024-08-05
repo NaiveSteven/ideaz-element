@@ -1,3 +1,4 @@
+import { isObject } from '@ideaz/utils'
 import type { Directive, DirectiveBinding } from 'vue'
 
 /**
@@ -44,6 +45,11 @@ function createTableSticky(el: any, binding: DirectiveBinding) {
   copyThead.style.zIndex = zIndex || 1994
   copyThead.style.top = `${stickyTop}px`
   copyThead.style.backgroundColor = '#fff'
+  if (isObject(binding.value?.style)) {
+    Object.keys(binding.value.style).forEach((key) => {
+      copyThead.style[key] = binding.value.style[key]
+    })
+  }
   // copyThead.style.borderTop = '1px solid #999999'
 
   thead.parentNode.insertBefore(copyThead, elBodyBox)

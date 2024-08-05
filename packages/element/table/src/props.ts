@@ -22,6 +22,7 @@ export interface TableSticky {
   top?: string
   parent?: string
   zIndex?: number
+  style?: CSSProperties
 }
 
 export const tableProps = {
