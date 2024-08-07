@@ -167,6 +167,10 @@
 
 <preview path="../demo/table/sticky.vue" />
 
+支持通过`sticky.style`自定义吸顶表格头样式。
+
+<preview path="../demo/table/sticky-style.vue" />
+
 ## 水印
 
 配置`watermark`，详情可参考`z-watermark`配置。
