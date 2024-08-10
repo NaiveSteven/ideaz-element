@@ -3,13 +3,16 @@
   "type": "module",
   "version": "0.0.1-beta.8",
   "packageManager": "pnpm@7.30.0",
+  "license": "MIT",
   "homepage": "https://naivesteven.github.io/ideaz-element/",
   "keywords": [
     "element-plus",
-    "components",
-    "vue",
-    "ideaz",
-    "vite"
+    "pro-components",
+    "components-library",
+    "tsx",
+    "Vue3",
+    "TypeScript",
+    "Vite"
   ],
   "main": "lib/index.cjs",
   "module": "es/index.mjs",
