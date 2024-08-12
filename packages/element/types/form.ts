@@ -44,6 +44,7 @@ export interface FormColumn {
   disabled?: boolean
   options?: OptionsItem[]
   required?: boolean
+  labelWidth?: string | number
   // grid
   span?: number // col span
   offset?: number // col offset
