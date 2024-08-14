@@ -144,7 +144,7 @@ function mockApi(): Promise<GetTableDataRes> {
 }
 
 function commonApi(params: EditRequestApiParams<FormData, RowData>) {
-  console.log(params, 'commonApi params')
+  console.log(JSON.stringify(params), 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
@@ -156,7 +156,7 @@ function commonApi(params: EditRequestApiParams<FormData, RowData>) {
 }
 
 function detailApi(params: { id: number }) {
-  console.log(params, 'commonApi params')
+  console.log(JSON.stringify(params), 'detailApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
