@@ -111,7 +111,7 @@ function getData(params: any): Promise<GetTableDataRes> {
 }
 
 function commonApi(params: any) {
-  console.log(params, 'params')
+  console.log(JSON.stringify(params), 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({

@@ -14,12 +14,14 @@
 
 + `component`：配置展示组件
 + `fieldProps`：配置组件属性
++ `formItemProps`：装饰组件属性
 + `field`：组件字段名
 + `label`：标题
 + `on + 事件`：组件的事件配置
 + `slot`：插槽
 + `render`：`h函数`或`render函数`
-+ `hide`：隐藏展示配置
++ `hide`：显隐展示配置（基于`v-if`）
++ `show`: 显隐展示配置（基于`v-show`）
 
 ### 内置组件
 

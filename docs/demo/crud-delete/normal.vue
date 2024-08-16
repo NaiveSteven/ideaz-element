@@ -118,7 +118,7 @@ function mockApi() {
 }
 
 function deleteMockApi(params: DeleteRequestApiParams<RowData>) {
-  console.log(params, 'params')
+  console.log(JSON.stringify(params), 'deleteMockApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({

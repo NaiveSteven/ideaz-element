@@ -189,7 +189,7 @@ function mockApi() {
 }
 
 function commonApi(params: EditRequestApiParams<FormData, RowData>) {
-  console.log(params, 'commonApi params')
+  console.log(JSON.stringify(params), 'commonApi params')
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve({
