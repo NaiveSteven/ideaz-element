@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { Pagination } from 'ideaz-element'
+import type { CrudDeleteDialogConfirmParams, Pagination } from 'ideaz-element'
 
 interface RowData {
   id: number
@@ -155,7 +155,7 @@ function handleDelete() {
     type: 'warning',
     message: '确定删除该条数据吗？',
     title: '警告',
-    onConfirm: ({ done, confirmButtonLoading }) => {
+    onConfirm: ({ done, confirmButtonLoading }: CrudDeleteDialogConfirmParams<RowData>) => {
       confirmButtonLoading.value = true
       done()
       confirmButtonLoading.value = false

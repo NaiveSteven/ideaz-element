@@ -1,7 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
-import type { DeleteRequestApiParams } from 'ideaz-element'
+import type { CrudDeleteDialogConfirmParams, DeleteRequestApiParams } from 'ideaz-element'
 
 interface RowData {
   id: number
@@ -133,7 +133,7 @@ function handleDelete({ row }: { row: RowData }) {
     type: 'warning',
     title: '提示',
     message: '确定删除吗？',
-    onConfirm: async ({ confirmButtonLoading, done }) => {
+    onConfirm: async ({ confirmButtonLoading, done }: CrudDeleteDialogConfirmParams<RowData>) => {
       confirmButtonLoading.value = true
       try {
         await deleteMockApi({ id: row.id })
