@@ -3,7 +3,7 @@
 <script lang="ts" setup>
 import { h, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import type { DeleteRequestApiParams } from 'ideaz-element'
+import type { CrudDeleteDialogConfirmParams, DeleteRequestApiParams } from 'ideaz-element'
 
 interface RowData {
   id: number
@@ -73,11 +73,11 @@ const request = ref({
   deleteApi: deleteMockApi,
 })
 const deleteConfig = reactive({
-  message: ({ row }: { row: rowData }) => h('span', {}, `确认删除${row.name}吗？`),
-  onConfirm: async ({ done, confirmButtonLoading, row, tableRef, getTableData }) => {
+  message: ({ row }: { row: RowData }) => h('span', {}, `确认删除${row.name}吗？`),
+  onConfirm: async ({ done, confirmButtonLoading, row, tableRef, getTableData }: CrudDeleteDialogConfirmParams<RowData>) => {
     confirmButtonLoading.value = true
     try {
-      await deleteMockApi({ id: row.id })
+      await deleteMockApi({ id: row?.id })
       ElMessage.success('删除成功')
       confirmButtonLoading.value = false
       done()

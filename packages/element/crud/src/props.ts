@@ -16,8 +16,17 @@ type TableKeys = Array<keyof typeof tableProps>
 export const tableKeys = Object.keys(_tableProps) as TableKeys
 export const formKeys = Object.keys(formProps) as FormKeys
 
-export type CrudDeleteDialogTipProps = Omit<DialogProps, 'onConfirm'> & {
-  onConfirm: ({ done, confirmButtonLoading, selectionData, row, tableRef }: { done: () => void, confirmButtonLoading: Ref<boolean>, selectionData?: any, row?: any, tableRef: typeof ZTable, getTableData: () => void }) => void
+export interface CrudDeleteDialogConfirmParams<T = any> {
+  done: () => void
+  confirmButtonLoading: Ref<boolean>
+  selectionData?: T[]
+  row?: T
+  tableRef: typeof ZTable
+  getTableData: () => void
+}
+
+export type CrudDeleteDialogTipProps<T = any> = Omit<DialogProps, 'onConfirm'> & {
+  onConfirm: ({ done, confirmButtonLoading, selectionData, row, tableRef }: CrudDeleteDialogConfirmParams<T>) => void
 }
 
 export interface RequestConfig {
