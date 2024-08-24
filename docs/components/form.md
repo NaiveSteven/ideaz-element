@@ -67,6 +67,10 @@
 
 <preview path="../demo/form/custom-label.vue" />
 
+## 表格结合
+
+<preview path="../demo/form/form-table.vue" />
+
 ## z-form属性
 
 | 属性名                  | 说明                                                         | 类型                   | 默认  |
