@@ -1,4 +1,5 @@
 import { isFunction, isObject, uid } from '@ideaz/utils'
+import { isEqual } from 'lodash-unified'
 import type { Ref } from 'vue'
 import DialogTip from '../../../dialog/src/dialog'
 import type { ITableProps } from '../props'
@@ -132,7 +133,10 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
     }
   }
 
-  watchEffect(() => {
+  watch(() => props.columns, (newVal, oldVal) => {
+    // Avoid excessive update problems caused by reference address changes
+    if (isEqual(newVal, oldVal))
+      return
     const cols = props.columns.map((item: TableCol) => {
       if (item.type === 'sort')
         return { width: 48, ...item, __uid: uid() }
@@ -165,7 +169,7 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
     else {
       columns.value = cols
     }
-  })
+  }, { immediate: true, deep: true })
 
   return { columns, zTableFormRef }
 }

@@ -23,6 +23,10 @@
 
 <preview path="../demo/crud-form/normal-form.vue" />
 
+如果某一个`column`项不想要表格列，仅仅只想要表单项，在`column`中不配置`type`、`slot`、`render`、`label`、`prop`、`component`等字段，再配置`search`、`form`等表单配置字段即可实现
+
+<preview path="../demo/crud-form/no-table-column.vue" />
+
 ## 条件缓存
 
 配置`name`字段，会默认开启缓存，筛选表单数据和`pagination`数据会缓存在`sessionStorage`中，下次加载时会优先从缓存中获取条件数据。

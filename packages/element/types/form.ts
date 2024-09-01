@@ -30,6 +30,7 @@ export interface FormColumn {
   slot?: string
   colGrid?: IndexType
   modifier?: string
+  order?: number
   render?: any
   // rearSlot?: string
   // frontSlot?: string

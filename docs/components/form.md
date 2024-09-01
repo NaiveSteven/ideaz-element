@@ -67,6 +67,12 @@
 
 <preview path="../demo/form/custom-label.vue" />
 
+## 表单项顺序
+
+表单项传入`order`，支持自定义顺序，不传则默认按顺序放最后
+
+<preview path="../demo/form/order.vue" />
+
 ## 表格结合
 
 <preview path="../demo/form/form-table.vue" />
@@ -152,6 +158,7 @@
 | fieldProps    | `component`组件属性                    | `object`                    | —      |
 | formItemProps | `formItem`组件属性                     | `object`                    | —      |
 | label         | 表单标签名                             | `string` / `() => VNode`    | —      |
+| order         | 表单排序                             | `number`    | —      |
 | hide          | 显隐                                   | `boolean` / `(formData) => boolean` | —      |
 | show  | 使用`v-show`显隐                       | `boolean` / `(formData) => boolean` | —      |
 | slot          | 表单项自定义内容插槽                   | `string`                    | —      |

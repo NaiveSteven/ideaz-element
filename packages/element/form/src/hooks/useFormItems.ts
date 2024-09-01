@@ -1,4 +1,3 @@
-import { cloneDeep } from 'lodash-es'
 import { isFunction, isObject, isString, uid } from '@ideaz/utils'
 import type { FormProps } from '../props'
 import type { FormColumn } from '../../../types'
@@ -24,7 +23,7 @@ export function useFormItems(props: FormProps) {
   }
 
   const formatFormItems = computed<FormColumn[]>(() => {
-    const _schema = cloneDeep(props.columns).map((item: FormColumn) => ({
+    const _schema = props.columns.sort((a, b) => (a.order || 10000) - (b.order || 10000)).map((item: FormColumn) => ({
       show: true,
       ...item,
       __key: item.key || item.field || item.slot || uid(),
