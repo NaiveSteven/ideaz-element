@@ -96,6 +96,13 @@
 
 <preview path="../demo/crud-table/editable.vue" />
 
+## 吸顶
+
+通过配置`sticky`属性的`top`、`parent（会出现滚动条的DOM元素）`和`zIndex`实现吸顶功能。
+`top`默认为`50px`，`zIndex`默认为`100`。
+
+<preview path="../demo/crud-table/sticky.vue" />
+
 ## 水印
 
 配置`watermark`，支持字符串和对象类型，对象类型可配置属性请参考`z-watermark`配置。
