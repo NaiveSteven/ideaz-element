@@ -2,7 +2,6 @@
   "name": "ideaz-element",
   "type": "module",
   "version": "0.0.1-beta.11",
-  "packageManager": "pnpm@7.30.0",
   "license": "MIT",
   "homepage": "https://naivesteven.github.io/ideaz-element/",
   "keywords": [
