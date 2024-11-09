@@ -6,7 +6,7 @@ import { getContentByRenderAndSlot } from '@ideaz/shared'
 import { useVModel } from '@vueuse/core'
 import { isFunction, isString } from '@ideaz/utils'
 import type { CollapseModelValue, FormRules } from 'element-plus'
-import { ElButton, ElCollapse, ElCollapseItem, ElDivider, ElForm, ElFormItem, ElStep, ElSteps } from 'element-plus'
+import { ElButton, ElCollapse, ElCollapseItem, ElDivider, ElForm, ElFormItem, ElMessage, ElStep, ElSteps } from 'element-plus'
 import type { ComponentInternalInstance } from 'vue'
 import { draggable } from '../../../directives'
 import type { FormColumn } from '../../types'
@@ -129,7 +129,7 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max, action } = props
+      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max, min, action } = props
       const isChildren = formatFormItems.value.some(column => column.children)
 
       if (isFunction(slots.default))
@@ -194,6 +194,10 @@ export default defineComponent({
                 <OperationCard
                   onAdd={() => { emit('update:modelValue', [...model, {}]) }}
                   onDelete={() => {
+                    if (modelValue.length === min) {
+                      ElMessage.warning(`至少保留${min}项`)
+                      return
+                    }
                     model.splice(index, 1)
                     emit('update:modelValue', model)
                   }}
