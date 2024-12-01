@@ -181,6 +181,7 @@
 164. ~~`z-crud`查看抽屉文档优化~~
 165. `z-table`和`z-form`的提示支持关联内容自定义
 166. `z-form`表单提交过滤`hide`和`show`等配置不展示的字段
+167. `array-form`表单结构思考是否可以优化
      1201_3z0x8etu5vvckcr
 
 ## FEATURE

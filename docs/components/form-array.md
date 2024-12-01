@@ -20,6 +20,12 @@
 
 <preview path="../demo/form-array/max.vue" />
 
+## 最小数量
+
+通过`min`属性设置最大数量。
+
+<preview path="../demo/form-array/min.vue" />
+
 ## 操作
 
 配置`action`为`false`，可以关闭操作项。
@@ -35,4 +41,5 @@
 | 属性名 | 说明           | 类型     | 默认值 |
 | :----- | :------------- | :------- | :----- |
 | max    | 最大表单项数量 | `number` | —      |
+| min    | 最小表单项数量 | `number` | —      |
 | action    | 操作项 | `boolean` / `() => VNode` | `true`      |

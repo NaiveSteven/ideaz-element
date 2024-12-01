@@ -1,4 +1,4 @@
-import { Delete, Plus } from '@element-plus/icons-vue'
+import { Minus, Plus } from '@element-plus/icons-vue'
 import { ElButton, ElCard } from 'element-plus'
 import { isFunction } from '@ideaz/utils'
 
@@ -41,6 +41,7 @@ export default defineComponent({
               type="primary"
               icon={Plus}
               circle
+              plain
               class={ns.be('operation', `add--${size.value}`)}
               size={size.value === 'small' ? 'small' : 'default'}
               onClick={() => emit('add')}
@@ -49,8 +50,9 @@ export default defineComponent({
           {props.showDelete && (
             <ElButton
               type="danger"
-              icon={Delete}
+              icon={Minus}
               circle
+              plain
               class={ns.be('operation', `delete--${size.value}`)}
               size={size.value === 'small' ? 'small' : 'default'}
               onClick={() => emit('delete')}

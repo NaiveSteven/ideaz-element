@@ -162,6 +162,13 @@
     width: 100%;
   }
 
+  .z-form-item--column {
+    .el-form-item__content {
+      flex-direction: column;
+      align-items: normal;
+    }
+  }
+
   .z-form-item-no-extra--small {
     .el-form-item__error {
       top: 24px;
