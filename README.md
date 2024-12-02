@@ -22,6 +22,8 @@ Meanwhile, the component code pays great attention to reducing the threshold of 
 
 Currently, there are **10+** components, Very suitable for middle and back office business development.
 
+A **low-code tool** based on ideaz-element is also available.
+
 ## Features
 
 - 📦 10+ out-of-box high quality Vue 3 components
@@ -49,6 +51,14 @@ yarn add ideaz-element
 ## Documentation
 
 [Here](https://naivesteven.github.io/ideaz-element/) you can view the online document.
+
+## Reference
+
+Low code tool based on ideaz-element.
+
+[ideaz-lowcode](https://naivesteven.github.io/ideaz-lowcode/)
+
+<img src="https://github.com/NaiveSteven/ideaz-lowcode/raw/main/packages/playground/src/assets/screenshot.png" alt="ideaz-lowcode" />
 
 ## Help
 

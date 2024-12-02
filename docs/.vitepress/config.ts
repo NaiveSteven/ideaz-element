@@ -40,6 +40,10 @@ export default defineConfig({
         text: '更新日志',
         link: 'https://github.com/NaiveSteven/ideaz-element/commits/main/',
       },
+      {
+        text: '低代码工具',
+        link: 'https://naivesteven.github.io/ideaz-lowcode/',
+      },
     ],
     sidebar: {
       '/components/': [

@@ -24,6 +24,8 @@ Ideaz Element 提供了一系列开箱即用的组件。
 
 目前有 **10+** 个组件，非常适用于中后台业务开发。
 
+基于ideaz-element的**低代码工具**也已经上线。
+
 ## 特性
 
 - 📦 10+ 高质量的开箱即用 Vue 3 组件
@@ -51,6 +53,12 @@ yarn add ideaz-element
 ## 文档
 
 [这里](https://naivesteven.github.io/ideaz-element/) 可以查看在线文档。
+
+## 相关
+
+基于ideaz-element的低代码工具——[ideaz-lowcode](https://naivesteven.github.io/ideaz-lowcode/)
+
+<img src="https://github.com/NaiveSteven/ideaz-lowcode/raw/main/packages/playground/src/assets/screenshot.png" alt="ideaz-lowcode" />
 
 ## 帮助
 
