@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash-es'
 import { Plus } from '@element-plus/icons-vue'
 import { isFunction, isObject, isString } from '@ideaz/utils'
-import { ElButton, ElForm, ElPagination, ElTable } from 'element-plus'
+import { ElButton, ElForm, ElPagination, ElTable, ElWatermark } from 'element-plus'
 import { getCurrentInstance } from 'vue'
 import type { ComponentInternalInstance } from 'vue'
 import { draggable, sticky } from '../../../directives'
@@ -202,16 +202,16 @@ export default defineComponent({
     const renderTableDecorator = () => {
       if (isString(props.watermark)) {
         return (
-          <z-watermark content={props.watermark} gapY={80}>
+          <ElWatermark content={props.watermark}>
             {renderTable()}
-          </z-watermark>
+          </ElWatermark>
         )
       }
       if (isObject(props.watermark)) {
         return (
-          <z-watermark {...{ gapY: 80, ...props.watermark }}>
+          <ElWatermark {...{ ...props.watermark }}>
             {renderTable()}
-          </z-watermark>
+          </ElWatermark>
         )
       }
       return renderTable()
