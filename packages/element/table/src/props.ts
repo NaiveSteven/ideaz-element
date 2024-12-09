@@ -1,10 +1,9 @@
 import type { CSSProperties, ExtractPropTypes, PropType, VNode } from 'vue'
-import type { ComponentSize } from 'element-plus'
+import type { ComponentSize, watermarkProps } from 'element-plus'
 import type {
   DefaultRow,
   TableProps,
 } from 'element-plus/es/components/table/src/table/defaults'
-import type { WatermarkProps } from '../../watermark/src/watermark'
 import type { EditableTableEventParams, Pagination, TableCol, ToolBar } from '../../types'
 
 export interface TableEdit {
@@ -138,7 +137,7 @@ export const tableProps = {
     default: () => {},
   },
   watermark: {
-    type: [String, Object, Boolean] as PropType<boolean | string | WatermarkProps>,
+    type: [String, Object, Boolean] as PropType<boolean | string | ElWatermarkProps>,
     default: false,
   },
   fullScreenElement: {
@@ -221,6 +220,7 @@ export const toolBarProps = {
   },
 }
 
+export type ElWatermarkProps = ExtractPropTypes<typeof watermarkProps>
 export type ITableProps = ExtractPropTypes<typeof tableProps>
 export type TableColumnProps = ExtractPropTypes<typeof tableColumnProps>
 export type ToolBarProps = ExtractPropTypes<typeof toolBarProps>
