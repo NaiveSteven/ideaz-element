@@ -1,4 +1,4 @@
-import { ElAlert, ElButton, ElDrawer, useAttrs } from 'element-plus'
+import { ElAlert, ElButton, ElDrawer, ElWatermark, useAttrs } from 'element-plus'
 import { omit } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { isFunction, isObject, isString } from '@ideaz/utils'
@@ -307,16 +307,16 @@ export default defineComponent({
       )
       if (isString(props.watermark)) {
         return (
-          <z-watermark content={props.watermark} gapY={80}>
+          <ElWatermark content={props.watermark}>
             {content()}
-          </z-watermark>
+          </ElWatermark>
         )
       }
       if (isObject(props.watermark)) {
         return (
-          <z-watermark {...{ gapY: 80, ...props.watermark }}>
+          <ElWatermark {...{ ...props.watermark }}>
             {content()}
-          </z-watermark>
+          </ElWatermark>
         )
       }
       return content()
