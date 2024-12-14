@@ -23,7 +23,7 @@ export function useFormItems(props: FormProps) {
   }
 
   const formatFormItems = computed<FormColumn[]>(() => {
-    const _schema = props.columns.sort((a, b) => (a.order || 10000) - (b.order || 10000)).map((item: FormColumn) => ({
+    const _schema = props.columns?.sort((a, b) => (a.order || 10000) - (b.order || 10000)).map((item: FormColumn) => ({
       show: true,
       ...item,
       __key: item.key || item.field || item.slot || uid(),

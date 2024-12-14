@@ -23,7 +23,7 @@ export function useFilterFormItem(props: FilterFormProps) {
 
   const virtualColumns = computed<FormColumn[]>(() => {
     return props.columns
-      .filter((item: FormColumn) => !isHide(item))
+      ?.filter((item: FormColumn) => !isHide(item))
       .map((cur: FormColumn, index: number) => ({
         ...cur,
         ...colLayout,
