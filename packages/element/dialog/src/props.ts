@@ -2,6 +2,10 @@ import type { ButtonProps } from 'element-plus'
 import { dialogProps as elDialogProps } from 'element-plus'
 import type { ExtractPropTypes, Ref, VNode } from 'vue'
 
+export type DialogButtonProps = Partial<ButtonProps> & {
+  label?: string
+}
+
 export const dialogProps = {
   ...elDialogProps,
   closeOnClickModal: {
@@ -13,11 +17,11 @@ export const dialogProps = {
     default: false,
   },
   confirmButtonProps: {
-    type: Object as PropType<Partial<ButtonProps>>,
+    type: Object as PropType<DialogButtonProps>,
     default: () => ({}),
   },
   cancelButtonProps: {
-    type: Object as PropType<Partial<ButtonProps>>,
+    type: Object as PropType<DialogButtonProps>,
     default: () => ({}),
   },
   onCancel: {
