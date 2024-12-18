@@ -1,6 +1,6 @@
 import type { DialogProps } from '../props'
 
-export const useButton = (props: DialogProps) => {
+export function useButton(props: DialogProps) {
   const isConfirmBtnLoading = ref(false)
   const isCancelBtnLoading = ref(false)
 
