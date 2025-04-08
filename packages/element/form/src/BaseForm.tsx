@@ -195,7 +195,7 @@ export default defineComponent({
                   onAdd={() => { emit('update:modelValue', [...model, {}]) }}
                   onDelete={() => {
                     if (modelValue.length === min) {
-                      ElMessage.warning(`至少保留${min}项`)
+                      ElMessage.warning(`${t('form.minNum')}${min}${t('form.minNumUnit')}`)
                       return
                     }
                     model.splice(index, 1)
