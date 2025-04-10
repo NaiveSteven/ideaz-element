@@ -8,6 +8,8 @@ export default {
     add: '添加',
     previousStep: '上一步',
     nextStep: '下一步',
+    minNum: '至少保留',
+    minNumUnit: '项',
   },
   tagSelect: {
     all: '全部',

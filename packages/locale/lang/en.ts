@@ -8,6 +8,8 @@ export default {
     add: 'add',
     previousStep: 'previous step',
     nextStep: 'next step',
+    minNum: 'at least keep',
+    minNumUnit: 'items',
   },
   tagSelect: {
     all: 'all',
