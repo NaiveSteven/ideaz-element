@@ -80,27 +80,35 @@ export default defineComponent({
     }))
 
     const renderPagination = () => {
+      const paginationAlign = isObject(pagination.value) ? pagination.value.align || 'right' : 'right'
+      const paginationDom = (
+        <ElPagination
+          class={ns.e('pagination')}
+          background
+          size="small"
+          {...paginationAttrs.value}
+          currentPage={pagination.value.page}
+          total={pagination.value.total}
+          onUpdate:current-page={handleCurrentChange}
+          onUpdate:page-size={handleSizeChange}
+        />
+      )
       return pagination.value.pageSize
         ? (
           <div class={ns.be('pagination', 'container')}>
             <div class={ns.bm('pagination', 'top')}>
               {isFunction(slots.paginationTop) ? slots.paginationTop() : null}
             </div>
-            <div class={ns.bm('pagination', 'center')}>
+            <div class={[ns.bm('pagination', 'middle')]}>
               <div class={ns.bm('pagination', 'left')}>
                 {isFunction(slots.paginationLeft) ? slots.paginationLeft() : null}
+                {paginationAlign === 'left' && paginationDom}
               </div>
-              <div class={ns.bm('pagination', 'right')}>
-                <ElPagination
-                  class={ns.e('pagination')}
-                  background
-                  size="small"
-                  {...paginationAttrs.value}
-                  currentPage={pagination.value.page}
-                  total={pagination.value.total}
-                  onUpdate:current-page={handleCurrentChange}
-                  onUpdate:page-size={handleSizeChange}
-                />
+              <div class={[ns.bm('pagination', 'center')]}>
+                {paginationAlign === 'center' && paginationDom}
+              </div>
+              <div class={[ns.bm('pagination', 'right')]}>
+                {paginationAlign === 'right' && paginationDom}
                 {isFunction(slots.paginationRight) ? slots.paginationRight() : null}
               </div>
             </div>

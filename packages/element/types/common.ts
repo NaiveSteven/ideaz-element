@@ -28,6 +28,7 @@ export interface Pagination extends Partial<PaginationProps> {
   page?: number
   pageSize?: number
   type?: 'front' | 'backbone'
+  align?: 'left' | 'center' | 'right'
 }
 
 export interface Alias {

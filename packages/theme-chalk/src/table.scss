@@ -13,8 +13,8 @@
       border-radius: 6px;
 
       // &:hover {
-      //   color: rgba(42, 46, 54, 0.88);
-      //   background-color: #d3e7ff;
+      //   color: rgba(42, 46, 54, 0.88);color
+      //   background-color: #d3e7ff;background-color
       // }
     }
   }
@@ -22,18 +22,20 @@
   .z-table-pagination__container {
     margin-top: 16px;
 
-    .z-table-pagination--center {
+    .z-table-pagination--middle {
       display: flex;
       align-items: center;
       justify-content: space-between;
       width: 100%;
 
-      .z-table-pagination--right {
+      .z-table-pagination--right,
+      .z-table-pagination--left {
         display: flex;
         align-items: center;
+        width: auto;
 
         .z-table__pagination {
-          justify-content: flex-end;
+          display: flex;
         }
       }
     }
@@ -277,7 +279,7 @@
           .el-checkbox__input {
             line-height: 0;
 
-            // transform: translateY(1px);
+            // transform: translateY(1px);transform
           }
 
           .el-checkbox__label {
