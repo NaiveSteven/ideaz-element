@@ -119,7 +119,7 @@ export const tableProps = {
   },
   pagination: {
     type: [Object, Boolean] as PropType<Pagination | boolean>,
-    default: () => ({ page: 1, pageSize: 0, total: 0 }),
+    default: () => ({ page: 1, pageSize: 0, total: 0, align: 'right' }),
   },
   toolBar: {
     type: [Boolean, Object] as PropType<ToolBar | boolean>,

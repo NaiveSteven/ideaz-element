@@ -62,10 +62,16 @@ const pagination = ref({
   page: 1,
   pageSize: 2,
   total: 4,
+  align: 'center',
 })
 const request = ref({
   searchApi: mockApi,
 })
+const alignOptions = [
+  { label: 'left pagination', value: 'left' },
+  { label: 'center pagination', value: 'center' },
+  { label: 'right pagination', value: 'right' },
+]
 
 function mockApi() {
   return new Promise((resolve) => {
@@ -119,6 +125,7 @@ function mockApi() {
 </script>
 
 <template>
+  <z-radio v-model="pagination.align" :options="alignOptions" type="radio-button" />
   <z-crud
     v-model:pagination="pagination"
     v-model:data="tableData"

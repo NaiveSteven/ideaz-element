@@ -58,6 +58,12 @@
 
 <preview path="../demo/table/pagination-front.vue" />
 
+## 分页位置
+
+配置`pagination`的`align`字段，支持`left`、`center`、`right`，默认`right`。
+
+<preview path="../demo/table/pagination-align.vue" />
+
 ## 列显隐
 
 `column`中配置`hide`字段，支持函数或布尔值，函数返回布尔值，true表示隐藏，false表示显示。
@@ -341,6 +347,7 @@
 | type                | 分页类型                                                                                                                       | `front` / `backbone`   | `backbone`                           |
 | page                | 当前页                                                                                                                         | `number`               | —                                    |
 | pageSize            | 每页显示条目个数                                                                                                               | `number`               | —                                    |
+| align            | 分页位置                                                                                                               | `left` / `center` / `right`               | `right`                                    |
 | small               | 是否使用小型分页样式                                                                                                           | `boolean`              | true                                 |
 | background          | 是否为分页按钮添加背景色                                                                                                       | `boolean`              | false                                |
 | total               | 总条目数                                                                                                                       | `number`               | —                                    |
