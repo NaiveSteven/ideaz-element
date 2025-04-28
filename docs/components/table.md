@@ -74,6 +74,7 @@
 
 `column`中配置`slot`或`render`实现自定义列内容。
 
+
 <preview path="../demo/table/custom-column.vue" />
 
 ## 列类型
@@ -109,6 +110,19 @@
 `column`中配置`tooltip`实现表头提示功能，支持函数和字符串。
 
 <preview path="../demo/table/tooltip.vue" />
+
+## 相同项合并
+
+表格属性配置`mergeCells`，支持单独配置行或列，支持配置字段。
+
+```ts
+interface mergeCells {
+  direction: 'row' | 'column' | 'both'  // 合并方向：行、列、或两者都合并
+  props?: string[]  // 需要合并的字段，不传则所有列都参与合并
+}
+```
+
+<preview path="../demo/table/merge.vue" />
 
 ## 工具栏
 
@@ -205,6 +219,7 @@
 | sticky               | 表格头吸顶配置                                                                                                                                                                                                      | object                 | —                                                                                  | —                                                                                            |
 | options                 | 表格内部选项数据源                                                                                                                                                                                            | object                                                    | —                                                                                  | —                                                                                            |
 | totalData               | 表格所有数据（前端分页生效）                                                                                                                                                                                  | array                                                     | —                                                                                  | —                                                                                            |
+| mergeCells               | 表格相同项合并配置                                                                                                                                                                                  | object                                                     | —                                                                                  | —                                                                                            |
 | height                  | Table 的高度， 默认为自动高度。 如果 height 为 number 类型，单位 px；如果 height 为 string 类型，则这个高度会设置为 Table 的 style.height 的值，Table 的高度会受控于外部样式。                                | string / number                                           | —                                                                                  | —                                                                                            |
 | max-height              | Table 的最大高度。 合法的值为数字或者单位为 px 的高度。                                                                                                                                                       | string / number                                           | —                                                                                  | —                                                                                            |
 | stripe                  | 是否为斑马纹 table                                                                                                                                                                                            | boolean                                                   | —                                                                                  | false                                                                                        |
