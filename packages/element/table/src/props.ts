@@ -155,6 +155,12 @@ export const tableProps = {
     type: [Boolean, Object] as PropType<boolean | TableSticky>,
     default: false,
   },
+  mergeCells: {
+    type: Object as PropType<{
+      direction: 'row' | 'column' | 'both'  // 合并方向：行、列、或两者都合并
+      props?: string[]  // 需要合并的字段，不传则所有列都参与合并
+    }>,
+  },
 }
 
 export const tableColumnProps = {

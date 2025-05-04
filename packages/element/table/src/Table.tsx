@@ -11,6 +11,7 @@ import {
   useTableColumns,
   useTableMethods,
   useTableSlots,
+  useMergeCells,
 } from './hooks'
 import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'
@@ -68,6 +69,7 @@ export default defineComponent({
     } = useTableColumns(props, emit, tableData)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
     const { draggableOptions, dragging } = useDraggable(emit, tableData, middleTableCols)
+    const { spanMethod } = useMergeCells(props)
     const ns = useNamespace('table')
     const { t } = useLocale()
     const size = ref(props.size)
@@ -185,7 +187,7 @@ export default defineComponent({
           key={tableKey.value}
           v-draggable={draggableOptions}
           v-sticky={isObject(props.sticky) ? { top: '50px', zIndex: 100, ...props.sticky } : undefined}
-          {...{ ...tableAttributes.value, data: tableData.value, size: size.value }}
+          {...{ ...tableAttributes.value, spanMethod: tableAttributes.value.spanMethod || spanMethod, data: tableData.value, size: size.value }}
         >
           {formatTableCols.value.map((item, index) => {
             return (
