@@ -29,6 +29,8 @@
 
 我们可以使用`slot`或`render`自定义表单项内容。
 
+自定义内容也是使用`hide`改变显隐状态。
+
 <preview path="../demo/filter-form/custom-form-item.vue" />
 
 ## label、error自定义
@@ -39,7 +41,11 @@
 
 ## 联动
 
-使用`hide`配置表单项显隐
+使用`hide`配置表单项显隐。
+:::tip
+如果`column`中配置了`hide`，`search`事件传递的数据会过滤隐藏的表单项（自定义表单项需要传入`field`）。
+可以配置`filterHiddenFields`为`false`关闭，默认为`true`。
+:::
 
 <preview path="../demo/filter-form/hide.vue" />
 

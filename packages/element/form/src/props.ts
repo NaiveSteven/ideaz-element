@@ -129,6 +129,10 @@ export const filterFormProps = {
     type: Boolean,
     default: true,
   },
+  filterHiddenFields: {
+    type: Boolean,
+    default: true,
+  },
   searchButtonLoading: {
     type: Boolean,
     default: false,

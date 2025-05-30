@@ -14,7 +14,7 @@ export default defineComponent({
   props: filterFormProps,
   emits: ['search', 'reset', 'update:modelValue'],
   setup(props, { attrs, slots, emit }) {
-    const { isShowToggleButton, columns, toggleButtonType } = useFilterFormItem(props)
+    const { isShowToggleButton, columns, toggleButtonType, isHide } = useFilterFormItem(props)
     const { formConfig } = useFormConfig(props)
     const { searchButtonProps, resetButtonProps } = useFilterFormButtons(props)
     const size = useFormSize()
@@ -38,8 +38,22 @@ export default defineComponent({
 
     const handleSearch = () => {
       (ctx?.$refs.formRef as typeof ElForm).validate((val: boolean) => {
-        if (val)
-          emit('search')
+        if (val) {
+          if (props.filterHiddenFields) {
+            // 过滤掉隐藏的表单项数据
+            const filteredData = {} as any
+            Object.keys(props.modelValue).forEach((key) => {
+              const column = props.columns?.find(item => item.field === key)
+              if (!column || !isHide(column)) {
+                filteredData[key] = props.modelValue[key]
+              }
+            })
+            emit('search', filteredData)
+          }
+          else {
+            emit('search', props.modelValue)
+          }
+        }
       })
     }
 
