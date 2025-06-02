@@ -128,5 +128,5 @@ export function useFilterFormItem(props: FilterFormProps) {
     return false
   }
 
-  return { isShowToggleButton, columns, toggleButtonType }
+  return { isShowToggleButton, columns, toggleButtonType, isHide }
 }

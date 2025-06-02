@@ -1,3 +1,4 @@
+<!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { ref } from 'vue'
 
@@ -5,6 +6,7 @@ const formRef = ref()
 const formData = ref({
   name: '',
   gender: '',
+  address: '',
   time: [],
 })
 
@@ -27,6 +29,12 @@ const columns = [
     label: '性别',
   },
   {
+    slot: 'addressSlot',
+    label: '地址',
+    field: 'address', // 传入field字段，隐藏时过滤
+    hide: () => !formData.value.name
+  },
+  {
     component: 'el-date-picker',
     field: 'time',
     label: '出生日期',
@@ -38,6 +46,10 @@ const columns = [
     },
   },
 ]
+
+function handleSearch (data: any) {
+  console.log(data)
+}
 </script>
 
 <template>
@@ -48,5 +60,10 @@ const columns = [
     :columns="columns"
     size="small"
     label-width="80px"
-  />
+    @search="handleSearch"
+  >
+    <template #addressSlot>
+      <el-input v-model="formData.address" placeholder="请输入地址" clearable />
+    </template>
+  </z-filter-form>
 </template>

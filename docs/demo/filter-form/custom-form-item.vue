@@ -3,7 +3,7 @@ import { h, ref } from 'vue'
 
 const formRef = ref()
 const formData = ref({
-  name: '',
+  name: 'Jack',
   age: '',
   height: '身高自定义',
 })
@@ -17,6 +17,7 @@ const columns = [
   {
     slot: 'ageSlot',
     label: '年龄',
+    hide: () => !formData.value.name
   },
   {
     render: () => h('span', {}, formData.value.height),
