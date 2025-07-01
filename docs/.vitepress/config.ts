@@ -137,6 +137,10 @@ export default defineConfig({
                   link: '/components/table',
                 },
                 {
+                  text: 'Table 表格虚拟滚动',
+                  link: '/components/table-virtual',
+                },
+                {
                   text: 'Crud 增删改查',
                   items: [
                     {

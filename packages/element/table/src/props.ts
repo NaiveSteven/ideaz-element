@@ -24,6 +24,15 @@ export interface TableSticky {
   style?: CSSProperties
 }
 
+export interface VirtualScrollConfig {
+  enabled?: boolean           // 是否启用虚拟滚动
+  itemHeight?: number         // 每行的固定高度，默认48px
+  estimatedRowHeight?: number // 动态高度时的预估行高
+  buffer?: number            // 缓冲区大小，上下各渲染多少行
+  threshold?: number         // 数据量超过多少条时自动启用虚拟滚动
+  cache?: number             // 缓存行数，提升性能
+}
+
 export const tableProps = {
   data: {
     type: Array as PropType<DefaultRow[]>,
@@ -160,6 +169,10 @@ export const tableProps = {
       direction: 'row' | 'column' | 'both'  // 合并方向：行、列、或两者都合并
       props?: string[]  // 需要合并的字段，不传则所有列都参与合并
     }>,
+  },
+  virtual: {
+    type: [Boolean, Object] as PropType<boolean | VirtualScrollConfig>,
+    default: false,
   },
 }
 

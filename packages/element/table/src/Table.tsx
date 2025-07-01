@@ -1,21 +1,22 @@
 import { cloneDeep } from 'lodash-es'
 import { Plus } from '@element-plus/icons-vue'
 import { isFunction, isObject, isString } from '@ideaz/utils'
-import { ElButton, ElForm, ElPagination, ElTable, ElWatermark } from 'element-plus'
+import { ElAutoResizer, ElButton, ElForm, ElPagination, ElTable, ElTableV2, ElWatermark } from 'element-plus'
 import { getCurrentInstance } from 'vue'
 import type { ComponentInternalInstance } from 'vue'
 import { draggable, sticky } from '../../../directives'
 import {
   useDraggable,
+  useMergeCells,
   usePagination,
   useTableColumns,
   useTableMethods,
   useTableSlots,
-  useMergeCells,
 } from './hooks'
 import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'
 import { tableProps, tableProvideKey } from './props'
+import type { VirtualScrollConfig } from './props'
 
 export default defineComponent({
   name: 'ZTable',
@@ -23,32 +24,11 @@ export default defineComponent({
   directives: { draggable, sticky },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end'],
+  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end', 'sort-change'],
   setup(props, { emit, slots, expose }) {
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-    const {
-      setCurrentRow,
-      toggleRowSelection,
-      clearSelection,
-      clearFilter,
-      toggleAllSelection,
-      toggleRowExpansion,
-      clearSort,
-      toggleRadioSelection,
-      sort,
-    } = useTableMethods()
+    const { toggleRadioSelection } = useTableMethods()
 
-    expose({
-      setCurrentRow,
-      toggleRowSelection,
-      clearSelection,
-      clearFilter,
-      toggleAllSelection,
-      toggleRowExpansion,
-      clearSort,
-      toggleRadioSelection,
-      sort,
-    })
     const {
       pagination,
       paginationAttrs,
@@ -70,6 +50,123 @@ export default defineComponent({
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
     const { draggableOptions, dragging } = useDraggable(emit, tableData, middleTableCols)
     const { spanMethod } = useMergeCells(props)
+
+    // 虚拟滚动配置
+    const virtualConfig = computed((): Required<VirtualScrollConfig> => {
+      const defaultConfig: Required<VirtualScrollConfig> = {
+        enabled: false,
+        itemHeight: 48,
+        estimatedRowHeight: 48,
+        buffer: 5,
+        threshold: 100,
+        cache: 2,
+      }
+
+      if (!props.virtual) return defaultConfig
+      if (props.virtual === true) {
+        return {
+          ...defaultConfig,
+          enabled: true,
+        }
+      }
+      return {
+        ...defaultConfig,
+        enabled: true,
+        ...props.virtual,
+      }
+    })
+
+    // 是否启用虚拟滚动
+    const isVirtualEnabled = computed(() => {
+      return virtualConfig.value.enabled &&
+             tableData.value.length > virtualConfig.value.threshold
+    })
+
+    // 简化的虚拟表格列配置
+    const virtualColumns = computed(() => {
+      if (!isVirtualEnabled.value) return []
+
+      return formatTableCols.value.map((col, index) => {
+        const baseColumn: any = {
+          key: col.prop || `column-${index}`,
+          dataKey: col.prop || `column-${index}`,
+          title: typeof col.label === 'string' ? col.label : `Column ${index + 1}`,
+          width: typeof col.width === 'number' ? col.width : 150,
+        }
+        return baseColumn
+      })
+    })
+
+    // 暴露的方法
+    const virtualTableRef = ref()
+
+    const getTableRef = () => {
+      return isVirtualEnabled.value ? virtualTableRef.value : ctx!.$refs.zTableRef
+    }
+
+    expose({
+      setCurrentRow: (row?: any) => {
+        const tableRef = getTableRef()
+        if (tableRef && tableRef.setCurrentRow) {
+          tableRef.setCurrentRow(row)
+        }
+      },
+      toggleRowSelection: (row: any, selected?: boolean) => {
+        const tableRef = getTableRef()
+        if (tableRef && tableRef.toggleRowSelection) {
+          tableRef.toggleRowSelection(row, selected)
+        }
+      },
+      clearSelection: () => {
+        const tableRef = getTableRef()
+        if (tableRef && tableRef.clearSelection) {
+          tableRef.clearSelection()
+        }
+      },
+      clearFilter: (columnKeys?: string[]) => {
+        const tableRef = getTableRef()
+        if (tableRef && tableRef.clearFilter) {
+          tableRef.clearFilter(columnKeys)
+        }
+      },
+      toggleAllSelection: () => {
+        const tableRef = getTableRef()
+        if (tableRef && tableRef.toggleAllSelection) {
+          tableRef.toggleAllSelection()
+        }
+      },
+      toggleRowExpansion: (row: any, expanded?: boolean) => {
+        const tableRef = getTableRef()
+        if (tableRef && tableRef.toggleRowExpansion) {
+          tableRef.toggleRowExpansion(row, expanded)
+        }
+      },
+      clearSort: () => {
+        const tableRef = getTableRef()
+        if (tableRef && tableRef.clearSort) {
+          tableRef.clearSort()
+        }
+      },
+      toggleRadioSelection,
+      sort: (prop: string, order?: string) => {
+        const tableRef = getTableRef()
+        if (tableRef && tableRef.sort) {
+          tableRef.sort(prop, order)
+        }
+      },
+      // 虚拟滚动特有方法
+      scrollTo: (position: { scrollLeft?: number; scrollTop?: number }) => {
+        if (isVirtualEnabled.value && virtualTableRef.value?.scrollTo) {
+          virtualTableRef.value.scrollTo(position)
+        }
+      },
+      scrollToRow: (index: number, strategy: string = 'auto') => {
+        if (isVirtualEnabled.value && virtualTableRef.value?.scrollToRow) {
+          virtualTableRef.value.scrollToRow(index, strategy)
+        }
+      },
+    })
+
     const ns = useNamespace('table')
     const { t } = useLocale()
     const size = ref(props.size)
@@ -176,7 +273,41 @@ export default defineComponent({
       )
     }
 
-    const renderTable = () => {
+    // 渲染虚拟表格
+    const renderVirtualTable = () => {
+      const tableHeight = props.height || 500
+
+      return (
+        <div style={{ height: typeof tableHeight === 'number' ? `${tableHeight}px` : tableHeight }}>
+          <ElAutoResizer>
+            {{
+              default: ({ height, width }: { height: number; width: number }) => (
+                <ElTableV2
+                  ref={virtualTableRef}
+                  data={tableData.value}
+                  columns={virtualColumns.value as any}
+                  width={width}
+                  height={height}
+                  rowHeight={virtualConfig.value.itemHeight}
+                  cache={virtualConfig.value.cache}
+                  estimatedRowHeight={virtualConfig.value.estimatedRowHeight}
+                  v-loading={props.loading}
+                  class="z-table-component z-table-virtual"
+                />
+              )
+            }}
+          </ElAutoResizer>
+        </div>
+      )
+    }
+
+        const renderTable = () => {
+      // 虚拟滚动模式
+      if (isVirtualEnabled.value) {
+        return renderVirtualTable()
+      }
+
+      // 普通表格模式 - 保持原有的renderTable逻辑
       const { loading, editable } = props
       return (
         <ElTable
