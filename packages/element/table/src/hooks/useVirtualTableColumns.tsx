@@ -35,6 +35,56 @@ export function useVirtualTableColumns(
   // 选择状态管理
   const selectedRowKeys = ref<Set<string | number>>(new Set())
 
+  // 展开状态管理 - 支持双向绑定
+  const expandedRowKeys = computed({
+    get() {
+      return Array.isArray(props.expandedRowKeys) ? props.expandedRowKeys : []
+    },
+    set(value) {
+      emit('update:expandedRowKeys', value)
+    }
+  })
+
+    // 检查是否有展开列
+  const hasExpandColumn = computed(() => {
+    return formatTableCols.value.some(col => col.type === 'expand')
+  })
+
+  // 获取展开列的key
+  const expandColumnKey = computed(() => {
+    const expandCol = formatTableCols.value.find(col => col.type === 'expand')
+    return expandCol ? (expandCol.prop || 'expand') : undefined
+  })
+
+    // 展开相关方法
+  const toggleRowExpansion = (row: any, expanded?: boolean) => {
+    const rowKey = row[props.rowKey || 'id']
+    const currentKeys = [...expandedRowKeys.value]
+    const keyIndex = currentKeys.indexOf(rowKey)
+
+    if (expanded === undefined) {
+      if (keyIndex > -1) {
+        currentKeys.splice(keyIndex, 1)
+      } else {
+        currentKeys.push(rowKey)
+      }
+    } else if (expanded) {
+      if (keyIndex === -1) {
+        currentKeys.push(rowKey)
+      }
+    } else {
+      if (keyIndex > -1) {
+        currentKeys.splice(keyIndex, 1)
+      }
+    }
+
+    // 更新展开状态
+    expandedRowKeys.value = currentKeys
+
+    // 触发展开变化事件 (保持向后兼容)
+    emit('expand-change', row, currentKeys.includes(rowKey))
+  }
+
   // 虚拟表格列配置
   const virtualColumns = computed(() => {
     return formatTableCols.value.map((col, index) => {
@@ -43,6 +93,15 @@ export function useVirtualTableColumns(
         dataKey: col.prop || `column-${index}`,
         title: typeof col.label === 'string' ? col.label : `Column ${index + 1}`,
         width: typeof col.width === 'number' ? col.width : 150,
+      }
+
+      // 处理展开列 - TableV2会自动处理有children的行
+      if (col.type === 'expand') {
+        return {
+          key: 'expand',
+          width: col.width || 50,
+          // TableV2会自动为有children的行添加展开按钮
+        }
       }
 
       // 处理选择列
@@ -192,9 +251,13 @@ export function useVirtualTableColumns(
 
   return {
     virtualColumns,
+    hasExpandColumn,
+    expandColumnKey,
     selectedRowKeys,
+    expandedRowKeys,
     clearSelection,
     toggleRowSelection,
     toggleAllSelection,
+    toggleRowExpansion,
   }
 }

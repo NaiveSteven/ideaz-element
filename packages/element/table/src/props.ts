@@ -80,6 +80,7 @@ export const tableProps = {
   currentRowKey: [String, Number],
   emptyText: String,
   expandRowKeys: Array as PropType<TableProps<DefaultRow>['expandRowKeys']>,
+  expandedRowKeys: Array as PropType<(string | number)[]>,
   defaultExpandAll: Boolean,
   defaultSort: Object as PropType<TableProps<DefaultRow>['defaultSort']>,
   tooltipEffect: String,

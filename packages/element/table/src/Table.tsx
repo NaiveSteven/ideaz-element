@@ -25,7 +25,7 @@ export default defineComponent({
   directives: { draggable, sticky },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end', 'sort-change', 'selection-change'],
+  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end', 'sort-change', 'selection-change', 'expand-change', 'update:expandedRowKeys', 'row-expand', 'expanded-rows-change'],
   setup(props, { emit, slots, expose }) {
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
     const { toggleRadioSelection } = useTableMethods()
@@ -86,9 +86,12 @@ export default defineComponent({
     // 虚拟表格列配置和选择功能
     const {
       virtualColumns,
+      hasExpandColumn,
+      expandColumnKey,
       clearSelection: virtualClearSelection,
       toggleRowSelection: virtualToggleRowSelection,
       toggleAllSelection: virtualToggleAllSelection,
+      toggleRowExpansion: virtualToggleRowExpansion,
     } = useVirtualTableColumns(formatTableCols, tableData, slots, emit, props)
 
     // 暴露的方法
@@ -142,9 +145,13 @@ export default defineComponent({
         }
       },
       toggleRowExpansion: (row: any, expanded?: boolean) => {
-        const tableRef = getTableRef()
-        if (tableRef && tableRef.toggleRowExpansion) {
-          tableRef.toggleRowExpansion(row, expanded)
+        if (isVirtualEnabled.value) {
+          virtualToggleRowExpansion(row, expanded)
+        } else {
+          const tableRef = getTableRef()
+          if (tableRef && tableRef.toggleRowExpansion) {
+            tableRef.toggleRowExpansion(row, expanded)
+          }
         }
       },
       clearSort: () => {
@@ -297,8 +304,27 @@ export default defineComponent({
                   rowHeight={virtualConfig.value.itemHeight}
                   cache={virtualConfig.value.cache}
                   estimatedRowHeight={virtualConfig.value.estimatedRowHeight}
+                  expandColumnKey={hasExpandColumn.value ? expandColumnKey.value : undefined}
+                  expandedRowKeys={props.expandedRowKeys}
+                  onUpdate:expanded-row-keys={(keys: any[]) => {
+                    emit('update:expandedRowKeys', keys)
+                  }}
+                  onExpandedRowsChange={(keys: any[]) => {
+                    emit('expanded-rows-change', keys)
+                  }}
+                  onRowExpand={(params: any) => emit('row-expand', params)}
                   v-loading={props.loading}
                   class="z-table-component z-table-virtual"
+                  v-slots={{
+                    row: (rowProps: any) => {
+                      // 如果有row插槽，使用用户自定义的渲染
+                      if (slots.row || slots.expand) {
+                        return slots.row?.(rowProps) || slots.expand?.(rowProps)
+                      }
+                      // 默认行渲染
+                      return rowProps.cells
+                    }
+                  }}
                 />
               )
             }}

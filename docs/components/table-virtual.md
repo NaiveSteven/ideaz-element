@@ -24,7 +24,7 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
 <preview path="../demo/table/virtual-scroll.vue" />
 
 ### 兼容性
-- ✅ **完全兼容**: 排序、筛选、多选、选择功能、固定列、样式主题、列显隐、列提示
+- ✅ **完全兼容**: 排序、筛选、多选、选择功能、展开功能、固定列、样式主题、列显隐、列提示
 - ✅ **高级功能**: 可编辑表格、自定义列渲染、自定义表头、插槽模板
 - ✅ **API 一致**: 与普通表格相同的 props 和事件
 - ✅ **渐进增强**: 可在运行时动态开启/关闭
@@ -64,6 +64,19 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
 测试 `type: 'selection'` 列在虚拟表格中的支持情况。
 
 <preview path="../demo/table/virtual-selection.vue" />
+
+### 展开功能
+
+虚拟表格完全支持展开功能，基于Element Plus TableV2原生能力：
+
+- **✅ 展开列配置**：`{ type: 'expand' }` 列配置，TableV2自动为有children的行添加展开按钮
+- **✅ 双向绑定**：`v-model:expanded-row-keys` 支持双向绑定展开状态
+- **✅ 事件支持**：`@expand-change`、`@row-expand` 事件 (TableV2原生事件)
+- **✅ 方法支持**：`toggleRowExpansion` 方法
+- **✅ 插槽支持**：`#expand` 插槽自定义展开内容
+- **✅ 数据结构**：支持children字段的嵌套数据结构
+
+<preview path="../demo/table/virtual-expand.vue" />
 
 ### 方法和事件测试
 
@@ -246,10 +259,10 @@ tableRef.value.sort('column', 'ascending')
    - ❌ 不支持树形数据结构
 
 3. **功能兼容**:
-        - ✅ 完全兼容: 排序、分页、操作按钮、列显隐、列提示、可编辑表格、选择功能
+        - ✅ 完全兼容: 排序、分页、操作按钮、列显隐、列提示、可编辑表格、选择功能、展开功能
    - ✅ 自定义功能: 列内容渲染、表头渲染、插槽模板
    - ⚠️ 部分兼容: 复杂的嵌套组件、动态行高
-   - ❌ 不支持: 行展开、行合并、树形数据
+   - ❌ 不支持: 行合并、树形数据
 
 4. **性能优化**:
    - 💡 数据量 > 1000 条时启用
