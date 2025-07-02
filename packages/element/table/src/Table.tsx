@@ -12,6 +12,7 @@ import {
   useTableColumns,
   useTableMethods,
   useTableSlots,
+  useVirtualTableColumns,
 } from './hooks'
 import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'
@@ -24,7 +25,7 @@ export default defineComponent({
   directives: { draggable, sticky },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end', 'sort-change'],
+  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end', 'sort-change', 'selection-change'],
   setup(props, { emit, slots, expose }) {
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
     const { toggleRadioSelection } = useTableMethods()
@@ -82,20 +83,13 @@ export default defineComponent({
              tableData.value.length > virtualConfig.value.threshold
     })
 
-    // 简化的虚拟表格列配置
-    const virtualColumns = computed(() => {
-      if (!isVirtualEnabled.value) return []
-
-      return formatTableCols.value.map((col, index) => {
-        const baseColumn: any = {
-          key: col.prop || `column-${index}`,
-          dataKey: col.prop || `column-${index}`,
-          title: typeof col.label === 'string' ? col.label : `Column ${index + 1}`,
-          width: typeof col.width === 'number' ? col.width : 150,
-        }
-        return baseColumn
-      })
-    })
+    // 虚拟表格列配置和选择功能
+    const {
+      virtualColumns,
+      clearSelection: virtualClearSelection,
+      toggleRowSelection: virtualToggleRowSelection,
+      toggleAllSelection: virtualToggleAllSelection,
+    } = useVirtualTableColumns(formatTableCols, tableData, slots, emit, props)
 
     // 暴露的方法
     const virtualTableRef = ref()
@@ -112,15 +106,23 @@ export default defineComponent({
         }
       },
       toggleRowSelection: (row: any, selected?: boolean) => {
-        const tableRef = getTableRef()
-        if (tableRef && tableRef.toggleRowSelection) {
-          tableRef.toggleRowSelection(row, selected)
+        if (isVirtualEnabled.value) {
+          virtualToggleRowSelection(row, selected)
+        } else {
+          const tableRef = getTableRef()
+          if (tableRef && tableRef.toggleRowSelection) {
+            tableRef.toggleRowSelection(row, selected)
+          }
         }
       },
       clearSelection: () => {
-        const tableRef = getTableRef()
-        if (tableRef && tableRef.clearSelection) {
-          tableRef.clearSelection()
+        if (isVirtualEnabled.value) {
+          virtualClearSelection()
+        } else {
+          const tableRef = getTableRef()
+          if (tableRef && tableRef.clearSelection) {
+            tableRef.clearSelection()
+          }
         }
       },
       clearFilter: (columnKeys?: string[]) => {
@@ -130,9 +132,13 @@ export default defineComponent({
         }
       },
       toggleAllSelection: () => {
-        const tableRef = getTableRef()
-        if (tableRef && tableRef.toggleAllSelection) {
-          tableRef.toggleAllSelection()
+        if (isVirtualEnabled.value) {
+          virtualToggleAllSelection()
+        } else {
+          const tableRef = getTableRef()
+          if (tableRef && tableRef.toggleAllSelection) {
+            tableRef.toggleAllSelection()
+          }
         }
       },
       toggleRowExpansion: (row: any, expanded?: boolean) => {
@@ -301,7 +307,7 @@ export default defineComponent({
       )
     }
 
-        const renderTable = () => {
+    const renderTable = () => {
       // 虚拟滚动模式
       if (isVirtualEnabled.value) {
         return renderVirtualTable()
