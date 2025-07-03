@@ -32,6 +32,14 @@ export function useVirtualTableColumns(
   emit: any,
   props: any
 ) {
+  // 计算分页偏移量
+  const getPageOffset = () => {
+    if (props.pagination && typeof props.pagination === 'object') {
+      const { page = 1, pageSize = 10 } = props.pagination
+      return (page - 1) * pageSize
+    }
+    return 0
+  }
   // 选择状态管理
   const selectedRowKeys = ref<Set<string | number>>(new Set())
 
@@ -101,6 +109,24 @@ export function useVirtualTableColumns(
           key: 'expand',
           width: col.width || 50,
           // TableV2会自动为有children的行添加展开按钮
+        }
+      }
+
+      // 处理索引列
+      if (col.type === 'index') {
+        return {
+          key: 'index',
+          width: col.width || 60,
+          cellRenderer: ({ rowIndex }: any) => {
+            // 如果有自定义索引函数
+            if (typeof col.index === 'function') {
+              return col.index(rowIndex + getPageOffset())
+            }
+            // 默认从1开始的索引，如果有分页则考虑分页偏移
+            const startIndex = typeof col.index === 'number' ? col.index : 1
+            return startIndex + rowIndex + getPageOffset()
+          },
+          headerCellRenderer: () => typeof col.label === 'string' ? col.label : '#',
         }
       }
 
