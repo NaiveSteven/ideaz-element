@@ -53,11 +53,6 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
 
 <preview path="../demo/table/virtual-pagination.vue" />
 
-### 多选功能测试
-
-验证多选、全选、选择事件等功能在虚拟表格中的正常工作。
-
-<preview path="../demo/table/virtual-multiple.vue" />
 
 ### 选择列功能
 
@@ -110,18 +105,6 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
 
 <preview path="../demo/table/virtual-hide.vue" />
 
-#### 列自定义渲染
-
-验证列内容的自定义渲染，支持 render 函数和插槽两种方式。
-
-<preview path="../demo/table/virtual-custom-column.vue" />
-
-#### 表格头自定义
-
-测试表头的自定义功能，包括图标、样式和交互元素。
-
-<preview path="../demo/table/virtual-custom-header.vue" />
-
 #### 列提示功能
 
 验证列标题的提示信息功能，支持字符串和复杂内容。
@@ -133,6 +116,18 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
 测试大数据量下的表格编辑功能，支持多种表单组件。
 
 <preview path="../demo/table/virtual-editable.vue" />
+
+#### 列自定义渲染
+
+验证列内容的自定义渲染，支持render函数和slot插槽两种方式，包含复杂组件和交互功能。
+
+<preview path="../demo/table/virtual-custom-column.vue" />
+
+#### 表头自定义
+
+测试表头的自定义功能，包括图标、徽章、下拉菜单等交互元素。
+
+<preview path="../demo/table/virtual-custom-header.vue" />
 
 #### 高级功能综合
 
