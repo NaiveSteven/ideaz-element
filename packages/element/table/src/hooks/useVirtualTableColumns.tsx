@@ -1,7 +1,10 @@
-import { ElCheckbox } from 'element-plus'
+import { ElCheckbox, ElIcon, ElTooltip } from 'element-plus'
+import { QuestionFilled } from '@element-plus/icons-vue'
 import type { CheckboxValueType } from 'element-plus'
 import type { FunctionalComponent } from 'vue'
 import { computed, ref, unref } from 'vue'
+import { isFunction, isObject, isSlot, isString } from '@ideaz/utils'
+import { useNamespace } from '@ideaz/hooks'
 import type { TableCol } from '../../../types'
 
 // 虚拟表格选择功能组件
@@ -218,13 +221,71 @@ export function useVirtualTableColumns(
 
       // 处理表头渲染
       if (col.label && typeof col.label === 'function') {
-        baseColumn.headerCellRenderer = () => (col.label as Function)()
+        baseColumn.headerCellRenderer = ({ columnIndex }: any) => (col.label as Function)({
+          column: col,
+          $index: columnIndex
+        })
       } else if (typeof col.label === 'string' && slots[col.label]) {
         baseColumn.headerCellRenderer = ({ columnIndex }: any) => {
           return slots[col.label as string]?.({
             column: col,
             $index: columnIndex
           })
+        }
+      } else if (!isSlot(col.label) && !isFunction(col.label) && col.tooltip) {
+        // 处理tooltip - 类似于useTableColumnSlots的实现
+        const tooltip = col.tooltip
+        const ns = useNamespace('table-column')
+
+        baseColumn.headerCellRenderer = ({ columnIndex }: any) => {
+          // 处理tooltip配置 - 与useTableColumnSlots保持一致
+          let tooltipProps: any = { effect: 'dark', placement: 'top' }
+          const tooltipSlot: any = {}
+
+          if (isString(tooltip)) {
+            // 字符串tooltip直接设置content
+            tooltipProps.content = tooltip
+          } else if (isFunction(tooltip)) {
+            // 函数tooltip使用slot方式避免Vue警告
+            tooltipSlot.content = () => tooltip({
+              column: col,
+              $index: columnIndex
+            })
+          } else if (isObject(tooltip)) {
+            // 对象tooltip需要特殊处理
+            const { content, ...restProps } = tooltip
+            // 先设置其他属性，但不包含content
+            tooltipProps = { ...tooltipProps, ...restProps }
+
+            if (isString(content)) {
+              // content是字符串，直接设置
+              tooltipProps.content = content
+            } else if (isFunction(content)) {
+              // content是函数，使用slot方式，确保不传递content prop
+              tooltipSlot.content = () => content({
+                column: col,
+                $index: columnIndex
+              })
+              // 明确删除content属性，防止传递函数
+              delete tooltipProps.content
+            }
+          }
+
+          return (
+            <span>
+              {col.label}
+              <ElTooltip
+                {...tooltipProps}
+                v-slots={tooltipSlot}
+              >
+                {tooltip && (
+                  <ElIcon class={ns.be('label', 'icon')}>
+                    <QuestionFilled />
+                  </ElIcon>
+                )}
+              </ElTooltip>
+            </span>
+          )
         }
       }
 

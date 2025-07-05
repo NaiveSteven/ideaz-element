@@ -107,7 +107,14 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
 
 #### 列提示功能
 
-验证列标题的提示信息功能，支持字符串和复杂内容。
+虚拟表格完全支持表头tooltip功能，与z-table普通表格的tooltip实现保持一致：
+
+- **✅ 字符串提示**：`tooltip: '提示内容'`
+- **✅ 函数提示**：`tooltip: (scope) => '动态内容'`，支持传递scope参数
+- **✅ 对象配置**：`tooltip: { content: '内容', placement: 'top', effect: 'dark' }`
+- **✅ 样式一致**：与普通表格的tooltip样式和交互完全一致
+- **✅ 完整兼容**：支持useTableColumnSlots中的所有tooltip配置选项
+- **✅ 性能优化**：修复了表头抖动和Vue警告问题
 
 <preview path="../demo/table/virtual-tooltip.vue" />
 
