@@ -345,3 +345,14 @@
   width: 100vw;
   height: 100vh;
 }
+
+.el-table-v2 {
+  .z-virtual-table-column-label__icon {
+    display: inline-flex !important;
+    cursor: help;
+
+    &:hover {
+      display: inline-flex !important;
+    }
+  }
+}

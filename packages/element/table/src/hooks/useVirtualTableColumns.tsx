@@ -235,7 +235,7 @@ export function useVirtualTableColumns(
       } else if (!isSlot(col.label) && !isFunction(col.label) && col.tooltip) {
         // 处理tooltip - 类似于useTableColumnSlots的实现
         const tooltip = col.tooltip
-        const ns = useNamespace('table-column')
+        const ns = useNamespace('virtual-table-column')
 
         baseColumn.headerCellRenderer = ({ columnIndex }: any) => {
           // 处理tooltip配置 - 与useTableColumnSlots保持一致
@@ -274,16 +274,18 @@ export function useVirtualTableColumns(
           return (
             <span>
               {col.label}
-              <ElTooltip
-                {...tooltipProps}
-                v-slots={tooltipSlot}
-              >
-                {tooltip && (
-                  <ElIcon class={ns.be('label', 'icon')}>
+              {tooltip && (
+                <ElTooltip
+                  {...tooltipProps}
+                  v-slots={tooltipSlot}
+                >
+                  <ElIcon
+                    class={ns.be('label', 'icon')}
+                  >
                     <QuestionFilled />
                   </ElIcon>
-                )}
-              </ElTooltip>
+                </ElTooltip>
+              )}
             </span>
           )
         }
