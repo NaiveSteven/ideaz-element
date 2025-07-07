@@ -272,7 +272,7 @@ export function useVirtualTableColumns(
           }
 
           return (
-            <span>
+            <span class={ns.be('label', 'container')}>
               {col.label}
               {tooltip && (
                 <ElTooltip
