@@ -28,7 +28,6 @@ export default defineComponent({
   emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end', 'sort-change', 'selection-change', 'expand-change', 'update:expandedRowKeys', 'row-expand', 'expanded-rows-change'],
   setup(props, { emit, slots, expose }) {
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-    const { toggleRadioSelection } = useTableMethods()
 
     const {
       pagination,
@@ -97,88 +96,20 @@ export default defineComponent({
     // 暴露的方法
     const virtualTableRef = ref()
 
-    const getTableRef = () => {
-      return isVirtualEnabled.value ? virtualTableRef.value : ctx!.$refs.zTableRef
-    }
-
-    expose({
-      setCurrentRow: (row?: any) => {
-        const tableRef = getTableRef()
-        if (tableRef && tableRef.setCurrentRow) {
-          tableRef.setCurrentRow(row)
-        }
-      },
-      toggleRowSelection: (row: any, selected?: boolean) => {
-        if (isVirtualEnabled.value) {
-          virtualToggleRowSelection(row, selected)
-        } else {
-          const tableRef = getTableRef()
-          if (tableRef && tableRef.toggleRowSelection) {
-            tableRef.toggleRowSelection(row, selected)
-          }
-        }
-      },
-      clearSelection: () => {
-        if (isVirtualEnabled.value) {
-          virtualClearSelection()
-        } else {
-          const tableRef = getTableRef()
-          if (tableRef && tableRef.clearSelection) {
-            tableRef.clearSelection()
-          }
-        }
-      },
-      clearFilter: (columnKeys?: string[]) => {
-        const tableRef = getTableRef()
-        if (tableRef && tableRef.clearFilter) {
-          tableRef.clearFilter(columnKeys)
-        }
-      },
-      toggleAllSelection: () => {
-        if (isVirtualEnabled.value) {
-          virtualToggleAllSelection()
-        } else {
-          const tableRef = getTableRef()
-          if (tableRef && tableRef.toggleAllSelection) {
-            tableRef.toggleAllSelection()
-          }
-        }
-      },
-      toggleRowExpansion: (row: any, expanded?: boolean) => {
-        if (isVirtualEnabled.value) {
-          virtualToggleRowExpansion(row, expanded)
-        } else {
-          const tableRef = getTableRef()
-          if (tableRef && tableRef.toggleRowExpansion) {
-            tableRef.toggleRowExpansion(row, expanded)
-          }
-        }
-      },
-      clearSort: () => {
-        const tableRef = getTableRef()
-        if (tableRef && tableRef.clearSort) {
-          tableRef.clearSort()
-        }
-      },
-      toggleRadioSelection,
-      sort: (prop: string, order?: string) => {
-        const tableRef = getTableRef()
-        if (tableRef && tableRef.sort) {
-          tableRef.sort(prop, order)
-        }
-      },
-      // 虚拟滚动特有方法
-      scrollTo: (position: { scrollLeft?: number; scrollTop?: number }) => {
-        if (isVirtualEnabled.value && virtualTableRef.value?.scrollTo) {
-          virtualTableRef.value.scrollTo(position)
-        }
-      },
-      scrollToRow: (index: number, strategy: string = 'auto') => {
-        if (isVirtualEnabled.value && virtualTableRef.value?.scrollToRow) {
-          virtualTableRef.value.scrollToRow(index, strategy)
-        }
-      },
+    // 表格方法管理
+    const tableMethods = useTableMethods({
+      isVirtualEnabled,
+      virtualTableRef,
+      virtualMethods: {
+        clearSelection: virtualClearSelection,
+        toggleRowSelection: virtualToggleRowSelection,
+        toggleAllSelection: virtualToggleAllSelection,
+        toggleRowExpansion: virtualToggleRowExpansion,
+      }
     })
+
+    // 暴露所有表格方法
+    expose(tableMethods)
 
     const ns = useNamespace('table')
     const { t } = useLocale()
