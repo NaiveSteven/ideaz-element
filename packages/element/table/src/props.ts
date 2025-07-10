@@ -31,6 +31,7 @@ export interface VirtualScrollConfig {
   buffer?: number            // 缓冲区大小，上下各渲染多少行
   threshold?: number         // 数据量超过多少条时自动启用虚拟滚动
   cache?: number             // 缓存行数，提升性能
+  footerHeight?: number      // footer 高度，支持 element-plus table-v2 的 footer 功能
 }
 
 export const tableProps = {

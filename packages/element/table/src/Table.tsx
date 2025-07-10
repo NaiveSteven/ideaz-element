@@ -235,6 +235,7 @@ export default defineComponent({
                   rowHeight={virtualConfig.value.itemHeight}
                   cache={virtualConfig.value.cache}
                   estimatedRowHeight={virtualConfig.value.estimatedRowHeight}
+                  footerHeight={virtualConfig.value.footerHeight}
                   expandColumnKey={hasExpandColumn.value ? expandColumnKey.value : undefined}
                   expandedRowKeys={props.expandedRowKeys}
                   onUpdate:expanded-row-keys={(keys: any[]) => {
@@ -254,7 +255,8 @@ export default defineComponent({
                       }
                       // 默认行渲染
                       return rowProps.cells
-                    }
+                    },
+                    footer: slots.footer
                   }}
                 />
               )

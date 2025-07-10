@@ -148,6 +148,19 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
 
 <preview path="../demo/table/virtual-watermark.vue" />
 
+#### Footer 底部功能
+
+虚拟表格完全支持 Element Plus TableV2 的 footer 功能，可以在表格底部展示统计信息、操作按钮等内容：
+
+- **✅ Footer 插槽**：通过 `#footer` 插槽自定义底部内容
+- **✅ 高度配置**：通过 `virtual.footerHeight` 配置 footer 区域高度
+- **✅ 动态控制**：支持运行时动态显示/隐藏 footer
+- **✅ 样式自定义**：完全支持 CSS 样式自定义，支持渐变背景等
+- **✅ 统计功能**：适合展示数据统计、汇总信息等
+- **✅ 操作区域**：可放置导出、生成报告等操作按钮
+
+<preview path="../demo/table/virtual-footer.vue" />
+
 #### 高级功能综合
 
 集成所有高级功能的综合测试示例。
@@ -218,6 +231,7 @@ const virtualConfig = {
 | `buffer` | `number` | `5` | 上下缓冲区行数 |
 | `threshold` | `number` | `100` | 数据量超过此值自动启用 |
 | `cache` | `number` | `2` | 缓存倍数，提升滚动性能 |
+| `footerHeight` | `number` | `50` | Footer 区域高度(px) |
 
 ## API 方法
 
@@ -285,7 +299,7 @@ tableRef.value.sort('column', 'ascending')
    - ❌ 不支持树形数据结构
 
 3. **功能兼容**:
-        - ✅ 完全兼容: 排序、分页、操作按钮、列显隐、列提示、可编辑表格、选择功能、展开功能、索引列、水印功能
+   - ✅ 完全兼容: 排序、分页、操作按钮、列显隐、列提示、可编辑表格、选择功能、展开功能、索引列、水印功能、Footer 底部区域
    - ✅ 自定义功能: 列内容渲染、表头渲染、插槽模板
    - ⚠️ 部分兼容: 复杂的嵌套组件、动态行高
    - ❌ 不支持: 行合并、树形数据
@@ -323,7 +337,26 @@ tableRef.value.sort('column', 'ascending')
       stripe
       border
       @sort-change="handleSort"
-    />
+    >
+      <!-- Footer 插槽示例 -->
+      <template #footer>
+        <div style="
+          height: 100%;
+          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 20px;
+          color: white;
+        ">
+          <div>总计：{{ tableData.length }} 条数据</div>
+          <div>
+            <ElButton type="primary" size="small">导出数据</ElButton>
+            <ElButton type="success" size="small">生成报告</ElButton>
+          </div>
+        </div>
+      </template>
+    </ZTable>
   </div>
 </template>
 
@@ -339,7 +372,8 @@ const virtualConfig = reactive({
   itemHeight: 48,
   buffer: 5,
   threshold: 100,
-  cache: 2
+  cache: 2,
+  footerHeight: 60  // 设置 footer 高度
 })
 
 const columns = [

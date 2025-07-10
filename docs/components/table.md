@@ -256,7 +256,8 @@ interface mergeCells {
 | table-layout            | 设置表格单元、行和列的布局方式                                                                                                                                                                                | string                                                    | fixed / auto                                                                       | fixed                                                                                        |
 | scrollbar-always-on     | 总是显示滚动条                                                                                                                                                                                                | boolean                                                   | —                                                                                  | false                                                                                        |
 | show-overflow-tooltip   | 是否隐藏额外内容并在单元格悬停时使用 Tooltip 显示它们。这将影响全部列的展示。                                                                                                                                 | boolean \                                                 | [`object`](https://element-plus.org/zh-CN/component/table.html#table-attributes)   | 参考 [tooltip-options](https://element-plus.org/zh-CN/component/table.html#table-attributes) |
-| flexible                | 确保主轴的最小尺寸，以便不超过内容                                                                                                                                                                            | boolean                                                   | —                                                                                  | false                                                                                        |
+| flexible                | 确保主轴的最小尺寸，以便不超过内容                                                                                                                                                            | boolean                                                   | —                                                                                  | false                                                                                        |
+| virtual                | 虚拟滚动配置，支持高性能大数据渲染                                                                                                                                                            | boolean / object                                           | 详见[虚拟表格文档](./table-virtual.md)                                                | false                                                                                        |
 
 ## z-table事件
 
@@ -318,6 +319,7 @@ interface mergeCells {
 | paginationBottom | 分页底部插槽                                                                                                                            | —      |
 | paginationLeft   | 分页左侧插槽                                                                                                                            | —      |
 | paginationRight  | 分页右侧插槽                                                                                                                            | —      |
+| footer          | 虚拟表格底部插槽，仅虚拟滚动模式下可用                                                                                                          | —      |
 
 ## columns属性
 
