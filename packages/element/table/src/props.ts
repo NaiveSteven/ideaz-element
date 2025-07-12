@@ -32,6 +32,24 @@ export interface VirtualScrollConfig {
   threshold?: number         // 数据量超过多少条时自动启用虚拟滚动
   cache?: number             // 缓存行数，提升性能
   footerHeight?: number      // footer 高度，支持 element-plus table-v2 的 footer 功能
+  // Element Plus TableV2 额外属性
+  headerClass?: string | Function           // header 部分的自定义 class 名
+  headerProps?: object | Function           // header 部分的自定义 props 名
+  headerCellProps?: object | Function       // header cell 部分的自定义 props 名
+  headerHeight?: number | number[]          // Header 的高度，默认 50
+  rowClass?: string | Function              // row wrapper 部分的自定义 class 名
+  rowProps?: object | Function              // row component 部分的自定义 class 名
+  rowEventHandlers?: object                 // 行事件处理器
+  cellProps?: object | Function             // 每个单元格 cell 的自定义 props
+  dataGetter?: Function                     // 自定义方法从数据源获取数据
+  fixedData?: object                        // 渲染在表格主内容上方和 header 下方区域的数据
+  defaultExpandedRowKeys?: (string | number)[] // 默认展开的行的 key 的数组
+  fixed?: boolean                           // 单元格宽度是自适应还是固定，默认 false
+  indentSize?: number                       // 树形表的水平缩进，默认 12
+  hScrollbarSize?: number                   // 水平滚动条大小，默认 6
+  vScrollbarSize?: number                   // 垂直滚动条大小，默认 6
+  sortBy?: object                           // 排序方式
+  sortState?: object                        // 多个排序
 }
 
 export const tableProps = {

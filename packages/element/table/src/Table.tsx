@@ -12,12 +12,12 @@ import {
   useTableColumns,
   useTableMethods,
   useTableSlots,
+  useVirtualTable,
   useVirtualTableColumns,
 } from './hooks'
 import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'
 import { tableProps, tableProvideKey } from './props'
-import type { VirtualScrollConfig } from './props'
 
 export default defineComponent({
   name: 'ZTable',
@@ -51,36 +51,8 @@ export default defineComponent({
     const { draggableOptions, dragging } = useDraggable(emit, tableData, middleTableCols)
     const { spanMethod } = useMergeCells(props)
 
-    // 虚拟滚动配置
-    const virtualConfig = computed((): Required<VirtualScrollConfig> => {
-      const defaultConfig: Required<VirtualScrollConfig> = {
-        enabled: false,
-        itemHeight: 48,
-        estimatedRowHeight: 48,
-        buffer: 5,
-        threshold: 100,
-        cache: 2,
-      }
-
-      if (!props.virtual) return defaultConfig
-      if (props.virtual === true) {
-        return {
-          ...defaultConfig,
-          enabled: true,
-        }
-      }
-      return {
-        ...defaultConfig,
-        enabled: true,
-        ...props.virtual,
-      }
-    })
-
-    // 是否启用虚拟滚动
-    const isVirtualEnabled = computed(() => {
-      return virtualConfig.value.enabled &&
-             tableData.value.length > virtualConfig.value.threshold
-    })
+    // 虚拟表格配置
+    const { isVirtualEnabled, virtualTableAttributes } = useVirtualTable(props)
 
     // 虚拟表格列配置和选择功能
     const {
@@ -232,10 +204,6 @@ export default defineComponent({
                   columns={virtualColumns.value as any}
                   width={width}
                   height={height}
-                  rowHeight={virtualConfig.value.itemHeight}
-                  cache={virtualConfig.value.cache}
-                  estimatedRowHeight={virtualConfig.value.estimatedRowHeight}
-                  footerHeight={virtualConfig.value.footerHeight}
                   expandColumnKey={hasExpandColumn.value ? expandColumnKey.value : undefined}
                   expandedRowKeys={props.expandedRowKeys}
                   onUpdate:expanded-row-keys={(keys: any[]) => {
@@ -247,6 +215,7 @@ export default defineComponent({
                   onRowExpand={(params: any) => emit('row-expand', params)}
                   v-loading={props.loading}
                   class="z-table-component z-table-virtual"
+                  {...virtualTableAttributes.value}
                   v-slots={{
                     row: (rowProps: any) => {
                       // 如果有row插槽，使用用户自定义的渲染
