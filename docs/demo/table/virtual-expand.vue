@@ -36,7 +36,7 @@
       :data="tableData"
       :columns="columns"
       v-model:expanded-row-keys="expandedKeys"
-      :virtual="{ enabled: true, itemHeight: 48, threshold: 100 }"
+      :virtual="{ enabled: true, itemHeight: 48, threshold: 100, estimatedRowHeight: 48  }"
       height="500px"
       border
       stripe

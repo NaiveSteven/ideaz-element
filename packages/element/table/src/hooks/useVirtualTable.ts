@@ -54,7 +54,7 @@ export function useVirtualTable(props: ITableProps) {
 
     // 遍历所有virtualTableProps属性
     for (const key of Object.keys(virtualTableProps)) {
-      if (key in config && virtualTableProps[key] !== undefined) {
+      if (key in config) {
         if (key === 'itemHeight') {
           // 特殊映射：itemHeight -> rowHeight
           virtualConfigAttrs.rowHeight = config[key as keyof typeof config]

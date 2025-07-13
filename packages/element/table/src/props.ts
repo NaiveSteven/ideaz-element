@@ -28,11 +28,15 @@ export interface TableSticky {
 export const virtualTableProps = {
   itemHeight: {
     type: Number,
-    default: 48,
+    default: 50,
+  },
+  rowHeight: {
+    type: Number,
+    default: 50,
   },
   estimatedRowHeight: {
     type: Number,
-    default: 48,
+    // default: 0,
   },
   // Element Plus TableV2 属性
   footerHeight: {
@@ -45,11 +49,9 @@ export const virtualTableProps = {
   },
   headerProps: {
     type: [Object, Function] as PropType<object | Function>,
-    default: () => ({}),
   },
   headerCellProps: {
     type: [Object, Function] as PropType<object | Function>,
-    default: () => ({}),
   },
   headerHeight: {
     type: [Number, Array] as PropType<number | number[]>,
@@ -61,26 +63,21 @@ export const virtualTableProps = {
   },
   rowProps: {
     type: [Object, Function] as PropType<object | Function>,
-    default: () => ({}),
   },
   rowEventHandlers: {
     type: Object,
-    default: () => ({}),
   },
   cellProps: {
     type: [Object, Function] as PropType<object | Function>,
-    default: () => ({}),
   },
   dataGetter: {
     type: Function,
   },
   fixedData: {
     type: Object,
-    default: () => ({}),
   },
   defaultExpandedRowKeys: {
     type: Array as PropType<(string | number)[]>,
-    default: () => [],
   },
   fixed: {
     type: Boolean,
@@ -206,6 +203,7 @@ export interface VirtualScrollConfig extends Partial<VirtualTableProps> {
 export const tableProps = {
   ...commonTableProps,
   ...componentLevelProps,
+  ...virtualTableProps,
   maxHeight: [String, Number],
   fit: {
     type: Boolean,
