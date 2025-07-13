@@ -24,105 +24,93 @@ export interface TableSticky {
   style?: CSSProperties
 }
 
-export interface VirtualScrollConfig {
-  enabled?: boolean           // 是否启用虚拟滚动
-  itemHeight?: number         // 每行的固定高度，默认48px
-  estimatedRowHeight?: number // 动态高度时的预估行高
-  buffer?: number            // 缓冲区大小，上下各渲染多少行
-  threshold?: number         // 数据量超过多少条时自动启用虚拟滚动
-  cache?: number             // 缓存行数，提升性能
-  footerHeight?: number      // footer 高度，支持 element-plus table-v2 的 footer 功能
-  // Element Plus TableV2 额外属性
-  headerClass?: string | Function           // header 部分的自定义 class 名
-  headerProps?: object | Function           // header 部分的自定义 props 名
-  headerCellProps?: object | Function       // header cell 部分的自定义 props 名
-  headerHeight?: number | number[]          // Header 的高度，默认 50
-  rowClass?: string | Function              // row wrapper 部分的自定义 class 名
-  rowProps?: object | Function              // row component 部分的自定义 class 名
-  rowEventHandlers?: object                 // 行事件处理器
-  cellProps?: object | Function             // 每个单元格 cell 的自定义 props
-  dataGetter?: Function                     // 自定义方法从数据源获取数据
-  fixedData?: object                        // 渲染在表格主内容上方和 header 下方区域的数据
-  defaultExpandedRowKeys?: (string | number)[] // 默认展开的行的 key 的数组
-  fixed?: boolean                           // 单元格宽度是自适应还是固定，默认 false
-  indentSize?: number                       // 树形表的水平缩进，默认 12
-  hScrollbarSize?: number                   // 水平滚动条大小，默认 6
-  vScrollbarSize?: number                   // 垂直滚动条大小，默认 6
-  sortBy?: object                           // 排序方式
-  sortState?: object                        // 多个排序
-}
-
-export const tableProps = {
-  data: {
-    type: Array as PropType<DefaultRow[]>,
+// 虚拟表格属性定义（传给Element Plus TableV2）
+export const virtualTableProps = {
+  itemHeight: {
+    type: Number,
+    default: 48,
+  },
+  estimatedRowHeight: {
+    type: Number,
+    default: 48,
+  },
+  // Element Plus TableV2 属性
+  footerHeight: {
+    type: Number,
+    default: 0,
+  },
+  headerClass: {
+    type: [String, Function] as PropType<string | Function>,
+    default: '',
+  },
+  headerProps: {
+    type: [Object, Function] as PropType<object | Function>,
+    default: () => ({}),
+  },
+  headerCellProps: {
+    type: [Object, Function] as PropType<object | Function>,
+    default: () => ({}),
+  },
+  headerHeight: {
+    type: [Number, Array] as PropType<number | number[]>,
+    default: 50,
+  },
+  rowClass: {
+    type: [String, Function] as PropType<string | Function>,
+    default: '',
+  },
+  rowProps: {
+    type: [Object, Function] as PropType<object | Function>,
+    default: () => ({}),
+  },
+  rowEventHandlers: {
+    type: Object,
+    default: () => ({}),
+  },
+  cellProps: {
+    type: [Object, Function] as PropType<object | Function>,
+    default: () => ({}),
+  },
+  dataGetter: {
+    type: Function,
+  },
+  fixedData: {
+    type: Object,
+    default: () => ({}),
+  },
+  defaultExpandedRowKeys: {
+    type: Array as PropType<(string | number)[]>,
     default: () => [],
   },
-  height: [String, Number],
-  maxHeight: [String, Number],
-  fit: {
+  fixed: {
     type: Boolean,
-    default: true,
+    default: false,
   },
-  stripe: Boolean,
-  border: Boolean,
-  rowKey: [String, Function] as PropType<TableProps<DefaultRow>['rowKey']>,
-  showHeader: {
-    type: Boolean,
-    default: true,
-  },
-  showSummary: Boolean,
-  sumText: String,
-  summaryMethod: Function as PropType<TableProps<DefaultRow>['summaryMethod']>,
-  rowClassName: [String, Function] as PropType<
-    TableProps<DefaultRow>['rowClassName']
-  >,
-  rowStyle: [Object, Function] as PropType<TableProps<DefaultRow>['rowStyle']>,
-  cellClassName: [String, Function] as PropType<
-    TableProps<DefaultRow>['cellClassName']
-  >,
-  cellStyle: [Object, Function] as PropType<
-    TableProps<DefaultRow>['cellStyle']
-  >,
-  headerRowClassName: [String, Function] as PropType<
-    TableProps<DefaultRow>['headerRowClassName']
-  >,
-  headerRowStyle: [Object, Function] as PropType<
-    TableProps<DefaultRow>['headerRowStyle']
-  >,
-  headerCellClassName: [String, Function] as PropType<
-    TableProps<DefaultRow>['headerCellClassName']
-  >,
-  headerCellStyle: [Object, Function] as PropType<
-    TableProps<DefaultRow>['headerCellStyle']
-  >,
-  highlightCurrentRow: Boolean,
-  currentRowKey: [String, Number],
-  emptyText: String,
-  expandRowKeys: Array as PropType<TableProps<DefaultRow>['expandRowKeys']>,
-  expandedRowKeys: Array as PropType<(string | number)[]>,
-  defaultExpandAll: Boolean,
-  defaultSort: Object as PropType<TableProps<DefaultRow>['defaultSort']>,
-  tooltipEffect: String,
-  spanMethod: Function as PropType<TableProps<DefaultRow>['spanMethod']>,
-  selectOnIndeterminate: {
-    type: Boolean,
-    default: true,
-  },
-  indent: {
+  indentSize: {
     type: Number,
-    default: 16,
+    default: 12,
   },
-  treeProps: {
-    type: Object as PropType<TableProps<DefaultRow>['treeProps']>,
-    default: () => {
-      return {
-        hasChildren: 'hasChildren',
-        children: 'children',
-      }
-    },
+  hScrollbarSize: {
+    type: Number,
+    default: 6,
   },
-  lazy: Boolean,
-  load: Function as PropType<TableProps<DefaultRow>['load']>,
+  vScrollbarSize: {
+    type: Number,
+    default: 6,
+  },
+  sortBy: {
+    type: Object,
+    default: () => ({}),
+  },
+  sortState: {
+    type: Object,
+  },
+}
+
+// 通用属性定义（两者都支持）
+export const commonTableProps = {
+  height: [String, Number],
+  width: [String, Number],
   style: {
     type: Object as PropType<CSSProperties>,
     default: () => ({}),
@@ -131,39 +119,41 @@ export const tableProps = {
     type: String,
     default: '',
   },
-  tableLayout: {
-    type: String as PropType<'fixed' | 'auto'>,
-    default: 'fixed',
-  },
-  scrollbarAlwaysOn: Boolean,
-  flexible: Boolean,
-  showOverflowTooltip: Boolean,
-  align: String as PropType<'left' | 'center' | 'right'>,
-  headerAlign: String as PropType<'left' | 'center' | 'right'>,
   size: String as PropType<ComponentSize>,
-  loading: Boolean,
-  columns: {
-    type: Array as PropType<TableCol[]>,
+  data: {
+    type: Array as PropType<DefaultRow[]>,
     default: () => [],
   },
+  rowKey: [String, Function] as PropType<TableProps<DefaultRow>['rowKey']>,
+  showHeader: {
+    type: Boolean,
+    default: true,
+  },
+  emptyText: String,
+  loading: Boolean,
+  scrollbarAlwaysOn: Boolean,
+}
+
+// 组件级属性定义
+export const componentLevelProps = {
   pagination: {
     type: [Object, Boolean] as PropType<Pagination | boolean>,
     default: () => ({ page: 1, pageSize: 0, total: 0, align: 'right' }),
   },
-  toolBar: {
-    type: [Boolean, Object] as PropType<ToolBar | boolean>,
-    default: true,
+  columns: {
+    type: Array as PropType<TableCol[]>,
+    default: () => [],
   },
   draggable: {
     type: Boolean,
     default: false,
   },
+  toolBar: {
+    type: [Boolean, Object] as PropType<ToolBar | boolean>,
+    default: true,
+  },
   editable: {
     type: [Object, Boolean] as PropType<TableEdit | boolean>,
-  },
-  options: {
-    type: Object,
-    default: () => {},
   },
   watermark: {
     type: [String, Object, Boolean] as PropType<boolean | string | ElWatermarkProps>,
@@ -194,6 +184,95 @@ export const tableProps = {
     type: [Boolean, Object] as PropType<boolean | VirtualScrollConfig>,
     default: false,
   },
+  options: {
+    type: Object,
+    default: () => {},
+  },
+}
+
+// 类型定义
+export type VirtualTableProps = ExtractPropTypes<typeof virtualTableProps>
+export type CommonTableProps = ExtractPropTypes<typeof commonTableProps>
+export type ComponentLevelProps = ExtractPropTypes<typeof componentLevelProps>
+
+export interface VirtualScrollConfig extends Partial<VirtualTableProps> {
+  // 内部控制属性
+  enabled?: boolean
+  threshold?: number
+}
+
+
+
+export const tableProps = {
+  ...commonTableProps,
+  ...componentLevelProps,
+  maxHeight: [String, Number],
+  fit: {
+    type: Boolean,
+    default: true,
+  },
+  stripe: Boolean,
+  border: Boolean,
+  showSummary: Boolean,
+  sumText: String,
+  summaryMethod: Function as PropType<TableProps<DefaultRow>['summaryMethod']>,
+  rowClassName: [String, Function] as PropType<
+    TableProps<DefaultRow>['rowClassName']
+  >,
+  rowStyle: [Object, Function] as PropType<TableProps<DefaultRow>['rowStyle']>,
+  cellClassName: [String, Function] as PropType<
+    TableProps<DefaultRow>['cellClassName']
+  >,
+  cellStyle: [Object, Function] as PropType<
+    TableProps<DefaultRow>['cellStyle']
+  >,
+  headerRowClassName: [String, Function] as PropType<
+    TableProps<DefaultRow>['headerRowClassName']
+  >,
+  headerRowStyle: [Object, Function] as PropType<
+    TableProps<DefaultRow>['headerRowStyle']
+  >,
+  headerCellClassName: [String, Function] as PropType<
+    TableProps<DefaultRow>['headerCellClassName']
+  >,
+  headerCellStyle: [Object, Function] as PropType<
+    TableProps<DefaultRow>['headerCellStyle']
+  >,
+  highlightCurrentRow: Boolean,
+  currentRowKey: [String, Number],
+  expandRowKeys: Array as PropType<TableProps<DefaultRow>['expandRowKeys']>,
+  expandedRowKeys: Array as PropType<(string | number)[]>,
+  defaultExpandAll: Boolean,
+  defaultSort: Object as PropType<TableProps<DefaultRow>['defaultSort']>,
+  tooltipEffect: String,
+  spanMethod: Function as PropType<TableProps<DefaultRow>['spanMethod']>,
+  selectOnIndeterminate: {
+    type: Boolean,
+    default: true,
+  },
+  indent: {
+    type: Number,
+    default: 16,
+  },
+  treeProps: {
+    type: Object as PropType<TableProps<DefaultRow>['treeProps']>,
+    default: () => {
+      return {
+        hasChildren: 'hasChildren',
+        children: 'children',
+      }
+    },
+  },
+  lazy: Boolean,
+  load: Function as PropType<TableProps<DefaultRow>['load']>,
+  tableLayout: {
+    type: String as PropType<'fixed' | 'auto'>,
+    default: 'fixed',
+  },
+  flexible: Boolean,
+  showOverflowTooltip: Boolean,
+  align: String as PropType<'left' | 'center' | 'right'>,
+  headerAlign: String as PropType<'left' | 'center' | 'right'>,
 }
 
 export const tableColumnProps = {

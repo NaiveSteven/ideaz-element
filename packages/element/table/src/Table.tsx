@@ -200,6 +200,7 @@ export default defineComponent({
               default: ({ height, width }: { height: number; width: number }) => (
                 <ElTableV2
                   ref={virtualTableRef}
+                  {...virtualTableAttributes.value}
                   data={tableData.value}
                   columns={virtualColumns.value as any}
                   width={width}
@@ -215,7 +216,6 @@ export default defineComponent({
                   onRowExpand={(params: any) => emit('row-expand', params)}
                   v-loading={props.loading}
                   class="z-table-component z-table-virtual"
-                  {...virtualTableAttributes.value}
                   v-slots={{
                     row: (rowProps: any) => {
                       // 如果有row插槽，使用用户自定义的渲染

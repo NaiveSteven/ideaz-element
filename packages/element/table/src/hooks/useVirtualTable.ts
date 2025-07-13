@@ -1,48 +1,21 @@
-import { reactiveOmit } from '@vueuse/core'
-import type { ITableProps, VirtualScrollConfig } from '../props'
+import type { ITableProps } from '../props'
+import {
+  commonTableProps,
+  componentLevelProps,
+  tableProps,
+  virtualTableProps
+} from '../props'
 
 export function useVirtualTable(props: ITableProps) {
   const attrs = useAttrs()
 
   // 虚拟滚动配置
-  const virtualConfig = computed((): Required<VirtualScrollConfig> => {
-    const defaultConfig: Required<VirtualScrollConfig> = {
-      enabled: false,
-      itemHeight: 48,
-      estimatedRowHeight: 48,
-      buffer: 5,
-      threshold: 100,
-      cache: 2,
-      footerHeight: 0,
-      // Element Plus TableV2 默认值
-      headerClass: '',
-      headerProps: {},
-      headerCellProps: {},
-      headerHeight: 50,
-      rowClass: '',
-      rowProps: {},
-      rowEventHandlers: {},
-      cellProps: {},
-      dataGetter: undefined as any,
-      fixedData: {},
-      defaultExpandedRowKeys: [],
-      fixed: false,
-      indentSize: 12,
-      hScrollbarSize: 6,
-      vScrollbarSize: 6,
-      sortBy: {},
-      sortState: undefined as any,
-    }
-
-    if (!props.virtual) return defaultConfig
+  const virtualConfig = computed(() => {
+    if (!props.virtual) return { enabled: false }
     if (props.virtual === true) {
-      return {
-        ...defaultConfig,
-        enabled: true,
-      }
+      return { enabled: true }
     }
     return {
-      ...defaultConfig,
       enabled: true,
       ...props.virtual,
     }
@@ -51,50 +24,52 @@ export function useVirtualTable(props: ITableProps) {
   // 是否启用虚拟滚动
   const isVirtualEnabled = computed(() => {
     return virtualConfig.value.enabled &&
-           props.data && props.data.length > virtualConfig.value.threshold
+           props.data && props.data.length > (virtualConfig.value.threshold || 100)
   })
 
-        // 虚拟表格的属性，只包含虚拟表格需要的属性
+  // 虚拟表格属性
   const virtualTableAttributes = computed(() => {
-    // 处理虚拟表格专用属性
-    const virtualSpecificAttrs = {
-      cache: virtualConfig.value.cache,
-      estimatedRowHeight: virtualConfig.value.estimatedRowHeight,
-      headerClass: virtualConfig.value.headerClass,
-      headerProps: virtualConfig.value.headerProps,
-      headerCellProps: virtualConfig.value.headerCellProps,
-      headerHeight: virtualConfig.value.headerHeight,
-      footerHeight: virtualConfig.value.footerHeight,
-      rowClass: virtualConfig.value.rowClass,
-      rowProps: virtualConfig.value.rowProps,
-      rowEventHandlers: virtualConfig.value.rowEventHandlers,
-      cellProps: virtualConfig.value.cellProps,
-      dataGetter: virtualConfig.value.dataGetter,
-      fixedData: virtualConfig.value.fixedData,
-      defaultExpandedRowKeys: virtualConfig.value.defaultExpandedRowKeys,
-      fixed: virtualConfig.value.fixed,
-      indentSize: virtualConfig.value.indentSize,
-      hScrollbarSize: virtualConfig.value.hScrollbarSize,
-      vScrollbarSize: virtualConfig.value.vScrollbarSize,
-      scrollbarAlwaysOn: props.scrollbarAlwaysOn,
-      sortBy: virtualConfig.value.sortBy,
-      sortState: virtualConfig.value.sortState,
-      rowHeight: virtualConfig.value.itemHeight, // itemHeight 映射到 rowHeight
-      // 兼容的基础属性
-      rowKey: props.rowKey,
-      maxHeight: props.maxHeight,
-      className: props.className,
-      style: props.style,
-    }
+    if (!isVirtualEnabled.value) return {}
 
-    // 过滤掉 undefined 值的属性
-    const filteredVirtualAttrs = Object.fromEntries(
-      Object.entries(virtualSpecificAttrs).filter(([_, value]) => value !== undefined)
+    // 从props对象动态获取字段
+    const tablePropsKeys = new Set(Object.keys(tableProps))
+    const virtualConfigKeys = new Set(Object.keys(virtualTableProps))
+    const commonAttributesKeys = new Set(Object.keys(commonTableProps))
+    const componentLevelKeys = new Set(Object.keys(componentLevelProps))
+
+    // 计算需要排除的属性
+    const excludedProps = new Set([
+      ...Array.from(tablePropsKeys).filter(key =>
+        !virtualConfigKeys.has(key) && !commonAttributesKeys.has(key)
+      ),
+      ...componentLevelKeys
+    ])
+
+    // 过滤props，保留虚拟表格可用的属性
+    const baseAttributes = Object.fromEntries(
+      Object.entries(props).filter(([key]) => !excludedProps.has(key))
     )
+
+    // 从虚拟配置中提取TableV2属性
+    const config = virtualConfig.value
+    const virtualConfigAttrs: Record<string, any> = {}
+
+    // 遍历所有virtualTableProps属性
+    for (const key of Object.keys(virtualTableProps)) {
+      if (key in config && virtualTableProps[key] !== undefined) {
+        if (key === 'itemHeight') {
+          // 特殊映射：itemHeight -> rowHeight
+          virtualConfigAttrs.rowHeight = config[key as keyof typeof config]
+        } else {
+          virtualConfigAttrs[key] = config[key as keyof typeof config]
+        }
+      }
+    }
 
     return {
       ...attrs,
-      ...filteredVirtualAttrs,
+      ...baseAttributes,
+      ...virtualConfigAttrs,
     }
   })
 
