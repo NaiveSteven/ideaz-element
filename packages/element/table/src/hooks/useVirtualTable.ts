@@ -1,6 +1,5 @@
 import type { ITableProps } from '../props'
 import {
-  commonTableProps,
   componentLevelProps,
   tableProps,
   virtualTableProps
@@ -34,13 +33,12 @@ export function useVirtualTable(props: ITableProps) {
     // 从props对象动态获取字段
     const tablePropsKeys = new Set(Object.keys(tableProps))
     const virtualConfigKeys = new Set(Object.keys(virtualTableProps))
-    const commonAttributesKeys = new Set(Object.keys(commonTableProps))
     const componentLevelKeys = new Set(Object.keys(componentLevelProps))
 
     // 计算需要排除的属性
     const excludedProps = new Set([
       ...Array.from(tablePropsKeys).filter(key =>
-        !virtualConfigKeys.has(key) && !commonAttributesKeys.has(key)
+        !virtualConfigKeys.has(key)
       ),
       ...componentLevelKeys
     ])
