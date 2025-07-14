@@ -47,12 +47,10 @@ const hideSalary = ref(true) // 默认隐藏薪资
 const columns = ref([
   {
     type: 'selection',
-    width: 60,
   },
   {
     prop: 'id',
     label: 'ID',
-    width: 80,
     tooltip: '员工唯一标识',
   },
   {
@@ -62,7 +60,6 @@ const columns = ref([
       h('i', { class: 'el-icon-user', style: { marginRight: '4px' } }),
       '姓名'
     ]),
-    width: 150,
     tooltip: () => h('div', ['员工姓名', h('br'), '可编辑']),
     fieldProps: {
       placeholder: '请输入姓名',
@@ -72,7 +69,6 @@ const columns = ref([
     component: 'select',
     prop: 'gender',
     label: 'genderHeader',
-    width: 100,
     hide: () => hideGender.value,
     tooltip: '员工性别信息',
     slot: 'gender',
@@ -81,7 +77,6 @@ const columns = ref([
     component: 'input-number',
     prop: 'age',
     label: () => h('el-tag', { type: 'warning', size: 'small' }, () => '年龄'),
-    width: 100,
     tooltip: '员工年龄范围18-67',
     fieldProps: {
       min: 18,
@@ -92,14 +87,12 @@ const columns = ref([
     component: 'select',
     prop: 'department',
     label: '部门',
-    width: 120,
     tooltip: '所属部门',
   },
   {
     component: 'input-number',
     prop: 'salary',
     label: 'salaryHeader',
-    width: 120,
     hide: () => hideSalary.value,
     tooltip: () => h('el-tag', { type: 'danger', size: 'small' }, () => '敏感信息'),
     fieldProps: {
@@ -110,14 +103,12 @@ const columns = ref([
   {
     prop: 'status',
     label: '状态',
-    width: 100,
     slot: 'status',
     tooltip: '员工当前状态',
   },
   {
     prop: 'score',
     label: '评分',
-    width: 100,
     render: ({ row }: TableColumnScopeData<RowData>) => {
       const color = row.score >= 80 ? '#67c23a' : row.score >= 60 ? '#e6a23c' : '#f56c6c'
       return h('div', { style: { color, fontWeight: 'bold' } }, `${row.score}分`)
@@ -130,7 +121,6 @@ const columns = ref([
       h('div', '入职'),
       h('div', { style: { fontSize: '12px', color: '#999' } }, '日期')
     ]),
-    width: 150,
     fieldProps: {
       valueFormat: 'YYYY-MM-DD',
       size: 'small',

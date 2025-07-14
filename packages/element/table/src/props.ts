@@ -81,7 +81,7 @@ export const virtualTableProps = {
   },
   fixed: {
     type: Boolean,
-    default: false,
+    default: true,
   },
   indentSize: {
     type: Number,

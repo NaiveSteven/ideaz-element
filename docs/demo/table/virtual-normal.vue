@@ -15,22 +15,18 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
-    width: 150,
   },
   {
     prop: 'gender',
     label: '性别',
-    width: 120,
   },
   {
     prop: 'age',
     label: '年龄',
-    width: 120,
   },
   {
     prop: 'time',
     label: '出生日期',
-    width: 200,
   },
 ])
 const pagination = ref({
