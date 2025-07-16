@@ -141,32 +141,26 @@ const columns = [
   {
     prop: 'id',
     label: 'ID',
-    width: 80
   },
   {
     prop: 'name',
     label: '姓名',
-    width: 120
   },
   {
     prop: 'email',
     label: '邮箱',
-    width: 200
   },
   {
     prop: 'age',
     label: '年龄',
-    width: 80
   },
   {
     prop: 'department',
     label: '部门',
-    width: 120
   },
   {
     prop: 'salary',
     label: '薪资',
-    width: 100,
     render: ({ row }: any) => `¥${row.salary.toLocaleString()}`
   }
 ]

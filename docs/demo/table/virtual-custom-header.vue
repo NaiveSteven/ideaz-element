@@ -101,7 +101,7 @@
     <div style="margin-top: 16px;">
       <el-collapse v-model="activeCollapse">
         <el-collapse-item title="最近的参数传递日志" name="1">
-          <div style="max-height: 200px; padding: 12px; background: #f5f7fa; overflow-y: auto; border-radius: 4px;">
+          <div style="max-height: 200px; padding: 12px; border-radius: 4px; background: #f5f7fa; overflow-y: auto;">
             <div v-for="(log, index) in paramLogs" :key="index" style="margin-bottom: 8px; font-family: monospace; font-size: 12px;">
               <span style="color: #909399;">[{{ log.timestamp }}]</span>
               <span style="font-weight: bold; color: #409eff;">{{ log.type }}:</span>
@@ -193,11 +193,9 @@ const columns = computed(() => [
   {
     type: 'index',
     label: '序号',
-    width: 80
   },
   {
     prop: 'name',
-    width: 150,
     // 根据模式选择不同的表头配置
     ...(useSlotMode.value ? {
       label: 'user-header'
@@ -226,16 +224,13 @@ const columns = computed(() => [
   {
     prop: 'email',
     label: '邮箱',
-    width: 200
   },
   {
     prop: 'age',
     label: '年龄',
-    width: 80
   },
   {
     prop: 'department',
-    width: 150,
     ...(useSlotMode.value ? {
       label: 'department-header'
     } : {
@@ -259,7 +254,6 @@ const columns = computed(() => [
   },
   {
     prop: 'salary',
-    width: 150,
     ...(useSlotMode.value ? {
       label: 'salary-header'
     } : {
@@ -281,7 +275,6 @@ const columns = computed(() => [
   },
   {
     prop: 'status',
-    width: 180,
     ...(useSlotMode.value ? {
       label: 'status-header'
     } : {
@@ -310,7 +303,6 @@ const columns = computed(() => [
   },
   {
     prop: 'actions',
-    width: 150,
     fixed: 'right',
     ...(useSlotMode.value ? {
       label: 'actions-header'

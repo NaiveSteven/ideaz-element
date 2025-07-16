@@ -30,53 +30,43 @@ const virtualConfig = ref({
 const columns = ref([
   {
     type: 'selection',
-    width: 60,
   },
   {
     type: 'index',
-    width: 80,
   },
   {
     prop: 'id',
     label: 'ID',
-    width: 100,
     sortable: true,
   },
   {
     prop: 'name',
     label: '姓名',
-    width: 150,
   },
   {
     prop: 'gender',
     label: '性别',
-    width: 100,
   },
   {
     prop: 'age',
     label: '年龄',
-    width: 100,
     sortable: true,
   },
   {
     prop: 'score',
     label: '评分',
-    width: 120,
   },
   {
     prop: 'status',
     label: '状态',
-    width: 120,
   },
   {
     prop: 'time',
     label: '创建时间',
-    width: 180,
   },
   {
     type: 'button',
     label: '操作',
-    width: 200,
     buttons: [
       {
         type: 'primary',

@@ -82,49 +82,40 @@ const tableData = ref(generateLargeData(2000))
 const columns = ref([
   {
     type: 'selection',
-    width: 60
   },
   {
     type: 'index',
     label: '序号',
-    width: 80
   },
   {
     prop: 'name',
     label: '姓名',
-    width: 120
   },
   {
     prop: 'email',
     label: '邮箱',
-    width: 200
   },
   {
     prop: 'age',
     label: '年龄',
-    width: 80
   },
   {
     prop: 'department',
     label: '部门',
-    width: 120
   },
   {
     prop: 'salary',
     label: '薪资',
-    width: 120,
     render: ({ row }: any) => `¥${row.salary.toLocaleString()}`
   },
   {
     prop: 'status',
     label: '状态',
-    width: 100,
     render: ({ row }: any) => row.status === 'active' ? '在职' : '离职'
   },
   {
     prop: 'joinDate',
     label: '入职日期',
-    width: 120
   }
 ])
 

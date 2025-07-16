@@ -43,34 +43,28 @@ const columns = ref([
   {
     prop: 'id',
     label: 'ID',
-    width: 80,
   },
   {
     prop: 'name',
     label: '姓名',
-    width: 150,
   },
   {
     prop: 'department',
     label: '部门',
-    width: 120,
   },
   {
     prop: 'salary',
     label: '基本工资',
-    width: 120,
     render: ({ row }: any) => `¥${row.salary.toLocaleString()}`,
   },
   {
     prop: 'bonus',
     label: '奖金',
-    width: 120,
     render: ({ row }: any) => `¥${row.bonus.toLocaleString()}`,
   },
   {
     prop: 'total',
     label: '总收入',
-    width: 150,
     render: ({ row }: any) => h('span', {
       style: { color: '#67c23a', fontWeight: 'bold' }
     }, `¥${row.total.toLocaleString()}`),
@@ -78,7 +72,6 @@ const columns = ref([
   {
     prop: 'status',
     label: '状态',
-    width: 100,
     render: ({ row }: any) => h('span', {
       style: {
         color: row.status === '在职' ? '#67c23a' : row.status === '试用期' ? '#e6a23c' : '#f56c6c',

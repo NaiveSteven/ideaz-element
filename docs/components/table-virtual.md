@@ -1,175 +1,33 @@
 # Z-Table 虚拟滚动功能
 
-## 概述
+
+## 📚 概述
 
 Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，可以高效处理大量数据，提供流畅的用户体验。
 
-## 特性
+### 🚀 核心特性
 
-### 核心功能
-- 🚀 **高性能渲染**: 基于 Element Plus TableV2，支持 10 万+ 数据流畅滚动
-- 🔄 **智能切换**: 自动或手动在普通表格和虚拟表格间切换
-- 📊 **完整功能**: 支持排序、固定列、多选等核心表格功能
-- 🎨 **样式一致**: 保持与原表格相同的视觉体验
-- ⚡ **极致性能**: DOM 节点数量恒定，内存占用稳定
+- **高性能渲染**: 基于 Element Plus TableV2，支持 10 万+ 数据流畅滚动
+- **智能切换**: 自动或手动在普通表格和虚拟表格间切换
+- **完整功能**: 支持排序、固定列、多选等核心表格功能
+- **样式一致**: 保持与原表格相同的视觉体验
+- **极致性能**: DOM 节点数量恒定，内存占用稳定
 
-## 示例演示
+### ✅ 兼容性说明
 
-> 💡 **使用提示**: 以下示例展示了虚拟表格的各种功能。每个示例都是独立的，可以直接复制代码使用。
+- **完全兼容**: 排序、筛选、多选、选择功能、展开功能、索引列、固定列、样式主题、列显隐、列提示、水印功能
+- **高级功能**: 可编辑表格、自定义列渲染、自定义表头、插槽模板
+- **API 一致**: 与普通表格相同的 props 和事件
+- **渐进增强**: 可在运行时动态开启/关闭
 
+## 🚀 快速开始
 
-### 兼容性
-- ✅ **完全兼容**: 排序、筛选、多选、选择功能、展开功能、索引列、固定列、样式主题、列显隐、列提示、水印功能
-- ✅ **高级功能**: 可编辑表格、自定义列渲染、自定义表头、插槽模板
-- ✅ **API 一致**: 与普通表格相同的 props 和事件
-- ✅ **渐进增强**: 可在运行时动态开启/关闭
-
-### 基础功能示例
-
-演示基础的虚拟表格功能，包含分页、刷新等常用操作。
-
-<preview path="../demo/table/virtual-normal.vue" />
-
-### 操作按钮兼容性
-
-验证操作按钮在虚拟表格中的完整功能，包括点击事件、样式等。
-
-<preview path="../demo/table/virtual-operation.vue" />
-
-### 列类型支持
-
-测试各种列类型在虚拟表格中的兼容性：选择列、索引列、表单组件等。
-
-<preview path="../demo/table/virtual-column-type.vue" />
-
-### 分页功能结合
-
-展示分页功能与虚拟滚动的完美结合，支持大数据量的高效分页。
-
-<preview path="../demo/table/virtual-pagination.vue" />
-
-
-### 选择列功能
-
-测试 `type: 'selection'` 列在虚拟表格中的支持情况。
-
-<preview path="../demo/table/virtual-selection.vue" />
-
-### 展开功能
-
-虚拟表格完全支持展开功能，基于Element Plus TableV2原生能力：
-
-- **✅ 展开列配置**：`{ type: 'expand' }` 列配置，TableV2自动为有children的行添加展开按钮
-- **✅ 双向绑定**：`v-model:expanded-row-keys` 支持双向绑定展开状态
-- **✅ 事件支持**：`@expand-change`、`@row-expand` 事件 (TableV2原生事件)
-- **✅ 方法支持**：`toggleRowExpansion` 方法
-- **✅ 插槽支持**：`#expand` 插槽自定义展开内容
-- **✅ 数据结构**：支持children字段的嵌套数据结构
-
-<preview path="../demo/table/virtual-expand.vue" />
-
-### 索引列
-
-虚拟表格完全支持索引列功能：
-
-- **✅ 索引列配置**：`{ type: 'index' }` 列配置
-- **✅ 自定义起始索引**：支持数字类型的index属性
-- **✅ 函数索引**：支持函数类型的index属性自定义显示逻辑
-- **✅ 分页兼容**：自动处理分页情况下的索引偏移
-- **✅ 高性能**：虚拟滚动下的索引列渲染优化
-
-<preview path="../demo/table/virtual-index.vue" />
-
-### 方法和事件测试
-
-测试表格的各种方法调用和事件处理，包括虚拟滚动专用的 `scrollToRow` 方法。
-
-<preview path="../demo/table/virtual-methods.vue" />
-
-### 性能测试和监控
-
-提供可配置的性能测试工具，可以测试不同数据量下的表现并监控内存使用。
-
-<preview path="../demo/table/virtual-performance.vue" />
-
-### 高级功能测试
-
-#### 列显隐功能
-
-测试动态显示和隐藏列的功能，支持函数式和静态配置。
-
-<preview path="../demo/table/virtual-hide.vue" />
-
-#### 列提示功能
-
-虚拟表格完全支持表头tooltip功能，与z-table普通表格的tooltip实现保持一致：
-
-- **✅ 字符串提示**：`tooltip: '提示内容'`
-- **✅ 函数提示**：`tooltip: (scope) => '动态内容'`，支持传递scope参数
-- **✅ 对象配置**：`tooltip: { content: '内容', placement: 'top', effect: 'dark' }`
-- **✅ 样式一致**：与普通表格的tooltip样式和交互完全一致
-- **✅ 完整兼容**：支持useTableColumnSlots中的所有tooltip配置选项
-- **✅ 性能优化**：修复了表头抖动和Vue警告问题
-
-<preview path="../demo/table/virtual-tooltip.vue" />
-
-#### 可编辑表格
-
-测试大数据量下的表格编辑功能，支持多种表单组件。
-
-<preview path="../demo/table/virtual-editable.vue" />
-
-#### 列自定义渲染
-
-验证列内容的自定义渲染，支持render函数和slot插槽两种方式，包含复杂组件和交互功能。
-
-<preview path="../demo/table/virtual-custom-column.vue" />
-
-#### 表头自定义
-
-测试表头的自定义功能，包括图标、徽章、下拉菜单等交互元素。
-
-<preview path="../demo/table/virtual-custom-header.vue" />
-
-#### 水印功能
-
-虚拟表格完全兼容z-table组件的水印功能，支持字符串和对象配置两种模式：
-
-- **✅ 字符串水印**：直接传入字符串作为水印内容
-- **✅ 对象水印**：传入配置对象，自定义水印的字体、颜色、角度、间距等
-- **✅ 动态切换**：支持运行时动态开启/关闭/修改水印
-- **✅ 虚拟滚动兼容**：水印在虚拟滚动表格中正常显示，不影响性能
-- **✅ 样式一致**：与普通表格的水印效果完全一致
-
-<preview path="../demo/table/virtual-watermark.vue" />
-
-#### Footer 底部功能
-
-虚拟表格完全支持 Element Plus TableV2 的 footer 功能，可以在表格底部展示统计信息、操作按钮等内容：
-
-- **✅ Footer 插槽**：通过 `#footer` 插槽自定义底部内容
-- **✅ 高度配置**：通过 `virtual.footerHeight` 配置 footer 区域高度
-- **✅ 动态控制**：支持运行时动态显示/隐藏 footer
-- **✅ 样式自定义**：完全支持 CSS 样式自定义，支持渐变背景等
-- **✅ 统计功能**：适合展示数据统计、汇总信息等
-- **✅ 操作区域**：可放置导出、生成报告等操作按钮
-
-<preview path="../demo/table/virtual-footer.vue" />
-
-#### 高级功能综合
-
-集成所有高级功能的综合测试示例。
-
-<preview path="../demo/table/virtual-advanced.vue" />
-
-## 快速开始
-
-> 🚀 **3步开启虚拟滚动**: 只需添加 `:virtual="true"` 和 `height` 属性即可启用虚拟滚动！
+### 三步启用虚拟滚动
 
 ```vue
 <!-- 步骤1: 添加 virtual 属性 -->
 <!-- 步骤2: 设置固定高度 -->
-<!-- 步骤3: 确保列配置有 width -->
+<!-- 步骤3: 配置列信息 -->
 <z-table
   :data="largeData"
   :columns="columns"
@@ -178,9 +36,7 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
 />
 ```
 
-## 基本用法
-
-### 启用虚拟滚动
+### 基础配置示例
 
 ```vue
 <template>
@@ -191,9 +47,18 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
     height="600px"
   />
 </template>
+
+<script setup>
+// 列配置无需指定 width，系统会自动处理
+const columns = [
+  { prop: 'name', label: '姓名' },
+  { prop: 'email', label: '邮箱' },
+  { prop: 'department', label: '部门' }
+]
+</script>
 ```
 
-### 自定义配置
+### 高级配置示例
 
 ```vue
 <template>
@@ -205,32 +70,219 @@ Z-Table 组件现在支持基于 Element Plus TableV2 的虚拟滚动功能，�
   />
 </template>
 
-<script>
+<script setup>
 const virtualConfig = {
   enabled: true,
   itemHeight: 48,        // 行高度
-  buffer: 5,             // 缓冲区行数
   threshold: 100,        // 启用阈值
-  cache: 2               // 缓存倍数
+  footerHeight: 60       // Footer 高度
 }
 </script>
 ```
 
-## 配置选项
+## 🎯 基础功能
+
+### 基础表格
+
+基础的虚拟表格功能，包含分页、刷新等常用操作。支持大量数据的高效渲染。
+
+<preview path="../demo/table/virtual-normal.vue" />
+
+### 操作按钮
+
+验证操作按钮在虚拟表格中的完整功能，包括点击事件、样式等。
+
+<preview path="../demo/table/virtual-operation.vue" />
+
+
+## 🏛️ 列类型功能
+
+### 列类型支持
+
+测试各种列类型在虚拟表格中的兼容性：选择列、索引列、表单组件等。
+
+<preview path="../demo/table/virtual-column-type.vue" />
+
+### 选择功能
+
+测试 `type: 'selection'` 列在虚拟表格中的支持情况。
+
+**功能特点：**
+- ✅ 多选支持
+- ✅ 全选/取消全选
+- ✅ 选中状态回调
+- ✅ 禁用状态支持
+
+<preview path="../demo/table/virtual-selection.vue" />
+
+### 展开功能
+
+虚拟表格完全支持展开功能，基于Element Plus TableV2原生能力。
+
+**功能特点：**
+- ✅ **展开列配置**：`{ type: 'expand' }` 列配置，TableV2自动为有children的行添加展开按钮
+- ✅ **双向绑定**：`v-model:expanded-row-keys` 支持双向绑定展开状态
+- ✅ **事件支持**：`@expand-change`、`@row-expand` 事件 (TableV2原生事件)
+- ✅ **方法支持**：`toggleRowExpansion` 方法
+- ✅ **插槽支持**：`#expand` 插槽自定义展开内容
+- ✅ **数据结构**：支持children字段的嵌套数据结构
+
+<preview path="../demo/table/virtual-expand.vue" />
+
+### 索引列
+
+虚拟表格完全支持索引列功能。
+
+**功能特点：**
+- ✅ **索引列配置**：`{ type: 'index' }` 列配置
+- ✅ **自定义起始索引**：支持数字类型的index属性
+- ✅ **函数索引**：支持函数类型的index属性自定义显示逻辑
+- ✅ **分页兼容**：自动处理分页情况下的索引偏移
+- ✅ **高性能**：虚拟滚动下的索引列渲染优化
+
+<preview path="../demo/table/virtual-index.vue" />
+
+## 🔧 高级功能
+
+### 可编辑表格
+
+测试大数据量下的表格编辑功能，支持多种表单组件。
+
+**支持的组件：**
+- 📝 输入框 (input)
+- 🎯 选择器 (select)
+- 🔢 数字输入框 (input-number)
+- 📅 日期选择器 (date-picker)
+
+<preview path="../demo/table/virtual-editable.vue" />
+
+### 列显隐功能
+
+测试动态显示和隐藏列的功能，支持函数式和静态配置。
+
+**功能特点：**
+- 🔄 动态显示/隐藏列
+- 🎯 函数式配置：`hide: () => boolean`
+- 🔧 静态配置：`hide: boolean`
+- 📊 实时响应状态变化
+
+<preview path="../demo/table/virtual-hide.vue" />
+
+### 列提示功能
+
+虚拟表格完全支持表头tooltip功能，与z-table普通表格的tooltip实现保持一致。
+
+**功能特点：**
+- ✅ **字符串提示**：`tooltip: '提示内容'`
+- ✅ **函数提示**：`tooltip: (scope) => '动态内容'`，支持传递scope参数
+- ✅ **对象配置**：`tooltip: { content: '内容', placement: 'top', effect: 'dark' }`
+- ✅ **样式一致**：与普通表格的tooltip样式和交互完全一致
+- ✅ **完整兼容**：支持useTableColumnSlots中的所有tooltip配置选项
+- ✅ **性能优化**：修复了表头抖动和Vue警告问题
+
+<preview path="../demo/table/virtual-tooltip.vue" />
+
+### 水印功能
+
+虚拟表格完全兼容z-table组件的水印功能。
+
+**功能特点：**
+- ✅ **字符串水印**：直接传入字符串作为水印内容
+- ✅ **对象水印**：传入配置对象，自定义水印的字体、颜色、角度、间距等
+- ✅ **动态切换**：支持运行时动态开启/关闭/修改水印
+- ✅ **虚拟滚动兼容**：水印在虚拟滚动表格中正常显示，不影响性能
+- ✅ **样式一致**：与普通表格的水印效果完全一致
+
+<preview path="../demo/table/virtual-watermark.vue" />
+
+### Footer 底部功能
+
+虚拟表格完全支持 Element Plus TableV2 的 footer 功能。
+
+**功能特点：**
+- ✅ **Footer 插槽**：通过 `#footer` 插槽自定义底部内容
+- ✅ **高度配置**：通过 `virtual.footerHeight` 配置 footer 区域高度
+- ✅ **动态控制**：支持运行时动态显示/隐藏 footer
+- ✅ **样式自定义**：完全支持 CSS 样式自定义，支持渐变背景等
+- ✅ **统计功能**：适合展示数据统计、汇总信息等
+- ✅ **操作区域**：可放置导出、生成报告等操作按钮
+
+<preview path="../demo/table/virtual-footer.vue" />
+
+## 🎨 自定义功能
+
+### 自定义列渲染
+
+验证列内容的自定义渲染，支持render函数和slot插槽两种方式。
+
+**支持方式：**
+- 🎯 **Render 函数**：灵活的渲染函数支持
+- 🎰 **Slot 插槽**：Vue 原生插槽支持
+- 🎨 **复杂组件**：支持嵌套复杂组件
+- 🖱️ **交互功能**：支持点击、悬浮等交互
+
+<preview path="../demo/table/virtual-custom-column.vue" />
+
+### 自定义表头
+
+测试表头的自定义功能，包括图标、徽章、下拉菜单等交互元素。
+
+**支持功能：**
+- 🎯 **图标支持**：表头图标展示
+- 🏷️ **徽章支持**：动态徽章展示
+- 📝 **提示信息**：表头提示支持
+- 🎛️ **下拉菜单**：表头操作菜单
+- 🎨 **样式自定义**：完整的样式定制能力
+
+<preview path="../demo/table/virtual-custom-header.vue" />
+
+## 🔍 开发调试
+
+### 方法和事件测试
+
+测试表格的各种方法调用和事件处理。
+
+**测试内容：**
+- 📞 **方法调用**：包括虚拟滚动专用的 `scrollToRow` 方法
+- 📡 **事件处理**：完整的事件处理测试
+- 🎯 **滚动定位**：精确的滚动定位功能
+- 🔄 **状态管理**：表格状态管理测试
+
+<preview path="../demo/table/virtual-methods.vue" />
+
+### 性能测试
+
+提供可配置的性能测试工具，可以测试不同数据量下的表现。
+
+**测试功能：**
+- 📊 **数据量测试**：可配置不同数据量进行测试
+- 🖥️ **内存监控**：监控内存使用情况
+- ⚡ **渲染性能**：测试渲染性能指标
+- 📈 **性能对比**：虚拟滚动与普通表格的性能对比
+
+<preview path="../demo/table/virtual-performance.vue" />
+
+### 综合功能测试
+
+集成所有高级功能的综合测试示例。
+
+<preview path="../demo/table/virtual-advanced.vue" />
+
+## 📖 配置参考
+
+### 配置选项
 
 | 参数 | 类型 | 默认值 | 说明 |
 |------|------|--------|------|
 | `enabled` | `boolean` | `false` | 是否启用虚拟滚动 |
 | `itemHeight` | `number` | `48` | 每行固定高度(px) |
 | `estimatedRowHeight` | `number` | `48` | 动态高度时的预估行高 |
-| `buffer` | `number` | `5` | 上下缓冲区行数 |
 | `threshold` | `number` | `100` | 数据量超过此值自动启用 |
-| `cache` | `number` | `2` | 缓存倍数，提升滚动性能 |
 | `footerHeight` | `number` | `50` | Footer 区域高度(px) |
 
-## API 方法
+### API 方法
 
-### 虚拟滚动专用方法
+#### 虚拟滚动专用方法
 
 ```javascript
 // 滚动到指定位置
@@ -243,7 +295,7 @@ tableRef.value.scrollTo({
 tableRef.value.scrollToRow(500, 'center')
 ```
 
-### 通用表格方法
+#### 通用表格方法
 
 所有原有的表格方法在虚拟模式下依然可用：
 
@@ -261,7 +313,7 @@ tableRef.value.clearSelection()
 tableRef.value.sort('column', 'ascending')
 ```
 
-## 性能对比
+### 性能对比
 
 | 数据量 | 普通表格 | 虚拟表格 | 性能提升 |
 |-------|---------|---------|---------|
@@ -270,41 +322,39 @@ tableRef.value.sort('column', 'ascending')
 | 50,000 行 | 卡顿 | 流畅 | 50x |
 | 100,000 行 | 不可用 | 流畅 | 100x+ |
 
-## 使用建议
+### 使用建议
 
-### 何时使用虚拟滚动
+#### 🎯 何时使用虚拟滚动
 
 - ✅ 数据量 > 1000 条
 - ✅ 需要一次性展示所有数据
 - ✅ 用户需要快速浏览和定位
 - ✅ 性能敏感的应用场景
 
-### 注意事项
+#### ⚠️ 注意事项
 
-> ⚠️ **重要提醒**: 请在使用前仔细阅读以下注意事项以确保最佳体验
-
-1. **固定高度**:
+1. **固定高度要求**:
    - ✅ 必须设置 `height` 属性
-   - ✅ 建议为列设置 `width` 属性
    - ❌ 不支持动态行高
 
-2. **数据结构**:
+2. **数据结构要求**:
    - ✅ 支持普通对象数组
    - ✅ 支持嵌套属性访问
-   - ❌ 不支持树形数据结构
+   - ❌ 不支持复杂树形数据结构
 
-3. **功能兼容**:
+3. **功能兼容性**:
    - ✅ 完全兼容: 排序、分页、操作按钮、列显隐、列提示、可编辑表格、选择功能、展开功能、索引列、水印功能、Footer 底部区域
    - ✅ 自定义功能: 列内容渲染、表头渲染、插槽模板
    - ⚠️ 部分兼容: 复杂的嵌套组件、动态行高
-   - ❌ 不支持: 行合并、树形数据
+   - ❌ 不支持: 行合并、复杂树形数据
 
-4. **性能优化**:
+4. **性能优化建议**:
    - 💡 数据量 > 1000 条时启用
-   - 💡 避免在列中使用复杂组件
+   - 💡 避免在列中使用过于复杂的组件
    - 💡 建议配合分页使用
+   - 💡 列配置无需手动指定 width，系统自动处理
 
-## 完整示例
+## 🎉 完整示例
 
 ```vue
 <template>
@@ -365,17 +415,16 @@ const tableData = ref([])
 const virtualConfig = reactive({
   enabled: true,
   itemHeight: 48,
-  buffer: 5,
   threshold: 100,
-  cache: 2,
   footerHeight: 60  // 设置 footer 高度
 })
 
+// 列配置 - 无需手动指定 width
 const columns = [
-  { prop: 'id', label: 'ID', width: 80 },
-  { prop: 'name', label: '姓名', width: 120 },
-  { prop: 'email', label: '邮箱', width: 200 },
-  { prop: 'department', label: '部门', width: 100 }
+  { prop: 'id', label: 'ID' },
+  { prop: 'name', label: '姓名' },
+  { prop: 'email', label: '邮箱' },
+  { prop: 'department', label: '部门' }
 ]
 
 function generateData(count) {
@@ -409,7 +458,7 @@ generateData(50000)
 </script>
 ```
 
-## 技术实现
+## 🔧 技术实现
 
 虚拟滚动基于 Element Plus 的 TableV2 组件实现：
 
@@ -418,5 +467,6 @@ generateData(50000)
 3. **事件桥接**: 统一表格事件，保证 API 一致性
 4. **方法代理**: 透明代理所有表格方法到对应实现
 5. **样式继承**: 继承原表格的主题和样式配置
+6. **自适应布局**: 自动处理列宽分配，无需手动指定 width
 
-这种设计确保了最大的兼容性和最小的迁移成本。
+这种设计确保了最大的兼容性和最小的迁移成本，同时提供了优秀的开发体验。

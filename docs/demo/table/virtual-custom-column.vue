@@ -79,7 +79,7 @@
             :show-text="false"
             style="flex: 1;"
           />
-          <span style="font-size: 12px; color: #606266; min-width: 35px;">
+          <span style="min-width: 35px; font-size: 12px; color: #606266;">
             {{ scope.row.progress }}%
           </span>
         </div>
@@ -125,7 +125,7 @@
     <div style="margin-top: 16px;">
       <el-collapse v-model="activeCollapse">
         <el-collapse-item title="最近的参数传递日志" name="1">
-          <div style="max-height: 200px; padding: 12px; background: #f5f7fa; overflow-y: auto; border-radius: 4px;">
+          <div style="max-height: 200px; padding: 12px; border-radius: 4px; background: #f5f7fa; overflow-y: auto;">
             <div v-for="(log, index) in paramLogs" :key="index" style="margin-bottom: 8px; font-family: monospace; font-size: 12px;">
               <span style="color: #909399;">[{{ log.timestamp }}]</span>
               <span style="font-weight: bold; color: #409eff;">{{ log.type }}:</span>
@@ -192,12 +192,10 @@ const columns = computed(() => [
   {
     type: 'index',
     label: '序号',
-    width: 80
   },
   {
     prop: 'name',
     label: '用户信息',
-    width: 200,
     // 根据模式选择render或slot
     ...(useSlotMode.value ? {
       slot: 'avatar-slot'
@@ -224,17 +222,14 @@ const columns = computed(() => [
   {
     prop: 'department',
     label: '部门',
-    width: 120
   },
   {
     prop: 'age',
     label: '年龄',
-    width: 80
   },
   {
     prop: 'salary',
     label: '薪资',
-    width: 150,
     ...(useSlotMode.value ? {
       slot: 'salary-slot'
     } : {
@@ -263,7 +258,6 @@ const columns = computed(() => [
   {
     prop: 'status',
     label: '状态',
-    width: 120,
     ...(useSlotMode.value ? {
       slot: 'status-slot'
     } : {
@@ -287,7 +281,6 @@ const columns = computed(() => [
   {
     prop: 'progress',
     label: '项目进度',
-    width: 150,
     ...(useSlotMode.value ? {
       slot: 'progress-slot'
     } : {
@@ -303,7 +296,7 @@ const columns = computed(() => [
             style: { flex: 1 }
           }),
           h('span', {
-            style: { fontSize: '12px', color: '#606266', minWidth: '35px' }
+            style: { minWidth: '35px', fontSize: '12px', color: '#606266' }
           }, `${scope.row.progress}%`)
         ])
       }
@@ -312,7 +305,6 @@ const columns = computed(() => [
   {
     prop: 'actions',
     label: '操作',
-    width: 200,
     fixed: 'right',
     ...(useSlotMode.value ? {
       slot: 'actions-slot'

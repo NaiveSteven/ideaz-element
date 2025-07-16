@@ -34,37 +34,30 @@ const tableRef = ref()
 const columns = ref([
   {
     type: 'selection',
-    width: 80,
   },
   {
     type: 'index',
-    width: 80,
   },
   {
     prop: 'id',
     label: 'ID',
-    width: 100,
   },
   {
     prop: 'name',
     label: '姓名',
-    width: 150,
   },
   {
     prop: 'gender',
     label: '性别',
-    width: 120,
   },
   {
     prop: 'age',
     label: '年龄',
-    width: 120,
     sortable: true,
   },
   {
     prop: 'time',
     label: '出生日期',
-    width: 200,
   },
 ])
 

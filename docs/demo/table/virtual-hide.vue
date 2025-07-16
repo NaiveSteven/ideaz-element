@@ -27,29 +27,24 @@ const columns = ref([
   {
     prop: 'id',
     label: 'ID',
-    width: 100,
   },
   {
     prop: 'name',
     label: '姓名',
-    width: 150,
     hide: () => isHide.value,
   },
   {
     prop: 'gender',
     label: '性别',
-    width: 120,
     hide: true, // 默认隐藏
   },
   {
     prop: 'age',
     label: '年龄',
-    width: 120,
   },
   {
     prop: 'time',
     label: '出生日期',
-    width: 200,
   },
 ])
 

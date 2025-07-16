@@ -1,106 +1,108 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
-interface RowData {
-  name: string
-  gender: string
-  age: number
-  time: string
-}
-
-const loading = ref(false)
-const tableData = ref<RowData[]>([])
-const columns = ref([
-  {
-    prop: 'name',
-    label: '姓名',
-  },
-  {
-    prop: 'gender',
-    label: '性别',
-  },
-  {
-    prop: 'age',
-    label: '年龄',
-  },
-  {
-    prop: 'time',
-    label: '出生日期',
-  },
-])
-const pagination = ref({
-  page: 1,
-  pageSize: 50,
-  total: 0,
-})
-
-// 生成大量测试数据
-function generateLargeData(count: number): RowData[] {
-  const names = ['Steven', 'Helen', 'Nancy', 'Jack', 'Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank']
-  const genders = ['male', 'female']
-  const data: RowData[] = []
-
-  for (let i = 0; i < count; i++) {
+// 生成测试数据
+function generateData(count: number) {
+  const data = []
+  for (let i = 1; i <= count; i++) {
     data.push({
-      name: `${names[i % names.length]}-${i + 1}`,
-      gender: genders[i % genders.length],
-      age: 18 + (i % 50),
-      time: `202${(i % 4) + 0}-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+      id: i,
+      name: `用户${i}`,
+      email: `user${i}@example.com`,
+      phone: `138${String(i).padStart(8, '0')}`,
+      department: ['技术部', '产品部', '设计部', '运营部'][i % 4],
+      position: ['工程师', '产品经理', '设计师', '运营专员'][i % 4],
+      status: ['在职', '离职', '试用期'][i % 3],
+      createTime: new Date(2024, 0, 1 + (i % 365)).toLocaleDateString(),
     })
   }
   return data
 }
 
-function mockApi(params: { page: number, pageSize: number }): Promise<{ result: { page: number, pageSize: number, total: number, list: RowData[] } }> {
-  console.log(params, 'params')
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const total = 10000 // 大数据量测试
-      const start = (params.page - 1) * params.pageSize
-      const allData = generateLargeData(total)
-      const list = allData.slice(start, start + params.pageSize)
+const tableData = ref(generateData(5000))
+const dataCount = ref(5000)
 
-      resolve({
-        result: {
-          page: params.page,
-          pageSize: params.pageSize,
-          total,
-          list,
-        },
-      })
-    }, 100)
-  })
+const columns = ref([
+  {
+    prop: 'id',
+    label: 'ID',
+  },
+  {
+    prop: 'name',
+    label: '姓名',
+  },
+  {
+    prop: 'email',
+    label: '邮箱',
+  },
+  {
+    prop: 'phone',
+    label: '手机号',
+  },
+  {
+    prop: 'department',
+    label: '部门',
+  },
+  {
+    prop: 'position',
+    label: '职位',
+  },
+  {
+    prop: 'status',
+    label: '状态',
+  },
+  {
+    prop: 'createTime',
+    label: '创建时间',
+  },
+])
+
+// 虚拟滚动配置
+const virtualConfig = computed(() => ({
+  enabled: true,
+  itemHeight: 48,
+  threshold: 100,
+}))
+
+function updateData() {
+  tableData.value = generateData(dataCount.value)
 }
 
-async function getTableData() {
-  loading.value = true
-  try {
-    const res = await mockApi({ ...pagination.value })
-    tableData.value = res.result.list
-    pagination.value.total = res.result.total
-  }
-  catch (error) {
-    console.log(error)
-  }
-  loading.value = false
+function handleRefresh() {
+  console.log('刷新数据')
+  updateData()
 }
-
-getTableData()
 </script>
 
 <template>
-  <z-table
-    v-model:pagination="pagination"
-    v-model:data="tableData"
-    :columns="columns"
-    :loading="loading"
-    :virtual="{ enabled: true, itemHeight: 48, threshold: 50 }"
-    height="400px"
-    @refresh="getTableData"
-  >
-    <template #expand="row">
-      {{ row.$index }}
-    </template>
-  </z-table>
+  <div>
+    <div style="margin-bottom: 16px;">
+      <el-space wrap>
+        <span>数据量:</span>
+        <el-input-number
+          v-model="dataCount"
+          :min="100"
+          :max="50000"
+          :step="1000"
+          controls-position="right"
+          style="width: 150px;"
+        />
+        <el-button @click="updateData" type="primary">
+          更新数据
+        </el-button>
+        <span style="color: #666;">当前: {{ tableData.length.toLocaleString() }} 条</span>
+      </el-space>
+    </div>
+
+    <z-table
+      v-model:data="tableData"
+      :columns="columns"
+      :virtual="virtualConfig"
+      height="500px"
+      border
+      stripe
+      @refresh="handleRefresh"
+    />
+  </div>
 </template>

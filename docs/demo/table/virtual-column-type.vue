@@ -1,121 +1,119 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { markRaw, ref } from 'vue'
-import { ElInput } from 'element-plus'
-import type { TableColumnScopeData } from 'ideaz-element'
+import { computed, h, ref } from 'vue'
 
 interface RowData {
   id: number
   name: string
-  gender: string
-  age: number
-  time: string
+  email: string
+  department: string
+  position: string
+  salary: number
+  status: string
 }
 
-// 生成大量测试数据
-function generateLargeData(count: number): RowData[] {
-  const names = ['Steven', 'Helen', 'Nancy', 'Jack', 'Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank']
-  const genders = ['1', '2']
+// 生成测试数据
+function generateData(count: number): RowData[] {
+  const names = ['张三', '李四', '王五', '赵六', '孙七', '周八', '吴九', '郑十', '冯一', '陈二']
+  const departments = ['技术部', '产品部', '设计部', '运营部', '市场部']
+  const positions = ['工程师', '产品经理', '设计师', '运营专员', '市场专员']
+  const statuses = ['在职', '离职', '试用期']
   const data: RowData[] = []
 
   for (let i = 0; i < count; i++) {
     data.push({
       id: i + 1,
       name: `${names[i % names.length]}-${i + 1}`,
-      gender: genders[i % genders.length],
-      age: 18 + (i % 50),
-      time: `202${(i % 4) + 0}-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
+      email: `user${i + 1}@example.com`,
+      department: departments[i % departments.length],
+      position: positions[i % positions.length],
+      salary: Math.floor(Math.random() * 50000) + 8000,
+      status: statuses[i % statuses.length],
     })
   }
   return data
 }
 
-const tableData = ref<RowData[]>(generateLargeData(1000))
+const tableData = ref<RowData[]>(generateData(1000))
 
 const columns = ref([
   {
-    type: 'expand',
-    width: 80,
+    type: 'selection',
+    label: '选择',
   },
   {
     type: 'index',
-    width: 80,
+    label: '序号',
+    index: 1,
   },
   {
-    type: 'radio',
-    width: 80,
+    prop: 'id',
+    label: 'ID',
   },
   {
-    type: 'selection',
-    width: 80,
-  },
-  {
-    component: 'input',
     prop: 'name',
     label: '姓名',
-    width: 200,
-    onChange: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
-      console.log('change event', row, column, $index, val)
-    },
-    onInput: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
-      console.log('input event', row, column, $index, val)
-    },
-    fieldProps: {
-      clearable: true,
-    },
   },
   {
-    component: 'select',
-    prop: 'gender',
-    label: '性别',
-    width: 150,
-    fieldProps: {
-      clearable: true,
-    },
-    onChange: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
-      console.log('change event', row, column, $index, val)
-    },
+    prop: 'email',
+    label: '邮箱',
   },
   {
-    prop: 'age',
-    label: '年龄',
-    width: 150,
-    component: markRaw(ElInput),
-    fieldProps: {
-      clearable: true,
-    },
-    onChange: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
-      console.log('change event', row, column, $index, val)
-    },
-    onInput: ({ row }: TableColumnScopeData<RowData>, val: string) => {
-      console.log('input event', row, val)
-    },
+    prop: 'department',
+    label: '部门',
   },
   {
-    prop: 'time',
-    label: '出生日期',
-    width: 200,
+    prop: 'position',
+    label: '职位',
+  },
+  {
+    prop: 'salary',
+    label: '薪资',
+    render: ({ row }: any) => `¥${row.salary.toLocaleString()}`,
+  },
+  {
+    prop: 'status',
+    label: '状态',
+    render: ({ row }: any) => {
+      const type = row.status === '在职' ? 'success' : row.status === '试用期' ? 'warning' : 'danger'
+      return h('el-tag', { type, size: 'small' }, row.status)
+    },
   },
 ])
 
-const options = {
-  gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
-  ],
+// 虚拟滚动配置
+const virtualConfig = computed(() => ({
+  enabled: true,
+  itemHeight: 48,
+  threshold: 100,
+}))
+
+const selectedRows = ref<RowData[]>([])
+
+function handleSelectionChange(selection: RowData[]) {
+  selectedRows.value = selection
+  console.log('选择变化:', selection)
 }
 </script>
 
 <template>
-  <z-table
-    v-model:data="tableData"
-    :columns="columns"
-    :options="options"
-    :virtual="{ enabled: true, itemHeight: 48, threshold: 100 }"
-    height="500px"
-  >
-    <template #expand>
-      <span>展开内容</span>
-    </template>
-  </z-table>
+  <div>
+    <div style="margin-bottom: 16px;">
+      <h3>虚拟表格列类型演示</h3>
+      <p style="margin: 8px 0; color: #666;">
+        测试各种列类型在虚拟表格中的兼容性：选择列、索引列、表单组件等。
+      </p>
+      <p style="margin: 8px 0; color: #666;">已选择: {{ selectedRows.length }} 项</p>
+    </div>
+
+    <z-table
+      v-model:data="tableData"
+      :columns="columns"
+      :virtual="virtualConfig"
+      height="500px"
+      border
+      stripe
+      @selection-change="handleSelectionChange"
+    />
+  </div>
 </template>

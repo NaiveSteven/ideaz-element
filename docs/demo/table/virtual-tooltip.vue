@@ -35,19 +35,16 @@ const columns = [
   {
     type: 'index',
     label: '序号',
-    width: 80,
     tooltip: '显示数据行的序号，从1开始计数'
   },
   {
     prop: 'name',
     label: '用户姓名',
-    width: 120,
     tooltip: '用户的真实姓名，用于标识用户身份'
   },
   {
     prop: 'email',
     label: '邮箱地址',
-    width: 200,
     tooltip: {
       content: '用户的电子邮箱地址，用于联系和通知',
       placement: 'bottom',
@@ -57,7 +54,6 @@ const columns = [
   {
     prop: 'age',
     label: '年龄',
-    width: 80,
     tooltip: (scope: any) => {
       const minAge = Math.min(...tableData.value.map(item => item.age))
       const maxAge = Math.max(...tableData.value.map(item => item.age))
@@ -67,7 +63,6 @@ const columns = [
   {
     prop: 'department',
     label: '所属部门',
-    width: 120,
     tooltip: {
       content: (scope: any) => {
         return `共有 ${departmentCount} 个部门 (列: ${scope.column.prop})`
@@ -79,7 +74,6 @@ const columns = [
   {
     prop: 'salary',
     label: '薪资待遇',
-    width: 120,
     tooltip: (scope: any) => {
       return `平均薪资：¥${avgSalary.toLocaleString()} (列索引: ${scope.$index})`
     }
@@ -87,7 +81,6 @@ const columns = [
   {
     prop: 'level',
     label: '职级',
-    width: 100,
     tooltip: {
       content: '员工的职业等级，分为初级、中级、高级、专家四个级别',
       placement: 'right',
@@ -98,7 +91,6 @@ const columns = [
   {
     prop: 'status',
     label: '在职状态',
-    width: 100,
     tooltip: {
       content: (scope: any) => {
         const activeCount = tableData.value.filter(item => item.status === '在职').length
@@ -112,13 +104,11 @@ const columns = [
   {
     prop: 'joinDate',
     label: '入职日期',
-    width: 120,
     tooltip: '员工加入公司的日期'
   },
   {
     prop: 'performance',
     label: '绩效得分',
-    width: 120,
     tooltip: {
       content: (scope: any) => {
         const avgPerformance = Math.round(
