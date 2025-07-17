@@ -1,11 +1,14 @@
-import { ElCheckbox, ElIcon, ElTooltip } from 'element-plus'
+import { ElCheckbox, ElFormItem, ElIcon, ElTooltip } from 'element-plus'
 import { QuestionFilled } from '@element-plus/icons-vue'
 import type { CheckboxValueType } from 'element-plus'
 import type { FunctionalComponent } from 'vue'
 import { computed, ref, unref } from 'vue'
-import { isFunction, isObject, isSlot, isString } from '@ideaz/utils'
-import { useNamespace } from '@ideaz/hooks'
+import { getEventsFromCamel, isArray, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
+import { useFormSize, useLocale, useNamespace } from '@ideaz/hooks'
+import { getDynamicComponentName, getTableColumnLabel, getTableColumnRules } from '@ideaz/shared'
 import type { TableCol } from '../../../types'
+import TableCustomColumnContainer from '../TableCustomColumnContainer'
+import TableButton from '../TableButton'
 
 // 虚拟表格选择功能组件
 interface SelectionCellProps {
@@ -35,6 +38,9 @@ export function useVirtualTableColumns(
   emit: any,
   props: any
 ) {
+  const { t } = useLocale()
+  const size = useFormSize()
+
   // 计算分页偏移量
   const getPageOffset = () => {
     if (props.pagination && typeof props.pagination === 'object') {
@@ -43,6 +49,17 @@ export function useVirtualTableColumns(
     }
     return 0
   }
+
+  // 获取标签显示内容
+  const getLabel = (row: any, column: TableCol) => {
+    return getTableColumnLabel(row, column, props.options)
+  }
+
+  // 获取验证规则
+  const getRules = (column: TableCol) => {
+    return getTableColumnRules(column, t)
+  }
+
   // 选择状态管理
   const selectedRowKeys = ref<Set<string | number>>(new Set())
 
@@ -56,7 +73,7 @@ export function useVirtualTableColumns(
     }
   })
 
-    // 检查是否有展开列
+  // 检查是否有展开列
   const hasExpandColumn = computed(() => {
     return formatTableCols.value.some(col => col.type === 'expand')
   })
@@ -67,7 +84,7 @@ export function useVirtualTableColumns(
     return expandCol ? (expandCol.prop || 'expand') : undefined
   })
 
-    // 展开相关方法
+  // 展开相关方法
   const toggleRowExpansion = (row: any, expanded?: boolean) => {
     const rowKey = row[props.rowKey || 'id']
     const currentKeys = [...expandedRowKeys.value]
@@ -98,6 +115,8 @@ export function useVirtualTableColumns(
 
   // 虚拟表格列配置
   const virtualColumns = computed(() => {
+    const ns = useNamespace('table-column')
+
     return formatTableCols.value.map((col, index) => {
       const baseColumn: any = {
         key: col.prop || `column-${index}`,
@@ -216,6 +235,60 @@ export function useVirtualTableColumns(
             cellData,
             $index: rowIndex
           }) || cellData
+        }
+      }
+
+      // 处理表单组件列
+      if (col.component && !col.render && !col.slot) {
+        const prop = col.prop || ''
+
+        baseColumn.cellRenderer = ({ rowData, rowIndex }: any) => {
+          const scope = {
+            row: rowData,
+            column: col,
+            $index: rowIndex
+          }
+
+          // 渲染自定义组件
+          const renderCustomComponent = () => {
+            const events = getEventsFromCamel(col)
+            return (
+              <TableCustomColumnContainer
+                modelValue={rowData[prop]}
+                onUpdate:modelValue={(val: any) => {
+                  const newRowData = { ...rowData, [prop]: val }
+                  const list = [...tableData.value]
+                  list.splice(rowIndex, 1, newRowData)
+                  emit('update:data', list)
+                }}
+                componentName={getDynamicComponentName(col.component!)}
+                evts={events}
+                size={size.value}
+                options={props.options?.[prop] || []}
+                scope={scope}
+                column={col}
+                fieldProps={col.fieldProps}
+              />
+            )
+          }
+
+          // 如果表格是可编辑的，则根据编辑状态渲染不同内容
+          if (props.editable) {
+            return rowData.__isEdit === true
+              ? (
+                <ElFormItem
+                  prop={`tableData.${rowIndex}.${prop}`}
+                  rules={getRules(col)}
+                  class={[ns.b('form-item'), ns.bm('form-item', size.value)]}
+                >
+                  {renderCustomComponent()}
+                </ElFormItem>
+                )
+              : <span>{getLabel(rowData, col)}</span>
+          }
+
+          // 非编辑状态下直接渲染组件
+          return renderCustomComponent()
         }
       }
 

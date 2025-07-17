@@ -49,7 +49,7 @@ const columns = ref([
     },
   },
   {
-    component: 'input-number',
+    component: 'el-input-number',
     prop: 'age',
     label: '年龄',
     width: 120,
@@ -59,7 +59,7 @@ const columns = ref([
     },
   },
   {
-    component: 'input-number',
+    component: 'el-input-number',
     prop: 'salary',
     label: '薪资',
     width: 120,

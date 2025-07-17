@@ -1,25 +1,14 @@
 import { Operation, QuestionFilled } from '@element-plus/icons-vue'
-import { getEventsFromCamel, isArray, isEmptyObject, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
+import { getEventsFromCamel, isArray, isFunction, isObject, isSlot, isString } from '@ideaz/utils'
 import { ElFormItem, ElIcon, ElTooltip } from 'element-plus'
 import type { VNode } from 'vue'
+import { getDynamicComponentName, getTableColumnLabel, getTableColumnRules } from '@ideaz/shared'
 import type { TableColumnProps } from '../props'
 import TableButton from '../TableButton'
-import { SELECT_TYPES } from '../../../form/src/hooks'
 import TableCustomColumnContainer from '../TableCustomColumnContainer'
 import type { TableColumnScopeData } from '../../../types'
 
-function getDynamicComponentName(type: string | (() => string)) {
-  const zNames = ['select', 'checkbox', 'radio', 'input']
-  const propComponentName = typeof type === 'function' ? type() : type
 
-  if (zNames.includes(propComponentName)) {
-    return `z-${propComponentName}`
-  }
-
-  else {
-    return propComponentName || 'unknown'
-  }
-}
 
 export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: any) {
   const scopedSlots = shallowRef<any>({})
@@ -29,46 +18,12 @@ export function useTableColumnSlots(props: TableColumnProps, slots: any, emit: a
   const getLabel = (row: any) => {
     const { column = {} } = props
     const options = props.tableProps.options
-    const prop = column.prop!
-    const type = isFunction(column.component) ? column.component() : isObject(column.component) ? column.component.name : column.component
-    if (type === 'radio' || (type === 'select' && !column.fieldProps?.multiple))
-      return options[prop] ? options[prop].find((item: { label: string, value: any }) => item.value === row?.[prop])?.label : ''
-
-    if ((type === 'select' && column.fieldProps?.multiple) || type === 'checkbox') {
-      const label: string[] = []
-      if (row[prop]) {
-        row[prop].forEach((item: any) => {
-          label.push(options[prop].find((option: { label: string, value: any }) => option.value === item)?.label)
-        })
-      }
-      return label.join(',')
-    }
-    if (type === 'el-switch')
-      return row[prop] ? (column.fieldProps?.activeText || 'true') : (column.fieldProps?.inactiveText || 'false')
-
-    return row[prop]
+    return getTableColumnLabel(row, column, options)
   }
 
   const getRules = () => {
     const column = props.column
-    const label = props.column.label
-    const type = isFunction(column.component) ? column.component() : isObject(column.component) ? column.component.name : column.component
-    let message = ''
-    let rules = {}
-    if (SELECT_TYPES.includes((type || '').toLowerCase()))
-      message = label ? `${t('form.selectPlaceholder')}${label}` : `${t('form.selectPlaceholder')}`
-
-    else
-      message = label ? `${t('form.inputPlaceholder')}${label}` : `${t('form.inputPlaceholder')}`
-
-    if (column.required === true || column.rules?.required) {
-      rules = {
-        required: true,
-        message,
-        ...column.rules,
-      }
-    }
-    return isEmptyObject(rules) ? undefined : rules
+    return getTableColumnRules(column, t)
   }
 
   watch(

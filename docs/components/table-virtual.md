@@ -152,6 +152,28 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-editable.vue" />
 
+## 表单组件支持
+
+虚拟表格完全支持各种表单组件，包括输入框、选择器、单选框、多选框、日期选择器、开关等。
+
+**支持的表单组件：**
+- 📝 **输入框** (input)：基础文本输入，支持 placeholder、验证等
+- 🎯 **选择器** (select)：单选和多选下拉选择，支持 options 配置
+- 🔢 **数字输入框** (input-number)：数字输入，支持 min/max 限制
+- 📊 **单选框** (radio)：单选组件，支持 options 配置
+- ☑️ **多选框** (checkbox)：多选组件，支持 options 配置
+- 📅 **日期选择器** (date-picker)：日期选择，支持格式化配置
+- 🔘 **开关** (switch)：开关组件，支持自定义文本
+
+**功能特点：**
+- ✅ **高性能渲染**：虚拟滚动下的表单组件渲染优化
+- ✅ **完整验证**：支持必填、自定义验证规则
+- ✅ **选项配置**：支持 options 配置选择类组件
+- ✅ **事件处理**：支持各种表单事件
+- ✅ **样式统一**：与普通表格表单组件样式一致
+
+<preview path="../demo/table/virtual-form-components.vue" />
+
 ## 列显隐功能
 
 测试动态显示和隐藏列的功能，支持函数式和静态配置。

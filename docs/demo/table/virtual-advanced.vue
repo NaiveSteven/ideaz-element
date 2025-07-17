@@ -74,7 +74,7 @@ const columns = ref([
     slot: 'gender',
   },
   {
-    component: 'input-number',
+    component: 'el-input-number',
     prop: 'age',
     label: () => h('el-tag', { type: 'warning', size: 'small' }, () => '年龄'),
     tooltip: '员工年龄范围18-67',
@@ -90,7 +90,7 @@ const columns = ref([
     tooltip: '所属部门',
   },
   {
-    component: 'input-number',
+    component: 'el-input-number',
     prop: 'salary',
     label: 'salaryHeader',
     hide: () => hideSalary.value,
