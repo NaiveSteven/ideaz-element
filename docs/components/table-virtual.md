@@ -95,15 +95,13 @@ const virtualConfig = {
 <preview path="../demo/table/virtual-operation.vue" />
 
 
-## 🏛️ 列类型功能
-
-### 列类型支持
+## 列类型
 
 测试各种列类型在虚拟表格中的兼容性：选择列、索引列、表单组件等。
 
 <preview path="../demo/table/virtual-column-type.vue" />
 
-### 选择功能
+## 列选择
 
 测试 `type: 'selection'` 列在虚拟表格中的支持情况。
 
@@ -115,7 +113,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-selection.vue" />
 
-### 展开功能
+## 列展开
 
 虚拟表格完全支持展开功能，基于Element Plus TableV2原生能力。
 
@@ -129,7 +127,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-expand.vue" />
 
-### 索引列
+## 索引列
 
 虚拟表格完全支持索引列功能。
 
@@ -142,9 +140,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-index.vue" />
 
-## 🔧 高级功能
-
-### 可编辑表格
+## 可编辑表格
 
 测试大数据量下的表格编辑功能，支持多种表单组件。
 
@@ -156,7 +152,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-editable.vue" />
 
-### 列显隐功能
+## 列显隐功能
 
 测试动态显示和隐藏列的功能，支持函数式和静态配置。
 
@@ -168,7 +164,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-hide.vue" />
 
-### 列提示功能
+## 列提示功能
 
 虚拟表格完全支持表头tooltip功能，与z-table普通表格的tooltip实现保持一致。
 
@@ -182,7 +178,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-tooltip.vue" />
 
-### 水印功能
+## 水印功能
 
 虚拟表格完全兼容z-table组件的水印功能。
 
@@ -195,7 +191,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-watermark.vue" />
 
-### Footer 底部功能
+## Footer 底部功能
 
 虚拟表格完全支持 Element Plus TableV2 的 footer 功能。
 
@@ -209,9 +205,8 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-footer.vue" />
 
-## 🎨 自定义功能
 
-### 自定义列渲染
+## 自定义列渲染
 
 验证列内容的自定义渲染，支持render函数和slot插槽两种方式。
 
@@ -223,7 +218,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-custom-column.vue" />
 
-### 自定义表头
+## 自定义表头
 
 测试表头的自定义功能，包括图标、徽章、下拉菜单等交互元素。
 
@@ -236,9 +231,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-custom-header.vue" />
 
-## 🔍 开发调试
-
-### 方法和事件测试
+## 方法和事件
 
 测试表格的各种方法调用和事件处理。
 
@@ -250,7 +243,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-methods.vue" />
 
-### 性能测试
+## 性能测试
 
 提供可配置的性能测试工具，可以测试不同数据量下的表现。
 
@@ -262,7 +255,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-performance.vue" />
 
-### 综合功能测试
+## 综合功能测试
 
 集成所有高级功能的综合测试示例。
 
