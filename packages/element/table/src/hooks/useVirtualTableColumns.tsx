@@ -119,6 +119,7 @@ export function useVirtualTableColumns(
 
     return formatTableCols.value.map((col, index) => {
       const baseColumn: any = {
+        ...col,
         key: col.prop || `column-${index}`,
         dataKey: col.prop || `column-${index}`,
         title: typeof col.label === 'string' ? col.label : `Column ${index + 1}`,

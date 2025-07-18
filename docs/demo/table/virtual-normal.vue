@@ -1,6 +1,7 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
 import { computed, ref } from 'vue'
+import { TableV2FixedDir } from 'element-plus'
 
 // 生成测试数据
 function generateData(count: number) {
@@ -31,6 +32,7 @@ const columns = ref([
   {
     prop: 'name',
     label: '姓名',
+    fixed: TableV2FixedDir.LEFT
   },
   {
     prop: 'email',
@@ -55,6 +57,7 @@ const columns = ref([
   {
     prop: 'createTime',
     label: '创建时间',
+    fixed: TableV2FixedDir.RIGHT,
   },
 ])
 
