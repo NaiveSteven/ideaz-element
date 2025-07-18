@@ -214,6 +214,25 @@ export function useVirtualTableColumns(
         }
       }
 
+      // 处理按钮列
+      if (col.type === 'button' && isArray(col.buttons)) {
+        baseColumn.cellRenderer = ({ rowData, rowIndex }: any) => {
+          const scope = {
+            row: rowData,
+            column: col,
+            $index: rowIndex
+          } as any
+          return (
+            <div class={ns.e('operation')}>
+              {(col.buttons as any[]).map((button) => {
+                return <TableButton button={button} scope={scope} size={size.value} />
+              })}
+            </div>
+          )
+        }
+        return baseColumn
+      }
+
       // 处理其他类型的列
       if (col.render && typeof col.render === 'function') {
         baseColumn.cellRenderer = ({ cellData, rowData, rowIndex }: any) => {
