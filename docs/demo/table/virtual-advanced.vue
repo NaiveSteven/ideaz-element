@@ -119,7 +119,7 @@ const columns = ref([
     prop: 'time',
     label: () => h('div', { style: { textAlign: 'center' } }, [
       h('div', '入职'),
-      h('div', { style: { fontSize: '12px', color: '#999' } }, '日期')
+      h('div', { style: { fontSize: '12px', color: '#999' } }, () => '日期')
     ]),
     fieldProps: {
       valueFormat: 'YYYY-MM-DD',
@@ -228,9 +228,9 @@ function handleSave() {
       </template>
     </z-table>
 
-    <div style="margin-top: 16px; padding: 16px; background: #f5f7fa; border-radius: 8px;">
+    <div style="padding: 16px; margin-top: 16px; background: #f5f7fa; border-radius: 8px;">
       <h4>功能特性说明</h4>
-      <ul style="margin: 0; padding-left: 20px;">
+      <ul style="padding-left: 20px; margin: 0;">
         <li>✅ <strong>列显隐</strong>: 支持动态显示/隐藏列</li>
         <li>✅ <strong>自定义表头</strong>: 支持render函数和slot两种方式</li>
         <li>✅ <strong>列提示</strong>: 悬停查看列说明信息</li>

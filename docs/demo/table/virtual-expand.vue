@@ -94,7 +94,6 @@ function generateData() {
 }
 
 const tableData = ref(generateData())
-const expandedRows = ref<any[]>([])
 const expandedKeys = ref<(string | number)[]>([])
 const tableRef = ref()
 
@@ -165,32 +164,14 @@ const columns = [
   }
 ]
 
-// 展开变化事件
-function _handleExpandChange(row: any, expanded: boolean) {
-  // console.log('展开状态变化 (expand-change):', row.name, expanded)
-
-  if (expanded) {
-    if (!expandedRows.value.find(r => r.id === row.id)) {
-      expandedRows.value.push(row)
-    }
-  } else {
-    const index = expandedRows.value.findIndex(r => r.id === row.id)
-    if (index > -1) {
-      expandedRows.value.splice(index, 1)
-    }
-  }
+// 展开行keys变化事件
+function handleExpandedRowsChange(_keys: (string | number)[]) {
+  // console.log('展开行keys变化 (expanded-rows-change):', _keys)
 }
 
-
-
-// 展开行keys变化事件
-  function handleExpandedRowsChange(_keys: (string | number)[]) {
-    // console.log('展开行keys变化 (expanded-rows-change):', _keys)
-  }
-
-  // 行展开事件
-  function handleRowExpand(_params: any) {
-    // console.log('行展开事件 (row-expand):', _params)
+// 行展开事件
+function handleRowExpand(_params: any) {
+  // console.log('行展开事件 (row-expand):', _params)
 }
 
 // 展开所有
