@@ -99,7 +99,7 @@ const expandedKeys = ref<(string | number)[]>([])
 const tableRef = ref()
 
 // Row组件用于渲染行内容
-const Row = ({ cells, rowData }: any) => {
+function Row({ cells, rowData }: any) {
   if (rowData.detail) {
     return h('div', {
       class: 'z-table-expand-content',
@@ -108,15 +108,15 @@ const Row = ({ cells, rowData }: any) => {
       h('h4', {}, `${rowData.parentData?.name} 的详细信息`),
       h('div', { style: { marginTop: '16px' } }, [
         h('p', {}, [
-          h('strong', {}, '详细描述：'),
+          h('strong', {}, () => '详细描述：'),
           rowData.detail
         ]),
         h('p', {}, [
-          h('strong', {}, '创建时间：'),
+          h('strong', {}, () => '创建时间：'),
           rowData.parentData?.createTime
         ]),
         h('p', {}, [
-          h('strong', {}, '状态：'),
+          h('strong', {}, () => '状态：'),
           h('span', {
             style: {
               color: rowData.parentData?.status === 'active' ? '#67C23A' : '#E6A23C',
@@ -166,8 +166,8 @@ const columns = [
 ]
 
 // 展开变化事件
-function handleExpandChange(row: any, expanded: boolean) {
-  console.log('展开状态变化 (expand-change):', row.name, expanded)
+function _handleExpandChange(row: any, expanded: boolean) {
+  // console.log('展开状态变化 (expand-change):', row.name, expanded)
 
   if (expanded) {
     if (!expandedRows.value.find(r => r.id === row.id)) {
@@ -184,13 +184,13 @@ function handleExpandChange(row: any, expanded: boolean) {
 
 
 // 展开行keys变化事件
-function handleExpandedRowsChange(keys: (string | number)[]) {
-  console.log('展开行keys变化 (expanded-rows-change):', keys)
-}
+  function handleExpandedRowsChange(_keys: (string | number)[]) {
+    // console.log('展开行keys变化 (expanded-rows-change):', _keys)
+  }
 
-// 行展开事件
-function handleRowExpand(params: any) {
-  console.log('行展开事件 (row-expand):', params)
+  // 行展开事件
+  function handleRowExpand(_params: any) {
+    // console.log('行展开事件 (row-expand):', _params)
 }
 
 // 展开所有

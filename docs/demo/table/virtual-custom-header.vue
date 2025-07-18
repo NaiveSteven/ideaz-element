@@ -101,7 +101,7 @@
     <div style="margin-top: 16px;">
       <el-collapse v-model="activeCollapse">
         <el-collapse-item title="最近的参数传递日志" name="1">
-          <div style="max-height: 200px; padding: 12px; border-radius: 4px; background: #f5f7fa; overflow-y: auto;">
+          <div style="max-height: 200px; padding: 12px; overflow-y: auto; background: #f5f7fa; border-radius: 4px;">
             <div v-for="(log, index) in paramLogs" :key="index" style="margin-bottom: 8px; font-family: monospace; font-size: 12px;">
               <span style="color: #909399;">[{{ log.timestamp }}]</span>
               <span style="font-weight: bold; color: #409eff;">{{ log.type }}:</span>
@@ -206,7 +206,7 @@ const columns = computed(() => [
           style: { display: 'flex', gap: '6px', alignItems: 'center' }
         }, [
           h('el-icon', { color: '#409eff', size: 16 }, [h(User)]),
-          h('span', {}, '用户信息'),
+          h('span', {}, () => '用户信息'),
           h('el-tooltip', {
             content: '包含用户姓名、邮箱等基本信息',
             placement: 'top'
@@ -240,7 +240,7 @@ const columns = computed(() => [
           style: { display: 'flex', gap: '6px', alignItems: 'center' }
         }, [
           h('el-icon', { color: '#67c23a', size: 16 }, [h(OfficeBuilding)]),
-          h('span', {}, '部门信息'),
+          h('span', {}, () => '部门信息'),
           h('el-badge', {
             value: departmentCount.value,
             type: 'primary',
@@ -264,7 +264,7 @@ const columns = computed(() => [
           onClick: handleSalaryHeaderClick
         }, [
           h('el-icon', { color: '#f56c6c', size: 16 }, [h(Money)]),
-          h('span', {}, '薪资待遇'),
+          h('span', {}, () => '薪资待遇'),
           h('el-tag', {
             size: 'small',
             type: 'warning'
@@ -284,7 +284,7 @@ const columns = computed(() => [
           style: { display: 'flex', gap: '6px', alignItems: 'center' }
         }, [
           h('el-icon', { color: '#909399', size: 16 }, [h(SwitchButton)]),
-          h('span', {}, '在职状态'),
+          h('span', {}, () => '在职状态'),
           h('div', {
             style: { display: 'flex', gap: '4px' }
           }, [
@@ -313,7 +313,7 @@ const columns = computed(() => [
           style: { display: 'flex', gap: '6px', alignItems: 'center' }
         }, [
           h('el-icon', { color: '#e6a23c', size: 16 }, [h(Setting)]),
-          h('span', {}, '操作'),
+          h('span', {}, () => '操作'),
           h('el-dropdown', {
             onCommand: handleHeaderCommand
           }, {
@@ -322,9 +322,9 @@ const columns = computed(() => [
               color: '#409eff'
             }, [h(More)]),
             dropdown: () => h('el-dropdown-menu', {}, [
-              h('el-dropdown-item', { command: 'export' }, '导出数据'),
-              h('el-dropdown-item', { command: 'import' }, '导入数据'),
-              h('el-dropdown-item', { command: 'settings' }, '列设置')
+                      h('el-dropdown-item', { command: 'export' }, () => '导出数据'),
+        h('el-dropdown-item', { command: 'import' }, () => '导入数据'),
+        h('el-dropdown-item', { command: 'settings' }, () => '列设置')
             ])
           })
         ])

@@ -1,6 +1,6 @@
 <!-- eslint-disable no-console -->
 <script lang="ts" setup>
-import { computed, h, ref } from 'vue'
+import { computed, h, ref, resolveComponent } from 'vue'
 import { ElMessage, ElMessageBox } from 'element-plus'
 
 interface RowData {
@@ -63,20 +63,16 @@ const columns = ref([
   {
     prop: 'operation',
     label: '操作',
-    render: ({ row }: any) => {
-      return [
-        h('el-button', {
-          size: 'small',
-          type: 'primary',
-          onClick: () => handleEdit(row),
-        }, '编辑'),
-        h('el-button', {
-          size: 'small',
-          type: 'danger',
-          onClick: () => handleDelete(row),
-        }, '删除'),
-      ]
-    },
+    render: (scope: any) => [
+      h(resolveComponent('el-button'), {
+        type: 'primary',
+        onClick: () => handleEdit(scope.row)
+      }, () => '编辑'),
+      h(resolveComponent('el-button'), {
+        type: 'danger',
+        onClick: () => handleDelete(scope.row)
+      }, () => '删除')
+    ],
   },
 ])
 
