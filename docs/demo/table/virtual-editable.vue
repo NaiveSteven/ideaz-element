@@ -34,7 +34,6 @@ const columns = ref([
     component: 'input',
     prop: 'name',
     label: '姓名',
-    width: 150,
     fieldProps: {
       placeholder: '请输入姓名',
     },
@@ -43,7 +42,6 @@ const columns = ref([
     component: 'select',
     prop: 'gender',
     label: '性别',
-    width: 120,
     fieldProps: {
       placeholder: '请选择性别',
     },
@@ -52,7 +50,6 @@ const columns = ref([
     component: 'el-input-number',
     prop: 'age',
     label: '年龄',
-    width: 120,
     fieldProps: {
       min: 18,
       max: 65,
@@ -62,7 +59,6 @@ const columns = ref([
     component: 'el-input-number',
     prop: 'salary',
     label: '薪资',
-    width: 120,
     fieldProps: {
       min: 0,
       controls: false,
@@ -72,13 +68,11 @@ const columns = ref([
     component: 'select',
     prop: 'department',
     label: '部门',
-    width: 120,
   },
   {
     component: 'el-date-picker',
     prop: 'time',
     label: '入职日期',
-    width: 200,
     fieldProps: {
       valueFormat: 'YYYY-MM-DD',
       placeholder: '选择日期',

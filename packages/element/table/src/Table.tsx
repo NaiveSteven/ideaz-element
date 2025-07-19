@@ -215,7 +215,7 @@ export default defineComponent({
                   }}
                   onRowExpand={(params: any) => emit('row-expand', params)}
                   v-loading={props.loading}
-                  class="z-table-component z-table-virtual"
+                  class={[ns.b('virtual'), props.editable && ns.b('editable')]}
                   v-slots={{
                     ...slots,
                     row: (rowProps: any) => {
