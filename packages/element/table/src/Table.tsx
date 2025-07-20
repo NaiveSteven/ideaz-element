@@ -7,6 +7,7 @@ import type { ComponentInternalInstance } from 'vue'
 import { draggable, sticky } from '../../../directives'
 import {
   useDraggable,
+  useEditableScroll,
   useMergeCells,
   usePagination,
   useTableColumns,
@@ -67,6 +68,13 @@ export default defineComponent({
 
     // 暴露的方法
     const virtualTableRef = ref()
+
+    // 虚拟表格编辑模式滚动功能
+    const { enhancedAddTableData } = useEditableScroll(addTableData, {
+      isVirtualEnabled,
+      virtualTableRef,
+      tableData,
+    })
 
     // 表格方法管理
     const tableMethods = useTableMethods({
@@ -215,7 +223,7 @@ export default defineComponent({
                   }}
                   onRowExpand={(params: any) => emit('row-expand', params)}
                   v-loading={props.loading}
-                  class={[ns.b('virtual'), props.editable && ns.b('editable')]}
+                  class={`${ns.b('virtual')} ${props.editable ? ns.b('editable') : ''}`}
                   v-slots={{
                     ...slots,
                     row: (rowProps: any) => {
@@ -311,7 +319,7 @@ export default defineComponent({
               <ElButton
                 icon={Plus}
                 class="mt-2 w-full"
-                onClick={() => addTableData()}
+                onClick={() => enhancedAddTableData()}
               >
                 {t('table.addData')}
               </ElButton>
