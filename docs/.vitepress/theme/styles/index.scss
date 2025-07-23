@@ -73,7 +73,7 @@ html.dark {
     display: table;
     width: 100%;
     margin: 0;
-    font-family: THEX, '微软雅黑', Arial;
+    font-family: THEX, '微软雅黑', Arial, sans-serif;
     font-size: 12px;
     font-weight: 400;
   }
@@ -107,23 +107,32 @@ html.dark {
 
   > table {
     box-sizing: border-box;
-    display: table;
+    display: table !important;
     width: 100%;
+    margin: 0;
     margin-bottom: 45px;
+    font-family: THEX, '微软雅黑', Arial, sans-serif;
     font-size: 14px;
+    font-weight: 400;
     line-height: 1.5;
     text-indent: initial;
+    border: none;
     border-spacing: 2px;
     border-collapse: collapse;
     border-color: grey;
 
     tr {
       border: none;
+
+      &:nth-child(2n) {
+        background-color: #fff;
+      }
     }
 
     th {
       max-width: 250px;
       padding: 15px;
+      font-size: 12px;
       font-weight: 400;
       color: #909399;
       text-align: left;
@@ -135,6 +144,7 @@ html.dark {
     td {
       max-width: 250px;
       padding: 15px;
+      font-size: 12px;
       color: #606266;
       word-break: break-word;
       border: none;
@@ -149,10 +159,6 @@ thead {
   width: 100%;
 }
 
-table {
-  display: table !important;
-}
-
 .el-descriptions__table {
   margin: 0 !important;
   overflow: initial;
@@ -165,4 +171,85 @@ table {
       border: none;
     }
   }
+}
+
+/* 版本标签样式 */
+.version-tag {
+  display: inline-block;
+  padding: 2px 6px;
+  margin-left: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 1.2;
+  color: inherit;
+  white-space: nowrap;
+  vertical-align: middle;
+  background-color: transparent;
+  border: 1px solid;
+  border-radius: 12px;
+  transform: scale(0.9);
+  transform-origin: left center;
+}
+
+/* 新功能标签 */
+.version-tag.version-new {
+  color: #67c23a;
+  background-color: #f0f9ff;
+  border-color: #67c23a40;
+}
+
+/* Beta 版本标签 */
+.version-tag.version-beta {
+  color: #e6a23c;
+  background-color: #fef7e6;
+  border-color: #e6a23c40;
+}
+
+/* 更新功能标签 */
+.version-tag.version-updated {
+  color: #409eff;
+  background-color: #ecf5ff;
+  border-color: #409eff40;
+}
+
+/* 已废弃标签 */
+.version-tag.version-deprecated {
+  color: #f56c6c;
+  background-color: #fef0f0;
+  border-color: #f56c6c40;
+}
+
+/* 侧边栏中的版本标签特殊样式 */
+.vp-sidebar-item .text .version-tag {
+  opacity: 80%;
+  transition: opacity 0.2s ease;
+}
+
+.vp-sidebar-item:hover .text .version-tag {
+  opacity: 100%;
+}
+
+/* 暗色模式下的版本标签 */
+html.dark .version-tag.version-new {
+  color: #95d475;
+  background-color: #1a2e1a;
+  border-color: #67c23a60;
+}
+
+html.dark .version-tag.version-beta {
+  color: #f2c55c;
+  background-color: #2e2416;
+  border-color: #e6a23c60;
+}
+
+html.dark .version-tag.version-updated {
+  color: #79bbff;
+  background-color: #1a2332;
+  border-color: #409eff60;
+}
+
+html.dark .version-tag.version-deprecated {
+  color: #f89898;
+  background-color: #2e1d1d;
+  border-color: #f56c6c60;
 }
