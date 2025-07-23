@@ -24,12 +24,186 @@ export interface TableSticky {
   style?: CSSProperties
 }
 
-export const tableProps = {
+// 虚拟表格属性定义（传给Element Plus TableV2）
+export const virtualTableProps = {
+  itemHeight: {
+    type: Number,
+    default: 50,
+  },
+  rowHeight: {
+    type: Number,
+    default: 50,
+  },
+  estimatedRowHeight: {
+    type: Number,
+    // default: 0,
+  },
+  // Element Plus TableV2 属性
+  footerHeight: {
+    type: Number,
+    default: 0,
+  },
+  headerClass: {
+    type: [String, Function] as PropType<string | Function>,
+    default: '',
+  },
+  headerProps: {
+    type: [Object, Function] as PropType<object | Function>,
+  },
+  headerCellProps: {
+    type: [Object, Function] as PropType<object | Function>,
+  },
+  headerHeight: {
+    type: [Number, Array] as PropType<number | number[]>,
+    default: 50,
+  },
+  rowClass: {
+    type: [String, Function] as PropType<string | Function>,
+    default: '',
+  },
+  rowProps: {
+    type: [Object, Function] as PropType<object | Function>,
+  },
+  rowEventHandlers: {
+    type: Object,
+  },
+  cellProps: {
+    type: [Object, Function] as PropType<object | Function>,
+  },
+  dataGetter: {
+    type: Function,
+  },
+  fixedData: {
+    type: Object,
+  },
+  defaultExpandedRowKeys: {
+    type: Array as PropType<(string | number)[]>,
+  },
+  fixed: {
+    type: Boolean,
+    default: true,
+  },
+  indentSize: {
+    type: Number,
+    default: 12,
+  },
+  hScrollbarSize: {
+    type: Number,
+    default: 6,
+  },
+  vScrollbarSize: {
+    type: Number,
+    default: 6,
+  },
+  sortBy: {
+    type: Object,
+    default: () => ({}),
+  },
+  sortState: {
+    type: Object,
+  },
+}
+
+// 通用属性定义（两者都支持）
+export const commonTableProps = {
+  height: [String, Number],
+  width: [String, Number],
+  style: {
+    type: Object as PropType<CSSProperties>,
+    default: () => ({}),
+  },
+  className: {
+    type: String,
+    default: '',
+  },
+  size: String as PropType<ComponentSize>,
   data: {
     type: Array as PropType<DefaultRow[]>,
     default: () => [],
   },
-  height: [String, Number],
+  rowKey: [String, Function] as PropType<TableProps<DefaultRow>['rowKey']>,
+  showHeader: {
+    type: Boolean,
+    default: true,
+  },
+  emptyText: String,
+  loading: Boolean,
+  scrollbarAlwaysOn: Boolean,
+}
+
+// 组件级属性定义
+export const componentLevelProps = {
+  pagination: {
+    type: [Object, Boolean] as PropType<Pagination | boolean>,
+    default: () => ({ page: 1, pageSize: 0, total: 0, align: 'right' }),
+  },
+  columns: {
+    type: Array as PropType<TableCol[]>,
+    default: () => [],
+  },
+  draggable: {
+    type: Boolean,
+    default: false,
+  },
+  toolBar: {
+    type: [Boolean, Object] as PropType<ToolBar | boolean>,
+    default: true,
+  },
+  editable: {
+    type: [Object, Boolean] as PropType<TableEdit | boolean>,
+  },
+  watermark: {
+    type: [String, Object, Boolean] as PropType<boolean | string | ElWatermarkProps>,
+    default: false,
+  },
+  fullScreenElement: {
+    type: [Function, HTMLElement] as PropType<() => HTMLElement | HTMLElement>,
+  },
+  totalData: {
+    type: Array,
+    default: () => [],
+  },
+  title: {
+    type: [String, Function] as PropType<string | (() => VNode)>,
+    default: '',
+  },
+  sticky: {
+    type: [Boolean, Object] as PropType<boolean | TableSticky>,
+    default: false,
+  },
+  mergeCells: {
+    type: Object as PropType<{
+      direction: 'row' | 'column' | 'both'  // 合并方向：行、列、或两者都合并
+      props?: string[]  // 需要合并的字段，不传则所有列都参与合并
+    }>,
+  },
+  virtual: {
+    type: [Boolean, Object] as PropType<boolean | VirtualScrollConfig>,
+    default: false,
+  },
+  options: {
+    type: Object,
+    default: () => {},
+  },
+}
+
+// 类型定义
+export type VirtualTableProps = ExtractPropTypes<typeof virtualTableProps>
+export type CommonTableProps = ExtractPropTypes<typeof commonTableProps>
+export type ComponentLevelProps = ExtractPropTypes<typeof componentLevelProps>
+
+export interface VirtualScrollConfig extends Partial<VirtualTableProps> {
+  // 内部控制属性
+  enabled?: boolean
+  threshold?: number
+}
+
+
+
+export const tableProps = {
+  ...commonTableProps,
+  ...componentLevelProps,
+  ...virtualTableProps,
   maxHeight: [String, Number],
   fit: {
     type: Boolean,
@@ -37,11 +211,6 @@ export const tableProps = {
   },
   stripe: Boolean,
   border: Boolean,
-  rowKey: [String, Function] as PropType<TableProps<DefaultRow>['rowKey']>,
-  showHeader: {
-    type: Boolean,
-    default: true,
-  },
   showSummary: Boolean,
   sumText: String,
   summaryMethod: Function as PropType<TableProps<DefaultRow>['summaryMethod']>,
@@ -69,8 +238,8 @@ export const tableProps = {
   >,
   highlightCurrentRow: Boolean,
   currentRowKey: [String, Number],
-  emptyText: String,
   expandRowKeys: Array as PropType<TableProps<DefaultRow>['expandRowKeys']>,
+  expandedRowKeys: Array as PropType<(string | number)[]>,
   defaultExpandAll: Boolean,
   defaultSort: Object as PropType<TableProps<DefaultRow>['defaultSort']>,
   tooltipEffect: String,
@@ -94,73 +263,14 @@ export const tableProps = {
   },
   lazy: Boolean,
   load: Function as PropType<TableProps<DefaultRow>['load']>,
-  style: {
-    type: Object as PropType<CSSProperties>,
-    default: () => ({}),
-  },
-  className: {
-    type: String,
-    default: '',
-  },
   tableLayout: {
     type: String as PropType<'fixed' | 'auto'>,
     default: 'fixed',
   },
-  scrollbarAlwaysOn: Boolean,
   flexible: Boolean,
   showOverflowTooltip: Boolean,
   align: String as PropType<'left' | 'center' | 'right'>,
   headerAlign: String as PropType<'left' | 'center' | 'right'>,
-  size: String as PropType<ComponentSize>,
-  loading: Boolean,
-  columns: {
-    type: Array as PropType<TableCol[]>,
-    default: () => [],
-  },
-  pagination: {
-    type: [Object, Boolean] as PropType<Pagination | boolean>,
-    default: () => ({ page: 1, pageSize: 0, total: 0, align: 'right' }),
-  },
-  toolBar: {
-    type: [Boolean, Object] as PropType<ToolBar | boolean>,
-    default: true,
-  },
-  draggable: {
-    type: Boolean,
-    default: false,
-  },
-  editable: {
-    type: [Object, Boolean] as PropType<TableEdit | boolean>,
-  },
-  options: {
-    type: Object,
-    default: () => {},
-  },
-  watermark: {
-    type: [String, Object, Boolean] as PropType<boolean | string | ElWatermarkProps>,
-    default: false,
-  },
-  fullScreenElement: {
-    type: [Function, HTMLElement] as PropType<() => HTMLElement | HTMLElement>,
-  },
-  totalData: {
-    type: Array,
-    default: () => [],
-  },
-  title: {
-    type: [String, Function] as PropType<string | (() => VNode)>,
-    default: '',
-  },
-  sticky: {
-    type: [Boolean, Object] as PropType<boolean | TableSticky>,
-    default: false,
-  },
-  mergeCells: {
-    type: Object as PropType<{
-      direction: 'row' | 'column' | 'both'  // 合并方向：行、列、或两者都合并
-      props?: string[]  // 需要合并的字段，不传则所有列都参与合并
-    }>,
-  },
 }
 
 export const tableColumnProps = {

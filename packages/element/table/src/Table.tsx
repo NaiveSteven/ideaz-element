@@ -1,17 +1,20 @@
 import { cloneDeep } from 'lodash-es'
 import { Plus } from '@element-plus/icons-vue'
 import { isFunction, isObject, isString } from '@ideaz/utils'
-import { ElButton, ElForm, ElPagination, ElTable, ElWatermark } from 'element-plus'
+import { ElAutoResizer, ElButton, ElForm, ElPagination, ElTable, ElTableV2, ElWatermark } from 'element-plus'
 import { getCurrentInstance } from 'vue'
 import type { ComponentInternalInstance } from 'vue'
 import { draggable, sticky } from '../../../directives'
 import {
   useDraggable,
+  useEditableScroll,
+  useMergeCells,
   usePagination,
   useTableColumns,
   useTableMethods,
   useTableSlots,
-  useMergeCells,
+  useVirtualTable,
+  useVirtualTableColumns,
 } from './hooks'
 import TableColumn from './TableColumn'
 import ToolBar from './ToolBar'
@@ -23,32 +26,10 @@ export default defineComponent({
   directives: { draggable, sticky },
   inheritAttrs: false,
   props: tableProps,
-  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end'],
+  emits: ['refresh', 'radio-change', 'update:data', 'update:pagination', 'drag-sort-end', 'drag-column-end', 'sort-change', 'selection-change', 'expand-change', 'update:expandedRowKeys', 'row-expand', 'expanded-rows-change'],
   setup(props, { emit, slots, expose }) {
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-    const {
-      setCurrentRow,
-      toggleRowSelection,
-      clearSelection,
-      clearFilter,
-      toggleAllSelection,
-      toggleRowExpansion,
-      clearSort,
-      toggleRadioSelection,
-      sort,
-    } = useTableMethods()
 
-    expose({
-      setCurrentRow,
-      toggleRowSelection,
-      clearSelection,
-      clearFilter,
-      toggleAllSelection,
-      toggleRowExpansion,
-      clearSort,
-      toggleRadioSelection,
-      sort,
-    })
     const {
       pagination,
       paginationAttrs,
@@ -70,6 +51,46 @@ export default defineComponent({
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
     const { draggableOptions, dragging } = useDraggable(emit, tableData, middleTableCols)
     const { spanMethod } = useMergeCells(props)
+
+    // 虚拟表格配置
+    const { isVirtualEnabled, virtualTableAttributes } = useVirtualTable(props)
+
+    // 虚拟表格列配置和选择功能
+    const {
+      virtualColumns,
+      hasExpandColumn,
+      expandColumnKey,
+      clearSelection: virtualClearSelection,
+      toggleRowSelection: virtualToggleRowSelection,
+      toggleAllSelection: virtualToggleAllSelection,
+      toggleRowExpansion: virtualToggleRowExpansion,
+    } = useVirtualTableColumns(formatTableCols, tableData, slots, emit, props)
+
+    // 暴露的方法
+    const virtualTableRef = ref()
+
+    // 虚拟表格编辑模式滚动功能
+    const { enhancedAddTableData } = useEditableScroll(addTableData, {
+      isVirtualEnabled,
+      virtualTableRef,
+      tableData,
+    })
+
+    // 表格方法管理
+    const tableMethods = useTableMethods({
+      isVirtualEnabled,
+      virtualTableRef,
+      virtualMethods: {
+        clearSelection: virtualClearSelection,
+        toggleRowSelection: virtualToggleRowSelection,
+        toggleAllSelection: virtualToggleAllSelection,
+        toggleRowExpansion: virtualToggleRowExpansion,
+      }
+    })
+
+    // 暴露所有表格方法
+    expose(tableMethods)
+
     const ns = useNamespace('table')
     const { t } = useLocale()
     const size = ref(props.size)
@@ -176,7 +197,59 @@ export default defineComponent({
       )
     }
 
+    // 渲染虚拟表格
+    const renderVirtualTable = () => {
+      const tableHeight = props.height || 500
+
+      return (
+        <div style={{ height: typeof tableHeight === 'number' ? `${tableHeight}px` : tableHeight }}>
+          <ElAutoResizer>
+            {{
+              default: ({ height, width }: { height: number; width: number }) => (
+                <ElTableV2
+                  ref={virtualTableRef}
+                  width={width}
+                  height={height}
+                  {...virtualTableAttributes.value}
+                  columns={virtualColumns.value as any}
+                  data={tableData.value}
+                  expandColumnKey={hasExpandColumn.value ? expandColumnKey.value : undefined}
+                  expandedRowKeys={props.expandedRowKeys}
+                  onUpdate:expanded-row-keys={(keys: any[]) => {
+                    emit('update:expandedRowKeys', keys)
+                  }}
+                  onExpandedRowsChange={(keys: any[]) => {
+                    emit('expanded-rows-change', keys)
+                  }}
+                  onRowExpand={(params: any) => emit('row-expand', params)}
+                  v-loading={props.loading}
+                  class={`${ns.b('virtual')} ${props.editable ? ns.b('editable') : ''}`}
+                  v-slots={{
+                    ...slots,
+                    row: (rowProps: any) => {
+                      // 如果有row插槽，使用用户自定义的渲染
+                      if (slots.row || slots.expand) {
+                        return slots.row?.(rowProps) || slots.expand?.(rowProps)
+                      }
+                      // 默认行渲染
+                      return rowProps.cells
+                    },
+                  }}
+                />
+              )
+            }}
+          </ElAutoResizer>
+        </div>
+      )
+    }
+
     const renderTable = () => {
+      // 虚拟滚动模式
+      if (isVirtualEnabled.value) {
+        return renderVirtualTable()
+      }
+
+      // 普通表格模式 - 保持原有的renderTable逻辑
       const { loading, editable } = props
       return (
         <ElTable
@@ -246,7 +319,7 @@ export default defineComponent({
               <ElButton
                 icon={Plus}
                 class="mt-2 w-full"
-                onClick={() => addTableData()}
+                onClick={() => enhancedAddTableData()}
               >
                 {t('table.addData')}
               </ElButton>

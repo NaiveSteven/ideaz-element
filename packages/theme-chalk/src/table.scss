@@ -176,6 +176,7 @@
   }
 
   .z-table-column-form-item {
+    width: 100%;
     margin-bottom: 0;
 
     .el-form-item__content {
@@ -344,4 +345,21 @@
   z-index: 100;
   width: 100vw;
   height: 100vh;
+}
+
+.el-table-v2 {
+  .z-virtual-table-column-label__container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .z-virtual-table-column-label__icon {
+    display: inline-flex !important;
+    cursor: help;
+
+    &:hover {
+      display: inline-flex !important;
+    }
+  }
 }

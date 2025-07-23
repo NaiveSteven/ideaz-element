@@ -19,7 +19,6 @@ export function useTableColumns(props: ITableProps, emit: any, tableData: Ref<an
   }, { immediate: true, deep: true })
 
   const formatTableCols = computed(() => {
-    tableKey.value = new Date().valueOf()
     return middleTableCols.value.filter((item) => {
       return isFunction(item.hide) ? !item.hide() : !item.hide
     })
