@@ -84,7 +84,7 @@ const virtualConfig = {
 
 ### 基础表格
 
-基础的虚拟表格功能，包含分页、刷新等常用操作。支持大量数据的高效渲染。
+基础的虚拟表格功能。支持大量数据的高效渲染。
 
 <preview path="../demo/table/virtual-normal.vue" />
 
@@ -265,25 +265,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-methods.vue" />
 
-## 性能测试
-
-提供可配置的性能测试工具，可以测试不同数据量下的表现。
-
-**测试功能：**
-- 📊 **数据量测试**：可配置不同数据量进行测试
-- 🖥️ **内存监控**：监控内存使用情况
-- ⚡ **渲染性能**：测试渲染性能指标
-- 📈 **性能对比**：虚拟滚动与普通表格的性能对比
-
-<preview path="../demo/table/virtual-performance.vue" />
-
-## 综合功能测试
-
-集成所有高级功能的综合测试示例。
-
-<preview path="../demo/table/virtual-advanced.vue" />
-
-## 📖 配置参考
+## 📖 配置参考ß
 
 ### 配置选项
 
@@ -366,122 +348,4 @@ tableRef.value.sort('column', 'ascending')
 4. **性能优化建议**:
    - 💡 数据量 > 1000 条时启用
    - 💡 避免在列中使用过于复杂的组件
-   - 💡 建议配合分页使用
-   - 💡 列配置无需手动指定 width，系统自动处理
-
-## 🎉 完整示例
-
-```vue
-<template>
-  <div>
-    <div style="margin-bottom: 16px;">
-      <ElSpace>
-        <ElButton @click="toggleVirtual">
-          {{ virtualEnabled ? '禁用' : '启用' }}虚拟滚动
-        </ElButton>
-        <ElButton @click="generateData(50000)">
-          生成 50,000 条数据
-        </ElButton>
-        <ElButton @click="scrollToMiddle">
-          滚动到中间
-        </ElButton>
-      </ElSpace>
-    </div>
-
-    <ZTable
-      ref="tableRef"
-      :data="tableData"
-      :columns="columns"
-      :virtual="virtualEnabled ? virtualConfig : false"
-      height="600px"
-      stripe
-      border
-      @sort-change="handleSort"
-    >
-      <!-- Footer 插槽示例 -->
-      <template #footer>
-        <div style="
-          height: 100%;
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          padding: 0 20px;
-          color: white;
-        ">
-          <div>总计：{{ tableData.length }} 条数据</div>
-          <div>
-            <ElButton type="primary" size="small">导出数据</ElButton>
-            <ElButton type="success" size="small">生成报告</ElButton>
-          </div>
-        </div>
-      </template>
-    </ZTable>
-  </div>
-</template>
-
-<script setup>
-import { reactive, ref } from 'vue'
-
-const tableRef = ref()
-const virtualEnabled = ref(true)
-const tableData = ref([])
-
-const virtualConfig = reactive({
-  enabled: true,
-  itemHeight: 48,
-  threshold: 100,
-  footerHeight: 60  // 设置 footer 高度
-})
-
-// 列配置 - 无需手动指定 width
-const columns = [
-  { prop: 'id', label: 'ID' },
-  { prop: 'name', label: '姓名' },
-  { prop: 'email', label: '邮箱' },
-  { prop: 'department', label: '部门' }
-]
-
-function generateData(count) {
-  const data = []
-  for (let i = 1; i <= count; i++) {
-    data.push({
-      id: i,
-      name: `用户${i}`,
-      email: `user${i}@example.com`,
-      department: '技术部'
-    })
-  }
-  tableData.value = data
-}
-
-function toggleVirtual() {
-  virtualEnabled.value = !virtualEnabled.value
-}
-
-function scrollToMiddle() {
-  const middleIndex = Math.floor(tableData.value.length / 2)
-  tableRef.value?.scrollToRow(middleIndex)
-}
-
-function handleSort(sortInfo) {
-  console.log('排序:', sortInfo)
-}
-
-// 初始化数据
-generateData(50000)
-</script>
-```
-
-## 🔧 技术实现
-
-虚拟滚动基于 Element Plus 的 TableV2 组件实现：
-
-1. **条件渲染**: 根据 `virtual` 配置自动切换渲染模式
-2. **列配置转换**: 自动将普通表格列配置转换为 TableV2 格式
-3. **事件桥接**: 统一表格事件，保证 API 一致性
-4. **方法代理**: 透明代理所有表格方法到对应实现
-5. **样式继承**: 继承原表格的主题和样式配置
-6. **自适应布局**: 自动处理列宽分配，无需手动指定 width
-
-这种设计确保了最大的兼容性和最小的迁移成本，同时提供了优秀的开发体验。
+   - 💡 列配置无需手动指定 width，系统自动处理ß
