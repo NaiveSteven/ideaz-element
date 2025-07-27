@@ -1,4 +1,4 @@
-import type { ComponentInternalInstance, Ref } from 'vue'
+import type { ComponentInternalInstance } from 'vue'
 import { ElMessage } from 'element-plus'
 import { get } from 'lodash-unified'
 
@@ -7,7 +7,7 @@ import type ZTable from '../../../table/src/Table'
 import type { CrudProps } from '../props'
 import type { EditRequestApiParams, ValidateField } from '../../../types'
 
-export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'edit' | 'add' | 'view'>, isShowDialog: Ref<boolean>, rowData: Ref<any>) {
+export function useDialogConfig(mergedProps: ComputedRef<CrudProps>, emit: any, currentMode: Ref<'edit' | 'add' | 'view'>, isShowDialog: Ref<boolean>, rowData: Ref<any>) {
   const instance = getCurrentInstance() as ComponentInternalInstance
   const ctx = instance.proxy
   const dialogForm = ref()
@@ -18,7 +18,7 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   const { t } = useLocale()
 
   const dialogProps = computed(() => {
-    const { add, edit, dialog } = props
+    const { add, edit, dialog } = mergedProps.value
     const dialogProps = (isObject(add) && isObject(add.dialog) && currentMode.value === 'add')
       ? add?.dialog
       : (isObject(edit) && isObject(edit.dialog) && currentMode.value === 'edit') ? edit?.dialog : dialog
@@ -35,7 +35,7 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   }
 
   const handleCancel = () => {
-    if (!props.onOperateCancel)
+    if (!mergedProps.value.onOperateCancel)
       done()
 
     emit('operate-cancel', {
@@ -50,9 +50,9 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
 
   const handleConfirm = () => {
     dialogForm.value.validate(async (isValid: boolean, invalidFields: ValidateField) => {
-      const submitApi = props.request?.submitApi
-      const addApi = props.request?.addApi
-      const editApi = props.request?.editApi
+      const submitApi = mergedProps.value.request?.submitApi
+      const addApi = mergedProps.value.request?.addApi
+      const editApi = mergedProps.value.request?.editApi
 
       if (!submitApi && !addApi && !editApi) {
         emit('operate-submit', {
@@ -101,25 +101,25 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
   function getParams() {
     const params = { type: currentMode.value, formData: dialogFormData.value }
     if (currentMode.value === 'edit')
-      return { ...params, row: rowData.value, [props.dataKey]: rowData.value[props.dataKey] }
+      return { ...params, row: rowData.value, [mergedProps.value.dataKey]: rowData.value[mergedProps.value.dataKey] }
 
     return params
   }
 
   const handleDialogClosed = () => {
     dialogForm.value.resetFields()
-    if (isFunction(props.dialog?.onClosed))
-      props.dialog.onClosed({ formRef: dialogForm.value, type: currentMode.value, row: currentMode.value === 'edit' ? rowData.value : {} })
+    if (isFunction(mergedProps.value.dialog?.onClosed))
+      mergedProps.value.dialog.onClosed({ formRef: dialogForm.value, type: currentMode.value, row: currentMode.value === 'edit' ? rowData.value : {} })
   }
 
   const handleDialogOpen = async () => {
-    const detailApi = props.request?.detailApi
-    const detail = props.request?.alias?.detail
+    const detailApi = mergedProps.value.request?.detailApi
+    const detail = mergedProps.value.request?.alias?.detail
     if (currentMode.value === 'edit') {
       if (detailApi) {
         isOperateFormLoading.value = true
         try {
-          const res = await detailApi({ [props.dataKey]: rowData.value[props.dataKey], row: rowData.value })
+          const res = await detailApi({ [mergedProps.value.dataKey]: rowData.value[mergedProps.value.dataKey], row: rowData.value })
           dialogFormData.value = isFunction(detail) ? detail(res) : isString(detail) ? get(res, detail) : res?.data
         }
         catch (error) { }
@@ -129,8 +129,8 @@ export function useDialogConfig(props: CrudProps, emit: any, currentMode: Ref<'e
         dialogFormData.value = isFunction(detail) ? detail({ ...rowData.value }) : { ...rowData.value }
       }
     }
-    if (isFunction(props.dialog?.onOpen)) {
-      props.dialog.onOpen({
+    if (isFunction(mergedProps.value.dialog?.onOpen)) {
+      mergedProps.value.dialog.onOpen({
         formRef: dialogForm.value,
         type: currentMode.value,
         row: currentMode.value === 'edit' ? rowData.value : {},

@@ -1,5 +1,5 @@
 import type { ElTable } from 'element-plus'
-import type { ComponentInternalInstance, Ref } from 'vue'
+import type { ComponentInternalInstance, ComputedRef } from 'vue'
 import { ElMessage } from 'element-plus'
 import { isFunction, isObject } from '@ideaz/utils'
 import DialogTip from '../../../dialog/src/dialog'
@@ -8,9 +8,9 @@ import type { CrudDeleteDialogTipProps, CrudProps } from '../props'
 import type { ITableProps } from '../../../table/src/props'
 import type { TableCol } from '../../../types'
 
-export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<ITableProps>, refreshAfterRequest: () => void, getTableData: () => void) {
+export function useSelectionData(mergedProps: ComputedRef<CrudProps>, emit: any, tableProps: Ref<ITableProps>, refreshAfterRequest: () => void, getTableData: () => void) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
-  const selectionData = ref(props.selectionData || [])
+  const selectionData = ref(mergedProps.value.selectionData || [])
 
   const { t } = useLocale()
 
@@ -21,7 +21,7 @@ export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<IT
   const handleCheckboxChange = (selection: any) => {
     emit('selection-change', selection)
     emit('update:selectionData', selection)
-    if (props.selectionData === undefined)
+    if (mergedProps.value.selectionData === undefined)
       selectionData.value = selection
   }
 
@@ -30,9 +30,9 @@ export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<IT
   }
 
   const handleMultipleDelete = () => {
-    const deleteApi = props.request?.deleteApi
+    const deleteApi = mergedProps.value.request?.deleteApi
     if (deleteApi) {
-      const dialogTipProps: CrudDeleteDialogTipProps = isObject(props.delete) ? props.delete as CrudDeleteDialogTipProps : {} as CrudDeleteDialogTipProps
+      const dialogTipProps: CrudDeleteDialogTipProps = isObject(mergedProps.value.delete) ? mergedProps.value.delete as CrudDeleteDialogTipProps : {} as CrudDeleteDialogTipProps
       DialogTip({
         type: 'danger',
         ...dialogTipProps as Omit<CrudDeleteDialogTipProps, 'type'>,
@@ -42,7 +42,7 @@ export function useSelectionData(props: CrudProps, emit: any, tableProps: Ref<IT
           : async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
             confirmButtonLoading.value = true
             try {
-              await deleteApi({ [props.dataKey]: selectionData.value.map((item: any) => item[props.dataKey]), selectionData: selectionData.value })
+              await deleteApi({ [mergedProps.value.dataKey]: selectionData.value.map((item: any) => item[mergedProps.value.dataKey]), selectionData: selectionData.value })
               confirmButtonLoading.value = false
               done()
               ElMessage.success(t('common.success'))

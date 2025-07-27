@@ -3,19 +3,19 @@ import { omit } from 'lodash-unified'
 import type { CrudProps } from '../props'
 import type { CrudCol, TableFormConfig } from '../../../types'
 
-export function useDescriptions(props: CrudProps) {
+export function useDescriptions(mergedProps: ComputedRef<CrudProps>) {
   const descriptionColumns = computed(() => {
-    if (isObject(props.detail) && isArray((props.detail as TableFormConfig).columns))
-      return (props.detail as TableFormConfig).columns
-    if (isObject(props.form) && isArray(props.form.columns) && props.detail !== false) {
-      return props.form.columns.map((column) => {
+    if (isObject(mergedProps.value.detail) && isArray((mergedProps.value.detail as TableFormConfig).columns))
+      return (mergedProps.value.detail as TableFormConfig).columns
+    if (isObject(mergedProps.value.form) && isArray(mergedProps.value.form.columns) && mergedProps.value.detail !== false) {
+      return mergedProps.value.form.columns.map((column) => {
         return {
           prop: column.field,
           ...column,
         }
       })
     }
-    return props.columns?.filter((column: CrudCol) => column.detail || (column.form && column.detail !== false)).map((column: CrudCol) => {
+    return mergedProps.value.columns?.filter((column: CrudCol) => column.detail || (column.form && column.detail !== false)).map((column: CrudCol) => {
       return {
         label: column.detail?.label || column.form?.label || column.label,
         prop: column.detail?.prop || column.detail?.field || column.form?.field,
@@ -26,7 +26,7 @@ export function useDescriptions(props: CrudProps) {
   })
 
   const descriptionProps = computed(() => {
-    const detailConfig = omit(props.detail || {}, ['columns'])
+    const detailConfig = omit(mergedProps.value.detail || {}, ['columns'])
     return {
       column: 1,
       border: true,
