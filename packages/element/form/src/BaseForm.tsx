@@ -72,7 +72,7 @@ export default defineComponent({
           modelValue={modelValue}
           options={options}
           columns={contentColumns}
-          formProps={mergedProps.value}
+          formProps={mergedProps}
           v-slots={slots}
           onUpdate:modelValue={(...args) => { emit('update:modelValue', ...args) }}
           onChange={(...args) => { emit('change', ...args) }}
@@ -216,6 +216,7 @@ export default defineComponent({
                       options={options}
                       columns={formatFormItems.value}
                       v-slots={slots}
+                      formProps={mergedProps}
                       onUpdate:modelValue={(val: any) => {
                         model.splice(index, 1, val)
                         emit('update:modelValue', model)
@@ -268,6 +269,7 @@ export default defineComponent({
                             options={column.options || options}
                             columns={column.children}
                             v-slots={slots}
+                            formProps={mergedProps}
                             onUpdate:modelValue={(val: any) => {
                               const item = cloneDeep(modelValue[field])
                               item.splice(index, 1, val)

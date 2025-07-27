@@ -1,5 +1,6 @@
 import { isFunction } from '@ideaz/utils'
 import { cloneDeep, set } from 'lodash-unified'
+import type { ComputedRef } from 'vue'
 import type { FormColumn } from '../../types'
 import {
   useCol,
@@ -25,7 +26,7 @@ export default defineComponent({
       default: () => [],
     },
     formProps: {
-      type: Object as PropType<FormProps>,
+      type: Object as PropType<ComputedRef<FormProps>>,
       default: () => ({}),
     },
     options: {
@@ -43,18 +44,20 @@ export default defineComponent({
   },
   emits: ['update:modelValue', 'change'],
   setup(props, { slots, emit }) {
+    const formPropsValue = computed(() => props.formProps.value)
+
     return () => {
-      const { columns, formProps, options, modelValue } = props
+      const { columns, options, modelValue } = props
       return columns.map((col: FormColumn, colIndex: number) => {
-        const { scopedSlots } = useFormSlots(col, slots, formProps)
-        const { colKls, colStyle } = useCol(formProps, col)
+        const { scopedSlots } = useFormSlots(col, slots, formPropsValue.value)
+        const { colKls, colStyle } = useCol(formPropsValue.value, col)
         return (
           <FormItem
             key={col.__key}
             ref={`formItem${colIndex}`}
             col={col}
             modelValue={modelValue}
-            formConfig={formProps}
+            formConfig={formPropsValue.value}
             options={options}
             class={colKls.value}
             style={colStyle.value}
