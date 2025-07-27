@@ -1,5 +1,5 @@
 // import { withModifiers } from 'vue';
-import { useExpose } from '@ideaz/hooks'
+import { useExpose, useFormConfig as useGlobalFormConfig } from '@ideaz/hooks'
 import { cloneDeep, omit } from 'lodash-unified'
 import { Plus } from '@element-plus/icons-vue'
 import { getContentByRenderAndSlot } from '@ideaz/shared'
@@ -29,16 +29,19 @@ export default defineComponent({
   directives: { draggable },
   emits: ['input', 'update:modelValue', 'change', 'update:activeCollapse', 'collapse-change', 'next-step', 'previous-step', 'update:activeStep', 'submit', 'update:columns'],
   setup(props, { emit, slots }) {
-    const { formatFormItems } = useFormItems(props)
-    const { rowStyle, rowKls } = useRow(props)
-    const { formConfig } = useFormConfig(props)
+    // 合并全局配置和用户传入的 props
+    const mergedProps = useGlobalFormConfig(props)
+
+    const { formatFormItems } = useFormItems(mergedProps)
+    const { rowStyle, rowKls } = useRow(mergedProps)
+    const { formConfig } = useFormConfig(mergedProps)
     const {
       resetFields,
       validate,
       validateField,
       clearValidate,
       scrollToField,
-    } = useFormMethods(props)
+    } = useFormMethods(mergedProps)
     const { draggableOptions } = useDraggable(emit, formatFormItems)
     const ns = useNamespace('form')
     const { t } = useLocale()
@@ -56,20 +59,20 @@ export default defineComponent({
 
     provide(formProvideKey, computed(() => {
       return {
-        ...toRefs(props),
+        ...mergedProps.value,
         size: formConfig.value.size,
       }
     }))
 
     const renderCommonColumn = (contentColumns: FormColumn[]) => {
-      const { modelValue, options } = props
+      const { modelValue, options } = mergedProps.value
 
       return (
         <FormColumns
           modelValue={modelValue}
           options={options}
           columns={contentColumns}
-          formProps={props}
+          formProps={mergedProps.value}
           v-slots={slots}
           onUpdate:modelValue={(...args) => { emit('update:modelValue', ...args) }}
           onChange={(...args) => { emit('change', ...args) }}
@@ -129,7 +132,7 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max, min, action } = props
+      const { type, contentPosition, borderStyle, activeCollapse, accordion, modelValue, options, finishStatus, processStatus, simple, max, min, action } = mergedProps.value
       const isChildren = formatFormItems.value.some(column => column.children)
 
       if (isFunction(slots.default))
@@ -189,7 +192,7 @@ export default defineComponent({
         return (
           <>
             {modelValue.map((data: any, index: number) => {
-              const formProps = omit(props, FORM_FILTER_KEYS)
+              const formProps = omit(mergedProps.value, FORM_FILTER_KEYS)
               return (
                 <OperationCard
                   onAdd={() => { emit('update:modelValue', [...model, {}]) }}
@@ -331,7 +334,7 @@ export default defineComponent({
     }
 
     return () => {
-      const { modelValue } = props
+      const { modelValue } = mergedProps.value
 
       return (
         <ElForm

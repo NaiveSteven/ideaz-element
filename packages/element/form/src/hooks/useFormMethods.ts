@@ -1,7 +1,7 @@
 import { getCurrentInstance } from 'vue'
 import { cloneDeep } from 'lodash-unified'
 import { isFunction, isObject } from '@ideaz/utils'
-import type { ComponentInternalInstance } from 'vue'
+import type { ComponentInternalInstance, ComputedRef } from 'vue'
 import type { FormProps } from '../props'
 import type { ValidateField, validateCallback, validateFieldCallback } from '../../../types'
 
@@ -16,11 +16,11 @@ interface ElForm {
   scrollToField: (prop: string) => void
 }
 
-export function useFormMethods(props?: FormProps) {
+export function useFormMethods(mergedProps?: ComputedRef<FormProps>) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const originModelValue
-    = (isObject(props) && isObject(props.modelValue))
-      ? cloneDeep(props.modelValue)
+    = (isObject(mergedProps?.value) && isObject(mergedProps?.value.modelValue))
+      ? cloneDeep(mergedProps?.value.modelValue)
       : null
 
   const runArrayFormMethods = (method: string, props?: any, callback?: validateCallback | validateFieldCallback) => {
@@ -32,7 +32,7 @@ export function useFormMethods(props?: FormProps) {
 
   const validate = async (callback?: validateFieldCallback | validateCallback) => {
     try {
-      if (props && props.type === 'array') {
+      if (mergedProps?.value && mergedProps.value.type === 'array') {
         let isPassValidate = true
         const keys = Object.keys(ctx!.$refs)
         let fields: ValidateField = {}
@@ -76,7 +76,7 @@ export function useFormMethods(props?: FormProps) {
   }
 
   const resetFields = () => {
-    if (props && props.type === 'array') {
+    if (mergedProps?.value && mergedProps.value.type === 'array') {
       runArrayFormMethods('resetFields')
     }
     else {
@@ -84,7 +84,7 @@ export function useFormMethods(props?: FormProps) {
       // If you use hide for form entries, the form entry data may not be reset. Manual clearing
       if (originModelValue) {
         Object.keys(originModelValue).forEach((key) => {
-          props!.modelValue[key] = originModelValue[key]
+          mergedProps!.value.modelValue[key] = originModelValue[key]
         })
       }
     }
@@ -95,8 +95,8 @@ export function useFormMethods(props?: FormProps) {
   }
 
   const clearValidate = (attrs: string[] | string) => {
-    if (props && props.type === 'array')
-      runArrayFormMethods('clearValidate', props)
+    if (mergedProps?.value && mergedProps.value.type === 'array')
+      runArrayFormMethods('clearValidate', mergedProps.value)
 
     else
       (ctx?.$refs.formRef as ElForm).clearValidate(attrs)

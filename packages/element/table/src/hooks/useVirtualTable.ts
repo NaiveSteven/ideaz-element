@@ -5,25 +5,25 @@ import {
   virtualTableProps
 } from '../props'
 
-export function useVirtualTable(props: ITableProps) {
+export function useVirtualTable(mergedProps: Ref<ITableProps>) {
   const attrs = useAttrs()
 
   // 虚拟滚动配置
   const virtualConfig = computed(() => {
-    if (!props.virtual) return { enabled: false }
-    if (props.virtual === true) {
+    if (!mergedProps.value.virtual) return { enabled: false }
+    if (mergedProps.value.virtual === true) {
       return { enabled: true }
     }
     return {
       enabled: true,
-      ...props.virtual,
+      ...mergedProps.value.virtual,
     }
   })
 
   // 是否启用虚拟滚动
   const isVirtualEnabled = computed(() => {
     return virtualConfig.value.enabled &&
-           props.data && props.data.length > (virtualConfig.value.threshold || 100)
+           mergedProps.value.data && mergedProps.value.data.length > (virtualConfig.value.threshold || 100)
   })
 
   // 虚拟表格属性
@@ -45,7 +45,7 @@ export function useVirtualTable(props: ITableProps) {
 
     // 过滤props，保留虚拟表格可用的属性
     const baseAttributes = Object.fromEntries(
-      Object.entries(props).filter(([key]) => !excludedProps.has(key))
+      Object.entries(mergedProps.value).filter(([key]) => !excludedProps.has(key))
     )
 
     // 从虚拟配置中提取TableV2属性

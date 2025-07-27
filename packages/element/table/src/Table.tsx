@@ -1,6 +1,7 @@
 import { cloneDeep } from 'lodash-es'
 import { Plus } from '@element-plus/icons-vue'
 import { isFunction, isObject, isString } from '@ideaz/utils'
+import { useTableConfig } from '@ideaz/hooks'
 import { ElAutoResizer, ElButton, ElForm, ElPagination, ElTable, ElTableV2, ElWatermark } from 'element-plus'
 import { getCurrentInstance } from 'vue'
 import type { ComponentInternalInstance } from 'vue'
@@ -30,6 +31,9 @@ export default defineComponent({
   setup(props, { emit, slots, expose }) {
     const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
 
+    // 合并全局配置和用户传入的 props
+    const mergedProps = useTableConfig(props)
+
     const {
       pagination,
       paginationAttrs,
@@ -39,7 +43,7 @@ export default defineComponent({
       handleCurrentChange,
       handleSizeChange,
       handleRefresh,
-    } = usePagination(props, emit)
+    } = usePagination(mergedProps, emit)
     const {
       formatTableCols,
       middleTableCols,
@@ -47,13 +51,13 @@ export default defineComponent({
       originFormatTableCols,
       tableKey,
       zTableFormRef,
-    } = useTableColumns(props, emit, tableData)
+    } = useTableColumns(mergedProps, emit, tableData)
     const { scopedSlots, tableSlots } = useTableSlots(formatTableCols, slots)
     const { draggableOptions, dragging } = useDraggable(emit, tableData, middleTableCols)
-    const { spanMethod } = useMergeCells(props)
+    const { spanMethod } = useMergeCells(mergedProps)
 
     // 虚拟表格配置
-    const { isVirtualEnabled, virtualTableAttributes } = useVirtualTable(props)
+    const { isVirtualEnabled, virtualTableAttributes } = useVirtualTable(mergedProps)
 
     // 虚拟表格列配置和选择功能
     const {
@@ -64,7 +68,7 @@ export default defineComponent({
       toggleRowSelection: virtualToggleRowSelection,
       toggleAllSelection: virtualToggleAllSelection,
       toggleRowExpansion: virtualToggleRowExpansion,
-    } = useVirtualTableColumns(formatTableCols, tableData, slots, emit, props)
+    } = useVirtualTableColumns(formatTableCols, tableData, slots, emit, mergedProps)
 
     // 暴露的方法
     const virtualTableRef = ref()
@@ -93,11 +97,11 @@ export default defineComponent({
 
     const ns = useNamespace('table')
     const { t } = useLocale()
-    const size = ref(props.size)
+    const size = ref(mergedProps.value.size)
 
     provide(tableProvideKey, computed(() => {
       return {
-        ...toRefs(props),
+        ...toRefs(mergedProps.value),
         size: size.value,
       }
     }))
@@ -144,7 +148,7 @@ export default defineComponent({
     }
 
     const renderToolBar = () => {
-      const { toolBar, title } = props
+      const { toolBar, title } = mergedProps.value
       const tableTitle = slots.tableTitle?.() || (isFunction(title) ? title() : title) || null
 
       return (
@@ -170,8 +174,8 @@ export default defineComponent({
                 originFormatTableCols={originFormatTableCols.value}
                 sortTableCols={sortTableCols.value}
                 size={size.value}
-                toolBar={props.toolBar}
-                tableProps={{ ...props, fullScreenElement: props.fullScreenElement || (() => ctx!.$refs.containerRef as HTMLElement) }}
+                toolBar={mergedProps.value.toolBar}
+                tableProps={{ ...mergedProps.value, fullScreenElement: mergedProps.value.fullScreenElement || (() => ctx!.$refs.containerRef as HTMLElement) }}
                 onColumns-change={(data) => {
                   middleTableCols.value = cloneDeep(data)
                   tableKey.value = new Date().valueOf()
@@ -199,7 +203,7 @@ export default defineComponent({
 
     // 渲染虚拟表格
     const renderVirtualTable = () => {
-      const tableHeight = props.height || 500
+      const tableHeight = mergedProps.value.height || 500
 
       return (
         <div style={{ height: typeof tableHeight === 'number' ? `${tableHeight}px` : tableHeight }}>
@@ -214,7 +218,7 @@ export default defineComponent({
                   columns={virtualColumns.value as any}
                   data={tableData.value}
                   expandColumnKey={hasExpandColumn.value ? expandColumnKey.value : undefined}
-                  expandedRowKeys={props.expandedRowKeys}
+                  expandedRowKeys={mergedProps.value.expandedRowKeys}
                   onUpdate:expanded-row-keys={(keys: any[]) => {
                     emit('update:expandedRowKeys', keys)
                   }}
@@ -222,8 +226,8 @@ export default defineComponent({
                     emit('expanded-rows-change', keys)
                   }}
                   onRowExpand={(params: any) => emit('row-expand', params)}
-                  v-loading={props.loading}
-                  class={`${ns.b('virtual')} ${props.editable ? ns.b('editable') : ''}`}
+                  v-loading={mergedProps.value.loading}
+                  class={`${ns.b('virtual')} ${mergedProps.value.editable ? ns.b('editable') : ''}`}
                   v-slots={{
                     ...slots,
                     row: (rowProps: any) => {
@@ -250,7 +254,7 @@ export default defineComponent({
       }
 
       // 普通表格模式 - 保持原有的renderTable逻辑
-      const { loading, editable } = props
+      const { loading, editable } = mergedProps.value
       return (
         <ElTable
           ref="zTableRef"
@@ -259,7 +263,7 @@ export default defineComponent({
           v-slots={tableSlots}
           key={tableKey.value}
           v-draggable={draggableOptions}
-          v-sticky={isObject(props.sticky) ? { top: '50px', zIndex: 100, ...props.sticky } : undefined}
+          v-sticky={isObject(mergedProps.value.sticky) ? { top: '50px', zIndex: 100, ...(mergedProps.value.sticky as object) } : undefined}
           {...{ ...tableAttributes.value, spanMethod: tableAttributes.value.spanMethod || spanMethod, data: tableData.value, size: size.value }}
         >
           {formatTableCols.value.map((item, index) => {
@@ -283,16 +287,16 @@ export default defineComponent({
     }
 
     const renderTableDecorator = () => {
-      if (isString(props.watermark)) {
+      if (isString(mergedProps.value.watermark)) {
         return (
-          <ElWatermark content={props.watermark}>
+          <ElWatermark content={mergedProps.value.watermark}>
             {renderTable()}
           </ElWatermark>
         )
       }
-      if (isObject(props.watermark)) {
+      if (isObject(mergedProps.value.watermark)) {
         return (
-          <ElWatermark {...{ ...props.watermark }}>
+          <ElWatermark {...(mergedProps.value.watermark as object)}>
             {renderTable()}
           </ElWatermark>
         )
@@ -301,7 +305,7 @@ export default defineComponent({
     }
 
     const renderContent = () => {
-      const { editable } = props
+      const { editable } = mergedProps.value
       const position = isObject(editable) ? (editable.position || 'bottom') : 'bottom'
       const maxLength = isObject(editable) ? (editable.maxLength || undefined) : undefined
       if (editable) {
@@ -335,7 +339,7 @@ export default defineComponent({
     }
 
     const renderTableTop = () => {
-      const { toolBar } = props
+      const { toolBar } = mergedProps.value
       return (
         <div class={toolBar ? ns.bm('tool-bar', 'top') : ns.e('top')}>
           {isFunction(slots.tableTop) ? slots.tableTop() : null}

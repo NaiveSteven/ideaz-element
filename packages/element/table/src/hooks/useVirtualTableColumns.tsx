@@ -36,15 +36,15 @@ export function useVirtualTableColumns(
   tableData: Ref<any[]>,
   slots: any,
   emit: any,
-  props: any
+  mergedProps: Ref<any>
 ) {
   const { t } = useLocale()
   const size = useFormSize()
 
   // 计算分页偏移量
   const getPageOffset = () => {
-    if (props.pagination && typeof props.pagination === 'object') {
-      const { page = 1, pageSize = 10 } = props.pagination
+    if (mergedProps.value.pagination && typeof mergedProps.value.pagination === 'object') {
+      const { page = 1, pageSize = 10 } = mergedProps.value.pagination
       return (page - 1) * pageSize
     }
     return 0
@@ -52,7 +52,7 @@ export function useVirtualTableColumns(
 
   // 获取标签显示内容
   const getLabel = (row: any, column: TableCol) => {
-    return getTableColumnLabel(row, column, props.options)
+    return getTableColumnLabel(row, column, mergedProps.value.options)
   }
 
   // 获取验证规则
@@ -66,7 +66,7 @@ export function useVirtualTableColumns(
   // 展开状态管理 - 支持双向绑定
   const expandedRowKeys = computed({
     get() {
-      return Array.isArray(props.expandedRowKeys) ? props.expandedRowKeys : []
+      return Array.isArray(mergedProps.value.expandedRowKeys) ? mergedProps.value.expandedRowKeys : []
     },
     set(value) {
       emit('update:expandedRowKeys', value)
@@ -86,7 +86,7 @@ export function useVirtualTableColumns(
 
   // 展开相关方法
   const toggleRowExpansion = (row: any, expanded?: boolean) => {
-    const rowKey = row[props.rowKey || 'id']
+    const rowKey = row[mergedProps.value.rowKey || 'id']
     const currentKeys = [...expandedRowKeys.value]
     const keyIndex = currentKeys.indexOf(rowKey)
 
@@ -155,7 +155,7 @@ export function useVirtualTableColumns(
 
       // 处理选择列
       if (col.type === 'selection') {
-        const rowKeyProp = props.rowKey || 'id'
+        const rowKeyProp = mergedProps.value.rowKey || 'id'
 
         return {
           key: 'selection',
@@ -182,7 +182,7 @@ export function useVirtualTableColumns(
           headerCellRenderer: () => {
             const _data = unref(tableData)
             const onChange = (value: CheckboxValueType) => {
-              const rowKeyProp = props.rowKey || 'id'
+              const rowKeyProp = mergedProps.value.rowKey || 'id'
               if (value) {
                 // 全选
                 _data.forEach((row: any) => {
@@ -284,7 +284,7 @@ export function useVirtualTableColumns(
                 componentName={getDynamicComponentName(col.component!)}
                 evts={events}
                 size={size.value}
-                options={props.options?.[prop] || []}
+                options={mergedProps.value.options?.[prop] || []}
                 scope={scope}
                 column={col}
                 fieldProps={col.fieldProps}
@@ -293,7 +293,7 @@ export function useVirtualTableColumns(
           }
 
           // 如果表格是可编辑的，则根据编辑状态渲染不同内容
-          if (props.editable) {
+          if (mergedProps.value.editable) {
             return rowData.__isEdit === true
               ? (
                 <ElFormItem
@@ -395,7 +395,7 @@ export function useVirtualTableColumns(
   }
 
   const toggleRowSelection = (row: any, selected?: boolean) => {
-    const rowKey = row[props.rowKey || 'id']
+    const rowKey = row[mergedProps.value.rowKey || 'id']
     if (selected === undefined) {
       if (selectedRowKeys.value.has(rowKey)) {
         selectedRowKeys.value.delete(rowKey)
@@ -409,13 +409,13 @@ export function useVirtualTableColumns(
     }
 
     const selectedRows = tableData.value.filter((item: any) => {
-      return selectedRowKeys.value.has(item[props.rowKey || 'id'])
+      return selectedRowKeys.value.has(item[mergedProps.value.rowKey || 'id'])
     })
     emit('selection-change', selectedRows)
   }
 
   const toggleAllSelection = () => {
-    const rowKeyProp = props.rowKey || 'id'
+    const rowKeyProp = mergedProps.value.rowKey || 'id'
     const allSelected = tableData.value.length > 0 &&
       tableData.value.every((row: any) => selectedRowKeys.value.has(row[rowKeyProp]))
 
