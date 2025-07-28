@@ -2,7 +2,7 @@ import { get } from 'lodash-unified'
 import { isFunction, isString } from '@ideaz/utils'
 import type { CrudProps } from '../props'
 
-export function useDrawerConfig(props: CrudProps) {
+export function useDrawerConfig(mergedProps: ComputedRef<CrudProps>) {
   const viewData = ref<any>({})
   const isDescLoading = ref(false)
 
@@ -12,16 +12,16 @@ export function useDrawerConfig(props: CrudProps) {
     return {
       title: t('common.view'),
       size: 520,
-      ...props.drawer,
+      ...mergedProps.value.drawer,
     }
   })
 
   const handleDrawerOpen = async (row: any) => {
-    const detail = props.request?.alias?.detail
-    if (props.request?.detailApi) {
+    const detail = mergedProps.value.request?.alias?.detail
+    if (mergedProps.value.request?.detailApi) {
       isDescLoading.value = true
       try {
-        const res = await props.request?.detailApi({ [props.dataKey]: row[props.dataKey], row })
+        const res = await mergedProps.value.request?.detailApi({ [mergedProps.value.dataKey]: row[mergedProps.value.dataKey], row })
         viewData.value = isFunction(detail) ? detail(res) : isString(detail) ? get(res, detail) : res?.data
       }
       catch (error) {}
@@ -30,8 +30,8 @@ export function useDrawerConfig(props: CrudProps) {
     else {
       viewData.value = isFunction(detail) ? detail({ ...row }) : { ...row }
     }
-    if (isFunction(props.drawer?.onOpen))
-      props.drawer.onOpen({ row })
+    if (isFunction(mergedProps.value.drawer?.onOpen))
+      mergedProps.value.drawer.onOpen({ row })
   }
 
   return { drawerProps, isDescLoading, viewData, handleDrawerOpen }

@@ -28,7 +28,7 @@ export default {
       const ideazui = await import('ideaz-element')
       window.ZDialogTip = ZDialogTip
       app.use(ElementPlus)
-      app.use(ideazui.default, { locale: zhCn, size: 'default' })
+      app.use(ideazui.default, { locale: zhCn, size: 'default', form: { 'labelPosition': 'left' }, table: { border: true, stripe: true } })
     }
   },
 }

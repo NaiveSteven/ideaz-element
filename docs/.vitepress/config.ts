@@ -137,7 +137,7 @@ export default defineConfig({
                   link: '/components/table',
                 },
                 {
-                  text: 'Table 表格虚拟滚动 <span class="version-tag version-new">v1.2.0+</span>',
+                  text: 'Table 表格虚拟滚动 <span class="version-tag version-new">v1.1.0+</span>',
                   link: '/components/table-virtual',
                 },
                 {
@@ -198,6 +198,10 @@ export default defineConfig({
             {
               text: '快速上手',
               link: '/guide/start',
+            },
+            {
+              text: '全局配置',
+              link: '/guide/global-config',
             },
             {
               text: '约定',

@@ -9,7 +9,7 @@ import type { CrudCol, TableColumnScopeData } from '../../../types'
 import type { CrudDeleteDialogTipProps, CrudOperation, CrudProps } from '../props'
 import type ZTable from '../../../table/src/Table'
 
-export function useTableColumns(props: CrudProps, emit: any, getTableData: () => void) {
+export function useTableColumns(mergedProps: ComputedRef<CrudProps>, emit: any, getTableData: () => void) {
   const { t } = useLocale()
   const rowData = ref({})
   const isShowDialog = ref(false)
@@ -27,12 +27,12 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
 
   const renderEdit = () => {
     return {
-      label: (props.edit as CrudOperation)?.referenceLabel || t('common.edit'),
+      label: (mergedProps.value.edit as CrudOperation)?.referenceLabel || t('common.edit'),
       type: 'primary',
       link: true,
       icon: markRaw(EditPen),
-      disabled: (props.edit as CrudOperation)?.referenceDisabled,
-      hide: (props.edit as CrudOperation)?.referenceHide,
+      disabled: (mergedProps.value.edit as CrudOperation)?.referenceDisabled,
+      hide: (mergedProps.value.edit as CrudOperation)?.referenceHide,
       onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
         currentMode.value = 'edit'
@@ -43,19 +43,19 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
 
   const renderDelete = () => {
     return {
-      label: (props.delete as CrudOperation)?.referenceLabel || t('common.delete'),
+      label: (mergedProps.value.delete as CrudOperation)?.referenceLabel || t('common.delete'),
       type: 'danger',
       link: true,
       icon: markRaw(Delete),
-      disabled: (props.delete as CrudOperation)?.referenceDisabled,
-      hide: (props.delete as CrudOperation)?.referenceHide,
+      disabled: (mergedProps.value.delete as CrudOperation)?.referenceDisabled,
+      hide: (mergedProps.value.delete as CrudOperation)?.referenceHide,
       onClick: ({ row }: TableColumnScopeData) => {
         rowData.value = row
-        if (isFunction(props.delete))
-          props.delete({ row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
+        if (isFunction(mergedProps.value.delete))
+          mergedProps.value.delete({ row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
 
-        if (props.request?.deleteApi) {
-          const dialogTipProps: CrudDeleteDialogTipProps = isObject(props.delete) ? props.delete as CrudDeleteDialogTipProps : {} as CrudDeleteDialogTipProps
+        if (mergedProps.value.request?.deleteApi) {
+          const dialogTipProps: CrudDeleteDialogTipProps = isObject(mergedProps.value.delete) ? mergedProps.value.delete as CrudDeleteDialogTipProps : {} as CrudDeleteDialogTipProps
           DialogTip({
             type: 'danger',
             ...dialogTipProps as Omit<CrudDeleteDialogTipProps, 'type'>,
@@ -63,10 +63,10 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
             onConfirm: isFunction(dialogTipProps.onConfirm)
               ? ({ done, confirmButtonLoading }) => dialogTipProps.onConfirm?.({ done, confirmButtonLoading, row, tableRef: ctx!.$refs.zTableRef as typeof ZTable, getTableData })
               : async ({ done, confirmButtonLoading }: { done: () => void, confirmButtonLoading: Ref<boolean> }) => {
-                const dataKey = props.dataKey
+                const dataKey = mergedProps.value.dataKey
                 confirmButtonLoading.value = true
                 try {
-                  await props.request?.deleteApi?.({ [dataKey]: row[dataKey], row })
+                  await mergedProps.value.request?.deleteApi?.({ [dataKey]: row[dataKey], row })
                   confirmButtonLoading.value = false
                   done()
                   ElMessage.success(t('common.success'))
@@ -84,17 +84,17 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
 
   const renderView = () => {
     return {
-      label: (props.detail as CrudOperation)?.referenceLabel || t('common.view'),
+      label: (mergedProps.value.detail as CrudOperation)?.referenceLabel || t('common.view'),
       type: 'primary',
       link: true,
       icon: markRaw(View),
-      disabled: (props.detail as CrudOperation)?.referenceDisabled,
-      hide: (props.detail as CrudOperation)?.referenceHide,
+      disabled: (mergedProps.value.detail as CrudOperation)?.referenceDisabled,
+      hide: (mergedProps.value.detail as CrudOperation)?.referenceHide,
       onClick: ({ row }: TableColumnScopeData) => {
-        if (isFunction(props.detail)) {
-          props.detail({ row, tableRef: ctx!.$refs.zTableRef as typeof ZTable })
+        if (isFunction(mergedProps.value.detail)) {
+          mergedProps.value.detail({ row, tableRef: ctx!.$refs.zTableRef as typeof ZTable })
         }
-        if (props.onOperateView) {
+        if (mergedProps.value.onOperateView) {
           emit('operate-view', { row, tableRef: ctx!.$refs.zTableRef as typeof ZTable })
           return
         }
@@ -105,9 +105,9 @@ export function useTableColumns(props: CrudProps, emit: any, getTableData: () =>
   }
 
   const tableColumns = computed(() => {
-    const columns = props.columns?.filter((column: CrudCol) => COLUMN_TYPE_FIELDS.some(key => column[key])) || []
-    if (props.action && (props.detail !== false || props.edit !== false || props.delete !== false)) {
-      const buttons = [props.detail !== false && renderView(), props.edit !== false && renderEdit(), props.delete !== false && renderDelete()].filter(item => item)
+    const columns = mergedProps.value.columns?.filter((column: CrudCol) => COLUMN_TYPE_FIELDS.some(key => column[key])) || []
+    if (mergedProps.value.action && (mergedProps.value.detail !== false || mergedProps.value.edit !== false || mergedProps.value.delete !== false)) {
+      const buttons = [mergedProps.value.detail !== false && renderView(), mergedProps.value.edit !== false && renderEdit(), mergedProps.value.delete !== false && renderDelete()].filter(item => item)
       return columns.concat([
         {
           type: 'button',

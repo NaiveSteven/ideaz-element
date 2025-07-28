@@ -1,17 +1,18 @@
 import { isObject, uid } from '@ideaz/utils'
-import { reactiveOmit } from '@vueuse/core'
-import { set } from 'lodash-unified'
+// import { reactiveOmit } from '@vueuse/core'
+import { omit, set } from 'lodash-unified'
+import type { Ref } from 'vue'
 import type { ITableProps } from '../props'
 import type { Pagination } from '../../../types'
 
-export function usePagination(props: ITableProps, emit: any) {
+export function usePagination(mergedProps: Ref<ITableProps>, emit: any) {
   const tableData = ref<any>([])
   const attrs = useAttrs()
 
   const pagination = computed<Pagination>({
     get() {
       // editable is not compatible with pagination
-      return (isObject(props.pagination) && !props.editable) ? props.pagination : {}
+      return (isObject(mergedProps.value.pagination) && !mergedProps.value.editable) ? mergedProps.value.pagination : {}
     },
     set(val) {
       emit('update:pagination', val)
@@ -19,7 +20,7 @@ export function usePagination(props: ITableProps, emit: any) {
   })
 
   const tableAttributes = computed<any>(() => {
-    const omitProps = reactiveOmit(props, ['pagination', 'columns', 'draggable', 'toolBar', 'loading'])
+    const omitProps = omit(mergedProps.value, ['pagination', 'columns', 'draggable', 'toolBar', 'loading'])
     return { ...attrs, ...omitProps }
   })
 
@@ -41,9 +42,9 @@ export function usePagination(props: ITableProps, emit: any) {
   watch(
     () => tableAttributes.value.data,
     () => {
-      if (props.editable) {
-        const editableType = isObject(props.editable) ? (props.editable.type || 'single') : 'single'
-        const columnProps = props.columns.map(column => column.prop).filter(prop => prop)
+      if (mergedProps.value.editable) {
+        const editableType = isObject(mergedProps.value.editable) ? (mergedProps.value.editable.type || 'single') : 'single'
+        const columnProps = mergedProps.value.columns.map(column => column.prop).filter(prop => prop)
         tableData.value = tableAttributes.value.data.map((item: any) => {
           const obj: { [propName: string]: string } = {}
           columnProps.forEach((prop) => {
@@ -70,8 +71,8 @@ export function usePagination(props: ITableProps, emit: any) {
 
   const addTableData = () => {
     const rowData = { __isEdit: true }
-    if (props.rowKey)
-      set(rowData, String(props.rowKey), uid())
+    if (mergedProps.value.rowKey)
+      set(rowData, String(mergedProps.value.rowKey), uid())
 
     tableData.value.push(rowData)
   }

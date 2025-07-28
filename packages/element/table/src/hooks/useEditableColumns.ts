@@ -22,12 +22,12 @@ function replacePropertyValues(obj: any, reverse = false) {
   return obj
 }
 
-export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref<any>): { zTableFormRef: Ref<any>, columns: Ref<TableCol[]> } {
-  const editableType = ref<'single' | 'multiple'>(isObject(props.editable) ? (props.editable.type || 'single') : 'single')
+export function useEditableColumns(mergedProps: Ref<ITableProps>, emit: any, tableData: Ref<any>): { zTableFormRef: Ref<any>, columns: Ref<TableCol[]> } {
+  const editableType = ref<'single' | 'multiple'>(isObject(mergedProps.value.editable) ? (mergedProps.value.editable.type || 'single') : 'single')
   const zTableFormRef = ref()
   const columns = ref<TableCol[]>([])
   const { t } = useLocale()
-  const { editable } = props
+  const { editable } = mergedProps.value
 
   const generateValidateFields = (index: number) => {
     if (tableData.value.length)
@@ -43,8 +43,8 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       link: true,
       hide: ({ row }: TableColumnScopeData) => row.__isEdit || editableType.value === 'multiple',
       onClick: ({ row, $index, column }: TableColumnScopeData) => {
-        if (isObject(props.editable) && isFunction(props.editable?.onEdit)) {
-          props.editable?.onEdit({ row, $index, column, formRef: zTableFormRef.value })
+        if (isObject(mergedProps.value.editable) && isFunction(mergedProps.value.editable?.onEdit)) {
+          mergedProps.value.editable?.onEdit({ row, $index, column, formRef: zTableFormRef.value })
         }
         else {
           row.__isEdit = true
@@ -63,8 +63,8 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       onClick: ({ row, $index, column }: TableColumnScopeData) => {
         if (!zTableFormRef.value)
           return
-        if (isObject(props.editable) && isFunction(props.editable?.onSave)) {
-          props.editable?.onSave({ row, $index, column, formRef: zTableFormRef.value })
+        if (isObject(mergedProps.value.editable) && isFunction(mergedProps.value.editable?.onSave)) {
+          mergedProps.value.editable?.onSave({ row, $index, column, formRef: zTableFormRef.value })
         }
         else {
           zTableFormRef.value.validateField
@@ -88,8 +88,8 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       link: true,
       hide: ({ row }: TableColumnScopeData) => !row.__isEdit || editableType.value === 'multiple',
       onClick: ({ row, $index, column }: TableColumnScopeData) => {
-        if (isObject(props.editable) && isFunction(props.editable?.onCancel)) {
-          props.editable?.onCancel({ row, $index, column, formRef: zTableFormRef.value })
+        if (isObject(mergedProps.value.editable) && isFunction(mergedProps.value.editable?.onCancel)) {
+          mergedProps.value.editable?.onCancel({ row, $index, column, formRef: zTableFormRef.value })
         }
         else {
           replacePropertyValues(row, true)
@@ -107,15 +107,15 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
       link: true,
       onClick: ({ row, $index, column }: TableColumnScopeData) => {
         const delData = () => {
-          if (isObject(props.editable) && isFunction(props.editable?.onDelete)) {
-            props.editable?.onDelete({ row, $index, column, formRef: zTableFormRef.value })
+          if (isObject(mergedProps.value.editable) && isFunction(mergedProps.value.editable?.onDelete)) {
+            mergedProps.value.editable?.onDelete({ row, $index, column, formRef: zTableFormRef.value })
           }
           else {
             tableData.value.splice($index, 1)
             emit('update:data', tableData.value)
           }
         }
-        if (isObject(props.editable) && props.editable?.deleteConfirm) {
+        if (isObject(mergedProps.value.editable) && mergedProps.value.editable?.deleteConfirm) {
           DialogTip({
             type: 'warning',
             title: t('dialog.tip'),
@@ -133,11 +133,11 @@ export function useEditableColumns(props: ITableProps, emit: any, tableData: Ref
     }
   }
 
-  watch(() => props.columns, (newVal, oldVal) => {
+  watch(() => mergedProps.value.columns, (newVal, oldVal) => {
     // Avoid excessive update problems caused by reference address changes
     if (isEqual(newVal, oldVal))
       return
-    const cols = props.columns.map((item: TableCol) => {
+    const cols = mergedProps.value.columns.map((item: TableCol) => {
       if (item.type === 'sort')
         return { width: 48, ...item, __uid: uid() }
       if (isObject(item.component))

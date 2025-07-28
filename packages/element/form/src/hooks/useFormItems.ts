@@ -1,10 +1,11 @@
 import { isFunction, isObject, isString, uid } from '@ideaz/utils'
+import type { ComputedRef } from 'vue'
 import type { FormProps } from '../props'
 import type { FormColumn } from '../../../types'
 
 export const SELECT_TYPES = ['cascader', 'select', 'datepicker', 'picker', 'checkbox', 'radio']
 
-export function useFormItems(props: FormProps) {
+export function useFormItems(mergedProps: ComputedRef<FormProps>) {
   const { t } = useLocale()
 
   const setDefaultPlaceholder = (formItem: FormColumn) => {
@@ -19,11 +20,11 @@ export function useFormItems(props: FormProps) {
   }
 
   const isHide = (item: FormColumn) => {
-    return isFunction(item.hide) ? item.hide(props.modelValue) : item.hide
+    return isFunction(item.hide) ? item.hide(mergedProps.value.modelValue) : item.hide
   }
 
   const formatFormItems = computed<FormColumn[]>(() => {
-    const _schema = props.columns?.sort((a, b) => (a.order || 10000) - (b.order || 10000)).map((item: FormColumn) => ({
+    const _schema = mergedProps.value.columns?.sort((a, b) => (a.order || 10000) - (b.order || 10000)).map((item: FormColumn) => ({
       show: true,
       ...item,
       __key: item.key || item.field || item.slot || uid(),

@@ -1,7 +1,7 @@
 import { get, pick } from 'lodash-unified'
 import { isFunction, isObject, isString } from '@ideaz/utils'
 import type { ElTable } from 'element-plus'
-import type { ComponentInternalInstance } from 'vue'
+import type { ComponentInternalInstance, ComputedRef } from 'vue'
 import { FILTER_TABLE_KEYS, tableKeys } from '../props'
 import type { CrudProps, RequestConfig } from '../props'
 import type { Pagination } from '../../../types'
@@ -31,7 +31,7 @@ function getAliasData(res: any, req: RequestConfig) {
   }
 }
 
-export function useDataRequest(props: CrudProps, emit: any) {
+export function useDataRequest(mergedProps: ComputedRef<CrudProps>, emit: any) {
   const sortableData = ref<any>({})
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
   const {
@@ -41,21 +41,21 @@ export function useDataRequest(props: CrudProps, emit: any) {
     middleFormData,
     isUseFormDataStorage,
     middlePagination,
-  } = useCrudConfig(props, emit)
-  const { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer, refreshAfterRequest } = useTableColumns(props, emit, getTableData)
+  } = useCrudConfig(mergedProps, emit)
+  const { tableColumns, isShowDialog, rowData, currentMode, isShowDrawer, refreshAfterRequest } = useTableColumns(mergedProps, emit, getTableData)
   const attrs = useAttrs()
 
   const isRequest = () => {
     return (
-      isObject(props.request)
-      || isString(props.request)
-      || isFunction(props.request)
+      isObject(mergedProps.value.request)
+      || isString(mergedProps.value.request)
+      || isFunction(mergedProps.value.request)
     )
   }
 
   const isLoading = computed({
     get() {
-      return props.loading || false
+      return mergedProps.value.loading || false
     },
     set(val) {
       emit('update:loading', val)
@@ -64,7 +64,7 @@ export function useDataRequest(props: CrudProps, emit: any) {
 
   const tableData = computed<any>({
     get() {
-      return props.data
+      return mergedProps.value.data
     },
     set(val) {
       emit('update:data', val)
@@ -73,7 +73,7 @@ export function useDataRequest(props: CrudProps, emit: any) {
 
   const tableProps = computed<any>(() => {
     return {
-      ...pick(props, tableKeys.filter(key => !FILTER_TABLE_KEYS.includes(key))),
+      ...pick(mergedProps.value, tableKeys.filter(key => !FILTER_TABLE_KEYS.includes(key))),
       'columns': tableColumns.value,
       ...attrs,
       'fullScreenElement': () => ctx?.$refs.crudRef,
@@ -85,7 +85,7 @@ export function useDataRequest(props: CrudProps, emit: any) {
   })
 
   async function getTableData(payload?: { column: any, prop: string, order: string }) {
-    const req = props.request || {}
+    const req = mergedProps.value.request || {}
     const params = getParams(payload)
     if (isObject(req) && isFunction(req.searchFunc)) {
       req.searchFunc({ params })
@@ -102,7 +102,7 @@ export function useDataRequest(props: CrudProps, emit: any) {
 
       tableData.value = isFunction(req.tableData) ? req.tableData(getAliasData(res, req).list) : getAliasData(res, req).list
 
-      if (props.pagination !== false)
+      if (mergedProps.value.pagination !== false)
         setPaginationData({ total: Number(getAliasData(res, req).total) })
 
       isLoading.value = false
@@ -115,11 +115,11 @@ export function useDataRequest(props: CrudProps, emit: any) {
 
   function getParams(payload?: { column: any, prop: string, order: string }) {
     const params = {
-      ...props.formData,
+      ...mergedProps.value.formData,
       ...payload,
       ...sortableData.value,
     }
-    if (props.pagination !== false) {
+    if (mergedProps.value.pagination !== false) {
       params.page = middlePagination.value.page
       params.pageSize = middlePagination.value.pageSize
     }
@@ -190,8 +190,8 @@ export function useDataRequest(props: CrudProps, emit: any) {
 
   const initTableData = async () => {
     try {
-      const beforeData = props.request?.beforeData
-      const afterData = props.request?.afterData
+      const beforeData = mergedProps.value.request?.beforeData
+      const afterData = mergedProps.value.request?.afterData
       if (isFunction(beforeData))
         await beforeData()
 
@@ -205,7 +205,7 @@ export function useDataRequest(props: CrudProps, emit: any) {
   }
 
   const handleExport = () => {
-    const exportData = props.export
+    const exportData = mergedProps.value.export
     const params = stringifyObject(getParams())
     if (isString(exportData))
       window.location.href = `${exportData}?${params}`

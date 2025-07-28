@@ -2,6 +2,7 @@ import { ElAlert, ElButton, ElDrawer, ElWatermark, useAttrs } from 'element-plus
 import { omit } from 'lodash-unified'
 import { Delete, Download, Plus } from '@element-plus/icons-vue'
 import { isFunction, isObject, isString } from '@ideaz/utils'
+import { useCrudConfig } from '@ideaz/hooks'
 import type { ComponentInternalInstance } from 'vue'
 import { withKeys } from 'vue'
 import { useFormMethods } from '../../form/src/hooks'
@@ -23,6 +24,9 @@ export default defineComponent({
   props: crudProps,
   emits: ['update:formData', 'update:pagination', 'search', 'reset', 'refresh', 'operate-submit', 'operate-delete', 'operate-view', 'operate-cancel', 'sort-change', 'update:data', 'update:editFormData', 'update:addFormData', 'update:selectionData', 'update:loading', 'selection-change', 'radio-change'],
   setup(props, { emit, slots, expose }) {
+    // 合并全局配置和用户传入的 props
+    const mergedProps = useCrudConfig(props)
+
     const attrs = useAttrs()
     const {
       setCurrentRow,
@@ -58,9 +62,9 @@ export default defineComponent({
       currentMode,
       isShowDrawer,
       refreshAfterRequest,
-    } = useDataRequest(props, emit)
-    const { selectionData, isSelection, handleCheckboxChange, handleCloseAlert, handleMultipleDelete } = useSelectionData(props, emit, tableProps, refreshAfterRequest, getTableData)
-    const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(props)
+    } = useDataRequest(mergedProps, emit)
+    const { selectionData, isSelection, handleCheckboxChange, handleCloseAlert, handleMultipleDelete } = useSelectionData(mergedProps, emit, tableProps, refreshAfterRequest, getTableData)
+    const { addFormColumns, editFormColumns, searchFormColumns, detailColumns } = useFormColumns(mergedProps)
     const {
       dialogProps,
       dialogFormData,
@@ -70,23 +74,16 @@ export default defineComponent({
       handleConfirm,
       handleDialogClosed,
       handleDialogOpen,
-    } = useDialogConfig(props, emit, currentMode, isShowDialog, rowData)
-    const { drawerProps, isDescLoading, viewData, handleDrawerOpen } = useDrawerConfig(props)
-    const { descriptionColumns, descriptionProps } = useDescriptions(props)
+    } = useDialogConfig(mergedProps, emit, currentMode, isShowDialog, rowData)
+    const { drawerProps, isDescLoading, viewData, handleDrawerOpen } = useDrawerConfig(mergedProps)
+    const { descriptionColumns, descriptionProps } = useDescriptions(mergedProps)
     const ns = useNamespace('crud')
     const { t } = useLocale()
     const size = useFormSize()
 
     provide(crudProvideKey, computed(() => {
       return {
-        ...toRefs(props),
-        size: tableProps.value.size,
-      }
-    }))
-
-    provide(crudProvideKey, computed(() => {
-      return {
-        ...toRefs(props),
+        ...toRefs(mergedProps.value),
         size: tableProps.value.size,
       }
     }))
@@ -120,13 +117,13 @@ export default defineComponent({
     }
 
     const renderAlert = () => {
-      const { alert } = props
+      const { alert } = mergedProps.value
       if (isFunction(alert))
         return alert(selectionData.value)
       if (isFunction(slots.alert))
         return slots.alert({ selectionData: selectionData.value })
 
-      const alertProps = omit(props.alert, ['title', 'description']) as Omit<AlertConfig, 'title' | 'description'>
+      const alertProps = omit(mergedProps.value.alert, ['title', 'description']) as Omit<AlertConfig, 'title' | 'description'>
       return (
         <ElAlert
           type="success"
@@ -146,7 +143,7 @@ export default defineComponent({
 
     const renderTable = () => {
       return renderDecorator({
-        ...props.tableDecorator,
+        ...mergedProps.value.tableDecorator,
         class: ns.be('table', 'container'),
         children: () => {
           return (
@@ -159,7 +156,7 @@ export default defineComponent({
                   return (
                     <>
                       {slots.toolBarLeft && slots.toolBarLeft()}
-                      {props.action && props.add && (
+                      {mergedProps.value.action && mergedProps.value.add && (
                         <ElButton
                           size={size.value}
                           type="primary"
@@ -172,8 +169,8 @@ export default defineComponent({
                           {t('crud.add')}
                         </ElButton>
                       )}
-                      {!!props.export && <ElButton size={size.value} type="primary" icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</ElButton>}
-                      {!!isSelection.value && props.delete && props.action && (
+                      {!!mergedProps.value.export && <ElButton size={size.value} type="primary" icon={Download} class={ns.e('export')} onClick={handleExport}>{t('crud.export')}</ElButton>}
+                                              {!!isSelection.value && mergedProps.value.delete && mergedProps.value.action && (
                         <ElButton
                           plain
                           size={size.value}
@@ -189,7 +186,7 @@ export default defineComponent({
                   )
                 },
                 toolBarBottom: () => {
-                  if (isSelection.value && props.action && props.alert)
+                  if (isSelection.value && mergedProps.value.action && mergedProps.value.alert)
                     return renderAlert()
 
                   return slots.toolBarBottom?.()
@@ -209,10 +206,10 @@ export default defineComponent({
 
     const renderSearchForm = () => {
       return searchFormColumns.value?.length > 0 && renderDecorator({
-        ...props.formDecorator,
+        ...mergedProps.value.formDecorator,
         style: {
           marginBottom: '16px',
-          ...props.formDecorator?.style,
+          ...mergedProps.value.formDecorator?.style,
         },
         class: ns.be('filter-form', 'container'),
         children: () => (
@@ -223,12 +220,12 @@ export default defineComponent({
               {...{
                 size: size.value,
                 labelWidth: '60px',
-                ...omit(props.search || {}, EXCLUDE_FORM_PROPS_KEYS),
+                ...omit(mergedProps.value.search || {}, EXCLUDE_FORM_PROPS_KEYS),
                 columns: searchFormColumns.value,
                 ...attrs.value,
                 searchButtonLoading: tableProps.value.loading,
               }}
-              options={props.options}
+              options={mergedProps.value.options}
               modelValue={middleFormData.value}
               onUpdate:modelValue={(val: any) => { middleFormData.value = val }}
               onSearch={handleSearch}
@@ -246,14 +243,14 @@ export default defineComponent({
     const renderOperateForm = () => {
       const columns = currentMode.value === 'add' ? addFormColumns.value : currentMode.value === 'edit' ? editFormColumns.value : detailColumns.value
       // const formData = currentMode.value === 'add' ? props.addFormData : currentMode.value === 'edit' ? props.editFormData : rowData.value
-      const formProps = omit(props.form || {}, EXCLUDE_FORM_PROPS_KEYS)
-      const operateFormProps = currentMode.value === 'add' ? omit(props.add || {}, EXCLUDE_FORM_PROPS_KEYS) : omit(props.edit || {}, EXCLUDE_FORM_PROPS_KEYS)
+      const formProps = omit(mergedProps.value.form || {}, EXCLUDE_FORM_PROPS_KEYS)
+      const operateFormProps = currentMode.value === 'add' ? omit(mergedProps.value.add || {}, EXCLUDE_FORM_PROPS_KEYS) : omit(mergedProps.value.edit || {}, EXCLUDE_FORM_PROPS_KEYS)
       return (
         <ZForm
           {...{ size: size.value, labelWidth: '60px', ...formProps, ...operateFormProps }}
           ref={dialogForm}
           columns={columns}
-          options={props.options}
+          options={mergedProps.value.options}
           modelValue={dialogFormData.value}
           onUpdate:modelValue={(val: any) => { dialogFormData.value = val }}
           v-loading={isOperateFormLoading.value}
@@ -305,16 +302,16 @@ export default defineComponent({
           {renderTable()}
         </>
       )
-      if (isString(props.watermark)) {
+      if (isString(mergedProps.value.watermark)) {
         return (
-          <ElWatermark content={props.watermark}>
+          <ElWatermark content={mergedProps.value.watermark}>
             {content()}
           </ElWatermark>
         )
       }
-      if (isObject(props.watermark)) {
+      if (isObject(mergedProps.value.watermark)) {
         return (
-          <ElWatermark {...{ ...props.watermark }}>
+          <ElWatermark {...(mergedProps.value.watermark as object)}>
             {content()}
           </ElWatermark>
         )

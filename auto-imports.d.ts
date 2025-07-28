@@ -149,8 +149,10 @@ declare global {
   const useClipboardItems: typeof import('@vueuse/core')['useClipboardItems']
   const useCloned: typeof import('@vueuse/core')['useCloned']
   const useColorMode: typeof import('@vueuse/core')['useColorMode']
+  const useComponentConfig: typeof import('./packages/hooks/useGlobalConfig')['useComponentConfig']
   const useConfirmDialog: typeof import('@vueuse/core')['useConfirmDialog']
   const useCounter: typeof import('@vueuse/core')['useCounter']
+  const useCrudConfig: typeof import('./packages/hooks/useGlobalConfig')['useCrudConfig']
   const useCssModule: typeof import('vue')['useCssModule']
   const useCssVar: typeof import('@vueuse/core')['useCssVar']
   const useCssVars: typeof import('vue')['useCssVars']
@@ -187,6 +189,7 @@ declare global {
   const useFocusWithin: typeof import('@vueuse/core')['useFocusWithin']
   const useFormComponentAttrs: typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']
   const useFormComponentSlots: typeof import('./packages/hooks/useFormComponentSlots')['useFormComponentSlots']
+  const useFormConfig: typeof import('./packages/hooks/useGlobalConfig')['useFormConfig']
   const useFormSize: typeof import('./packages/hooks/useFormSize')['useFormSize']
   const useFps: typeof import('@vueuse/core')['useFps']
   const useFullscreen: typeof import('@vueuse/core')['useFullscreen']
@@ -220,6 +223,7 @@ declare global {
   const useNamespace: typeof import('./packages/hooks/useNamespace')['useNamespace']
   const useNavigatorLanguage: typeof import('@vueuse/core')['useNavigatorLanguage']
   const useNetwork: typeof import('@vueuse/core')['useNetwork']
+  const useNewGlobalConfig: typeof import('./packages/hooks/useGlobalConfig')['useNewGlobalConfig']
   const useNow: typeof import('@vueuse/core')['useNow']
   const useObjectUrl: typeof import('@vueuse/core')['useObjectUrl']
   const useOffsetPagination: typeof import('@vueuse/core')['useOffsetPagination']
@@ -261,6 +265,7 @@ declare global {
   const useStyleTag: typeof import('@vueuse/core')['useStyleTag']
   const useSupported: typeof import('@vueuse/core')['useSupported']
   const useSwipe: typeof import('@vueuse/core')['useSwipe']
+  const useTableConfig: typeof import('./packages/hooks/useGlobalConfig')['useTableConfig']
   const useTemplateRefsList: typeof import('@vueuse/core')['useTemplateRefsList']
   const useTextDirection: typeof import('@vueuse/core')['useTextDirection']
   const useTextSelection: typeof import('@vueuse/core')['useTextSelection']
@@ -384,11 +389,14 @@ declare module 'vue' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly useAttr: UnwrapRef<typeof import('./packages/hooks/useAttr')['useAttr']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
+    readonly useComponentConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useComponentConfig']>
+    readonly useCrudConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useCrudConfig']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useExpose: UnwrapRef<typeof import('./packages/hooks/useExpose')['useExpose']>
     readonly useFormComponentAttrs: UnwrapRef<typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']>
     readonly useFormComponentSlots: UnwrapRef<typeof import('./packages/hooks/useFormComponentSlots')['useFormComponentSlots']>
+    readonly useFormConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useFormConfig']>
     readonly useFormSize: UnwrapRef<typeof import('./packages/hooks/useFormSize')['useFormSize']>
     readonly useGetDerivedNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['useGetDerivedNamespace']>
     readonly useGlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useGlobalConfig']>
@@ -396,10 +404,12 @@ declare module 'vue' {
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
     readonly useLocale: UnwrapRef<typeof import('./packages/hooks/useLocale')['useLocale']>
     readonly useNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['useNamespace']>
+    readonly useNewGlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useNewGlobalConfig']>
     readonly useProp: UnwrapRef<typeof import('./packages/hooks/useProp')['useProp']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
+    readonly useTableConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useTableConfig']>
     readonly useVModel: UnwrapRef<typeof import('./packages/hooks/useVModel')['useVModel']>
     readonly useWindowReactiveSize: UnwrapRef<typeof import('./packages/hooks/useWindowReactiveSize')['useWindowReactiveSize']>
     readonly vue2GlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['vue2GlobalConfig']>
@@ -474,11 +484,14 @@ declare module '@vue/runtime-core' {
     readonly unref: UnwrapRef<typeof import('vue')['unref']>
     readonly useAttr: UnwrapRef<typeof import('./packages/hooks/useAttr')['useAttr']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>
+    readonly useComponentConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useComponentConfig']>
+    readonly useCrudConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useCrudConfig']>
     readonly useCssModule: UnwrapRef<typeof import('vue')['useCssModule']>
     readonly useCssVars: UnwrapRef<typeof import('vue')['useCssVars']>
     readonly useExpose: UnwrapRef<typeof import('./packages/hooks/useExpose')['useExpose']>
     readonly useFormComponentAttrs: UnwrapRef<typeof import('./packages/hooks/useFormComponentAttrs')['useFormComponentAttrs']>
     readonly useFormComponentSlots: UnwrapRef<typeof import('./packages/hooks/useFormComponentSlots')['useFormComponentSlots']>
+    readonly useFormConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useFormConfig']>
     readonly useFormSize: UnwrapRef<typeof import('./packages/hooks/useFormSize')['useFormSize']>
     readonly useGetDerivedNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['useGetDerivedNamespace']>
     readonly useGlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useGlobalConfig']>
@@ -486,10 +499,12 @@ declare module '@vue/runtime-core' {
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
     readonly useLocale: UnwrapRef<typeof import('./packages/hooks/useLocale')['useLocale']>
     readonly useNamespace: UnwrapRef<typeof import('./packages/hooks/useNamespace')['useNamespace']>
+    readonly useNewGlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useNewGlobalConfig']>
     readonly useProp: UnwrapRef<typeof import('./packages/hooks/useProp')['useProp']>
     readonly useRoute: UnwrapRef<typeof import('vue-router')['useRoute']>
     readonly useRouter: UnwrapRef<typeof import('vue-router')['useRouter']>
     readonly useSlots: UnwrapRef<typeof import('vue')['useSlots']>
+    readonly useTableConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['useTableConfig']>
     readonly useVModel: UnwrapRef<typeof import('./packages/hooks/useVModel')['useVModel']>
     readonly useWindowReactiveSize: UnwrapRef<typeof import('./packages/hooks/useWindowReactiveSize')['useWindowReactiveSize']>
     readonly vue2GlobalConfig: UnwrapRef<typeof import('./packages/hooks/useGlobalConfig')['vue2GlobalConfig']>

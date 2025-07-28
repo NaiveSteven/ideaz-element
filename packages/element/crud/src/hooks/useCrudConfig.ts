@@ -7,19 +7,19 @@ import type { Pagination } from '../../../types'
 import { useFormStorage } from './useFormStorage'
 import { usePaginationStorage } from './usePaginationStorage'
 
-export function useCrudConfig(props: CrudProps, emit: any) {
+export function useCrudConfig(mergedProps: ComputedRef<CrudProps>, emit: any) {
   const { proxy: ctx } = getCurrentInstance() as ComponentInternalInstance
 
-  const { middleFormData, originFormData, isUseFormDataStorage } = useFormStorage(props, emit)
+  const { middleFormData, originFormData, isUseFormDataStorage } = useFormStorage(mergedProps, emit)
   const { middlePagination, originPagination, isUsePaginationStorage }
-    = usePaginationStorage(props, emit)
+    = usePaginationStorage(mergedProps, emit)
 
   const handleSearch = debounce(() => {
     if (isUseFormDataStorage.value)
-      updateTableProFormData(props, props.formData)
+      updateTableProFormData(mergedProps.value, mergedProps.value.formData)
 
     if (isUsePaginationStorage.value)
-      updateTableProPagination(props.pagination)
+      updateTableProPagination(mergedProps.value.pagination)
 
     emit('update:formData', middleFormData.value)
     emit('search')
@@ -27,20 +27,20 @@ export function useCrudConfig(props: CrudProps, emit: any) {
 
   const handleReset = () => {
     (ctx!.$refs.formRef as typeof ElForm).resetFields()
-    if (isUseFormDataStorage.value && isObject(props.formData)) {
+    if (isUseFormDataStorage.value && isObject(mergedProps.value.formData)) {
       const formData: any = {}
-      Object.keys(props.formData).forEach((key) => {
+      Object.keys(mergedProps.value.formData).forEach((key) => {
         formData[key] = originFormData.value[key]
         middleFormData.value[key] = originFormData.value[key]
       })
       emit('update:formData', formData)
-      updateTableProFormData(props)
+      updateTableProFormData(mergedProps.value)
     }
-    if (isObject(props.pagination) && isUsePaginationStorage.value) {
+    if (isObject(mergedProps.value.pagination) && isUsePaginationStorage.value) {
       const pagination: Pagination = {}
-      Object.keys(props.pagination).forEach((key) => {
-        (pagination[key as keyof typeof props.pagination] as Pagination) = originPagination.value[key as keyof typeof props.pagination] as Pagination;
-        (middlePagination.value[key as keyof typeof props.pagination] as Pagination) = originPagination.value[key as keyof typeof props.pagination] as Pagination
+      Object.keys(mergedProps.value.pagination).forEach((key) => {
+        (pagination[key as keyof typeof mergedProps.value.pagination] as Pagination) = originPagination.value[key as keyof typeof mergedProps.value.pagination] as Pagination;
+        (middlePagination.value[key as keyof typeof mergedProps.value.pagination] as Pagination) = originPagination.value[key as keyof typeof mergedProps.value.pagination] as Pagination
       })
       emit('update:pagination', pagination)
       updateTableProPagination()
@@ -49,9 +49,9 @@ export function useCrudConfig(props: CrudProps, emit: any) {
   }
 
   const handlePaginationChange = (val: any) => {
-    if (isObject(props.pagination) && isUsePaginationStorage.value) {
+    if (isObject(mergedProps.value.pagination) && isUsePaginationStorage.value) {
       const pagination = {
-        ...props.pagination,
+        ...mergedProps.value.pagination,
         ...val,
       }
       updateTableProPagination(pagination)
@@ -74,9 +74,9 @@ export function useCrudConfig(props: CrudProps, emit: any) {
     const pagination = sessionStorage.getItem('zCrudPagination')
       ? JSON.parse(sessionStorage.getItem('zCrudPagination')!)
       : {}
-    pagination[props.name] = data
+    pagination[mergedProps.value.name] = data
     if (!data)
-      delete pagination[props.name]
+      delete pagination[mergedProps.value.name]
 
     sessionStorage.setItem('zCrudPagination', JSON.stringify(pagination))
   }
