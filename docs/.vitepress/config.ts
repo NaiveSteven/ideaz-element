@@ -200,6 +200,10 @@ export default defineConfig({
               link: '/guide/start',
             },
             {
+              text: '全局配置',
+              link: '/guide/global-config',
+            },
+            {
               text: '约定',
               link: '/guide/appoint',
             },
