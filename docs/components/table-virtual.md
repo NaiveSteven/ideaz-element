@@ -152,7 +152,6 @@ const virtualConfig = {
 - 🔄 动态显示/隐藏列
 - 🎯 函数式配置：`hide: () => boolean`
 - 🔧 静态配置：`hide: boolean`
-- 📊 实时响应状态变化
 
 <preview path="../demo/table/virtual-hide.vue" />
 
@@ -174,9 +173,6 @@ const virtualConfig = {
 **功能特点：**
 - ✅ **字符串水印**：直接传入字符串作为水印内容
 - ✅ **对象水印**：传入配置对象，自定义水印的字体、颜色、角度、间距等
-- ✅ **动态切换**：支持运行时动态开启/关闭/修改水印
-- ✅ **虚拟滚动兼容**：水印在虚拟滚动表格中正常显示，不影响性能
-- ✅ **样式一致**：与普通表格的水印效果完全一致
 
 <preview path="../demo/table/virtual-watermark.vue" />
 
@@ -187,7 +183,6 @@ const virtualConfig = {
 **功能特点：**
 - ✅ **Footer 插槽**：通过 `#footer` 插槽自定义底部内容
 - ✅ **高度配置**：通过 `virtual.footerHeight` 配置 footer 区域高度
-- ✅ **动态控制**：支持运行时动态显示/隐藏 footer
 
 <preview path="../demo/table/virtual-footer.vue" />
 
@@ -207,12 +202,6 @@ const virtualConfig = {
 ## 方法和事件
 
 测试表格的各种方法调用和事件处理。
-
-**测试内容：**
-- 📞 **方法调用**：包括虚拟滚动专用的 `scrollToRow` 方法
-- 📡 **事件处理**：完整的事件处理测试
-- 🎯 **滚动定位**：精确的滚动定位功能
-- 🔄 **状态管理**：表格状态管理测试
 
 <preview path="../demo/table/virtual-methods.vue" />
 
