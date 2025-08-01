@@ -105,12 +105,6 @@ const virtualConfig = {
 
 测试 `type: 'selection'` 列在虚拟表格中的支持情况。
 
-**功能特点：**
-- ✅ 多选支持
-- ✅ 全选/取消全选
-- ✅ 选中状态回调
-- ✅ 禁用状态支持
-
 <preview path="../demo/table/virtual-selection.vue" />
 
 ## 列展开
@@ -135,8 +129,6 @@ const virtualConfig = {
 - ✅ **索引列配置**：`{ type: 'index' }` 列配置
 - ✅ **自定义起始索引**：支持数字类型的index属性
 - ✅ **函数索引**：支持函数类型的index属性自定义显示逻辑
-- ✅ **分页兼容**：自动处理分页情况下的索引偏移
-- ✅ **高性能**：虚拟滚动下的索引列渲染优化
 
 <preview path="../demo/table/virtual-index.vue" />
 
@@ -144,33 +136,11 @@ const virtualConfig = {
 
 测试大数据量下的表格编辑功能，支持多种表单组件。
 
-**支持的组件：**
-- 📝 输入框 (input)
-- 🎯 选择器 (select)
-- 🔢 数字输入框 (input-number)
-- 📅 日期选择器 (date-picker)
-
 <preview path="../demo/table/virtual-editable.vue" />
 
 ## 表单组件支持
 
 虚拟表格完全支持各种表单组件，包括输入框、选择器、单选框、多选框、日期选择器、开关等。
-
-**支持的表单组件：**
-- 📝 **输入框** (input)：基础文本输入，支持 placeholder、验证等
-- 🎯 **选择器** (select)：单选和多选下拉选择，支持 options 配置
-- 🔢 **数字输入框** (input-number)：数字输入，支持 min/max 限制
-- 📊 **单选框** (radio)：单选组件，支持 options 配置
-- ☑️ **多选框** (checkbox)：多选组件，支持 options 配置
-- 📅 **日期选择器** (date-picker)：日期选择，支持格式化配置
-- 🔘 **开关** (switch)：开关组件，支持自定义文本
-
-**功能特点：**
-- ✅ **高性能渲染**：虚拟滚动下的表单组件渲染优化
-- ✅ **完整验证**：支持必填、自定义验证规则
-- ✅ **选项配置**：支持 options 配置选择类组件
-- ✅ **事件处理**：支持各种表单事件
-- ✅ **样式统一**：与普通表格表单组件样式一致
 
 <preview path="../demo/table/virtual-form-components.vue" />
 
@@ -194,9 +164,6 @@ const virtualConfig = {
 - ✅ **字符串提示**：`tooltip: '提示内容'`
 - ✅ **函数提示**：`tooltip: (scope) => '动态内容'`，支持传递scope参数
 - ✅ **对象配置**：`tooltip: { content: '内容', placement: 'top', effect: 'dark' }`
-- ✅ **样式一致**：与普通表格的tooltip样式和交互完全一致
-- ✅ **完整兼容**：支持useTableColumnSlots中的所有tooltip配置选项
-- ✅ **性能优化**：修复了表头抖动和Vue警告问题
 
 <preview path="../demo/table/virtual-tooltip.vue" />
 
@@ -221,9 +188,6 @@ const virtualConfig = {
 - ✅ **Footer 插槽**：通过 `#footer` 插槽自定义底部内容
 - ✅ **高度配置**：通过 `virtual.footerHeight` 配置 footer 区域高度
 - ✅ **动态控制**：支持运行时动态显示/隐藏 footer
-- ✅ **样式自定义**：完全支持 CSS 样式自定义，支持渐变背景等
-- ✅ **统计功能**：适合展示数据统计、汇总信息等
-- ✅ **操作区域**：可放置导出、生成报告等操作按钮
 
 <preview path="../demo/table/virtual-footer.vue" />
 
@@ -232,24 +196,11 @@ const virtualConfig = {
 
 验证列内容的自定义渲染，支持render函数和slot插槽两种方式。
 
-**支持方式：**
-- 🎯 **Render 函数**：灵活的渲染函数支持
-- 🎰 **Slot 插槽**：Vue 原生插槽支持
-- 🎨 **复杂组件**：支持嵌套复杂组件
-- 🖱️ **交互功能**：支持点击、悬浮等交互
-
 <preview path="../demo/table/virtual-custom-column.vue" />
 
 ## 自定义表头
 
 测试表头的自定义功能，包括图标、徽章、下拉菜单等交互元素。
-
-**支持功能：**
-- 🎯 **图标支持**：表头图标展示
-- 🏷️ **徽章支持**：动态徽章展示
-- 📝 **提示信息**：表头提示支持
-- 🎛️ **下拉菜单**：表头操作菜单
-- 🎨 **样式自定义**：完整的样式定制能力
 
 <preview path="../demo/table/virtual-custom-header.vue" />
 
@@ -310,15 +261,6 @@ tableRef.value.clearSelection()
 tableRef.value.sort('column', 'ascending')
 ```
 
-### 性能对比
-
-| 数据量 | 普通表格 | 虚拟表格 | 性能提升 |
-|-------|---------|---------|---------|
-| 1,000 行 | 正常 | 正常 | - |
-| 10,000 行 | 较慢 | 流畅 | 10x |
-| 50,000 行 | 卡顿 | 流畅 | 50x |
-| 100,000 行 | 不可用 | 流畅 | 100x+ |
-
 ### 使用建议
 
 #### 🎯 何时使用虚拟滚动
@@ -334,18 +276,7 @@ tableRef.value.sort('column', 'ascending')
    - ✅ 必须设置 `height` 属性
    - ❌ 不支持动态行高
 
-2. **数据结构要求**:
-   - ✅ 支持普通对象数组
-   - ✅ 支持嵌套属性访问
-   - ❌ 不支持复杂树形数据结构
-
-3. **功能兼容性**:
-   - ✅ 完全兼容: 排序、分页、操作按钮、列显隐、列提示、可编辑表格、选择功能、展开功能、索引列、水印功能、Footer 底部区域
-   - ✅ 自定义功能: 列内容渲染、表头渲染、插槽模板
-   - ⚠️ 部分兼容: 复杂的嵌套组件、动态行高
-   - ❌ 不支持: 行合并、复杂树形数据
-
-4. **性能优化建议**:
+2. **性能优化建议**:
    - 💡 数据量 > 1000 条时启用
    - 💡 避免在列中使用过于复杂的组件
    - 💡 列配置无需手动指定 width，系统自动处理ß
