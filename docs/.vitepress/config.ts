@@ -3,7 +3,6 @@ import { demoBlockPlugin } from 'vitepress-theme-demoblock'
 import { componentPreview, containerPreview } from '@vitepress-demo-preview/plugin'
 
 export default defineConfig({
-  // lang: 'en-US',
   title: ' ',
   description: '更适合中后台的业务组件库。',
   lastUpdated: true,
@@ -11,6 +10,59 @@ export default defineConfig({
   base: process.env.BASE || '/',
   appearance: false,
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }]],
+
+  locales: {
+    root: {
+      label: '简体中文',
+      lang: 'zh-CN',
+      description: '更适合中后台的业务组件库。',
+      themeConfig: {
+        outlineTitle: '本页目录',
+        lastUpdatedText: '上次更新',
+        editLink: {
+          pattern: 'https://github.com/NaiveSteven/ideaz-element/edit/main/docs/:path',
+          text: '在 GitHub 上编辑此页',
+        },
+        nav: [
+          { text: '指南', link: '/guide/start', activeMatch: '^/guide/' },
+          { text: '组件', link: '/components/checkbox', activeMatch: '^/components/' },
+          {
+            text: '更新日志',
+            link: 'https://github.com/NaiveSteven/ideaz-element/commits/main/',
+          },
+          {
+            text: '低代码工具',
+            link: 'https://naivesteven.github.io/ideaz-lowcode/',
+          },
+        ],
+      }
+    },
+    en: {
+      label: 'English',
+      lang: 'en-US',
+      description: 'A business component library more suitable for middle and back-end.',
+      themeConfig: {
+        outlineTitle: 'On this page',
+        lastUpdatedText: 'Last updated',
+        editLink: {
+          pattern: 'https://github.com/NaiveSteven/ideaz-element/edit/main/docs/:path',
+          text: 'Edit this page on GitHub',
+        },
+        nav: [
+          { text: 'Guide', link: '/en/guide/start', activeMatch: '^/en/guide/' },
+          { text: 'Components', link: '/en/components/checkbox', activeMatch: '^/en/components/' },
+          {
+            text: 'Changelog',
+            link: 'https://github.com/NaiveSteven/ideaz-element/commits/main/',
+          },
+          {
+            text: 'Low-code Tool',
+            link: 'https://naivesteven.github.io/ideaz-lowcode/',
+          },
+        ],
+      }
+    }
+  },
   markdown: {
     headers: {
       level: [0, 0],
@@ -25,26 +77,12 @@ export default defineConfig({
     },
   },
   themeConfig: {
-    outlineTitle: '本页目录',
-    lastUpdatedText: '上次更新',
     logo: '/logo.svg',
     // algolia: {
     //   appId: 'X51HWTCQJJ',
     //   apiKey: 'ca20f15eb8a667898b65d13f4213ae3d',
     //   indexName: 'vitepress-demo',
     // },
-    nav: [
-      { text: '指南', link: '/guide/start', activeMatch: '^/guide/' },
-      { text: '组件', link: '/components/checkbox', activeMatch: '^/components/' },
-      {
-        text: '更新日志',
-        link: 'https://github.com/NaiveSteven/ideaz-element/commits/main/',
-      },
-      {
-        text: '低代码工具',
-        link: 'https://naivesteven.github.io/ideaz-lowcode/',
-      },
-    ],
     sidebar: {
       '/components/': [
         {
@@ -223,12 +261,166 @@ export default defineConfig({
           ],
         },
       ],
-    },
-
-    editLink: {
-      pattern:
-        'https://github.com/NaiveSteven/ideaz-element/edit/main/docs/:path',
-      text: '在 GitHub 上编辑此页',
+      '/en/components/': [
+        {
+          text: 'Components',
+          items: [
+            {
+              text: 'Form',
+              items: [
+                {
+                  text: 'Checkbox',
+                  link: '/en/components/checkbox',
+                },
+                {
+                  text: 'Radio',
+                  link: '/en/components/radio',
+                },
+                {
+                  text: 'Select',
+                  link: '/en/components/select',
+                },
+                {
+                  text: 'Input',
+                  link: '/en/components/input',
+                },
+                {
+                  text: 'TagSelect',
+                  link: '/en/components/tag-select',
+                },
+                {
+                  text: 'CheckCard',
+                  link: '/en/components/check-card',
+                },
+                {
+                  text: 'FilterForm',
+                  link: '/en/components/filter-form',
+                },
+                {
+                  text: 'Form',
+                  items: [
+                    {
+                      text: 'Basic Usage',
+                      link: '/en/components/form',
+                    },
+                    {
+                      text: 'Group Form',
+                      link: '/en/components/form-group',
+                    },
+                    {
+                      text: 'Collapse Form',
+                      link: '/en/components/form-collapse',
+                    },
+                    {
+                      text: 'Array Form',
+                      link: '/en/components/form-array',
+                    },
+                    {
+                      text: 'Step Form',
+                      link: '/en/components/form-step',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              text: 'Data',
+              items: [
+                {
+                  text: 'Descriptions',
+                  link: '/en/components/descriptions',
+                },
+                {
+                  text: 'Table',
+                  link: '/en/components/table',
+                },
+                {
+                  text: 'Table Virtual Scroll <span class="version-tag version-new">v1.1.0+</span>',
+                  link: '/en/components/table-virtual',
+                },
+                {
+                  text: 'Crud',
+                  items: [
+                    {
+                      text: 'Table Config',
+                      link: '/en/components/crud-table',
+                    },
+                    {
+                      text: 'Query Form Config',
+                      link: '/en/components/crud-form',
+                    },
+                    {
+                      text: 'Create/Update Config',
+                      link: '/en/components/crud-cu',
+                    },
+                    {
+                      text: 'View Config',
+                      link: '/en/components/crud-view',
+                    },
+                    {
+                      text: 'Delete Config',
+                      link: '/en/components/crud-delete',
+                    },
+                    {
+                      text: 'API Config',
+                      link: '/en/components/crud-api',
+                    },
+                    {
+                      text: 'Slots',
+                      link: '/en/components/crud-slot',
+                    },
+                  ],
+                },
+              ],
+            },
+            {
+              text: 'Feedback',
+              items: [
+                {
+                  text: 'Dialog',
+                  link: '/en/components/dialog',
+                },
+                {
+                  text: 'FullScreen',
+                  link: '/en/components/full-screen',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      '/en/guide/': [
+        {
+          text: 'Guide',
+          items: [
+            {
+              text: 'Quick Start',
+              link: '/en/guide/start',
+            },
+            {
+              text: 'Global Config',
+              link: '/en/guide/global-config',
+            },
+            {
+              text: 'Convention',
+              link: '/en/guide/appoint',
+            },
+            {
+              text: 'Changelog',
+              link: '/en/guide/changelog',
+            },
+          ],
+        },
+        {
+          text: 'Development',
+          items: [
+            {
+              text: 'Development Guide',
+              link: '/en/guide/dev',
+            },
+          ],
+        },
+      ],
     },
 
     socialLinks: [
