@@ -1,63 +1,38 @@
 # Crud Slots
 
-`z-crud` component slot functionality introduction.
+> `z-crud` component slot introduction
 
 ## Basic Usage
 
-Use slots to customize various parts of the CRUD component.
+- Filter form top and bottom content customization can use `formTop`, `formBottom` slots.
+
+- `toolBar` component top, bottom, left, right content customization can use `toolBarTop`, `toolBarBottom`, `toolBarLeft`, `tableTitle`, `toolBarRight` slots.
+
+- `pagination` component top, bottom, left, right content customization can use `paginationTop`, `paginationRight`, `paginationBottom`, `paginationLeft` slots.
 
 <preview path="../../demo/crud-slot/normal.vue" />
 
-## Table Slots
+- When `toolBar` and `pagination` are hidden, table top and bottom content customization can use `tableTop`, `tableBottom` slots.
 
-Customize table content using slots.
+<preview path="../../demo/crud-slot/table-slot.vue" />
 
-<preview path="../../demo/crud-slot/table.vue" />
+## z-crud Slots
 
-## Form Slots
-
-Customize form content using slots.
-
-<preview path="../../demo/crud-slot/form.vue" />
-
-## Search Form Slots
-
-Customize search form content using slots.
-
-<preview path="../../demo/crud-slot/search.vue" />
-
-## Operation Slots
-
-Customize operation buttons using slots.
-
-<preview path="../../demo/crud-slot/operation.vue" />
-
-## Dialog Slots
-
-Customize dialog content using slots.
-
-<preview path="../../demo/crud-slot/dialog.vue" />
-
-## Toolbar Slots
-
-Customize toolbar content using slots.
-
-<preview path="../../demo/crud-slot/toolbar.vue" />
-
-## Custom Column Slots
-
-Customize table column content using slots.
-
-<preview path="../../demo/crud-slot/column.vue" />
-
-## Header Slots
-
-Customize table header using slots.
-
-<preview path="../../demo/crud-slot/header.vue" />
-
-## Footer Slots
-
-Customize component footer using slots.
-
-<preview path="../../demo/crud-slot/footer.vue" />
+| Slot Name        | Description                                                                                                                                    |
+| :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------- |
+| append           | Content inserted after the last row of table. If table has summary row, this slot will be above summary row.                                 |
+| empty            | Custom content when data is empty                                                                                                              |
+| tableTop         | Top slot                                                                                                                                       |
+| tableBottom      | Bottom slot                                                                                                                                    |
+| toolBarTop       | Toolbar top slot                                                                                                                               |
+| toolBarBottom    | Toolbar bottom slot                                                                                                                            |
+| toolBarRight     | Toolbar right slot                                                                                                                             |
+| toolBarLeft      | Toolbar left slot                                                                                                                              |
+| tableTitle       | Table title slot                                                                                                                               |
+| paginationTop    | Pagination top slot                                                                                                                            |
+| paginationBottom | Pagination bottom slot                                                                                                                         |
+| paginationLeft   | Pagination left slot                                                                                                                           |
+| paginationRight  | Pagination right slot                                                                                                                          |
+| formTop          | Form top slot                                                                                                                                  |
+| formBottom       | Form bottom slot                                                                                                                               |
+| crudMiddle       | Middle content slot                                                                                                                            |
