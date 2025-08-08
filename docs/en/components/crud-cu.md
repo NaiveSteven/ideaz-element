@@ -48,44 +48,105 @@ If you need to process the detail data returned by the API, you can configure `r
 
 When `request` doesn't configure `submitApi`, `addApi` and `editApi`, there will be `operate-submit` event.
 
-<preview path="../../demo/crud-cu/custom-submit.vue" />
+<preview path="../../demo/crud-cu/operate-submit.vue" />
 
-## Form Validation
+## Custom Cancel
 
-- Add `required` field in `form` field, or set `required` field in `formItemProps` to set required fields. Validation messages will be automatically generated based on `label` or can be customized.
-- Configure `rules` field in `add` or `edit` object passed to `z-crud` to define form validation rules.
-- Configure `rules` in form items in `form` field to define validation rules for current form item.
+`operate-cancel` custom cancel event. If the component is not configured, clicking cancel will close by default.
 
-<preview path="../../demo/crud-cu/validate.vue" />
+<preview path="../../demo/crud-cu/operate-submit.vue" />
 
-## Custom Form Items
+## Form Properties
 
-We can use `slot` or `render` to customize form item content.
+Use `add` and `edit` objects to configure create and edit form properties. The `form` property can uniformly configure create and edit.
 
-Custom content also uses `hide` to change visibility state.
+<preview path="../../demo/crud-cu/form-props.vue" />
 
-<preview path="../../demo/crud-cu/custom-form-item.vue" />
+## Dialog Properties
 
-## Custom Label and Error
+You can use the `dialog` object to uniformly configure create and edit dialog properties, or use `add.dialog` and `edit.dialog` to configure dialog properties separately.
 
-`label` and `error` support passing strings, `render` functions or `concatenated Slot strings`
+<preview path="../../demo/crud-cu/dialog-props.vue" />
 
-<preview path="../../demo/crud-cu/custom-label.vue" />
+## z-crud Detail Related Attributes
 
-## Linkage
+| Attribute | Description                                                                                 | Type                                                                      | Default |
+| :-------- | :------------------------------------------------------------------------------------------ | :------------------------------------------------------------------------ | :------ |
+| detail    | Detail configuration                                                                        | `boolean` / `object` / `({ row, tableRef }) => void`                     | `true`  |
+| form      | Search, add, edit and view form attribute configuration                                     | `object`                                                                  | —       |
+| action    | Whether to show action items (built-in delete, edit buttons)                               | `boolean`                                                                 | `true`  |
+| edit      | Edit configuration                                                                          | `boolean` / `object`                                                      | `true`  |
+| add       | Add configuration                                                                           | `boolean` / `object`                                                      | `true`  |
+| delete    | Delete configuration                                                                        | `boolean` / `({ row, tableRef, getTableData }) => void` / `object`       | —       |
+| search    | Search configuration                                                                        | `boolean` / `object`                                                      | `true`  |
+| request   | API configuration                                                                           | `object`                                                                  | —       |
 
-Use `hide` to configure form item visibility.
+## add and edit Attributes
 
-<preview path="../../demo/crud-cu/hide.vue" />
+| Attribute                 | Description                                                                                                                                                                     | Type                          | Default |
+| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------- | :------ |
+| dialog                    | `el-dialog` component attributes                                                                                                                                                | `object`                      | —       |
+| rules                     | Form validation rules                                                                                                                                                           | `object`                      | —       |
+| columns                   | Form items                                                                                                                                                                      | `array`                       | —       |
+| options                   | Form option data source                                                                                                                                                         | `object`                      | —       |
+| colon                     | Form item colon                                                                                                                                                                 | `boolean`                     | false   |
+| align                     | Vertical alignment under `flex` layout                                                                                                                                         | `top` / `middle` /`bottom`    | —       |
+| label-position            | Position of form field labels. When set to `left` or `right`, you also need to set the `label-width` attribute                                                               | `enum`                        | right   |
+| label-width               | Width of labels, e.g. `'50px'`. Form items that are direct children of Form will inherit this value. `auto` can be used.                                                     | `string` / `number`           | ''      |
+| label-suffix              | Suffix for form field labels                                                                                                                                                   | `string`                      | ''      |
+| hide-required-asterisk    | Whether to hide the red asterisk next to required field labels.                                                                                                                | `boolean`                     | false   |
+| require-asterisk-position | Position of asterisk.                                                                                                                                                           | `left` / `right`              | left    |
+| show-message              | Whether to show validation error messages                                                                                                                                       | `boolean`                     | true    |
+| inline-message            | Whether to display validation messages inline                                                                                                                                   | `boolean`                     | false   |
+| status-icon               | Whether to display validation result feedback icons in input boxes                                                                                                             | `boolean`                     | false   |
+| validate-on-rule-change   | Whether to trigger validation immediately after the `rules` attribute changes                                                                                                  | `boolean`                     | true    |
+| size                      | Size for controlling components within this form                                                                                                                                | `large` / `default` / `small` | —       |
+| disabled                  | Whether to disable all components in this form. If set to `true`, it will override the `disabled` attribute of internal components                                            | `boolean`                     | false   |
+| scroll-to-error           | When validation fails, scroll to the first error form item                                                                                                                     | `boolean`                     | false   |
+| scroll-into-view-options  | When validation has failed results, scroll to the first failed form item                                                                                                       | `object` / `boolean`          | —       |
 
-## Dialog Configuration
+## form Attributes
 
-Configure dialog properties through `add.dialog` and `edit.dialog`.
+| Attribute                 | Description                                                                                                                                                                     | Type                          | Default |
+| :------------------------ | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | :---------------------------- | :------ |
+| rules                     | Form validation rules                                                                                                                                                           | `object`                      | —       |
+| columns                   | Form items                                                                                                                                                                      | `array`                       | —       |
+| options                   | Form option data source                                                                                                                                                         | `object`                      | —       |
+| colon                     | Form item colon                                                                                                                                                                 | `boolean`                     | false   |
+| align                     | Vertical alignment under `flex` layout                                                                                                                                         | `top` / `middle` /`bottom`    | —       |
+| label-position            | Position of form field labels. When set to `left` or `right`, you also need to set the `label-width` attribute                                                               | `enum`                        | right   |
+| label-width               | Width of labels, e.g. `'50px'`. Form items that are direct children of Form will inherit this value. `auto` can be used.                                                     | `string` / `number`           | ''      |
+| label-suffix              | Suffix for form field labels                                                                                                                                                   | `string`                      | ''      |
+| hide-required-asterisk    | Whether to hide the red asterisk next to required field labels.                                                                                                                | `boolean`                     | false   |
+| require-asterisk-position | Position of asterisk.                                                                                                                                                           | `left` / `right`              | left    |
+| show-message              | Whether to show validation error messages                                                                                                                                       | `boolean`                     | true    |
+| inline-message            | Whether to display validation messages inline                                                                                                                                   | `boolean`                     | false   |
+| status-icon               | Whether to display validation result feedback icons in input boxes                                                                                                             | `boolean`                     | false   |
+| validate-on-rule-change   | Whether to trigger validation immediately after the `rules` attribute changes                                                                                                  | `boolean`                     | true    |
+| size                      | Size for controlling components within this form                                                                                                                                | `large` / `default` / `small` | —       |
+| disabled                  | Whether to disable all components in this form. If set to `true`, it will override the `disabled` attribute of internal components                                            | `boolean`                     | false   |
+| scroll-to-error           | When validation fails, scroll to the first error form item                                                                                                                     | `boolean`                     | false   |
+| scroll-into-view-options  | When validation has failed results, scroll to the first failed form item                                                                                                       | `object` / `boolean`          | —       |
 
-<preview path="../../demo/crud-cu/dialog.vue" />
+## request Attributes
 
-## Custom Dialog
+| Attribute  | Description                                      | Type                                                                                          | Default |
+| :--------- | :----------------------------------------------- | :-------------------------------------------------------------------------------------------- | :------ |
+| searchApi  | Search API                                       | `(params: any) => promise`                                                                    | —       |
+| submitApi  | Edit and create confirmation                     | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise` | —       |
+| deleteApi  | Delete API                                       | `({ [key: string]?: any, row?: any, selectionData?: any }) => promise`                        | —       |
+| addApi     | Create API                                       | `({ type: 'add' / 'edit' / 'view', formData: any }) => promise`                               | —       |
+| editApi    | Edit API                                         | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise` | —       |
+| detailApi  | Detail API                                       | `({ [key: string]: any, row: any }) => promise`                                               | —       |
+| alias      | Custom data path                                 | `object`                                                                                      | —       |
+| beforeData | Callback before table data API call             | `Function`                                                                                    | —       |
+| afterData  | Callback after table data API call              | `(res) => void`                                                                               | —       |
+| searchFunc | Search method override                           | `({ params }) => any`                                                                         | —       |
+| tableData  | Custom table data return                         | `(res) => any`                                                                                | —       |
 
-Configure `add.dialog` and `edit.dialog` as `false` to disable built-in dialogs and customize dialogs.
+## z-crud Create/Edit Related Events
 
-<preview path="../../demo/crud-cu/custom-dialog.vue" />
+| Event Name     | Description      | Type                                                                                                     |
+| :------------- | :--------------- | :------------------------------------------------------------------------------------------------------- |
+| operate-submit | Dialog confirm   | `({ done, formRef, formData, type, confirmButtonLoading, row, invalidFields }) => void`                 |
+| operate-cancel | Dialog cancel    | `({ done, formRef, formData, type, confirmButtonLoading, row }) => void`                                 |
