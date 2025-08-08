@@ -1,63 +1,72 @@
 # Crud API
 
-`z-crud` component API configuration introduction.
+Integrates `z-form` and `z-table` components to implement CRUD functionality.
 
-## Basic Usage
+## Table API
 
-Configure `request` object to set up API endpoints for CRUD operations.
+Configure `searchApi`, `deleteApi`, `addApi`, `editApi` in `request` to directly implement table data retrieval, data deletion, data creation and editing operations.
 
-<preview path="../../demo/crud-api/normal.vue" />
+<preview path="../../demo/crud-api/request.vue" />
 
-## List API
+## Table Data API Configuration
 
-Configure `listApi` to fetch table data.
-
-<preview path="../../demo/crud-api/list.vue" />
-
-## Detail API
-
-Configure `detailApi` to fetch detail data for view/edit operations.
-
-<preview path="../../demo/crud-api/detail.vue" />
-
-## Create API
-
-Configure `addApi` for create operations.
-
-<preview path="../../demo/crud-api/add.vue" />
-
-## Update API
-
-Configure `editApi` for update operations.
-
-<preview path="../../demo/crud-api/edit.vue" />
-
-## Delete API
-
-Configure `deleteApi` for delete operations.
-
-<preview path="../../demo/crud-api/delete.vue" />
-
-## Combined Submit API
-
-Configure `submitApi` for both create and update operations.
-
-<preview path="../../demo/crud-api/submit.vue" />
-
-## Data Transformation
-
-Configure `alias` to transform API response data.
+Configure the `alias` field in `request` to customize data paths, defaults to `data.list` and `data.total`.
 
 <preview path="../../demo/crud-api/alias.vue" />
 
-## Request Configuration
+Supports passing functions for custom returns.
 
-Configure request parameters and headers.
+<preview path="../../demo/crud-api/alias-function.vue" />
 
-<preview path="../../demo/crud-api/config.vue" />
+## Custom Table Data Method
 
-## Error Handling
+Supports customizing table data method through `request.searchFunc`.
 
-Handle API errors and loading states.
+<preview path="../../demo/crud-api/search-function.vue" />
 
-<preview path="../../demo/crud-api/error.vue" />
+## Table Data Processing
+
+Supports secondary processing of table data through `request.tableData`.
+
+<preview path="../../demo/crud-api/data.vue" />
+
+## Callbacks
+
+Supports doing things before and after getting table data through `request.beforeData` and `request.afterData`.
+
+<preview path="../../demo/crud-api/data-callback.vue" />
+
+## Internal Methods
+
+Supports calling the `getTableData` method again from outside the table.
+
+<preview path="../../demo/crud-api/methods.vue" />
+
+## Custom Operations
+
+If you need custom operations, you can use events like `refresh`, `search`, `reset`, `submit`, `delete` to implement refresh, query, reset and delete operations.
+
+<preview path="../../demo/crud-api/operation.vue" />
+
+## request Attributes
+
+| Attribute  | Description                                      | Type                                                                                          | Default |
+| :--------- | :----------------------------------------------- | :-------------------------------------------------------------------------------------------- | :------ |
+| searchApi  | Search API                                       | `(params: any) => promise`                                                                    | —       |
+| submitApi  | Edit and create confirmation                     | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise` | —       |
+| deleteApi  | Delete API                                       | `({ [key: string]?: any, row?: any, selectionData?: any }) => promise`                        | —       |
+| addApi     | Create API                                       | `({ type: 'add' / 'edit' / 'view', formData: any }) => promise`                               | —       |
+| editApi    | Edit API                                         | `({ [key: string]: any, row: any, type: 'add' / 'edit' / 'view', formData: any }) => promise` | —       |
+| detailApi  | Detail API                                       | `({ [key: string]: any, row: any }) => promise`                                               | —       |
+| alias      | Custom data path                                 | `object`                                                                                      | —       |
+| beforeData | Callback before table data API call             | `Function`                                                                                    | —       |
+| afterData  | Callback after table data API call              | `(res) => void`                                                                               | —       |
+| searchFunc | Search method override                           | `({ params }) => any`                                                                         | —       |
+| tableData  | Custom table data return                         | `(res) => any`                                                                                | —       |
+
+## alias Attributes
+
+| Attribute | Description           | Type                         | Default      |
+| :-------- | :-------------------- | :--------------------------- | :----------- |
+| list      | Table data path       | `string` / `(res) => array`  | `data.list`  |
+| total     | Table data total path | `string` / `(res) => number` | `data.total` |
