@@ -245,10 +245,10 @@ export default defineConfig({
               text: '约定',
               link: '/guide/appoint',
             },
-            {
-              text: '更新日志',
-              link: '/guide/changelog',
-            },
+            // {
+            //   text: '更新日志',
+            //   link: '/guide/changelog',
+            // },
           ],
         },
         {
@@ -405,10 +405,10 @@ export default defineConfig({
               text: 'Convention',
               link: '/en/guide/appoint',
             },
-            {
-              text: 'Changelog',
-              link: '/en/guide/changelog',
-            },
+            // {
+            //   text: 'Changelog',
+            //   link: '/en/guide/changelog',
+            // },
           ],
         },
         {
