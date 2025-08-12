@@ -4,12 +4,12 @@ import { h, ref, resolveComponent } from 'vue'
 const options = [
   {
     title: () => h(resolveComponent('el-tag'), { }, () => 'Tag 1'),
-    description: '选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念',
+    description: 'Choose a typical user case provided by workflow orchestration to learn many design concepts',
     value: 'A',
   },
   {
-    title: '标题内容过长会自动进行省略，标题内容过长会自动进行省略',
-    description: '选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念',
+    title: 'Long title content will be automatically truncated; long title content will be automatically truncated',
+    description: 'Choose a typical user case provided by workflow orchestration to learn many design concepts',
     value: 'B',
   },
 ]

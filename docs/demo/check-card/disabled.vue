@@ -4,34 +4,34 @@ import { ref } from 'vue'
 const options = ref([
   {
     title: 'Card A',
-    description: '选项一',
+    description: 'Option 1',
     value: 'A',
   },
   {
     title: 'Card B',
-    description: '选项二',
+    description: 'Option 2',
     value: 'B',
   },
 ])
 
 const dataSource = [
   {
-    title: '图像分类',
+    title: 'Image Classification',
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
-    description: '这是一段关于该算法的说明',
+    description: 'This is a description of the algorithm',
     disabled: true,
     value: 'A',
   },
   {
-    title: '物体检测',
+    title: 'Object Detection',
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
-    description: '这是一段关于该算法的说明',
+    description: 'This is a description of the algorithm',
     value: 'B',
   },
   {
-    title: 'OCR自定义',
+    title: 'OCR Custom',
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
-    description: '这是一段关于该算法的说明',
+    description: 'This is a description of the algorithm',
     value: 'C',
   },
 ]
@@ -42,11 +42,11 @@ const val = ref('')
 
 <template>
   <div>
-    <h4>部分不可用</h4>
+    <h4>Partially Disabled</h4>
     <z-check-card v-model="val" :options="dataSource" />
   </div>
   <div>
-    <h4>整体不可用</h4>
+    <h4>Fully Disabled</h4>
     <z-check-card v-model="selectedCard" :options="options" disabled />
   </div>
 </template>

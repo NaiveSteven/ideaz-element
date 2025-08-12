@@ -3,14 +3,14 @@ import { h, ref } from 'vue'
 
 const options = [
   {
-    title: '示例',
+    title: 'Example',
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/f601048d-61c2-44d0-bf57-ca1afe7fd92e.svg',
-    description: '选择一个由流程编排提供的典型用户案例，可以从中学习到流程编排很多设计理念。',
+    description: 'Choose a typical user case provided by workflow orchestration to learn many design concepts.',
     value: 'A',
     extra: () => h(
       'div',
       {},
-      h('a', { onClick: e => console.log('查看详情') }, '查看详情'),
+      h('a', { onClick: e => console.log('View details') }, 'View details'),
     ),
   },
 ]

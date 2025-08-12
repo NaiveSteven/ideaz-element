@@ -8,25 +8,25 @@ const options = [
   },
   {
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
-    description: '这是一段关于该算法的说明',
+    description: 'This is a description of the algorithm',
     value: 'B',
   },
   {
-    title: 'OCR自定义',
-    description: '这是一段关于该算法的说明',
+    title: 'OCR Custom',
+    description: 'This is a description of the algorithm',
     value: 'C',
   },
   {
-    title: 'OCR自定义',
+    title: 'OCR Custom',
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
     value: 'D',
   },
   {
-    title: 'OCR自定义',
+    title: 'OCR Custom',
     value: 'E',
   },
   {
-    description: '这是一段关于该算法的说明',
+    description: 'This is a description of the algorithm',
     value: 'F',
   },
 ]

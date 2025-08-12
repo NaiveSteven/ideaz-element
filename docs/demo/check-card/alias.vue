@@ -4,27 +4,27 @@ import { ref } from 'vue'
 const options = [
   {
     data: {
-      label: '图像分类',
+      label: 'Image Classification',
       key: 'A',
     },
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
-    description: '这是一段关于该算法的说明',
+    description: 'This is a description of the algorithm',
   },
   {
     data: {
-      label: '物体检测',
+      label: 'Object Detection',
       key: 'B',
     },
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
-    description: '这是一段关于该算法的说明',
+    description: 'This is a description of the algorithm',
   },
   {
     data: {
-      label: 'OCR自定义',
+      label: 'OCR Custom',
       key: 'C',
     },
     avatar: 'https://gw.alipayobjects.com/zos/bmw-prod/ae0adacf-9456-4ed3-b1ab-51e4417d8d0c.svg',
-    description: '这是一段关于该算法的说明',
+    description: 'This is a description of the algorithm',
   },
 ]
 
