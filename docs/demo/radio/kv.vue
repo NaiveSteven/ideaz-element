@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 
 const options = ref([
-  { data: { title: '选项一' }, key: 1 },
-  { data: { title: '选项二' }, key: 2 },
-  { data: { title: '选项三' }, key: 3 },
+  { data: { title: 'Option 1' }, key: 1 },
+  { data: { title: 'Option 2' }, key: 2 },
+  { data: { title: 'Option 3' }, key: 3 },
 ])
 
 const alias = {
