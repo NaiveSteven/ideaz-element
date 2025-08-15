@@ -4,18 +4,18 @@ import type { OptionsItem } from 'ideaz-element'
 
 const options = ref([
   {
-    label: '选项一',
+    label: 'Option 1',
     value: 1,
     render: ({ option }: OptionsItem) => {
-      return h('span', {}, `自定义${option.value}`)
+      return h('span', {}, `Custom ${option.value}`)
     },
   },
   {
-    label: '选项二',
+    label: 'Option 2',
     value: 2,
     render: 'optionSlot',
   },
-  { label: '选项三', value: 3 },
+  { label: 'Option 3', value: 3 },
 ])
 
 const selectVal = ref(1)
@@ -24,7 +24,7 @@ const selectVal = ref(1)
 <template>
   <z-select v-model="selectVal" :options="options">
     <template #optionSlot="{ option }">
-      <span>自定义{{ option.label }}</span>
+      <span>Custom {{ option.label }}</span>
     </template>
   </z-select>
 </template>
