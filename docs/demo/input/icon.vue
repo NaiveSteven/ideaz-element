@@ -14,9 +14,9 @@ const setSuffixIcon = () => {
 </script>
 
 <template>
-  <z-input v-model="val" clearable placeholder="请输入" prefix-icon="i-search" suffix-icon="i-calendar" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入" :prefix="setPrefixIcon" :suffix="setSuffixIcon" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入">
+  <z-input v-model="val" clearable placeholder="Please enter" prefix-icon="i-search" suffix-icon="i-calendar" class="mb-2" />
+  <z-input v-model="value" clearable placeholder="Please enter" :prefix="setPrefixIcon" :suffix="setSuffixIcon" class="mb-2" />
+  <z-input v-model="value" clearable placeholder="Please enter">
     <template #prefix>
       <el-icon>
         <i-search />

@@ -14,9 +14,9 @@ const setPrepend = () => {
 </script>
 
 <template>
-  <z-input v-model="val" clearable placeholder="请输入" prepend="Http://" append=".com" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入" :append="setAppend" :prepend="setPrepend" class="mb-2" />
-  <z-input v-model="value" clearable placeholder="请输入">
+  <z-input v-model="val" clearable placeholder="Please enter" prepend="Http://" append=".com" class="mb-2" />
+  <z-input v-model="value" clearable placeholder="Please enter" :append="setAppend" :prepend="setPrepend" class="mb-2" />
+  <z-input v-model="value" clearable placeholder="Please enter">
     <template #append>
       <span>.com</span>
     </template>
