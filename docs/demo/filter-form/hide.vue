@@ -12,8 +12,8 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -21,28 +21,28 @@ const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     component: 'select',
     field: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     slot: 'addressSlot',
-    label: '地址',
+    label: 'Address',
     field: 'address', // 传入field字段，隐藏时过滤
     hide: () => !formData.value.name
   },
   {
     component: 'el-date-picker',
     field: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
     hide: () => !formData.value.gender,
     fieldProps: {
       type: 'daterange',
-      startPlaceholder: '开始日期',
-      endPlaceholder: '结束日期',
+      startPlaceholder: 'Start Date',
+      endPlaceholder: 'End Date',
     },
   },
 ]
@@ -63,7 +63,7 @@ function handleSearch (data: any) {
     @search="handleSearch"
   >
     <template #addressSlot>
-      <el-input v-model="formData.address" placeholder="请输入地址" clearable />
+      <el-input v-model="formData.address" placeholder="Please enter address" clearable />
     </template>
   </z-filter-form>
 </template>

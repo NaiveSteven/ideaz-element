@@ -10,43 +10,43 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
 const rules = {
-  time: [{ required: true, message: '出生日期必选' }],
+  time: [{ required: true, message: 'Date of birth is required' }],
 }
 
 const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '姓名',
+    label: 'Name',
     required: true,
-    message: '请将姓名填写完整',
+    message: 'Please enter full name',
   },
   {
     component: 'select',
     field: 'gender',
     formItemProps: {
       required: true,
-      label: '性别',
+      label: 'Gender',
     },
   },
   {
     component: 'el-date-picker',
     field: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
     rules: {
       required: true,
-      message: '出生日期必选',
+      message: 'Date of birth is required',
     },
     fieldProps: {
       type: 'daterange',
-      startPlaceholder: '开始日期',
-      endPlaceholder: '结束日期',
+      startPlaceholder: 'Start Date',
+      endPlaceholder: 'End Date',
     },
   },
 ]

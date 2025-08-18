@@ -5,23 +5,23 @@ const formRef = ref()
 const formData = ref({
   name: 'Jack',
   age: '',
-  height: '身高自定义',
+  height: 'Custom Height',
 })
 
 const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     slot: 'ageSlot',
-    label: '年龄',
+    label: 'Age',
     hide: () => !formData.value.name
   },
   {
     render: () => h('span', {}, formData.value.height),
-    label: '身高',
+    label: 'Height',
   },
 ]
 </script>
@@ -35,7 +35,7 @@ const columns = [
     label-width="80px"
   >
     <template #ageSlot>
-      <el-input v-model="formData.age" placeholder="请输入年龄" clearable />
+      <el-input v-model="formData.age" placeholder="Please enter age" clearable />
     </template>
   </z-filter-form>
 </template>

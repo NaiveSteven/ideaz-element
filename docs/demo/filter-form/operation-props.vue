@@ -13,8 +13,8 @@ const resetButtonLoading = ref(false)
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -22,24 +22,24 @@ const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '姓名',
+    label: 'Name',
     required: true,
   },
   {
     component: 'select',
     field: 'gender',
-    label: '性别',
+    label: 'Gender',
     required: true,
   },
   {
     component: 'el-date-picker',
     field: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
     required: true,
     fieldProps: {
       type: 'daterange',
-      startPlaceholder: '开始日期',
-      endPlaceholder: '结束日期',
+      startPlaceholder: 'Start Date',
+      endPlaceholder: 'End Date',
     },
   },
 ]
@@ -73,8 +73,8 @@ function delay(time: number) {
     :columns="columns"
     size="small"
     label-width="80px"
-    search-button-label="点击查询"
-    reset-button-label="点击重置"
+    search-button-label="Search"
+    reset-button-label="Reset"
     :search-button-loading="searchButtonLoading"
     :reset-button-loading="resetButtonLoading"
     @search="handleSearch"

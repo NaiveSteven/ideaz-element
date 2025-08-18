@@ -11,8 +11,8 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -20,24 +20,24 @@ const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '姓名',
+    label: 'Name',
     required: true,
   },
   {
     component: 'select',
     field: 'gender',
-    label: '性别',
+    label: 'Gender',
     required: true,
   },
   {
     component: 'el-date-picker',
     field: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
     required: true,
     fieldProps: {
       type: 'daterange',
-      startPlaceholder: '开始日期',
-      endPlaceholder: '结束日期',
+      startPlaceholder: 'Start Date',
+      endPlaceholder: 'End Date',
     },
   },
 ]
@@ -54,7 +54,7 @@ function handleReset() {
 }
 
 function renderOperation() {
-  return h('span', {}, '查询')
+  return h('span', {}, 'Search')
 }
 </script>
 
@@ -69,10 +69,10 @@ function renderOperation() {
   >
     <template #formOperation>
       <el-button type="primary" @click="handleSearch">
-        搜索
+        Search
       </el-button>
       <el-button type="warning" @click="handleReset">
-        重置
+        Reset
       </el-button>
     </template>
   </z-filter-form>
