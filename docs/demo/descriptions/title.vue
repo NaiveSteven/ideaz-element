@@ -11,7 +11,7 @@ const detail = {
   address: 'No. 189, Grove St, Los Angeles',
 }
 const renderTitle = () => {
-  return h('span', '自定义标题')
+  return h('span', 'Custom Title')
 }
 </script>
 
@@ -24,7 +24,7 @@ const renderTitle = () => {
     border
   >
     <template #addressSlot>
-      <span>自定义Address</span>
+      <span>Custom Address</span>
     </template>
   </z-descriptions>
 </template>
