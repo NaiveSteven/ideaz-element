@@ -12,6 +12,7 @@
 8. 添加`z-menu`组件
 9. 添加`z-breadcrumb`组件
 10. 添加`z-status`组件，支持`success`、`error`、`warning`、`info`等状态，结合`z-table`组件
+11. 添加`ai`组件
 
 ## FEATURE（new function）
 
