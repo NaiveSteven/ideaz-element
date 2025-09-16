@@ -14,6 +14,7 @@
 10. 添加`z-status`组件，支持`success`、`error`、`warning`、`info`等状态，结合`z-table`组件
 11. 添加`ai`组件
 12. 组件多语言支持
+13. 测试用例完善
 
 ## FEATURE（new function）
 
