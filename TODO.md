@@ -5,7 +5,7 @@
 1. ~~添加公共组件`z-row`、`z-col`~~
 2. 添加布局组件`z-layout`
 3. ~~添加导航栏组件`z-guide`（基于`tag`组件~~
-4. 大数据表格
+4. ~~大数据表格~~
 5. ~~添加`z-filter-form`组件~~
 6. ~~添加`z-check-card`组件~~
 7. 添加`z-tree-select`组件
