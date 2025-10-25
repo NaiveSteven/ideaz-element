@@ -13,35 +13,35 @@ interface RowData {
 
 const columns = ref([
   {
-    label: '姓名',
+    label: 'Name',
     slot: 'name',
     form: {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
     },
   },
   {
     slot: 'gender',
-    label: '性别',
+    label: 'Gender',
     form: {
       component: 'select',
-      label: '性别',
+      label: 'Gender',
       field: 'gender',
     },
   },
   {
     render: ({ row }: TableColumnScopeData<RowData>) => h('span', row.age),
-    label: '年龄',
+    label: 'Age',
     form: {
       component: 'input',
-      label: '年龄',
+      label: 'Age',
       field: 'age',
     },
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
   },
 ])
 const request = ref({
