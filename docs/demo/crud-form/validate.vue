@@ -11,55 +11,55 @@ const tableData = ref([])
 const searchFormConfig = ref({
   labelWidth: '80px',
   rules: {
-    time: [{ required: true, message: '出生日期必选' }],
+    time: [{ required: true, message: 'Date of Birth is required' }],
   },
 })
 
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     search: {
       component: 'input',
       field: 'name',
-      label: '姓名',
+      label: 'Name',
       required: true,
-      message: '请将姓名填写完整',
+      message: 'Please provide the full name',
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     search: {
       component: 'select',
       field: 'gender',
       formItemProps: {
         required: true,
-        label: '性别',
+        label: 'Gender',
       },
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     search: {
       component: 'el-date-picker',
       field: 'time',
-      label: '出生日期',
+      label: 'Date of Birth',
       rules: {
         required: true,
-        message: '出生日期必选',
+        message: 'Date of Birth is required',
       },
       fieldProps: {
         type: 'daterange',
-        startPlaceholder: '开始日期',
-        endPlaceholder: '结束日期',
+        startPlaceholder: 'Start date',
+        endPlaceholder: 'End date',
       },
     },
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
   },
 ])
 

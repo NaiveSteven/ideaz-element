@@ -21,34 +21,34 @@ const tableData = ref<RowData[]>([])
 
 const columns = ref([
   {
-    // 仅配置了search
+  // Only search is configured
     search: {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     search: {
       component: 'select',
-      label: '性别',
+      label: 'Gender',
       field: 'gender',
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     search: {
       component: 'input',
-      label: '年龄',
+      label: 'Age',
       field: 'age',
     },
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
   },
 ])
 

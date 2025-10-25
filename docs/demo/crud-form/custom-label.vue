@@ -12,18 +12,18 @@ const tableData = ref([])
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     search: {
       component: 'input',
       field: 'name',
-      label: () => h('span', {}, '姓名'),
+      label: () => h('span', {}, 'Name'),
       required: true,
       error: 'error message',
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     search: {
       component: 'select',
       field: 'gender',
@@ -34,17 +34,17 @@ const columns = ref([
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     search: {
       component: 'el-date-picker',
       field: 'time',
-      label: '出生日期',
+      label: 'Date of Birth',
       required: true,
       error: 'errorSlot',
       fieldProps: {
         type: 'daterange',
-        startPlaceholder: '开始日期',
-        endPlaceholder: '结束日期',
+        startPlaceholder: 'Start date',
+        endPlaceholder: 'End date',
       },
     },
   },
@@ -118,10 +118,10 @@ function mockApi() {
     :request="request"
   >
     <template #labelSlot>
-      <span>性别</span>
+      <span>Gender</span>
     </template>
     <template #errorSlot>
-      <span>出生日期必填</span>
+      <span>Date of Birth is required</span>
     </template>
   </z-crud>
 </template>

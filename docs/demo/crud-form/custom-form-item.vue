@@ -5,39 +5,39 @@ const loading = ref(false)
 const formData = ref({
   name: '',
   age: '',
-  height: '身高自定义',
+  height: 'Custom height label',
 })
 const tableData = ref([])
 
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     search: {
       component: 'input',
       field: 'name',
-      label: '姓名',
+      label: 'Name',
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     search: {
       slot: 'ageSlot',
-      label: '年龄',
+      label: 'Age',
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     search: {
       render: () => h('span', {}, formData.value.height),
-      label: '身高',
+      label: 'Height',
     },
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
   },
 ])
 
@@ -109,7 +109,7 @@ function mockApi() {
     :request="request"
   >
     <template #ageSlot>
-      <el-input v-model="formData.age" placeholder="请输入年龄" clearable />
+      <el-input v-model="formData.age" placeholder="Please enter an age" clearable />
     </template>
   </z-crud>
 </template>
