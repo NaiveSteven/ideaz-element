@@ -6,43 +6,43 @@ const isShowRenderDialog = ref(false)
 const isShowFooterDialog = ref(false)
 
 function renderFooter() {
-  return h('div', 'render底部')
+  return h('div', 'Render footer')
 }
 </script>
 
 <template>
   <ElButton link type="primary" @click="isShowDialog = true">
-    点击打开slot Dialog
+    Click to open slot dialog
   </ElButton>
   <ElButton link type="primary" @click="isShowRenderDialog = true">
-    点击打开render Dialog
+    Click to open render dialog
   </ElButton>
   <ElButton link type="primary" @click="isShowFooterDialog = true">
-    点击打开footer Dialog
+    Click to open footer dialog
   </ElButton>
   <z-dialog
     v-model="isShowDialog"
-    title="标题"
+    title="Dialog Title"
   >
     <template #footer>
       <ElButton size="default" @click="isShowDialog = false">
-        关闭弹窗
+        Close dialog
       </ElButton>
     </template>
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
   <z-dialog
     v-model="isShowRenderDialog"
-    title="标题"
+    title="Dialog Title"
     :footer="renderFooter"
   >
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
   <z-dialog
     v-model="isShowFooterDialog"
-    title="标题"
+    title="Dialog Title"
     :footer="false"
   >
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
 </template>

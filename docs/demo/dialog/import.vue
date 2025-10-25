@@ -4,7 +4,7 @@ import { h } from 'vue'
 function openInfoDialog() {
   window.ZDialogTip({
     type: 'info',
-    message: '提示信息',
+    message: 'Notification message',
     onConfirm: ({ done, confirmButtonLoading }) => {
       confirmButtonLoading.value = true
       done()
@@ -16,7 +16,7 @@ function openInfoDialog() {
 }
 
 function openWarningDialog() {
-  window.ZDialogTip.warning('提示信息', '标题', {
+  window.ZDialogTip.warning('Warning message', 'Dialog Title', {
     type: 'warning',
     onConfirm: ({ confirmButtonLoading }) => {
       confirmButtonLoading.value = true
@@ -44,12 +44,12 @@ function openDangerDialog() {
 
 <template>
   <el-button link type="primary" @click="openInfoDialog">
-    信息弹窗
+    Info Dialog
   </el-button>
   <el-button link type="primary" @click="openWarningDialog">
-    警告弹窗
+    Warning Dialog
   </el-button>
   <el-button link type="primary" @click="openDangerDialog">
-    错误弹窗
+    Error Dialog
   </el-button>
 </template>

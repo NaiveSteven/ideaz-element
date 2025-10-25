@@ -5,13 +5,13 @@ const isShowDialog = ref(false)
 const isShow = ref(false)
 
 const confirmButtonProps = reactive({
-  label: '确认按钮',
+  label: 'Confirm',
   type: 'danger',
   loading: false,
 })
 
 const cancelButtonProps = reactive({
-  label: '取消按钮',
+  label: 'Cancel',
   type: 'primary',
   loading: false,
 })
@@ -22,7 +22,7 @@ const isCancelBtnLoading = ref(false)
 function openWarningDialog() {
   window.ZDialogTip({
     type: 'warning',
-    message: '警告信息',
+    message: 'Warning message',
     onConfirm: async ({ done, confirmButtonLoading }) => {
       confirmButtonLoading.value = true
       await delay(200)
@@ -91,34 +91,34 @@ function delay(time: number) {
 
 <template>
   <el-button link type="primary" @click="openWarningDialog">
-    事件配置
+    Event configuration
   </el-button>
   <el-button link type="primary" @click="isShowDialog = true">
-    对象属性配置
+    Object prop configuration
   </el-button>
   <el-button link type="primary" @click="isShow = true">
-    常规属性配置
+    Basic prop configuration
   </el-button>
   <z-dialog
     v-model="isShowDialog"
-    title="标题"
+    title="Dialog Title"
     :confirm-button-props="confirmButtonProps"
     :cancel-button-props="cancelButtonProps"
     @confirm="handleConfirm"
     @cancel="handleCancel"
   >
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
   <z-dialog
     v-model="isShow"
-    title="标题"
-    confirm-button-label="确认按钮"
-    cancel-button-label="取消按钮"
+    title="Dialog Title"
+    confirm-button-label="Confirm"
+    cancel-button-label="Cancel"
     :confirm-button-loading="isConfirmBtnLoading"
     :cancel-button-loading="isCancelBtnLoading"
     @confirm="confirm"
     @cancel="cancel"
   >
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
 </template>

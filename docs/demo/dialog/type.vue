@@ -8,36 +8,36 @@ const isShowDangerDialog = ref(false)
 
 <template>
   <el-button link type="primary" @click="isShowInfoDialog = true">
-    信息弹窗
+    Info Dialog
   </el-button>
   <el-button link type="primary" @click="isShowWarningDialog = true">
-    警告弹窗
+    Warning Dialog
   </el-button>
   <el-button link type="primary" @click="isShowDangerDialog = true">
-    错误弹窗
+    Error Dialog
   </el-button>
   <z-dialog
     v-model="isShowInfoDialog"
     type="info"
-    title="信息"
+    title="Info"
     @confirm="isShowInfoDialog = false"
   >
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
   <z-dialog
     v-model="isShowWarningDialog"
     type="warning"
-    title="警告"
+    title="Warning"
     @confirm="isShowWarningDialog = false"
   >
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
   <z-dialog
     v-model="isShowDangerDialog"
     type="danger"
-    title="错误"
+    title="Error"
     @confirm="isShowDangerDialog = false"
   >
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
 </template>

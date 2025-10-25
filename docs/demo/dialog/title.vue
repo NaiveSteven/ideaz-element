@@ -5,7 +5,7 @@ const isShowDialog = ref(false)
 const isShowRenderDialog = ref(false)
 
 function renderTitle() {
-  return h('span', 'render标题')
+  return h('span', 'Render title')
 }
 
 function handleClick() {
@@ -28,28 +28,28 @@ function handleClick() {
 
 <template>
   <el-button link type="primary" @click="isShowDialog = true">
-    点击打开slot Dialog
+    Click to open slot dialog
   </el-button>
   <el-button link type="primary" @click="isShowRenderDialog = true">
-    点击打开render Dialog
+    Click to open render dialog
   </el-button>
   <el-button link type="primary" @click="handleClick">
-    点击打开render Dialog
+    Click to open render dialog
   </el-button>
   <z-dialog
     v-model="isShowDialog"
     @confirm="isShowDialog = false"
   >
     <template #title>
-      插槽标题
+      Slot title
     </template>
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
   <z-dialog
     v-model="isShowRenderDialog"
     :title="renderTitle"
     @confirm="isShowRenderDialog = false"
   >
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
 </template>
