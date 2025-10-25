@@ -12,23 +12,23 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
 const columns = [
   {
-    label: '第一步',
-    description: '描述内容',
+    label: 'Step 1',
+    description: 'Description',
     children: [
       {
         component: 'input',
         field: 'name',
         modifier: 'trim',
-        label: '姓名',
-        tooltip: '姓名',
-        extra: '姓名',
+        label: 'Name',
+        tooltip: 'Name',
+        extra: 'Name',
         onInput: (val: string) => {
           console.log(val, 'input event')
         },
@@ -40,13 +40,13 @@ const columns = [
     ],
   },
   {
-    label: () => h('span', {}, '第二部'),
-    description: () => h('span', {}, '描述内容'),
+    label: () => h('span', {}, 'Step 2'),
+    description: () => h('span', {}, 'Description'),
     children: [
       {
         component: 'select',
         field: 'gender',
-        label: '性别',
+        label: 'Gender',
         onChange: (val: string) => {
           console.log(val, 'change event')
         },
@@ -60,11 +60,11 @@ const columns = [
       {
         component: 'el-date-picker',
         field: 'time',
-        label: '出生日期',
+        label: 'Date of Birth',
         fieldProps: {
           type: 'daterange',
-          startPlaceholder: '开始日期',
-          endPlaceholder: '结束日期',
+          startPlaceholder: 'Start date',
+          endPlaceholder: 'End date',
         },
         onChange: (val: string[]) => {
           console.log(val, 'change event')
