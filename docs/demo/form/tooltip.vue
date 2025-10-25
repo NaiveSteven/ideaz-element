@@ -12,8 +12,8 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -21,26 +21,26 @@ const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '姓名',
-    tooltip: '这是姓名',
+    label: 'Name',
+    tooltip: 'Name tooltip',
     extra: 'extraSlot',
     required: true,
   },
   {
     component: 'select',
     field: 'gender',
-    label: '性别',
+    label: 'Gender',
     colon: false,
-    tooltip: () => h('span', {}, '性别提示'),
+    tooltip: () => h('span', {}, 'Gender hint'),
     required: true,
   },
   {
     component: 'input',
-    label: '年龄',
+    label: 'Age',
     field: 'age',
     formItemProps: {
-      tooltip: '这是年龄',
-      extra: () => h('span', {}, '这是额外信息'),
+      tooltip: 'Age tooltip',
+      extra: () => h('span', {}, 'This is extra info'),
       colon: false,
     },
   },
@@ -74,11 +74,11 @@ function submit() {
     colon
   >
     <template #extraSlot>
-      <span>提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示提示</span>
+      <span>Hint hint hint hint hint hint hint hint hint hint hint hint hint hint hint hint hint hint hint</span>
     </template>
     <template #button>
       <el-button class="w-full" type="primary" @click="submit">
-        提交
+        Submit
       </el-button>
     </template>
   </z-form>

@@ -13,20 +13,20 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
 const rules = {
-  age: [{ required: true, message: '年龄必填' }],
+  age: [{ required: true, message: 'Age is required' }],
 }
 
 const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '姓名',
+    label: 'Name',
     required: true,
   },
   {
@@ -34,21 +34,21 @@ const columns = [
     field: 'gender',
     formItemProps: {
       required: true,
-      label: '性别',
+      label: 'Gender',
     },
   },
   {
     component: 'input',
-    label: '年龄',
+    label: 'Age',
     field: 'age',
   },
   {
     component: 'input',
-    label: '爱好',
+    label: 'Hobby',
     field: 'hobby',
     rules: {
       required: true,
-      message: '请填写爱好',
+      message: 'Please enter a hobby',
     },
   },
   {
@@ -82,7 +82,7 @@ function submit() {
   >
     <template #button>
       <el-button class="w-full" type="primary" @click="submit">
-        提交
+        Submit
       </el-button>
     </template>
   </z-form>

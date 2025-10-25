@@ -12,8 +12,8 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -21,7 +21,7 @@ const columns = [
   {
     component: 'input',
     field: 'name',
-    label: () => h('span', {}, '姓名'),
+    label: () => h('span', {}, 'Name'),
     error: 'error message',
     required: true,
   },
@@ -35,7 +35,7 @@ const columns = [
   {
     component: 'input',
     field: 'age',
-    label: '年龄',
+    label: 'Age',
     required: true,
     error: 'errorSlot',
   },
@@ -67,14 +67,14 @@ function submit() {
     size="small"
   >
     <template #labelSlot>
-      <span>性别</span>
+      <span>Gender</span>
     </template>
     <template #errorSlot>
-      <span>年龄必填</span>
+      <span>Age is required</span>
     </template>
     <template #button>
       <el-button class="w-full" type="primary" @click="submit">
-        提交
+        Submit
       </el-button>
     </template>
   </z-form>
