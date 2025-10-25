@@ -12,12 +12,12 @@ interface RowData {
   status: string
 }
 
-// 生成测试数据
+// Generate mock data
 function generateData(count: number): RowData[] {
-  const names = ['张三', '李四', '王五', '赵六', '孙七', '周八', '吴九', '郑十', '冯一', '陈二']
-  const departments = ['技术部', '产品部', '设计部', '运营部', '市场部']
-  const positions = ['工程师', '产品经理', '设计师', '运营专员', '市场专员']
-  const statuses = ['在职', '离职', '试用期']
+  const names = ['Alice', 'Bob', 'Charlie', 'Diana', 'Ethan', 'Fiona', 'George', 'Hannah', 'Ian', 'Julia']
+  const departments = ['Engineering', 'Product', 'Design', 'Operations', 'Marketing']
+  const positions = ['Engineer', 'Product Manager', 'Designer', 'Operations Specialist', 'Marketing Specialist']
+  const statuses = ['Active', 'Departed', 'Probation']
   const data: RowData[] = []
 
   for (let i = 0; i < count; i++) {
@@ -40,7 +40,7 @@ const selectedRows = ref<RowData[]>([])
 const columns = ref([
   {
     type: 'selection',
-    label: '选择',
+    label: 'Selection',
   },
   {
     prop: 'id',
@@ -48,32 +48,32 @@ const columns = ref([
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'email',
-    label: '邮箱',
+    label: 'Email',
   },
   {
     prop: 'department',
-    label: '部门',
+    label: 'Department',
   },
   {
     prop: 'position',
-    label: '职位',
+    label: 'Position',
   },
   {
     prop: 'salary',
-    label: '薪资',
+    label: 'Salary',
     render: ({ row }: any) => `¥${row.salary.toLocaleString()}`,
   },
   {
     prop: 'status',
-    label: '状态',
+    label: 'Status',
   },
 ])
 
-// 虚拟滚动配置
+// Virtual scrolling config
 const virtualConfig = computed(() => ({
   enabled: true,
   itemHeight: 48,
@@ -83,7 +83,7 @@ const virtualConfig = computed(() => ({
 const tableRef = ref()
 
 function handleSelectionChange(selection: RowData[]) {
-  console.log('选择变化:', selection)
+  console.log('Selection changed:', selection)
   selectedRows.value = selection
 }
 
@@ -115,25 +115,25 @@ function selectHighSalary() {
 <template>
   <div>
     <div style="margin-bottom: 16px;">
-      <h3>虚拟表格选择功能演示</h3>
+      <h3>Virtual table selection demo</h3>
       <p style="margin: 8px 0; color: #666;">
-        虚拟表格完全支持多选功能，支持全选、清空选择、以及各种选择操作。
+        The virtual table fully supports multi-select operations including select-all, clearing, and custom actions.
       </p>
 
       <el-space wrap>
         <el-button @click="selectAll" type="primary">
-          全选
+          Select all
         </el-button>
         <el-button @click="clearSelection" type="warning">
-          清空选择
+          Clear selection
         </el-button>
         <el-button @click="selectFirst10" type="success">
-          选择前10条
+          Select first 10
         </el-button>
         <el-button @click="selectHighSalary" type="info">
-          选择高薪人员(>3万)
+          Select salary > 30k
         </el-button>
-        <span style="color: #666;">已选择: {{ selectedRows.length }} 项</span>
+        <span style="color: #666;">Selected: {{ selectedRows.length }} rows</span>
       </el-space>
     </div>
 
@@ -148,11 +148,11 @@ function selectHighSalary() {
       @selection-change="handleSelectionChange"
     />
 
-         <div v-if="selectedRows.length > 0" style="padding: 16px; margin-top: 16px; background: #f5f7fa; border-radius: 4px;">
-       <h4 style="margin: 0 0 8px; color: #303133;">已选择的数据 ({{ selectedRows.length }}条):</h4>
-       <div style="max-height: 200px; overflow-y: auto;">
-         <div
-           v-for="row in selectedRows"
+    <div v-if="selectedRows.length > 0" style="padding: 16px; margin-top: 16px; background: #f5f7fa; border-radius: 4px;">
+      <h4 style="margin: 0 0 8px; color: #303133;">Selected rows ({{ selectedRows.length }}):</h4>
+      <div style="max-height: 200px; overflow-y: auto;">
+        <div
+          v-for="row in selectedRows"
            :key="row.id"
            style="
              display: flex;

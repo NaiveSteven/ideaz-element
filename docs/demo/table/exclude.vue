@@ -31,19 +31,19 @@ const tableData = ref([
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
   },
 ])
 </script>
@@ -52,6 +52,6 @@ const columns = ref([
   <z-table
     :data="tableData"
     :columns="columns"
-    :tool-bar="{ exclude: ['性别'], fullScreen: false, refresh: false }"
+    :tool-bar="{ exclude: ['Gender'], fullScreen: false, refresh: false }"
   />
 </template>

@@ -12,11 +12,11 @@ interface RowData {
   status: string
 }
 
-// 生成测试数据
+// Generate mock data
 function generateData(count: number): RowData[] {
-  const names = ['张三', '李四', '王五', '赵六', '孙七', '周八', '吴九', '郑十', '冯一', '陈二']
-  const departments = ['技术部', '产品部', '设计部', '运营部', '市场部']
-  const statuses = ['在职', '离职', '试用期']
+  const names = ['Alice', 'Bob', 'Charlie', 'Diana', 'Ethan', 'Fiona', 'George', 'Hannah', 'Ian', 'Julia']
+  const departments = ['Engineering', 'Product', 'Design', 'Operations', 'Marketing']
+  const statuses = ['Active', 'Departed', 'Probation']
   const data: RowData[] = []
 
   for (let i = 0; i < count; i++) {
@@ -41,42 +41,42 @@ const columns = ref([
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'email',
-    label: '邮箱',
+    label: 'Email',
   },
   {
     prop: 'department',
-    label: '部门',
+    label: 'Department',
   },
   {
     prop: 'salary',
-    label: '薪资',
+    label: 'Salary',
     render: ({ row }: any) => `¥${row.salary.toLocaleString()}`,
   },
   {
     prop: 'status',
-    label: '状态',
+    label: 'Status',
   },
   {
     prop: 'operation',
-    label: '操作',
+    label: 'Actions',
     render: (scope: any) => [
       h(resolveComponent('el-button'), {
         type: 'primary',
         onClick: () => handleEdit(scope.row)
-      }, () => '编辑'),
+      }, () => 'Edit'),
       h(resolveComponent('el-button'), {
         type: 'danger',
         onClick: () => handleDelete(scope.row)
-      }, () => '删除')
+      }, () => 'Delete')
     ],
   },
 ])
 
-// 虚拟滚动配置
+// Virtual scrolling config
 const virtualConfig = computed(() => ({
   enabled: true,
   itemHeight: 48,
@@ -84,24 +84,24 @@ const virtualConfig = computed(() => ({
 }))
 
 function handleEdit(row: RowData) {
-  console.log('编辑操作:', row)
-  ElMessage.success(`开始编辑: ${row.name}`)
+  console.log('Edit action:', row)
+  ElMessage.success(`Editing: ${row.name}`)
 }
 
 function handleDelete(row: RowData) {
-  console.log('删除操作:', row)
-  ElMessageBox.confirm(`确定要删除 ${row.name} 吗？`, '确认删除', {
-    confirmButtonText: '确定',
-    cancelButtonText: '取消',
+  console.log('Delete action:', row)
+  ElMessageBox.confirm(`Delete ${row.name}?`, 'Confirm delete', {
+    confirmButtonText: 'Confirm',
+    cancelButtonText: 'Cancel',
     type: 'warning',
   }).then(() => {
     const index = tableData.value.findIndex(item => item.id === row.id)
     if (index > -1) {
       tableData.value.splice(index, 1)
-      ElMessage.success('删除成功')
+      ElMessage.success('Deleted successfully')
     }
   }).catch(() => {
-    ElMessage.info('已取消删除')
+    ElMessage.info('Deletion cancelled')
   })
 }
 </script>
@@ -109,9 +109,9 @@ function handleDelete(row: RowData) {
 <template>
   <div>
     <div style="margin-bottom: 16px;">
-      <h3>虚拟表格操作按钮演示</h3>
+      <h3>Virtual table actions demo</h3>
       <p style="margin: 8px 0; color: #666;">
-        测试操作按钮在虚拟表格中的兼容性，包括点击事件、样式等。
+        Demonstrates action buttons inside a virtual table, including click handlers and styling.
       </p>
     </div>
 

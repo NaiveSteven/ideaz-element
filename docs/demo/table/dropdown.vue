@@ -41,29 +41,29 @@ const tableData = ref([
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
   },
   {
     type: 'button',
-    label: '操作',
+    label: 'Actions',
     width: '200px',
     buttons: [
       {
         type: 'primary',
         link: true,
-        label: '编辑',
+        label: 'Edit',
         onClick: ({ row }: TableColumnScopeData<RowData>) => {
           console.log(row, 'edit')
         },
@@ -71,19 +71,19 @@ const columns = ref([
       {
         type: 'danger',
         link: true,
-        label: '删除',
+        label: 'Delete',
         onClick: ({ row }: TableColumnScopeData<RowData>) => {
           console.log(row, 'delete')
         },
       },
       {
         type: 'dropdown',
-        reference: '删除',
+        reference: 'Delete',
         children: [
           {
             type: 'primary',
             link: true,
-            label: '复制',
+            label: 'Copy',
             onClick: ({ row }: TableColumnScopeData<RowData>) => {
               console.log(row, 'copy')
             },
@@ -91,7 +91,7 @@ const columns = ref([
           {
             type: 'danger',
             link: true,
-            label: '操作',
+            label: 'Actions',
             onClick: ({ row }: TableColumnScopeData<RowData>) => {
               console.log(row, 'operate')
             },

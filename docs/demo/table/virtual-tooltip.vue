@@ -1,21 +1,21 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-// 生成测试数据
+// Generate mock data
 function generateData() {
-  const departments = ['技术部', '市场部', '产品部', '运营部', '设计部']
-  const levels = ['初级', '中级', '高级', '专家']
+  const departments = ['Engineering', 'Marketing', 'Product', 'Operations', 'Design']
+  const levels = ['Junior', 'Mid-level', 'Senior', 'Principal']
   const data = []
   for (let i = 1; i <= 2000; i++) {
     data.push({
       id: i,
-      name: `用户 ${i}`,
+      name: `User ${i}`,
       email: `user${i}@example.com`,
       age: 20 + (i % 50),
       department: departments[i % departments.length],
       salary: 5000 + (i % 100) * 100,
       level: levels[i % levels.length],
-      status: i % 3 === 0 ? '在职' : '离职',
+      status: i % 3 === 0 ? 'Active' : 'Departed',
       joinDate: new Date(2020 + (i % 4), (i % 12), (i % 28) + 1).toLocaleDateString(),
       performance: Math.floor(Math.random() * 100),
     })
@@ -25,47 +25,47 @@ function generateData() {
 
 const tableData = ref(generateData())
 
-// 计算统计数据
+// Aggregated stats
 const totalUsers = tableData.value.length
 const avgSalary = Math.round(tableData.value.reduce((sum, item) => sum + item.salary, 0) / totalUsers)
 const departmentCount = new Set(tableData.value.map(item => item.department)).size
 
-// 列配置
+// Column config
 const columns = [
   {
     type: 'index',
-    label: '序号',
-    tooltip: '显示数据行的序号，从1开始计数'
+    label: 'Index',
+    tooltip: 'Displays the row index starting from 1.'
   },
   {
     prop: 'name',
-    label: '用户姓名',
-    tooltip: '用户的真实姓名，用于标识用户身份'
+    label: 'User Name',
+    tooltip: 'The user’s display name for identification.'
   },
   {
     prop: 'email',
-    label: '邮箱地址',
+    label: 'Email Address',
     tooltip: {
-      content: '用户的电子邮箱地址，用于联系和通知',
+      content: 'User email address used for contact and notifications.',
       placement: 'bottom',
       effect: 'light'
     }
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     tooltip: (scope: any) => {
       const minAge = Math.min(...tableData.value.map(item => item.age))
       const maxAge = Math.max(...tableData.value.map(item => item.age))
-      return `年龄范围：${minAge} - ${maxAge} 岁 (列索引: ${scope.$index})`
+      return `Age range: ${minAge} - ${maxAge} (column index: ${scope.$index})`
     }
   },
   {
     prop: 'department',
-    label: '所属部门',
+    label: 'Department',
     tooltip: {
       content: (scope: any) => {
-        return `共有 ${departmentCount} 个部门 (列: ${scope.column.prop})`
+        return `There are ${departmentCount} departments (column: ${scope.column.prop}).`
       },
       placement: 'top-start',
       effect: 'dark'
@@ -73,16 +73,16 @@ const columns = [
   },
   {
     prop: 'salary',
-    label: '薪资待遇',
+    label: 'Salary',
     tooltip: (scope: any) => {
-      return `平均薪资：¥${avgSalary.toLocaleString()} (列索引: ${scope.$index})`
+      return `Average salary: ¥${avgSalary.toLocaleString()} (column index: ${scope.$index})`
     }
   },
   {
     prop: 'level',
-    label: '职级',
+    label: 'Level',
     tooltip: {
-      content: '员工的职业等级，分为初级、中级、高级、专家四个级别',
+      content: 'Employee seniority level: junior, mid-level, senior, or principal.',
       placement: 'right',
       showAfter: 500,
       hideAfter: 100
@@ -90,12 +90,12 @@ const columns = [
   },
   {
     prop: 'status',
-    label: '在职状态',
+    label: 'Employment Status',
     tooltip: {
       content: (scope: any) => {
-        const activeCount = tableData.value.filter(item => item.status === '在职').length
+        const activeCount = tableData.value.filter(item => item.status === 'Active').length
         const inactiveCount = totalUsers - activeCount
-        return `在职：${activeCount} 人，离职：${inactiveCount} 人 (列: ${scope.column.label})`
+        return `Active: ${activeCount} · Departed: ${inactiveCount} (column: ${scope.column.label})`
       },
       placement: 'left',
       effect: 'light'
@@ -103,18 +103,18 @@ const columns = [
   },
   {
     prop: 'joinDate',
-    label: '入职日期',
-    tooltip: '员工加入公司的日期'
+    label: 'Hire Date',
+    tooltip: 'Date the employee joined the company.'
   },
   {
     prop: 'performance',
-    label: '绩效得分',
+    label: 'Performance Score',
     tooltip: {
       content: (scope: any) => {
         const avgPerformance = Math.round(
           tableData.value.reduce((sum, item) => sum + item.performance, 0) / totalUsers
         )
-        return `平均绩效得分：${avgPerformance} 分 (列索引: ${scope.$index})`
+        return `Average performance: ${avgPerformance} (column index: ${scope.$index})`
       },
       placement: 'bottom-end',
       effect: 'dark',
@@ -126,19 +126,19 @@ const columns = [
 
 <template>
   <div>
-    <h3>虚拟表格 - 列提示功能</h3>
+    <h3>Virtual Table – Column Tooltip Demo</h3>
 
     <el-alert
-      title="✅ 表头Tooltip功能"
+      title="✅ Column tooltip support"
       type="success"
       :closable="false"
       style="margin-bottom: 16px;"
     >
       <template #default>
-        <p><strong>✅ 字符串提示</strong>：直接使用字符串作为tooltip内容</p>
-        <p><strong>✅ 函数提示</strong>：使用函数动态生成tooltip内容，支持scope参数传递</p>
-        <p><strong>✅ 对象配置</strong>：使用对象配置tooltip的各种属性（位置、主题等）</p>
-        <p><strong>✅ Scope参数</strong>：函数tooltip正确接收scope.column和scope.$index参数</p>
+        <p><strong>✅ String tooltips</strong>: Provide a literal string as tooltip content.</p>
+        <p><strong>✅ Function tooltips</strong>: Generate tooltip text dynamically with full scope access.</p>
+        <p><strong>✅ Object config</strong>: Configure placement, theme, delay, and more.</p>
+        <p><strong>✅ Scope payload</strong>: Functions receive <code>scope.column</code> and <code>scope.$index</code>.</p>
       </template>
     </el-alert>
 

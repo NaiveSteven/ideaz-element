@@ -12,11 +12,11 @@ interface RowData {
   status: string
 }
 
-// 生成测试数据
+// Generate mock data
 function generateData(count: number): RowData[] {
-  const names = ['张三', '李四', '王五', '赵六', '孙七', '周八', '吴九', '郑十', '冯一', '陈二']
-  const departments = ['技术部', '产品部', '设计部', '运营部', '市场部']
-  const statuses = ['在职', '离职', '试用期']
+  const names = ['Alice', 'Bob', 'Charlie', 'Diana', 'Ethan', 'Fiona', 'George', 'Hannah', 'Ian', 'Julia']
+  const departments = ['Engineering', 'Product', 'Design', 'Operations', 'Marketing']
+  const statuses = ['Active', 'Departed', 'Probation']
   const data: RowData[] = []
 
   for (let i = 0; i < count; i++) {
@@ -46,44 +46,44 @@ const columns = ref([
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'department',
-    label: '部门',
+    label: 'Department',
   },
   {
     prop: 'salary',
-    label: '基本工资',
+    label: 'Base Salary',
     render: ({ row }: any) => `¥${row.salary.toLocaleString()}`,
   },
   {
     prop: 'bonus',
-    label: '奖金',
+    label: 'Bonus',
     render: ({ row }: any) => `¥${row.bonus.toLocaleString()}`,
   },
   {
     prop: 'total',
-    label: '总收入',
+    label: 'Total Income',
     render: ({ row }: any) => h('span', {
       style: { color: '#67c23a', fontWeight: 'bold' }
     }, `¥${row.total.toLocaleString()}`),
   },
   {
     prop: 'status',
-    label: '状态',
+    label: 'Status',
     render: ({ row }: any) => h('span', {
       style: {
-        color: row.status === '在职' ? '#67c23a' : row.status === '试用期' ? '#e6a23c' : '#f56c6c',
+        color: row.status === 'Active' ? '#67c23a' : row.status === 'Probation' ? '#e6a23c' : '#f56c6c',
         fontWeight: 'bold'
       }
     }, row.status),
   },
 ])
 
-// 计算统计数据
+// Aggregate stats
 const statistics = computed(() => {
-  const validData = tableData.value.filter(item => item.status !== '离职')
+  const validData = tableData.value.filter(item => item.status !== 'Departed')
   return {
     totalEmployees: validData.length,
     totalSalary: validData.reduce((sum, item) => sum + item.salary, 0),
@@ -101,14 +101,14 @@ function resetData() {
 <template>
   <div>
     <div style="margin-bottom: 16px;">
-      <h3>虚拟表格 Footer 功能演示</h3>
+      <h3>Virtual Table Footer Demo</h3>
       <p style="margin: 8px 0; color: #666;">
-        虚拟表格支持 footer 插槽，可以在表格底部显示统计信息等内容。
+        The virtual table exposes a footer slot so you can display aggregated statistics or any custom content.
       </p>
 
       <el-space wrap>
         <el-button @click="showFooter = !showFooter" :type="showFooter ? 'danger' : 'primary'">
-          {{ showFooter ? '隐藏' : '显示' }} Footer
+          {{ showFooter ? 'Hide' : 'Show' }} footer
         </el-button>
         <el-input-number
           v-model="footerHeight"
@@ -118,9 +118,9 @@ function resetData() {
           controls-position="right"
           style="width: 150px;"
         />
-        <span style="color: #666;">Footer 高度: {{ footerHeight }}px</span>
+        <span style="color: #666;">Footer height: {{ footerHeight }}px</span>
         <el-button @click="resetData" type="success">
-          重新生成数据
+          Regenerate data
         </el-button>
       </el-space>
     </div>
@@ -138,7 +138,7 @@ function resetData() {
       border
       stripe
     >
-      <!-- Footer 插槽 - 显示统计信息 -->
+      <!-- Footer slot - statistics -->
       <template #footer v-if="showFooter">
         <div class="table-footer">
           <div class="footer-content">
@@ -146,7 +146,7 @@ function resetData() {
               <div class="stat-item">
                 <div class="stat-info">
                   <div class="stat-value">{{ statistics.totalEmployees }}</div>
-                  <div class="stat-label">在职员工</div>
+                  <div class="stat-label">Active employees</div>
                 </div>
               </div>
 
@@ -155,7 +155,7 @@ function resetData() {
               <div class="stat-item">
                 <div class="stat-info">
                   <div class="stat-value">¥{{ statistics.totalSalary.toLocaleString() }}</div>
-                  <div class="stat-label">总基本工资</div>
+                  <div class="stat-label">Total base salary</div>
                 </div>
               </div>
 
@@ -164,7 +164,7 @@ function resetData() {
               <div class="stat-item">
                 <div class="stat-info">
                   <div class="stat-value">¥{{ statistics.totalBonus.toLocaleString() }}</div>
-                  <div class="stat-label">总奖金</div>
+                  <div class="stat-label">Total bonus</div>
                 </div>
               </div>
 
@@ -173,7 +173,7 @@ function resetData() {
               <div class="stat-item">
                 <div class="stat-info">
                   <div class="stat-value">¥{{ statistics.totalIncome.toLocaleString() }}</div>
-                  <div class="stat-label">总收入</div>
+                  <div class="stat-label">Total income</div>
                 </div>
               </div>
 
@@ -182,7 +182,7 @@ function resetData() {
               <div class="stat-item">
                 <div class="stat-info">
                   <div class="stat-value">¥{{ statistics.averageSalary.toLocaleString() }}</div>
-                  <div class="stat-label">平均工资</div>
+                  <div class="stat-label">Average salary</div>
                 </div>
               </div>
             </div>
