@@ -12,32 +12,32 @@ const tableData = ref([])
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date of Birth',
   },
 ])
 
 const detailConfig = ref({
   columns: [{
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   }, {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   }, {
     prop: 'date',
-    label: '出生日期',
+    label: 'Date of Birth',
   }],
 })
 
@@ -46,17 +46,17 @@ const searchFormConfig = ref({
   columns: [
     {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
     },
     {
       component: 'select',
-      label: '性别',
+      label: 'Gender',
       field: 'gender',
     },
     {
       component: 'input',
-      label: '年龄',
+      label: 'Age',
       field: 'age',
     },
   ],
