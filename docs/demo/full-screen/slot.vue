@@ -17,16 +17,16 @@ const getElement = () => {
     <z-full-screen :el="getElement" @change="handleChange">
       <template #enter>
         <el-button class="z-100">
-          点击全屏
+          Enter full screen
         </el-button>
       </template>
       <template #exit>
         <el-button>
-          退出全屏
+          Exit full screen
         </el-button>
       </template>
     </z-full-screen>
-    <z-watermark content="水印组件">
+    <z-watermark content="Watermark component">
       <div class="h-500px" />
     </z-watermark>
   </div>
