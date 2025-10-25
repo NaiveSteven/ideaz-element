@@ -3,7 +3,7 @@
 import { ref } from 'vue'
 import { ElMessage } from 'element-plus'
 
-const activeCollapse = ref(['文本', '标题'])
+const activeCollapse = ref(['Text', 'Title'])
 const formRef = ref()
 const formData = ref({
   name: '',
@@ -13,20 +13,20 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
 const columns = [
   {
-    label: '文本',
+    label: 'Text',
     children: [
       {
         component: 'input',
         field: 'name',
         modifier: 'trim',
-        label: '姓名',
+        label: 'Name',
         onInput: (val: string) => {
           console.log(val, 'input event')
         },
@@ -40,12 +40,12 @@ const columns = [
     ],
   },
   {
-    label: '标题',
+    label: 'Title',
     children: [
       {
         component: 'select',
         field: 'gender',
-        label: '性别',
+        label: 'Gender',
         md: 12,
         onChange: (val: string) => {
           console.log(val, 'change event')
@@ -57,12 +57,12 @@ const columns = [
       {
         component: 'el-date-picker',
         field: 'time',
-        label: '出生日期',
+        label: 'Date of Birth',
         md: 12,
         fieldProps: {
           type: 'daterange',
-          startPlaceholder: '开始日期',
-          endPlaceholder: '结束日期',
+          startPlaceholder: 'Start date',
+          endPlaceholder: 'End date',
         },
         onChange: (val: string) => {
           console.log(val, 'change event')
@@ -82,7 +82,7 @@ function reset() {
 function submit() {
   formRef.value.validate((valid: boolean) => {
     if (valid) {
-      ElMessage.success('成功')
+      ElMessage.success('Success')
       console.log(formData.value, 'config.formData')
     }
     else {
@@ -107,10 +107,10 @@ function submit() {
     <template #operate>
       <div class="mt-4 w-full flex">
         <el-button class="w-full" @click="reset">
-          重置
+          Reset
         </el-button>
         <el-button class="w-full" type="primary" @click="submit">
-          提交
+          Submit
         </el-button>
       </div>
     </template>

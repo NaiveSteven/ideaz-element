@@ -3,7 +3,7 @@
 import { ref } from 'vue'
 import { ElInput, ElMessage } from 'element-plus'
 
-const activeCollapse = ref(['文本', '标题'])
+const activeCollapse = ref(['Text', 'Title'])
 const formRef = ref()
 const formData = ref({
   name: '',
@@ -15,38 +15,38 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
 const columns = [
   {
-    label: '文本',
+    label: 'Text',
     children: [
       {
         component: 'input',
         field: 'name',
         modifier: 'trim',
-        label: '姓名',
+        label: 'Name',
         required: true,
       },
     ],
   },
   {
-    label: '标题',
+    label: 'Title',
     render: () => h('span', 'custom content'),
     children: [],
   },
   {
-    label: '地址',
+    label: 'Address',
     slot: 'addressSlot',
   },
   {
-    label: '输入框',
+    label: 'Input',
     slot: 'input',
     required: true,
-    message: '请输入文案',
+    message: 'Please enter text',
   },
   {
     slot: 'operate',
@@ -60,7 +60,7 @@ function reset() {
 function submit() {
   formRef.value.validate((valid: boolean) => {
     if (valid) {
-      ElMessage.success('成功')
+      ElMessage.success('Success')
       console.log(formData.value, 'config.formData')
     }
     else {
@@ -83,7 +83,7 @@ function submit() {
     type="collapse"
   >
     <template #addressSlot>
-      <div>自定义地址</div>
+      <div>Custom address</div>
     </template>
     <template #input>
       <ElInput v-model="formData.input" />
@@ -91,10 +91,10 @@ function submit() {
     <template #operate>
       <div class="mt-4 w-full flex">
         <el-button class="w-full" @click="reset">
-          重置
+          Reset
         </el-button>
         <el-button class="w-full" type="primary" @click="submit">
-          提交
+          Submit
         </el-button>
       </div>
     </template>
