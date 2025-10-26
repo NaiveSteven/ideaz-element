@@ -125,6 +125,7 @@ import {
   SwitchButton,
   User
 } from '@element-plus/icons-vue'
+import { ElBadge, ElDropdown, ElDropdownItem, ElDropdownMenu, ElIcon, ElTag, ElTooltip } from 'element-plus'
 
 // Generate mock data
 function generateData() {
@@ -200,22 +201,25 @@ const columns = computed(() => [
     ...(useSlotMode.value ? {
       label: 'user-header'
     } : {
-      label: (scope: any) => {
-        addLog('Header render', 'User info header render', scope)
+      label: () => {
         return h('div', {
           style: { display: 'flex', gap: '6px', alignItems: 'center' }
         }, [
-          h('el-icon', { color: '#409eff', size: 16 }, [h(User)]),
-          h('span', {}, () => 'User info'),
-          h('el-tooltip', {
+          h(ElIcon, { color: '#409eff', size: 16 }, {
+            default: () => h(User)
+          }),
+          h('span', null, 'User info'),
+          h(ElTooltip, {
             content: 'Includes user name, email, and other core details',
             placement: 'top'
           }, {
-            default: () => h('el-icon', {
+            default: () => h(ElIcon, {
               color: '#909399',
               size: 14,
               style: { cursor: 'help' }
-            }, [h(QuestionFilled)])
+            }, {
+              default: () => h(QuestionFilled)
+            })
           })
         ])
       }
@@ -234,14 +238,15 @@ const columns = computed(() => [
     ...(useSlotMode.value ? {
       label: 'department-header'
     } : {
-      label: (scope: any) => {
-        addLog('Header render', 'Department header render', scope)
+      label: () => {
         return h('div', {
           style: { display: 'flex', gap: '6px', alignItems: 'center' }
         }, [
-          h('el-icon', { color: '#67c23a', size: 16 }, [h(OfficeBuilding)]),
-          h('span', {}, () => 'Department info'),
-          h('el-badge', {
+          h(ElIcon, { color: '#67c23a', size: 16 }, {
+            default: () => h(OfficeBuilding)
+          }),
+          h('span', null, 'Department info'),
+          h(ElBadge, {
             value: departmentCount.value,
             type: 'primary',
             max: 99
@@ -257,18 +262,21 @@ const columns = computed(() => [
     ...(useSlotMode.value ? {
       label: 'salary-header'
     } : {
-      label: (scope: any) => {
-        addLog('Header render', 'Salary header render', scope)
+      label: () => {
         return h('div', {
           style: { display: 'flex', gap: '6px', alignItems: 'center', cursor: 'pointer' },
           onClick: handleSalaryHeaderClick
         }, [
-          h('el-icon', { color: '#f56c6c', size: 16 }, [h(Money)]),
-          h('span', {}, () => 'Salary'),
-          h('el-tag', {
+          h(ElIcon, { color: '#f56c6c', size: 16 }, {
+            default: () => h(Money)
+          }),
+          h('span', null, 'Salary'),
+          h(ElTag, {
             size: 'small',
             type: 'warning'
-          }, `¥${avgSalary.value}`)
+          }, {
+            default: () => `¥${avgSalary.value}`
+          })
         ])
       }
     })
@@ -278,24 +286,29 @@ const columns = computed(() => [
     ...(useSlotMode.value ? {
       label: 'status-header'
     } : {
-      label: (scope: any) => {
-        addLog('Header render', 'Status header render', scope)
+      label: () => {
         return h('div', {
           style: { display: 'flex', gap: '6px', alignItems: 'center' }
         }, [
-          h('el-icon', { color: '#909399', size: 16 }, [h(SwitchButton)]),
-          h('span', {}, () => 'Employment status'),
+          h(ElIcon, { color: '#909399', size: 16 }, {
+            default: () => h(SwitchButton)
+          }),
+          h('span', null, 'Employment status'),
           h('div', {
             style: { display: 'flex', gap: '4px' }
           }, [
-            h('el-tag', {
+            h(ElTag, {
               size: 'small',
               type: 'success'
-            }, `${activeCount.value} active`),
-            h('el-tag', {
+            }, {
+              default: () => `${activeCount.value} active`
+            }),
+            h(ElTag, {
               size: 'small',
               type: 'info'
-            }, `${inactiveCount.value} inactive`)
+            }, {
+              default: () => `${inactiveCount.value} inactive`
+            })
           ])
         ])
       }
@@ -307,24 +320,33 @@ const columns = computed(() => [
     ...(useSlotMode.value ? {
       label: 'actions-header'
     } : {
-      label: (scope: any) => {
-        addLog('Header render', 'Actions header render', scope)
+      label: () => {
         return h('div', {
           style: { display: 'flex', gap: '6px', alignItems: 'center' }
         }, [
-          h('el-icon', { color: '#e6a23c', size: 16 }, [h(Setting)]),
-          h('span', {}, () => 'Actions'),
-          h('el-dropdown', {
+          h(ElIcon, { color: '#e6a23c', size: 16 }, {
+            default: () => h(Setting)
+          }),
+          h('span', null, 'Actions'),
+          h(ElDropdown, {
             onCommand: handleHeaderCommand
           }, {
-            default: () => h('el-icon', {
+            default: () => h(ElIcon, {
               style: { cursor: 'pointer' },
               color: '#409eff'
-            }, [h(More)]),
-            dropdown: () => h('el-dropdown-menu', {}, [
-              h('el-dropdown-item', { command: 'export' }, () => 'Export data'),
-              h('el-dropdown-item', { command: 'import' }, () => 'Import data'),
-              h('el-dropdown-item', { command: 'settings' }, () => 'Column settings')
+            }, {
+              default: () => h(More)
+            }),
+            dropdown: () => h(ElDropdownMenu, null, () => [
+              h(ElDropdownItem, { command: 'export' }, {
+                default: () => 'Export data'
+              }),
+              h(ElDropdownItem, { command: 'import' }, {
+                default: () => 'Import data'
+              }),
+              h(ElDropdownItem, { command: 'settings' }, {
+                default: () => 'Column settings'
+              })
             ])
           })
         ])
