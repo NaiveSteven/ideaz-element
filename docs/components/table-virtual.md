@@ -205,7 +205,7 @@ const virtualConfig = {
 
 <preview path="../demo/table/virtual-methods.vue" />
 
-## 📖 配置参考ß
+## 📖 配置参考
 
 ### 配置选项
 

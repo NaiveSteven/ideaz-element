@@ -47,7 +47,7 @@ const columns = ref([
   {
     component: 'el-date-picker',
     prop: 'time',
-    label: 'Date of Birth',
+    label: 'Date',
     fieldProps: {
       valueFormat: 'YYYY-MM-DD',
     },

@@ -11,7 +11,7 @@ const tableData = ref([])
 const searchFormConfig = ref({
   labelWidth: '80px',
   rules: {
-    time: [{ required: true, message: 'Date of Birth is required' }],
+    time: [{ required: true, message: 'Date is required' }],
   },
 })
 
@@ -45,10 +45,10 @@ const columns = ref([
     search: {
       component: 'el-date-picker',
       field: 'time',
-      label: 'Date of Birth',
+      label: 'Date',
       rules: {
         required: true,
-        message: 'Date of Birth is required',
+        message: 'Date is required',
       },
       fieldProps: {
         type: 'daterange',
@@ -59,7 +59,7 @@ const columns = ref([
   },
   {
     prop: 'time',
-    label: 'Date of Birth',
+    label: 'Date',
   },
 ])
 

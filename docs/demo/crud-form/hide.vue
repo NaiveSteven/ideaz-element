@@ -35,7 +35,7 @@ const columns = ref([
     search: {
       component: 'el-date-picker',
       field: 'time',
-      label: 'Date of Birth',
+      label: 'Date',
       hide: () => !visible.value,
       fieldProps: {
         type: 'daterange',
@@ -46,7 +46,7 @@ const columns = ref([
   },
   {
     prop: 'time',
-    label: 'Date of Birth',
+    label: 'Date',
   },
 ])
 

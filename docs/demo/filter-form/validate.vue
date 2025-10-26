@@ -16,7 +16,7 @@ const options = {
 }
 
 const rules = {
-  time: [{ required: true, message: 'Date of birth is required' }],
+  time: [{ required: true, message: 'Date is required' }],
 }
 
 const columns = [
@@ -38,10 +38,10 @@ const columns = [
   {
     component: 'el-date-picker',
     field: 'time',
-    label: 'Date of Birth',
+    label: 'Date',
     rules: {
       required: true,
-      message: 'Date of birth is required',
+      message: 'Date is required',
     },
     fieldProps: {
       type: 'daterange',

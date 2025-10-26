@@ -63,7 +63,7 @@ const columns = ref([
     add: {
       component: 'el-date-picker',
       field: 'time',
-      label: 'Date of Birth',
+      label: 'Date',
       fieldProps: {
         type: 'daterange',
         startPlaceholder: 'Start date',
@@ -73,7 +73,7 @@ const columns = ref([
     edit: {
       component: 'el-date-picker',
       field: 'time',
-      label: 'Date of Birth',
+      label: 'Date',
       fieldProps: {
         type: 'daterange',
         startPlaceholder: 'Start date',
@@ -83,7 +83,7 @@ const columns = ref([
   },
   {
     prop: 'date',
-    label: 'Date of Birth',
+    label: 'Date',
   },
 ])
 

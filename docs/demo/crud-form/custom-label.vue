@@ -38,7 +38,7 @@ const columns = ref([
     search: {
       component: 'el-date-picker',
       field: 'time',
-      label: 'Date of Birth',
+      label: 'Date',
       required: true,
       error: 'errorSlot',
       fieldProps: {
@@ -121,7 +121,7 @@ function mockApi() {
       <span>Gender</span>
     </template>
     <template #errorSlot>
-      <span>Date of Birth is required</span>
+      <span>Date is required</span>
     </template>
   </z-crud>
 </template>

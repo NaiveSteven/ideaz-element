@@ -41,7 +41,7 @@ const columns = ref([
     label: 'Age',
     detail: {
       field: 'time',
-      label: 'Date of Birth',
+      label: 'Date',
     },
     search: {
       component: 'input',
@@ -51,7 +51,7 @@ const columns = ref([
   },
   {
     prop: 'date',
-    label: 'Date of Birth',
+    label: 'Date',
   },
 ])
 

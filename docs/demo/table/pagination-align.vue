@@ -39,7 +39,7 @@ const columns = ref([
   },
   {
     prop: 'time',
-    label: 'Date of Birth',
+    label: 'Date',
   },
 ])
 

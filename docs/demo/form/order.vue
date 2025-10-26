@@ -38,7 +38,7 @@ const columns = [
   {
     component: 'el-date-picker',
     field: 'time',
-    label: 'Date of Birth',
+    label: 'Date',
     order: 1,
   },
   {

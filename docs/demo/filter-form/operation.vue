@@ -32,7 +32,7 @@ const columns = [
   {
     component: 'el-date-picker',
     field: 'time',
-    label: 'Date of Birth',
+    label: 'Date',
     required: true,
     fieldProps: {
       type: 'daterange',

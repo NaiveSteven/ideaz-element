@@ -33,7 +33,7 @@ const columns = [
   {
     component: 'el-date-picker',
     field: 'time',
-    label: 'Date of Birth',
+    label: 'Date',
     required: true,
     error: 'errorSlot',
     fieldProps: {
@@ -58,7 +58,7 @@ const columns = [
       <span>Gender</span>
     </template>
     <template #errorSlot>
-      <span>Date of birth is required</span>
+      <span>Date is required</span>
     </template>
   </z-filter-form>
 </template>
