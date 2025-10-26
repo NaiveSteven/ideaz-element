@@ -77,7 +77,7 @@
             :percentage="scope.row.progress"
             :stroke-width="8"
             :show-text="false"
-            style="flex: 1;"
+            style="min-width: 50px"
           />
           <span style="min-width: 35px; font-size: 12px; color: #606266;">
             {{ scope.row.progress }}%
@@ -141,7 +141,7 @@
 <script setup lang="ts">
 import { computed, h, ref } from 'vue'
 import { Delete, Edit, Money, View } from '@element-plus/icons-vue'
-import { ElAvatar, ElIcon, ElSwitch, ElProgress, ElSpace, ElButton, ElPopconfirm } from 'element-plus'
+import { ElAvatar, ElIcon, ElSwitch, ElProgress, ElSpace, ElButton, ElPopconfirm, ElTag } from 'element-plus'
 
 // Generate mock data
 function generateData() {
@@ -243,13 +243,17 @@ const columns = computed(() => [
           onClick: () => handleSalaryClick(scope),
           style: { cursor: 'pointer' }
         }, [
-          h('el-tag', {
+          h(ElTag, {
             type: getType(scope.row.salary),
             effect: 'dark'
-          }, [
-            h(ElIcon, { style: { marginRight: '4px' } }, [h(Money)]),
-            `¥${scope.row.salary.toLocaleString()}`
-          ])
+          }, {
+            default: () => [
+              h(ElIcon, { style: { marginRight: '4px' } }, {
+                default: () => h(Money)
+              }),
+              `¥${scope.row.salary.toLocaleString()}`
+            ]
+          })
         ])
       }
     })
@@ -307,30 +311,38 @@ const columns = computed(() => [
       slot: 'actions-slot'
     } : {
       render: (scope: any) => {
-        return h(ElSpace, { size: 'small' }, [
-          h(ElButton, {
-            size: 'small',
-            type: 'primary',
-            icon: Edit,
-            onClick: () => handleEdit(scope)
-          }, 'Edit'),
-          h(ElButton, {
-            size: 'small',
-            type: 'success',
-            icon: View,
-            onClick: () => handleView(scope)
-          }, 'View'),
-          h(ElPopconfirm, {
-            title: 'Are you sure you want to delete?',
-            onConfirm: () => handleDelete(scope)
-          }, {
-            reference: () => h(ElButton, {
+        return h(ElSpace, { size: 'small' }, {
+          default: () => [
+            h(ElButton, {
               size: 'small',
-              type: 'danger',
-              icon: Delete
-            }, 'Delete')
-          })
-        ])
+              type: 'primary',
+              icon: Edit,
+              onClick: () => handleEdit(scope)
+            }, {
+              default: () => 'Edit'
+            }),
+            h(ElButton, {
+              size: 'small',
+              type: 'success',
+              icon: View,
+              onClick: () => handleView(scope)
+            }, {
+              default: () => 'View'
+            }),
+            h(ElPopconfirm, {
+              title: 'Are you sure you want to delete?',
+              onConfirm: () => handleDelete(scope)
+            }, {
+              reference: () => h(ElButton, {
+                size: 'small',
+                type: 'danger',
+                icon: Delete
+              }, {
+                default: () => 'Delete'
+              })
+            })
+          ]
+        })
       }
     })
   }
