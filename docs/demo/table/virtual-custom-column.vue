@@ -201,7 +201,6 @@ const columns = computed(() => [
       slot: 'avatar-slot'
     } : {
       render: (scope: any) => {
-        addLog('Column render', `User info column render - row ${scope.$index}`, scope)
         return h('div', {
           style: { display: 'flex', gap: '8px', alignItems: 'center' }
         }, [
@@ -234,7 +233,6 @@ const columns = computed(() => [
       slot: 'salary-slot'
     } : {
       render: (scope: any) => {
-        addLog('Column render', `Salary column render - row ${scope.$index}, salary: ${scope.row.salary}`, scope)
         const getType = (salary: number) => {
           if (salary > 8000) return 'success'
           if (salary > 6000) return 'warning'
@@ -262,7 +260,6 @@ const columns = computed(() => [
       slot: 'status-slot'
     } : {
       render: (scope: any) => {
-        addLog('Column render', `Status column render - row ${scope.$index}, status: ${scope.row.status}`, scope)
         return h('el-switch', {
           modelValue: scope.row.status,
           activeValue: 'active',
@@ -285,7 +282,6 @@ const columns = computed(() => [
       slot: 'progress-slot'
     } : {
       render: (scope: any) => {
-        addLog('Column render', `Progress column render - row ${scope.$index}, progress: ${scope.row.progress}%`, scope)
         return h('div', {
           style: { display: 'flex', gap: '8px', alignItems: 'center' }
         }, [
@@ -310,7 +306,6 @@ const columns = computed(() => [
       slot: 'actions-slot'
     } : {
       render: (scope: any) => {
-        addLog('Column render', `Actions column render - row ${scope.$index}`, scope)
         return h('el-space', { size: 'small' }, [
           h('el-button', {
             size: 'small',
