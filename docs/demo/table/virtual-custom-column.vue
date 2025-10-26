@@ -141,6 +141,7 @@
 <script setup lang="ts">
 import { computed, h, ref } from 'vue'
 import { Delete, Edit, Money, View } from '@element-plus/icons-vue'
+import { ElAvatar, ElIcon, ElSwitch, ElProgress, ElSpace, ElButton, ElPopconfirm } from 'element-plus'
 
 // Generate mock data
 function generateData() {
@@ -204,7 +205,7 @@ const columns = computed(() => [
         return h('div', {
           style: { display: 'flex', gap: '8px', alignItems: 'center' }
         }, [
-          h('el-avatar', {
+          h(ElAvatar, {
             size: 32,
             src: scope.row.avatar
           }),
@@ -246,7 +247,7 @@ const columns = computed(() => [
             type: getType(scope.row.salary),
             effect: 'dark'
           }, [
-            h('el-icon', { style: { marginRight: '4px' } }, [h(Money)]),
+            h(ElIcon, { style: { marginRight: '4px' } }, [h(Money)]),
             `¥${scope.row.salary.toLocaleString()}`
           ])
         ])
@@ -260,7 +261,7 @@ const columns = computed(() => [
       slot: 'status-slot'
     } : {
       render: (scope: any) => {
-        return h('el-switch', {
+        return h(ElSwitch, {
           modelValue: scope.row.status,
           activeValue: 'active',
           inactiveValue: 'inactive',
@@ -285,11 +286,11 @@ const columns = computed(() => [
         return h('div', {
           style: { display: 'flex', gap: '8px', alignItems: 'center' }
         }, [
-          h('el-progress', {
+          h(ElProgress, {
             percentage: scope.row.progress,
             strokeWidth: 8,
             showText: false,
-            style: { flex: 1 }
+            style: { minWidth: '50px' }
           }),
           h('span', {
             style: { minWidth: '35px', fontSize: '12px', color: '#606266' }
@@ -306,24 +307,24 @@ const columns = computed(() => [
       slot: 'actions-slot'
     } : {
       render: (scope: any) => {
-        return h('el-space', { size: 'small' }, [
-          h('el-button', {
+        return h(ElSpace, { size: 'small' }, [
+          h(ElButton, {
             size: 'small',
             type: 'primary',
             icon: Edit,
             onClick: () => handleEdit(scope)
           }, 'Edit'),
-          h('el-button', {
+          h(ElButton, {
             size: 'small',
             type: 'success',
             icon: View,
             onClick: () => handleView(scope)
           }, 'View'),
-          h('el-popconfirm', {
+          h(ElPopconfirm, {
             title: 'Are you sure you want to delete?',
             onConfirm: () => handleDelete(scope)
           }, {
-            reference: () => h('el-button', {
+            reference: () => h(ElButton, {
               size: 'small',
               type: 'danger',
               icon: Delete
