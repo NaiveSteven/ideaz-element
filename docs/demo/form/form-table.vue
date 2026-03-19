@@ -17,8 +17,8 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -26,7 +26,7 @@ const columns = computed(() => [
   {
     component: 'el-input',
     field: 'name',
-    label: '姓名',
+    label: 'Name',
     onInput: (val: string) => {
       console.log(val, 'input event')
     },
@@ -38,7 +38,7 @@ const columns = computed(() => [
   {
     'component': 'z-table',
     'field': 'tableData',
-    'label': '表格',
+    'label': 'Table',
     'onUpdate:data': (data: RowData[]) => {
       console.log(data, 'data')
       formData.value.tableData = data
@@ -48,12 +48,12 @@ const columns = computed(() => [
       toolBar: false,
       columns: [
         {
-          label: '名称',
+          label: 'Name',
           prop: 'name',
         },
         {
           component: 'el-input',
-          label: '地址',
+          label: 'Address',
           prop: 'address',
         },
       ],
@@ -91,10 +91,10 @@ function submit() {
     <template #button>
       <div class="w-full flex">
         <el-button class="w-full" @click="reset">
-          重置
+          Reset
         </el-button>
         <el-button type="primary" class="w-full" @click="submit">
-          提交
+          Submit
         </el-button>
       </div>
     </template>

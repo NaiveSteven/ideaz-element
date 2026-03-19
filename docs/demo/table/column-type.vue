@@ -59,7 +59,7 @@ const columns = ref([
   {
     component: 'input',
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     onChange: ({ row, column, $index }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, column, $index, val)
     },
@@ -73,7 +73,7 @@ const columns = ref([
   {
     component: 'select',
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     fieldProps: {
       clearable: true,
     },
@@ -83,7 +83,7 @@ const columns = ref([
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     component: markRaw(ElInput),
     fieldProps: {
       clearable: true,
@@ -97,14 +97,14 @@ const columns = ref([
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 </script>
@@ -112,7 +112,7 @@ const options = {
 <template>
   <z-table v-model:data="tableData" :columns="columns" :options="options">
     <template #expand>
-      <span>展开内容</span>
+      <span>Expanded content</span>
     </template>
   </z-table>
 </template>

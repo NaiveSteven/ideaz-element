@@ -10,20 +10,20 @@ const setHeader = () => {
 }
 
 const setEmpty = () => {
-  return h('div', {}, '自定义内容')
+  return h('div', {}, 'Custom Content')
 }
 </script>
 
 <template>
   <div class="flex flex-col">
     <z-select v-model="selectVal" :options="options" :prefix="setHeader" :empty="setEmpty" />
-    <z-select v-model="selectVal" :options="options" prefix="header" empty="自定义内容" class="mt-4" />
+    <z-select v-model="selectVal" :options="options" prefix="header" empty="Custom Content" class="mt-4" />
     <z-select v-model="selectVal" :options="options" class="mt-4">
       <template #prefix>
-        <span>头部</span>
+        <span>Header</span>
       </template>
       <template #empty>
-        <span>自定义内容</span>
+        <span>Custom Content</span>
       </template>
     </z-select>
   </div>

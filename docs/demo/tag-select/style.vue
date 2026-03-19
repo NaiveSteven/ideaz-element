@@ -7,23 +7,23 @@ const tagSelect = ref({
 
 const options = ref([
   {
-    title: '标签名：',
+    title: 'Tag Name:',
     field: 'aaa',
     children: [
-      { label: '标签一', value: 1, round: true },
-      { label: '标签二', value: 2, type: 'success' },
-      { label: '标签三', value: 3, effect: 'light' },
-      { label: '标签四', value: 4, effect: 'plain' },
+      { label: 'Tag 1', value: 1, round: true },
+      { label: 'Tag 2', value: 2, type: 'success' },
+      { label: 'Tag 3', value: 3, effect: 'light' },
+      { label: 'Tag 4', value: 4, effect: 'plain' },
     ],
   },
   {
-    title: '城市名：',
+    title: 'City Name:',
     field: 'bbb',
     children: [
-      { label: '标', value: 1, round: true },
-      { label: '苏州', value: 2, type: 'success' },
-      { label: '无锡', value: 3, effect: 'light' },
-      { label: '连云港', value: 4, effect: 'plain' },
+      { label: 'Label', value: 1, round: true },
+      { label: 'Suzhou', value: 2, type: 'success' },
+      { label: 'Wuxi', value: 3, effect: 'light' },
+      { label: 'Lianyungang', value: 4, effect: 'plain' },
     ],
   },
 ])

@@ -12,8 +12,8 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -21,18 +21,18 @@ const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '姓名',
+    label: 'Name',
     required: true,
   },
   {
     component: 'select',
     field: 'gender',
-    label: '性别',
+    label: 'Gender',
     show: (formData: any) => formData.name,
   },
   {
     component: 'input',
-    label: '年龄',
+    label: 'Age',
     hide: formData => formData.gender === '1' || !formData.gender,
     field: 'age',
   },
@@ -66,7 +66,7 @@ function submit() {
   >
     <template #button>
       <el-button class="w-full" type="primary" @click="submit">
-        提交
+        Submit
       </el-button>
     </template>
   </z-form>

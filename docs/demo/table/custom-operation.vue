@@ -42,35 +42,35 @@ const columns = ref([
   {
     component: 'input',
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     component: 'select',
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     component: 'input',
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     component: 'el-date-picker',
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
     fieldProps: {
       valueFormat: 'YYYY-MM-DD',
     },
   },
   {
     type: 'button',
-    label: '操作',
+    label: 'Actions',
     buttons: ({ renderEdit, renderCancel, renderDelete, renderSave }: DefaultButtonOperation, tableData: Ref<RowData[]>) => {
       return [
         {
           type: 'primary',
           link: true,
-          label: '复制',
+          label: 'Copy',
           hide: ({ row }: TableColumnScopeData<RowData>) => row.__isEdit,
           onClick: ({ row }: TableColumnScopeData<RowData>) => {
             tableData.value.push({ ...row })
@@ -87,8 +87,8 @@ const columns = ref([
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 

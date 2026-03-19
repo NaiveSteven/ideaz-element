@@ -32,7 +32,7 @@ const formData = ref({})
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     form: {
       component: 'input',
       field: 'name',
@@ -40,22 +40,22 @@ const columns = ref([
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 </script>

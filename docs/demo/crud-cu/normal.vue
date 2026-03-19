@@ -29,61 +29,61 @@ const tableData = ref([])
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     add: {
       component: 'input',
       field: 'name',
-      label: '姓名',
+      label: 'Name',
       required: true,
     },
     edit: {
       component: 'input',
       field: 'name',
-      label: '姓名',
+      label: 'Name',
       required: true,
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     add: {
       component: 'select',
       field: 'gender',
-      label: '性别',
+      label: 'Gender',
     },
     edit: {
       component: 'select',
       field: 'gender',
-      label: '性别',
+      label: 'Gender',
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     add: {
       component: 'el-date-picker',
       field: 'time',
-      label: '出生日期',
+      label: 'Date',
       fieldProps: {
         type: 'daterange',
-        startPlaceholder: '开始日期',
-        endPlaceholder: '结束日期',
+        startPlaceholder: 'Start date',
+        endPlaceholder: 'End date',
       },
     },
     edit: {
       component: 'el-date-picker',
       field: 'time',
-      label: '出生日期',
+      label: 'Date',
       fieldProps: {
         type: 'daterange',
-        startPlaceholder: '开始日期',
-        endPlaceholder: '结束日期',
+        startPlaceholder: 'Start date',
+        endPlaceholder: 'End date',
       },
     },
   },
   {
     prop: 'date',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
@@ -92,17 +92,17 @@ const searchFormConfig = ref({
   columns: [
     {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
     },
     {
       component: 'select',
-      label: '性别',
+      label: 'Gender',
       field: 'gender',
     },
     {
       component: 'input',
-      label: '年龄',
+      label: 'Age',
       field: 'age',
     },
   ],

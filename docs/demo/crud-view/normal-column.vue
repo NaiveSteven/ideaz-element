@@ -29,34 +29,34 @@ const tableData = ref([])
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     form: {
       component: 'input',
       field: 'name',
-      label: '姓名',
+      label: 'Name',
       required: true,
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     form: {
       component: 'select',
       field: 'gender',
-      label: '性别',
+      label: 'Gender',
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     form: {
       component: 'el-date-picker',
       field: 'time',
-      label: '出生日期',
+      label: 'Date',
       fieldProps: {
         type: 'daterange',
-        startPlaceholder: '开始日期',
-        endPlaceholder: '结束日期',
+        startPlaceholder: 'Start date',
+        endPlaceholder: 'End date',
       },
     },
     search: false,
@@ -65,7 +65,7 @@ const columns = ref([
   },
   {
     prop: 'date',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 

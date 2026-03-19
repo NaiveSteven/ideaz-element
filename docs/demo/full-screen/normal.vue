@@ -6,9 +6,9 @@ const getElement = () => {
 
 <template>
   <z-full-screen :el="getElement">
-    <el-button>点击全屏</el-button>
+    <el-button>Enter full screen</el-button>
   </z-full-screen>
-  <z-watermark content="水印组件" class="my-water-mark bg-white">
+  <z-watermark content="Watermark component" class="my-water-mark bg-white">
     <div class="h-500px" />
   </z-watermark>
 </template>

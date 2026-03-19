@@ -2,9 +2,9 @@
 import { ref } from 'vue'
 
 const options = ref([
-  { label: '选项一', value: 1, border: true },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 },
+  { label: 'Option 1', value: 1, border: true },
+  { label: 'Option 2', value: 2 },
+  { label: 'Option 3', value: 3 },
 ])
 
 const radioVal = ref(1)

@@ -5,13 +5,17 @@
 1. ~~添加公共组件`z-row`、`z-col`~~
 2. 添加布局组件`z-layout`
 3. ~~添加导航栏组件`z-guide`（基于`tag`组件~~
-4. 大数据表格
+4. ~~大数据表格~~
 5. ~~添加`z-filter-form`组件~~
 6. ~~添加`z-check-card`组件~~
-7. 添加`z-tree-select`组件
-8. 添加`z-menu`组件
-9. 添加`z-breadcrumb`组件
-10. 添加`z-status`组件，支持`success`、`error`、`warning`、`info`等状态，结合`z-table`组件
+7. 添加`z-menu`组件
+8. 添加`z-breadcrumb`组件
+9. 添加`z-status`组件，支持`success`、`error`、`warning`、`info`等状态，结合`z-table`组件
+10. 添加`ai`组件，例如对话、提示等
+11. 组件多语言支持
+12. 测试用例完善
+13. 大数据表格功能测试，表单组件功能测试
+14. 后台管理系统应用，在ideaz-admin中支持
 
 ## FEATURE（new function）
 
@@ -184,6 +188,7 @@
 167. `array-form`表单结构思考是否可以优化
 168. 打包样式分包问题
 169. `z-table`虚拟滚动
+170. 虚拟滚动和全局默认配置测试案例
      1201_3z0x8etu5vvckcr
 
 ## FEATURE

@@ -13,23 +13,23 @@ hero:
     alt: Ideaz Element
   actions:
     - theme: brand
-      text: Get Started
+      text: 快速上手
       link: /guide/start
     - theme: alt
-      text: Learn More
+      text: 了解更多
       link: /components/checkbox
 
 features:
   - icon: 💪
-    title: Powerful business components
-    details: Powerful business component library for middle and back office business.
+    title: 强大的业务组件
+    details: 面向中后台业务的强大组件库。
   - icon: 💡
-    title: Complete unit testing
-    details: Complete test cases, all components are unit tested using Vitest.
+    title: 完整的单元测试
+    details: 完整的测试用例，所有组件都使用 Vitest 进行单元测试。
   - icon: ⚡️
-    title: Vue 3 Composition API
-    details: The internal logic of the component is 100% wrapped in hooks.
+    title: Vue 3 组合式 API
+    details: 组件内部逻辑 100% 使用 hooks 封装。
   - icon: 🔥
-    title: Written in TypeScript
-    details: Component libraries are 100% developed using TSX and TypeScript.
+    title: TypeScript 编写
+    details: 组件库 100% 使用 TSX 和 TypeScript 开发。
 ---

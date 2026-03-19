@@ -11,11 +11,11 @@ interface RowData {
   salary: number
 }
 
-// 生成测试数据
+// Generate mock data
 function generateData(count: number): RowData[] {
-  const names = ['张三', '李四', '王五', '赵六', '孙七', '周八', '吴九', '郑十', '冯一', '陈二']
-  const departments = ['技术部', '产品部', '设计部', '运营部', '市场部']
-  const positions = ['工程师', '产品经理', '设计师', '运营专员', '市场专员']
+  const names = ['Alice', 'Bob', 'Charlie', 'Diana', 'Ethan', 'Fiona', 'George', 'Hannah', 'Ian', 'Julia']
+  const departments = ['Engineering', 'Product', 'Design', 'Operations', 'Marketing']
+  const positions = ['Engineer', 'Product Manager', 'Designer', 'Operations Specialist', 'Marketing Specialist']
   const data: RowData[] = []
 
   for (let i = 0; i < count; i++) {
@@ -37,7 +37,7 @@ const indexType = ref('number')
 const columns = computed(() => [
   {
     type: 'index',
-    label: '序号',
+    label: 'Index',
     index: indexType.value === 'number' ? 1 :
            indexType.value === 'function' ? (index: number) => `No.${index + 1}` :
            undefined,
@@ -48,28 +48,28 @@ const columns = computed(() => [
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'email',
-    label: '邮箱',
+    label: 'Email',
   },
   {
     prop: 'department',
-    label: '部门',
+    label: 'Department',
   },
   {
     prop: 'position',
-    label: '职位',
+    label: 'Position',
   },
   {
     prop: 'salary',
-    label: '薪资',
+    label: 'Salary',
     render: ({ row }: any) => `¥${row.salary.toLocaleString()}`,
   },
 ])
 
-// 虚拟滚动配置
+// Virtual scrolling config
 const virtualConfig = computed(() => ({
   enabled: true,
   itemHeight: 48,
@@ -84,17 +84,17 @@ function changeIndexType(type: string) {
 <template>
   <div>
     <div style="margin-bottom: 16px;">
-      <h3>虚拟表格索引列演示</h3>
+      <h3>Virtual Table Index Column Demo</h3>
       <p style="margin: 8px 0; color: #666;">
-        虚拟表格完全支持索引列功能，支持数字索引和自定义函数索引。
+        The virtual table fully supports index columns, including numeric indexes and custom index functions.
       </p>
 
       <el-space wrap>
-        <span>索引类型:</span>
+        <span>Index type:</span>
         <el-radio-group v-model="indexType" @change="changeIndexType">
-          <el-radio-button value="number">数字索引</el-radio-button>
-          <el-radio-button value="function">函数索引</el-radio-button>
-          <el-radio-button value="default">默认索引</el-radio-button>
+          <el-radio-button value="number">Numeric index</el-radio-button>
+          <el-radio-button value="function">Function index</el-radio-button>
+          <el-radio-button value="default">Default index</el-radio-button>
         </el-radio-group>
       </el-space>
     </div>

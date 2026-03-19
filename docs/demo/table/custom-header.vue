@@ -31,7 +31,7 @@ const tableData = ref([
 const columns = ref([
   {
     prop: 'name',
-    label: () => h('span', '自定义表头'),
+    label: () => h('span', 'Custom Header'),
   },
   {
     prop: 'gender',
@@ -39,11 +39,11 @@ const columns = ref([
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 </script>
@@ -54,7 +54,7 @@ const columns = ref([
     :columns="columns"
   >
     <template #genderHeaderSlot="scope">
-      <span>性别自定义表头{{ scope.$index }}</span>
+      <span>Gender custom header {{ scope.$index }}</span>
     </template>
   </z-table>
 </template>

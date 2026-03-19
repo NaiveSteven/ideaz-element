@@ -10,8 +10,8 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -19,17 +19,17 @@ const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '姓名',
+    label: 'Name',
     required: true,
   },
   {
     slot: 'gender',
     field: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
-    label: '年龄',
-    render: () => h('span', {}, '年龄内容'),
+    label: 'Age',
+    render: () => h('span', {}, 'Age details'),
   },
 ]
 </script>
@@ -43,7 +43,7 @@ const columns = [
     size="small"
   >
     <template #gender>
-      <z-select v-model="formData.gender" :options="options.gender" clearable filterable placeholder="请选择性别" />
+      <z-select v-model="formData.gender" :options="options.gender" clearable filterable placeholder="Please select a gender" />
     </template>
   </z-form>
 </template>

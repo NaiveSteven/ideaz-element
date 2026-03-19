@@ -7,23 +7,23 @@ const tagSelect = ref({
 
 const options = ref([
   {
-    title: () => h('span', '标签名：'),
+    title: () => h('span', 'Tag Name:'),
     field: 'aaa',
     children: [
-      { label: '标签一', value: 1 },
-      { label: '标签二', value: 2 },
-      { label: '标签三', value: 3 },
-      { label: '标签四', value: 4 },
+      { label: 'Tag 1', value: 1 },
+      { label: 'Tag 2', value: 2 },
+      { label: 'Tag 3', value: 3 },
+      { label: 'Tag 4', value: 4 },
     ],
   },
   {
     title: 'titleSlot',
     field: 'bbb',
     children: [
-      { label: '标', value: 1 },
-      { label: '苏州', value: 2 },
-      { label: '无锡', value: 3 },
-      { label: '连云港', value: 4 },
+      { label: 'Label', value: 1 },
+      { label: 'Suzhou', value: 2 },
+      { label: 'Wuxi', value: 3 },
+      { label: 'Lianyungang', value: 4 },
     ],
   },
 ])
@@ -36,7 +36,7 @@ const options = ref([
     :multiple="true"
   >
     <template #titleSlot>
-      <span>城市名：</span>
+      <span>City Name:</span>
     </template>
   </z-tag-select>
 </template>

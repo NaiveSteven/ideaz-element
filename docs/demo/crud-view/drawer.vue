@@ -12,51 +12,51 @@ const tableData = ref([])
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     search: {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
     },
     detail: {
       field: 'name',
-      label: '姓名',
+      label: 'Name',
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     search: {
       component: 'select',
-      label: '性别',
+      label: 'Gender',
       field: 'gender',
     },
     detail: {
       field: 'gender',
-      label: '性别',
+      label: 'Gender',
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     detail: {
       field: 'time',
-      label: '出生日期',
+      label: 'Date',
     },
     search: {
       component: 'input',
-      label: '年龄',
+      label: 'Age',
       field: 'age',
     },
   },
   {
     prop: 'date',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
 const drawer = ref({
-  title: '查看详情',
+  title: 'View Details',
   showClose: false,
 })
 

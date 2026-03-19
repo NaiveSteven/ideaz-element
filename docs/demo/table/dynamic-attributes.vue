@@ -47,7 +47,7 @@ const columns = ref([
   {
     component: 'input',
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     onChange: ({ row }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, val)
     },
@@ -64,31 +64,31 @@ const columns = ref([
   {
     component: 'select',
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     onChange: ({ row }: TableColumnScopeData<RowData>, val: string) => {
       console.log('change event', row, val)
     },
     fieldProps: {
       placeholder: ({ row, column, $index }: TableColumnScopeData<RowData>) => {
-        return `${row.name}性别${$index}`
+        return `${row.name}Gender${$index}`
       },
       clearable: true,
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 </script>

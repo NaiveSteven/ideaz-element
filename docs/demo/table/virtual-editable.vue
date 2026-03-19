@@ -2,10 +2,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 
-// 生成大量测试数据
+// Generate a large dataset
 function generateLargeData(count: number) {
   const names = ['Steven', 'Helen', 'Nancy', 'Jack', 'Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank']
   const genders = ['1', '2']
+  const departments = ['Engineering', 'Product', 'Design', 'Operations', 'Marketing']
   const data = []
 
   for (let i = 0; i < count; i++) {
@@ -16,7 +17,7 @@ function generateLargeData(count: number) {
       age: 18 + (i % 50),
       time: `202${(i % 4) + 0}-${String((i % 12) + 1).padStart(2, '0')}-${String((i % 28) + 1).padStart(2, '0')}`,
       salary: Math.floor(Math.random() * 50000) + 5000,
-      department: ['技术部', '产品部', '设计部'][i % 3],
+      department: departments[i % departments.length],
     })
   }
   return data
@@ -33,23 +34,23 @@ const columns = ref([
   {
     component: 'input',
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     fieldProps: {
-      placeholder: '请输入姓名',
+      placeholder: 'Please enter a name',
     },
   },
   {
     component: 'select',
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     fieldProps: {
-      placeholder: '请选择性别',
+      placeholder: 'Please select a gender',
     },
   },
   {
     component: 'el-input-number',
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     fieldProps: {
       min: 18,
       max: 65,
@@ -58,7 +59,7 @@ const columns = ref([
   {
     component: 'el-input-number',
     prop: 'salary',
-    label: '薪资',
+    label: 'Salary',
     fieldProps: {
       min: 0,
       controls: false,
@@ -67,53 +68,53 @@ const columns = ref([
   {
     component: 'select',
     prop: 'department',
-    label: '部门',
+    label: 'Department',
   },
   {
     component: 'el-date-picker',
     prop: 'time',
-    label: '入职日期',
+    label: 'Hire Date',
     fieldProps: {
       valueFormat: 'YYYY-MM-DD',
-      placeholder: '选择日期',
+      placeholder: 'Select date',
     },
   },
 ])
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
   department: [
-    { label: '技术部', value: '技术部' },
-    { label: '产品部', value: '产品部' },
-    { label: '设计部', value: '设计部' },
-    { label: '运营部', value: '运营部' },
-    { label: '市场部', value: '市场部' },
+    { label: 'Engineering', value: 'Engineering' },
+    { label: 'Product', value: 'Product' },
+    { label: 'Design', value: 'Design' },
+    { label: 'Operations', value: 'Operations' },
+    { label: 'Marketing', value: 'Marketing' },
   ],
 }
 
 function handleSave() {
-  console.log('保存数据:', tableData.value)
+  console.log('Save table data:', tableData.value)
 }
 
 function handleReset() {
   tableData.value = generateLargeData(800)
-  console.log('重置数据完成')
+  console.log('Data reset complete')
 }
 </script>
 
 <template>
   <div>
     <div style="margin-bottom: 16px;">
-      <h4>可编辑表格功能测试 (800条数据)</h4>
+      <h4>Editable table demo (800 rows)</h4>
       <el-space>
         <el-button type="primary" @click="handleSave">
-          保存数据
+          Save data
         </el-button>
         <el-button @click="handleReset">
-          重置数据
+          Reset data
         </el-button>
       </el-space>
     </div>
@@ -130,11 +131,11 @@ function handleReset() {
     />
 
     <div style="margin-top: 16px; color: #666; font-size: 14px;">
-      <p>💡 提示：</p>
+      <p>💡 Hint:</p>
       <ul>
-        <li>支持多种表单组件：输入框、选择器、数字输入框、日期选择器</li>
-        <li>所有修改会实时同步到数据模型</li>
-        <li>虚拟滚动确保大数据量下的编辑性能</li>
+        <li>Supports numerous form components: input, select, number input, date picker, etc.</li>
+        <li>All edits sync to the data model in real time.</li>
+        <li>Virtual scrolling keeps editing smooth with large datasets.</li>
       </ul>
     </div>
   </div>

@@ -2,7 +2,7 @@
 import { h } from 'vue'
 
 const columns = [
-  { label: 'Date', prop: 'date', render: data => h('span', `自定义${data.date}`) },
+  { label: 'Date', prop: 'date', render: data => h('span', `Custom ${data.date}`) },
   { label: 'Name', prop: 'name' },
   { label: 'Address', prop: 'address' },
 ]

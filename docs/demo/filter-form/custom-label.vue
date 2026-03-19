@@ -10,8 +10,8 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -19,7 +19,7 @@ const columns = [
   {
     component: 'input',
     field: 'name',
-    label: () => h('span', {}, '姓名'),
+    label: () => h('span', {}, 'Name'),
     required: true,
     error: 'error message',
   },
@@ -33,13 +33,13 @@ const columns = [
   {
     component: 'el-date-picker',
     field: 'time',
-    label: '出生日期',
+    label: 'Date',
     required: true,
     error: 'errorSlot',
     fieldProps: {
       type: 'daterange',
-      startPlaceholder: '开始日期',
-      endPlaceholder: '结束日期',
+      startPlaceholder: 'Start Date',
+      endPlaceholder: 'End Date',
     },
   },
 ]
@@ -55,10 +55,10 @@ const columns = [
     label-width="80px"
   >
     <template #labelSlot>
-      <span>性别</span>
+      <span>Gender</span>
     </template>
     <template #errorSlot>
-      <span>出生日期必填</span>
+      <span>Date is required</span>
     </template>
   </z-filter-form>
 </template>

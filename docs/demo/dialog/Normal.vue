@@ -6,13 +6,13 @@ const isShowDialog = ref(false)
 
 <template>
   <el-button link type="primary" @click="isShowDialog = true">
-    点击打开 Dialog
+    Click to open Dialog
   </el-button>
   <z-dialog
     v-model="isShowDialog"
-    title="标题"
+    title="Dialog Title"
     @confirm="isShowDialog = false"
   >
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
 </template>

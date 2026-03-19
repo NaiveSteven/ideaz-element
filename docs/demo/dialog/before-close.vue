@@ -21,8 +21,8 @@ function handleOpen() {
 function openDialog() {
   window.ZDialogTip({
     type: 'warning',
-    message: '内容',
-    title: '标题',
+    message: 'Content message',
+    title: 'Dialog Title',
     beforeClose: (done) => {
       console.log('before close extend')
       done()
@@ -49,10 +49,10 @@ function delay(time: number) {
 
 <template>
   <el-button link type="primary" @click="handleOpen">
-    点击打开 Dialog
+    Click to open Dialog
   </el-button>
   <el-button link type="primary" @click="openDialog">
-    点击打开 Dialog
+    Click to open Dialog
   </el-button>
   <z-dialog
     v-model="isShowDialog"
@@ -64,6 +64,6 @@ function delay(time: number) {
     <template #header>
       <span>slotTitle</span>
     </template>
-    <span>这是一段信息</span>
+    <span>This is a piece of information.</span>
   </z-dialog>
 </template>

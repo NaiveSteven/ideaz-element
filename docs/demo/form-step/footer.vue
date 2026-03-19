@@ -13,33 +13,33 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
 const columns = [
   {
-    label: '第一步',
-    description: '描述内容',
+    label: 'Step 1',
+    description: 'Description',
     children: [
       {
         component: 'input',
         field: 'name',
         modifier: 'trim',
-        label: '姓名',
+        label: 'Name',
         required: true,
       },
     ],
   },
   {
-    label: '第二部',
-    description: '描述内容',
+    label: 'Step 2',
+    description: 'Description',
     children: [
       {
         component: 'select',
         field: 'gender',
-        label: '性别',
+        label: 'Gender',
         onChange: (val: string) => {
           console.log(val, 'change event')
         },
@@ -51,11 +51,11 @@ const columns = [
       {
         component: 'el-date-picker',
         field: 'time',
-        label: '出生日期',
+        label: 'Date',
         fieldProps: {
           type: 'daterange',
-          startPlaceholder: '开始日期',
-          endPlaceholder: '结束日期',
+          startPlaceholder: 'Start date',
+          endPlaceholder: 'End date',
         },
         onChange: (val: string[]) => {
           console.log(val, 'change event')
@@ -93,13 +93,13 @@ function submit() {
   >
     <template #footer>
       <el-button :disabled="activeStep === 0" @click="handlePrevious">
-        上一步
+        Previous
       </el-button>
       <el-button :disabled="activeStep === 1" @click="handleNext">
-        下一步
+        Next
       </el-button>
       <el-button v-if="activeStep === 1" @click="submit">
-        提交
+        Submit
       </el-button>
     </template>
   </z-form>

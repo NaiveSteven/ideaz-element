@@ -3,7 +3,7 @@ import { h, ref, resolveComponent } from 'vue'
 
 const options = [
   {
-    title: '标题',
+    title: 'Title',
     avatar: () => h(resolveComponent('el-avatar'), { icon: 'i-user-filled' }),
     value: 'A',
   },

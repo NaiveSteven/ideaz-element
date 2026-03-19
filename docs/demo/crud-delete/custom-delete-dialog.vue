@@ -24,39 +24,39 @@ const tableData = ref([])
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     search: {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
     },
     add: {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     search: {
       component: 'select',
-      label: '性别',
+      label: 'Gender',
       field: 'gender',
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     search: {
       component: 'input',
-      label: '年龄',
+      label: 'Age',
       field: 'age',
     },
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
@@ -73,12 +73,12 @@ const request = ref({
   deleteApi: deleteMockApi,
 })
 const deleteConfig = reactive({
-  message: ({ row }: { row: RowData }) => h('span', {}, `确认删除${row.name}吗？`),
+  message: ({ row }: { row: RowData }) => h('span', {}, `Delete ${row.name}?`),
   onConfirm: async ({ done, confirmButtonLoading, row, tableRef, getTableData }: CrudDeleteDialogConfirmParams<RowData>) => {
     confirmButtonLoading.value = true
     try {
       await deleteMockApi({ id: row?.id })
-      ElMessage.success('删除成功')
+      ElMessage.success('Deleted successfully')
       confirmButtonLoading.value = false
       done()
       getTableData()

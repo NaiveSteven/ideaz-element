@@ -39,7 +39,7 @@ const direction = ref('horizontal')
 <template>
   <div class="flex flex-col">
     <div class="mb-4 flex items-center">
-      <span class="mr-4 w-20 inline-block text-right">边框</span>
+      <span class="mr-4 w-20 inline-block text-right">Border</span>
       <el-switch v-model="border" />
     </div>
     <div class="mb-4 flex items-center">

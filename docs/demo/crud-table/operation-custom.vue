@@ -14,34 +14,34 @@ interface RowData {
 
 const columns = ref([
   {
-    label: '姓名',
+    label: 'Name',
     prop: 'name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
   {
     type: 'button',
-    label: '操作',
+    label: 'Actions',
     buttons: [
       {
-        label: '查看',
+        label: 'View',
         link: true,
         type: 'primary',
         disabled: ({ row, column, $index }: TableColumnScopeData<RowData>) => row.name === 'Steven',
         onClick: ({ row }: TableColumnScopeData<RowData>) => console.log(row, 'row'),
       },
       {
-        label: '删除',
+        label: 'Delete',
         link: true,
         type: 'danger',
         disabled: ({ row, column, $index }: TableColumnScopeData<RowData>) => row.age === 18,

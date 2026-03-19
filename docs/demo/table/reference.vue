@@ -41,33 +41,33 @@ const tableData = ref([
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
   {
     type: 'button',
-    label: '操作',
+    label: 'Actions',
     buttons: [
       {
         type: 'dropdown',
-        reference: '操作',
+        reference: 'Actions',
         placement: 'top-start',
         children: [
           {
             type: 'primary',
             link: true,
-            label: '编辑',
+            label: 'Edit',
             onClick: ({ row }: TableColumnScopeData<RowData>) => {
               console.log(row, 'edit')
             },
@@ -75,7 +75,7 @@ const columns = ref([
           {
             type: 'danger',
             link: true,
-            label: '删除',
+            label: 'Delete',
             onClick: ({ row }: TableColumnScopeData<RowData>) => {
               console.log(row, 'delete')
             },
@@ -84,7 +84,7 @@ const columns = ref([
       },
       {
         type: 'dropdown',
-        reference: () => h('span', { style: { cursor: 'pointer' } }, '操作2'),
+        reference: () => h('span', { style: { cursor: 'pointer' } }, 'Actions2'),
         placement: 'top',
         onVisibleChange: (visible: boolean) => {
           console.log(visible, 'visible')
@@ -93,7 +93,7 @@ const columns = ref([
           {
             type: 'primary',
             link: true,
-            label: '复制',
+            label: 'Copy',
             onClick: ({ row }: TableColumnScopeData<RowData>) => {
               console.log(row, 'copy')
             },
@@ -101,7 +101,7 @@ const columns = ref([
           {
             type: 'danger',
             link: true,
-            label: '操作',
+            label: 'Actions',
             divided: true,
             onClick: ({ row }: TableColumnScopeData<RowData>) => {
               console.log(row, 'operate')

@@ -3,25 +3,25 @@ import { ref } from 'vue'
 
 const options = ref([
   {
-    label: '选项一',
+    label: 'Option 1',
     options: [
-      { label: '选项一-1', value: 11 },
-      { label: '选项一-2', value: 12 },
+      { label: 'Option 1-1', value: 11 },
+      { label: 'Option 1-2', value: 12 },
     ],
   },
   {
-    label: '选项二',
+    label: 'Option 2',
     options: [
-      { label: '选项二-1', value: 21 },
-      { label: '选项二-2', value: 22 },
+      { label: 'Option 2-1', value: 21 },
+      { label: 'Option 2-2', value: 22 },
     ],
   },
   {
-    label: '选项三',
+    label: 'Option 3',
     disabled: true,
     options: [
-      { label: '选项三-1', value: 31 },
-      { label: '选项三-2', value: 32 },
+      { label: 'Option 3-1', value: 31 },
+      { label: 'Option 3-2', value: 32 },
     ],
   },
 ])

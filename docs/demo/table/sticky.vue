@@ -18,16 +18,16 @@ const columns = ref([
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     width: 300,
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     width: 300,
   },
   {

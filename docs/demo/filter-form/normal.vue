@@ -11,8 +11,8 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
@@ -20,7 +20,7 @@ const columns = [
   {
     component: 'input',
     field: 'name',
-    label: '名字',
+    label: 'Name',
     onInput: (val: string) => {
       console.log(val, 'input event')
     },
@@ -31,7 +31,7 @@ const columns = [
   {
     component: 'select',
     field: 'gender',
-    label: '性别',
+    label: 'Gender',
     onChange: (val: string) => {
       console.log(val, 'change event')
     },
@@ -42,11 +42,11 @@ const columns = [
   {
     component: 'el-date-picker',
     field: 'time',
-    label: '出生日期',
+    label: 'Date',
     fieldProps: {
       type: 'daterange',
-      startPlaceholder: '开始日期',
-      endPlaceholder: '结束日期',
+      startPlaceholder: 'Start Date',
+      endPlaceholder: 'End Date',
     },
     onChange: (val: string) => {
       console.log(val, 'change event')

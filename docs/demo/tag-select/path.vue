@@ -15,23 +15,23 @@ const alias = {
 
 const options = ref([
   {
-    title: '标签名：',
+    title: 'Tag Name:',
     field: 'aaa.aaa',
     children: [
-      { title: '标签一', data: { key: 1 } },
-      { title: '标签二', data: { key: 2 } },
-      { title: '标签三', data: { key: 3 } },
-      { title: '标签四', data: { key: 4 } },
+      { title: 'Tag 1', data: { key: 1 } },
+      { title: 'Tag 2', data: { key: 2 } },
+      { title: 'Tag 3', data: { key: 3 } },
+      { title: 'Tag 4', data: { key: 4 } },
     ],
   },
   {
-    title: '城市名：',
+    title: 'City Name:',
     field: 'bbb',
     children: [
-      { title: '标', data: { key: 1 } },
-      { title: '苏州', data: { key: 2 } },
-      { title: '无锡', data: { key: 3 } },
-      { title: '连云港', data: { key: 4 } },
+      { title: 'Label', data: { key: 1 } },
+      { title: 'Suzhou', data: { key: 2 } },
+      { title: 'Wuxi', data: { key: 3 } },
+      { title: 'Lianyungang', data: { key: 4 } },
     ],
   },
 ])

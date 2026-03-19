@@ -16,20 +16,20 @@ const columns = ref([
     reserveSelection: true,
   },
   {
-    label: '姓名',
+    label: 'Name',
     prop: 'name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 const request = ref({

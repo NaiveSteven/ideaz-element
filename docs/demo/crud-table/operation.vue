@@ -15,20 +15,20 @@ interface GetTableDataRes { data: { page: number, pageSize: number, list: RowDat
 
 const columns = ref([
   {
-    label: '姓名',
+    label: 'Name',
     prop: 'name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 const request = ref({
@@ -118,13 +118,13 @@ function handleChangeEditVisible() {
   >
     <template #toolBarLeft>
       <el-button type="primary" size="small" @click="handleChangeViewVisible">
-        查看按钮显隐
+        Toggle view button
       </el-button>
       <el-button type="primary" size="small" @click="handleChangeDeleteVisible">
-        删除按钮显隐
+        Toggle delete button
       </el-button>
       <el-button type="primary" size="small" @click="handleChangeEditVisible">
-        编辑按钮显隐
+        Toggle edit button
       </el-button>
     </template>
   </z-crud>

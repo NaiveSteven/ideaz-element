@@ -3,7 +3,7 @@ import { ref } from 'vue'
 
 const isHide = ref(false)
 
-// 生成大量测试数据
+// Generate large dataset
 function generateLargeData(count: number) {
   const names = ['Steven', 'Helen', 'Nancy', 'Jack', 'Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank']
   const genders = ['male', 'female']
@@ -31,24 +31,24 @@ const columns = ref([
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     hide: () => isHide.value,
     width: 200
   },
   {
     prop: 'gender',
-    label: '性别',
-    hide: true, // 默认隐藏
+    label: 'Gender',
+    hide: true, // Hidden by default
     width: 200
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     width: 200
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
     width: 200
   },
 ])
@@ -68,13 +68,13 @@ function toggleGender() {
 <template>
   <div>
     <div style="margin-bottom: 16px;">
-      <h4>列显隐功能测试 (2000条数据)</h4>
+      <h4>Column visibility demo (2,000 rows)</h4>
       <el-space>
         <el-button @click="changeVisible">
-          {{ isHide ? '显示' : '隐藏' }}姓名列
+          {{ isHide ? 'Show' : 'Hide' }} Name column
         </el-button>
         <el-button @click="toggleGender">
-          切换性别列显隐
+          Toggle Gender column
         </el-button>
       </el-space>
     </div>

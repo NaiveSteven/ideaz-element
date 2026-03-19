@@ -26,39 +26,39 @@ const columns = ref([
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     search: {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
     },
     add: {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     search: {
       component: 'select',
-      label: '性别',
+      label: 'Gender',
       field: 'gender',
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     search: {
       component: 'input',
-      label: '年龄',
+      label: 'Age',
       field: 'age',
     },
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
@@ -75,7 +75,7 @@ const request = ref({
   deleteApi: deleteMockApi,
 })
 const alertConfig = ref({
-  title: (selectionData: RowData[]) => h('span', `选中${selectionData.length}项`),
+  title: (selectionData: RowData[]) => h('span', `Selected ${selectionData.length} items`),
   description: () => h('span', 'description'),
 })
 

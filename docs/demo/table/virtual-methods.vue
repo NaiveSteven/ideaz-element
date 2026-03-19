@@ -10,7 +10,7 @@ interface RowData {
   time: string
 }
 
-// 生成大量测试数据
+// Generate a large dataset
 function generateLargeData(count: number): RowData[] {
   const names = ['Steven', 'Helen', 'Nancy', 'Jack', 'Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank']
   const genders = ['male', 'female']
@@ -44,97 +44,97 @@ const columns = ref([
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     sortable: true,
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
-// 表格方法测试
+// Table method demos
 function setCurrentRow() {
   const row = tableData.value[10]
   tableRef.value?.setCurrentRow(row)
-  console.log('设置当前行:', row)
+  console.log('Set current row:', row)
 }
 
 function toggleRowSelection() {
   const row = tableData.value[5]
   tableRef.value?.toggleRowSelection(row, true)
-  console.log('切换行选择:', row)
+  console.log('Toggle row selection:', row)
 }
 
 function clearSelection() {
   tableRef.value?.clearSelection()
-  console.log('清空选择')
+  console.log('Clear selection')
 }
 
 function toggleAllSelection() {
   tableRef.value?.toggleAllSelection()
-  console.log('切换全选')
+  console.log('Toggle select all')
 }
 
 function clearSort() {
   tableRef.value?.clearSort()
-  console.log('清空排序')
+  console.log('Clear sort')
 }
 
 function scrollToTop() {
   tableRef.value?.scrollTo({ scrollTop: 0 })
-  console.log('滚动到顶部')
+  console.log('Scroll to top')
 }
 
 function scrollToBottom() {
   tableRef.value?.scrollTo({ scrollTop: 999999 })
-  console.log('滚动到底部')
+  console.log('Scroll to bottom')
 }
 
 function scrollToRow() {
   const index = 500
   tableRef.value?.scrollToRow(index)
-  console.log(`滚动到第 ${index + 1} 行`)
+  console.log(`Scroll to row ${index + 1}`)
 }
 
-// 事件处理
+// Event handlers
 function handleCurrentChange(currentRow: RowData, oldCurrentRow: RowData) {
-  console.log('当前行改变:', currentRow, oldCurrentRow)
+  console.log('Current row changed:', currentRow, oldCurrentRow)
 }
 
 function handleSelectionChange(selection: RowData[]) {
-  console.log('选择改变:', selection.length, '行')
+  console.log('Selection changed:', selection.length, 'rows')
 }
 
 function handleSortChange({ column, prop, order }: any) {
-  console.log('排序改变:', { column, prop, order })
+  console.log('Sort changed:', { column, prop, order })
 }
 </script>
 
 <template>
   <div>
     <div style="margin-bottom: 16px;">
-      <h4>虚拟表格方法测试</h4>
-      <el-button @click="setCurrentRow">设置当前行(第11行)</el-button>
-      <el-button @click="toggleRowSelection">选择第6行</el-button>
-      <el-button @click="clearSelection">清空选择</el-button>
-      <el-button @click="toggleAllSelection">切换全选</el-button>
-      <el-button @click="clearSort">清空排序</el-button>
+      <h4>Virtual table method tests</h4>
+      <el-button @click="setCurrentRow">Set current row (row 11)</el-button>
+      <el-button @click="toggleRowSelection">Select row 6</el-button>
+      <el-button @click="clearSelection">Clear selection</el-button>
+      <el-button @click="toggleAllSelection">Toggle select all</el-button>
+      <el-button @click="clearSort">Clear sorting</el-button>
     </div>
 
     <div style="margin-bottom: 16px;">
-      <h4>虚拟滚动专用方法测试</h4>
-      <el-button @click="scrollToTop">滚动到顶部</el-button>
-      <el-button @click="scrollToBottom">滚动到底部</el-button>
-      <el-button @click="scrollToRow">滚动到第501行</el-button>
+      <h4>Virtual-scroll specific methods</h4>
+      <el-button @click="scrollToTop">Scroll to top</el-button>
+      <el-button @click="scrollToBottom">Scroll to bottom</el-button>
+      <el-button @click="scrollToRow">Scroll to row 501</el-button>
     </div>
 
     <z-table

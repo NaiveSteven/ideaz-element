@@ -32,22 +32,22 @@ const columns = ref([
   {
     component: 'input',
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     component: 'select',
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     component: 'input',
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     component: 'el-date-picker',
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
     fieldProps: {
       valueFormat: 'YYYY-MM-DD',
     },
@@ -56,8 +56,8 @@ const columns = ref([
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 </script>
@@ -67,6 +67,6 @@ const options = {
     :data="tableData"
     :columns="columns"
     :options="options"
-    watermark="表格水印"
+    watermark="Table watermark"
   />
 </template>

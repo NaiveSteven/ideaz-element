@@ -12,12 +12,12 @@ interface RowData {
   status: string
 }
 
-// 生成测试数据
+// Generate mock data
 function generateData(count: number): RowData[] {
-  const names = ['张三', '李四', '王五', '赵六', '孙七', '周八', '吴九', '郑十', '冯一', '陈二']
-  const departments = ['技术部', '产品部', '设计部', '运营部', '市场部']
-  const positions = ['工程师', '产品经理', '设计师', '运营专员', '市场专员']
-  const statuses = ['在职', '离职', '试用期']
+  const names = ['Alice', 'Bob', 'Charlie', 'Diana', 'Ethan', 'Fiona', 'George', 'Hannah', 'Ian', 'Julia']
+  const departments = ['Engineering', 'Product', 'Design', 'Operations', 'Marketing']
+  const positions = ['Engineer', 'Product Manager', 'Designer', 'Operations Specialist', 'Marketing Specialist']
+  const statuses = ['Active', 'Departed', 'Probation']
   const data: RowData[] = []
 
   for (let i = 0; i < count; i++) {
@@ -39,11 +39,11 @@ const tableData = ref<RowData[]>(generateData(1000))
 const columns = ref([
   {
     type: 'selection',
-    label: '选择',
+    label: 'Selection',
   },
   {
     type: 'index',
-    label: '序号',
+    label: 'Index',
     index: 1,
   },
   {
@@ -52,36 +52,36 @@ const columns = ref([
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'email',
-    label: '邮箱',
+    label: 'Email',
   },
   {
     prop: 'department',
-    label: '部门',
+    label: 'Department',
   },
   {
     prop: 'position',
-    label: '职位',
+    label: 'Position',
   },
   {
     prop: 'salary',
-    label: '薪资',
+    label: 'Salary',
     render: ({ row }: any) => `¥${row.salary.toLocaleString()}`,
   },
   {
     prop: 'status',
-    label: '状态',
+    label: 'Status',
     render: ({ row }: any) => {
-      const type = row.status === '在职' ? 'success' : row.status === '试用期' ? 'warning' : 'danger'
+      const type = row.status === 'Active' ? 'success' : row.status === 'Probation' ? 'warning' : 'danger'
       return h('el-tag', { type, size: 'small' }, row.status)
     },
   },
 ])
 
-// 虚拟滚动配置
+// Virtual scrolling config
 const virtualConfig = computed(() => ({
   enabled: true,
   itemHeight: 48,
@@ -92,18 +92,18 @@ const selectedRows = ref<RowData[]>([])
 
 function handleSelectionChange(selection: RowData[]) {
   selectedRows.value = selection
-  console.log('选择变化:', selection)
+  console.log('Selection changed:', selection)
 }
 </script>
 
 <template>
   <div>
     <div style="margin-bottom: 16px;">
-      <h3>虚拟表格列类型演示</h3>
+      <h3>Virtual Table Column Type Demo</h3>
       <p style="margin: 8px 0; color: #666;">
-        测试各种列类型在虚拟表格中的兼容性：选择列、索引列、表单组件等。
+        Demonstrates compatibility of various column types in a virtual table: selection columns, index columns, form components, and more.
       </p>
-      <p style="margin: 8px 0; color: #666;">已选择: {{ selectedRows.length }} 项</p>
+      <p style="margin: 8px 0; color: #666;">Selected: {{ selectedRows.length }} items</p>
     </div>
 
     <z-table

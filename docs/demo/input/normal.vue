@@ -10,5 +10,5 @@ function handleInputChange(val: string) {
 </script>
 
 <template>
-  <z-input v-model="val" clearable placeholder="请输入" @change="handleInputChange" />
+  <z-input v-model="val" clearable placeholder="Please enter" @change="handleInputChange" />
 </template>

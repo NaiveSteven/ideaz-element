@@ -1,27 +1,27 @@
 <template>
   <div>
-    <h3>虚拟表格 - 水印功能</h3>
+    <h3>Virtual Table – Watermark Support</h3>
 
     <div style="margin-bottom: 16px;">
       <el-space>
         <el-button @click="toggleWatermark">
-          {{ currentWatermarkType === 'none' ? '启用字符串水印' : currentWatermarkType === 'string' ? '切换到对象水印' : '禁用水印' }}
+          {{ currentWatermarkType === 'none' ? 'Enable string watermark' : currentWatermarkType === 'string' ? 'Switch to object watermark' : 'Disable watermark' }}
         </el-button>
-        <el-text type="info">当前水印模式: {{ watermarkModeText }}</el-text>
+        <el-text type="info">Current mode: {{ watermarkModeText }}</el-text>
       </el-space>
     </div>
 
     <el-alert
-      title="✅ 水印功能已兼容虚拟表格"
+      title="✅ Watermarks work with virtual tables"
       type="success"
       :closable="false"
       style="margin-bottom: 16px;"
     >
       <template #default>
-        <p><strong>✅ 字符串水印</strong>：支持简单的字符串水印内容</p>
-        <p><strong>✅ 对象水印</strong>：支持完整的水印配置，包括字体、颜色、角度等</p>
-        <p><strong>✅ 动态切换</strong>：支持运行时动态开启/关闭/修改水印</p>
-        <p><strong>✅ 虚拟滚动兼容</strong>：水印在虚拟滚动表格中正常显示</p>
+        <p><strong>✅ String watermark</strong>: Provide a simple string as the watermark.</p>
+        <p><strong>✅ Object watermark</strong>: Configure font, color, angle, spacing, and more.</p>
+        <p><strong>✅ Dynamic switching</strong>: Toggle or update the watermark at runtime.</p>
+        <p><strong>✅ Virtual scroll compatible</strong>: Watermarks render correctly over virtualized content.</p>
       </template>
     </el-alert>
 
@@ -37,17 +37,17 @@
     />
 
     <div style="margin-top: 16px;">
-      <h4>功能说明：</h4>
+      <h4>Feature notes:</h4>
       <ul>
-        <li><strong>字符串水印</strong>：直接传入字符串作为水印内容</li>
-        <li><strong>对象水印</strong>：传入配置对象，自定义水印样式</li>
-        <li><strong>虚拟滚动兼容</strong>：水印层级高于表格内容，在虚拟滚动中正常显示</li>
-        <li><strong>性能优化</strong>：水印不影响虚拟滚动的性能表现</li>
+        <li><strong>String watermark</strong>: Supply a literal string.</li>
+        <li><strong>Object watermark</strong>: Provide a configuration object.</li>
+        <li><strong>Virtual scroll</strong>: Watermarks render above table rows.</li>
+        <li><strong>Performance</strong>: Watermarks do not impact scrolling performance.</li>
       </ul>
     </div>
 
     <div style="margin-top: 16px;">
-      <h4>当前配置：</h4>
+      <h4>Current configuration:</h4>
       <pre style="padding: 12px; font-size: 12px; background: #f5f7fa; border-radius: 4px;">{{ JSON.stringify(currentWatermark, null, 2) }}</pre>
     </div>
   </div>
@@ -56,16 +56,16 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 
-// 生成测试数据
+// Generate mock data
 function generateLargeData(count: number) {
-  const names = ['张三', '李四', '王五', '赵六', '钱七', '孙八', '周九', '吴十', '郑十一', '王十二']
-  const departments = ['技术部', '产品部', '设计部', '运营部', '市场部', '销售部', '人力资源部', '财务部']
+  const names = ['Alice', 'Bob', 'Charlie', 'Diana', 'Ethan', 'Fiona', 'George', 'Hannah', 'Ian', 'Julia']
+  const departments = ['Engineering', 'Product', 'Design', 'Operations', 'Marketing', 'Sales', 'HR', 'Finance']
   const data = []
 
   for (let i = 0; i < count; i++) {
     data.push({
       id: i + 1,
-      name: `${names[i % names.length]}${Math.floor(i / names.length) + 1}`,
+      name: `${names[i % names.length]} ${Math.floor(i / names.length) + 1}`,
       email: `user${i + 1}@company.com`,
       age: 22 + (i % 40),
       department: departments[i % departments.length],
@@ -85,47 +85,47 @@ const columns = ref([
   },
   {
     type: 'index',
-    label: '序号',
+    label: 'Index',
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'email',
-    label: '邮箱',
+    label: 'Email',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'department',
-    label: '部门',
+    label: 'Department',
   },
   {
     prop: 'salary',
-    label: '薪资',
+    label: 'Salary',
     render: ({ row }: any) => `¥${row.salary.toLocaleString()}`
   },
   {
     prop: 'status',
-    label: '状态',
-    render: ({ row }: any) => row.status === 'active' ? '在职' : '离职'
+    label: 'Status',
+    render: ({ row }: any) => row.status === 'active' ? 'Active' : 'Inactive'
   },
   {
     prop: 'joinDate',
-    label: '入职日期',
+    label: 'Hire Date',
   }
 ])
 
-// 水印状态管理
+// Watermark state
 const currentWatermarkType = ref<'none' | 'string' | 'object'>('none')
 
 const currentWatermark = computed(() => {
   switch (currentWatermarkType.value) {
     case 'string':
-      return 'ideaz-element 虚拟表格水印'
+      return 'ideaz-element virtual table watermark'
     case 'object':
       return {
         content: 'ideaz-element',
@@ -142,11 +142,11 @@ const currentWatermark = computed(() => {
 const watermarkModeText = computed(() => {
   switch (currentWatermarkType.value) {
     case 'string':
-      return '字符串水印'
+      return 'String watermark'
     case 'object':
-      return '对象配置水印'
+      return 'Object watermark'
     default:
-      return '无水印'
+      return 'No watermark'
   }
 })
 

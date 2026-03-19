@@ -3,20 +3,20 @@ import { ref } from 'vue'
 
 const columns = ref([
   {
-    label: '姓名',
+    label: 'Name',
     prop: 'name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 const request = ref({
@@ -85,6 +85,6 @@ function getTableData() {
     :columns="columns"
     :request="request"
     :action="false"
-    title="表格标题"
+    title="Table Title"
   />
 </template>

@@ -3,9 +3,9 @@
 import { ref } from 'vue'
 
 const options = ref([
-  { label: '选项一', value: 1 },
-  { label: '选项二', value: 2 },
-  { label: '选项三', value: 3 },
+  { label: 'Option 1', value: 1 },
+  { label: 'Option 2', value: 2 },
+  { label: 'Option 3', value: 3 },
 ])
 
 const checkboxVal = ref([1])
@@ -21,7 +21,7 @@ function handleCheckboxChange(val: number[]) {
 
 <template>
   <el-button @click="click">
-    点击
+    Click
   </el-button>
   <z-checkbox v-model="checkboxVal" :options="options" @change="handleCheckboxChange" />
 </template>

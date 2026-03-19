@@ -20,19 +20,19 @@ const pagination = ref({
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
@@ -102,7 +102,7 @@ getTableData()
     v-model:data="tableData"
     :columns="columns"
     :loading="loading"
-    title="表格标题"
+    title="Table Title"
     @refresh="getTableData"
   />
 </template>

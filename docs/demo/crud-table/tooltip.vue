@@ -31,21 +31,21 @@ const tableData = ref([
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
-    tooltip: () => h('span', '姓名提示'),
+    label: 'Name',
+    tooltip: () => h('span', 'Name tooltip'),
   },
   {
     prop: 'gender',
-    label: '性别',
-    tooltip: '性别提示',
+    label: 'Gender',
+    tooltip: 'Gender tooltip',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 </script>

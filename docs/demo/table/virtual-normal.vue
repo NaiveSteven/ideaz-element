@@ -3,18 +3,18 @@
 import { computed, ref } from 'vue'
 import { TableV2FixedDir } from 'element-plus'
 
-// 生成测试数据
+// Generate mock data
 function generateData(count: number) {
   const data = []
   for (let i = 1; i <= count; i++) {
     data.push({
       id: i,
-      name: `用户${i}`,
+      name: `User ${i}`,
       email: `user${i}@example.com`,
       phone: `138${String(i).padStart(8, '0')}`,
-      department: ['技术部', '产品部', '设计部', '运营部'][i % 4],
-      position: ['工程师', '产品经理', '设计师', '运营专员'][i % 4],
-      status: ['在职', '离职', '试用期'][i % 3],
+      department: ['Engineering', 'Product', 'Design', 'Operations'][i % 4],
+      position: ['Engineer', 'Product Manager', 'Designer', 'Operations Specialist'][i % 4],
+      status: ['Active', 'Departed', 'Probation'][i % 3],
       createTime: new Date(2024, 0, 1 + (i % 365)).toLocaleDateString(),
     })
   }
@@ -31,37 +31,37 @@ const columns = ref([
   },
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     fixed: TableV2FixedDir.LEFT
   },
   {
     prop: 'email',
-    label: '邮箱',
+    label: 'Email',
   },
   {
     prop: 'phone',
-    label: '手机号',
+    label: 'Phone',
   },
   {
     prop: 'department',
-    label: '部门',
+    label: 'Department',
   },
   {
     prop: 'position',
-    label: '职位',
+    label: 'Position',
   },
   {
     prop: 'status',
-    label: '状态',
+    label: 'Status',
   },
   {
     prop: 'createTime',
-    label: '创建时间',
+    label: 'Created At',
     fixed: TableV2FixedDir.RIGHT,
   },
 ])
 
-// 虚拟滚动配置
+// Virtual scrolling config
 const virtualConfig = computed(() => ({
   enabled: true,
   itemHeight: 48,
@@ -73,7 +73,7 @@ function updateData() {
 }
 
 function handleRefresh() {
-  console.log('刷新数据')
+  console.log('Refresh data')
   updateData()
 }
 </script>
@@ -82,7 +82,7 @@ function handleRefresh() {
   <div>
     <div style="margin-bottom: 16px;">
       <el-space wrap>
-        <span>数据量:</span>
+        <span>Row count:</span>
         <el-input-number
           v-model="dataCount"
           :min="100"
@@ -92,9 +92,9 @@ function handleRefresh() {
           style="width: 150px;"
         />
         <el-button @click="updateData" type="primary">
-          更新数据
+          Update data
         </el-button>
-        <span style="color: #666;">当前: {{ tableData.length.toLocaleString() }} 条</span>
+        <span style="color: #666;">Current: {{ tableData.length.toLocaleString() }} rows</span>
       </el-space>
     </div>
 

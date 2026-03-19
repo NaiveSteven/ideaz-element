@@ -3,10 +3,10 @@ import { ref } from 'vue'
 
 const tagSelect = ref(1)
 const options = [
-  { label: '标签一', value: 1 },
-  { label: '标签二', value: 2 },
-  { label: '标签三', value: 3 },
-  { label: '标签四', value: 4 },
+  { label: 'Tag 1', value: 1 },
+  { label: 'Tag 2', value: 2 },
+  { label: 'Tag 3', value: 3 },
+  { label: 'Tag 4', value: 4 },
 ]
 </script>
 

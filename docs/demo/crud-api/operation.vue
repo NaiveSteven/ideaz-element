@@ -16,35 +16,35 @@ interface GetTableDataRes { data: { page: number, pageSize: number, list: RowDat
 const columns = ref([
   {
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
     form: {
       component: 'input',
-      label: '姓名',
+      label: 'Name',
       field: 'name',
       required: true,
     },
   },
   {
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
     form: {
       component: 'select',
-      label: '性别',
+      label: 'Gender',
       field: 'gender',
     },
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
     form: {
       component: 'input',
-      label: '年龄',
+      label: 'Age',
       field: 'age',
     },
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 const tableData = ref<RowData[]>([])
@@ -153,8 +153,8 @@ function handleSearch() {
 function handleDelete() {
   window.ZDialogTip({
     type: 'warning',
-    message: '确定删除该条数据吗？',
-    title: '警告',
+    message: 'Are you sure you want to delete this record?',
+    title: 'Warning',
     onConfirm: ({ done, confirmButtonLoading }: CrudDeleteDialogConfirmParams<RowData>) => {
       confirmButtonLoading.value = true
       done()

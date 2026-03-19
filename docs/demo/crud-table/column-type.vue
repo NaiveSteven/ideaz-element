@@ -52,27 +52,27 @@ const columns = ref([
   {
     component: 'input',
     prop: 'name',
-    label: '姓名',
+    label: 'Name',
   },
   {
     component: 'select',
     prop: 'gender',
-    label: '性别',
+    label: 'Gender',
   },
   {
     prop: 'age',
-    label: '年龄',
+    label: 'Age',
   },
   {
     prop: 'time',
-    label: '出生日期',
+    label: 'Date',
   },
 ])
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 </script>
@@ -86,7 +86,7 @@ const options = {
     row-key="id"
   >
     <template #expand>
-      <span>展开内容</span>
+      <span>Expanded content</span>
     </template>
   </z-crud>
 </template>

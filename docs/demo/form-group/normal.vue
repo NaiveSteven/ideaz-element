@@ -12,41 +12,41 @@ const formData = ref({
 
 const options = {
   gender: [
-    { label: '男', value: '1' },
-    { label: '女', value: '2' },
+    { label: 'Male', value: '1' },
+    { label: 'Female', value: '2' },
   ],
 }
 
 const columns = [
   {
-    label: '文本1',
+    label: 'Group 1',
     children: [
       {
         component: 'input',
         field: 'name',
-        label: '姓名',
+        label: 'Name',
         required: true,
       },
     ],
   },
   {
-    label: '文本2',
+    label: 'Group 2',
     children: [
       {
         component: 'select',
         field: 'gender',
-        label: '性别',
-        extra: '性别选择',
+        label: 'Gender',
+        extra: 'Gender options',
         required: true,
       },
       {
         component: 'el-date-picker',
         field: 'time',
-        label: '出生日期',
+        label: 'Date',
         fieldProps: {
           type: 'daterange',
-          startPlaceholder: '开始日期',
-          endPlaceholder: '结束日期',
+          startPlaceholder: 'Start date',
+          endPlaceholder: 'End date',
         },
       },
     ],
@@ -87,10 +87,10 @@ function submit() {
     <template #operate>
       <div class="w-full flex">
         <el-button class="w-full" @click="reset">
-          重置
+          Reset
         </el-button>
         <el-button type="primary" class="w-full" @click="submit">
-          提交
+          Submit
         </el-button>
       </div>
     </template>
