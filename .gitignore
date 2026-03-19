@@ -23,6 +23,7 @@ theme-chalk
 lib
 
 docs/.vitepress/cache/**
+docs/.vitepress/.temp/**
 
 # Editor directories and files
 .idea
